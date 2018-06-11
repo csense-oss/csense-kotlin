@@ -1,0 +1,9 @@
+apply plugin: 'kotlin-platform-js'
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion"
+    expectedBy project(":csense-kotlin-common")
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}

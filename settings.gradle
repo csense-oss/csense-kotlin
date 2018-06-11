@@ -1,0 +1,3 @@
+rootProject.name = 'csense-kotlin'
+
+include 'csense-kotlin-common', 'csense-kotlin-jvm', 'csense-kotlin-js'
