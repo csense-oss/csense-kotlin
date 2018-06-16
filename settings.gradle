@@ -1,3 +1,8 @@
 rootProject.name = 'csense-kotlin'
 
-include 'csense-kotlin-common', 'csense-kotlin-jvm', 'csense-kotlin-js'
+include 'csense-kotlin-common',
+        'csense-kotlin-jvm',
+        'csense-kotlin-js',
+        "csense-kotlin-test-common",
+        'csense-kotlin-test-jvm',
+        'csense-kotlin-test-js'

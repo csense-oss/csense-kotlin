@@ -1,0 +1,66 @@
+apply plugin: 'maven'
+apply plugin: 'com.jfrog.bintray'
+
+
+version = project.commonsenseVersionName
+group = project.commonsenseGroupId
+
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'jar'
+            groupId project.commonsenseGroupId
+            name artifactName
+            artifactId artifactName
+            version project.commonsenseVersionName
+
+            licenses {
+                license {
+                    name project.commonsenseLicense
+                    url 'https://opensource.org/licenses/MIT'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                connection project.commonsenseGit
+                url project.commonsenseWebsite
+
+            }
+            developers {
+                developer {
+                    name "Kasper Tvede"
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    user = properties.getProperty('bintrayUser')
+    key = properties.getProperty('bintrayApiKey')
+
+    configurations = ['archives']
+    override = true
+    pkg {
+        repo = project.commonsenseRepoName
+        name = artifactName
+        userOrg = project.commonsenseUserOrg
+        desc = artifactDescription
+        licenses = project.commonsenseLicense
+        publish = false
+        vcsUrl = project.commonsenseGit
+        publicDownloadNumbers = true
+        version {
+            name = project.commonsenseVersionName
+            desc = versionDescription
+        }
+    }
+}

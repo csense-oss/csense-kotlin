@@ -1,0 +1,17 @@
+apply plugin: 'kotlin-platform-js'
+
+
+dependencies {
+    expectedBy project(":csense-kotlin-test-common")
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion"
+    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
+
+
+
+apply from: "../javadocSourceJs.gradle"
+ext.artifactName = "csense-kotlin-test-js"
+ext.artifactDescription = ""
+ext.versionDescription = ""
+apply from: "../publish.gradle"

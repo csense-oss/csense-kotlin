@@ -16,18 +16,7 @@ typealias AsyncEmptyFunctionResult<T> = suspend () -> T
  */
 typealias FunctionUnit<E> = (E) -> Unit
 
-typealias FunctionResult<I, O> = (I) -> O
-
-
-typealias MapFunction<E, U> = (E) -> U
-
 typealias SuspendFunctionUnit<E> = suspend (E) -> Unit
-
-typealias FunctionBoolean<E> = (E) -> Boolean
-
-
-typealias StringList = List<String>
-
 
 
 /**
@@ -52,14 +41,14 @@ typealias Function3<I1, I2, I3, O> = (I1, I2, I3) -> O
 /**
  * Function with 4 inputs and potential output
  */
-typealias Function4<I1, I2, I3, O> = (I1, I2, I3) -> O
+typealias Function4<I1, I2, I3, I4, O> = (I1, I2, I3, I4) -> O
 
 /**
  * Function with 5 inputs and potential output
  */
-typealias Function5<I1, I2, I3, O> = (I1, I2, I3) -> O
+typealias Function5<I1, I2, I3, I4, I5, O> = (I1, I2, I3, I4, I5) -> O
 
 /**
  * Function with 6 inputs and potential output
  */
-typealias Function6<I1, I2, I3, O> = (I1, I2, I3) -> O
+typealias Function6<I1, I2, I3, I4, I5, I6, O> = (I1, I2, I3, I4, I5, I6) -> O

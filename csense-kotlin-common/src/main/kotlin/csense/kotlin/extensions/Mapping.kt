@@ -1,0 +1,66 @@
+package csense.kotlin.extensions
+
+import csense.kotlin.EmptyFunctionResult
+
+
+/**
+ * Maps an optional value into another value
+ * @param ifNotNull the value if 'this' is not null
+ * @param ifNull the value if 'this' is null
+ * @return the value depending on 'this' value
+ */
+@Suppress("NOTHING_TO_INLINE")
+inline fun <U> Any?.mapOptional(ifNotNull: U, ifNull: U): U {
+    return this.isNotNull.map(ifNotNull, ifNull)
+}
+
+/**
+ * Maps an optional value into another value
+ * @param ifNotNull the value if 'this' is not null
+ * @param ifNull the value if 'this' is null
+ * @return the value depending on 'this' value
+ */
+inline fun <U> Any?.mapLazy(crossinline ifNotNull: EmptyFunctionResult<U>,
+                            crossinline ifNull: EmptyFunctionResult<U>): U {
+    return if (this.isNotNull) {
+        ifNotNull()
+    } else {
+        ifNull()
+    }
+}
+
+/**
+ * Maps a boolean into a value.
+ */
+@Suppress("NOTHING_TO_INLINE")
+inline fun <T> Boolean.map(ifTrue: T, ifFalse: T): T = if (this) {
+    ifTrue
+} else {
+    ifFalse
+}
+
+/**
+ * Maps a boolean into a value. lazily
+ */
+inline fun <T> Boolean.mapInvoke(
+        crossinline ifTrue: EmptyFunctionResult<T>,
+        crossinline ifFalse: EmptyFunctionResult<T>): T = if (this) {
+    ifTrue()
+} else {
+    ifFalse()
+}
+
+
+/**
+ * Maps lazy the given parameters.
+ * since its inline, then the code would be as if you wrote the "if else statement"
+ * and then only did the computation iff that branch was chosen.
+ *
+ */
+inline fun <T> Boolean.mapLazy(crossinline ifTrue: EmptyFunctionResult<T>,
+                               crossinline ifFalse: EmptyFunctionResult<T>): T =
+        if (this) {
+            ifTrue()
+        } else {
+            ifFalse()
+        }

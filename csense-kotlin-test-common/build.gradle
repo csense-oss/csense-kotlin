@@ -1,0 +1,21 @@
+apply plugin: 'kotlin-platform-common'
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion"
+
+    compile "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+apply from: "../javadocSourceCommon.gradle"
+ext.artifactName = "csense-kotlin-test-common"
+ext.artifactDescription = ""
+ext.versionDescription = ""
+apply from: "../publish.gradle"

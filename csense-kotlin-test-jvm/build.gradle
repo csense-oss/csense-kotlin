@@ -1,11 +1,12 @@
 apply plugin: 'kotlin-platform-jvm'
 
 dependencies {
-    expectedBy project(":csense-kotlin-common")
+    expectedBy project(":csense-kotlin-test-common")
+    compile "junit:junit:4.12"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    testCompile project(":csense-kotlin-test-jvm")
+    compile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
 }
 
 compileKotlin {
@@ -15,16 +16,11 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.6"
 }
 sourceCompatibility = "1.6"
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
 
 
 apply from: "../javadocSourceDokka.gradle"
 // empty xxx-javadoc.jar for JS and Common modules
-ext.artifactName = "csense-kotlin-jvm"
+ext.artifactName = "csense-kotlin-test-jvm"
 ext.artifactDescription = ""
 ext.versionDescription = ""
 

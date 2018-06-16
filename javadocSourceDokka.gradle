@@ -1,0 +1,41 @@
+/**
+ * Allows us to apply dokka, and setup sourcesJar and javadocJar tasks.
+ * all required for documenting a library.
+ */
+class JavaDocSourceWithDokka implements Plugin<Project> {
+
+    void applyJavaDocSourceWithDokka(Project project) {
+        //add dokka android
+        project.plugins.apply("org.jetbrains.dokka")
+        //setup dokka
+        project.dokka {
+            outputFormat = 'javadoc'
+            outputDirectory = "${project.buildDir}/javadoc"
+        }
+        project.task("dokkaJavadoc", type: project.dokka.class) {
+            outputFormat = 'javadoc'
+            outputDirectory = "${project.buildDir}/javadoc"
+            inputs.dir 'src/main/java'
+            inputs.dir 'src/main/kotlin'//TODO extract the "src/main" sourceset this.
+
+        }
+
+        project.task("javadocJar", type: Jar, dependsOn: "dokkaJavadoc") {
+            classifier = 'javadoc'
+            from "${project.buildDir}/javadoc"
+        }
+
+        project.task("sourcesJar", type: Jar) {
+            classifier = 'sources'
+            from project.sourceSets.main.allSource
+        }
+    }
+
+    @Override
+    void apply(Project project) {
+        applyJavaDocSourceWithDokka(project)
+    }
+}
+
+apply plugin: JavaDocSourceWithDokka
+

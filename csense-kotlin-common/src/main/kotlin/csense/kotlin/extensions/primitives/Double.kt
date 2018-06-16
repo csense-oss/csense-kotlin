@@ -1,0 +1,47 @@
+package csense.kotlin.extensions.primitives
+
+import kotlin.math.absoluteValue
+
+
+/**
+ * Gets this int negative, if it is already negative, returns that.
+ */
+inline val Double.negative: Double
+    get() = minOf(this, -this)
+
+inline val Double.positive: Double
+    get() = this.absoluteValue
+/**
+ *
+ */
+inline val Double.isNegative: Boolean
+    get() = this < 0
+
+/**
+ *
+ */
+inline val Double.isPositive: Boolean
+    get() = this > 0
+
+/**
+ * if this double is 0 within a margin of 0.1 akk [-0.1;0.1]
+ * If you need more margin, see Double.equalWithin
+ */
+inline val Double.isZero: Boolean
+    get() = this.equalWithin(0.0, 0.1)
+
+
+/**
+ * Compares this double to the given value,with a margin;
+ * this is done since doubles / floating numbers are not precise in computers.
+ * @param  value the value we are comparing to
+ * @param  margin the delta / margin we are comparing within
+ * the margin will always be converted to positive,
+ * since a negative margin would always yield false
+ */
+@Suppress("NOTHING_TO_INLINE")
+inline fun Double.equalWithin(value: Double, margin: Double = 0.1): Boolean {
+    val lower = value - margin.positive
+    val upper = value + margin.positive
+    return this in lower..upper
+}
