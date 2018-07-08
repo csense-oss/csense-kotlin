@@ -15,11 +15,6 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.6"
 }
 sourceCompatibility = "1.6"
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
 
 
 apply from: "../javadocSourceDokka.gradle"
@@ -29,3 +24,4 @@ ext.artifactDescription = ""
 ext.versionDescription = ""
 
 apply from: "../publish.gradle"
+

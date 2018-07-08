@@ -21,7 +21,8 @@ package csense.kotlin.patterns
  * however, try catches are slow in general, and clutters up what could be a simple "if" statement
  * instead.
  *
- * @sample  val bytes :ByteArray? = try {"".getBytes("unknownCharset") }catch(Exception) {null}
+ * @sample
+ * val bytes :ByteArray? = try {"".getBytes("unknownCharset") }catch(Exception) {null}
  * whereas if it returned Expected it would look like this:
  * val expectedBytes : Expectetd<Bytes> = "".getBytes("unknownCharset")
  * expectedBytes.use{

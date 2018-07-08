@@ -1,14 +1,14 @@
 buildscript {
     ext.dokkaVersion = "0.9.17"
 
-    ext.kotlin_version = "1.2.50"
-    ext.coroutinesVersion = "0.23.3"
+    ext.kotlin_version = "1.2.51"
+    ext.coroutinesVersion = "0.23.4"
 
 
     ext.commonsenseUserOrg = "csense-oss"
     ext.commonsenseRepoName = "csense-kotlin"
 
-    ext.commonsenseVersionName = "0.0.3"
+    ext.commonsenseVersionName = "0.0.4"
     ext.commonsenseGroupId = "csense.kotlin"
 
     ext.commonsenseGithub = "csense-oss/csense-kotlin"
@@ -23,10 +23,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.3'
     }
 
 }
+
+apply from: "libraySettings.gradle"
 
 subprojects {
 
@@ -48,6 +50,17 @@ subprojects {
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
             classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokkaVersion}"
+        }
+    }
+
+
+
+    afterEvaluate { project ->
+        setupProject(project)
+        final def task = project.tasks.findByName("compileKotlin")
+        if (task != null) {
+            print("\nConfiguring compile kotlin task\n")
+            task.kotlinOptions.jvmTarget = "1.6"
         }
     }
 }

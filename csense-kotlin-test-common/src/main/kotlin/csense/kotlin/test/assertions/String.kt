@@ -29,12 +29,13 @@ fun String.assertNot(value: String, message: String = "") {
 
 
 fun String.assertContainsInOrder(values: List<String>,
-                                 ignoreCase: Boolean, message: String = "") {
+                                 ignoreCase: Boolean,
+                                 message: String = "") {
     var currentIndex = 0
     values.forEach {
         val next = indexOf(it, currentIndex, ignoreCase)
         if (next < 0) {
-            failTest("could not find \n\t\"$it\" after index $currentIndex in string \n" +
+            failTest("$message\n\nCould not find \n\t\"$it\" after index $currentIndex in string \n" +
                     "\"$this\"\n" +
                     "\tafter index is :\"${this.substring(currentIndex)}\"")
             return

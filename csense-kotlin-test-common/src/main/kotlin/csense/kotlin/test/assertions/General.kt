@@ -43,13 +43,13 @@ inline fun <reified T : Exception> assertThrows(
 
     try {
         action()
-        failTest("Expected an exception of type ${T::class.simpleName} but got no exceptions\r$message")
+        failTest("Expected an exception of type ${T::class} but got no exceptions\r$message")
     } catch (exception: Exception) {
         if (exception is T) {
             //all is good / expected.
         } else {
-            failTest("Expected an exception of type \"${T::class.simpleName}\" " +
-                    "but got exception of type \"${exception::class.simpleName}\" instead." +
+            failTest("Expected an exception of type \"${T::class}\" " +
+                    "but got exception of type \"${exception::class}\" instead." +
                     "\r$messageWrongException")
         }
     }
