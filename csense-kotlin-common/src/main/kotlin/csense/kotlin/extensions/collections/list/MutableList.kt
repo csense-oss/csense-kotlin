@@ -42,3 +42,20 @@ fun <T> MutableList<T>.removeAtOr(index: Int, default: T?): T? = if (isIndexVali
 } else {
     default
 }
+
+
+/**
+ * Clears the collection and add's the given collection
+ */
+fun <E> MutableCollection<E>.set(collection: Collection<E>) {
+    clear()
+    addAll(collection)
+}
+
+/**
+ * Clears the collection and add's the given element
+ */
+fun <E> MutableCollection<E>.set(item: E) : Unit {
+    clear()
+    add(item)
+}
