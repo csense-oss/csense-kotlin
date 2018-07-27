@@ -27,3 +27,9 @@ inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
     }
     return String.createFromChars(hexChars)
 }
+
+/**
+ * Fills this array with the given value
+ */
+fun ByteArray.fill(value: Byte) =
+        fillArray(count(), value, this::set)
