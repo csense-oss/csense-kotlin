@@ -1,8 +1,7 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.extensions.primitives.toCase
-import csense.kotlin.test.assertions.assert
-import kotlin.test.Test
+import csense.kotlin.test.assertions.*
+import kotlin.test.*
 
 class CharTest {
 

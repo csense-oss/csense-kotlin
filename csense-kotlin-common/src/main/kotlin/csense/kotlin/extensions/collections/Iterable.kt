@@ -1,6 +1,6 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.FunctionUnit
 import csense.kotlin.*
 
 
@@ -146,7 +146,7 @@ fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionP
 
 /**
  *
- * @param out E
+ * @param E
  * @property trueForPredicate List<E>
  * @property falseForPredicate List<E>
  * @constructor

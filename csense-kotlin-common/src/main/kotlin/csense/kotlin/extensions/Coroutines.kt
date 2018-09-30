@@ -1,10 +1,9 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions
 
-import csense.kotlin.AsyncFunctionUnit
-import csense.kotlin.FunctionUnit
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.channels.Channel
+import csense.kotlin.*
+import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.channels.*
 
 /**
  * Awaits a list of deferred computations.

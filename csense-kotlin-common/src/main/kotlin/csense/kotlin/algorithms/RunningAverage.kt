@@ -1,3 +1,5 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.algorithms
 
 import csense.kotlin.extensions.collections.array.*
@@ -59,8 +61,7 @@ class RunningAverageFloatCapped(
     private var currentIndex = 0
 
     fun average(): Double {
-        val result = values.take(valueSet).sumByDouble { it.toDouble() } / valueSet
-        return result
+        return values.take(valueSet).sumByDouble { it.toDouble() } / valueSet
     }
 
     fun addValue(value: Float) {

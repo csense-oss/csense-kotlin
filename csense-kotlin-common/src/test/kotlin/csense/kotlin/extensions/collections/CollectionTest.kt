@@ -1,11 +1,8 @@
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.extensions.primitives.forEach
-import csense.kotlin.test.assertions.assertFalse
-import csense.kotlin.test.assertions.assertNotNullAndEquals
-import csense.kotlin.test.assertions.assertNull
-import csense.kotlin.test.assertions.assertTrue
-import kotlin.test.Test
+import csense.kotlin.extensions.primitives.*
+import csense.kotlin.test.assertions.*
+import kotlin.test.*
 
 class CollectionTest {
 

@@ -1,7 +1,8 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.FunctionUnit
-import kotlin.math.absoluteValue
+import csense.kotlin.*
+import kotlin.math.*
 
 /**
  * Gets this int negative, if it is already negative, returns that.

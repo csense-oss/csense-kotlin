@@ -1,6 +1,6 @@
 package csense.kotlin.test.assertions
 
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 fun Boolean.assert(value: Boolean, message: String = "expected $value got $this") {
     assertEquals(value, this, message)

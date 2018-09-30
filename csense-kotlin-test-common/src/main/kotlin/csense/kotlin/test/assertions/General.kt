@@ -1,9 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.test.assertions
 
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.fail
+import kotlin.test.*
 
 
 fun failTest(message: String = "") {

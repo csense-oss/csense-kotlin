@@ -1,6 +1,6 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.extensions.collections.array.forEachDiscard
+import csense.kotlin.extensions.collections.array.*
 
 
 /**

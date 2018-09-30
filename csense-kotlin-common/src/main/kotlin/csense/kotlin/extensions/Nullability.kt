@@ -1,8 +1,8 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.FunctionUnit
-import csense.kotlin.extensions.primitives.ifTrue
+import csense.kotlin.*
+import csense.kotlin.extensions.primitives.*
 
 
 /**

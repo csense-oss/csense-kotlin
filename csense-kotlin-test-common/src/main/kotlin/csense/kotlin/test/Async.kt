@@ -1,10 +1,9 @@
 package csense.kotlin.test
 
-import kotlinx.coroutines.experimental.Unconfined
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 
 fun testAsync(method: suspend () -> Unit) {
-    launch(Unconfined) {
+    GlobalScope.launch(Dispatchers.Unconfined) {
         method()
     }
 }

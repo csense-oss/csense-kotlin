@@ -1,6 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.primitives
 
-import kotlin.math.absoluteValue
+import kotlin.math.*
 
 
 /**

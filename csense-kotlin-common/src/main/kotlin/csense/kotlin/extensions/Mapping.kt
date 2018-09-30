@@ -1,6 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
+import csense.kotlin.*
 
 /**
  * Maps an optional value into another value

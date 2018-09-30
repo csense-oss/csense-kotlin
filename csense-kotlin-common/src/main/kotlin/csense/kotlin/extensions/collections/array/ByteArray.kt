@@ -1,6 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.extensions.map
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.primitives.*
 
 

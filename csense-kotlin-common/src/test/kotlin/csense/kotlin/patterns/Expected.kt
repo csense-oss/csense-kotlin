@@ -1,8 +1,8 @@
 package csense.kotlin.patterns
 
+import csense.kotlin.test.*
 import csense.kotlin.test.assertions.*
-import csense.kotlin.test.testAsync
-import kotlin.test.Test
+import kotlin.test.*
 
 class ExpectedTest {
 

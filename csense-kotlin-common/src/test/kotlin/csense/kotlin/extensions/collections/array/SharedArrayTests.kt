@@ -17,7 +17,7 @@ class SharedArrayTests {
         }
         runningCounter.assert(10, "should run each count, starting from 0")
 
-        fillArray(0, 0) { index, value ->
+        fillArray(0, 0) { _, _ ->
             failTest("should not run when count is empty / 0")
         }
     }

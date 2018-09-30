@@ -1,8 +1,7 @@
 package csense.kotlin.test.assertions
 
-import kotlin.math.abs
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import kotlin.math.*
+import kotlin.test.*
 
 
 fun Double.assert(value: Double, delta: Double = 0.1, message: String = "expected $value within $delta margins, but got $this") {

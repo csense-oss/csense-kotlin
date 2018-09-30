@@ -1,10 +1,10 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.test.benchmark
 
-import csense.kotlin.test.assertions.failTest
-import java.lang.System.nanoTime
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
-import kotlin.system.measureNanoTime
+import csense.kotlin.test.assertions.*
+import java.lang.System.*
+import java.util.concurrent.*
+import kotlin.system.*
 
 
 /**

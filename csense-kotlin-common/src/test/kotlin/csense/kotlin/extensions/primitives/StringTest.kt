@@ -1,7 +1,7 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.test.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class StringTest {
     @Test

@@ -1,10 +1,10 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
 import csense.kotlin.extensions.*
-import csense.kotlin.patterns.Expected
-import csense.kotlin.patterns.ExpectedFailed
-import csense.kotlin.patterns.expectedSucceded
+import csense.kotlin.patterns.*
 
 
 /**

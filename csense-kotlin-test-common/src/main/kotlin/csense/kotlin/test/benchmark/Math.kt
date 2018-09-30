@@ -1,7 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.test.benchmark
 
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * Created by Kasper Tvede on 14-04-2018.

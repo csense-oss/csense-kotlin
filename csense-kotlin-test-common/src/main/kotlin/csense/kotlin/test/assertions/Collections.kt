@@ -1,6 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.test.assertions
 
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 fun <T> Array<T>.assertSize(size: Int, message: String = "") {
     this.size.assert(size, message)

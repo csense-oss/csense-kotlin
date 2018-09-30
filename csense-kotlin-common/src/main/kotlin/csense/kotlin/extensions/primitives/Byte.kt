@@ -1,6 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.primitives
 
-import kotlin.experimental.and
+import kotlin.experimental.*
 
 /**
  * Shifts the bits to the left the given amount of times

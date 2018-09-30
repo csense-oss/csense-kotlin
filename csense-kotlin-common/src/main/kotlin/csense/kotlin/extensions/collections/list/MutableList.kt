@@ -1,8 +1,9 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.extensions.collections.list
 
-import csense.kotlin.Function1
-import csense.kotlin.extensions.collections.isIndexValid
-import csense.kotlin.extensions.primitives.onTrue
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.primitives.*
 
 /**
  * Finds and removes the first item that matches the given predicate

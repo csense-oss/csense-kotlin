@@ -7,7 +7,7 @@ class MutableExtensionsKtTest {
 
     @Test
     fun findAndRemove() {
-        val list = mutableListOf<String>("a", "b")
+        val list = mutableListOf("a", "b")
         list.findAndRemove { it == "a" }
         list.assertSize(1, "should have removed a")
         list.first().assert("b")

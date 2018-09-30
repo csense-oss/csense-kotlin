@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.Function1
+import csense.kotlin.*
 
 inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) = forEach {
     receiver(it)

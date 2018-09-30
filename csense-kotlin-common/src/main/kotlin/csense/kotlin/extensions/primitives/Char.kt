@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.extensions.mapLazy
+import csense.kotlin.extensions.*
 
 /**
  *changes the casing of this char to the given casing

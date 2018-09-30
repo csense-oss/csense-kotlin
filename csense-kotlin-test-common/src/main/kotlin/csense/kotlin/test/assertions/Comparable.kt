@@ -1,7 +1,7 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 package csense.kotlin.test.assertions
 
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 
 fun <U : Comparable<U>> U.assertLargerOrEqualTo(i: U, optMessage: String = "") {
