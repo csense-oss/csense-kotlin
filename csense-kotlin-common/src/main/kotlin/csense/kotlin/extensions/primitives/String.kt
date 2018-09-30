@@ -7,6 +7,11 @@ import csense.kotlin.patterns.ExpectedFailed
 import csense.kotlin.patterns.expectedSucceded
 
 
+/**
+ *
+ * @receiver String
+ * @return String?
+ */
 @Suppress("NOTHING_TO_INLINE")
 inline fun String.fileExtension(): String? {
     return lastIndexOf('.').let {
@@ -19,6 +24,14 @@ inline fun String.fileExtension(): String? {
 }
 
 //<editor-fold desc="Index of safe">
+/**
+ *
+ * @receiver String
+ * @param subString String
+ * @param index Int
+ * @param ignoreCase Boolean
+ * @return Expected<Int>
+ */
 fun String.indexOfSafe(subString: String, index: Int, ignoreCase: Boolean): Expected<Int> {
     val result = indexOf(subString, index, ignoreCase)
     return if (result == -1) {
@@ -30,14 +43,31 @@ fun String.indexOfSafe(subString: String, index: Int, ignoreCase: Boolean): Expe
 
 private val failedIndexOfExpected by lazy { ExpectedFailed<Int>(IndexOfMissingException) }
 
-private object IndexOfMissingException : RuntimeException("Unable to find substring")
+/**
+ *
+ */
+object IndexOfMissingException : RuntimeException("Unable to find substring")
 //</editor-fold>
 
+/**
+ *
+ * @receiver String.Companion
+ * @param charArray CharArray
+ * @return String
+ */
 fun String.Companion.createFromChars(charArray: CharArray): String {
     return StringBuilder().appendContentOf(charArray).toString()
 }
 
 
+/**
+ *
+ * @receiver String
+ * @param subString String
+ * @param searchByWord Boolean
+ * @param ignoreCase Boolean
+ * @return Set<Int>
+ */
 @Suppress("NOTHING_TO_INLINE")
 inline fun String.findAllOf(subString: String,
                             searchByWord: Boolean,
@@ -47,6 +77,12 @@ inline fun String.findAllOf(subString: String,
 
 /**
  *
+ * @receiver String
+ * @param subString String
+ * @param searchByWord Boolean
+ * @param ignoreCase Boolean
+ * @param mapper Function1<Int, U>
+ * @return List<U>
  */
 inline fun <U> String.forEachMatching(subString: String,
                                       searchByWord: Boolean,
@@ -67,9 +103,16 @@ inline fun <U> String.forEachMatching(subString: String,
     return result
 }
 
+
 /**
  * Replaces a value given a criteria. if the condition is true, the replace is called with the value
  * otherwise this string is returned as is.
+ * @receiver String
+ * @param condition Boolean
+ * @param toReplace String
+ * @param newValue String
+ * @param ignoreCase Boolean
+ * @return String
  */
 fun String.replaceIf(condition: Boolean,
                      toReplace: String,
@@ -85,6 +128,13 @@ fun String.replaceIf(condition: Boolean,
 /**
  * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
  * if the condition is false, the ifFalseValue is used.
+ * @receiver String
+ * @param condition Boolean
+ * @param toReplace String
+ * @param ifTrueValue String
+ * @param ifFalseValue String
+ * @param ignoreCase Boolean
+ * @return String
  */
 fun String.replaceIfOr(condition: Boolean,
                        toReplace: String,
@@ -98,6 +148,13 @@ fun String.replaceIfOr(condition: Boolean,
 /**
  * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
  * if the condition is false, the ifFalseValue is used. lazily evaluates the values.
+ * @receiver String
+ * @param condition Boolean
+ * @param toReplace String
+ * @param ifTrueValue EmptyFunctionResult<String>
+ * @param ifFalseValue EmptyFunctionResult<String>
+ * @param ignoreCase Boolean
+ * @return String
  */
 fun String.replaceIfOr(condition: Boolean,
                        toReplace: String,

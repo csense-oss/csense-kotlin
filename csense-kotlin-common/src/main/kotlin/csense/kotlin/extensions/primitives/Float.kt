@@ -6,9 +6,13 @@ package csense.kotlin.extensions.primitives
 inline val Float.negative: Float
     get() = minOf(this, -this)
 
+
 /**
  * Compares two floats with a delta, since floats are not precise.
- *
+ * @receiver Float
+ * @param otherFloat Float
+ * @param delta Float
+ * @return Boolean
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun Float.equals(otherFloat: Float, delta: Float): Boolean =
@@ -16,8 +20,12 @@ inline fun Float.equals(otherFloat: Float, delta: Float): Boolean =
 
 /**
  * Tells if this float value is zero (or more correctly, close to, since floats are not precise)
+ * @receiver Float
+ * @param tolerance Float
+ * @return Boolean
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun Float.isZero(tolerance: Float = 0.1f): Boolean {
     return this < tolerance && this > tolerance.negative
 }
+

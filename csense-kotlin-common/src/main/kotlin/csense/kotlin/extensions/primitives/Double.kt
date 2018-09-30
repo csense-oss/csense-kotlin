@@ -30,14 +30,15 @@ inline val Double.isPositive: Boolean
 inline val Double.isZero: Boolean
     get() = this.equalWithin(0.0, 0.1)
 
-
 /**
  * Compares this double to the given value,with a margin;
  * this is done since doubles / floating numbers are not precise in computers.
- * @param  value the value we are comparing to
- * @param  margin the delta / margin we are comparing within
+ * @receiver Double
+ * @param value Double The value we are comparing to
+ * @param margin Double the delta / margin we are comparing within
  * the margin will always be converted to positive,
  * since a negative margin would always yield false
+ * @return Boolean
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun Double.equalWithin(value: Double, margin: Double = 0.1): Boolean {

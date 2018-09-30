@@ -1,7 +1,10 @@
 package csense.kotlin.extensions.progressions
 
+
 /**
- * maps a progression into an array of all the values.
+ * Maps a progression into an array of all the values.
+ * @receiver IntProgression
+ * @return IntArray
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun IntProgression.toIntArray(): IntArray = this.toList().toIntArray()

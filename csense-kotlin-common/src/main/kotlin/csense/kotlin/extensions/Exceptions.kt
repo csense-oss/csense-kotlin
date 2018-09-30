@@ -5,6 +5,10 @@ import csense.kotlin.logger.*
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
+ * @param title String
+ * @param message String
+ * @param throwableAction EmptyFunctionResult<T>
+ * @return T?
  */
 inline fun <T> tryAndLog(title: String = "",
                          message: String = "",
@@ -14,6 +18,11 @@ inline fun <T> tryAndLog(title: String = "",
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
+ * @param title String
+ * @param message String
+ * @param logger LoggingFunctionType<*>
+ * @param throwableAction EmptyFunctionResult<T>
+ * @return T?
  */
 inline fun <T> tryAndLog(title: String = "",
                          message: String = "",

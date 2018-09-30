@@ -7,6 +7,8 @@ import csense.kotlin.extensions.primitives.ifTrue
 
 /**
  * performs the given action if we are null
+ * @receiver Any? the optional value
+ * @param action EmptyFunction the function to run if the receiver is not null
  */
 inline fun Any?.ifNull(crossinline action: EmptyFunction) {
     this.isNull.ifTrue(action)
@@ -14,6 +16,8 @@ inline fun Any?.ifNull(crossinline action: EmptyFunction) {
 
 /**
  * performs the given action, if we are not null
+ * @receiver T? the optional value
+ * @param action FunctionUnit<T> the action to call if the receiver is not null
  */
 inline fun <T> T?.ifNotNull(crossinline action: FunctionUnit<T>) {
     this?.let { action(it) }

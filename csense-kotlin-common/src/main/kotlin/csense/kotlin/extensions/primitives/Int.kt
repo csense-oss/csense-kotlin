@@ -45,7 +45,8 @@ inline val Int.isPositive: Boolean
 /**
  * Does the given action this values times
  * if this value is less than or equal to 0, then the action is not ran
- * @param action the action to perform each this values (positive) times
+ * @receiver Int
+ * @param action FunctionUnit<Int> the action to perform each this values (positive) times
  */
 inline fun Int.forEach(crossinline action: FunctionUnit<Int>) {
     if (this.isZero || this.isNegative) {
