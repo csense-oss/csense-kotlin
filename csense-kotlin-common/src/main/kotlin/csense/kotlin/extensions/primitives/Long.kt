@@ -11,15 +11,11 @@ inline val Long.negative: Long
  *  if this int is not 0 => returns true. false otherwise
  */
 inline val Long.isNotZero: Boolean
-    get() {
-        return !isZero
-    }
+    get() = !isZero
 
 /**
  *  if this int is 0 => returns true. false otherwise
  */
 inline val Long.isZero: Boolean
-    get() {
-        return this == 0L
-    }
+    get() = this == 0L
 

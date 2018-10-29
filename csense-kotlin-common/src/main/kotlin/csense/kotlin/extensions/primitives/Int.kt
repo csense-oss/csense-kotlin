@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
@@ -42,6 +43,18 @@ inline val Int.isNegative: Boolean
  */
 inline val Int.isPositive: Boolean
     get() = this > 0
+
+
+/**
+ * if this whole number is even (2,4,6....)
+ */
+inline val Int.isEven: Boolean
+    get() = this % 2 == 0
+/**
+ * If this whole number is odd (1,3,5 ...)
+ */
+inline val Int.isOdd: Boolean
+    get() = !isEven
 
 /**
  * Does the given action this values times

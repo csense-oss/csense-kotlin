@@ -4,18 +4,19 @@ import csense.kotlin.test.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class ExpectedTest {
+class ExpectedKtTest {
 
     @Test
-    fun testSuccessFailed() {
-
+    fun expectedSucceded() {
         val testSuccess = Expected.success(42)
         testSuccess.isValid.assert(true)
         testSuccess.isError.assert(false)
         testSuccess.error.assertNull()
         testSuccess.value.assert(42)
+    }
 
-
+    @Test
+    fun expectedFailed() {
         val testFailed = Expected.failed<Int>()
         testFailed.isValid.assert(false)
         testFailed.isError.assert(true)
@@ -26,7 +27,7 @@ class ExpectedTest {
     }
 
     @Test
-    fun testExtensions() {
+    fun use() {
         val success20 = expectedSucceded(20)
         success20.isValid.assert(true)
         success20.isError.assert(false)
@@ -54,8 +55,7 @@ class ExpectedTest {
     }
 
     @Test
-    fun testExtensionsAsync() = testAsync {
-
+    fun useAsync() = testAsync {
         val success42 = expectedSucceded(42)
         var counter = 1
         success42.useAsync {
@@ -69,5 +69,68 @@ class ExpectedTest {
             failedCounter -= 1
         }
         failedCounter.assert(1, "cannot use a failed result.")
+    }
+
+    @Test
+    fun ifValid() {
+        val success = expectedSucceded(42)
+        var counter = 0
+        success.ifValid {
+            counter += 1
+        }
+        counter.assert(1, "should have executed the action")
+
+
+        val failure = expectedFailed<Int>(Exception())
+        failure.ifValid {
+            counter += 1
+        }
+        counter.assert(1, "should not have executed the action")
+
+    }
+
+    @Test
+    fun ifError() {
+        val success = expectedSucceded(42)
+        var counter = 0
+        success.ifError {
+            counter += 1
+        }
+        counter.assert(0, "shsould not have executed the action")
+
+
+        val failure = expectedFailed<Int>(Exception())
+        failure.ifError {
+            counter += 1
+        }
+        counter.assert(1, "should  have executed the action")
+    }
+
+    @Test
+    fun ifValidOr() {
+        val success = expectedSucceded(42)
+        success.ifValidOr({ it.assert(42) }, { failTest("should not be called") })
+
+        val failed = expectedFailed<Int>(Exception("errorMessage"))
+        failed.ifValidOr({ failTest("should not be called") }, { it.message.assertNotNullAndEquals("errorMessage") })
+    }
+
+    @Test
+    fun mapIfValidOr() {
+        val success = expectedSucceded(42)
+        success.mapIfValidOr({
+            it.toString()
+        }, {
+            failTest("should not be called")
+            ""
+        }).assert("42")
+
+        val failed = expectedFailed<Int>(Exception("errorMessage"))
+        failed.mapIfValidOr({
+            failTest("should not be called")
+            ""
+        }, {
+            it.message
+        }).assertNotNullAndEquals("errorMessage")
     }
 }
