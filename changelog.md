@@ -1,7 +1,11 @@
 # Changelog
 
 ## 0.0.5
-- migrated a lot from commonsenseAndroid (upcoming version 0.0.15)
+- migrated a lot from commonsenseAndroid version 0.0.15
+- more tests and documentation
+- kotlin 1.3 and coroutines in prod.
+
+
 
 ## 0.0.4
 added

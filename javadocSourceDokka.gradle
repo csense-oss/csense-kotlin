@@ -9,13 +9,16 @@ class JavaDocSourceWithDokka implements Plugin<Project> {
         project.plugins.apply("org.jetbrains.dokka")
         //setup dokka
         project.dokka {
+            includeNonPublic = false
+            skipEmptyPackages = true // Do not create index pages for empty packages
+            cacheRoot = 'default'
             outputFormat = 'javadoc'
             outputDirectory = "${project.buildDir}/javadoc"
         }
         project.task("dokkaJavadoc", type: project.dokka.class) {
             outputFormat = 'javadoc'
             outputDirectory = "${project.buildDir}/javadoc"
-            inputs.dir 'src/main/java'
+//            inputs.dir 'src/main/java'
             inputs.dir 'src/main/kotlin'//TODO extract the "src/main" sourceset this.
 
         }
@@ -27,7 +30,9 @@ class JavaDocSourceWithDokka implements Plugin<Project> {
 
         project.task("sourcesJar", type: Jar) {
             classifier = 'sources'
-            from project.sourceSets.main.allSource
+            from "src/main/kotlin"
+//            inputs.dir 'src/main/java'
+//            inputs.dir 'src/main/kotlin'//TODO extract the "src/main" sourceset this.
         }
     }
 

@@ -8,11 +8,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
 
 apply from: "../javadocSourceCommon.gradle"
 ext.artifactName = "csense-kotlin-test-common"

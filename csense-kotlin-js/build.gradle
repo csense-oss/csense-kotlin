@@ -7,11 +7,7 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
     testCompile project(":csense-kotlin-test-js")
 }
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
+
 
 apply from: "../javadocSourceJs.gradle"
 

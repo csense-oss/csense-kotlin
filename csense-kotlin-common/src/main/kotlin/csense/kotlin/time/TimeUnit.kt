@@ -3,7 +3,7 @@
 package csense.kotlin.time
 
 import csense.kotlin.time.TimeUnit.*
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.*
 
 /**
  * Created by Kasper Tvede on 10-03-2018.

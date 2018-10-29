@@ -8,11 +8,6 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
     testCompile project(":csense-kotlin-test-common")
 }
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'

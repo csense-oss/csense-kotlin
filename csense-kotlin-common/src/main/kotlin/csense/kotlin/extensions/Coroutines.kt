@@ -2,8 +2,8 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.channels.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.*
 
 /**
  * Awaits a list of deferred computations.
