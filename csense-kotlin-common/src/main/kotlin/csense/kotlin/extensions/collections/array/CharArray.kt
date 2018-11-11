@@ -1,10 +1,13 @@
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.*
 
-inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) = forEach {
-    receiver(it)
-}
+/**
+ * A foreach, but not taking any result for the given receiver
+ * @receiver ByteArray
+ * @param receiver (T) -> U
+ */
+inline fun <U> CharArray.forEachDiscard(crossinline receiver: kotlin.Function1<Char, U>) =
+        ForeachDiscardResult(count(), this::get, receiver)
 
 
 /**

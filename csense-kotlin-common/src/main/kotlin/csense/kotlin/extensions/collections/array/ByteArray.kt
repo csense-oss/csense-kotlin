@@ -1,10 +1,17 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.collections.array
 
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.primitives.*
 
-
+/**
+ *
+ * @receiver ByteArray
+ * @param appendHexPrefix Boolean
+ * @param shouldBeUppercase Boolean
+ * @return String
+ */
 @Suppress("NOTHING_TO_INLINE")
 inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
                                  shouldBeUppercase: Boolean = true): String {
@@ -30,7 +37,17 @@ inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
 }
 
 /**
+ * A foreach, but not taking any result for the given receiver
+ * @receiver ByteArray
+ * @param receiver (T) -> U
+ */
+inline fun <U> ByteArray.forEachDiscard(crossinline receiver: Function1<Byte, U>) =
+        ForeachDiscardResult(count(), this::get, receiver)
+
+/**
  * Fills this array with the given value
+ * @receiver ByteArray
+ * @param value Byte
  */
 fun ByteArray.fill(value: Byte) =
         fillArray(count(), value, this::set)

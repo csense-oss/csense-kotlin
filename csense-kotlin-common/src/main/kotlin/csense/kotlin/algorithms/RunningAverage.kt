@@ -1,10 +1,8 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
 
-
 package csense.kotlin.algorithms
 
 import csense.kotlin.extensions.collections.array.*
-
 
 
 /**
@@ -110,7 +108,7 @@ abstract class RunningAverageCappedAbstract<T : Number>(
 }
 
 
-open class RunningAverageFloatCapped2(cappedValuesToAverage: Int) : RunningAverageCappedAbstract<Float>(cappedValuesToAverage) {
+open class RunningAverageFloatCapped(cappedValuesToAverage: Int) : RunningAverageCappedAbstract<Float>(cappedValuesToAverage) {
 
     private val values = FloatArray(cappedValuesToAverage)
 
@@ -151,33 +149,4 @@ open class RunningAverageDoubleCapped(cappedValuesToAverage: Int) : RunningAvera
     override fun takeValues(toTakeCount: Int): Iterable<Double> =
             values.take(toTakeCount)
 
-}
-
-
-/**
- *
- */
-class RunningAverageFloatCapped(
-        private val cappedValuesToAverage: Int) {
-
-    private val values = FloatArray(cappedValuesToAverage)
-
-    private var valueSet = 0
-    private var currentIndex = 0
-
-    fun average(): Double {
-        return values.take(valueSet).sumByDouble(Float::toDouble) / valueSet
-    }
-
-    fun addValue(value: Float) {
-        valueSet = minOf(valueSet + 1, cappedValuesToAverage)
-        values[currentIndex] = value
-        currentIndex = (currentIndex + 1).rem(cappedValuesToAverage)
-    }
-
-    fun reset() {
-        valueSet = 0
-        currentIndex = 0
-        values.fill(0f)
-    }
 }
