@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions
 
+import csense.kotlin.*
 import kotlin.reflect.*
 
 
@@ -19,3 +20,20 @@ inline fun <reified T> Any.cast(): T? = this as? T
  * @return KClass<T>
  */
 inline fun <reified T : Any> typeK(): KClass<T> = T::class
+
+
+/**
+ * Converts any type into a "unit"
+ * @receiver Any?
+ */
+@Suppress("RedundantUnitReturnType")
+inline fun Any?.toUnit(): Unit {}
+
+/**
+ * Converts a function with a result to a function "without" a result.
+ * @receiver Function1<T, *>
+ * @return FunctionUnit<T>
+ */
+inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> {
+    return { this(it) }
+}

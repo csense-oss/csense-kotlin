@@ -24,7 +24,13 @@ inline fun <T> GenericCollectionExtensions.forEach2(
     })
 }
 
-
+/**
+ *
+ * @receiver GenericCollectionExtensions
+ * @param length Int
+ * @param getter GenericGetterIndexMethod<T>
+ * @param action Function2IndexedUnit<T, T>
+ */
 inline fun <T> GenericCollectionExtensions.foreach2Indexed(
         length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
@@ -39,6 +45,14 @@ inline fun <T> GenericCollectionExtensions.foreach2Indexed(
     }
 }
 
+/**
+ *
+ * @receiver GenericCollectionExtensions
+ * @param length Int
+ * @param getter GenericGetterIndexMethod<T>
+ * @param mapper Function2<T, T, U>
+ * @return List<U>
+ */
 inline fun <T, U> GenericCollectionExtensions.mapEach2(
         length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
@@ -47,6 +61,14 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2(
             mapper(first, second)
         })
 
+/**
+ *
+ * @receiver GenericCollectionExtensions
+ * @param length Int
+ * @param getter GenericGetterIndexMethod<T>
+ * @param mapper Function3<Int, T, T, U>
+ * @return List<U>
+ */
 inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
         length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,

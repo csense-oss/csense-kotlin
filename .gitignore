@@ -27,3 +27,4 @@ build/
 
 *.iml
 local.properties
+*.kotlin_module

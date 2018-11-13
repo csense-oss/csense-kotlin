@@ -1,9 +1,7 @@
 package csense.kotlin.extensions.iterator
 
 import csense.kotlin.test.assertions.*
-import org.junit.Test
-
-import org.junit.Assert.*
+import kotlin.test.*
 
 class IteratorKtTest {
 

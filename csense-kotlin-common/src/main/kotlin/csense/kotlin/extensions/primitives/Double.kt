@@ -10,6 +10,9 @@ import kotlin.math.*
 inline val Double.negative: Double
     get() = minOf(this, -this)
 
+/**
+ *
+ */
 inline val Double.positive: Double
     get() = this.absoluteValue
 /**
@@ -25,7 +28,8 @@ inline val Double.isPositive: Boolean
     get() = this > 0
 
 /**
- * if this double is 0 within a margin of 0.1 akk [-0.1;0.1]
+ * if this double is 0 within a margin of 0.1 akk
+ * in range  (from inclusive) -0.1 to 0.1 inclusive
  * If you need more margin, see Double.equalWithin
  */
 inline val Double.isZero: Boolean

@@ -36,6 +36,9 @@ enum class LoggingType {
  */
 typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
 
+/**
+ * Container for all shared logging.
+ */
 object L {
     /**
      * Controls whenever logging is allowed.

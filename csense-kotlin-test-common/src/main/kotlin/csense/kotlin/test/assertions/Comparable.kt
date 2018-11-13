@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.test.assertions
 
 import kotlin.test.*
@@ -16,3 +17,4 @@ fun <U : Comparable<U>> U.assertLargerThan(i: U, optMessage: String = "") {
 fun <T : Comparable<T>> T.assertNotEquals(other: T, message: String = "") {
     assertNotEquals(other, this, message)
 }
+

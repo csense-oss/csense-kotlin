@@ -2,7 +2,7 @@
 package csense.kotlin.extensions.collections
 
 /**
- * Validates the given index for the given collection (so [0;length[)
+ * Validates the given index for the given collection (so 0 until length)
  * @receiver Collection<*>
  * @param index Int
  * @return Boolean
@@ -12,7 +12,7 @@ inline fun Collection<*>.isIndexValid(index: Int) =
         index >= 0 && index < count()
 
 /**
- * Validates the given index for the given collection, accounting for inserting in the end (so [0;length])
+ * Validates the given index for the given collection, accounting for inserting in the end (so 0 until (including) length)
  * @receiver Collection<*>
  * @param index Int
  * @return Boolean
@@ -36,7 +36,7 @@ inline fun <T> Collection<T>.getSafe(index: Int): T? =
         }
 
 /**
- * Tells if the given range is in the collection (akk range in [0; length[
+ * Tells if the given range is in the collection (akk range in [ 0 ; length [
  * @receiver Collection<*>
  * @param intRange IntRange
  * @return Boolean

@@ -83,7 +83,6 @@ fun <E> MutableCollection<E>.set(collection: Collection<E>) {
  * Clears the collection and add's the given element
  * @receiver MutableCollection<E>
  * @param item E
- * @return Unit
  */
 fun <E> MutableCollection<E>.set(item: E) {
     clear()
