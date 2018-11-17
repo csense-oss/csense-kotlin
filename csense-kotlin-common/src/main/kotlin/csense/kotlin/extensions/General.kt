@@ -27,7 +27,9 @@ inline fun <reified T : Any> typeK(): KClass<T> = T::class
  * @receiver Any?
  */
 @Suppress("RedundantUnitReturnType")
-inline fun Any?.toUnit(): Unit {}
+inline fun Any?.toUnit(): Unit {
+}
+
 
 /**
  * Converts a function with a result to a function "without" a result.

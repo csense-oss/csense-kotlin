@@ -1,6 +1,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.test.*
+import csense.kotlin.test.assertions.*
 import org.junit.*
 
 class GeneralJvmKtTests {
@@ -14,8 +15,5 @@ class GeneralJvmKtTests {
 
         val SbClass = type<StringBuilder>()
         SbClass.assert(StringBuilder::class.java)
-
-
     }
-
 }

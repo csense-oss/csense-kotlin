@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.extensions.primitives.*

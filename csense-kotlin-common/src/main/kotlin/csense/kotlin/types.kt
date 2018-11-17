@@ -26,6 +26,7 @@ For library functions
  */
 
 typealias Function0<I1> = (I1) -> Unit
+
 /**
  * Function with 1 input and potential output
  */

@@ -1,8 +1,6 @@
 package csense.kotlin.extensions.collections.array
 
 
-
-
 /**
  * A foreach, but not taking any result for the given receiver
  * @receiver

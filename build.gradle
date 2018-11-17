@@ -8,7 +8,7 @@ buildscript {
     ext.commonsenseUserOrg = "csense-oss"
     ext.commonsenseRepoName = "csense-kotlin"
 
-    ext.commonsenseVersionName = "0.0.6"
+    ext.commonsenseVersionName = "0.0.7"
     ext.commonsenseGroupId = "csense.kotlin"
 
     ext.commonsenseGithub = "csense-oss/csense-kotlin"

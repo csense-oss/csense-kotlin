@@ -1,12 +1,11 @@
-package csense.kotlin.logging
+package csense.kotlin.logger
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.list.*
-import csense.kotlin.logger.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class LoggingTest {
+class LKtTest {
     /**
      * Tests the logging controls (turning  them on off )
      */
