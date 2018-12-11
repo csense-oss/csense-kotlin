@@ -4,7 +4,6 @@ package csense.kotlin.logger
 
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
-import kotlin.reflect.*
 
 
 /**

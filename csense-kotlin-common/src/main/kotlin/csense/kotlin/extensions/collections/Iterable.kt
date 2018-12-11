@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
+import csense.kotlin.extensions.collections.generic.*
 
 
 /**
@@ -145,6 +146,7 @@ fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionP
     }
 }
 
+
 /**
  *
  * @param E
@@ -153,3 +155,30 @@ fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionP
  * @constructor
  */
 data class CollectionPartition<out E>(val trueForPredicate: List<E>, val falseForPredicate: List<E>)
+
+
+//region Generic collection extensions
+/**
+ * Performs traversal in pairs of 2  (with the first index as well)
+ * @receiver List<T>
+ * @param action Function2IndexedUnit<T, T>
+ */
+inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>) =
+        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+
+/**
+ * Performs traversal in pairs of 2
+ * @receiver List<T>
+ * @param action Function2Unit<T, T>
+ */
+inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>) =
+        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+
+/**
+ * Performs backwards traversal on this list.
+ * @receiver List<T>
+ * @param action FunctionUnit<T>
+ */
+inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>) =
+        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+//endregion

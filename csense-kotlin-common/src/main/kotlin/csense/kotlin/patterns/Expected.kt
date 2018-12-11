@@ -4,6 +4,7 @@ package csense.kotlin.patterns
 
 import csense.kotlin.*
 
+//TODO polish the experince.
 
 /**
  * Created by Kasper Tvede

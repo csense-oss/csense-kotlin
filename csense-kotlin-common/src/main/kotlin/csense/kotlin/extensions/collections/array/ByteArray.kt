@@ -2,7 +2,10 @@
 
 package csense.kotlin.extensions.collections.array
 
+import csense.kotlin.*
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.array.generic.*
+import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 
 /**
@@ -51,3 +54,24 @@ inline fun <U> ByteArray.forEachDiscard(crossinline receiver: Function1<Byte, U>
  */
 fun ByteArray.fill(value: Byte) =
         fillArray(count(), value, this::set)
+
+
+//region Generic collection extensions
+/**
+ * Performs traversal in pairs of 2  (with the first index as well)
+ */
+inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>) =
+        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+
+/**
+ * Performs traversal in pairs of 2
+ */
+inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>) =
+        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+
+/**
+ * Performs backwards traversal on this list.
+ */
+inline fun ByteArray.forEachBackwards(action: FunctionUnit<Byte>) =
+        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+//endregion

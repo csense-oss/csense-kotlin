@@ -45,3 +45,4 @@ inline fun <T> Collection<T>.getSafe(index: Int): T? =
 @Suppress("NOTHING_TO_INLINE")
 inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
         (intRange.start >= 0 && intRange.endInclusive < size)
+

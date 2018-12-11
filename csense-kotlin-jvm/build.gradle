@@ -1,4 +1,10 @@
 apply plugin: 'kotlin-platform-jvm'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     expectedBy project(":csense-kotlin-common")
@@ -7,6 +13,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     testCompile project(":csense-kotlin-test-jvm")
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
 }
 
 compileKotlin {
@@ -26,3 +34,15 @@ ext.versionDescription = ""
 
 apply from: "../publish.gradle"
 
+
+test {
+    jacoco {
+        destinationFile = file("${buildDir}/jacoco/test.exec")
+    }
+}
+
+
+jacoco {
+    // You may modify the Jacoco version here
+    toolVersion = "0.8.2"
+}

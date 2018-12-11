@@ -166,3 +166,36 @@ fun String.replaceIfOr(condition: Boolean,
 }
 
 
+/**
+ *
+ * @receiver String
+ * @param toInsert Array<out StringInserts>
+ * @return String? null if any index is outside of bounds
+ */
+fun String.insertInto(vararg toInsert: StringInserts): String? {
+    val size = count()
+
+    val sb = StringBuilder()
+    toInsert.sortBy { it.atIndex } //make sure its sorted, such that we are never run into any issues.
+    val lastInsertIndex = toInsert.lastOrNull()?.atIndex
+    if (lastInsertIndex != null && lastInsertIndex > size) {
+        return null
+    }
+    //all indexes are guaranteed to be in this string. or either the test or sort does not work.
+    var currentToIndex = 0
+    var currentLastIndex = 0
+    toInsert.forEach {
+        currentLastIndex = currentToIndex
+        currentToIndex = it.atIndex
+
+        sb.append(this.subSequence(currentLastIndex, currentToIndex))
+        sb.append(it.toInsert)
+    }
+    if (currentToIndex < size) {
+        sb.append(this.substring(currentToIndex))
+    }
+    return sb.toString()
+}
+
+data class StringInserts(val toInsert: String, val atIndex: Int)
+

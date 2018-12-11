@@ -1,8 +1,8 @@
 package csense.kotlin.time
 
 import csense.kotlin.test.assertions.*
-import kotlin.test.*
 import csense.kotlin.time.TimeUnit.*
+import kotlin.test.*
 
 
 /**

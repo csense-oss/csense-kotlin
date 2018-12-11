@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.collections.generic
 
-import csense.kotlin.Function3
+import csense.kotlin.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
 
@@ -11,15 +11,37 @@ typealias Function2Unit<T, U> = (T, U) -> Unit
 typealias Function2IndexedUnit<T, U> = (Int, T, U) -> Unit
 
 
+//region backwards
+/**
+ *
+ * @receiver GenericCollectionExtensions
+ * @param length Int
+ * @param getter GenericGetterIndexMethod<T>
+ * @param action FunctionUnit<T>
+ */
+inline fun <T> GenericCollectionExtensions.forEachBackwards(
+        length: Int,
+        crossinline getter: GenericGetterIndexMethod<T>,
+        action: FunctionUnit<T>) {
+    for (i in (length - 1) downTo 0) {
+        action(getter(i))
+    }
+}
+//endregion
+
+//region foreach 2
 /**
  * This is the "internal" generic function ,from which all the instances will be using.
  * @receiver GenericCollectionExtensions
+ * @param length Int
+ * @param getter GenericGetterIndexMethod<T>
+ * @param action Function2Unit<T, T>
  */
 inline fun <T> GenericCollectionExtensions.forEach2(
         length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
         action: Function2Unit<T, T>) {
-    foreach2Indexed(length, getter, { _: Int, first: T, second: T ->
+    forEach2Indexed(length, getter, { _: Int, first: T, second: T ->
         action(first, second)
     })
 }
@@ -31,7 +53,7 @@ inline fun <T> GenericCollectionExtensions.forEach2(
  * @param getter GenericGetterIndexMethod<T>
  * @param action Function2IndexedUnit<T, T>
  */
-inline fun <T> GenericCollectionExtensions.foreach2Indexed(
+inline fun <T> GenericCollectionExtensions.forEach2Indexed(
         length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
         action: Function2IndexedUnit<T, T>) {
@@ -44,6 +66,9 @@ inline fun <T> GenericCollectionExtensions.foreach2Indexed(
         action(i, first, second)
     }
 }
+//endregion
+
+//region map 2
 
 /**
  *
@@ -83,7 +108,9 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
         mapper(doubleIndex, first, second)
     }
 }
+//endregion
 
+//region foreach / map 2 helper
 /**
  * Tells if we are able to perform any actions (foreach2) on the given length of a "collection"
  * @receiver GenericCollectionExtensions
@@ -93,3 +120,4 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
 inline fun GenericCollectionExtensions.canNOTForeach2(length: Int): Boolean {
     return (length <= 0 || length.isOdd)
 }
+//endregion

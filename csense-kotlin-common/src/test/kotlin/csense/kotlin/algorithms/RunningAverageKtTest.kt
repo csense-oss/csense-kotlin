@@ -3,19 +3,19 @@ package csense.kotlin.algorithms
 class RunningAverageKtTest {
 
 
-    fun RunningAverageInt(){
+    fun RunningAverageInt() {
 
     }
 
-    fun RunningAverageDouble(){
+    fun RunningAverageDouble() {
 
     }
 
-    fun RunningAverageFloat(){
+    fun RunningAverageFloat() {
 
     }
 
-    fun RunningAverageFloatCapped(){
+    fun RunningAverageFloatCapped() {
 
     }
 
