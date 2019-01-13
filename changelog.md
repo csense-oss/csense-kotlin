@@ -8,10 +8,15 @@
 - gradle 5.1
 
 ## 0.0.8
-
-
+- Foreach 2 (traversal of 2 elements at a time on iterable ,arrays, sets and maps)
+- Foreach backwards (on iterable ,iterable ,arrays, sets and maps)
+- char to digits and back (hex converting)
+- inserting strings into a string (since this is not in kotlin STL)
+-  UUID (4) as random is in kotlin STL we can now create more shared things :) 
+- 
 ## 0.0.7
-
+- file ignore headers librarys stuff
+- more testing and indentation. 
 
 ## 0.0.6
 - kotlin 1.3.10
