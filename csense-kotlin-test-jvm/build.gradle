@@ -2,20 +2,11 @@ apply plugin: 'kotlin-platform-jvm'
 
 dependencies {
     expectedBy project(":csense-kotlin-test-common")
-    compile "junit:junit:4.12"
-
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    compile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    implementation "junit:junit:4.12"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
 }
-
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.6"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.6"
-}
-sourceCompatibility = "1.6"
 
 
 apply from: "../javadocSourceDokka.gradle"

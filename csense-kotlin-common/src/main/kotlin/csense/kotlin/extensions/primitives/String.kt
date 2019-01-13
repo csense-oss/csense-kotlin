@@ -183,7 +183,7 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
     }
     //all indexes are guaranteed to be in this string. or either the test or sort does not work.
     var currentToIndex = 0
-    var currentLastIndex = 0
+    var currentLastIndex: Int
     toInsert.forEach {
         currentLastIndex = currentToIndex
         currentToIndex = it.atIndex
@@ -197,5 +197,10 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
     return sb.toString()
 }
 
+/**
+ * A class representing an insert to be made into a string
+ * @property toInsert String the string to insert
+ * @property atIndex Int at what raw index in the string
+ */
 data class StringInserts(val toInsert: String, val atIndex: Int)
 

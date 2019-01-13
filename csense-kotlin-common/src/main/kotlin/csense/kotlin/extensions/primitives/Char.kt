@@ -19,7 +19,7 @@ inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
  * @receiver Char
  * @return Byte?
  */
-inline fun Char.asDigit(): Byte? {
+fun Char.asDigit(): Byte? {
     val diff = toByte() - charZeroAsByte
     if (diff.isNegative || diff > numberCharsCount) {
         return null
@@ -32,7 +32,7 @@ inline fun Char.asDigit(): Byte? {
  * @receiver Char
  * @return Byte?
  */
-inline fun Char.asHexDigit(): Byte? {
+fun Char.asHexDigit(): Byte? {
     val asNumber = asDigit()
     if (asNumber != null) {
         return asNumber
@@ -46,8 +46,9 @@ inline fun Char.asHexDigit(): Byte? {
     return (thisByte + 0x0a).toByte()
 }
 
-const val charZeroAsByte = '0'.toByte()
-const val charAAsByte = 'a'.toByte()
+private const val charZeroAsByte = '0'.toByte()
+private const val charAAsByte = 'a'.toByte()
+
 /**
  * The length (0 indexed) of numbers ( 0 until 9)
  */

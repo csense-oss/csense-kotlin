@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.0.9
+- added more documentation
+- updated tests to reflect actual and expected correctly.
+- more extensions
+- more test extensions
+- gradle 5.1
+
+## 0.0.8
+
+
+## 0.0.7
+
+
 ## 0.0.6
 - kotlin 1.3.10
 - coroutines 1.0.1

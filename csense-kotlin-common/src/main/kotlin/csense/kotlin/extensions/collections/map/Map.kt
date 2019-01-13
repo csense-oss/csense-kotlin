@@ -3,7 +3,10 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.primitives.*
+import kotlin.Function1
 
 
 /**
@@ -46,3 +49,12 @@ inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.
 inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>) =
         GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
 //endregion
+
+/**
+ * Filters by the given predicate and maps out the key
+ * @receiver Map<K, V>
+ * @param predicate Function1<Map.Entry<K, V>, Boolean>
+ * @return List<K>
+ */
+inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
+        filter(predicate).map(Map.Entry<K, V>::key)

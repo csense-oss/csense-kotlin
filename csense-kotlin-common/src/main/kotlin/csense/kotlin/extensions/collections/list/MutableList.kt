@@ -91,17 +91,3 @@ fun <E> MutableCollection<E>.set(item: E) {
     clear()
     add(item)
 }
-
-
-//region unit return type regular functions
-fun <E> MutableCollection<E>.addUnit(item: E) = add(item).toUnit()
-
-fun <E> MutableCollection<E>.addAllUnit(vararg items: E) = addAll(items).toUnit()
-fun <E> MutableCollection<E>.addAllUnit(items: Collection<E>) = addAll(items).toUnit()
-
-fun <E> MutableCollection<E>.retainAllUnit(items: Collection<E>) = retainAll(items).toUnit()
-
-fun <E> MutableCollection<E>.removeUnit(item: E) = remove(item).toUnit()
-fun <E> MutableCollection<E>.removeAllUnit(vararg item: E) = removeAll(item).toUnit()
-fun <E> MutableCollection<E>.removeAllUnit(items: Collection<E>) = removeAll(items).toUnit()
-//endregion

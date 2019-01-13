@@ -5,7 +5,9 @@ import csense.kotlin.extensions.primitives.*
 import kotlin.experimental.*
 import kotlin.random.*
 
-
+/**
+ * An implementation of a UUID version 4
+ */
 object UUID4 {
 
     private const val clk_seq_hi_resIndex = 8
