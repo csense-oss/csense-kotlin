@@ -1,4 +1,4 @@
-// javadoc and javasource for common module
+// javadoc and java source for common module
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'

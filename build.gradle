@@ -56,13 +56,7 @@ subprojects {
         }
     }
 
-
-    afterEvaluate { project ->
-        setupProject(project)
-        final def task = project.tasks.findByName("compileKotlin")
-        if (task != null) {
-            print("\nConfiguring compile kotlin task\n")
-            task.kotlinOptions.jvmTarget = "1.6"
-        }
-    }
+    task uploadProd(dependsOn: ["clean", "assemble", "test", "sourcesJar", "javadocJar", "bintrayUpload"])
 }
+
+
