@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.10
+- gradle 5.1.1
+- kotlin 1.3.20
+- suspend function arity. (0 to 6)
+- removed awaitAll since this is in the std lib
+- added helper functions for launch/async on various dispatchers 
+
 ## 0.0.9
 - added more documentation
 - updated tests to reflect actual and expected correctly.

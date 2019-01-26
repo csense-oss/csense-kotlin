@@ -204,3 +204,17 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
  */
 data class StringInserts(val toInsert: String, val atIndex: Int)
 
+
+/**
+ *  Limits this string to the given number of characters
+ * @receiver String the string to potentially limit
+ * @param maxLength Int the max length
+ * @return String a string at max the given max length;
+ * if maxLength is zero or negative, and empty string is returned
+ */
+fun String.limitTo(maxLength: Int): String {
+    if (maxLength.isNegative || maxLength.isZero) {
+        return ""
+    }
+    return substring(0, minOf(maxLength, length))
+}

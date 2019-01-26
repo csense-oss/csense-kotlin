@@ -120,4 +120,19 @@ class StringTest {
                 .assert(2, "should find second a")
 
     }
+
+    @Test
+    fun testLimitTo(){
+        "".limitTo(0).assert("")
+        "".limitTo(-1).assert("")
+        "".limitTo(1).assert("")
+        "abc".limitTo(0).assert("")
+        "abc".limitTo(-2).assert("")
+        "abc".limitTo(2).assert("ab")
+        "abc".limitTo(1).assert("a")
+        "abc".limitTo(3).assert("abc")
+        "abc".limitTo(10).assert("abc")
+
+
+    }
 }

@@ -17,15 +17,6 @@ suspend fun <T> List<Deferred<T>>.await(): List<T> {
     return this.map { it.await() }
 }
 
-
-/**
- * Waits for all the given jobs to finish.
- * @receiver List<Job> the jobs to wait for
- */
-suspend fun List<Job>.awaitAll() {
-    this.forEach { it.join() }
-}
-
 /**
  * Iterates over the given channel, executing the given function each time
  * @receiver Channel<E>
@@ -47,3 +38,4 @@ suspend fun <E> Channel<E>.forEachAsync(function: AsyncFunctionUnit<E>) {
         function(item)
     }
 }
+

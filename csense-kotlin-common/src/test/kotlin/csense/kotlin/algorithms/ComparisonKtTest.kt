@@ -16,5 +16,3 @@ class ComparisonKtTest {
         Int.MIN_VALUE.toComparing().assert(Comparing.LessThan)
     }
 }
-
-
