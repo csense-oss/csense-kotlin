@@ -12,6 +12,14 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts",
+                            "-Xuse-experimental=kotlin.Experimental"]
+    }
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource

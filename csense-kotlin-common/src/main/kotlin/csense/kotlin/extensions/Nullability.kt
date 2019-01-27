@@ -12,7 +12,7 @@ import kotlin.contracts.*
  * @receiver Any? the optional value
  * @param action EmptyFunction the function to run if the receiver is not null
  */
-@ExperimentalContracts
+@UseExperimental(kotlin.contracts.ExperimentalContracts::class)
 inline fun Any?.ifNull(crossinline action: EmptyFunction) {
     this.isNull.ifTrue(action)
 }
@@ -29,7 +29,7 @@ inline fun <T> T?.ifNotNull(crossinline action: FunctionUnit<T>) {
 /**
  * returns true if this is null
  */
-@ExperimentalContracts
+@UseExperimental(kotlin.contracts.ExperimentalContracts::class)
 inline val Any?.isNull: Boolean
     get() {
         contract {
@@ -41,7 +41,7 @@ inline val Any?.isNull: Boolean
 /**
  * returns true if this is not null.
  */
-@ExperimentalContracts
+@UseExperimental(kotlin.contracts.ExperimentalContracts::class)
 inline val Any?.isNotNull: Boolean
     get() {
         contract {
