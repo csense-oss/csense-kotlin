@@ -1,7 +1,5 @@
 apply plugin: 'kotlin-platform-common'
 
-apply plugin: 'idea'
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion"
@@ -12,13 +10,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
-
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts",
-                            "-Xuse-experimental=kotlin.Experimental"]
-    }
-}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
