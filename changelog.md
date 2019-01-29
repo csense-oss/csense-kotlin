@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.11
+- gradle 5.2-rc-1
+- JVM 
+    - log stack trace 
+- coroutines 1.1.1
+- more parallel kotlin compilation (kotlin.parallel.tasks.in.project=true)
+- KClassExtensions.kt moved to jvm module; common does not have reflection. (and extensions and tests)
+
+
 ## 0.0.10
 - gradle 5.1.1
 - kotlin 1.3.20
