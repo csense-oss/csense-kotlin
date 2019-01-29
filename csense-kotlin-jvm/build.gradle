@@ -1,6 +1,4 @@
 apply plugin: 'kotlin-platform-jvm'
-apply plugin: 'idea'
-apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
@@ -27,16 +25,4 @@ ext.artifactDescription = ""
 ext.versionDescription = ""
 
 apply from: "../publish.gradle"
-
-
-test {
-    jacoco {
-        destinationFile = file("${buildDir}/jacoco/test.exec")
-    }
-}
-
-
-jacoco {
-    // You may modify the Jacoco version here
-    toolVersion = "0.8.2"
-}
+apply from: "../jacoco-kotlin.gradle"

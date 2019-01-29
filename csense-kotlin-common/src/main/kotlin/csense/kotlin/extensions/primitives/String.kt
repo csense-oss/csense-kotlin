@@ -55,7 +55,7 @@ object IndexOfMissingException : RuntimeException("Unable to find substring")
  * @param charArray CharArray
  * @return String
  */
-fun String.Companion.createFromChars(charArray: CharArray): String {
+inline fun String.Companion.createFromChars(charArray: CharArray): String {
     return StringBuilder().appendContentOf(charArray).toString()
 }
 
@@ -114,10 +114,10 @@ inline fun <U> String.forEachMatching(subString: String,
  * @param ignoreCase Boolean
  * @return String
  */
-fun String.replaceIf(condition: Boolean,
-                     toReplace: String,
-                     newValue: String,
-                     ignoreCase: Boolean = false): String {
+inline fun String.replaceIf(condition: Boolean,
+                            toReplace: String,
+                            newValue: String,
+                            ignoreCase: Boolean = false): String {
     return if (condition) {
         this.replace(toReplace, newValue, ignoreCase)
     } else {
@@ -136,11 +136,11 @@ fun String.replaceIf(condition: Boolean,
  * @param ignoreCase Boolean
  * @return String
  */
-fun String.replaceIfOr(condition: Boolean,
-                       toReplace: String,
-                       ifTrueValue: String,
-                       ifFalseValue: String,
-                       ignoreCase: Boolean = false): String {
+inline fun String.replaceIfOr(condition: Boolean,
+                              toReplace: String,
+                              ifTrueValue: String,
+                              ifFalseValue: String,
+                              ignoreCase: Boolean = false): String {
     val replacement = condition.map(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
@@ -156,11 +156,11 @@ fun String.replaceIfOr(condition: Boolean,
  * @param ignoreCase Boolean
  * @return String
  */
-fun String.replaceIfOr(condition: Boolean,
-                       toReplace: String,
-                       ifTrueValue: EmptyFunctionResult<String>,
-                       ifFalseValue: EmptyFunctionResult<String>,
-                       ignoreCase: Boolean = false): String {
+inline fun String.replaceIfOr(condition: Boolean,
+                              toReplace: String,
+                              crossinline ifTrueValue: EmptyFunctionResult<String>,
+                              crossinline ifFalseValue: EmptyFunctionResult<String>,
+                              ignoreCase: Boolean = false): String {
     val replacement = condition.mapInvoke(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
@@ -212,7 +212,7 @@ data class StringInserts(val toInsert: String, val atIndex: Int)
  * @return String a string at max the given max length;
  * if maxLength is zero or negative, and empty string is returned
  */
-fun String.limitTo(maxLength: Int): String {
+inline fun String.limitTo(maxLength: Int): String {
     if (maxLength.isNegative || maxLength.isZero) {
         return ""
     }
