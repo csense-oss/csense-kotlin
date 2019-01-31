@@ -7,7 +7,7 @@
 - coroutines 1.1.1
 - more parallel kotlin compilation (kotlin.parallel.tasks.in.project=true)
 - KClassExtensions.kt moved to jvm module; common does not have reflection. (and extensions and tests)
-
+- more coroutines extensions (io for jvm)
 
 ## 0.0.10
 - gradle 5.1.1
