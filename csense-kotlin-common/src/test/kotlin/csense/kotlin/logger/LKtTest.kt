@@ -5,6 +5,7 @@ import csense.kotlin.extensions.collections.list.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
+
 class LKtTest {
     /**
      * Tests the logging controls (turning  them on off )
@@ -129,9 +130,19 @@ class LKtTest {
         )
     }
 
+    @Ignore
     @Test
     fun testViewLogging() {
+        TODO("MISSING")
+    }
 
+
+    @Test
+    fun printLoggers() {
+        //todo in JVM as it requires
+        /*val baos = ByteArrayOutputStream()
+        System.setOut(PrintStream(baos))*/
+        //like code to read the printed.
     }
 
     private inline fun testLoggingPassThough(

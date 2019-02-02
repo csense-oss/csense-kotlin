@@ -5,7 +5,7 @@ import kotlin.test.*
 
 class StringTest {
     @Test
-    fun testFileExtension() {
+    fun fileExtension() {
         val noExtensionMessage = "there are no extensions in this string"
         "".fileExtension().assertNull(noExtensionMessage)
         "test".fileExtension().assertNull(noExtensionMessage)
@@ -25,7 +25,7 @@ class StringTest {
     }
 
     @Test
-    fun testForEachMatchingBad() {
+    fun forEachMatchingBad() {
         "".forEachMatching("", false, false) { it }
                 .assertEmpty("nothing in nothing should be nothing")
         "".forEachMatching("0", false, false) { it }
@@ -42,7 +42,7 @@ class StringTest {
     }
 
     @Test
-    fun testForEachMatchingGood() {
+    fun forEachMatchingGood() {
 
 
         val textString = "-abc-aa-bb-cc-"
@@ -85,7 +85,7 @@ class StringTest {
     }
 
     @Test
-    fun testFindAllOf() {
+    fun findAllOf() {
         "".findAllOf("", false, false)
                 .assertEmpty("nothing in nothing is nothing")
         val textString = "\"a very funny qoute\""
@@ -99,7 +99,7 @@ class StringTest {
     }
 
     @Test
-    fun testIndexOfSafe() {
+    fun indexOfSafe() {
         "".indexOfSafe("a", 0, false).isError
                 .assertTrue("indexof a in nothing i not found")
         "a".indexOfSafe("a", 0, false).value
@@ -122,7 +122,7 @@ class StringTest {
     }
 
     @Test
-    fun testLimitTo(){
+    fun limitTo() {
         "".limitTo(0).assert("")
         "".limitTo(-1).assert("")
         "".limitTo(1).assert("")
@@ -134,5 +134,15 @@ class StringTest {
         "abc".limitTo(10).assert("abc")
 
 
+    }
+
+    @Test
+    fun removeFileExtension() {
+        "".removeFileExtension().assert("")
+        "test".removeFileExtension().assert("test")
+        "random string with some fun".removeFileExtension().assert("random string with some fun")
+        "test.asd".removeFileExtension().assert("test")
+        "qwerty.xml".removeFileExtension().assert("qwerty")
+        "qwerty.xml.js".removeFileExtension().assert("qwerty.xml")
     }
 }

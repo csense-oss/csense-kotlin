@@ -3,9 +3,7 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.primitives.*
 import kotlin.Function1
 
 
@@ -58,3 +56,22 @@ inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V
  */
 inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
         filter(predicate).map(Map.Entry<K, V>::key)
+
+/**
+ * maps the abililty to get an entry and use it safely or do something else.
+ * @receiver Map<K, V>
+ * @param key K
+ * @param onKeyFound FunctionUnit<V> if the key is there / found then performs the given action with the value
+ * @param onKeyNotFound EmptyFunction if the key is not there, then this function gets invoked.
+ */
+inline fun <K, V> Map<K, V>.useValueOr(
+        key: K,
+        crossinline onKeyFound: FunctionUnit<V>,
+        crossinline onKeyNotFound: EmptyFunction) {
+    val value = this[key]
+    if (value != null) {
+        onKeyFound(value)
+    } else {
+        onKeyNotFound()
+    }
+}

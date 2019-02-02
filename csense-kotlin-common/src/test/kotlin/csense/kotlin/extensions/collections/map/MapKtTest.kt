@@ -32,4 +32,19 @@ class MapKtTest {
             index.assert(0)
         }
     }
+
+    @Test
+    fun useValueOr() {
+        var notFoundCounter = 0
+        emptyMap.useValueOr("notThere", { failTest("Should not get called") }, { notFoundCounter += 1 })
+        notFoundCounter.assert(1)
+        var foundCounter = 0
+        singleMap.useValueOr("a", { foundCounter += 1 }, { failTest("should not get called") })
+        foundCounter.assert(1)
+        notFoundCounter = 0
+        singleMap.useValueOr("b", { failTest() }, { notFoundCounter += 1 })
+        notFoundCounter.assert(1)
+    }
+
 }
+

@@ -75,3 +75,9 @@ typealias AsyncFunction6<I1, I2, I3, I4, I5, I6, O> = suspend (I1, I2, I3, I4, I
 
 typealias CoroutineScopeFunction = suspend CoroutineScope.() -> Unit
 typealias CoroutineScopeFunction0<O> = suspend CoroutineScope.() -> O
+
+
+typealias ReceiverFunctionUnit<T> = T.() -> Unit
+typealias ReceiverFunction0<T, O> = T.() -> O
+typealias ReceiverFunction1<T, I1, O> = T.(I1) -> O
+typealias ReceiverFunction2<T, I1, I2, O> = T.(I1, I2) -> O

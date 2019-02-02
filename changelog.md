@@ -8,6 +8,9 @@
 - more parallel kotlin compilation (kotlin.parallel.tasks.in.project=true)
 - KClassExtensions.kt moved to jvm module; common does not have reflection. (and extensions and tests)
 - more coroutines extensions (io for jvm)
+- more extensions (map, string, Throwable stdLib extensions)
+- printlogger for Logging
+- started on Timing for JVM (measureXX which can handle computation).
 
 ## 0.0.10
 - gradle 5.1.1

@@ -2,8 +2,10 @@
 
 package csense.kotlin.logger
 
+import csense.kotlin.Function4
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.toPrettyString
 
 
 /**
@@ -139,5 +141,36 @@ object L {
         isProductionLoggingAllowed.onTrue { productionLoggers.invokeEachWith(tag, message, exception) }
     }
 }
+/**
+ *
+ */
+typealias FunctionLoggerFormatter = (level: String, tag: String, message: String, error: Throwable?) -> String
 
+/**
+ * This will add a logger to each category using the stdout (console).
+ * @receiver L
+ */
+fun L.usePrintAsLoggers(
+        formatter: FunctionLoggerFormatter = { level: String, tag: String, message: String, exception: Throwable? ->
+            "$level - [$tag] $message ${exception?.toPrettyString()}"
+        }
+) {
 
+    val debug: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
+        println(formatter("Debug", tag, message, exception))
+    }
+    val warning: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
+        println(formatter("Warning", tag, message, exception))
+    }
+    val error: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
+        println(formatter("Error", tag, message, exception))
+    }
+    val prod: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
+        println(formatter("Production", tag, message, exception))
+    }
+
+    L.debugLoggers.add(debug)
+    L.warningLoggers.add(warning)
+    L.errorLoggers.add(error)
+    L.productionLoggers.add(prod)
+}

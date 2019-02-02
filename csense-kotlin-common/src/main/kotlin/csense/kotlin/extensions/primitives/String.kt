@@ -218,3 +218,16 @@ inline fun String.limitTo(maxLength: Int): String {
     }
     return substring(0, minOf(maxLength, length))
 }
+
+/**
+ * Tries to remove any kind of file extensions.
+ * @receiver String
+ */
+inline fun String.removeFileExtension(): String {
+    val lastDot = lastIndexOf('.')
+    return if (lastDot < 0) {
+        this
+    } else {
+        this.dropLast(length - lastDot)
+    }
+}

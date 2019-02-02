@@ -37,3 +37,24 @@ inline fun <T> tryAndLog(title: String = "",
         return null
     }
 }
+
+/**
+ *
+ * @receiver Throwable
+ * @param lineSeparator String
+ * @param indentation String
+ */
+inline fun Throwable.toPrettyString(
+        lineSeparator: String = "\n",
+        indentation: String = "\t"
+): String {
+    val builder = StringBuilder()
+            .append(message ?: "No message", lineSeparator)
+
+    var currentException = cause
+    while (currentException != null) {
+        builder.append(indentation, currentException.message, lineSeparator)
+        currentException = currentException.cause
+    }
+    return builder.append(lineSeparator).toString()
+}
