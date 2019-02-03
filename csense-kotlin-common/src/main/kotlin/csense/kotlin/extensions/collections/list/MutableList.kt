@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.*
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
 

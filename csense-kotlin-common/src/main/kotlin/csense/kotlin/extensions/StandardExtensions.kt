@@ -1,10 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.ReceiverFunction0
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import csense.kotlin.*
+import kotlin.contracts.*
 
 /**
  * Like run except it works for nullable blocks; iff null does nothing

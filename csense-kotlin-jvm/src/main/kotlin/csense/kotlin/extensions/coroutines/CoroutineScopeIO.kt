@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.CoroutineScopeFunction0
+import csense.kotlin.*
 import kotlinx.coroutines.*
 
 

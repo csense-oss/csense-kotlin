@@ -1,7 +1,6 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.test.*
-import csense.kotlin.test.assertions.*
 import org.junit.*
 
 class GeneralJvmKtTests {

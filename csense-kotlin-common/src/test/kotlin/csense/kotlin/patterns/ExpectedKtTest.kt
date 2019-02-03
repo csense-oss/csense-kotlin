@@ -1,6 +1,5 @@
 package csense.kotlin.patterns
 
-import csense.kotlin.test.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 

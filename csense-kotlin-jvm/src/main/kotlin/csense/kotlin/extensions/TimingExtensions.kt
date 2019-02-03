@@ -1,10 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
-import kotlinx.coroutines.delay
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import csense.kotlin.*
+import kotlin.contracts.*
 
 /**
  *

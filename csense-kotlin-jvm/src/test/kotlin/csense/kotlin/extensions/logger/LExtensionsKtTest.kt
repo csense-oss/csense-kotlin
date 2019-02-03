@@ -1,11 +1,10 @@
 package csense.kotlin.extensions.logger
 
-import csense.kotlin.EmptyFunction
+import csense.kotlin.*
 import csense.kotlin.extensions.collections.list.*
 import csense.kotlin.logger.*
 import csense.kotlin.test.assertions.*
-import org.junit.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class LExtensionsKtTest {
 

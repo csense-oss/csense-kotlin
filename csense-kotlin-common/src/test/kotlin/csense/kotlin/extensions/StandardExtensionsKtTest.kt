@@ -1,8 +1,8 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.test.assertions.assert
-import kotlin.test.Test
+import csense.kotlin.*
+import csense.kotlin.test.assertions.*
+import kotlin.test.*
 
 class StandardExtensionsKtTest {
 

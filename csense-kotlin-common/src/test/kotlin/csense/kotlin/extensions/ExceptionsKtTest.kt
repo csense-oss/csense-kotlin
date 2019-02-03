@@ -1,7 +1,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.test.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class ExceptionsKtTest {
 

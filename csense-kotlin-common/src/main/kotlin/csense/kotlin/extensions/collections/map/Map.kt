@@ -4,7 +4,6 @@ package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.generic.*
-import kotlin.Function1
 
 
 /**
