@@ -87,7 +87,7 @@ inline fun logCurrentStackTraceError(
 
 
 /**
- * Logs the current stack to Prod
+ * Logs the current stack to Production
  * @param tag String  the tagged name
  * @param limit Int the max length of the stacktrace
  * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.

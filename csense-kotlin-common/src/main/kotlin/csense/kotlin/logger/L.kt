@@ -143,33 +143,51 @@ object L {
 /**
  *
  */
-typealias FunctionLoggerFormatter = (level: String, tag: String, message: String, error: Throwable?) -> String
+typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
 
 /**
  * This will add a logger to each category using the stdout (console).
  * @receiver L
  */
 fun L.usePrintAsLoggers(
-        formatter: FunctionLoggerFormatter = { level: String, tag: String, message: String, exception: Throwable? ->
+        formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
             "$level - [$tag] $message ${exception?.toPrettyString()}"
         }
 ) {
 
     val debug: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter("Debug", tag, message, exception))
+        println(formatter(LoggingLevel.Debug, tag, message, exception))
     }
     val warning: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter("Warning", tag, message, exception))
+        println(formatter(LoggingLevel.Warning, tag, message, exception))
     }
     val error: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter("Error", tag, message, exception))
+        println(formatter(LoggingLevel.Error, tag, message, exception))
     }
     val prod: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter("Production", tag, message, exception))
+        println(formatter(LoggingLevel.Production, tag, message, exception))
     }
-
     L.debugLoggers.add(debug)
     L.warningLoggers.add(warning)
     L.errorLoggers.add(error)
     L.productionLoggers.add(prod)
+}
+
+/**
+ * A simple enumeration over the types of logging that can happen.
+ * @property stringValue String the textual representation (useful for tags)
+ */
+enum class LoggingLevel(val stringValue: String) {
+    Debug("Debug"),
+    Warning("Warning"),
+    Error("Error"),
+    Production("Production");
+
+    /**
+     * Gets the string representation.
+     * @return String
+     */
+    override fun toString(): String {
+        return stringValue
+    }
 }
