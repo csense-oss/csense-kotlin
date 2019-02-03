@@ -44,9 +44,9 @@ L.isLoggingAllowed(true)
 The general form to log is:
 ````kotlin
 //the fully fledged 
-L.logError("tag","message",someException)
+L.error("tag","message",someException)
 //a more regular log
-L.logWarning("tag","message")
+L.warning("tag","message")
 ````
 
 To modify the loggers, (clearing them and or appending listeners), just access it like so
