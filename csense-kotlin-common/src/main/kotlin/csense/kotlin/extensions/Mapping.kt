@@ -81,3 +81,12 @@ inline fun <T> Boolean.mapLazy(ifTrue: EmptyFunctionResult<T>,
         } else {
             ifFalse()
         }
+
+
+/**
+ * Maps the receiver into a set.
+ * @receiver Iterable<T>
+ * @param mapper Function1<T, U>
+ * @return Set<U>
+ */
+fun <T, U> Iterable<T>.mapToSet(mapper: Function1<T, U>): Set<U> = mapTo(mutableSetOf(), mapper)

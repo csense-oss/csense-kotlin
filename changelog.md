@@ -1,4 +1,12 @@
 # Changelog
+
+## 0.0.14
+- fixed logging issue 
+- added async mapping extensions
+- added mapToSet
+- added setIfNotEmpty to map
+ 
+
 ## 0.0.13
 - removed dependency on kotlin reflect, as that was quite bad (caused issues with logging functions)
 

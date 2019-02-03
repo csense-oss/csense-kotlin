@@ -151,7 +151,7 @@ typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: 
  */
 fun L.usePrintAsLoggers(
         formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-            "$level - [$tag] $message ${exception?.toPrettyString()}"
+            "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
         }
 ) {
 
