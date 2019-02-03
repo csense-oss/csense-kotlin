@@ -13,7 +13,7 @@ package csense.kotlin.logger
  * @see L.error
  */
 inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
-    L.error(T::class, message, exception)
+    L.error(T::class.java.simpleName, message, exception)
 }
 
 /**
@@ -25,7 +25,7 @@ inline fun <reified T : Any> T.logClassError(message: String, exception: Throwab
  * @see L.warning
  */
 inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
-    L.warning(T::class, message, exception)
+    L.warning(T::class.java.simpleName, message, exception)
 }
 
 /**
@@ -37,7 +37,7 @@ inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throw
  * @see L.debug
  */
 inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
-    L.debug(T::class, message, exception)
+    L.debug(T::class.java.simpleName, message, exception)
 }
 
 /**
@@ -49,7 +49,7 @@ inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwab
  * @see L.logProd
  */
 inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
-    L.logProd(T::class, message, exception)
+    L.logProd(T::class.java.simpleName, message, exception)
 }
 
 /**

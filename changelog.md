@@ -1,4 +1,7 @@
 # Changelog
+## 0.0.13
+- removed dependency on kotlin reflect, as that was quite bad (caused issues with logging functions)
+
 
 ## 0.0.12
 - JVM timing function naming (lowercase method name and millis in name). and made it usable in suspension

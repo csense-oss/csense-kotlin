@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package csense.kotlin.extensions.collections.set
 
@@ -9,6 +9,7 @@ import csense.kotlin.extensions.collections.generic.*
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
+ * @timecomplexity O(N)
  * @receiver List<T>
  * @param action Function2IndexedUnit<T, T>
  */
@@ -21,6 +22,7 @@ inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>) =
 
 /**
  * Performs traversal in pairs of 2
+ * @timecomplexity O(N)
  * @receiver List<T>
  * @param action Function2Unit<T, T>
  */
@@ -29,6 +31,7 @@ inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>) =
 
 /**
  * Performs backwards traversal on this
+ * @timecomplexity O(N)
  * @receiver List<T>
  * @param action FunctionUnit<T>
  */

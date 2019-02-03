@@ -3,7 +3,6 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.extensions.*
 import kotlin.reflect.*
 
 
@@ -12,7 +11,7 @@ import kotlin.reflect.*
  * @see L.debug
  */
 inline fun L.debug(kClass: KClass<*>, message: String, exception: Throwable? = null) {
-    debug(kClass.safeSimpleName, message, exception)
+    debug(kClass.java.simpleName, message, exception)
 }
 
 /**
@@ -20,7 +19,7 @@ inline fun L.debug(kClass: KClass<*>, message: String, exception: Throwable? = n
  * @see L.warning
  */
 inline fun L.warning(kClass: KClass<*>, message: String, throwable: Throwable? = null) {
-    warning(kClass.safeSimpleName, message, throwable)
+    warning(kClass.java.simpleName, message, throwable)
 }
 
 /**
@@ -28,7 +27,7 @@ inline fun L.warning(kClass: KClass<*>, message: String, throwable: Throwable? =
  * @see L.error
  */
 inline fun L.error(kClass: KClass<*>, message: String, exception: Throwable? = null) {
-    error(kClass.safeSimpleName, message, exception)
+    error(kClass.java.simpleName, message, exception)
 }
 
 /**
@@ -36,5 +35,5 @@ inline fun L.error(kClass: KClass<*>, message: String, exception: Throwable? = n
  * @see L.logProd
  */
 inline fun L.logProd(kClass: KClass<*>, message: String, throwable: Throwable? = null) {
-    logProd(kClass.safeSimpleName, message, throwable)
+    logProd(kClass.java.simpleName, message, throwable)
 }
