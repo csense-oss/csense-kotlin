@@ -2,9 +2,8 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.Function4
-import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.collections.invokeEachWith
+import csense.kotlin.extensions.primitives.onTrue
 import csense.kotlin.extensions.toPrettyString
 
 

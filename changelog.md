@@ -71,4 +71,7 @@ added
 - migrated a lot from commonsenseAndroid
 
 ## 0.0.1
-- migrated a lot from commonsenseAndroid
+
+- moved all general commonsense code from various projects into this.
+- primary setup
+- this especially mean the commonsenseandroidkotlin project.
