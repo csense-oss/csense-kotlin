@@ -9,7 +9,7 @@ buildscript {
     //libray settings
     ext.commonsenseUserOrg = "csense-oss"
     ext.commonsenseRepoName = "csense-kotlin"
-    ext.commonsenseVersionName = "0.0.11"
+    ext.commonsenseVersionName = "0.0.12"
     ext.commonsenseGroupId = "csense.kotlin"
     ext.commonsenseGithub = "csense-oss/csense-kotlin"
     ext.commonsenseLicense = ["MIT"]
@@ -53,7 +53,7 @@ subprojects {
         }
     }
 
-    task uploadProd(dependsOn: ["clean", "assemble", "test", "sourcesJar", "javadocJar", "bintrayUpload"])
+    task uploadProd(dependsOn: ["assemble", "test", "sourcesJar", "javadocJar", "bintrayUpload"])
 }
 
 
