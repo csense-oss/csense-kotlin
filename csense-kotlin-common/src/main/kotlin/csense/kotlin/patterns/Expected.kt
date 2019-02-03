@@ -133,18 +133,7 @@ class ExpectedSuccess<out T>(successValue: T) : Expected<T>() {
 /**
  * Use the expected value iff it was a success
  */
-inline fun <T, U> Expected<T>.use(crossinline action: (T) -> U): U? {
-    return if (isValid) {
-        action(value)
-    } else {
-        null
-    }
-}
-
-/**
- * Use this value asynchronously iff its valid.
- */
-suspend fun <T, U> Expected<T>.useAsync(action: suspend (T) -> U): U? {
+inline fun <T, U> Expected<T>.use(action: (T) -> U): U? {
     return if (isValid) {
         action(value)
     } else {

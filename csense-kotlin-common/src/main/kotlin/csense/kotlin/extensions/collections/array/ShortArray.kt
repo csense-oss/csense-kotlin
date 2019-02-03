@@ -10,7 +10,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver
  * @param receiver (T) -> U
  */
-inline fun <U> ShortArray.forEachDiscard(crossinline receiver: Function1<Short, U>) =
+inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>) =
         ForeachDiscardResult(count(), this::get, receiver)
 
 

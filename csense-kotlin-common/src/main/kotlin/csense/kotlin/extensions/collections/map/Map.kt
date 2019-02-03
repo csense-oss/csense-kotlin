@@ -66,8 +66,8 @@ inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.En
  */
 inline fun <K, V> Map<K, V>.useValueOr(
         key: K,
-        crossinline onKeyFound: FunctionUnit<V>,
-        crossinline onKeyNotFound: EmptyFunction) {
+        onKeyFound: FunctionUnit<V>,
+        onKeyNotFound: EmptyFunction) {
     val value = this[key]
     if (value != null) {
         onKeyFound(value)

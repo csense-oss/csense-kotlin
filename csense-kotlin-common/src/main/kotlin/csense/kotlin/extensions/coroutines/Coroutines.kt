@@ -1,6 +1,6 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
 
-package csense.kotlin.extensions
+package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.*
 import kotlinx.coroutines.*
@@ -22,20 +22,8 @@ suspend fun <T> List<Deferred<T>>.await(): List<T> {
  * @receiver Channel<E>
  * @param function FunctionUnit<E>
  */
-suspend fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
+suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
     for (item in this) {
         function(item)
     }
 }
-
-/**
- * Iterates over the given channel, executing the given function each time
- * @receiver Channel<E>
- * @param function AsyncFunctionUnit<E>
- */
-suspend fun <E> Channel<E>.forEachAsync(function: AsyncFunctionUnit<E>) {
-    for (item in this) {
-        function(item)
-    }
-}
-

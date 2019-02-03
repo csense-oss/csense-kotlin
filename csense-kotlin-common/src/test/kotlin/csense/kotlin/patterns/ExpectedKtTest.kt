@@ -54,22 +54,6 @@ class ExpectedKtTest {
 
     }
 
-    @Test
-    fun useAsync() = testAsync {
-        val success42 = expectedSucceded(42)
-        var counter = 1
-        success42.useAsync {
-            counter -= 1
-        }
-        counter.assert(0, "should run async first")
-
-        var failedCounter = 1
-        val failed = expectedFailed<Int>()
-        failed.useAsync {
-            failedCounter -= 1
-        }
-        failedCounter.assert(1, "cannot use a failed result.")
-    }
 
     @Test
     fun ifValid() {

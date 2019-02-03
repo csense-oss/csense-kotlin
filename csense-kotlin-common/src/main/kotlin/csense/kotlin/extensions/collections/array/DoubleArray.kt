@@ -10,7 +10,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver
  * @param receiver (T) -> U
  */
-inline fun <U> DoubleArray.forEachDiscard(crossinline receiver: Function1<Double, U>) =
+inline fun <U> DoubleArray.forEachDiscard(receiver: Function1<Double, U>) =
         ForeachDiscardResult(count(), this::get, receiver)
 
 /**

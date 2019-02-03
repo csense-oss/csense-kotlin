@@ -7,8 +7,8 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
 
 
-typealias Function2Unit<T, U> = (T, U) -> Unit
-typealias Function2IndexedUnit<T, U> = (Int, T, U) -> Unit
+typealias Function2Unit<T, U> = (first: T, second: U) -> Unit
+typealias Function2IndexedUnit<T, U> = (index: Int, first: T, second: U) -> Unit
 
 
 //region backwards

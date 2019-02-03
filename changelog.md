@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.12
+- JVM timing function naming (lowercase method name and millis in name). and made it usable in suspension
+- removed a lot of crossinline where they made no real sense (if the function would make sense with a return inside of it, and or allow it to be used in suspend functions )
+- removed supporting functions that were due to crossinlining.
+
+
 ## 0.0.11
 - gradle 5.2-rc-1
 - JVM 

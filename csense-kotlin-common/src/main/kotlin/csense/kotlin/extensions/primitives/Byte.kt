@@ -28,7 +28,7 @@ inline infix fun Byte.shr(shift: Int): Byte = (this.toInt() shr shift).toByte()
  * @param action (upperChar: Char, lowerChar: Char) -> T
  * @return T
  */
-inline fun <T> Byte.toChars(crossinline action: (upperChar: Char, lowerChar: Char) -> T): T =
+inline fun <T> Byte.toChars(action: (upperChar: Char, lowerChar: Char) -> T): T =
         splitIntoComponents { upperByte, lowerByte ->
             action(hexCharsAsString[upperByte.toInt()], hexCharsAsString[lowerByte.toInt()])
         }
@@ -51,7 +51,7 @@ inline fun Byte.toHexString(): String =
  * @param action (upperByte: Byte, lowerByte: Byte) -> T
  * @return T
  */
-inline fun <T> Byte.splitIntoComponents(crossinline action: (upperByte: Byte, lowerByte: Byte) -> T): T {
+inline fun <T> Byte.splitIntoComponents(action: (upperByte: Byte, lowerByte: Byte) -> T): T {
     val lower: Byte = this and 0x0f
     val upper: Byte = (this shr 4) and 0x0F.toByte()
     return action(upper, lower)

@@ -13,7 +13,7 @@ import kotlin.contracts.*
  * @param action EmptyFunction the function to run if the receiver is not null
  */
 @UseExperimental(kotlin.contracts.ExperimentalContracts::class)
-inline fun Any?.ifNull(crossinline action: EmptyFunction) {
+inline fun Any?.ifNull(action: EmptyFunction) {
     this.isNull.ifTrue(action)
 }
 
@@ -22,7 +22,7 @@ inline fun Any?.ifNull(crossinline action: EmptyFunction) {
  * @receiver T? the optional value
  * @param action FunctionUnit<T> the action to call if the receiver is not null
  */
-inline fun <T> T?.ifNotNull(crossinline action: FunctionUnit<T>) {
+inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
     this?.let(action)
 }
 

@@ -44,7 +44,7 @@ inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
  * @receiver ByteArray
  * @param receiver (T) -> U
  */
-inline fun <U> ByteArray.forEachDiscard(crossinline receiver: Function1<Byte, U>) =
+inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>) =
         ForeachDiscardResult(count(), this::get, receiver)
 
 /**

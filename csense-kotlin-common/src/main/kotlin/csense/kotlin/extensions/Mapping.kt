@@ -26,8 +26,8 @@ inline fun <U> Any?.mapOptional(ifNotNull: U, ifNull: U): U {
  * @return U the value depending on 'this' value
  */
 @ExperimentalContracts
-inline fun <U> Any?.mapLazy(crossinline ifNotNull: EmptyFunctionResult<U>,
-                            crossinline ifNull: EmptyFunctionResult<U>): U {
+inline fun <U> Any?.mapLazyOptional(ifNotNull: EmptyFunctionResult<U>,
+                                    ifNull: EmptyFunctionResult<U>): U {
     return if (this.isNotNull) {
         ifNotNull()
     } else {
@@ -57,8 +57,8 @@ inline fun <T> Boolean.map(ifTrue: T, ifFalse: T): T = if (this) {
  * @return T
  */
 inline fun <T> Boolean.mapInvoke(
-        crossinline ifTrue: EmptyFunctionResult<T>,
-        crossinline ifFalse: EmptyFunctionResult<T>): T = if (this) {
+        ifTrue: EmptyFunctionResult<T>,
+        ifFalse: EmptyFunctionResult<T>): T = if (this) {
     ifTrue()
 } else {
     ifFalse()
@@ -74,8 +74,8 @@ inline fun <T> Boolean.mapInvoke(
  * @param ifFalse EmptyFunctionResult<T>
  * @return T
  */
-inline fun <T> Boolean.mapLazy(crossinline ifTrue: EmptyFunctionResult<T>,
-                               crossinline ifFalse: EmptyFunctionResult<T>): T =
+inline fun <T> Boolean.mapLazy(ifTrue: EmptyFunctionResult<T>,
+                               ifFalse: EmptyFunctionResult<T>): T =
         if (this) {
             ifTrue()
         } else {

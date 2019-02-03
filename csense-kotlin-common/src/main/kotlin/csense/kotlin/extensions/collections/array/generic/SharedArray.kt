@@ -28,8 +28,8 @@ inline fun <T> fillArray(
  */
 inline fun <T, U> ForeachDiscardResult(
         count: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
-        crossinline receiver: Function1<T, U>
+        getter: GenericGetterIndexMethod<T>,
+        receiver: Function1<T, U>
 ) {
     count.forEach {
         receiver(getter(it))

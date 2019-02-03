@@ -129,7 +129,7 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
  * @param action FunctionUnit<E>
  */
 @Suppress("NOTHING_TO_INLINE")
-inline fun <E> Iterable<E?>.forEachNotNull(crossinline action: FunctionUnit<E>) {
+inline fun <E> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
     forEach { it?.let(action) }
 }
 

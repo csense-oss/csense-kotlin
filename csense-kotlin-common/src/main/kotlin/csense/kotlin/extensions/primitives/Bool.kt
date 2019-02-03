@@ -11,7 +11,7 @@ import csense.kotlin.*
  * @param action EmptyFunction
  * @return Boolean
  */
-inline fun Boolean.onFalse(crossinline action: EmptyFunction): Boolean {
+inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
     if (!this) {
         action()
     }
@@ -24,21 +24,7 @@ inline fun Boolean.onFalse(crossinline action: EmptyFunction): Boolean {
  * @param action EmptyFunction
  * @return Boolean
  */
-inline fun Boolean.onTrue(crossinline action: EmptyFunction): Boolean {
-    if (this) {
-        action()
-    }
-    return this
-}
-
-
-/**
- *  performs the action if the boolean is true.
- * @receiver Boolean
- * @param action AsyncEmptyFunction
- * @return Boolean
- */
-suspend inline fun Boolean.onTrueAsync(crossinline action: AsyncEmptyFunction): Boolean {
+inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
     if (this) {
         action()
     }
@@ -52,16 +38,7 @@ suspend inline fun Boolean.onTrueAsync(crossinline action: AsyncEmptyFunction): 
  * @param action EmptyFunction
  * @return Boolean
  */
-inline fun Boolean.ifTrue(crossinline action: EmptyFunction): Boolean = onTrue(action)
-
-/**
- * Makes a more "elegant" sentence for some expressions, same as "com.commonsense.android.kotlin.com.commonsense.android.kotlin.base.onTrue"
- * @receiver Boolean
- * @param action AsyncEmptyFunction
- * @return Boolean
- */
-suspend inline fun Boolean.ifTrueAsync(crossinline action: AsyncEmptyFunction): Boolean =
-        onTrueAsync(action)
+inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
 
 
 /**
@@ -70,6 +47,6 @@ suspend inline fun Boolean.ifTrueAsync(crossinline action: AsyncEmptyFunction): 
  * @param action EmptyFunction
  * @return Boolean
  */
-inline fun Boolean.ifFalse(crossinline action: EmptyFunction): Boolean =
+inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
         onFalse(action)
 

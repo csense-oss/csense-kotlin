@@ -1,6 +1,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.EmptyFunctionResult
+import kotlinx.coroutines.delay
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -11,7 +12,7 @@ import kotlin.contracts.contract
  * @return Pair<Long, R>
  */
 @UseExperimental(ExperimentalContracts::class)
-fun <R> MeasureTimeResult(block: EmptyFunctionResult<R>): Pair<Long, R> {
+inline fun <R> measureTimeMillisResult(block: EmptyFunctionResult<R>): Pair<Long, R> {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
@@ -20,3 +21,4 @@ fun <R> MeasureTimeResult(block: EmptyFunctionResult<R>): Pair<Long, R> {
     val time = System.currentTimeMillis() - start
     return Pair(time, result)
 }
+
