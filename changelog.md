@@ -5,7 +5,15 @@
 - added async mapping extensions
 - added mapToSet
 - added setIfNotEmpty to map
- 
+- added a bunch of string extensions
+- improved some of the string functions to use more of the std lib.
+- moved generic code from global namespace to generic array.
+- fixed bug in stringbuilder.clear (by removing it as the extension is available from kotlin stdlib)
+- fixed functions depending on old stringbuilder.clear
+- gradle 5.2.1
+- kotlin 1.3.21
+- very generic foreach, map and filter (in generic).
+
 
 ## 0.0.13
 - removed dependency on kotlin reflect, as that was quite bad (caused issues with logging functions)

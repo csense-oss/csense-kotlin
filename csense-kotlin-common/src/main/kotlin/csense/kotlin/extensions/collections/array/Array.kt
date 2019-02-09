@@ -12,7 +12,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @param receiver (T) -> U
  */
 inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>) =
-        ForeachDiscardResult(count(), this::get, receiver)
+        GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 /**
  * Fills this array with the given value
@@ -20,7 +20,7 @@ inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>) =
  * @param value T with this value
  */
 fun <T> Array<T>.fill(value: T) =
-        fillArray(count(), value, this::set)
+        GenericArray.fillArray(count(), value, this::set)
 
 
 //region Generic collection extensions

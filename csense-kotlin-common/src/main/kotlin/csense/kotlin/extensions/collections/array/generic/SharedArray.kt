@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.*
@@ -11,7 +13,7 @@ import csense.kotlin.extensions.primitives.*
  * @param value T with this value
  * @param setter Function2<Int, T, Unit> and the "setter" function.
  */
-inline fun <T> fillArray(
+inline fun <T> GenericArray.fillArray(
         count: Int,
         value: T,
         crossinline setter: GenericSetterIndexMethod<T>) {
@@ -26,7 +28,7 @@ inline fun <T> fillArray(
  *
  * @param receiver Function1<T,U>
  */
-inline fun <T, U> ForeachDiscardResult(
+inline fun <T, U> GenericArray.foreachDiscardResult(
         count: Int,
         getter: GenericGetterIndexMethod<T>,
         receiver: Function1<T, U>

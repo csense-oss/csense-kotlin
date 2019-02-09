@@ -1,7 +1,8 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.test.assertions.*
-import kotlin.test.*
+import kotlin.test.Ignore
+import kotlin.test.Test
 
 class StringTest {
     @Test
@@ -145,4 +146,78 @@ class StringTest {
         "qwerty.xml".removeFileExtension().assert("qwerty")
         "qwerty.xml.js".removeFileExtension().assert("qwerty.xml")
     }
+
+    @Test
+    fun wrapIn() {
+        "".wrapIn("", "").assert("")
+        "".wrapIn("aa", "").assert("aa")
+        "".wrapIn("", "bb").assert("bb")
+        "".wrapIn("a", "b").assert("ab")
+        "1234".wrapIn("<", ">").assert("<1234>")
+        "1234".wrapIn("<", "").assert("<1234")
+        "1234".wrapIn("", ">").assert("1234>")
+        "1234".wrapIn("", "").assert("1234")
+
+    }
+
+    @Ignore
+    @Test
+    fun ifNotEmpty() {
+
+    }
+
+    @Ignore
+    @Test
+    fun ifNotBlank() {
+
+    }
+
+    @Ignore
+    @Test
+    fun endsWithAny() {
+
+    }
+
+    @Ignore
+    @Test
+    fun endsWithAnyVararg() {
+
+    }
+
+    @Ignore
+    @Test
+    fun startsWithAny() {
+
+    }
+
+    @Ignore
+    @Test
+    fun startsWithAnyVararg() {
+
+    }
+
+    @Ignore
+    @Test
+    fun replaceIf() {
+
+    }
+
+    @Ignore
+    @Test
+    fun replaceIfOr() {
+
+    }
+
+    @Ignore
+    @Test
+    fun replaceIfOrFunctional() {
+
+    }
+
+    @Ignore
+    @Test
+    fun createFromChars() {
+
+    }
+
 }

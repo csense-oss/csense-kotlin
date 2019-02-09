@@ -167,10 +167,10 @@ fun L.usePrintAsLoggers(
     val prod: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
         println(formatter(LoggingLevel.Production, tag, message, exception))
     }
-    L.debugLoggers.add(debug)
-    L.warningLoggers.add(warning)
-    L.errorLoggers.add(error)
-    L.productionLoggers.add(prod)
+    debugLoggers.add(debug)
+    warningLoggers.add(warning)
+    errorLoggers.add(error)
+    productionLoggers.add(prod)
 }
 
 /**

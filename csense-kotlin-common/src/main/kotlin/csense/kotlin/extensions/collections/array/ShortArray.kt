@@ -10,33 +10,33 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver
  * @param receiver (T) -> U
  */
-inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>) =
-        ForeachDiscardResult(count(), this::get, receiver)
+inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>): Unit =
+        GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 
 /**
  * Fills this array with the given value
  */
-fun ShortArray.fill(value: Short) =
-        fillArray(count(), value, this::set)
+fun ShortArray.fill(value: Short): Unit =
+        GenericArray.fillArray(count(), value, this::set)
 
 
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
-inline fun ShortArray.forEach2Indexed(action: Function2IndexedUnit<Short, Short>) =
+inline fun ShortArray.forEach2Indexed(action: Function2IndexedUnit<Short, Short>): Unit =
         GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
-inline fun ShortArray.forEach2(action: Function2Unit<Short, Short>) =
+inline fun ShortArray.forEach2(action: Function2Unit<Short, Short>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this list.
  */
-inline fun ShortArray.forEachBackwards(action: FunctionUnit<Short>) =
+inline fun ShortArray.forEachBackwards(action: FunctionUnit<Short>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion

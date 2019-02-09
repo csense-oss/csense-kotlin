@@ -11,13 +11,13 @@ import csense.kotlin.extensions.collections.generic.*
  * @param receiver (T) -> U
  */
 inline fun <U> DoubleArray.forEachDiscard(receiver: Function1<Double, U>) =
-        ForeachDiscardResult(count(), this::get, receiver)
+        GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 /**
  * Fills this array with the given value
  */
 fun DoubleArray.fill(value: Double) =
-        fillArray(count(), value, this::set)
+        GenericArray.fillArray(count(), value, this::set)
 
 
 //region Generic collection extensions

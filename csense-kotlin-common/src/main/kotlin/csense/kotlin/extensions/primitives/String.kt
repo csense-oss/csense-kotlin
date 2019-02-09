@@ -2,11 +2,17 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.*
-import csense.kotlin.extensions.*
-import csense.kotlin.patterns.*
+import csense.kotlin.EmptyFunctionResult
+import csense.kotlin.Function1
+import csense.kotlin.extensions.appendContentOf
+import csense.kotlin.extensions.map
+import csense.kotlin.extensions.mapInvoke
+import csense.kotlin.patterns.Expected
+import csense.kotlin.patterns.ExpectedFailed
+import csense.kotlin.patterns.expectedSucceded
 
 
+//region File related string apis
 /**
  *
  * @receiver String
@@ -14,16 +20,19 @@ import csense.kotlin.patterns.*
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun String.fileExtension(): String? {
-    return lastIndexOf('.').let {
-        if (it > 0 && it + 1 < length) {
-            return substring(it + 1)
-        } else {
-            null
-        }
-    }
+    val fileExtension = substringAfterLast(".", "")
+    return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
 }
 
-//<editor-fold desc="Index of safe">
+
+/**
+ * Tries to remove any kind of file extensions.
+ * @receiver String
+ */
+inline fun String.removeFileExtension(): String = substringBeforeLast(".")
+//endregion
+
+//region IndexOf safe
 /**
  *
  * @receiver String
@@ -41,25 +50,67 @@ fun String.indexOfSafe(subString: String, index: Int, ignoreCase: Boolean): Expe
     }
 }
 
-private val failedIndexOfExpected by lazy { ExpectedFailed<Int>(IndexOfMissingException) }
+//TODO this seems rather bad, as we are to allocate a random stacktrace..
+private val failedIndexOfExpected = ExpectedFailed<Int>(IndexOfMissingException)
 
 /**
  *
  */
-object IndexOfMissingException : RuntimeException("Unable to find substring")
-//</editor-fold>
+object IndexOfMissingException : Exception("Unable to find substring")
+//endregion
 
+//region Creation and insertion
 /**
  *
  * @receiver String.Companion
  * @param charArray CharArray
  * @return String
  */
-inline fun String.Companion.createFromChars(charArray: CharArray): String {
-    return StringBuilder().appendContentOf(charArray).toString()
+inline fun String.Companion.createFromChars(charArray: CharArray): String =
+        StringBuilder().appendContentOf(charArray).toString()
+
+
+
+
+/**
+ * A class representing an insert to be made into a string
+ * @property toInsert String the string to insert
+ * @property atIndex Int at what raw index in the string
+ */
+data class StringInserts(val toInsert: String, val atIndex: Int)
+
+/**
+ *
+ * @receiver String
+ * @param toInsert Array<out StringInserts>
+ * @return String? null if any index is outside of bounds
+ */
+fun String.insertInto(vararg toInsert: StringInserts): String? {
+    val size = count()
+
+    val sb = StringBuilder()
+    toInsert.sortBy { it.atIndex } //make sure its sorted, such that we are never run into any issues.
+    val lastInsertIndex = toInsert.lastOrNull()?.atIndex
+    if (lastInsertIndex != null && lastInsertIndex > size) {
+        return null
+    }
+    //all indexes are guaranteed to be in this string. or either the test or sort does not work.
+    var currentToIndex = 0
+    var currentLastIndex: Int
+    toInsert.forEach {
+        currentLastIndex = currentToIndex
+        currentToIndex = it.atIndex
+        sb.append(this.subSequence(currentLastIndex, currentToIndex),
+                it.toInsert)
+    }
+    if (currentToIndex < size) {
+        sb.append(this.substring(currentToIndex))
+    }
+    return sb.toString()
 }
+//endregion
 
-
+//region Searching / find
 /**
  *
  * @receiver String
@@ -102,8 +153,9 @@ inline fun <U> String.forEachMatching(subString: String,
     }
     return result
 }
+//endregion
 
-
+//region Replacing
 /**
  * Replaces a value given a criteria. if the condition is true, the replace is called with the value
  * otherwise this string is returned as is.
@@ -164,49 +216,61 @@ inline fun String.replaceIfOr(condition: Boolean,
     val replacement = condition.mapInvoke(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
+//endregion
 
-
+//region contains / startwith queries
 /**
- *
- * @receiver String
- * @param toInsert Array<out StringInserts>
- * @return String? null if any index is outside of bounds
+ * Returns whenever this string ends with at least one of the given collection
+ * @receiver C
+ * @param items Collection<C>
+ * @param ignoreCase Boolean
+ * @return Boolean
  */
-fun String.insertInto(vararg toInsert: StringInserts): String? {
-    val size = count()
-
-    val sb = StringBuilder()
-    toInsert.sortBy { it.atIndex } //make sure its sorted, such that we are never run into any issues.
-    val lastInsertIndex = toInsert.lastOrNull()?.atIndex
-    if (lastInsertIndex != null && lastInsertIndex > size) {
-        return null
-    }
-    //all indexes are guaranteed to be in this string. or either the test or sort does not work.
-    var currentToIndex = 0
-    var currentLastIndex: Int
-    toInsert.forEach {
-        currentLastIndex = currentToIndex
-        currentToIndex = it.atIndex
-
-        sb.append(this.subSequence(currentLastIndex, currentToIndex))
-        sb.append(it.toInsert)
-    }
-    if (currentToIndex < size) {
-        sb.append(this.substring(currentToIndex))
-    }
-    return sb.toString()
-}
+inline fun String.endsWithAny(
+        items: Collection<String>,
+        ignoreCase: Boolean): Boolean =
+        items.any { this.endsWith(it, ignoreCase) }
 
 /**
- * A class representing an insert to be made into a string
- * @property toInsert String the string to insert
- * @property atIndex Int at what raw index in the string
+ * Returns whenever this string ends with at least one of the given collection
+ * @receiver C
+ * @param items Array<out C>
+ * @param ignoreCase Boolean
+ * @return Boolean
  */
-data class StringInserts(val toInsert: String, val atIndex: Int)
-
+inline fun String.endsWithAny(
+        vararg items: String,
+        ignoreCase: Boolean): Boolean =
+        items.any { this.endsWith(it, ignoreCase) }
 
 /**
- *  Limits this string to the given number of characters
+ * Returns whenever this string starts with at least one of the given collection
+ * @receiver C
+ * @param items Array<out C>
+ * @param ignoreCase Boolean
+ * @return Boolean
+ */
+inline fun String.startsWithAny(
+        vararg items: String,
+        ignoreCase: Boolean): Boolean =
+        items.any { this.startsWith(it, ignoreCase) }
+
+/**
+ * Returns whenever this string starts with at least one of the given collection
+ * @receiver C
+ * @param items Collection<C>
+ * @param ignoreCase Boolean
+ * @return Boolean
+ */
+inline fun String.startsWithAny(
+        items: Collection<String>,
+        ignoreCase: Boolean): Boolean =
+        items.any { this.startsWith(it, ignoreCase) }
+//endregion
+
+//region Modification / computing
+/**
+ * Limits this string to the given number of characters
  * @receiver String the string to potentially limit
  * @param maxLength Int the max length
  * @return String a string at max the given max length;
@@ -219,15 +283,44 @@ inline fun String.limitTo(maxLength: Int): String {
     return substring(0, minOf(maxLength, length))
 }
 
+
 /**
- * Tries to remove any kind of file extensions.
+ * Wraps this string with the given prefix and postfix strings.
  * @receiver String
+ * @param prefix String
+ * @param postFix String
+ * @return String the combined result (prefix + this + postfix)
  */
-inline fun String.removeFileExtension(): String {
-    val lastDot = lastIndexOf('.')
-    return if (lastDot < 0) {
-        this
-    } else {
-        this.dropLast(length - lastDot)
-    }
+inline fun String.wrapIn(prefix: String, postFix: String): String =
+        prefix + this + postFix
+//endregion
+
+//region Action on state
+/**
+ * Opposite of "ifEmpty"
+ * if this string is not empty , executes the method and returns that
+ * if it is empty, then it returns that.
+ * @receiver C
+ * @param action Function1<C, C>
+ * @return C
+ */
+inline fun String.ifNotEmpty(action: Function1<String, String>): String = if (isEmpty()) {
+    this
+} else {
+    action(this)
 }
+
+/**
+ * Opposite of "ifBlank"
+ * if this string is not blank, executes the method and returns that
+ * if it is blank, then it returns that.
+ * @receiver C
+ * @param action Function1<C, C>
+ * @return C
+ */
+inline fun String.ifNotBlank(action: Function1<String, String>): String = if (isBlank()) {
+    this
+} else {
+    action(this)
+}
+//endregion

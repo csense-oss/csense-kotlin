@@ -2,18 +2,7 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.extensions.collections.array.*
-
-
-/**
- * Clears this stringbuilder.
- * @receiver StringBuilder
- * @return StringBuilder
- */
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER")//since in js this is apparently a thing.
-inline fun StringBuilder.clear(): StringBuilder = apply {
-    this.removeRange(0, length - 1)
-}
+import csense.kotlin.extensions.collections.array.forEachDiscard
 
 /**
  * Clears the content and sets the content to the given string
