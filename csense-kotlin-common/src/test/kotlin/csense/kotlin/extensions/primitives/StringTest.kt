@@ -1,8 +1,9 @@
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.extensions.primitives.fileExtension
 import csense.kotlin.test.assertions.*
-import kotlin.test.Ignore
-import kotlin.test.Test
+import kotlin.test.*
+
 
 class StringTest {
     @Test

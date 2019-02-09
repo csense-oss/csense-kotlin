@@ -1,5 +1,5 @@
 apply plugin: 'kotlin-platform-jvm'
-
+apply plugin: "jacoco"
 repositories {
     mavenCentral()
 }
@@ -10,7 +10,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
 
     testImplementation project(":csense-kotlin-test-jvm")
-    
+
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
@@ -25,4 +25,21 @@ ext.artifactDescription = ""
 ext.versionDescription = ""
 
 apply from: "../publish.gradle"
-apply from: "../jacoco-kotlin.gradle"
+//apply from: "../jacoco-kotlin.gradle"
+
+jacoco {
+    toolVersion = "0.8.3"
+    reportsDir = file("$buildDir/codeCoverage")
+}
+
+jacocoTestReport {
+
+    getClassDirectories().setFrom("$buildDir/classes/kotlin/main/")
+    // add code from common.
+    getAdditionalSourceDirs().setFrom("$projectDir/../csense-kotlin-common/src/main/kotlin/")
+
+    reports {
+        xml.setEnabled(false)
+        html.setEnabled(true)
+    }
+}

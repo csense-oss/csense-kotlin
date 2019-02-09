@@ -13,7 +13,8 @@
 - gradle 5.2.1
 - kotlin 1.3.21
 - very generic foreach, map and filter (in generic).
-
+- more work on coverage
+- more gradle / groovy cleanup 
 
 ## 0.0.13
 - removed dependency on kotlin reflect, as that was quite bad (caused issues with logging functions)

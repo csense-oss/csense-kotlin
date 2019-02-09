@@ -12,13 +12,13 @@ dependencies {
 
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    getArchiveClassifier().set("sources")
     from sourceSets.main.allSource
 }
 
 // empty xxx-javadoc.jar for JS and Common modules
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    getArchiveClassifier().set("javadoc")
     from "$buildDir/javadoc" // would not exist
 }
 
@@ -27,4 +27,3 @@ ext.artifactDescription = ""
 ext.versionDescription = ""
 
 apply from: "../publish.gradle"
-apply from: "../jacoco-kotlin.gradle"
