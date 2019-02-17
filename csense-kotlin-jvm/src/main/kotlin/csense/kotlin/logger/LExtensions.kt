@@ -37,3 +37,4 @@ inline fun L.error(kClass: KClass<*>, message: String, exception: Throwable? = n
 inline fun L.logProd(kClass: KClass<*>, message: String, throwable: Throwable? = null) {
     logProd(kClass.java.simpleName, message, throwable)
 }
+

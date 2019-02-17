@@ -52,8 +52,8 @@ private const val charAAsByte = 'a'.toByte()
 /**
  * The length (0 indexed) of numbers ( 0 until 9)
  */
-const val numberCharsCount = 9
+const val numberCharsCount: Int = 9
 /**
  * The length (0 indexed) of chars that represents hex numbers ( a - f)
  */
-const val hexCharsCount = 5
+const val hexCharsCount: Int = 5

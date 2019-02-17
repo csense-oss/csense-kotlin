@@ -7,7 +7,7 @@ package csense.kotlin.extensions.collections.set
  * @receiver MutableSet<T>
  * @param item T
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> MutableSet<T>.toggleExistence(item: T) {
     setExistence(item, !contains(item))
 }
@@ -19,7 +19,7 @@ inline fun <T> MutableSet<T>.toggleExistence(item: T) {
  * @param item T
  * @param shouldExists Boolean
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> MutableSet<T>.setExistence(item: T, shouldExists: Boolean) {
     if (shouldExists) {
         add(item)

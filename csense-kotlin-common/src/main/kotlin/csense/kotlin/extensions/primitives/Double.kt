@@ -46,7 +46,7 @@ inline val Double.isZero: Boolean
  * since a negative margin would always yield false
  * @return Boolean
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun Double.equalWithin(value: Double, margin: Double = 0.1): Boolean {
     val lower = value - margin.positive
     val upper = value + margin.positive

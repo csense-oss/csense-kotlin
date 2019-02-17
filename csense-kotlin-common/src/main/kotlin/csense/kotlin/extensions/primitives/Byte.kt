@@ -10,7 +10,7 @@ import kotlin.experimental.*
  * @param shift Int the amount to shl
  * @return Byte the resulting byte; overflow are discared
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline infix fun Byte.shl(shift: Int): Byte = (this.toInt() shl shift).toByte()
 
 /**
@@ -19,7 +19,7 @@ inline infix fun Byte.shl(shift: Int): Byte = (this.toInt() shl shift).toByte()
  * @param shift Int the amount to shr
  * @return Byte the resulting byte; overflow are discared
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline infix fun Byte.shr(shift: Int): Byte = (this.toInt() shr shift).toByte()
 
 /**
@@ -38,7 +38,7 @@ inline fun <T> Byte.toChars(action: (upperChar: Char, lowerChar: Char) -> T): T 
  * @receiver Byte
  * @return String
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun Byte.toHexString(): String =
         this.toChars { upperChar, lowerChar ->
             String.createFromChars(kotlin.charArrayOf(upperChar, lowerChar))

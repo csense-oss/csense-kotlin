@@ -1,8 +1,8 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
 
-package csense.kotlin.time
+package csense.kotlin.units
 
-import csense.kotlin.time.TimeUnit.*
+import csense.kotlin.units.TimeUnit.*
 import kotlinx.coroutines.*
 
 /**

@@ -1,14 +1,14 @@
 package csense.kotlin.time
 
 import csense.kotlin.test.assertions.*
-import csense.kotlin.time.TimeUnit.*
+import csense.kotlin.units.TimeUnit.*
 import kotlin.test.*
 
 
 /**
  *
  */
-internal class TimeUnitKtTest {
+internal class TimeKtTest {
 
     @Ignore
     @Test

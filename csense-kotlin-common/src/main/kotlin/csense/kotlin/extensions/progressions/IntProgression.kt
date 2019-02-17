@@ -8,7 +8,7 @@ package csense.kotlin.extensions.progressions
  * @receiver IntProgression
  * @return IntArray
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun IntProgression.toIntArray(): IntArray = this.toList().toIntArray()
 
 /**

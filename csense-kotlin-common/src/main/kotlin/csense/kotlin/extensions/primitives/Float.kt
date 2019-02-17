@@ -14,7 +14,7 @@ inline val Float.negative: Float
  * @param delta Float
  * @return Boolean
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun Float.equals(otherFloat: Float, delta: Float): Boolean =
         this >= otherFloat - delta && this <= otherFloat + delta
 
@@ -24,7 +24,7 @@ inline fun Float.equals(otherFloat: Float, delta: Float): Boolean =
  * @param tolerance Float
  * @return Boolean
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun Float.isZero(tolerance: Float = 0.1f): Boolean {
     return this < tolerance && this > tolerance.negative
 }

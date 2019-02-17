@@ -87,14 +87,14 @@ sealed class Expected<out Value> {
  * Creates an expected success result from the given value
  *
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> expectedSucceded(value: T): ExpectedSuccess<T> =
         Expected.success(value)
 
 /**
  * Creates an expected failed result from the given error / exception .
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> expectedFailed(
         exception: Throwable = Exception(defaultExceptionMessage)): ExpectedFailed<T> =
         Expected.failed(exception)

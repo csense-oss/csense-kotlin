@@ -11,7 +11,7 @@ import csense.kotlin.extensions.primitives.*
  * @param size Int
  * @return List<E>
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <E> List<E>.limitToSize(size: Int): List<E> =
         subList(0, minOf(size, this.size))
 
@@ -22,7 +22,7 @@ inline fun <E> List<E>.limitToSize(size: Int): List<E> =
  * @param intRange IntRange
  * @return List<T>
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
         subList(intRange.start, intRange.endInclusive)
 
@@ -33,7 +33,8 @@ inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
  * @param filters Array<out Function1<T, Boolean>>
  * @return List<List<T>>
  */
-@Suppress("NOTHING_TO_INLINE")
+//TODO collection instead
+
 inline fun <T> List<T>.categorizeInto(vararg filters: (T) -> Boolean): List<List<T>> {
     val result = filters.map { mutableListOf<T>() }
     this.forEach {
@@ -50,7 +51,6 @@ inline fun <T> List<T>.categorizeInto(vararg filters: (T) -> Boolean): List<List
  * @param repeatBy Int
  * @return List<T>
  */
-@Suppress("NOTHING_TO_INLINE")
 inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
     if (repeatBy.isNegative) {
         return this

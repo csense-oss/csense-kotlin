@@ -13,7 +13,7 @@ import kotlin.contracts.*
  * @return U the value depending on 'this' value
  */
 @ExperimentalContracts
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <U> Any?.mapOptional(ifNotNull: U, ifNull: U): U {
     return this.isNotNull.map(ifNotNull, ifNull)
 }
@@ -42,7 +42,7 @@ inline fun <U> Any?.mapLazyOptional(ifNotNull: EmptyFunctionResult<U>,
  * @param ifFalse T
  * @return T
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <T> Boolean.map(ifTrue: T, ifFalse: T): T = if (this) {
     ifTrue
 } else {

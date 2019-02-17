@@ -15,7 +15,7 @@ import csense.kotlin.extensions.primitives.*
  * @param shouldBeUppercase Boolean
  * @return String
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
                                  shouldBeUppercase: Boolean = true): String {
 

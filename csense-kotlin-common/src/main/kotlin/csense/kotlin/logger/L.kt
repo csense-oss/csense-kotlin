@@ -174,6 +174,7 @@ fun L.usePrintAsLoggers(
 }
 
 /**
+ * TODO remove top type as it contains more than these kinds of types we are working with.....
  * A simple enumeration over the types of logging that can happen.
  * @property stringValue String the textual representation (useful for tags)
  */

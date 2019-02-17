@@ -18,3 +18,14 @@ inline fun <K, V> MutableMap<K, V>.removeAll(
 }
 
 
+/**
+ * Conveinces for setting subLists iff they are not empty.
+ * @receiver MutableMap<K, V>
+ * @param key K
+ * @param value V
+ */
+fun <K, V : Iterable<*>> MutableMap<K, V>.setIfNotEmpty(key: K, value: V) {
+    if (value.any()) {
+        this[key] = value
+    }
+}

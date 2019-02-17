@@ -11,7 +11,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver Iterable<kotlin.Function1<I1, O>>
  * @param element I1
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, O> Iterable<kotlin.Function1<I1, O>>.invokeEachWith(element: I1) =
         forEach { it(element) }
 
@@ -22,7 +22,7 @@ inline fun <I1, O> Iterable<kotlin.Function1<I1, O>>.invokeEachWith(element: I1)
  * @param secondElement I2
  */
 
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
         firstElement: I1,
         secondElement: I2) =
@@ -35,7 +35,7 @@ inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
  * @param secondElement I2
  * @param thirdElement I3
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWith(
         firstElement: I1,
@@ -55,7 +55,7 @@ inline fun <I1, I2, I3, O>
  * @param thirdElement I3
  * @param forthElement I4
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, I2, I3, I4, O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWith(
         firstElement: I1,
@@ -78,7 +78,7 @@ inline fun <I1, I2, I3, I4, O>
  * @param forthElement I4
  * @param fifthElement I5
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, I2, I3, I4, I5, O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWith(
         firstElement: I1,
@@ -104,7 +104,7 @@ inline fun <I1, I2, I3, I4, I5, O>
  * @param fifthElement I5
  * @param sixthElement I6
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <I1, I2, I3, I4, I5, I6, O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWith(
         firstElement: I1,
@@ -128,7 +128,7 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
  * @receiver Iterable<E?>
  * @param action FunctionUnit<E>
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun <E> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
     forEach { it?.let(action) }
 }

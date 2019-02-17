@@ -2,7 +2,14 @@
 ## 0.0.15
 - Started on various unit types
     - bytes (in the binary notation) 
--strings default ignore case argument (false) to be like stdlib    
+- strings default ignore case argument (false) to be like stdlib
+- moved TimeUnit to units package (breaking change) (and renamed file)
+- reflection extension for jvm
+- throwable to string extension (jvm)
+- short extensions
+- removed unessary ignore annotations
+- a lot of minor things from commonsense android kotlin 0.0.18 / 0.0.20
+
 
 ## 0.0.14
 - fixed logging issue 

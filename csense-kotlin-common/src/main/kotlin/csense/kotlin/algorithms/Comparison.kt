@@ -36,3 +36,20 @@ inline fun Int.toComparing(): Comparing {
     }
 }
 
+/*
+TODO ????
+inline fun Int.compareToRange(from: Int, to: Int): Comparing {
+    //make it a bit more "defined" behavior.
+    if (from > to) {
+        return Comparing.LessThan
+    }
+    return when {
+        this in (from..to) -> Comparing.Equal
+        this > to -> Comparing.LargerThan
+        else -> Comparing.LessThan
+    }
+}
+
+
+
+ */

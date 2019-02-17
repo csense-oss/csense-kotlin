@@ -13,7 +13,7 @@ import csense.kotlin.patterns.*
  * @receiver String
  * @return String?
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun String.fileExtension(): String? {
     val fileExtension = substringAfterLast(".", "")
     return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
@@ -112,7 +112,7 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
  * @param ignoreCase Boolean
  * @return Set<Int>
  */
-@Suppress("NOTHING_TO_INLINE")
+
 inline fun String.findAllOf(subString: String,
                             searchByWord: Boolean,
                             ignoreCase: Boolean = false): Set<Int> {
@@ -286,6 +286,14 @@ inline fun String.limitTo(maxLength: Int): String {
  */
 inline fun String.wrapIn(prefix: String, postFix: String): String =
         prefix + this + postFix
+
+/**
+ * As the name implies wraps the given receiver into a pair of quoutes at each end
+ * @receiver String
+ * @return String the wrapped string.
+ */
+inline fun String.wrapInQuotes(): String = wrapIn("\"", "\"")
+
 //endregion
 
 //region Action on state
