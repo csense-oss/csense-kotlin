@@ -1,4 +1,8 @@
 # Changelog
+## 0.0.15
+- Started on various unit types
+    - bytes (in the binary notation) 
+-strings default ignore case argument (false) to be like stdlib    
 
 ## 0.0.14
 - fixed logging issue 

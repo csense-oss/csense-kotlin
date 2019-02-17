@@ -2,14 +2,9 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.EmptyFunctionResult
-import csense.kotlin.Function1
-import csense.kotlin.extensions.appendContentOf
-import csense.kotlin.extensions.map
-import csense.kotlin.extensions.mapInvoke
-import csense.kotlin.patterns.Expected
-import csense.kotlin.patterns.ExpectedFailed
-import csense.kotlin.patterns.expectedSucceded
+import csense.kotlin.*
+import csense.kotlin.extensions.*
+import csense.kotlin.patterns.*
 
 
 //region File related string apis
@@ -68,8 +63,6 @@ object IndexOfMissingException : Exception("Unable to find substring")
  */
 inline fun String.Companion.createFromChars(charArray: CharArray): String =
         StringBuilder().appendContentOf(charArray).toString()
-
-
 
 
 /**
@@ -228,7 +221,7 @@ inline fun String.replaceIfOr(condition: Boolean,
  */
 inline fun String.endsWithAny(
         items: Collection<String>,
-        ignoreCase: Boolean): Boolean =
+        ignoreCase: Boolean = false): Boolean =
         items.any { this.endsWith(it, ignoreCase) }
 
 /**
@@ -240,7 +233,7 @@ inline fun String.endsWithAny(
  */
 inline fun String.endsWithAny(
         vararg items: String,
-        ignoreCase: Boolean): Boolean =
+        ignoreCase: Boolean = false): Boolean =
         items.any { this.endsWith(it, ignoreCase) }
 
 /**
@@ -252,7 +245,7 @@ inline fun String.endsWithAny(
  */
 inline fun String.startsWithAny(
         vararg items: String,
-        ignoreCase: Boolean): Boolean =
+        ignoreCase: Boolean = false): Boolean =
         items.any { this.startsWith(it, ignoreCase) }
 
 /**
@@ -264,7 +257,7 @@ inline fun String.startsWithAny(
  */
 inline fun String.startsWithAny(
         items: Collection<String>,
-        ignoreCase: Boolean): Boolean =
+        ignoreCase: Boolean = false): Boolean =
         items.any { this.startsWith(it, ignoreCase) }
 //endregion
 
