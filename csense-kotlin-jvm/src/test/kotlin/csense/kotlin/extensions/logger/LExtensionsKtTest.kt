@@ -1,8 +1,10 @@
 package csense.kotlin.extensions.logger
 
 import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.list.*
 import csense.kotlin.logger.*
+import csense.kotlin.logger.logClassDebug
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 

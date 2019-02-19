@@ -31,7 +31,7 @@ inline fun <T> tryAndLog(classType: KClass<*>,
  */
 inline fun <T> tryAndLog(title: String = "",
                          message: String = "",
-                         logger: LoggingFunctionType<*>,
+                         logger: LoggingFunctionType<*> = L::error,
                          throwableAction: EmptyFunctionResult<T>): T? {
     return try {
         throwableAction()

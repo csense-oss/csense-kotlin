@@ -1,6 +1,5 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.extensions.primitives.fileExtension
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
@@ -161,28 +160,76 @@ class StringTest {
 
     }
 
-    @Ignore
     @Test
     fun ifNotEmpty() {
-
+        "".ifNotEmpty { "asd" }.assert("")
+        " ".ifNotEmpty { "qwe" }.assert("qwe")
+        "abc".ifNotEmpty { "123" }.assert("123")
     }
 
-    @Ignore
+
     @Test
     fun ifNotBlank() {
-
+        "".ifNotBlank { "asd" }.assert("")
+        " ".ifNotBlank { "qwe" }.assert(" ")
+        "   ".ifNotBlank { "qwe" }.assert("   ")
+        "abc".ifNotBlank { "123" }.assert("123")
     }
 
-    @Ignore
     @Test
     fun endsWithAny() {
 
+        "".endsWithAny(listOf("a", "b")).assertFalse()
+
+        "".endsWithAny(listOf("a")).assertFalse()
+        "a".endsWithAny(listOf("a")).assertTrue()
+        "b".endsWithAny(listOf("a")).assertFalse()
+
+        "a".endsWithAny(listOf("a", "b")).assertTrue()
+        "b".endsWithAny(listOf("a", "b")).assertTrue()
+        "c".endsWithAny(listOf("a", "b")).assertFalse()
+
+        "A".endsWithAny(listOf("a", "b")).assertFalse()
+        "B".endsWithAny(listOf("a", "b")).assertFalse()
+        "AB".endsWithAny(listOf("a", "b")).assertFalse()
+
+        "a".endsWithAny(listOf("a", "b"), true).assertTrue()
+        "a".endsWithAny(listOf("A", "b"), true).assertTrue()
+        "A".endsWithAny(listOf("a", "B"), true).assertTrue()
+        "A".endsWithAny(listOf("A", "B"), true).assertTrue()
+        "c".endsWithAny(listOf("A", "B"), true).assertFalse()
+        "C".endsWithAny(listOf("A", "B"), true).assertFalse()
+
+
+        "aba".endsWithAny(listOf("a")).assertTrue()
+        "aba".endsWithAny(listOf("b")).assertFalse()
+        "aba".endsWithAny(listOf("ba")).assertTrue()
+        "aba".endsWithAny(listOf("ab")).assertFalse()
+        "aba".endsWithAny(listOf("aba")).assertTrue()
     }
 
-    @Ignore
     @Test
     fun endsWithAnyVararg() {
 
+        "".endsWithAny("a", "b").assertFalse()
+
+        "".endsWithAny("a").assertFalse()
+        "a".endsWithAny("a").assertTrue()
+        "b".endsWithAny("a").assertFalse()
+
+        "a".endsWithAny("a", "b").assertTrue()
+        "b".endsWithAny("a", "b").assertTrue()
+        "c".endsWithAny("a", "b").assertFalse()
+
+        "a".endsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "b".endsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "c".endsWithAny("a", "b", ignoreCase = true).assertFalse()
+
+        "aba".endsWithAny("a").assertTrue()
+        "aba".endsWithAny("b").assertFalse()
+        "aba".endsWithAny("ba").assertTrue()
+        "aba".endsWithAny("ab").assertFalse()
+        "aba".endsWithAny("aba").assertTrue()
     }
 
     @Ignore
@@ -197,9 +244,13 @@ class StringTest {
 
     }
 
-    @Ignore
     @Test
     fun replaceIf() {
+        "abc".replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
+        "abc".replaceIf(false, "abc", "1234", true).assert("abc", "should not replace")
+        "abc".replaceIf(true, "abc", "1234", false).assert("1234")
+        "abc".replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
+        "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
 
     }
 

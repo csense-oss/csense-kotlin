@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.list
 
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 

@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
 
 typealias EmptyFunction = () -> Unit
 
-typealias EmptyReceiver<T> = T.() -> Unit
 typealias EmptyFunctionResult<T> = () -> T
 
 typealias AsyncEmptyFunction = suspend () -> Unit

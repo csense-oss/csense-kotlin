@@ -18,29 +18,26 @@ inline fun <T> T.weakReference(): WeakReference<T> = WeakReference(this)
  * Will use the value if the weak reference is not pointing to null
  * This differes from `use` where we cannot use it on an optional value inside of a WeakReference
  */
-inline fun <T> WeakReference<T?>.useOpt(action: T.() -> Unit) {
-    get()?.let(action)
-}
-
-
-/**
- * Performs the given action iff this weak reference is not null
- * @receiver WeakReference<T> the weak reference we want to unpack
- * @param action T.() -> Unit the action to run if the reference is not null
- */
-inline fun <T> WeakReference<T>.use(action: T.() -> Unit) {
+inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>) {
     get()?.let(action)
 }
 
 /**
  * Uses the given weak reaference if available or does the other action
  * @receiver WeakReference<T>
- * @param ifAvailable T.() -> Unit the action to perform iff the weak reference did contain something (not null)
+ * @param ifAvailable ReceiverFunctionUnit<T> the action to perform iff the weak reference did contain something (not null)
  * @param ifNotAvailable EmptyFunction if the weakreference gave null,this action will be performed
  */
-inline fun <T> WeakReference<T>.useRefOr(ifAvailable: T.() -> Unit,
-                                         ifNotAvailable: EmptyFunction) {
-    get().useOr(ifAvailable, ifNotAvailable)
+inline fun <T> WeakReference<T>.useOr(
+        ifAvailable: ReceiverFunctionUnit<T>,
+        ifNotAvailable: EmptyFunction
+) {
+    val item = get()
+    if (item != null) {
+        ifAvailable(item)
+    } else {
+        ifNotAvailable()
+    }
 }
 
 

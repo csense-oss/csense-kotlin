@@ -35,7 +35,7 @@ class ExceptionsKtTest {
     }
 
     @Test
-    fun tryAndLog() {
+    fun testTryAndLog() {
 
         val works = tryAndLog {
             42
