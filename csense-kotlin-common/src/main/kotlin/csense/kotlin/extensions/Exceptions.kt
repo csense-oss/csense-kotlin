@@ -6,20 +6,6 @@ import csense.kotlin.*
 import csense.kotlin.logger.*
 import kotlin.reflect.*
 
-/**
- * Uses the class's simple name (or a bad description if not there) as the title, otherwise the same as
- * tryandlog with a string title.
- * @param classType KClass<*>
- * @param message String
- * @param throwableAction EmptyFunctionResult<T>
- * @return T?
- */
-inline fun <T> tryAndLog(classType: KClass<*>,
-                         message: String = "",
-                         logger: LoggingFunctionType<*> = L::error,
-                         throwableAction: EmptyFunctionResult<T>): T? {
-    return tryAndLog(classType.simpleName ?: "no type name", message, logger, throwableAction)
-}
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
