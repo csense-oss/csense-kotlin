@@ -5,7 +5,7 @@ package csense.kotlin.test.assertions
 import kotlin.test.*
 
 
-fun failTest(message: String = "") {
+fun failTest(message: String = ""): Nothing {
     fail(message)
 }
 

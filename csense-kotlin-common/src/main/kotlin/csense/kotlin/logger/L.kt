@@ -8,29 +8,23 @@ import csense.kotlin.extensions.primitives.*
 
 
 /**
- * A category of regular logging types.
+ * Logging types / levels
+ * A simple enumeration over the types of logging that can happen.
+ * @property stringValue String the textual representation (useful for tags)
  */
-enum class LoggingType {
+enum class LoggingLevel(val stringValue: String) {
+    Debug("Debug"),
+    Warning("Warning"),
+    Error("Error"),
+    Production("Production");
+
     /**
-     * A critical error
+     * Gets the string representation.
+     * @return String
      */
-    Error,
-    /**
-     * A warning (akk not a stop sign, but close)
-     */
-    Warning,
-    /**
-     * A development based error (wrong assumptions ect / akk assertions).
-     */
-    Debug,
-    /**
-     * Verbosly logging information about state ect.
-     */
-    Verbose,
-    /**
-     * a varient of verbose, usually not used
-     */
-    Info
+    override fun toString(): String {
+        return stringValue
+    }
 }
 
 /**
@@ -171,24 +165,4 @@ fun L.usePrintAsLoggers(
     warningLoggers.add(warning)
     errorLoggers.add(error)
     productionLoggers.add(prod)
-}
-
-/**
- * TODO remove top type as it contains more than these kinds of types we are working with.....
- * A simple enumeration over the types of logging that can happen.
- * @property stringValue String the textual representation (useful for tags)
- */
-enum class LoggingLevel(val stringValue: String) {
-    Debug("Debug"),
-    Warning("Warning"),
-    Error("Error"),
-    Production("Production");
-
-    /**
-     * Gets the string representation.
-     * @return String
-     */
-    override fun toString(): String {
-        return stringValue
-    }
 }

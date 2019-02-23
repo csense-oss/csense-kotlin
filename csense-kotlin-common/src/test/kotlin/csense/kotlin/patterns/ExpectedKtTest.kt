@@ -105,13 +105,11 @@ class ExpectedKtTest {
             it.toString()
         }, {
             failTest("should not be called")
-            ""
         }).assert("42")
 
         val failed = expectedFailed<Int>(Exception("errorMessage"))
         failed.mapIfValidOr({
             failTest("should not be called")
-            ""
         }, {
             it.message
         }).assertNotNullAndEquals("errorMessage")

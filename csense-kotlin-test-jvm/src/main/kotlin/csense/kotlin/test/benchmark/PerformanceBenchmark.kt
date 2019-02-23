@@ -31,7 +31,6 @@ inline fun microBench(
 
         if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime) > totalTimeoutInSeconds) {
             failTest("Took too long for test. in warm up phase; iteration : $warmI of $warmCount")
-            return
         }
     }
     forceGc()
@@ -55,7 +54,6 @@ inline fun microBench(
 
         if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime) > totalTimeoutInSeconds) {
             failTest("Took too long for test. iteration : $iteration of $numberOfIterations")
-            return
         }
     }
 

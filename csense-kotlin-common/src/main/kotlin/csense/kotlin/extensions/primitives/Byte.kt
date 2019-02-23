@@ -4,6 +4,85 @@ package csense.kotlin.extensions.primitives
 
 import kotlin.experimental.*
 
+
+//region Zero, negative, positive
+
+inline val Byte.zero: Byte
+    get () = 0
+/**
+ * Gets this Byte negative, if it is already negative, returns that.
+ * this is also negative Abs.
+ */
+inline val Byte.negative: Byte
+    get() = if (this.isPositiveOrZero) {
+        (-this).toByte()
+    } else {
+        this
+    }
+
+
+/**
+ * this Byte positive, if it is already postive, returns that.
+ * also known as abs
+ */
+inline val Byte.positive: Byte
+    get () = if (this.isNegative) {
+        (this * -1).toByte()
+    } else {
+        this
+    }
+
+/**
+ *  if this Byte is not 0 => returns true. false otherwise
+ */
+inline val Byte.isNotZero: Boolean
+    get() = !isZero
+
+/**
+ *  if this Byte is 0 => returns true. false otherwise
+ */
+inline val Byte.isZero: Boolean
+    get() = this == zero
+
+/**
+ * Tells if this number is either negative or zero
+ */
+inline val Byte.isNegativeOrZero: Boolean
+    get() = this.isNegative || this.isZero
+
+/**
+ * Tells if this number is either positive or zero
+ */
+inline val Byte.isPositiveOrZero: Boolean
+    get() = this.isPositive || this.isZero
+
+
+/**
+ * If this value is less than 0 then its negative
+ */
+inline val Byte.isNegative: Boolean
+    get() = this < 0
+
+/**
+ * A value is positive iff its greater than neutral (0)
+ */
+inline val Byte.isPositive: Boolean
+    get() = this > 0
+
+
+/**
+ * if this whole number is even (2,4,6....)
+ */
+inline val Byte.isEven: Boolean
+    get() = this % 2 == 0
+/**
+ * If this whole number is odd (1,3,5 ...)
+ */
+inline val Byte.isOdd: Boolean
+    get() = !isEven
+//endregion
+
+//region bit wise operations
 /**
  * Shifts the bits to the left the given amount of times
  * @receiver Byte the value to SHL
@@ -21,7 +100,9 @@ inline infix fun Byte.shl(shift: Int): Byte = (this.toInt() shl shift).toByte()
  */
 
 inline infix fun Byte.shr(shift: Int): Byte = (this.toInt() shr shift).toByte()
+//endregion
 
+//region hex converting
 /**
  * Converts a given byte to a pair of chars, and then returns the resulting
  * @receiver Byte
@@ -61,3 +142,5 @@ inline fun <T> Byte.splitIntoComponents(action: (upperByte: Byte, lowerByte: Byt
  *
  */
 const val hexCharsAsString = "0123456789ABCDEF"
+//endregion
+

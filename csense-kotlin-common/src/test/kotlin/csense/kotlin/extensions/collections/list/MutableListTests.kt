@@ -36,7 +36,10 @@ class MutableExtensionsKtTest {
 
     @Test
     fun replace() {
-
+        val list = mutableListOf("1", "2")
+        list.replace("3", 1)
+        list[1].assert("3")
+        list[0].assert("1")
     }
 
     @Test

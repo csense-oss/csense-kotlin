@@ -54,9 +54,112 @@ class CollectionTest {
         collection.getSafe(4).assertNull()
         collection.getSafe(2).assertNotNullAndEquals("2")
         collection.getSafe(1).assertNotNullAndEquals("1")
+    }
 
+    @Test
+    fun isRangeValid() {
+        val collection: MutableCollection<String> = mutableListOf()
+        collection.isRangeValid(0 until 0).assertFalse("no range is valid in an empty collection")
+        collection.isRangeValid(0 until 1).assertFalse("no range is valid in an empty collection")
+
+        collection.addAll(listOf("a", "b"))
+        collection.isRangeValid(0 until 0).assertFalse("0  -> -1 is not a valid range.")
+        collection.isRangeValid(IntRange(-1, 1)).assertFalse("-1 -> 1 is not a valid range.")
+        collection.isRangeValid(0 until 1).assertTrue()
+        collection.isRangeValid(0 until 2).assertTrue()
+        collection.isRangeValid(0 until 3).assertFalse()
+
+        collection.isRangeValid(1 until 2).assertTrue()
+        collection.isRangeValid(1 until 3).assertFalse()
+
+        collection.add("c")
+        collection.isRangeValid(1 until 3).assertTrue()
+        collection.isRangeValid(1 until 2).assertTrue()
+        collection.isRangeValid(0 until 1).assertTrue()
+        collection.isRangeValid(3 until 1).assertTrue()
+        collection.isRangeValid(2 until 1).assertTrue()
+        collection.isRangeValid(4 until 1).assertFalse("even if the range is inverse, it should still be within bounds.")
 
     }
 
+
+    @Test
+    fun categorizeIntoMultiple() {
+        val someData = listOf("a", "1", "qwerty", "cow", "blue", "red", "cat", "3", "b")
+        //try filter only single characters and single numbers
+        val (singleChars, singleDigits) = someData.categorizeIntoMultiple({
+            it.length == 1 && it.first().asDigit() == null
+        }, {
+            it.length == 1 && it.first().asDigit() != null
+        })
+        singleChars.assertSize(2)
+        singleDigits.assertSize(2)
+
+        val (all, colors) = someData.categorizeIntoMultiple({
+            true
+        }, {
+            setOf("blue", "red").contains(it)
+        })
+
+        all.assertSize(9)
+        colors.assertSize(2)
+        val (all1, all2, all3) = someData.categorizeIntoMultiple(
+                { true },
+                { true },
+                { true })
+
+        all1.assertSize(9)
+        all2.assertSize(9)
+        all3.assertSize(9)
+        val (falseAll1, falseAll2) = someData.categorizeIntoMultiple(
+                { false },
+                { false })
+        falseAll1.assertSize(0)
+        falseAll2.assertSize(0)
+    }
+
+    @Test
+    fun categorizeIntoSingle() {
+        val someData = listOf("a", "1", "qwerty", "cow", "blue", "red", "cat", "3", "b")
+        //try filter only single characters and single numbers
+        val (singleChars, singleDigits) = someData.categorizeIntoSingle({
+            it.length == 1 && it.first().asDigit() == null
+        }, {
+            it.length == 1 && it.first().asDigit() != null
+        })
+        singleChars.assertSize(2)
+        singleDigits.assertSize(2)
+
+        val (all, colors) = someData.categorizeIntoSingle({
+            true
+        }, {
+            failTest("should never get called, since the other filter will eat this")
+        })
+
+        all.assertSize(9)
+        colors.assertSize(0, "since all eats the item")
+        val (all1, all2, all3) = someData.categorizeIntoSingle(
+                { true },
+                { failTest() },
+                { failTest() })
+
+        all1.assertSize(9)
+        all2.assertSize(0)
+        all3.assertSize(0)
+        val (falseAll1, falseAll2) = someData.categorizeIntoSingle(
+                { false },
+                { false })
+        falseAll1.assertSize(0)
+        falseAll2.assertSize(0)
+
+        val (falseAll11, falseAll21, trueAll21) = someData.categorizeIntoSingle(
+                { false },
+                { false },
+                { true })
+        falseAll11.assertSize(0)
+        falseAll21.assertSize(0)
+        trueAll21.assertSize(9)
+
+    }
 
 }

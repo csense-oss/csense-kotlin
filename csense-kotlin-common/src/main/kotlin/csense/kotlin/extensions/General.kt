@@ -3,32 +3,21 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import kotlin.reflect.*
 
 
 /**
  * Creates a simpler cast than regular due to the reified type T.
  * @receiver Any the value to cast
- * @return T? the potentical cast, if it is unable, null will be returned
+ * @return T? the potential cast, if it is unable, null will be returned
  */
 inline fun <reified T> Any.cast(): T? = this as? T
-
-/**
- * simple convinience for getting a kclass for a given type, witout having to write "MyClass::class" which could be very long names,
- * and in case of generic code, it allows type changes without changing "MyClass" to "SomeOtherClass" later :)
- *
- * @return KClass<T>
- */
-inline fun <reified T : Any> typeK(): KClass<T> = T::class
-
 
 /**
  * Converts any type into a "unit"
  * @receiver Any?
  */
 @Suppress("RedundantUnitReturnType")
-inline fun Any?.toUnit(): Unit {
-}
+inline fun Any?.toUnit(): Unit = Unit
 
 
 /**
@@ -36,6 +25,23 @@ inline fun Any?.toUnit(): Unit {
  * @receiver Function1<T, *>
  * @return FunctionUnit<T>
  */
-inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> {
-    return { this(it) }
+inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
+
+//TODO more of the toUnitFunction (for empty, for multiple args)
+
+/**
+ * Uses this value iff not null or another if it is.
+ * the first function (argument) will receive the value iff it is not null, the second is without any parameters
+ *
+ * @receiver T?
+ * @param ifNotNull T.() -> Unit the action to perform iff this is not null
+ * @param ifNull EmptyFunction  if the this is null this action will be performed
+ */
+inline fun <T> T?.useOr(ifNotNull: ReceiverFunctionUnit<T>,
+                        ifNull: EmptyFunction) {
+    if (this != null) {
+        ifNotNull(this)
+    } else {
+        ifNull()
+    }
 }

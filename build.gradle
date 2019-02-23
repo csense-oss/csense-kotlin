@@ -33,7 +33,6 @@ subprojects {
 
     repositories {
         jcenter()
-        mavenCentral()
         google()
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -42,7 +41,6 @@ subprojects {
 
         repositories {
             jcenter()
-            mavenCentral()
             google()
             maven { url "https://plugins.gradle.org/m2/" }
         }

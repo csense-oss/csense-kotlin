@@ -1,7 +1,6 @@
 package csense.kotlin.extensions.generic
 
-import csense.kotlin.Function0
-import csense.kotlin.Function1
+import csense.kotlin.*
 
 /**
  * A very generic foreach, should work with any kind of design.

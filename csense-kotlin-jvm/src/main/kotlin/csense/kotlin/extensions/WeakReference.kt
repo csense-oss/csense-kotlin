@@ -23,7 +23,7 @@ inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>) {
 }
 
 /**
- * Uses the given weak reaference if available or does the other action
+ * Uses the given weak reference if available or does the other action
  * @receiver WeakReference<T>
  * @param ifAvailable ReceiverFunctionUnit<T> the action to perform iff the weak reference did contain something (not null)
  * @param ifNotAvailable EmptyFunction if the weakreference gave null,this action will be performed
@@ -32,12 +32,7 @@ inline fun <T> WeakReference<T>.useOr(
         ifAvailable: ReceiverFunctionUnit<T>,
         ifNotAvailable: EmptyFunction
 ) {
-    val item = get()
-    if (item != null) {
-        ifAvailable(item)
-    } else {
-        ifNotAvailable()
-    }
+    get().useOr(ifAvailable, ifNotAvailable)
 }
 
 

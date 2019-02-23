@@ -1,7 +1,7 @@
 apply plugin: 'kotlin-platform-jvm'
 apply plugin: "jacoco"
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {

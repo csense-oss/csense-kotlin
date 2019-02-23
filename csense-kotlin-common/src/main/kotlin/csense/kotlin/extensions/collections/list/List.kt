@@ -26,24 +26,6 @@ inline fun <E> List<E>.limitToSize(size: Int): List<E> =
 inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
         subList(intRange.start, intRange.endInclusive)
 
-/**
- * maps the given list into "buckets" / akk categorizes the items. i
- * no item will appear in multiple buckets / categories
- * @receiver List<T>
- * @param filters Array<out Function1<T, Boolean>>
- * @return List<List<T>>
- */
-//TODO collection instead
-
-inline fun <T> List<T>.categorizeInto(vararg filters: (T) -> Boolean): List<List<T>> {
-    val result = filters.map { mutableListOf<T>() }
-    this.forEach {
-        filters.forEachIndexed { index, filterAccepts ->
-            filterAccepts(it).onTrue { result[index].add(it) }
-        }
-    }
-    return result
-}
 
 /**
  * creates a new list by repeating this list the given number of times.
@@ -52,7 +34,7 @@ inline fun <T> List<T>.categorizeInto(vararg filters: (T) -> Boolean): List<List
  * @return List<T>
  */
 inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
-    if (repeatBy.isNegative) {
+    if (repeatBy.isNegativeOrZero) {
         return this
     }
     val resultList = this.toMutableList()
@@ -63,18 +45,30 @@ inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
 }
 
 /**
- * Repeats this list to the given size, by repeating elements from the beginning
+ * Repeats this list to the given toSize, by repeating elements from the beginning
+ * if toSize is less than the list size, returns the sublist.
+ * else it expands with the already existing data.
+ *
  * @receiver List<T>
- * @param size Int
- * @return List<T>
+ * @param toSize Int
+ * @return List<T> a new list to the desired size, by repeating this list, over and over again.
  */
-inline fun <reified T> List<T>.repeatToSize(size: Int): List<T> {
-    if (isEmpty() || size <= 0) {
+inline fun <reified T> List<T>.repeatToSize(toSize: Int): List<T> {
+    //empty bounds
+    if (isEmpty() || toSize.isNegativeOrZero) {
         return listOf()
     }
-    val timesToRepeate = size / count()
-    val missingItemsToCopy = size % count()
-    val resultList = this.repeat(timesToRepeate - 1)
+    // this as sublist ?
+    if (toSize < this.size) {
+        return this.subList(0, toSize)
+    }
+    //we are to expand, first calculate full "copies"
+    val timesToRepeat = toSize / count()
+    //calculate the missing after each "copy", like make this list 2,5 times larger (the 0.5 part)
+    val missingItemsToCopy = toSize % count()
+    //copy the list each time applicable
+    val resultList = this.repeat(timesToRepeat - 1)
+    //and add the sublist missing part.
     return resultList + this.subList(0, missingItemsToCopy)
 }
 

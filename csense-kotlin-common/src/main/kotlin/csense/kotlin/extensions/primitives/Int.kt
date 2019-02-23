@@ -33,6 +33,19 @@ inline val Int.isZero: Boolean
     get() = this == 0
 
 /**
+ * Tells if this number is either negative or zero
+ */
+inline val Int.isNegativeOrZero: Boolean
+    get() = this.isNegative || this.isZero
+
+/**
+ * Tells if this number is either positive or zero
+ */
+inline val Int.isPositiveOrZero: Boolean
+    get() = this.isPositive || this.isZero
+
+
+/**
  * If this value is less than 0 then its negative
  */
 inline val Int.isNegative: Boolean

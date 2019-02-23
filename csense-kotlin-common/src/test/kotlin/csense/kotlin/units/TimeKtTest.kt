@@ -1,4 +1,4 @@
-package csense.kotlin.time
+package csense.kotlin.units
 
 import csense.kotlin.test.assertions.*
 import csense.kotlin.units.TimeUnit.*

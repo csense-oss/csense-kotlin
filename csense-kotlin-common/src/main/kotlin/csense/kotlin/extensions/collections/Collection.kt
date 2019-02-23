@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.extensions.primitives.*
+
 /**
  * Validates the given index for the given collection (so 0 until length)
  * @receiver Collection<*>
@@ -42,7 +44,53 @@ inline fun <T> Collection<T>.getSafe(index: Int): T? =
  * @param intRange IntRange
  * @return Boolean
  */
-
 inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
-        (intRange.start >= 0 && intRange.endInclusive < size)
+        (intRange.start >= 0 &&
+                intRange.endInclusive >= 0 &&
+                intRange.endInclusive < size &&
+                intRange.start <= size)
 
+
+/**
+ * Maps the given list into "buckets" / akk categorizes the items.
+ * item will appear in multiple buckets / categories iff multiple filters accept them
+ * @receiver Collection<T>
+ * @param filters Array<out Function1<T, Boolean>>
+ * @return List<List<T>>
+ */
+inline fun <T> Collection<T>.categorizeIntoMultiple(vararg filters: Function1<T, Boolean>): List<List<T>> =
+        this.categorizeInto(*filters, allowItemInMultipleBuckets = true)
+
+
+/**
+ * Maps the given list into "buckets" / akk categorizes the items.
+ * items will NOT appear in multiple buckets / categories even if multiple filters accept them (first one wins)
+ * @receiver Collection<T>
+ * @param filters Array<out Function1<T, Boolean>>
+ * @return List<List<T>>
+ */
+inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, Boolean>): List<List<T>> =
+        this.categorizeInto(*filters, allowItemInMultipleBuckets = false)
+
+/**
+ *
+ * @receiver Collection<T>
+ * @param filters Array<out Function1<T, Boolean>>
+ * @param allowItemInMultipleBuckets Boolean
+ * @return List<List<T>>
+ */
+inline fun <T> Collection<T>.categorizeInto(vararg filters: Function1<T, Boolean>, allowItemInMultipleBuckets: Boolean = true): List<List<T>> {
+    val result = ArrayList(filters.map { mutableListOf<T>() })
+    this.forEach {
+        filters.forEachIndexed { index, filterAccepts ->
+            filterAccepts(it).onTrue {
+                result[index].add(it)
+                //should we stop finding filters that accepts this item ? if so then go on.
+                allowItemInMultipleBuckets.ifFalse {
+                    return@forEach //break to the foreach, akk go on to the next element
+                }
+            }
+        }
+    }
+    return result
+}

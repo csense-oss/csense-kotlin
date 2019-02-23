@@ -6,27 +6,41 @@ import kotlin.math.*
 
 
 /**
- * Gets this int negative, if it is already negative, returns that.
+ * Gets this number negative, if it is already negative, returns that.
  */
 inline val Double.negative: Double
     get() = minOf(this, -this)
 
 /**
- *
+ * always returns this value as a positive number, so -2.0 will become 2.0
  */
 inline val Double.positive: Double
     get() = this.absoluteValue
+
 /**
- *
+ * Tells if this number is < 0 (not neutral including)
  */
 inline val Double.isNegative: Boolean
     get() = this < 0
 
 /**
- *
+ * Tells if this number is > 0 (not neutral including)
  */
 inline val Double.isPositive: Boolean
     get() = this > 0
+
+/**
+ * Tells if this number is either negative or zero
+ */
+inline val Double.isNegativeOrZero: Boolean
+    get() = this.isNegative || this.isZero
+
+/**
+ * Tells if this number is either positive or zero
+ */
+inline val Double.isPositiveOrZero: Boolean
+    get() = this.isPositive || this.isZero
+
 
 /**
  * if this double is 0 within a margin of 0.1 akk
