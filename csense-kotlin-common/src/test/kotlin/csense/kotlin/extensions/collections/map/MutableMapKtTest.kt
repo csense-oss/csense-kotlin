@@ -39,4 +39,16 @@ class MutableMapKtTest {
         map.assertSize(0)
     }
 
+    @Ignore
+    @Test
+    fun setIfNotEmpty(){
+
+    }
+
+    @Ignore
+    @Test
+    fun putSubList(){
+
+    }
+
 }

@@ -2,6 +2,8 @@
 
 package csense.kotlin.algorithms
 
+import csense.kotlin.extensions.ranges.*
+
 //TODO "inline" when feature available. see
 /**
  * A comparison between 2 elements;
@@ -9,7 +11,7 @@ package csense.kotlin.algorithms
  * if x > y then Larger than
  * if x < y then less than.
  */
-enum class Comparing {
+enum class ItemComparison {
     /**
      * x > y then Larger than
      */
@@ -28,28 +30,41 @@ enum class Comparing {
  * Compares a regular "compareTo" into a comparing.
  * @receiver Int
  */
-inline fun Int.toComparing(): Comparing {
+inline fun Int.toComparing(): ItemComparison {
     return when {
-        this == 0 -> Comparing.Equal
-        this > 0 -> Comparing.LargerThan
-        else -> Comparing.LessThan
-    }
-}
-
-/*
-TODO ????
-inline fun Int.compareToRange(from: Int, to: Int): Comparing {
-    //make it a bit more "defined" behavior.
-    if (from > to) {
-        return Comparing.LessThan
-    }
-    return when {
-        this in (from..to) -> Comparing.Equal
-        this > to -> Comparing.LargerThan
-        else -> Comparing.LessThan
+        this == 0 -> ItemComparison.Equal
+        this > 0 -> ItemComparison.LargerThan
+        else -> ItemComparison.LessThan
     }
 }
 
 
-
+/**
+ * Compares this number to a range defined by the given from and to (as a whole),
+ * thus its equal iff in range, and then otherwise above or below.
+ * @receiver Int
+ * @param fromInclusive Int
+ * @param toInclusive Int
+ * @return ItemComparison
  */
+inline fun Int.compareToRange(fromInclusive: Int, toInclusive: Int): ItemComparison {
+    //make it a bit more "defined" behavior.
+    return compareToRange(fromInclusive until toInclusive)
+}
+
+
+/**
+ * Compares this number to a range (as a whole),
+ * thus its equal iff in range, and then otherwise above or below.
+ * @receiver Int
+ * @param intRange IntRange
+ * @return ItemComparison
+ */
+inline fun Int.compareToRange(intRange: IntRange): ItemComparison {
+    return when {
+        this in intRange -> ItemComparison.Equal
+        this > intRange.largest -> ItemComparison.LargerThan
+        else -> ItemComparison.LessThan
+    }
+
+}

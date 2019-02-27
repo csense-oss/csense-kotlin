@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.extensions.collections.map.*
+import csense.kotlin.extensions.generic.*
 import csense.kotlin.extensions.primitives.*
 
 /**
@@ -74,13 +76,15 @@ inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, B
 
 /**
  *
- * @receiver Collection<T>
- * @param filters Array<out Function1<T, Boolean>>
+ * @receiver Collection<Element>
+ * @param filters Array<out Function1<Element, Boolean>>
  * @param allowItemInMultipleBuckets Boolean
- * @return List<List<T>>
+ * @return List<List<Element>>
  */
-inline fun <T> Collection<T>.categorizeInto(vararg filters: Function1<T, Boolean>, allowItemInMultipleBuckets: Boolean = true): List<List<T>> {
-    val result = ArrayList(filters.map { mutableListOf<T>() })
+inline fun <Element> Collection<Element>.categorizeInto(
+        vararg filters: Function1<Element, Boolean>, allowItemInMultipleBuckets: Boolean = true
+): List<List<Element>> {
+    val result = ArrayList(filters.map { mutableListOf<Element>() })
     this.forEach {
         filters.forEachIndexed { index, filterAccepts ->
             filterAccepts(it).onTrue {
@@ -91,6 +95,36 @@ inline fun <T> Collection<T>.categorizeInto(vararg filters: Function1<T, Boolean
                 }
             }
         }
+    }
+    return result
+}
+
+/**
+ * Categorizes the collection into a map of string -> items, such that each of the items gets mapped into a string representation
+ * This is only here since categorizing by strings are such a common operation.
+ *
+ * @receiver Collection<T>
+ * @param categorizer Function1<T, String>
+ * @return Map<String, List<T>>
+ */
+inline fun <T> Collection<T>.categorizeByString(
+        categorizer: Function1<T, String>
+): Map<String, List<T>> = categorize(categorizer)
+
+/**
+ * Categorizes the given collection via the categorizer into a map of categories mapping to the elements matching this.
+ * Each element can only be in 1 category. (and will)
+ * @receiver Collection<T>
+ * @param categorizer Function1<T, K>
+ * @return Map<K, List<T>>
+ */
+inline fun <T, K> Collection<T>.categorize(
+        categorizer: Function1<T, K>
+): Map<K, List<T>> {
+    val result = mutableMapOf<K, MutableList<T>>()
+    forEach { item: T ->
+        val key = categorizer(item)
+        result.getOrPut(key, ::mutableListOf).add(item)
     }
     return result
 }

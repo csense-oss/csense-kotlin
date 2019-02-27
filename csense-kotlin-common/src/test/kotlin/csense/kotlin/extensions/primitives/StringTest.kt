@@ -87,16 +87,16 @@ class StringTest {
 
     @Test
     fun findAllOf() {
-        "".findAllOf("", false, false)
+        "".findAllOf("", searchByWord = false, ignoreCase = false)
                 .assertEmpty("nothing in nothing is nothing")
         val textString = "\"a very funny qoute\""
-        textString.findAllOf("\"", false, false).apply {
+        textString.findAllOf("\"", searchByWord = false, ignoreCase = false).apply {
             assertSize(2, "since there are 2 \" in the text")
             first().assert(0, "since the first \" is at the first location")
             last().assert(textString.length - 1, "since the last \" is at the end")
         }
 
-        textString.findAllOf("abc", false, false).assertEmpty()
+        textString.findAllOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
     }
 
     @Test

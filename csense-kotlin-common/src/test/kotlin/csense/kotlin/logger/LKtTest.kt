@@ -22,10 +22,10 @@ class LKtTest {
             isWarningLoggingAllowed = true
         }
         assertLoggingAllowedStates(
-                true,
-                true,
-                true,
-                true)
+                assertProd = true,
+                assertError = true,
+                assertWarning = true,
+                assertDebug = true)
 
         //make sure all are turned on
 
@@ -33,42 +33,42 @@ class LKtTest {
         L.isLoggingAllowed(false)
         //make sure all are turned off.
         assertLoggingAllowedStates(
-                false,
-                false,
-                false,
-                false)
+                assertProd = false,
+                assertError = false,
+                assertWarning = false,
+                assertDebug = false)
 
 
         L.isLoggingAllowed(true)
         assertLoggingAllowedStates(
-                true,
-                true,
-                true,
-                true)
+                assertProd = true,
+                assertError = true,
+                assertWarning = true,
+                assertDebug = true)
         //make sure all are turned on.
 
         L.isLoggingAllowed(false)
         assertLoggingAllowedStates(
-                false,
-                false,
-                false,
-                false)
+                assertProd = false,
+                assertError = false,
+                assertWarning = false,
+                assertDebug = false)
         L.isProductionLoggingAllowed = true
         assertLoggingAllowedStates(
-                true,
-                false,
-                false,
-                false)
+                assertProd = true,
+                assertError = false,
+                assertWarning = false,
+                assertDebug = false)
 
         L.isWarningLoggingAllowed = true
 
         L.isProductionLoggingAllowed = false
 
         assertLoggingAllowedStates(
-                false,
-                false,
-                true,
-                false)
+                assertProd = false,
+                assertError = false,
+                assertWarning = true,
+                assertDebug = false)
         //make sure they are not dependent on each other.
 
 
@@ -135,15 +135,6 @@ class LKtTest {
     @Test
     fun testViewLogging() {
         TODO("MISSING")
-    }
-
-
-    @Test
-    fun printLoggers() {
-        //todo in JVM as it requires
-        /*val baos = ByteArrayOutputStream()
-        System.setOut(PrintStream(baos))*/
-        //like code to read the printed.
     }
 
     private inline fun testLoggingPassThough(

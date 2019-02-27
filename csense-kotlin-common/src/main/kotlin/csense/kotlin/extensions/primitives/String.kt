@@ -4,8 +4,10 @@ package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.patterns.*
 
+//TODO unit tests.
 
 //region File related string apis
 /**
@@ -323,5 +325,63 @@ inline fun String.ifNotBlank(action: Function1<String, String>): String = if (is
     this
 } else {
     action(this)
+}
+//endregion
+
+//region Skipping functions
+
+/**
+ * Skips the given part if it starts with it.
+ * @receiver String
+ * @param prefix String the prefix we are looking for (and the part that will be skipped iff there.
+ * @param ignoreCase Boolean how we should compare prefix with this string
+ * @return String the resulting string, either the original or substring by the prefix length
+ */
+inline fun String.skipStartsWith(prefix: String, ignoreCase: Boolean = false): String {
+    val startsWith = startsWith(prefix, ignoreCase)
+    return startsWith.mapLazy(
+            ifTrue = { substring(prefix.length) },
+            ifFalse = { this })
+}
+//endregion
+
+//region foreach generic(s)
+/**
+ * Iterates over 2 characters at ones; only get executed iff the length is a factor of 2
+ * @receiver String
+ * @param action (first: Char, second: Char) -> Unit
+ */
+inline fun String.foreach2(action: Function2Unit<Char, Char>) =
+        GenericCollectionExtensions.forEach2(length, this::get, action)
+
+/**
+ * Iterates over 2 characters at ones with the index(first) as well; only get executed iff the length is a factor of 2
+ * @receiver String
+ * @param action (first: Char, second: Char) -> Unit
+ */
+inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>) =
+        GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
+//endregion
+
+//region Hex converting
+/**
+ * The opposite of ByteArray.toHexString , so takes a hex string (eg "0x20") and converts it to a byte array of that
+ * if any error is found during the "deserialization, null will be returned.
+ * @receiver String
+ * @return ShortArray? since UBytes are still experimental, shorts are used to make sure the size "is ok"
+ */
+inline fun String.fromHexStringToByteArray(): ShortArray? {
+    //strip prefix iff asked to
+    if (length.isOdd || isEmpty()) {
+        return null
+    }
+    //we have the hex prefix iff it starts with "0x". strip that iff necessary
+    val string = skipStartsWith("0x", true)
+    val result = ShortArray(string.length / 2)
+    string.foreach2Indexed { index: Int, first: Char, second: Char ->
+        val shortValue = hexCharsToValue(first, second) ?: return@fromHexStringToByteArray null
+        result[index / 2] = shortValue
+    }
+    return result
 }
 //endregion

@@ -14,8 +14,8 @@ class FloatTest {
 
     @Test
     fun testIsZero() {
-        2f.isZero().assert(false)
-        0f.isZero().assert(true)
-        0.1f.isZero(0.2f).assert(true)
+        2f.isZero.assert(false)
+        0f.isZero.assert(true)
+        0.1f.equalWithin(0.0f, 0.2f).assert(true)
     }
 }

@@ -6,10 +6,12 @@
 - moved TimeUnit to units package (breaking change) (and renamed file)
 - reflection extension for jvm
 - throwable to string extension (jvm)
-- short extensions
-- removed unessary ignore annotations
-- a lot of minor things from commonsense android kotlin 0.0.18 / 0.0.20
-
+- removed unnecessary ignore annotations
+- a lot of minor things from commonsense android kotlin 0.0.18 / 0.0.20 ( generally extensions)
+- cleaned up unused enum in Logger, as the level is now more concise with how its implemented 
+- Comparing is now "ItemComparing", since its between "items"
+- uniformed extensions on numbers (float, double, int, long, short, byte, now have +- the same extensions regarding positive, negative ect)
+  
 
 ## 0.0.14
 - fixed logging issue 

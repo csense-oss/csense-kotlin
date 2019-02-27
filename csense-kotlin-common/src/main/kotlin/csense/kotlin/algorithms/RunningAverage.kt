@@ -4,9 +4,8 @@ package csense.kotlin.algorithms
 
 import csense.kotlin.extensions.collections.array.*
 
-
 /**
- * Created by Kasper Tvede
+ *
  * The base class for handling calculating the average, with the ability to add more values to it
  * /akk the running average.
  *

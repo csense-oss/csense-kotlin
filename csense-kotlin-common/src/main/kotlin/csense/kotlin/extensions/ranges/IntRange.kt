@@ -12,3 +12,8 @@ inline val IntRange.length: Int
  */
 inline val IntRange.largest: Int
     get() = maxOf(last, start)
+/**
+ * The maximum value in the range (exclusive)
+ */
+inline val IntRange.endExclusive: Int
+    get() = endInclusive + 1 //since  +1 is the next size thus above end inclusive is +1

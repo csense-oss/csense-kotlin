@@ -2,13 +2,39 @@ package csense.kotlin.extensions.logger
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.collections.list.*
 import csense.kotlin.logger.*
-import csense.kotlin.logger.logClassDebug
 import csense.kotlin.test.assertions.*
+import java.io.*
 import kotlin.test.*
 
 class LExtensionsKtTest {
+
+
+    @Test
+    fun printLoggers() {
+        L.usePrintAsLoggers()
+        val baos = ByteArrayOutputStream()
+        System.setOut(PrintStream(baos))
+        L.isLoggingAllowed(true)
+
+        L.debug("test", "message")
+        val debugLog = baos.toString(Charsets.UTF_8)
+        baos.reset()
+        debugLog.assertStartsWith("Debug - [test] message ")
+        L.warning("test", "message warning")
+        val warningLog = baos.toString(Charsets.UTF_8)
+        baos.reset()
+        warningLog.assertStartsWith("Warning - [test] message warning")
+        L.error("test error", "message error")
+        val errorLog = baos.toString(Charsets.UTF_8)
+        baos.reset()
+        errorLog.assertStartsWith("Error - [test error] message error")
+        L.logProd("prodtest", "message prod")
+        val prodLog = baos.toString(Charsets.UTF_8)
+        baos.reset()
+        prodLog.assertStartsWith("Production - [prodtest] message prod")
+    }
+
 
     @Test
     fun testLogDebug() {
@@ -62,7 +88,6 @@ class LExtensionsKtTest {
     @Test
     fun testLDebug() {
         L.isDebugLoggingAllowed = true
-
         assertCounterAndContentOfLog(L.debugLoggers, {
             L.debug(this::class, "test")
         },
@@ -76,9 +101,7 @@ class LExtensionsKtTest {
 
     @Test
     fun testLWarning() {
-
         L.isWarningLoggingAllowed = true
-
         assertCounterAndContentOfLog(L.warningLoggers, {
             L.warning(this::class, "test2")
         },
@@ -92,9 +115,7 @@ class LExtensionsKtTest {
 
     @Test
     fun testLError() {
-
         L.isErrorLoggingAllowed = true
-
         assertCounterAndContentOfLog(L.errorLoggers, {
             L.error(this::class, "test3")
         },

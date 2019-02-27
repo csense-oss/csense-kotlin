@@ -162,4 +162,33 @@ class CollectionTest {
 
     }
 
+    @Test
+    fun categorize() {
+        val empty = listOf<String>()
+        empty.categorize { failTest("should never get called") }.assertSize(0)
+
+        val single = listOf("test")
+        single.categorize { it }.apply {
+            assertSize(1)
+            this["test"].assertNotNullAndEquals(listOf("test"))
+        }
+
+
+        val twoOfTwo = listOf("test-1", "test-2", "asd-1", "asd-2")
+        val twoOfTwoCat = twoOfTwo.categorize {
+            if (it.startsWith("test")) {
+                "test"
+            }else{
+                "asd"
+            }
+        }
+        twoOfTwoCat.assertSize(2)
+        twoOfTwoCat["test"].assertNotNullApply {
+            assertSize(2)
+        }
+        twoOfTwoCat["asd"].assertNotNullApply {
+            assertSize(2)
+        }
+    }
+
 }

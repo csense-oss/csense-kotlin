@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.extensions.*
+import kotlin.experimental.*
 
 /**
  *changes the casing of this char to the given casing
@@ -27,6 +28,7 @@ fun Char.asDigit(): Byte? {
     return diff.toByte()
 }
 
+//region Hex related functions
 /**
  * Tries to convert this byte into a "hex" value.
  * @receiver Char
@@ -46,6 +48,19 @@ fun Char.asHexDigit(): Byte? {
     return (thisByte + 0x0a).toByte()
 }
 
+/**
+ * Converts 2 part of a hex chars (eg "f", and e") will be converted into the combined value ("0xFE") and converted into a short with that value.
+ * @param first Char
+ * @param second Char
+ * @return Short? the potential valid hex value.
+ */
+inline fun hexCharsToValue(first: Char, second: Char): Short? {
+    val firstToInt = first.asHexDigit()?.toShort() ?: return null
+    val secondToInt = second.asHexDigit()?.toShort() ?: return null
+    return firstToInt.shl(4) or secondToInt
+}
+
+
 private const val charZeroAsByte = '0'.toByte()
 private const val charAAsByte = 'a'.toByte()
 
@@ -57,3 +72,6 @@ const val numberCharsCount: Int = 9
  * The length (0 indexed) of chars that represents hex numbers ( a - f)
  */
 const val hexCharsCount: Int = 5
+//endregion
+
+
