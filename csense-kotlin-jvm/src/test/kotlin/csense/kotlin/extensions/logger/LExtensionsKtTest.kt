@@ -5,6 +5,7 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.logger.*
 import csense.kotlin.test.assertions.*
 import java.io.*
+import java.nio.charset.*
 import kotlin.test.*
 
 class LExtensionsKtTest {
@@ -12,11 +13,10 @@ class LExtensionsKtTest {
 
     @Test
     fun printLoggers() {
+        val L = LLogger()
         L.usePrintAsLoggers()
         val baos = ByteArrayOutputStream()
-        System.setOut(PrintStream(baos))
-        L.isLoggingAllowed(true)
-
+        System.setOut(PrintStream(baos, true))
         L.debug("test", "message")
         val debugLog = baos.toString(Charsets.UTF_8)
         baos.reset()
@@ -35,6 +35,10 @@ class LExtensionsKtTest {
         prodLog.assertStartsWith("Production - [prodtest] message prod")
     }
 
+    //for jdk 8, in jdk 11 this is actually implemented
+    private fun ByteArrayOutputStream.toString(charset: Charset): String {
+        return toString(charset.name())
+    }
 
     @Test
     fun testLogDebug() {

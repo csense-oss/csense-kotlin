@@ -33,9 +33,12 @@ enum class LoggingLevel(val stringValue: String) {
 typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
 
 /**
- * Container for all shared logging.
+ * The L logger, capable of being instantiated, and inherited.
+ * Contains all necessary logging features. [LoggingLevel] channels, each capable of beeing enabled / disabled.
+ * and a list of listeners for that logging level.
+ * The main instance is called "L"
  */
-object L {
+open class LLogger {
     /**
      * Controls whenever logging is allowed.
      * This turns on all the other logging features
@@ -134,7 +137,14 @@ object L {
         isProductionLoggingAllowed.onTrue { productionLoggers.invokeEachWith(tag, message, exception) }
     }
 }
+
 /**
+ * Container for all shared logging.
+ * Shared single instance.
+ */
+object L : LLogger()
+/**
+ * The definition of a logging formatter.
  *
  */
 typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
@@ -143,7 +153,7 @@ typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: 
  * This will add a logger to each category using the stdout (console).
  * @receiver L
  */
-fun L.usePrintAsLoggers(
+fun LLogger.usePrintAsLoggers(
         formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
             "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
         }
