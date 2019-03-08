@@ -12,8 +12,14 @@ import csense.kotlin.extensions.primitives.*
  * @return List<E>
  */
 
-inline fun <E> List<E>.limitToSize(size: Int): List<E> =
-        subList(0, minOf(size, this.size))
+inline fun <E> List<E>.limitToSize(size: Int): List<E> {
+    return if (size.isNegativeOrZero) {
+        listOf()
+    } else {
+        subList(0, minOf(this.size, size))
+    }
+
+}
 
 /**
  * creates a sublist with the given range (including the end)
@@ -55,17 +61,17 @@ inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
  */
 inline fun <reified T> List<T>.repeatToSize(toSize: Int): List<T> {
     //empty bounds
-    if (isEmpty() || toSize.isNegativeOrZero) {
+    if (size.isNegativeOrZero || toSize.isNegativeOrZero) {
         return listOf()
     }
     // this as sublist ?
-    if (toSize < this.size) {
+    if (toSize < size) {
         return this.subList(0, toSize)
     }
     //we are to expand, first calculate full "copies"
-    val timesToRepeat = toSize / count()
+    val timesToRepeat = toSize / size
     //calculate the missing after each "copy", like make this list 2,5 times larger (the 0.5 part)
-    val missingItemsToCopy = toSize % count()
+    val missingItemsToCopy = toSize % size
     //copy the list each time applicable
     val resultList = this.repeat(timesToRepeat - 1)
     //and add the sublist missing part.

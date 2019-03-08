@@ -76,7 +76,7 @@ inline val Int.isOdd: Boolean
  * @param action FunctionUnit<Int> the action to perform each this values (positive) times
  */
 inline fun Int.forEach(action: FunctionUnit<Int>) {
-    if (this.isZero || this.isNegative) {
+    if (this.isNegativeOrZero) {
         return
     }
     for (i in 0 until this) {

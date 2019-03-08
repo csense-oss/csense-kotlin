@@ -133,8 +133,6 @@ class StringTest {
         "abc".limitTo(1).assert("a")
         "abc".limitTo(3).assert("abc")
         "abc".limitTo(10).assert("abc")
-
-
     }
 
     @Test
@@ -251,7 +249,6 @@ class StringTest {
         "abc".replaceIf(true, "abc", "1234", false).assert("1234")
         "abc".replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
         "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
-
     }
 
     @Ignore

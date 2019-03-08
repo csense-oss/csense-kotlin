@@ -272,10 +272,10 @@ inline fun String.startsWithAny(
  * if maxLength is zero or negative, and empty string is returned
  */
 inline fun String.limitTo(maxLength: Int): String {
-    if (maxLength.isNegative || maxLength.isZero) {
+    if (maxLength.isNegativeOrZero) {
         return ""
     }
-    return substring(0, minOf(maxLength, length))
+    return substring(0, minOf(length, maxLength))
 }
 
 

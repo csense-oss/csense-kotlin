@@ -13,6 +13,7 @@
 - uniformed extensions on numbers (float, double, int, long, short, byte, now have +- the same extensions regarding positive, negative ect)
 - extracted the L logging part into a class, such that it can be used in various ways, while still having a L object (also improves tests).
     - also updated extensions.
+- gradle 5.3-rc-1
 
 ## 0.0.14
 - fixed logging issue 

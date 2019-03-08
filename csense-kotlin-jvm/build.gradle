@@ -18,7 +18,7 @@ dependencies {
 }
 
 
-apply from: "../javadocSourceDokka.gradle"
+apply from: "../javadocSourceDokkaCommon.gradle"
 // empty xxx-javadoc.jar for JS and Common modules
 ext.artifactName = "csense-kotlin-jvm"
 ext.artifactDescription = ""
