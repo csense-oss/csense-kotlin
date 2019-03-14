@@ -9,7 +9,7 @@ buildscript {
     //libray settings
     ext.commonsenseUserOrg = "csense-oss"
     ext.commonsenseRepoName = "csense-kotlin"
-    ext.commonsenseVersionName = "0.0.15"
+    ext.commonsenseVersionName = "0.0.16"
     ext.commonsenseGroupId = "csense.kotlin"
     ext.commonsenseGithub = "csense-oss/csense-kotlin"
     ext.commonsenseLicense = ["MIT"]
