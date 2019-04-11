@@ -128,3 +128,15 @@ inline fun <T, K> Collection<T>.categorize(
     }
     return result
 }
+
+/**
+ * Reverses this collection (a view) if the given boolean is true, otherwise the original collection view is returned
+ * @receiver Collection<T>
+ * @param shouldReverse Boolean if true the result will be reversed
+ * @return Collection<T>
+ */
+inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReverse) {
+    reversed()
+} else {
+    this
+}

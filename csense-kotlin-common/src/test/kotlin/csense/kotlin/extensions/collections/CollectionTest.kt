@@ -178,7 +178,7 @@ class CollectionTest {
         val twoOfTwoCat = twoOfTwo.categorize {
             if (it.startsWith("test")) {
                 "test"
-            }else{
+            } else {
                 "asd"
             }
         }
@@ -190,5 +190,27 @@ class CollectionTest {
             assertSize(2)
         }
     }
+
+    @Test
+    fun reversedIf() {
+        val empty = listOf<String>()
+        empty.reversedIf(false).assertEmpty()
+        empty.reversedIf(true).assertEmpty()
+
+        val single = listOf("single")
+        single.reversedIf(true).apply { assertSize(1); first().assert("single") }
+        single.reversedIf(false).apply { assertSize(1); first().assert("single") }
+
+        val two = listOf("a", "b")
+
+        two.reversedIf(false).first().assert("a")
+        two.reversedIf(false).last().assert("b")
+
+        two.reversedIf(true).first().assert("b")
+        two.reversedIf(true).last().assert("a")
+
+
+    }
+
 
 }
