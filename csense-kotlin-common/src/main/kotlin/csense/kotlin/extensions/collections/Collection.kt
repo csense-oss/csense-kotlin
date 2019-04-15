@@ -82,22 +82,40 @@ inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, B
  * @return List<List<Element>>
  */
 inline fun <Element> Collection<Element>.categorizeInto(
-        vararg filters: Function1<Element, Boolean>, allowItemInMultipleBuckets: Boolean = true
+        vararg filters: Function1<Element, Boolean>,
+        allowItemInMultipleBuckets: Boolean = true
 ): List<List<Element>> {
-    val result = ArrayList(filters.map { mutableListOf<Element>() })
-    this.forEach {
-        filters.forEachIndexed { index, filterAccepts ->
-            filterAccepts(it).onTrue {
-                result[index].add(it)
-                //should we stop finding filters that accepts this item ? if so then go on.
-                allowItemInMultipleBuckets.ifFalse {
-                    return@forEach //break to the foreach, akk go on to the next element
-                }
-            }
-        }
+    val result =
+            ArrayList(filters.map { mutableListOf<Element>() })
+    forEach {
+        it.categorizeInto(result, filters, allowItemInMultipleBuckets)
     }
     return result
 }
+
+/**
+ * Categorises a single element into the given result array (size of filters)
+ * @receiver Element the element to categorize.
+ * @param result ArrayList<MutableList<Element>> the place to put the result, given the index of the filter.
+ * @param filters Array<out Function1<Element, Boolean>> the filters to use
+ * @param allowItemInMultipleBuckets Boolean if true, will allow multiple filters to look at this element,
+ * if false then it will stop once a filter accepts it.
+ */
+fun <Element> Element.categorizeInto(
+        result: ArrayList<MutableList<Element>>,
+        filters: Array<out Function1<Element, Boolean>>,
+        allowItemInMultipleBuckets: Boolean = true) {
+    filters.forEachIndexed { index, filterAccepts ->
+        filterAccepts(this).onTrue {
+            result[index].add(this)
+            //should we stop finding filters that accepts this item ? if so then go on.
+            allowItemInMultipleBuckets.ifFalse {
+                return //break out.
+            }
+        }
+    }
+}
+
 
 /**
  * Categorizes the collection into a map of string -> items, such that each of the items gets mapped into a string representation
@@ -140,3 +158,10 @@ inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReve
 } else {
     this
 }
+
+/**
+ * Tells if all booleans in the given collection are true.
+ * @receiver Collection<Boolean>
+ * @return Boolean true if all is true, false otherwise.
+ */
+inline fun Collection<Boolean>.isAllTrue() = all { it }
