@@ -1,7 +1,11 @@
 # Changelog
 
 ## 0.0.16
-- gradle 5.3-rc-3
+- reversedIf extension on collection
+- spited the categorizeInto function into multiple functions to simplify it as well as potentially allowing other kinds of usage.
+- gradle 5.4
+- kotlin 1.3.0
+- kotlin coroutines 1.2.0
 
 ## 0.0.15
 - Started on various unit types
@@ -27,8 +31,8 @@
 - added a bunch of string extensions
 - improved some of the string functions to use more of the std lib.
 - moved generic code from global namespace to generic array.
-- fixed bug in stringbuilder.clear (by removing it as the extension is available from kotlin stdlib)
-- fixed functions depending on old stringbuilder.clear
+- fixed bug in StringBuilder.clear (by removing it as the extension is available from kotlin stdlib)
+- fixed functions depending on old StringBuilder.clear
 - gradle 5.2.1
 - kotlin 1.3.21
 - very generic foreach, map and filter (in generic).
