@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.17
+- logMeasureTimeInMs function (JVM)
+- more tests
+
+
 ## 0.0.16
 - reversedIf extension on collection
 - spited the categorizeInto function into multiple functions to simplify it as well as potentially allowing other kinds of usage.
