@@ -1,8 +1,10 @@
 # Changelog
 
+
 ## 0.0.17
 - logMeasureTimeInMs function (JVM)
 - more tests
+- kotlin 1.3.31
 
 
 ## 0.0.16
