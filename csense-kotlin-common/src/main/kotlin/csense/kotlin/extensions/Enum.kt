@@ -32,3 +32,24 @@ inline fun <reified T : kotlin.Enum<T>> enumFromOr(ifNotFound: T? = null,
 inline fun <reified T : kotlin.Enum<T>> enumFromOr(name: String?, orElse: T): T {
     return enumFromOrNull<T>(name) ?: orElse
 }
+
+
+/**
+ *
+ * @param value Int
+ * @return T?
+ */
+inline fun <reified T : Enum<T>> enumFromOrNull(value: Int): T? {
+    return enumFromOr<T> { it.ordinal == value }
+}
+
+
+/**
+ *
+ * @param value Int
+ * @param orElse T
+ * @return T
+ */
+inline fun <reified T : Enum<T>> enumFromOr(value: Int, orElse: T): T {
+    return enumFromOrNull<T>(value) ?: orElse
+}
