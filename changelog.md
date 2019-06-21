@@ -1,11 +1,15 @@
 # Changelog
 
+## 0.0.18
+- kotlin 1.3.40
+- kotlin coroutines 1.2.2
+- Any?.isNull & Any?.isNotNull contracts removed as they turned into compiler error.
+- enumFromOr via integer (using the ordinal value).
 
 ## 0.0.17
 - logMeasureTimeInMs function (JVM)
 - more tests
 - kotlin 1.3.31
-
 
 ## 0.0.16
 - reversedIf extension on collection

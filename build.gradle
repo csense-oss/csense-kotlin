@@ -2,15 +2,15 @@ buildscript {
 
     ext.dokkaVersion = "0.9.18"
 
-    ext.kotlin_version = "1.3.31"
-    ext.coroutinesVersion = "1.2.0"
+    ext.kotlin_version = "1.3.40"
+    ext.coroutinesVersion = "1.2.2"
 
     ext.junit5Version = "5.3.2"
 
     //libray settings
     ext.commonsenseUserOrg = "csense-oss"
     ext.commonsenseRepoName = "csense-kotlin"
-    ext.commonsenseVersionName = "0.0.17"
+    ext.commonsenseVersionName = "0.0.18"
     ext.commonsenseGroupId = "csense.kotlin"
     ext.commonsenseGithub = "csense-oss/csense-kotlin"
     ext.commonsenseLicense = ["MIT"]
