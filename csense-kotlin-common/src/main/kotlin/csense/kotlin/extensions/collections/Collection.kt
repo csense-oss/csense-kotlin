@@ -2,8 +2,6 @@
 
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.extensions.collections.map.*
-import csense.kotlin.extensions.generic.*
 import csense.kotlin.extensions.primitives.*
 
 /**
@@ -165,3 +163,21 @@ inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReve
  * @return Boolean true if all is true, false otherwise.
  */
 inline fun Collection<Boolean>.isAllTrue() = all { it }
+
+/**
+ * Tells if this collection is NOT null And NOT empty (size > 0)
+ * @receiver Collection<T>? the nullable collection
+ * @return Boolean true if the collection is NOT null AND NOT empty
+ */
+inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
+    return this != null && this.isNotEmpty()
+}
+
+/**
+ * Tells if this collection is null or empty (size = 0)
+ * @receiver Collection<T>? the nullable collection
+ * @return Boolean true if the collection is null or empty
+ */
+inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
+    return this == null || this.isEmpty()
+}

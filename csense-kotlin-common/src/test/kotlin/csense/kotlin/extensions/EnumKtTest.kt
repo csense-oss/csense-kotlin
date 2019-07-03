@@ -7,6 +7,7 @@ import kotlin.test.*
 class EnumKtTest {
 
 
+    //region String search for enum
     @Test
     fun enumFromOrString() {
         enumFromOr("A", EnumKtTestEnum.C).assert(EnumKtTestEnum.A)
@@ -17,6 +18,20 @@ class EnumKtTest {
         enumFromOr("Q", EnumKtTestEnum.C).assert(EnumKtTestEnum.C)
     }
 
+
+    @Test
+    fun enumFromOrNullString() {
+        enumFromOrNull<EnumKtTestEnum>("A").assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>("AAAA").assertNull()
+        enumFromOrNull<EnumKtTestEnum>("B").assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>("b").assertNull()
+        enumFromOrNull<EnumKtTestEnum>("C").assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull<EnumKtTestEnum>("Q").assertNull()
+    }
+    //endregion
+
+
+    //region Ordinal search for enum
     @Test
     fun enumFromOrInt() {
         enumFromOr(EnumKtTestEnum.A.ordinal, EnumKtTestEnum.C).assert(EnumKtTestEnum.A)
@@ -26,6 +41,33 @@ class EnumKtTest {
         enumFromOr(EnumKtTestEnum.C.ordinal, EnumKtTestEnum.A).assert(EnumKtTestEnum.C)
         enumFromOr("Q", EnumKtTestEnum.C).assert(EnumKtTestEnum.C)
     }
+
+
+    @Test
+    fun enumFromOrNullInt() {
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.A.ordinal).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>(-999).assertNull()
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.B.ordinal).assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>("b").assertNull()
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.C.ordinal).assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull<EnumKtTestEnum>("Q").assertNull()
+    }
+    //endregion
+
+
+    //region Generalized search for enum
+    @Test
+    fun enumFromOrFunction() {
+
+    }
+
+    @Test
+    fun enumFromOrNullFunction() {
+
+    }
+    //endregion
+
+
 }
 
 enum class EnumKtTestEnum {

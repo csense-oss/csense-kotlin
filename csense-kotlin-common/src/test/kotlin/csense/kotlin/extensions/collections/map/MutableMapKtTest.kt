@@ -41,13 +41,13 @@ class MutableMapKtTest {
 
     @Ignore
     @Test
-    fun setIfNotEmpty(){
+    fun setIfNotEmpty() {
 
     }
 
     @Ignore
     @Test
-    fun putSubList(){
+    fun putSubList() {
 
     }
 

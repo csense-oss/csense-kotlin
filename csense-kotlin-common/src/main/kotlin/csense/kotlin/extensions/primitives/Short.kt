@@ -10,7 +10,7 @@ inline infix fun Short.shr(shift: Int): Short = (this.toInt() shr shift).toShort
 //region Zero, negative, positive
 
 inline val Short.zero: Short
-    get () = 0
+    get() = 0
 /**
  * Gets this Short negative, if it is already negative, returns that.
  * this is also negative Abs.
@@ -28,7 +28,7 @@ inline val Short.negative: Short
  * also known as abs
  */
 inline val Short.positive: Short
-    get () = if (this.isNegative) {
+    get() = if (this.isNegative) {
         (this * -1).toShort()
     } else {
         this

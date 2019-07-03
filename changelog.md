@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.0.19
+- breaking change: enumFromOr (for function arguments) now called "enumFromOrNull" since it returns null, and added one that does not allow null.
+    - documented the enum functions as well as performance time.
+    - more test hereof.
+    - @see changed as they appear to cause issues with dokka.
+
+- added isNotNullOrBlank & isNotNullOrEmpty to charsequence
+- collection & array now have a "isNotNullOrEmpty" and a "isNullOrEmpty" extensions. 
+
+
 ## 0.0.18
 - kotlin 1.3.40
 - kotlin coroutines 1.2.2

@@ -202,14 +202,31 @@ class CollectionTest {
         single.reversedIf(false).apply { assertSize(1); first().assert("single") }
 
         val two = listOf("a", "b")
-
         two.reversedIf(false).first().assert("a")
         two.reversedIf(false).last().assert("b")
 
         two.reversedIf(true).first().assert("b")
         two.reversedIf(true).last().assert("a")
+    }
 
+    @Test
+    fun isNotNullOrEmpty() {
+        val nullCol: Collection<String>? = null
+        nullCol.isNotNullOrEmpty().assert(false)
+        val emptyCol: Collection<String> = listOf()
+        emptyCol.isNotNullOrEmpty().assert(false)
+        val singleCol: Collection<String> = listOf("omg")
+        singleCol.isNotNullOrEmpty().assert(true)
+    }
 
+    @Test
+    fun isNullOrEmpty() {
+        val nullCol: Collection<String>? = null
+        nullCol.isNullOrEmpty().assert(true)
+        val emptyCol: Collection<String> = listOf()
+        emptyCol.isNullOrEmpty().assert(true)
+        val singleCol: Collection<String> = listOf("omg")
+        singleCol.isNullOrEmpty().assert(false)
     }
 
 

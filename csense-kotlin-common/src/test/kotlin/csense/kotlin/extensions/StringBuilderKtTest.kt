@@ -1,7 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.test.assertions.assert
-import kotlin.test.Test
+import csense.kotlin.test.assertions.*
+import kotlin.test.*
 
 class StringBuilderKtTest {
 
@@ -32,9 +32,9 @@ class StringBuilderKtTest {
         val builder = StringBuilder()
         builder.set(charArrayOf())
         builder.toString().assert("")
-        builder.set(charArrayOf('1','2','3'))
+        builder.set(charArrayOf('1', '2', '3'))
         builder.toString().assert("123")
-        builder.set(charArrayOf('q','w','e'))
+        builder.set(charArrayOf('q', 'w', 'e'))
         builder.toString().assert("qwe")
     }
 
@@ -47,7 +47,7 @@ class StringBuilderKtTest {
         builder.toString().assert("a")
         builder.appendContentOf(charArrayOf('b'))
         builder.toString().assert("ab")
-        builder.appendContentOf(charArrayOf('1','2'))
+        builder.appendContentOf(charArrayOf('1', '2'))
         builder.toString().assert("ab12")
     }
 

@@ -3,15 +3,6 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
-import kotlin.collections.Iterable
-import kotlin.collections.Map
-import kotlin.collections.MutableList
-import kotlin.collections.MutableMap
-import kotlin.collections.any
-import kotlin.collections.filter
-import kotlin.collections.forEach
-import kotlin.collections.getOrPut
-import kotlin.collections.mutableListOf
 import kotlin.collections.set
 
 

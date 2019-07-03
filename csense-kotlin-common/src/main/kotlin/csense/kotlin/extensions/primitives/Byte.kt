@@ -8,7 +8,7 @@ import kotlin.experimental.*
 //region Zero, negative, positive
 
 inline val Byte.zero: Byte
-    get () = 0
+    get() = 0
 /**
  * Gets this Byte negative, if it is already negative, returns that.
  * this is also negative Abs.
@@ -26,7 +26,7 @@ inline val Byte.negative: Byte
  * also known as abs
  */
 inline val Byte.positive: Byte
-    get () = if (this.isNegative) {
+    get() = if (this.isNegative) {
         (this * -1).toByte()
     } else {
         this

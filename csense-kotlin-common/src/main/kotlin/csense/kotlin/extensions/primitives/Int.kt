@@ -18,7 +18,7 @@ inline val Int.negative: Int
  * also known as abs
  */
 inline val Int.positive: Int
-    get () = absoluteValue
+    get() = absoluteValue
 
 /**
  *  if this int is not 0 => returns true. false otherwise

@@ -16,7 +16,7 @@ inline val Long.negative: Long
  * also known as abs
  */
 inline val Long.positive: Long
-    get () = absoluteValue
+    get() = absoluteValue
 
 /**
  *  if this int is not 0 => returns true. false otherwise

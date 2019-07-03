@@ -42,3 +42,22 @@ inline fun <T> Array<T>.forEach2(action: Function2Unit<T, T>) =
 inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
+
+
+/**
+ * Tells if this Array is NOT null And NOT empty (size > 0)
+ * @receiver Array<T>? the nullable Array
+ * @return Boolean true if the Array is NOT null AND NOT empty
+ */
+inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
+    return this != null && this.isNotEmpty()
+}
+
+/**
+ * Tells if this Array is null or empty (size = 0)
+ * @receiver Array<T>? the nullable Array
+ * @return Boolean true if the Array is null or empty
+ */
+inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
+    return this == null || this.isEmpty()
+}

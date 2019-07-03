@@ -52,7 +52,7 @@ abstract class RunningAverageAbstract<T : Number> {
      *
      */
     val average: Double
-        get () = aggregatedValue.toDouble() / numberCount
+        get() = aggregatedValue.toDouble() / numberCount
 
     /**
      *
