@@ -11,16 +11,7 @@ dependencies {
 }
 
 
-task sourcesJar(type: Jar) {
-    getArchiveClassifier().set("sources")
-    from sourceSets.main.allSource
-}
-
-// empty xxx-javadoc.jar for JS and Common modules
-task javadocJar(type: Jar) {
-    getArchiveClassifier().set("javadoc")
-    from "$buildDir/javadoc" // would not exist
-}
+apply from: "../javadocSourceLocalEmpty.gradle"
 
 ext.artifactName = "csense-kotlin-common"
 ext.artifactDescription = ""

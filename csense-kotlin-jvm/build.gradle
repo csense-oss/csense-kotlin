@@ -11,7 +11,6 @@ dependencies {
 
     testImplementation project(":csense-kotlin-test-jvm")
 
-
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
@@ -19,7 +18,7 @@ dependencies {
 
 
 apply from: "../javadocSourceDokkaCommon.gradle"
-// empty xxx-javadoc.jar for JS and Common modules
+
 ext.artifactName = "csense-kotlin-jvm"
 ext.artifactDescription = ""
 ext.versionDescription = ""
@@ -28,7 +27,7 @@ apply from: "../publish.gradle"
 //apply from: "../jacoco-kotlin.gradle"
 
 jacoco {
-    toolVersion = "0.8.3"
+    toolVersion = "0.8.4"
     reportsDir = file("$buildDir/codeCoverage")
 }
 

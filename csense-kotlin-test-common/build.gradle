@@ -8,7 +8,8 @@ dependencies {
 }
 
 
-apply from: "../javadocSourceCommon.gradle"
+apply from: "../javadocSourceLocalEmpty.gradle"
+
 ext.artifactName = "csense-kotlin-test-common"
 ext.artifactDescription = ""
 ext.versionDescription = ""

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.20
+- potential fixed broken doc for jvm target
+- kotlin 1.4.41
+- junit 5.5
+
 ## 0.0.19
 - breaking change: enumFromOr (for function arguments) now called "enumFromOrNull" since it returns null, and added one that does not allow null.
     - documented the enum functions as well as performance time.

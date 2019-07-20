@@ -2,7 +2,7 @@
  * Allows us to apply dokka, and setup sourcesJar and javadocJar tasks.
  * all required for documenting a library.
  */
-class JavaDocSourceWithDokka implements Plugin<Project> {
+class JavaDocSourceWithDokkaCommonTest implements Plugin<Project> {
 
     void applyJavaDocSourceWithDokka(Project project) {
         //add dokka android
@@ -20,6 +20,7 @@ class JavaDocSourceWithDokka implements Plugin<Project> {
             outputDirectory = "${project.buildDir}/javadoc"
 //            inputs.dir 'src/main/java'
             inputs.dir 'src/main/kotlin'//TODO extract the "src/main" sourceset this.
+            inputs.dir "../csense-kotlin-test-common/src/main/kotlin" //include common code.
 
         }
 
@@ -31,8 +32,7 @@ class JavaDocSourceWithDokka implements Plugin<Project> {
         project.task("sourcesJar", type: Jar) {
             classifier = 'sources'
             from "src/main/kotlin"
-//            inputs.dir 'src/main/java'
-//            inputs.dir 'src/main/kotlin'//TODO extract the "src/main" sourceset this.
+            from "../csense-kotlin-test-common/src/main/kotlin" //include common code.
         }
     }
 
@@ -42,5 +42,5 @@ class JavaDocSourceWithDokka implements Plugin<Project> {
     }
 }
 
-apply plugin: JavaDocSourceWithDokka
+apply plugin: JavaDocSourceWithDokkaCommonTest
 

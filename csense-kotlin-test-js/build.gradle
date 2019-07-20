@@ -10,7 +10,8 @@ dependencies {
 
 
 
-apply from: "../javadocSourceJs.gradle"
+apply from: "../javadocSourceLocalEmpty.gradle"
+
 ext.artifactName = "csense-kotlin-test-js"
 ext.artifactDescription = ""
 ext.versionDescription = ""
