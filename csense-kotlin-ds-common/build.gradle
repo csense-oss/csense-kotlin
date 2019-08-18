@@ -1,0 +1,21 @@
+apply plugin: 'kotlin-platform-common'
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion"
+    implementation project(":csense-kotlin-common")
+
+    testImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
+    testImplementation project(":csense-kotlin-test-common")
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+}
+
+
+apply from: "../javadocSourceLocalEmpty.gradle"
+
+ext.artifactName = "csense-kotlin-ds-common"
+ext.artifactDescription = ""
+ext.versionDescription = ""
+
+apply from: "../publish.gradle"

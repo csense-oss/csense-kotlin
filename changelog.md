@@ -1,8 +1,8 @@
 # Changelog
 
 ## 0.0.21
-- moved LLogger extension to seperate file
-
+- moved LLogger extension to separated file
+- started on data structure package
 
 ## 0.0.20
 - potential fixed broken doc for jvm target

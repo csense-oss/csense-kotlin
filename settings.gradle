@@ -5,4 +5,7 @@ include 'csense-kotlin-common',
         'csense-kotlin-js',
         "csense-kotlin-test-common",
         'csense-kotlin-test-jvm',
-        'csense-kotlin-test-js'
+        'csense-kotlin-test-js',
+        'csense-kotlin-ds-common',
+        'csense-kotlin-ds-jvm',
+        'csense-kotlin-ds-js'
