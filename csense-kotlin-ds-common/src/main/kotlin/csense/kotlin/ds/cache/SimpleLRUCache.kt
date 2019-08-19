@@ -24,7 +24,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * @param key Key
      * @param value Value
      * @return Key?
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     fun put(key: Key, value: Value): Key? {
         val evictedKey: Key? = shouldEvict().mapLazy(
@@ -49,7 +49,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
     /**
      *
      * @return Key?
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     private fun evict(): Key? = getKeyToEvict().also {
         map.remove(it)
@@ -59,7 +59,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      *
      * @param key Key
      * @return Value?
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     operator fun get(key: Key): Value? = map[key]
 
@@ -67,7 +67,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * Gets a given value , and if there and the given condition is met the value is returned,
      * if the condition is not met, the item is evicted and null is returned.
      * @return value?
-     * @timecomplexity O(1) to O(n) if condition is false, n = size of data
+     * @TimeComplexity O(1) to O(n) if condition is false, n = size of data
      */
     fun getOrRemove(key: Key, condition: Function2<Key, Value, Boolean>): Value? {
         val value: Value = get(key) ?: return null
@@ -82,7 +82,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
     /**
      *
      * @return Key?
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     private fun getKeyToEvict(): Key? {
         return if (order.isNotEmpty()) {
@@ -95,7 +95,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
     /**
      *
      * @param key Key
-     * @timecomplexity O(n) where n = size of data
+     * @TimeComplexity O(n) where n = size of data
      */
     fun remove(key: Key) {
         map.remove(key)
@@ -105,7 +105,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
     /**
      * Allows you to change the size of this LRU cache
      * @param newSize Int the new size to use.
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     fun setCacheSize(newSize: Int) {
         cacheSize = newSize
@@ -116,7 +116,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * @param key Key
      * @param value Function0<Value>
      * @return Value
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
     fun getOrPut(key: Key, value: () -> Value): Value {
         val haveKey = get(key)
@@ -134,7 +134,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * @param key Key
      * @param value Value
      * @return Key?
-     * @timecomplexity O(1)
+     * @TimeComplexity O(1)
      */
-    operator fun set(key: Key, value: Value) = put(key, value)
+    operator fun set(key: Key, value: Value): Key? = put(key, value)
 }
