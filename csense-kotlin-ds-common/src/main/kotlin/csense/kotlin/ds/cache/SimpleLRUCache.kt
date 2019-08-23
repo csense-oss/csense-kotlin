@@ -1,6 +1,9 @@
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+
 package csense.kotlin.ds.cache
 
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.primitives.*
 import kotlin.also
 
 /**
@@ -13,6 +16,11 @@ import kotlin.also
  * @constructor
  */
 class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
+
+    init {
+        //make sure no one is evil enough to try and set no valid cache size.
+        cacheSize = getLeastValidCacheSize(cacheSize)
+    }
 
     //TODO consider linked hashmap, potentially own edition where we can query the order since this is a "boring" replica of that.
     private val map = HashMap<Key, Value>(cacheSize)
@@ -36,8 +44,20 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
         return evictedKey
     }
 
+    /**
+     *
+     * @param key Key
+     * @return Boolean
+     * @TimeComplexity O(1)
+     */
     fun containsKey(key: Key) = map.containsKey(key)
 
+    /**
+     *
+     * @param key Key
+     * @return Boolean
+     * @TimeComplexity O(1)
+     */
     fun notContainsKey(key: Key) = !containsKey(key)
 
     /**
@@ -67,7 +87,7 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * Gets a given value , and if there and the given condition is met the value is returned,
      * if the condition is not met, the item is evicted and null is returned.
      * @return value?
-     * @TimeComplexity O(1) to O(n) if condition is false, n = size of data
+     * @TimeComplexity O(n)
      */
     fun getOrRemove(key: Key, condition: Function2<Key, Value, Boolean>): Value? {
         val value: Value = get(key) ?: return null
@@ -104,11 +124,25 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
 
     /**
      * Allows you to change the size of this LRU cache
+     * if the size is lower, the "oldest" entry(/ies) will be purged.
      * @param newSize Int the new size to use.
-     * @TimeComplexity O(1)
+     * @TimeComplexity O(n)
      */
     fun setCacheSize(newSize: Int) {
-        cacheSize = newSize
+        if (newSize < cacheSize) {
+            //reduce size => remove oldest
+            removeOldest(cacheSize - newSize)
+        }
+        cacheSize = getLeastValidCacheSize(newSize)
+    }
+
+    /**
+     * Removes the first count elements
+     * @param count Int
+     * @TimeComplexity O(n)
+     */
+    fun removeOldest(count: Int) = count.forEach {
+        getKeyToEvict()?.let(this::remove)
     }
 
     /**
@@ -137,4 +171,25 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
      * @TimeComplexity O(1)
      */
     operator fun set(key: Key, value: Value): Key? = put(key, value)
+
+
+    /**
+     * Clears all data.
+     * @TimeComplexity O(1)
+     */
+    fun clear() {
+        map.clear()
+        order.clear()
+    }
+
+    /**
+     * Get the least valid cache size, so take unsafe input and turns it safe (sane)
+     * @param size Int
+     * @return Int a safe value for this cache size least valued.
+     * @TimeComplexity O(1)
+     */
+    private fun getLeastValidCacheSize(size: Int): Int {
+        return maxOf(size, 1)
+    }
+
 }

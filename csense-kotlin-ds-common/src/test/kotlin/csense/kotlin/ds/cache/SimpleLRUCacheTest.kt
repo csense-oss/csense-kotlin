@@ -69,28 +69,51 @@ class SimpleLRUCacheTest {
     }
 
     @Test
-    @Ignore
     fun get() {
+        val empty = SimpleLRUCache<String, String>(2)
+
     }
 
     @Test
-    @Ignore
     fun getOrRemove() {
+
     }
 
     @Test
-    @Ignore
     fun remove() {
+
     }
 
     @Test
-    @Ignore
     fun setCacheSize() {
+        //test broken values
+        val cache = SimpleLRUCache<String, String>(1)
+        cache.setCacheSize(0)
+        cache.set("1234", "1234").assertNull()
+        cache.set("2222", "2222").assertNotNull("Should not allow cache size of 0, thus there should always be at least 1 size")
+        cache.clear()
+        cache.setCacheSize(-20)
+        cache.set("1234", "1234").assertNull()
+        cache.set("2222", "2222").assertNotNull("Should not allow cache size of -20, thus there should always be at least 1 size")
+        //well lets try valid ones
+
+        cache.setCacheSize(2)
+        cache.set("1111", "").assertNull("now we should have space for 2 elements")
+        cache.set("1112", "").assertNotNull("should only hold 2 items")
+
+        cache.setCacheSize(10)
+        for (i in 2 until 10) {
+            cache.set("011$i", "").assertNull()
+        }
+        cache.set("888", "").assertNotNull("should only hold 10 items..")
+
+        cache.setCacheSize(2)
+
     }
 
     @Test
-    @Ignore
     fun getOrPut() {
+
     }
 
     @Test
@@ -111,5 +134,55 @@ class SimpleLRUCacheTest {
         largeCache.containsKey("4").assertTrue()
         largeCache["a5"] = "a5"
         largeCache.containsKey("4").assertFalse()
+    }
+
+    @Test
+    fun badSizeForInit() {
+        val broken = SimpleLRUCache<String, String>(0)
+        broken.set("1234", "1234").assertNull()
+        broken.set("2222", "2222").assertNotNull("Should not allow cache size of 0, thus there should always be at least 1 size")
+
+        val negative = SimpleLRUCache<String, String>(-100)
+        negative.set("1234", "1234").assertNull()
+        negative.set("2222", "2222").assertNotNull("Should not allow cache size of -100, thus there should always be at least 1 size")
+    }
+
+    @Test
+    fun clear() {
+        val cache = SimpleLRUCache<String, String>(2)
+        //make sure nothing weird happens
+        cache.clear()
+        //then try set some data and clear that.
+        cache.set("1", "").assertNull()
+        cache.set("2", "").assertNull()
+        cache.clear()
+        cache.set("a", "").assertNull("should not have any data")
+        cache.set("b", "").assertNull("should not have any data")
+
+    }
+
+    @Test
+    fun removeOldest() {
+        val cache = SimpleLRUCache<String, String>(2)
+        cache["1"] = "1"
+        cache["2"] = "2"
+
+        //try weird / bad values
+        cache.removeOldest(-10)
+        cache.removeOldest(0)
+        //and
+        cache.removeOldest(1)
+        cache["1"].assertNull("1 is the oldest")
+        cache["2"].assertNotNull()
+        cache.removeOldest(1)
+        cache["1"].assertNull()
+        cache["2"].assertNull()
+
+        cache["a"] = "a"
+        cache["b"] = "b"
+
+        cache.removeOldest(2)
+        cache["a"].assertNull()
+        cache["b"].assertNull()
     }
 }
