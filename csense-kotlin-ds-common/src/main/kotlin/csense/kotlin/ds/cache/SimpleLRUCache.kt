@@ -191,5 +191,4 @@ class SimpleLRUCache<Key, Value>(private var cacheSize: Int) {
     private fun getLeastValidCacheSize(size: Int): Int {
         return maxOf(size, 1)
     }
-
 }

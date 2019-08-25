@@ -70,18 +70,53 @@ class SimpleLRUCacheTest {
 
     @Test
     fun get() {
-        val empty = SimpleLRUCache<String, String>(2)
-
+        val cache = SimpleLRUCache<String, String>(2)
+        //empty case
+        cache[""].assertNull()
+        cache["test"].assertNull()
+        // single case
+        cache["abc"] = "abc"
+        cache[""].assertNull()
+        cache["test"].assertNull()
+        cache["abc"].assertNotNullAndEquals("abc")
+        // multiple case
+        cache["123"] = "4"
+        cache[""].assertNull()
+        cache["test"].assertNull()
+        cache["abc"].assertNotNullAndEquals("abc")
+        cache["123"].assertNotNullAndEquals("4")
     }
 
     @Test
     fun getOrRemove() {
-
+        val cache = SimpleLRUCache<String, String>(2)
+        cache["a"].assertNull()
+        cache.getOrRemove("a") { key: String, value: String -> value == "1" }.assertNull() //there is none
+        cache["a"] = "1"
+        cache.getOrRemove("a") { key: String, value: String -> key == "1" }.assertNull("condition not ok, so should remove entry")
+        cache["a"].assertNull()
+        cache["a"] = "2"
+        cache.getOrRemove("a") { key: String, value: String -> value == "2" }.assertNotNullAndEquals("2")
+        cache["a"].assertNotNullAndEquals("2")
     }
 
     @Test
     fun remove() {
+        val cache = SimpleLRUCache<String, String>(2)
+        cache["abc"] = "123"
+        cache["abc"].assertNotNull()
+        cache.remove("abc").assertNotNull()
+        cache["abc"].assertNull()
 
+        cache["1"] = "a"
+        cache["2"] = "b"
+
+        cache.remove("2")
+
+        cache["1"].assertNotNull()
+        cache["2"].assertNull()
+        cache.remove("1")
+        cache["1"].assertNull()
     }
 
     @Test
@@ -113,7 +148,12 @@ class SimpleLRUCacheTest {
 
     @Test
     fun getOrPut() {
-
+        val cache = SimpleLRUCache<String, String>(2)
+        cache["a"].assertNull()
+        cache.getOrPut("a") { "1" }
+        cache["a"].assertNotNullAndEquals("1")
+        cache.getOrPut("a") { "2" }
+        cache["a"].assertNotNullAndEquals("1", "should not update value if there.")
     }
 
     @Test
