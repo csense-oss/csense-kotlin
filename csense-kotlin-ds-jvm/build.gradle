@@ -19,7 +19,7 @@ dependencies {
 }
 
 
-apply from: "../javadocSourceDokkaCommon.gradle"
+apply from: "javadocSourceDokkaCommon.gradle"
 
 ext.artifactName = "csense-kotlin-ds-jvm"
 ext.artifactDescription = ""
