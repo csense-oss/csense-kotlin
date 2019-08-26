@@ -1,7 +1,9 @@
 # Changelog
 
-## 0.0.21
+## 00.22
 - kotlin 1.3.50
+
+## 0.0.21
 - moved LLogger extension to separated file
 - started on data structure package
     - SimpleLRUCache

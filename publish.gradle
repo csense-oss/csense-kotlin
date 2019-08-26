@@ -1,5 +1,7 @@
-apply plugin: 'maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 
 
 version = project.commonsenseVersionName
@@ -10,31 +12,81 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+//
+//install {
+//    repositories.mavenInstaller {
+//        pom.project {
+//            packaging 'jar'
+//            groupId project.commonsenseGroupId
+//            name artifactName
+//            artifactId artifactName
+//            version project.commonsenseVersionName
+//
+//            licenses {
+//                license {
+//                    name project.commonsenseLicense
+//                    url 'https://opensource.org/licenses/MIT'
+//                    distribution 'repo'
+//                }
+//            }
+//            scm {
+//                connection project.commonsenseGit
+//                url project.commonsenseWebsite
+//
+//            }
+//            developers {
+//                developer {
+//                    name "Kasper Tvede"
+//                }
+//            }
+//        }
+//    }
+//}
 
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'jar'
-            groupId project.commonsenseGroupId
-            name artifactName
-            artifactId artifactName
-            version project.commonsenseVersionName
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                packaging = 'jar'
+                groupId = project.commonsenseGroupId
+                name = artifactName
+                artifactId = artifactName
+                version = project.commonsenseVersionName
 
-            licenses {
-                license {
-                    name project.commonsenseLicense
-                    url 'https://opensource.org/licenses/MIT'
-                    distribution 'repo'
+                licenses {
+                    license {
+                        name = project.commonsenseLicense
+                        url = 'https://opensource.org/licenses/MIT'
+                        distribution = 'repo'
+                    }
                 }
-            }
-            scm {
-                connection project.commonsenseGit
-                url project.commonsenseWebsite
+                scm {
+                    connection = project.commonsenseGit
+                    url = project.commonsenseWebsite
+                }
 
-            }
-            developers {
-                developer {
-                    name "Kasper Tvede"
+                developers {
+                    developer {
+                        name = "Kasper Tvede"
+                    }
+                }
+
+                withXml {
+                    def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies');
+
+                    // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
+                    configurations.implementation.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included in the pom.
+                        if (it.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                        }
+                    }
                 }
             }
         }
@@ -51,7 +103,7 @@ bintray {
         print "could not read local.properties"
     }
 
-    configurations = ['archives']
+    publications = ['MyPublication']
     override = true
     pkg {
         repo = project.commonsenseRepoName
