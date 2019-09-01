@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 internal class TimingExtensionsKtTest {
 
     @Test
-    fun testLogTimeInMillis() {
+    fun testLogMeasureTimeInMillis() {
         var logCount = 0
         logMeasureTimeInMillis("Timing", { _, _, _ -> logCount += 1 }) { }
         logCount.assert(1)
