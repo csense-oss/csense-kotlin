@@ -91,12 +91,12 @@ class SimpleLRUCacheTest {
     fun getOrRemove() {
         val cache = SimpleLRUCache<String, String>(2)
         cache["a"].assertNull()
-        cache.getOrRemove("a") { key: String, value: String -> value == "1" }.assertNull() //there is none
+        cache.getOrRemove("a") { _: String, value: String -> value == "1" }.assertNull() //there is none
         cache["a"] = "1"
-        cache.getOrRemove("a") { key: String, value: String -> key == "1" }.assertNull("condition not ok, so should remove entry")
+        cache.getOrRemove("a") { key: String, _: String -> key == "1" }.assertNull("condition not ok, so should remove entry")
         cache["a"].assertNull()
         cache["a"] = "2"
-        cache.getOrRemove("a") { key: String, value: String -> value == "2" }.assertNotNullAndEquals("2")
+        cache.getOrRemove("a") { _: String, value: String -> value == "2" }.assertNotNullAndEquals("2")
         cache["a"].assertNotNullAndEquals("2")
     }
 
