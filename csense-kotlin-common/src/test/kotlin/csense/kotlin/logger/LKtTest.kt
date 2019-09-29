@@ -5,7 +5,6 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-
 class LKtTest {
     /**
      * Tests the logging controls (turning  them on off )
@@ -26,7 +25,7 @@ class LKtTest {
                 assertWarning = true,
                 assertDebug = true)
 
-        //make sure all are turned on
+        //make sure all are turned onc
 
         //turn all off.
         L.isLoggingAllowed(false)

@@ -16,6 +16,9 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
 }
 
+test {
+    useJUnitPlatform()
+}
 
 apply from: "javadocSourceDokkaCommon.gradle"
 

@@ -45,10 +45,10 @@ inline fun <T> Collection<T>.getSafe(index: Int): T? =
  * @return Boolean
  */
 inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
-        (intRange.start >= 0 &&
-                intRange.endInclusive >= 0 &&
-                intRange.endInclusive < size &&
-                intRange.start <= size)
+        (intRange.first >= 0 &&
+                intRange.last >= 0 &&
+                intRange.last < size &&
+                intRange.first <= size)
 
 
 /**
@@ -160,7 +160,7 @@ inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReve
 /**
  * Tells if all booleans in the given collection are true.
  * @receiver Collection<Boolean>
- * @return Boolean true if all is true, false otherwise.
+ * @return Boolean true if all is true, false otherwise. for emtpy its "true"
  */
 inline fun Collection<Boolean>.isAllTrue() = all { it }
 

@@ -97,8 +97,7 @@ inline fun <T> GenericAlgorithms.binarySearch(
     while (start < end) {
         val mid = start + (end - start) / 2
         val item = constantGetter(mid)
-        val compResult = comparere(item, mid)
-        when (compResult) {
+        when (comparere(item, mid)) {
             ItemComparison.LessThan -> start = mid + 1 // the item is less than what we are looking for
             ItemComparison.LargerThan -> end = mid //the item is larger than what we are looking for
             ItemComparison.Equal -> return mid // this is what we are searching for.

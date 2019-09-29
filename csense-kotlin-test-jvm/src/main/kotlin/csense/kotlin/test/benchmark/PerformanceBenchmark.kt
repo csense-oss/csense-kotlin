@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "MissingTestClass", "MissingTestFunction")
 package csense.kotlin.test.benchmark
 
 import csense.kotlin.test.assertions.*
@@ -12,8 +12,7 @@ import kotlin.system.*
  * Purpose:
  *
  */
-
-
+//TODO use JMH
 inline fun microBench(
         numberOfIterations: Int = 200,
         numberOfRunsInIteration: Int = 100,
@@ -24,12 +23,12 @@ inline fun microBench(
         crossinline action: () -> Unit) {
     val results = mutableListOf<Long>()
     nanoTime()
-    val startTime = System.nanoTime()
+    val startTime = nanoTime()
     //warm-up phase
     for (warmI in 0 until warmCount) {
         action()
 
-        if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime) > totalTimeoutInSeconds) {
+        if (TimeUnit.NANOSECONDS.toSeconds(nanoTime() - startTime) > totalTimeoutInSeconds) {
             failTest("Took too long for test. in warm up phase; iteration : $warmI of $warmCount")
         }
     }
@@ -52,7 +51,7 @@ inline fun microBench(
         results.add(timeInMs)
 
 
-        if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime) > totalTimeoutInSeconds) {
+        if (TimeUnit.NANOSECONDS.toSeconds(nanoTime() - startTime) > totalTimeoutInSeconds) {
             failTest("Took too long for test. iteration : $iteration of $numberOfIterations")
         }
     }
@@ -66,7 +65,7 @@ inline fun microBench(
     println("\t largest time (over $numberOfRunsInIteration iterations) was: ${results.last()} ms")
     println("\t lowest time (over $numberOfRunsInIteration iterations) was: ${results.first()} ms")
     println("\t SD (over $numberOfRunsInIteration iterations) is: ${results.calculateSD()}")
-    println("\t total test time (including overhead) was: ${TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime)} seconds")
+    println("\t total test time (including overhead) was: ${TimeUnit.NANOSECONDS.toSeconds(nanoTime() - startTime)} seconds")
     println("\t total iterations: ${(numberOfRunsInIteration * numberOfIterations) + warmCount} over the total time")
     if (average > limitMsPrInvocation) {
         failTest("Test was to slow in average. average was $average ms but the limit was $limitMsPrInvocation ms")
@@ -80,8 +79,8 @@ const val FORCE_GC_TIMEOUT_SECS: Long = 2
 // simply cleans up, throws some garbage in, then when the garbage is collected, we can proceed.
 
 fun forceGc() {
-    System.gc()
-    System.runFinalization()
+    gc()
+    runFinalization()
     val latch = CountDownLatch(1)
     //create object that should be GC'ed.
     object : Any() {
@@ -89,8 +88,8 @@ fun forceGc() {
             latch.countDown()
         }
     }
-    System.gc()
-    System.runFinalization()
+    gc()
+    runFinalization()
     try {
         latch.await(FORCE_GC_TIMEOUT_SECS, TimeUnit.SECONDS)
     } catch (e: InterruptedException) {

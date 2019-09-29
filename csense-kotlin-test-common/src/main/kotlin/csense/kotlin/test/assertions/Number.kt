@@ -1,3 +1,5 @@
+@file:Suppress("MissingTestFunction")
+
 package csense.kotlin.test.assertions
 
 import kotlin.math.*
@@ -26,6 +28,6 @@ fun Byte.assert(value: Byte, message: String = "") {
     assertEquals(value, this, message)
 }
 
-fun kotlin.ranges.IntRange.assert(otherRange: kotlin.ranges.IntRange, message: String = "") {
+fun IntRange.assert(otherRange: IntRange, message: String = "") {
     assertEquals(otherRange, this, message)
 }

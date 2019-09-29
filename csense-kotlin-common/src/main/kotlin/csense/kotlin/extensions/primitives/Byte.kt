@@ -122,7 +122,7 @@ inline fun <T> Byte.toChars(action: (upperChar: Char, lowerChar: Char) -> T): T 
 
 inline fun Byte.toHexString(): String =
         this.toChars { upperChar, lowerChar ->
-            String.createFromChars(kotlin.charArrayOf(upperChar, lowerChar))
+            String.createFromChars(charArrayOf(upperChar, lowerChar))
         }
 
 

@@ -1,3 +1,5 @@
+@file:Suppress("LocalVariableName")
+
 package csense.kotlin.units
 
 import csense.kotlin.test.assertions.*

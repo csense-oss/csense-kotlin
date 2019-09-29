@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.extensions.primitives.*
@@ -37,23 +39,56 @@ class CollectionTest {
         collection.isIndexValidForInsert(12).assertFalse()
     }
 
-    @Test
-    fun getSafe() {
-        val collection: MutableCollection<String> = mutableListOf()
-        collection.getSafe(-1).assertNull()
-        collection.getSafe(0).assertNull("collection is empty.")
-        collection.getSafe(1).assertNull()
-        collection.add("test")
-        collection.getSafe(-1).assertNull()
-        collection.getSafe(0).assertNotNullAndEquals("test")
-        collection.getSafe(1).assertNull()
-        collection.add("1")
-        collection.add("2")
-        collection.add("3")
-        collection.getSafe(3).assertNotNullAndEquals("3")
-        collection.getSafe(4).assertNull()
-        collection.getSafe(2).assertNotNullAndEquals("2")
-        collection.getSafe(1).assertNotNullAndEquals("1")
+//    @Test
+//    fun getSafe() {
+//        val collection: MutableCollection<String> = mutableListOf()
+//        collection.getSafe(-1).assertNull()
+//        collection.getSafe(0).assertNull("collection is empty.")
+//        collection.getSafe(1).assertNull()
+//        collection.add("test")
+//        collection.getSafe(-1).assertNull()
+//        collection.getSafe(0).assertNotNullAndEquals("test")
+//        collection.getSafe(1).assertNull()
+//        collection.add("1")
+//        collection.add("2")
+//        collection.add("3")
+//        collection.getSafe(3).assertNotNullAndEquals("3")
+//        collection.getSafe(4).assertNull()
+//        collection.getSafe(2).assertNotNullAndEquals("2")
+//        collection.getSafe(1).assertNotNullAndEquals("1")
+//    }
+
+    object GetSafeTests {
+        @Test
+        fun getSafeEmpty() {
+            val collection: MutableCollection<String> = mutableListOf()
+            collection.getSafe(-1).assertNull()
+            collection.getSafe(0).assertNull("collection is empty.")
+            collection.getSafe(1).assertNull()
+        }
+
+        @Test
+        fun getSafeSingle() {
+            val collection: MutableCollection<String> = mutableListOf()
+            collection.add("test")
+            collection.getSafe(-1).assertNull()
+            collection.getSafe(0).assertNotNullAndEquals("test")
+            collection.getSafe(1).assertNull()
+        }
+
+        @Test
+        fun getSafeMultiple() {
+            val collection: MutableCollection<String> = mutableListOf()
+            collection.add("test")
+            collection.add("1")
+            collection.add("2")
+            collection.add("3")
+            collection.getSafe(3).assertNotNullAndEquals("3")
+            collection.getSafe(4).assertNull()
+            collection.getSafe(2).assertNotNullAndEquals("2")
+            collection.getSafe(1).assertNotNullAndEquals("1")
+        }
+
     }
 
     @Test
@@ -227,6 +262,44 @@ class CollectionTest {
         emptyCol.isNullOrEmpty().assert(true)
         val singleCol: Collection<String> = listOf("omg")
         singleCol.isNullOrEmpty().assert(false)
+    }
+
+    object IsAllTrue {
+        @Test
+        fun empty() {
+            val empty: Collection<Boolean> = listOf()
+            empty.isAllTrue().assertTrue()
+        }
+
+        @Test
+        fun singleTrue() {
+            val single: Collection<Boolean> = listOf(true)
+            single.isAllTrue().assertTrue()
+        }
+
+        @Test
+        fun singleFalse() {
+            val single: Collection<Boolean> = listOf(false)
+            single.isAllTrue().assertFalse()
+        }
+
+        @Test
+        fun multipleTrue() {
+            val multiple: Collection<Boolean> = listOf(true, true)
+            multiple.isAllTrue().assertTrue()
+        }
+
+        @Test
+        fun multipleFalse() {
+            val multiple: Collection<Boolean> = listOf(false, false)
+            multiple.isAllTrue().assertFalse()
+        }
+
+        @Test
+        fun multipleMixed() {
+            val multiple: Collection<Boolean> = listOf(true, false)
+            multiple.isAllTrue().assertFalse()
+        }
     }
 
 

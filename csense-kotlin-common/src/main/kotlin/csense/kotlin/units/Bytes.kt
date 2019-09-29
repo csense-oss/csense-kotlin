@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.units
 
 //TODO use inline classes when stable

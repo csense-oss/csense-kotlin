@@ -63,3 +63,12 @@ suspend fun <T, U> Iterable<T>.mapAsyncAwait(
         context: CoroutineContext = Dispatchers.Default,
         mapper: AsyncFunction1<T, U>
 ): List<U> = this.mapAsync(coroutineScope, context, mapper).awaitAll()
+
+/**
+ * Waits for all jobs in an array.
+ * Since this is missing from Std Lib.
+ * @receiver Array<out Job>
+ */
+suspend fun Array<out Job>.joinAll() {
+    forEach { it.join() }
+}

@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.test.assertions.*

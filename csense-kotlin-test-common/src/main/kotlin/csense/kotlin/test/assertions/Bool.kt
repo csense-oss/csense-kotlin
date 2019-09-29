@@ -1,3 +1,5 @@
+@file:Suppress("MissingTestFunction")
+
 package csense.kotlin.test.assertions
 
 import kotlin.test.*

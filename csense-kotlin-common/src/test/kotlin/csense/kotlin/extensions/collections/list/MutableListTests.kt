@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.extensions.collections.*
@@ -73,6 +75,7 @@ class MutableExtensionsKtTest {
         list.first().assert("test23")
     }
 
+    @Ignore
     @Test
     fun removeAll() {
 
@@ -86,5 +89,42 @@ class MutableExtensionsKtTest {
         list.removeAtOr(10, "qwe").assertNotNullAndEquals("qwe")
         list.assertSize(1)
     }
+
+    object Replace {
+        @Test
+        fun replaceWithEmpty() {
+            val lst = mutableListOf<String>()
+            lst.replace("", "")
+            lst.assertSize(0)
+        }
+
+        @Test
+        fun replaceWithSingle() {
+            val lst = mutableListOf("a")
+            lst.replace("b", "c")
+            lst.assertContains("a")
+            lst.assertContainsNot("b")
+            lst.assertContainsNot("c")
+            lst.replace("a", "b")
+            lst.assertContainsNot("a")
+            lst.assertContains("b")
+            lst.assertContainsNot("c")
+        }
+
+        @Test
+        fun replaceWithMultiple() {
+            val lst = mutableListOf("a", "b", "c")
+            lst.replace("d", "e")
+            lst.assertContainsNot("e")
+            lst.replace("a", "b")
+            lst.assertContainsNot("a")
+            lst.count { it == "b" }.assert(2)
+            lst.replace("b", "c")
+            lst.count { it == "c" }.assert(2, "should only replace the first encounter.")
+            lst.count { it == "b" }.assert(1, "should only replace the first encounter.")
+        }
+
+    }
+
 
 }

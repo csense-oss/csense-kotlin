@@ -56,11 +56,13 @@ class EnumKtTest {
 
 
     //region Generalized search for enum
+    @Ignore
     @Test
     fun enumFromOrFunction() {
 
     }
 
+    @Ignore
     @Test
     fun enumFromOrNullFunction() {
 

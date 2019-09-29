@@ -41,6 +41,15 @@ fun <T> MutableList<T>.replace(item: T, position: Int) {
     }
 }
 
+/**
+ * Replaces the given "toReplace" with the "WithItem" (if "toReplace" is found in this collection)
+ * @receiver MutableList<T>
+ * @param toReplace T
+ * @param withItem T
+ */
+fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
+        replace(withItem, indexOf(toReplace))
+
 
 /**
  * returns true iff all could be removed
@@ -48,12 +57,12 @@ fun <T> MutableList<T>.replace(item: T, position: Int) {
  * @param intRange kotlin.ranges.IntRange
  * @return Boolean
  */
-fun <T> MutableList<T>.removeAll(intRange: kotlin.ranges.IntRange): Boolean {
-    if (intRange.start >= size || intRange.endInclusive >= size) {
+fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
+    if (intRange.first >= size || intRange.last >= size) {
         return false
     }
     @Suppress("ForEachParameterNotUsed")
-    intRange.forEach { this.removeAt(intRange.start) }
+    intRange.forEach { this.removeAt(intRange.first) }
     return true
 }
 

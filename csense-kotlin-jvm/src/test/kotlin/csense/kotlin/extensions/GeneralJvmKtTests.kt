@@ -1,7 +1,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.test.*
-import org.junit.*
+import org.junit.jupiter.api.*
 
 class GeneralJvmKtTests {
 
@@ -12,7 +12,7 @@ class GeneralJvmKtTests {
         val stringClass: Class<String> = type()
         stringClass.assert("".javaClass)
 
-        val SbClass = type<StringBuilder>()
-        SbClass.assert(StringBuilder::class.java)
+        val sbClass = type<StringBuilder>()
+        sbClass.assert(StringBuilder::class.java)
     }
 }

@@ -1,21 +1,26 @@
 package csense.kotlin.algorithms
 
+import kotlin.test.*
+
 class RunningAverageKtTest {
 
-
-    fun RunningAverageInt() {
-
-    }
-
-    fun RunningAverageDouble() {
+    @Ignore
+    fun runningAverageInt() {
 
     }
 
-    fun RunningAverageFloat() {
+    @Ignore
+    fun runningAverageDouble() {
 
     }
 
-    fun RunningAverageFloatCapped() {
+    @Ignore
+    fun runningAverageFloat() {
+
+    }
+
+    @Ignore
+    fun runningAverageFloatCapped() {
 
     }
 

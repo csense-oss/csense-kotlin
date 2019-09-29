@@ -30,7 +30,7 @@ inline fun <E> List<E>.limitToSize(size: Int): List<E> {
  */
 
 inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
-        subList(intRange.start, intRange.endInclusive)
+        subList(intRange.first, intRange.last)
 
 
 /**

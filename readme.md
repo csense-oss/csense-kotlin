@@ -110,7 +110,7 @@ before:
 ````kotlin
 
 fun some(): Unit {
-    coroutineScope.launch(){
+    coroutineScope.launch {
         doWork()
     }
 }
@@ -118,7 +118,7 @@ fun some(): Unit {
 ````
 csense:
 ````kotlin
-fun some(): Unit = coroutineScope.launch(){
+fun some(): Unit = coroutineScope.launch {
     doWork()
 }.toUnit()
 ````

@@ -386,3 +386,38 @@ inline fun String.fromHexStringToByteArray(): ShortArray? {
 }
 //endregion
 
+
+//region does not ends with
+inline fun String.doesNotEndsWith(
+        item: String,
+        ignoreCase: Boolean = false
+): Boolean =
+        !endsWith(item, ignoreCase)
+
+inline fun String.doesNotEndsWith(
+        item: CharSequence,
+        ignoreCase: Boolean = false
+): Boolean =
+        !endsWith(item, ignoreCase)
+
+inline fun String.doesNotEndsWith(
+        item: Char,
+        ignoreCase: Boolean = false
+): Boolean =
+        !endsWith(item, ignoreCase)
+
+inline fun String.doesNotEndsWithAny(
+        vararg items: String,
+        ignoreCase: Boolean = false
+): Boolean =
+        !endsWithAny(*items, ignoreCase = ignoreCase)
+
+inline fun String.doesNotEndsWithAny(
+        items: Collection<String>,
+        ignoreCase: Boolean = false
+): Boolean =
+        !endsWithAny(items, ignoreCase)
+//endregion
+
+
+

@@ -2,12 +2,13 @@
 
 ## 00.22
 - kotlin 1.3.50
+- coroutines 1.3.2
 
 ## 0.0.21
 - moved LLogger extension to separated file
 - started on data structure package
     - SimpleLRUCache
-- more tests    
+- more tests
 
 ## 0.0.20
 - potential fixed broken doc for jvm target

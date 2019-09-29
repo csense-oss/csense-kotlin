@@ -11,7 +11,7 @@ import csense.kotlin.extensions.primitives.*
  * @receiver Any? the optional value
  * @param action EmptyFunction the function to run if the receiver is not null
  */
-inline fun Any?.ifNull(action: EmptyFunction) {
+inline fun <T> T?.ifNull(action: EmptyFunction) {
     this.isNull.ifTrue(action)
 }
 
@@ -27,7 +27,7 @@ inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
 /**
  * returns true if this is null
  */
-inline val Any?.isNull: Boolean
+inline val <T> T?.isNull: Boolean
     get() {
         return this == null
     }
@@ -35,7 +35,7 @@ inline val Any?.isNull: Boolean
 /**
  * returns true if this is not null.
  */
-inline val Any?.isNotNull: Boolean
+inline val <T> T?.isNotNull: Boolean
     get() {
         return this != null
     }

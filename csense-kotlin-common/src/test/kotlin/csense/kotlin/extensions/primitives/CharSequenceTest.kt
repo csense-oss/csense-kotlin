@@ -3,7 +3,7 @@ package csense.kotlin.extensions.primitives
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class CharSequenceKtTest {
+class CharSequenceTest {
 
     @Test
     fun isNotNullOrBlank() {
