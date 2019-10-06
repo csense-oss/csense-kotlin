@@ -52,3 +52,44 @@ inline fun <reified T : Exception> assertThrows(
         //all is good / expected.
     }
 }
+
+/**
+ * Asserts that the given action calls the callback function "times" times otherwise fails with the given message
+ * @param message String the error message if it fails (times the callback called != times)
+ * @param times Int the number of times we expected the callback to be called
+ * @param action Function1<[@kotlin.ParameterName] Function0<Unit>, Unit> the action, getting the callback function
+ */
+fun assertCalled(
+        message: String = GeneralStrings.assertCalledMessage,
+        times: Int = 1,
+        action: (callback: () -> Unit) -> Unit
+) {
+    var counter = 0
+    action { counter += 1 }
+    counter.assert(times, message)
+}
+
+/**
+ * Asserts that the given action calls the callback function 1 times otherwise fails with the given message
+ * @param message String the error message if it fails (times the callback called != 1)
+ * @param action Function1<[@kotlin.ParameterName] Function0<Unit>, Unit> the action, getting the callback function
+ */
+fun assertCalled(
+        message: String = GeneralStrings.assertCalledMessage,
+        action: (callback: () -> Unit) -> Unit
+) = assertCalled(message, 1, action)
+
+/**
+ * Asserts that the given action calls the callback function 0 times / not gets called otherwise fails with the given message
+ * @param message String
+ * @param action Function1<[@kotlin.ParameterName] Function0<Unit>, Unit>
+ */
+fun assertNotCalled(
+        message: String = GeneralStrings.assertNotCalledMessage,
+        action: (callback: () -> Unit) -> Unit
+) = assertCalled(message, 0, action)
+
+private object GeneralStrings {
+    const val assertCalledMessage = ""
+    const val assertNotCalledMessage = ""
+}

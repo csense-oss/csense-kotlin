@@ -109,7 +109,7 @@ This function makes it quite easy to write more idiomatic kotlin code.
 before:
 ````kotlin
 
-fun some(): Unit {
+fun some() {
     coroutineScope.launch {
         doWork()
     }

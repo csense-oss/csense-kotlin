@@ -30,16 +30,6 @@ class ListKtTest {
         listOf("a", "b").limitToSize(30).assertSize(2)
     }
 
-    @Ignore
-    @Test
-    fun subList() {
-
-    }
-
-    @Ignore
-    @Test
-    fun repeat() {
-    }
 
     @Test
     fun repeatToSize() {

@@ -6,8 +6,8 @@ import kotlin.math.*
 
 
 /**
- * Compares this double to the given value,with a margin;
- * this is done since doubles / floating numbers are not precise in computers.
+ * Compares this float to the given value,with a margin;
+ * this is done since floating numbers are not precise in computers.
  * @receiver float
  * @param value float The value we are comparing to
  * @param margin float the delta / margin we are comparing within

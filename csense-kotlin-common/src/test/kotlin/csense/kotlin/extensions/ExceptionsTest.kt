@@ -3,7 +3,7 @@ package csense.kotlin.extensions
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class ExceptionsKtTest {
+class ExceptionsTest {
 
     @Test
     fun toPrettyString() {

@@ -4,7 +4,7 @@ import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
 
-class GeneralKtTest {
+class GeneralTest {
 
     @Test
     fun cast() {

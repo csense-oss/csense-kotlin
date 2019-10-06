@@ -3,7 +3,6 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import kotlin.contracts.*
 
 /**
  * Maps an optional value into another value
@@ -12,9 +11,9 @@ import kotlin.contracts.*
  * @param ifNull U the value if 'this' is null
  * @return U the value depending on 'this' value
  */
-@ExperimentalContracts
-
-inline fun <U> Any?.mapOptional(ifNotNull: U, ifNull: U): U {
+inline fun <U> Any?.mapOptional(
+        ifNotNull: U,
+        ifNull: U): U {
     return this.isNotNull.map(ifNotNull, ifNull)
 }
 
@@ -25,9 +24,9 @@ inline fun <U> Any?.mapOptional(ifNotNull: U, ifNull: U): U {
  * @param ifNull EmptyFunctionResult<U> the value if 'this' is null
  * @return U the value depending on 'this' value
  */
-@ExperimentalContracts
-inline fun <U> Any?.mapLazyOptional(ifNotNull: EmptyFunctionResult<U>,
-                                    ifNull: EmptyFunctionResult<U>): U {
+inline fun <U> Any?.mapLazyOptional(
+        ifNotNull: EmptyFunctionResult<U>,
+        ifNull: EmptyFunctionResult<U>): U {
     return if (this.isNotNull) {
         ifNotNull()
     } else {
@@ -43,26 +42,15 @@ inline fun <U> Any?.mapLazyOptional(ifNotNull: EmptyFunctionResult<U>,
  * @return T
  */
 
-inline fun <T> Boolean.map(ifTrue: T, ifFalse: T): T = if (this) {
+inline fun <T> Boolean.map(
+        ifTrue: T,
+        ifFalse: T
+): T = if (this) {
     ifTrue
 } else {
     ifFalse
 }
 
-/**
- * Maps a boolean into a value. lazily
- * @receiver Boolean
- * @param ifTrue EmptyFunctionResult<T>
- * @param ifFalse EmptyFunctionResult<T>
- * @return T
- */
-inline fun <T> Boolean.mapInvoke(
-        ifTrue: EmptyFunctionResult<T>,
-        ifFalse: EmptyFunctionResult<T>): T = if (this) {
-    ifTrue()
-} else {
-    ifFalse()
-}
 
 /**
  * Maps lazy the given parameters.
@@ -74,13 +62,14 @@ inline fun <T> Boolean.mapInvoke(
  * @param ifFalse EmptyFunctionResult<T>
  * @return T
  */
-inline fun <T> Boolean.mapLazy(ifTrue: EmptyFunctionResult<T>,
-                               ifFalse: EmptyFunctionResult<T>): T =
-        if (this) {
-            ifTrue()
-        } else {
-            ifFalse()
-        }
+inline fun <T> Boolean.mapLazy(
+        ifTrue: EmptyFunctionResult<T>,
+        ifFalse: EmptyFunctionResult<T>
+): T = if (this) {
+    ifTrue()
+} else {
+    ifFalse()
+}
 
 
 /**
@@ -89,4 +78,7 @@ inline fun <T> Boolean.mapLazy(ifTrue: EmptyFunctionResult<T>,
  * @param mapper Function1<T, U>
  * @return Set<U>
  */
-fun <T, U> Iterable<T>.mapToSet(mapper: Function1<T, U>): Set<U> = mapTo(mutableSetOf(), mapper)
+fun <T, U> Iterable<T>.mapToSet(
+        mapper: Function1<T, U>
+): Set<U> = mapTo(mutableSetOf(), mapper)
+

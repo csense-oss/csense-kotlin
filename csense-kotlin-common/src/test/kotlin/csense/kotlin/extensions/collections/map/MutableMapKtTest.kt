@@ -39,16 +39,37 @@ class MutableMapKtTest {
         map.assertSize(0)
     }
 
-    @Ignore
     @Test
     fun setIfNotEmpty() {
+        val map = mutableMapOf<String, List<String>>()
+        map.setIfNotEmpty("a", listOf())
+        map.assertEmpty()
+
+        map.setIfNotEmpty("a", listOf("a"))
+        map.assertSize(1)
+        map["a"].assertNotNullApply { assertSize(1) }
+
+        map.setIfNotEmpty("a", listOf("a", "b"))
+        map.assertSize(1)
+        map["a"].assertNotNullApply { assertSize(2) }
 
     }
 
-    @Ignore
     @Test
     fun putSubList() {
+        val map = mutableMapOf<String, MutableList<String>>()
+        map.putSubList("a", "a")
+        map.assertSize(1)
+        map["a"].assertNotNullApply { assertSize(1) }
+
+        map.putSubList("a", "b")
+        map.assertSize(1)
+        map["a"].assertNotNullApply { assertSize(2) }
+
+        map.putSubList("b", "a")
+        map.assertSize(2)
+        map["a"].assertNotNullApply { assertSize(2) }
+        map["b"].assertNotNullApply { assertSize(1) }
 
     }
-
 }

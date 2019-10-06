@@ -18,12 +18,12 @@ inline fun StringBuilder.set(content: String): StringBuilder = apply {
 /**
  * Clears the content and sets the content to the given char array
  * @receiver StringBuilder
- * @param content CharArray
+ * @param charArray CharArray
  * @return StringBuilder
  */
-inline fun StringBuilder.set(content: CharArray): StringBuilder = apply {
+inline fun StringBuilder.set(charArray: CharArray): StringBuilder = apply {
     clear()
-    appendContentOf(content)
+    appendContentOf(charArray)
 }
 
 

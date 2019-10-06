@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
+import csense.kotlin.exceptions.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.patterns.*
@@ -47,13 +48,10 @@ fun String.indexOfSafe(subString: String, index: Int, ignoreCase: Boolean): Expe
     }
 }
 
-//TODO this seems rather bad, as we are to allocate a random stacktrace..
+private val IndexOfMissingException = NoStackTraceException("Unable to find substring")
+
 private val failedIndexOfExpected = ExpectedFailed<Int>(IndexOfMissingException)
 
-/**
- *
- */
-object IndexOfMissingException : Exception("Unable to find substring")
 //endregion
 
 //region Creation and insertion
@@ -208,7 +206,7 @@ inline fun String.replaceIfOr(condition: Boolean,
                               crossinline ifTrueValue: EmptyFunctionResult<String>,
                               crossinline ifFalseValue: EmptyFunctionResult<String>,
                               ignoreCase: Boolean = false): String {
-    val replacement = condition.mapInvoke(ifTrueValue, ifFalseValue)
+    val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
 //endregion
@@ -419,5 +417,26 @@ inline fun String.doesNotEndsWithAny(
         !endsWithAny(items, ignoreCase)
 //endregion
 
+//region Contains any editions
+/**
+ *
+ * @receiver String
+ * @param strings Array<out String>
+ * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
+ */
+fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boolean = strings.any {
+    this.contains(it, ignoreCase)
+}
 
+/**
+ *
+ * @receiver String
+ * @param collection Iterable<String>
+ * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
+ * @return Boolean
+ */
+fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false): Boolean = collection.any {
+    this.contains(it, ignoreCase)
+}
+//endregion
 

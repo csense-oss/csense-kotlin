@@ -7,8 +7,9 @@ import kotlin.experimental.*
 
 //region Zero, negative, positive
 
-inline val Byte.zero: Byte
+inline val Byte.Companion.zero: Byte
     get() = 0
+
 /**
  * Gets this Byte negative, if it is already negative, returns that.
  * this is also negative Abs.
@@ -42,7 +43,7 @@ inline val Byte.isNotZero: Boolean
  *  if this Byte is 0 => returns true. false otherwise
  */
 inline val Byte.isZero: Boolean
-    get() = this == zero
+    get() = this == Byte.zero
 
 /**
  * Tells if this number is either negative or zero
@@ -87,10 +88,11 @@ inline val Byte.isOdd: Boolean
  * Shifts the bits to the left the given amount of times
  * @receiver Byte the value to SHL
  * @param shift Int the amount to shl
- * @return Byte the resulting byte; overflow are discared
+ * @return Byte the resulting byte; overflow are discarded
  */
 
-inline infix fun Byte.shl(shift: Int): Byte = (this.toInt() shl shift).toByte()
+inline infix fun Byte.shl(shift: Int): Byte =
+        (this.toInt() shl shift).toByte()
 
 /**
  * Shifts the bits to the right the given amount of times
@@ -99,7 +101,8 @@ inline infix fun Byte.shl(shift: Int): Byte = (this.toInt() shl shift).toByte()
  * @return Byte the resulting byte; overflow are discared
  */
 
-inline infix fun Byte.shr(shift: Int): Byte = (this.toInt() shr shift).toByte()
+inline infix fun Byte.shr(shift: Int): Byte =
+        (this.toInt() shr shift).toByte()
 //endregion
 
 //region hex converting
@@ -109,10 +112,11 @@ inline infix fun Byte.shr(shift: Int): Byte = (this.toInt() shr shift).toByte()
  * @param action (upperChar: Char, lowerChar: Char) -> T
  * @return T
  */
-inline fun <T> Byte.toChars(action: (upperChar: Char, lowerChar: Char) -> T): T =
-        splitIntoComponents { upperByte, lowerByte ->
-            action(hexCharsAsString[upperByte.toInt()], hexCharsAsString[lowerByte.toInt()])
-        }
+inline fun <T> Byte.toChars(
+        action: (upperChar: Char, lowerChar: Char) -> T
+): T = splitIntoComponents { upperByte, lowerByte ->
+    action(hexCharsAsString[upperByte.toInt()], hexCharsAsString[lowerByte.toInt()])
+}
 
 /**
  * converts a given byte to a hex string.
@@ -120,10 +124,9 @@ inline fun <T> Byte.toChars(action: (upperChar: Char, lowerChar: Char) -> T): T 
  * @return String
  */
 
-inline fun Byte.toHexString(): String =
-        this.toChars { upperChar, lowerChar ->
-            String.createFromChars(charArrayOf(upperChar, lowerChar))
-        }
+inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
+    String.createFromChars(charArrayOf(upperChar, lowerChar))
+}
 
 
 /**
@@ -132,7 +135,9 @@ inline fun Byte.toHexString(): String =
  * @param action (upperByte: Byte, lowerByte: Byte) -> T
  * @return T
  */
-inline fun <T> Byte.splitIntoComponents(action: (upperByte: Byte, lowerByte: Byte) -> T): T {
+inline fun <T> Byte.splitIntoComponents(
+        action: (upperByte: Byte, lowerByte: Byte) -> T
+): T {
     val lower: Byte = this and 0x0f
     val upper: Byte = (this shr 4) and 0x0F.toByte()
     return action(upper, lower)

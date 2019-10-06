@@ -58,11 +58,18 @@ fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
  * @return Boolean
  */
 fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
+    //skip negative ranges and ranges that ends on 0.
+    // and Ranges that are not inverted ( last is less than first)
+    if (intRange.first.isNegative || intRange.last.isNegative || intRange.last < intRange.first) {
+        return false
+    }
+    //if we are larger than size we are out of bounds
     if (intRange.first >= size || intRange.last >= size) {
         return false
     }
-    @Suppress("ForEachParameterNotUsed")
-    intRange.forEach { this.removeAt(intRange.first) }
+    for (i in intRange) {
+        this.removeAt(intRange.first)
+    }
     return true
 }
 

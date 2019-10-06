@@ -4,7 +4,7 @@ import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
 
-class EqualityKtTest {
+class EqualityTest {
 
     @Test
     fun isNullOrEqualTo() {

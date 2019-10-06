@@ -6,7 +6,7 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class MutableExtensionsKtTest {
+class MutableExtensionsTest {
 
     @Test
     fun findAndRemove() {
@@ -36,50 +36,112 @@ class MutableExtensionsKtTest {
 
     }
 
+    object RemoveAllIntRange {
+
+        @Test
+        fun testOutOfBoundsEmpty() {
+            val lst = mutableListOf<String>()
+            lst.removeAll(0 until 2).assertFalse("should not remove anything")
+            lst.removeAll(0 until 1).assertFalse("should not remove anything")
+            lst.removeAll(-40 until 1).assertFalse("should not remove anything")
+            lst.removeAll(5 until 2).assertFalse("should not remove anything")
+        }
+
+        @Test
+        fun testOutOfBoundsContent() {
+            val lst = mutableListOf("a", "b", "c")
+            lst.removeAll(0 until 5).assertFalse("should not remove anything")
+            lst.removeAll(0 until 4).assertFalse("should not remove anything")
+            lst.removeAll(-40 until 1).assertFalse("should not remove anything")
+            lst.removeAll(5 until 2).assertFalse("should not remove anything")
+        }
+
+        @Test
+        fun testSingle() {
+            val lst = mutableListOf("a")
+            lst.removeAll(0 until 1).assertTrue("should remove only 1 element")
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun testMultipleRemoveSingleFirst() {
+            val lst = mutableListOf("a", "b")
+            lst.removeAll(0 until 1).assertTrue("should remove only 1 element")
+            lst.assertSize(1)
+            lst.first().assert("b")
+        }
+
+        @Test
+        fun testMultipleRemoveSingleLast() {
+            val lst = mutableListOf("a", "b")
+            lst.removeAll(1 until 2).assertTrue("should remove only 1 element")
+            lst.assertSize(1)
+            lst.first().assert("a")
+        }
+
+        @Test
+        fun testMultipleRemoveAll() {
+            val lst = mutableListOf("a", "b")
+            lst.removeAll(0 until 2).assertTrue("should remove 2 element")
+            lst.assertEmpty()
+
+            val longList = mutableListOf("a").repeatToSize(50).toMutableList()
+            longList.assertSize(50)
+            longList.removeAll(0 until 50)
+            longList.assertEmpty()
+        }
+
+        @Test
+        fun testMultipleRemoveMiddle() {
+            val lst = mutableListOf("a", "b", "c", "d")
+            lst.removeAll(1 until 3).assertTrue("should remove only 2 element") //b,c should be removed
+            lst.assertSize(2)
+            lst.first().assert("a")
+            lst.last().assert("d")
+        }
+
+    }
+
     @Test
-    fun replace() {
+    fun replaceItem() {
         val list = mutableListOf("1", "2")
         list.replace("3", 1)
         list[1].assert("3")
         list[0].assert("1")
     }
 
-    @Test
-    fun set() {
-        val list = mutableListOf(
-                42, 2, 1
-        )
-        list.set(listOf())
-        list.assertEmpty("should have removed all things before setting")
-        list.set(listOf(989))
-        list.assertSize(1)
-        list.first().assert(989)
-        list.set(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
-        list.assertSize(10)
-        list.first().assert(1)
-        list.last().assert(10)
+    object Set {
+        @Test
+        fun set() {
+            val list = mutableListOf(
+                    42, 2, 1
+            )
+            list.set(listOf())
+            list.assertEmpty("should have removed all things before setting")
+            list.set(listOf(989))
+            list.assertSize(1)
+            list.first().assert(989)
+            list.set(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+            list.assertSize(10)
+            list.first().assert(1)
+            list.last().assert(10)
+        }
 
-
-    }
-
-    @Test
-    fun setSingle() {
-        val list = mutableListOf<String>()
-        list.add("test")
-        list.add("test2")
-        list.set("nope")
-        list.assertSize(1, "setting a single item should give 1 item")
-        list.first().assert("nope", "should have set item")
-        list.set("test23")
-        list.assertSize(1)
-        list.first().assert("test23")
-    }
-
-    @Ignore
-    @Test
-    fun removeAll() {
+        @Test
+        fun setSingle() {
+            val list = mutableListOf<String>()
+            list.add("test")
+            list.add("test2")
+            list.set("nope")
+            list.assertSize(1, "setting a single item should give 1 item")
+            list.first().assert("nope", "should have set item")
+            list.set("test23")
+            list.assertSize(1)
+            list.first().assert("test23")
+        }
 
     }
+
 
     @Test
     fun removeAtOr() {
@@ -90,7 +152,7 @@ class MutableExtensionsKtTest {
         list.assertSize(1)
     }
 
-    object Replace {
+    object ReplaceToReplace {
         @Test
         fun replaceWithEmpty() {
             val lst = mutableListOf<String>()

@@ -55,23 +55,8 @@ class EnumKtTest {
     //endregion
 
 
-    //region Generalized search for enum
-    @Ignore
-    @Test
-    fun enumFromOrFunction() {
-
-    }
-
-    @Ignore
-    @Test
-    fun enumFromOrNullFunction() {
-
-    }
-    //endregion
-
-
 }
 
-enum class EnumKtTestEnum {
+private enum class EnumKtTestEnum {
     A, B, C
 }

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.test.assertions.*
@@ -230,18 +232,6 @@ class StringTest {
         "aba".endsWithAny("aba").assertTrue()
     }
 
-    @Ignore
-    @Test
-    fun startsWithAny() {
-
-    }
-
-    @Ignore
-    @Test
-    fun startsWithAnyVararg() {
-
-    }
-
     @Test
     fun replaceIf() {
         "abc".replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
@@ -251,22 +241,92 @@ class StringTest {
         "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
     }
 
-    @Ignore
+
     @Test
-    fun replaceIfOr() {
+    fun wrapInQuotes() {
+        "".wrapInQuotes().assert("\"\"")
+        "a".wrapInQuotes().assert("\"a\"")
+        "\"".wrapInQuotes().assert("\"\"\"")
+        "yzz x".wrapInQuotes().assert("\"yzz x\"")
+    }
+
+
+    object ContainsAnyCollection {
+
+        @Test
+        fun empty() {
+            "".containsAny(listOf()).assertFalse("nothing containing nothing is nonsense")
+            "".containsAny(listOf("a")).assertFalse("a is not in empty")
+            "".containsAny(listOf("a", " ")).assertFalse()
+
+            "abc".containsAny(listOf("")).assertTrue("as contains..")
+            "abc".containsAny(listOf(" ")).assertFalse("space is not in abc")
+
+        }
+
+        @Test
+        fun single() {
+            "a".containsAny(listOf("b")).assertFalse()
+            "a".containsAny(listOf("a")).assertTrue()
+            "a".containsAny(listOf("b", "a")).assertTrue()
+            "abc".containsAny(listOf("d")).assertFalse()
+        }
+
+        @Test
+        fun multiple() {
+            "abc".containsAny(listOf("a")).assertTrue()
+            "abc".containsAny(listOf("b")).assertTrue()
+            "abc".containsAny(listOf("c")).assertTrue()
+            "abc".containsAny(listOf("ab")).assertTrue()
+            "abc".containsAny(listOf("bc")).assertTrue()
+
+            "abc".containsAny(listOf("dd", "bb", "B"), ignoreCase = false).assertFalse()
+
+            "abc".containsAny(listOf("dd", "bb", "B"), ignoreCase = true).assertTrue()
+
+            "abc".containsAny(listOf("ab", "bc")).assertTrue()
+        }
 
     }
 
-    @Ignore
-    @Test
-    fun replaceIfOrFunctional() {
+
+    object ContainsAnyStrings {
+
+        @Test
+        fun empty() {
+            "".containsAny().assertFalse("nothing containing nothing is nonsense")
+            "".containsAny("a").assertFalse("a is not in empty")
+            "".containsAny("a", " ").assertFalse()
+
+            "abc".containsAny("").assertTrue("as contains..")
+            "abc".containsAny(" ").assertFalse("space is not in abc")
+
+        }
+
+        @Test
+        fun single() {
+            "a".containsAny("b").assertFalse()
+            "a".containsAny("a").assertTrue()
+            "a".containsAny("b", "a").assertTrue()
+            "abc".containsAny("d").assertFalse()
+        }
+
+        @Test
+        fun multiple() {
+            "abc".containsAny("a").assertTrue()
+            "abc".containsAny("b").assertTrue()
+            "abc".containsAny("c").assertTrue()
+            "abc".containsAny("ab").assertTrue()
+            "abc".containsAny("bc").assertTrue()
+
+            "abc".containsAny("dd", "bb", "B", ignoreCase = false).assertFalse()
+
+            "abc".containsAny("dd", "bb", "B", ignoreCase = true).assertTrue()
+
+            "abc".containsAny("ab", "bc").assertTrue()
+        }
 
     }
 
-    @Ignore
-    @Test
-    fun createFromChars() {
-
-    }
 
 }

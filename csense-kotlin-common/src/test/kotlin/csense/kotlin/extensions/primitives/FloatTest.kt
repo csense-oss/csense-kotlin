@@ -18,4 +18,6 @@ class FloatTest {
         0f.isZero.assert(true)
         0.1f.equalWithin(0.0f, 0.2f).assert(true)
     }
+
+
 }

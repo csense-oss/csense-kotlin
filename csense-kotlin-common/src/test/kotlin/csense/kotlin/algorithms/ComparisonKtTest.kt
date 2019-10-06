@@ -17,7 +17,7 @@ class ComparisonKtTest {
     }
 
     @Test
-    fun compareToRange() {
+    fun compareToRangeFromInclusive() {
         0.compareToRange(0, 1).assert(ItemComparison.Equal)
         1.compareToRange(0, 1).assert(ItemComparison.LargerThan)
         (-1).compareToRange(0, 1).assert(ItemComparison.LessThan)
@@ -25,7 +25,7 @@ class ComparisonKtTest {
     }
 
     @Test
-    fun compareToRange2() {
+    fun compareToRangeIntRange() {
         (-1).compareToRange(0 until 5).assert(ItemComparison.LessThan)
         0.compareToRange(0 until 5).assert(ItemComparison.Equal)
         1.compareToRange(0 until 5).assert(ItemComparison.Equal)

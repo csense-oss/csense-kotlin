@@ -4,7 +4,7 @@ import csense.kotlin.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class StandardExtensionsKtTest {
+class StandardExtensionsTest {
 
     @Test
     fun runIfNotNull() {

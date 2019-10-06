@@ -79,7 +79,7 @@ class LExtensionsKtTest {
     }
 
 
-    fun createSingleLoggerAssertion(expectedTag: String, expectedMessage: String, maxCounter: Int, counter: WrappedInt): LoggingFunctionType<Unit> {
+    private fun createSingleLoggerAssertion(expectedTag: String, expectedMessage: String, maxCounter: Int, counter: WrappedInt): LoggingFunctionType<Unit> {
         return { tag: String, value: String, _: Throwable? ->
             counter.value += 1
             expectedTag.assert(tag)

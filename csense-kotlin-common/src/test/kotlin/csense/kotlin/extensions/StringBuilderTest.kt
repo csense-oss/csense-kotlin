@@ -3,21 +3,10 @@ package csense.kotlin.extensions
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class StringBuilderKtTest {
+class StringBuilderTest {
 
     @Test
-    fun clear() {
-        val builder = StringBuilder()
-        builder.clear()
-        builder.toString().assert("")
-        builder.append("asd")
-        builder.toString().assert("asd")
-        builder.clear()
-        builder.toString().assert("")
-    }
-
-    @Test
-    fun setString() {
+    fun setContent() {
         val builder = StringBuilder()
         builder.set("")
         builder.toString().assert("")
