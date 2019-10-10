@@ -36,6 +36,7 @@ class LExtensionsKtTest {
     }
 
     //for jdk 8, in jdk 11 this is actually implemented
+    @Suppress("unused")
     private fun ByteArrayOutputStream.toString(charset: Charset): String {
         return toString(charset.name())
     }

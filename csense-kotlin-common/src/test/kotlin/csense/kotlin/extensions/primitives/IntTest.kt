@@ -72,4 +72,22 @@ class IntTest {
         (203).isOdd.assertTrue("")
     }
 
+    @Test
+    fun intNegative() {
+        (-1).negative.assert(-1)
+        0.negative.assert(-0)
+        1.negative.assert(-1)
+        (-50).negative.assert(-50)
+        42.negative.assert(-42)
+    }
+
+    @Test
+    fun intPositive() {
+        //TODO make me
+        -1.positive
+        0.positive
+        1.positive
+        -50.positive
+        42.positive
+    }
 }

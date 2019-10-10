@@ -57,7 +57,6 @@ private val failedIndexOfExpected = ExpectedFailed<Int>(IndexOfMissingException)
 //region Creation and insertion
 /**
  *
- * @receiver String.Companion
  * @param charArray CharArray
  * @return String
  */
@@ -335,7 +334,9 @@ inline fun String.ifNotBlank(action: Function1<String, String>): String = if (is
  * @param ignoreCase Boolean how we should compare prefix with this string
  * @return String the resulting string, either the original or substring by the prefix length
  */
-inline fun String.skipStartsWith(prefix: String, ignoreCase: Boolean = false): String {
+inline fun String.skipStartsWith(
+        prefix: String,
+        ignoreCase: Boolean = false): String {
     val startsWith = startsWith(prefix, ignoreCase)
     return startsWith.mapLazy(
             ifTrue = { substring(prefix.length) },

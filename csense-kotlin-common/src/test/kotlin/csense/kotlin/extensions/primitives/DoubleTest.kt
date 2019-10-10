@@ -6,7 +6,7 @@ import kotlin.test.*
 class DoubleTest {
 
     @Test
-    fun negative() {
+    fun doubleNegative() {
         val positive = 2.0
         positive.negative.assert(-2.0)
         val negative: Double = -2.0
@@ -14,7 +14,7 @@ class DoubleTest {
     }
 
     @Test
-    fun positive() {
+    fun doublePositive() {
         val positive = 8.0
         positive.positive.assert(8.0)
         val negative: Double = -12.0
@@ -22,7 +22,7 @@ class DoubleTest {
     }
 
     @Test
-    fun isNegative() {
+    fun doubleIsNegative() {
         (-2.0).isNegative.assertTrue()
         (-1.0).isNegative.assertTrue()
         (-0.1).isNegative.assertTrue()
@@ -36,7 +36,7 @@ class DoubleTest {
     }
 
     @Test
-    fun isPositive() {
+    fun doubleIsPositive() {
         (0.0).isPositive.assertFalse("0 is not counted towards positive, as its the \"neutral element\" in mathmatics")
         (1.0).isPositive.assertTrue()
         (-1.0).isPositive.assertFalse()
@@ -45,7 +45,7 @@ class DoubleTest {
     }
 
     @Test
-    fun isZero() {
+    fun doubleIsZero() {
         (0.0).isZero.assertTrue()
         (-0.0).isZero.assertTrue()
 
@@ -82,5 +82,21 @@ class DoubleTest {
 
     }
 
+    @Test
+    fun doubleIsNegativeOrZero() {
+        (-1).toDouble().isNegativeOrZero.assertTrue()
+        0.toDouble().isNegativeOrZero.assertTrue()
+        1.toDouble().isNegativeOrZero.assertFalse()
+        (-50).toDouble().isNegativeOrZero.assertTrue()
+        42.toDouble().isNegativeOrZero.assertTrue()
+    }
 
+    @Test
+    fun doubleIsPositiveOrZero() {
+        (-1).toDouble().isPositiveOrZero.assertFalse()
+        0.toDouble().isPositiveOrZero.assertTrue()
+        1.toDouble().isPositiveOrZero.assertTrue()
+        (-50).toDouble().isPositiveOrZero.assertFalse()
+        42.toDouble().isPositiveOrZero.assertTrue()
+    }
 }
