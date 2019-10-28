@@ -13,12 +13,6 @@ import csense.kotlin.extensions.collections.generic.*
 inline fun <U> FloatArray.forEachDiscard(receiver: Function1<Float, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
-/**
- * Fills this array with the given value
- */
-fun FloatArray.fill(value: Float): Unit =
-        GenericArray.fillArray(count(), value, this::set)
-
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)

@@ -4,7 +4,7 @@ import csense.kotlin.test.assertions.*
 import kotlin.collections.isNullOrEmpty
 import kotlin.test.*
 
-class ArrayKtTest {
+class ArrayTest {
 
     @Test
     fun isNotNullOrEmpty() {

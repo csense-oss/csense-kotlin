@@ -7,7 +7,7 @@ class ExpectedKtTest {
 
     @Test
     fun expectedSucceded() {
-        val testSuccess = Expected.success(42)
+        val testSuccess =expectedSucceded(42)
         testSuccess.isValid.assert(true)
         testSuccess.isError.assert(false)
         testSuccess.error.assertNull()
@@ -16,7 +16,7 @@ class ExpectedKtTest {
 
     @Test
     fun expectedFailed() {
-        val testFailed = Expected.failed<Int>()
+        val testFailed = expectedFailed<Int>()
         testFailed.isValid.assert(false)
         testFailed.isError.assert(true)
         assertThrows<Exception> {
@@ -113,5 +113,48 @@ class ExpectedKtTest {
         }, {
             it.message
         }).assertNotNullAndEquals("errorMessage")
+    }
+
+    @Test
+    fun isValid() {
+        val success = expectedSucceded(42)
+        success.isValid.assertTrue()
+        val failed = expectedFailed<Int>(Exception("errorMessage"))
+        failed.isValid.assertFalse()
+    }
+
+    @Test
+    fun value() {
+        val success = expectedSucceded(42)
+        success.value.assert(42)
+        val failed = expectedFailed<Int>(Exception("errorMessage"))
+        assertThrows<Exception> {
+            //should throw on access
+            val failedValue = failed.value
+            println(failedValue)
+        }
+
+
+    }
+
+    @Test
+    fun success() {
+        val testSuccess = Expected.success(42)
+        testSuccess.isValid.assert(true)
+        testSuccess.isError.assert(false)
+        testSuccess.error.assertNull()
+        testSuccess.value.assert(42)
+
+    }
+
+    @Test
+    fun failed() {
+        val testFailed = Expected.failed<Int>()
+        testFailed.isValid.assert(false)
+        testFailed.isError.assert(true)
+        assertThrows<Exception> {
+            testFailed.value.assertNull()
+        }
+        testFailed.error.assertNotNull()
     }
 }

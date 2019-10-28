@@ -45,6 +45,7 @@ sealed class TimeUnit(val value: Long) {
      */
     override fun toString(): String = internalString
 
+
     /**
      * A measure of nanoseconds
      * @constructor
@@ -55,6 +56,23 @@ sealed class TimeUnit(val value: Long) {
 
         override fun toMilliSeconds(): MilliSeconds =
                 MilliSeconds(value / milliSecondsToNanoSecondsMultiplier)
+
+        operator fun plus(other: NanoSeconds): NanoSeconds {
+            return NanoSeconds(this.value + other.value)
+        }
+
+        operator fun minus(other: NanoSeconds): NanoSeconds {
+            return NanoSeconds(this.value - other.value)
+        }
+
+        operator fun times(other: NanoSeconds): NanoSeconds {
+            return NanoSeconds(this.value * other.value)
+        }
+
+        operator fun div(other: NanoSeconds): NanoSeconds {
+            return NanoSeconds(this.value / other.value)
+        }
+
     }
 
     /**
@@ -66,6 +84,22 @@ sealed class TimeUnit(val value: Long) {
         override val prefix: String = "ms"
 
         override fun toMilliSeconds(): MilliSeconds = this
+
+        operator fun plus(other: MilliSeconds): MilliSeconds {
+            return MilliSeconds(this.value + other.value)
+        }
+
+        operator fun minus(other: MilliSeconds): MilliSeconds {
+            return MilliSeconds(this.value - other.value)
+        }
+
+        operator fun times(other: MilliSeconds): MilliSeconds {
+            return MilliSeconds(this.value * other.value)
+        }
+
+        operator fun div(other: MilliSeconds): MilliSeconds {
+            return MilliSeconds(this.value / other.value)
+        }
     }
 
     /**
@@ -77,6 +111,22 @@ sealed class TimeUnit(val value: Long) {
 
         override fun toMilliSeconds(): MilliSeconds =
                 MilliSeconds(value * secondsToMillisecondsMultiplier)
+
+        operator fun plus(other: Seconds): Seconds {
+            return Seconds(this.value + other.value)
+        }
+
+        operator fun minus(other: Seconds): Seconds {
+            return Seconds(this.value - other.value)
+        }
+
+        operator fun times(other: Seconds): Seconds {
+            return Seconds(this.value * other.value)
+        }
+
+        operator fun div(other: Seconds): Seconds {
+            return Seconds(this.value / other.value)
+        }
     }
 
     /**
@@ -93,6 +143,22 @@ sealed class TimeUnit(val value: Long) {
                     value *
                             (minutesToSecondsMultiplier *
                                     secondsToMillisecondsMultiplier))
+        }
+
+        operator fun plus(other: Minutes): Minutes {
+            return Minutes(this.value + other.value)
+        }
+
+        operator fun minus(other: Minutes): Minutes {
+            return Minutes(this.value - other.value)
+        }
+
+        operator fun times(other: Minutes): Minutes {
+            return Minutes(this.value * other.value)
+        }
+
+        operator fun div(other: Minutes): Minutes {
+            return Minutes(this.value / other.value)
         }
     }
 
@@ -111,6 +177,22 @@ sealed class TimeUnit(val value: Long) {
                             (hoursToMinutesMultiplier *
                                     minutesToSecondsMultiplier *
                                     secondsToMillisecondsMultiplier))
+        }
+
+        operator fun plus(other: Hours): Hours {
+            return Hours(this.value + other.value)
+        }
+
+        operator fun minus(other: Hours): Hours {
+            return Hours(this.value - other.value)
+        }
+
+        operator fun times(other: Hours): Hours {
+            return Hours(this.value * other.value)
+        }
+
+        operator fun div(other: Hours): Hours {
+            return Hours(this.value / other.value)
         }
     }
 
@@ -131,6 +213,22 @@ sealed class TimeUnit(val value: Long) {
                                     hoursToMinutesMultiplier *
                                     minutesToSecondsMultiplier *
                                     secondsToMillisecondsMultiplier))
+        }
+
+        operator fun plus(other: Days): Days {
+            return Days(this.value + other.value)
+        }
+
+        operator fun minus(other: Days): Days {
+            return Days(this.value - other.value)
+        }
+
+        operator fun times(other: Days): Days {
+            return Days(this.value * other.value)
+        }
+
+        operator fun div(other: Days): Days {
+            return Days(this.value / other.value)
         }
     }
 

@@ -4,8 +4,167 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.generic.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+
+//region Invoke each Lazy
+/**
+ * Invokes each function with the given argument(s) computed lazy
+ * @receiver Iterable<kotlin.Function1<I1, O>>
+ * @param element Function0R<I1>
+ */
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, O> Iterable<kotlin.Function1<I1, O>>.invokeEachWithLazy(
+        element: Function0R<I1>
+) {
+    contract {
+        callsInPlace(element, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        invokeEachWith(element())
+    }
+}
+
+/**
+ * Invokes each function with the given arguments
+ * @receiver Iterable<Function2<I1, I2, O>>
+ * @param firstElement I1
+ * @param secondElement I2
+ */
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
+        firstElement: Function0R<I1>,
+        secondElement: Function0R<I2>) {
+    contract {
+        callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        forEach { it(firstElement(), secondElement()) }
+    }
+}
 
 
+/**
+ * Invokes each function with the given arguments
+ * @receiver Iterable<Function3<I1, I2, I3, O>>
+ * @param firstElement I1
+ * @param secondElement I2
+ * @param thirdElement I3
+ */
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, I2, I3, O>
+        Iterable<Function3<I1, I2, I3, O>>.invokeEachWithLazy(
+        firstElement: Function0R<I1>,
+        secondElement: Function0R<I2>,
+        thirdElement: Function0R<I3>) {
+    contract {
+        callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        invokeEachWith(firstElement(), secondElement(), thirdElement())
+    }
+}
+
+/**
+ *  Invokes each function with the given arguments
+ * @receiver Iterable<Function4<I1, I2, I3, I4, O>>
+ * @param firstElement I1
+ * @param secondElement I2
+ * @param thirdElement I3
+ * @param forthElement I4
+ */
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, I2, I3, I4, O>
+        Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWithLazy(
+        firstElement: Function0R<I1>,
+        secondElement: Function0R<I2>,
+        thirdElement: Function0R<I3>,
+        forthElement: Function0R<I4>) {
+    contract {
+        callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        invokeEachWith(firstElement(), secondElement(),
+                thirdElement(), forthElement())
+    }
+}
+
+/**
+ * Invokes each function with the given arguments
+ * @receiver Iterable<Function5<I1, I2, I3, I4, I5, O>>
+ * @param firstElement I1
+ * @param secondElement I2
+ * @param thirdElement I3
+ * @param forthElement I4
+ * @param fifthElement I5
+ */
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, I2, I3, I4, I5, O>
+        Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWithLazy(
+        firstElement: Function0R<I1>,
+        secondElement: Function0R<I2>,
+        thirdElement: Function0R<I3>,
+        forthElement: Function0R<I4>,
+        fifthElement: Function0R<I5>) {
+    contract {
+        callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(fifthElement, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        invokeEachWith(firstElement(), secondElement(),
+                thirdElement(), forthElement(),
+                fifthElement())
+    }
+}
+
+/**
+ * Invokes each function with the given arguments
+ * @receiver Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>
+ * @param firstElement I1
+ * @param secondElement I2
+ * @param thirdElement I3
+ * @param forthElement I4
+ * @param fifthElement I5
+ * @param sixthElement I6
+ */
+@UseExperimental(ExperimentalContracts::class)
+inline fun <I1, I2, I3, I4, I5, I6, O>
+        Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWithLazy(
+        firstElement: Function0R<I1>,
+        secondElement: Function0R<I2>,
+        thirdElement: Function0R<I3>,
+        forthElement: Function0R<I4>,
+        fifthElement: Function0R<I5>,
+        sixthElement: Function0R<I6>) {
+    contract {
+        callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(fifthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(sixthElement, InvocationKind.AT_MOST_ONCE)
+    }
+    skipIfEmptyOr {
+        invokeEachWith(firstElement(), secondElement(),
+                thirdElement(), forthElement(),
+                fifthElement(), sixthElement())
+    }
+}
+
+//endregion
+
+//region Invoke each with
 /**
  * Invokes each function with the given arguments
  * @receiver Iterable<kotlin.Function1<I1, O>>
@@ -121,6 +280,7 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
                     fifthElement,
                     sixthElement)
         }
+//endregion
 
 
 /**
@@ -182,3 +342,19 @@ inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>) =
 inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
+
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
+    contract {
+        callsInPlace(function, InvocationKind.AT_MOST_ONCE)
+    }
+    if (isEmpty()) {
+        return
+    }
+    function()
+}
+
+inline fun <T> Iterable<T>.isEmpty(): Boolean = !isNotEmpty()
+
+inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()

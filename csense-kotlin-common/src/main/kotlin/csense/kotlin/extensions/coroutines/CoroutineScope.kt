@@ -11,8 +11,8 @@ import kotlinx.coroutines.*
  * @param action suspend CoroutineScope.() -> T
  * @return Deferred<T>
  */
-fun <T> CoroutineScope.asyncDefault(
-        action: CoroutineScopeFunction0<T>
+inline fun <T> CoroutineScope.asyncDefault(
+        noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Default, block = action)
 
 /**
@@ -21,8 +21,8 @@ fun <T> CoroutineScope.asyncDefault(
  * @param action suspend CoroutineScope.() -> T
  * @return Deferred<T>
  */
-fun <T> CoroutineScope.asyncMain(
-        action: CoroutineScopeFunction0<T>
+inline fun <T> CoroutineScope.asyncMain(
+        noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Main, block = action)
 
 /**
@@ -31,8 +31,8 @@ fun <T> CoroutineScope.asyncMain(
  * @param action suspend CoroutineScope.() -> Unit
  * @return Job
  */
-fun CoroutineScope.launchDefault(
-        action: CoroutineScopeFunction
+inline fun CoroutineScope.launchDefault(
+        noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Default, block = action)
 
 /**
@@ -41,8 +41,8 @@ fun CoroutineScope.launchDefault(
  * @param action suspend CoroutineScope.() -> Unit
  * @return Job
  */
-fun CoroutineScope.launchMain(
-        action: CoroutineScopeFunction
+inline fun CoroutineScope.launchMain(
+       noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Main, block = action)
 
 /**

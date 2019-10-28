@@ -31,7 +31,7 @@ class NullabilityTest {
     }
 
     @Test
-    fun isNull() {
+    fun tIsNull() {
         val onNull: String? = null
         onNull.isNull.assertTrue()
         val onNotNull: String? = ""
@@ -39,7 +39,7 @@ class NullabilityTest {
     }
 
     @Test
-    fun isNotNull() {
+    fun tIsNotNull() {
         val onNull: String? = null
         onNull.isNotNull.assertFalse()
         val onNotNull: String? = ""

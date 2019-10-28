@@ -2,6 +2,7 @@
 
 package csense.kotlin.logger
 
+//TODO find a way to test the L instance in a test thread safe way.until just suppress.
 
 /**
  * logs the given message and or the exception, using the class's name as the tag
@@ -12,6 +13,7 @@ package csense.kotlin.logger
  * @param exception Throwable?
  * see L.error
  */
+@Suppress("MissingTestFunction")
 inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
     L.error(T::class.java.simpleName, message, exception)
 }
@@ -24,6 +26,7 @@ inline fun <reified T : Any> T.logClassError(message: String, exception: Throwab
  * @param exception Throwable?
  * see L.warning
  */
+@Suppress("MissingTestFunction")
 inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
     L.warning(T::class.java.simpleName, message, exception)
 }
@@ -36,6 +39,7 @@ inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throw
  * @param exception Throwable?
  * see L.debug
  */
+@Suppress("MissingTestFunction")
 inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
     L.debug(T::class.java.simpleName, message, exception)
 }
@@ -48,6 +52,7 @@ inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwab
  * @param exception Throwable?
  * see L.logProd
  */
+@Suppress("MissingTestFunction")
 inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
     L.logProd(T::class.java.simpleName, message, exception)
 }
@@ -58,6 +63,7 @@ inline fun <reified T : Any> T.logClassProduction(message: String, exception: Th
  * @param limit Int the max length of the stacktrace
  * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
+@Suppress("MissingTestFunction")
 inline fun logCurrentStackTraceDebug(
         tag: String = "stack",
         limit: Int = 10,
@@ -69,6 +75,7 @@ inline fun logCurrentStackTraceDebug(
  * @param limit Int the max length of the stacktrace
  * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
+@Suppress("MissingTestFunction")
 inline fun logCurrentStackTraceWarning(
         tag: String = "stack",
         limit: Int = 10,
@@ -80,6 +87,7 @@ inline fun logCurrentStackTraceWarning(
  * @param limit Int the max length of the stacktrace
  * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
+@Suppress("MissingTestFunction")
 inline fun logCurrentStackTraceError(
         tag: String = "stack",
         limit: Int = 10,
@@ -92,6 +100,7 @@ inline fun logCurrentStackTraceError(
  * @param limit Int the max length of the stacktrace
  * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
+@Suppress("MissingTestFunction")
 inline fun logCurrentStackTraceProd(
         tag: String = "stack",
         limit: Int = 10,

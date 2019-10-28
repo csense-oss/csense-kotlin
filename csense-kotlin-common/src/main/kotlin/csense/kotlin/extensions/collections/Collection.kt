@@ -181,3 +181,14 @@ inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
 inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
+
+//TODO arrays ect ?s
+/**
+ * Returns the second last element or null if there is no second last (less than 2 elements)
+ * @receiver Collection<T>
+ * @return T?
+ */
+inline fun <T> Collection<T>.secondLastOrNull(): T? {
+    return elementAtOrNull(size - 2)
+}
+

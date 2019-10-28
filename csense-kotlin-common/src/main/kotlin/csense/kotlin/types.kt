@@ -22,6 +22,9 @@ typealias SuspendFunctionUnit<E> = suspend (E) -> Unit
 
 
 //region Function arity
+
+typealias Function0R<O> = () -> O
+
 /**
 For library functions
  */

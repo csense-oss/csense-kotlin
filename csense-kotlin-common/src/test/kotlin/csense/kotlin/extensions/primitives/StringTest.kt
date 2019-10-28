@@ -330,4 +330,38 @@ class StringTest {
     }
 
 
+    @Test
+    fun stringCompanionCreateFromChars() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun stringInsertInto() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun stringForEachMatching() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun stringReplaceIfOrCondition() {
+        //TODO make me.
+
+    }
+    @Test
+    fun stringReplaceIfOrConditionFunction() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun stringEndsWithAnyItems() {
+        //TODO make me.
+
+    }
 }

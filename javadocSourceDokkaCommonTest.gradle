@@ -9,8 +9,8 @@ class JavaDocSourceWithDokkaCommonTest implements Plugin<Project> {
         project.plugins.apply("org.jetbrains.dokka")
         //setup dokka
         project.dokka {
-            includeNonPublic = false
-            skipEmptyPackages = true // Do not create index pages for empty packages
+//            includeNonPublic = false
+//            skipEmptyPackages = true // Do not create index pages for empty packages
             cacheRoot = 'default'
             outputFormat = 'javadoc'
             outputDirectory = "${project.buildDir}/javadoc"

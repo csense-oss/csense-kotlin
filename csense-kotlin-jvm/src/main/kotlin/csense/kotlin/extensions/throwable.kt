@@ -9,6 +9,7 @@ import java.io.*
  * @receiver Throwable
  * @return String
  */
+
 fun Throwable.stackTraceToString(): String =
         StringWriter().use {
             printStackTrace(PrintWriter(it))

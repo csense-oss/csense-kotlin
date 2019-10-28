@@ -4,7 +4,7 @@ import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
 
-class BoolTests {
+class BoolTest {
 
     @Test
     fun onFalse() {

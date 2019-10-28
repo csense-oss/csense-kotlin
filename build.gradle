@@ -1,6 +1,6 @@
 buildscript {
 
-    ext.dokkaVersion = "0.9.18"
+    ext.dokkaVersion = "0.10.0"
 
     ext.kotlin_version = "1.3.50"
     ext.coroutinesVersion = "1.3.2"
@@ -48,7 +48,7 @@ subprojects {
 
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-            classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokkaVersion}"
+            classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
         }
     }
 

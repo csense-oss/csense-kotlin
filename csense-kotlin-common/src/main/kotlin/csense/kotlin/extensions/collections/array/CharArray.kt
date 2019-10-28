@@ -14,12 +14,6 @@ inline fun <U> CharArray.forEachDiscard(receiver: kotlin.Function1<Char, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 
-/**
- * Fills this array with the given value
- */
-fun CharArray.fill(value: Char) =
-        GenericArray.fillArray(count(), value, this::set)
-
 
 //region Generic collection extensions
 /**

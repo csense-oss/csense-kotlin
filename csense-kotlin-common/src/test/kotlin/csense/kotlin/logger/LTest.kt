@@ -7,7 +7,7 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class LTest {
+class LLoggerTest {
 
     object IsLoggingAllowed {
         @Test
@@ -120,6 +120,42 @@ class LTest {
         LoggingLevel.Debug.toString().assert("Debug")
         LoggingLevel.Production.toString().assert("Production")
     }
+
+    @Test
+    fun warningLazy() {
+
+
+    }
+
+    @Test
+    fun debugLazy() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun logProdLazy() {
+        //TODO make me.
+
+    }
+    //TODO make a general solution.
+    @Test
+    fun errorLazy() {
+        val l = LLogger()
+        l.isErrorLoggingAllowed = false
+        l.errorLoggers.clear()
+        l.errorLazy("tag", { failTest("") })
+        //if we get here the message was not computed for disallowed loggers.
+        l.isErrorLoggingAllowed = true
+        l.errorLazy("tag", { failTest("") })
+        //if we get here the message was not computed for missing loggers.
+        var logCount = 0
+        l.errorLoggers.add { _, _, _ -> logCount += 1; 42 }
+        l.errorLazy("tag", { "message" })
+        logCount.assert(1)
+
+    }
+
 }
 
 private inline fun testLoggingPassThough(
@@ -165,4 +201,15 @@ private fun LLogger.assertLoggingAllowedStates(assertProd: Boolean,
     isErrorLoggingAllowed.assert(assertError, optionalMessage)
     isWarningLoggingAllowed.assert(assertWarning, optionalMessage)
     isDebugLoggingAllowed.assert(assertDebug, optionalMessage)
+}
+
+class LoggingLevelTest {
+
+    @Test
+    fun testToString() {
+        LoggingLevel.Debug.toString().assert(LoggingLevel.Debug.stringValue)
+        LoggingLevel.Production.toString().assert(LoggingLevel.Production.stringValue)
+        LoggingLevel.Warning.toString().assert(LoggingLevel.Warning.stringValue)
+        LoggingLevel.Error.toString().assert(LoggingLevel.Error.stringValue)
+    }
 }

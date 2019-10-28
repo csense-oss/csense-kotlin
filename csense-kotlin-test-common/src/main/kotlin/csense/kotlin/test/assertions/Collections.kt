@@ -10,9 +10,7 @@ import kotlin.test.*
  * @param size Int
  * @param message String
  */
-fun <T> Array<T>.assertSize(size: Int, message: String = "") {
-    this.size.assert(size, message)
-}
+fun <T> Array<T>.assertSize(size: Int, message: String = "") = this.size.assert(size, message)
 
 /**
  * Asserts that the size of this collection is the given size
@@ -20,18 +18,14 @@ fun <T> Array<T>.assertSize(size: Int, message: String = "") {
  * @param size Int
  * @param message String
  */
-fun <T> Collection<T>.assertSize(size: Int, message: String = "") {
-    this.size.assert(size, message)
-}
+fun <T> Collection<T>.assertSize(size: Int, message: String = "") = this.size.assert(size, message)
 
 /**
  * Asserts that this collection is empty
  * @receiver Collection<T>
  * @param message String
  */
-fun <T> Collection<T>.assertEmpty(message: String = "") {
-    assertSize(0, message)
-}
+fun <T> Collection<T>.assertEmpty(message: String = "") = assertSize(0, message)
 
 
 /**
@@ -39,9 +33,7 @@ fun <T> Collection<T>.assertEmpty(message: String = "") {
  * @receiver List<*>
  * @param message String
  */
-fun List<*>.assertEmpty(message: String = "") {
-    assertSize(0, message)
-}
+fun List<*>.assertEmpty(message: String = "") = assertSize(0, message)
 
 /**
  * Asserts that this list is the given size.
@@ -49,9 +41,7 @@ fun List<*>.assertEmpty(message: String = "") {
  * @param size Int
  * @param message String
  */
-fun List<*>.assertSize(size: Int, message: String = "") {
-    assertEquals(size, this.size, message)
-}
+fun List<*>.assertSize(size: Int, message: String = "") = assertEquals(size, this.size, message)
 
 /**
  * Asserts that the given list contains the given item

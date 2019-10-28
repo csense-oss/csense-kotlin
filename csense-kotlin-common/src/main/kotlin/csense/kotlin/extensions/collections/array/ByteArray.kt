@@ -47,15 +47,6 @@ inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
 inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
-/**
- * Fills this array with the given value
- * @receiver ByteArray
- * @param value Byte
- */
-fun ByteArray.fill(value: Byte) =
-        GenericArray.fillArray(count(), value, this::set)
-
-
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)

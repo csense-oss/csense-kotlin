@@ -13,13 +13,6 @@ import csense.kotlin.extensions.collections.generic.*
 inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
-/**
- *
- * @receiver BooleanArray
- * @param value Boolean
- */
-fun BooleanArray.fill(value: Boolean) =
-        GenericArray.fillArray(count(), value, this::set)
 
 //region Generic collection extensions
 /**

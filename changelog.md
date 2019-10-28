@@ -1,6 +1,13 @@
 # Changelog
 
-## 00.22
+## 0.0.23
+- lazy logging
+- massive amounts of tests added.
+    - and some bugs fixed eg with ranges
+
+
+
+## 0.0.22
 - kotlin 1.3.50
 - coroutines 1.3.2
 

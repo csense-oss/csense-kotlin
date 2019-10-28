@@ -2,8 +2,10 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.EmptyFunction
+import csense.kotlin.Function0R
+import csense.kotlin.extensions.collections.invokeEachWith
+import csense.kotlin.extensions.primitives.onTrue
 
 
 /**
@@ -32,12 +34,18 @@ enum class LoggingLevel(val stringValue: String) {
 typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
 
 /**
+ * The definition of a logging formatter.
+ */
+typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
+
+/**
  * The L logger, capable of being instantiated, and inherited.
  * Contains all necessary logging features. [LoggingLevel] channels, each capable of beeing enabled / disabled.
  * and a list of listeners for that logging level.
  * The main instance is called "L"
  */
 open class LLogger {
+
     /**
      * Controls whenever logging is allowed.
      * This turns on all the other logging features
@@ -51,6 +59,7 @@ open class LLogger {
         isErrorLoggingAllowed = value
     }
 
+    //region loggers allowed controls
     /**
      * Controls whenever error logging is allowed.
      * default is true
@@ -71,7 +80,9 @@ open class LLogger {
      * default is true
      */
     var isProductionLoggingAllowed = true
+    //endregion
 
+    //region loggers
     /**
      * Production level loggers; the intention here is to allow this logging in production.
      * its controlled separate from all the other logging flags.
@@ -91,59 +102,159 @@ open class LLogger {
      *
      */
     var errorLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
+    //endregion
 
+    //region log error
     /**
      * An error logging channel
      * this logs messages as the level "Error", meant for "bad things", eg application / library errors,
      * logging important messages (due to issues / bugs), or alike.
      * @param tag a categorization of the log, should be 20 characters or less
-     * @param msg the message to be logged can be as long as needed, and contain control characters
+     * @param message the message to be logged can be as long as needed, and contain control characters
      *  (newlines, tabs ect)
      * @param exception a stacktrace of some sort of error / exception.
      *
      * Requires the isErrorLoggingAllowed to be true to log anything
      *
      */
-    fun error(tag: String, msg: String, exception: Throwable? = null) {
-        isErrorLoggingAllowed.onTrue { errorLoggers.invokeEachWith(tag, msg, exception) }
+    fun error(tag: String, message: String, exception: Throwable? = null) = ifMayLogError {
+        errorLoggers.invokeEachWith(tag, message, exception)
     }
 
+    /**
+     *
+     * @param tag String
+     * @param messageFnc Function0<String>
+     * @param exception Throwable?
+     */
+    fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable? = null) = ifMayLogError {
+        errorLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
+    }
+    //endregion
+
+    //region log warning
     /**
      * A warning logging channel
      * this logs messages as the level "Warning", mean for not fatal / very bad things,
      * but things that are usually not bound to happen and should not happen.
-     *
+     * @param tag String
+     * @param message String
+     * @param exception Throwable?
      */
-    fun warning(tag: String, message: String, exception: Throwable? = null) {
-        isWarningLoggingAllowed.onTrue { warningLoggers.invokeEachWith(tag, message, exception) }
+    fun warning(tag: String, message: String, exception: Throwable? = null) = ifMayLogWarning {
+        warningLoggers.invokeEachWith(tag, message, exception)
     }
 
     /**
-     * A Debug logging
+     *
+     * @param tag String
+     * @param messageFnc Function0<String>
+     * @param exception Throwable?
+     *
      */
-    fun debug(tag: String, message: String, exception: Throwable? = null) {
-        isDebugLoggingAllowed.onTrue { debugLoggers.invokeEachWith(tag, message, exception) }
+    fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable? = null) = ifMayLogWarning {
+        warningLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
+    }
+    //endregion
+
+    //region log debug
+    /**
+     * Debug level logging channel.
+     * @param tag String
+     * @param message String
+     * @param exception Throwable?
+     *
+     */
+    fun debug(tag: String, message: String, exception: Throwable? = null) = ifMayLogDebug {
+        debugLoggers.invokeEachWith(tag, message, exception)
     }
 
+    /**
+     * A lazy debug logging
+     * @param tag String
+     * @param messageFnc Function0<String>
+     * @param exception Throwable?
+     *
+     */
+    fun debugLazy(
+            tag: String,
+            messageFnc: Function0R<String>,
+            exception: Throwable? = null
+    ) = ifMayLogDebug {
+        debugLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
+    }
+    //endregion
+
+    //region log prod
     /**
      * A production logging channel.
      * purpose is to allow logging even in production, such as very specific errors,warnings, assertions,
      * and other well though logs. any regular library or none application code shall not use this,
      * as this is for application level only.
-     *
+     * @param tag String
+     * @param message String
+     * @param exception Throwable?
      */
-    fun logProd(tag: String, message: String, exception: Throwable? = null) {
-        isProductionLoggingAllowed.onTrue { productionLoggers.invokeEachWith(tag, message, exception) }
+    fun logProd(tag: String, message: String, exception: Throwable? = null) = ifMayLogProduction {
+        productionLoggers.invokeEachWith(tag, message, exception)
     }
+
+    /**
+     * Lazy logging where, computing the message is non "trivial" or you do not wanna pay for creating / computing
+     *  it if its not going to get logged.
+     * @param tag String
+     * @param messageFnc Function0<String>
+     * @param exception Throwable?
+     */
+    fun logProdLazy(
+            tag: String,
+            messageFnc: Function0R<String>,
+            exception: Throwable? = null
+    ) = ifMayLogProduction {
+        productionLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
+    }
+    //endregion
+
+
+    //region Util functions
+    /**
+     * if production logging is allowed, runs the given action.
+     * @param action Function0<Unit>
+     */
+    private fun ifMayLogProduction(action: EmptyFunction) {
+        isProductionLoggingAllowed.onTrue(action)
+    }
+
+    /**
+     * if error logging is allowed, runs the given action.
+     * @param action Function0<Unit>
+     */
+    private fun ifMayLogError(action: EmptyFunction) {
+        isErrorLoggingAllowed.onTrue(action)
+    }
+
+    /**
+     * if warning logging is allowed, runs the given action.
+     * @param action Function0<Unit>
+     */
+    private fun ifMayLogWarning(action: EmptyFunction) {
+        isWarningLoggingAllowed.onTrue(action)
+    }
+
+    /**
+     * if debug logging is allowed, runs the given action.
+     * @param action Function0<Unit>
+     */
+    private fun ifMayLogDebug(action: EmptyFunction) {
+        isDebugLoggingAllowed.onTrue(action)
+    }
+    //endregion
+
 }
+
 
 /**
  * Container for all shared logging.
  * Shared single instance.
  */
 object L : LLogger()
-/**
- * The definition of a logging formatter.
- *
- */
-typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String

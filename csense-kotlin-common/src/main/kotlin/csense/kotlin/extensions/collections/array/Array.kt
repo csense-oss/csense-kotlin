@@ -14,14 +14,6 @@ import csense.kotlin.extensions.collections.generic.*
 inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
-/**
- * Fills this array with the given value
- * @receiver Array<T> the array to fill
- * @param value T with this value
- */
-fun <T> Array<T>.fill(value: T) =
-        GenericArray.fillArray(count(), value, this::set)
-
 
 //region Generic collection extensions
 /**

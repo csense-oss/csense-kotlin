@@ -9,7 +9,7 @@ inline infix fun Short.shr(shift: Int): Short = (this.toInt() shr shift).toShort
 
 //region Zero, negative, positive
 
-inline val Short.zero: Short
+inline val Short.Companion.zero: Short
     get() = 0
 /**
  * Gets this Short negative, if it is already negative, returns that.
@@ -44,7 +44,7 @@ inline val Short.isNotZero: Boolean
  *  if this Short is 0 => returns true. false otherwise
  */
 inline val Short.isZero: Boolean
-    get() = this == zero
+    get() = this == Short.zero
 
 /**
  * Tells if this number is either negative or zero

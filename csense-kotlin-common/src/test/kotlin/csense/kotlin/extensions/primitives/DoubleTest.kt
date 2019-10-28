@@ -88,7 +88,7 @@ class DoubleTest {
         0.toDouble().isNegativeOrZero.assertTrue()
         1.toDouble().isNegativeOrZero.assertFalse()
         (-50).toDouble().isNegativeOrZero.assertTrue()
-        42.toDouble().isNegativeOrZero.assertTrue()
+        42.toDouble().isNegativeOrZero.assertFalse()
     }
 
     @Test
