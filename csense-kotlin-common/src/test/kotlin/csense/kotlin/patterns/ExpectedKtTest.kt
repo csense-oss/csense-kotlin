@@ -3,11 +3,11 @@ package csense.kotlin.patterns
 import csense.kotlin.test.assertions.*
 import kotlin.test.*
 
-class ExpectedKtTest {
+class ExpectedTest {
 
     @Test
     fun expectedSucceded() {
-        val testSuccess =expectedSucceded(42)
+        val testSuccess = expectedSucceded(42)
         testSuccess.isValid.assert(true)
         testSuccess.isError.assert(false)
         testSuccess.error.assertNull()
@@ -157,4 +157,19 @@ class ExpectedKtTest {
         }
         testFailed.error.assertNotNull()
     }
+}
+
+class ExpectedFailedTest {
+    @Test
+    fun value() {
+        val expected = expectedFailed<String>()
+        expected.isError.assertTrue()
+        assertThrowsCause<Exception, Exception> { expected.value }
+
+        val expectedWith = expectedFailed<String>(MyException())
+        expectedWith.isError.assertTrue()
+        assertThrowsCause<Exception, MyException> { expectedWith.value }
+    }
+
+    private class MyException : Exception()
 }

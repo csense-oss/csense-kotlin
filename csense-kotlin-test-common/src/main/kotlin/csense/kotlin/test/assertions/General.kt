@@ -35,20 +35,38 @@ fun <T> T?.assertNotNullAndEquals(other: T?, message: String = "value was $this,
     assertEquals(other, this, message)
 }
 
-inline fun <reified T : Exception> assertThrows(
+inline fun <reified T : Throwable, reified Inner : Throwable> assertThrowsCause(
         message: String = "should throw",
         messageWrongException: String = "wrong exception type",
-        crossinline action: () -> Unit) {
+        crossinline action: () -> Unit) = assertThrows<T>(message, messageWrongException, action, {
+    val cause = it.cause
+    val isInner = cause is Inner
+    if (!isInner && cause != null) {
+        failTest("Cause is not the right type; expected \"${Inner::class}\" but got \"${cause::class}\" instead")
+    }
+})
+
+inline fun <reified T : Throwable> assertThrows(
+        message: String = "should throw",
+        messageWrongException: String = "wrong exception type",
+        crossinline action: () -> Unit) = assertThrows<T>(message, messageWrongException, action, {})
+
+inline fun <reified T : Throwable> assertThrows(
+        message: String = "should throw",
+        messageWrongException: String = "wrong exception type",
+        crossinline action: () -> Unit,
+        validateThrows: (T) -> Unit) {
 
     try {
         action()
-        failTest("Expected an exception of type ${T::class} but got no exceptions\r$message")
-    } catch (exception: Exception) {
+        failTest("Expected an exception of type ${T::class} but got no exceptions\n$message")
+    } catch (exception: Throwable) {
         if (exception !is T) {
             failTest("Expected an exception of type \"${T::class}\" " +
                     "but got exception of type \"${exception::class}\" instead." +
-                    "\r$messageWrongException")
+                    "\n$messageWrongException")
         }
+        validateThrows(exception)
         //all is good / expected.
     }
 }

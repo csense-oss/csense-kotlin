@@ -2,8 +2,6 @@
 
 package csense.kotlin.algorithms
 
-import csense.kotlin.extensions.collections.array.*
-
 /**
  *
  * The base class for handling calculating the average, with the ability to add more values to it
