@@ -117,9 +117,14 @@ open class LLogger {
      * Requires the isErrorLoggingAllowed to be true to log anything
      *
      */
-    fun error(tag: String, message: String, exception: Throwable? = null) = ifMayLogError {
+    fun error(tag: String, message: String, exception: Throwable?) = ifMayLogError {
         errorLoggers.invokeEachWith(tag, message, exception)
     }
+
+    /**
+     *
+     */
+    fun error(tag: String, message: String) = error(tag, message, null)
 
     /**
      *
@@ -127,9 +132,13 @@ open class LLogger {
      * @param messageFnc Function0<String>
      * @param exception Throwable?
      */
-    fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable? = null) = ifMayLogError {
+    fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?) = ifMayLogError {
         errorLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
+
+
+    fun errorLazy(tag: String, messageFnc: Function0R<String>) =
+            errorLazy(tag, messageFnc, null)
     //endregion
 
     //region log warning
@@ -141,9 +150,12 @@ open class LLogger {
      * @param message String
      * @param exception Throwable?
      */
-    fun warning(tag: String, message: String, exception: Throwable? = null) = ifMayLogWarning {
+    fun warning(tag: String, message: String, exception: Throwable?) = ifMayLogWarning {
         warningLoggers.invokeEachWith(tag, message, exception)
     }
+
+
+    fun warning(tag: String, message: String) = warning(tag, message, null)
 
     /**
      *
@@ -152,9 +164,12 @@ open class LLogger {
      * @param exception Throwable?
      *
      */
-    fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable? = null) = ifMayLogWarning {
+    fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?) = ifMayLogWarning {
         warningLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
+
+    fun warningLazy(tag: String, messageFnc: Function0R<String>) =
+            warningLazy(tag, messageFnc, null)
     //endregion
 
     //region log debug
@@ -169,6 +184,8 @@ open class LLogger {
         debugLoggers.invokeEachWith(tag, message, exception)
     }
 
+    fun debug(tag: String, message: String) = debug(tag, message, null)
+
     /**
      * A lazy debug logging
      * @param tag String
@@ -176,13 +193,12 @@ open class LLogger {
      * @param exception Throwable?
      *
      */
-    fun debugLazy(
-            tag: String,
-            messageFnc: Function0R<String>,
-            exception: Throwable? = null
-    ) = ifMayLogDebug {
+    fun debugLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?) = ifMayLogDebug {
         debugLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
+
+    fun debugLazy(tag: String, messageFnc: Function0R<String>) =
+            debugLazy(tag, messageFnc, null)
     //endregion
 
     //region log prod
@@ -195,9 +211,12 @@ open class LLogger {
      * @param message String
      * @param exception Throwable?
      */
-    fun logProd(tag: String, message: String, exception: Throwable? = null) = ifMayLogProduction {
+    fun logProd(tag: String, message: String, exception: Throwable?) = ifMayLogProduction {
         productionLoggers.invokeEachWith(tag, message, exception)
     }
+
+    fun logProd(tag: String, message: String) =
+            logProd(tag, message, null)
 
     /**
      * Lazy logging where, computing the message is non "trivial" or you do not wanna pay for creating / computing
@@ -206,13 +225,12 @@ open class LLogger {
      * @param messageFnc Function0<String>
      * @param exception Throwable?
      */
-    fun logProdLazy(
-            tag: String,
-            messageFnc: Function0R<String>,
-            exception: Throwable? = null
-    ) = ifMayLogProduction {
+    fun logProdLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?) = ifMayLogProduction {
         productionLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
+
+    fun logProdLazy(tag: String, messageFnc: Function0R<String>) =
+            logProdLazy(tag, messageFnc, null)
     //endregion
 
 

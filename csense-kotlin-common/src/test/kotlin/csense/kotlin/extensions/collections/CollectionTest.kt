@@ -303,4 +303,38 @@ class CollectionTest {
     }
 
 
+    @Test
+    fun collectionTSecondLastOrNull() {
+        val empty: Collection<String> = listOf()
+        empty.secondLastOrNull().assertNull()
+        val single: Collection<String> = listOf("a")
+        single.secondLastOrNull().assertNull()
+        val two: Collection<String> = listOf("a", "b")
+        two.secondLastOrNull().assertNotNullAndEquals("a")
+        val aLot = listOf("a", "1", "2", "b")
+        aLot.secondLastOrNull().assertNotNullAndEquals("2")
+    }
+
+
+    object CollectionTCategorizeByString {
+
+        @Test
+        fun empty() {
+            listOf<String>().categorizeByString { it }.assertSize(0)
+            listOf<String>().categorizeByString { "same" }.assertSize(0)
+
+        }
+
+        @Test
+        fun single(){
+
+        }
+
+        @Test
+        fun multiple(){
+
+        }
+
+
+    }
 }

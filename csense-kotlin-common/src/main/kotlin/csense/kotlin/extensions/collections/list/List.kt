@@ -13,37 +13,52 @@ import csense.kotlin.extensions.primitives.*
  */
 
 inline fun <E> List<E>.limitToSize(size: Int): List<E> {
-    return if (size.isNegativeOrZero) {
-        listOf()
-    } else {
-        subList(0, minOf(this.size, size))
+    if (size.isNegativeOrZero) {
+        return emptyList()
     }
-
+    return subList(0, minOf(this.size, size))
 }
 
 /**
- * creates a sublist with the given range (including the end)
- * will throw if the range is out of bounds
+ * Creates a sublist with the given range (including the end)
+ * Checks bounds before accessing. returns empty list of out of bounds.
  * @receiver List<T>
  * @param intRange IntRange
  * @return List<T>
  */
-
 inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
-        subList(intRange.first, intRange.last)
+        subListSafe(intRange.first, intRange.last)
+
+/**
+ * Extracts a sublist or returns an empty list if the requested range is out of bounds.
+ * This is a safe alternative to the STD lib edition that goes out of bounds.
+ * @receiver List<T>
+ * @param fromIndex Int (inclusive)  [0;size[
+ * @param toIndex Int (exclusive)    ]fromIndex;size[
+ * @return List<T>
+ */
+inline fun <T> List<T>.subListSafe(fromIndex: Int, toIndex: Int): List<T> {
+    return if (fromIndex >= 0 && toIndex <= size && fromIndex <= toIndex) {
+        subList(fromIndex, toIndex)
+    } else {
+        emptyList()
+    }
+}
 
 
 /**
- * creates a new list by repeating this list the given number of times.
+ * Creates a new list by repeating this list the given number of times.
+ * so if you set repeat by to 1 you will get a copy, and 2 will be 2 copies.
+ * a negative / 0 repeatBy will give you an empty list.
  * @receiver List<T>
  * @param repeatBy Int
  * @return List<T>
  */
 inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
     if (repeatBy.isNegativeOrZero) {
-        return this
+        return emptyList()
     }
-    val resultList = this.toMutableList()
+    val resultList = mutableListOf<T>()
     for (i in 0 until repeatBy) {
         resultList += this
     }
@@ -62,7 +77,7 @@ inline fun <T> List<T>.repeat(repeatBy: Int): List<T> {
 inline fun <reified T> List<T>.repeatToSize(toSize: Int): List<T> {
     //empty bounds
     if (size.isNegativeOrZero || toSize.isNegativeOrZero) {
-        return listOf()
+        return emptyList()
     }
     // this as sublist ?
     if (toSize < size) {
@@ -73,7 +88,7 @@ inline fun <reified T> List<T>.repeatToSize(toSize: Int): List<T> {
     //calculate the missing after each "copy", like make this list 2,5 times larger (the 0.5 part)
     val missingItemsToCopy = toSize % size
     //copy the list each time applicable
-    val resultList = this.repeat(timesToRepeat - 1)
+    val resultList = this.repeat(timesToRepeat)
     //and add the sublist missing part.
     return resultList + this.subList(0, missingItemsToCopy)
 }

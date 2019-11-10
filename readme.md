@@ -54,7 +54,6 @@ To modify the loggers, (clearing them and or appending listeners), just access i
 L.warningLoggers
 ````
 
-
 When in the JVM, there are quite a lot of further help for logging; some examples hereof:
 ````kotlin
 
@@ -69,7 +68,6 @@ class X{
 }
 L.debug(x::class,"message") // uses the name of X via the KClass 
 ````
-
  
 
 To setup logging to use the console there are the following function
@@ -104,8 +102,9 @@ fun usesType(type:KClass<AClassWithALongName>){}
 usesType(typeK()) //extension
 //there is also type(), which is only for java (java Class)   
 ````
-toUnit() is a function where you are to return Unit but writing a whole line just to make the compiler shut up is quite annoying and tedious
-This function makes it quite easy to write more idiomatic kotlin code.
+toUnit() is a simple extension to make the receiver return Unit.
+
+
 before:
 ````kotlin
 
@@ -131,7 +130,7 @@ before:
 ````kotlin
 val myValue = if(someBool){
     42
-}else{
+} else {
     40
 }
 
@@ -154,9 +153,12 @@ which is implemented in UUID.
 
 
 ### Time
-there is also a time unit in the project, 
+There is also a time unit in the project, 
 which should allow a seamless conversion between time units, and be allocation free (still waiting for inline classes to be promoted for this)
- 
+
+### Computer sizes
+There are classes related to binary / computer sizes, from bits to tera bytes.
+  
 
 #### Expected
 This pattern is quite useful, the one in Coroutines (Result) is not meant for General purpose usage; 

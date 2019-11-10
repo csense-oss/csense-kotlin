@@ -63,7 +63,7 @@ class LLoggerTest {
     }
 
     @Test
-    fun testDebug() {
+    fun testDebugTag() {
         val l = LLogger()
         testLoggingPassThough(
                 { l.isDebugLoggingAllowed = it },
@@ -76,7 +76,7 @@ class LLoggerTest {
     }
 
     @Test
-    fun testWarning() {
+    fun testWarningTag() {
         val l = LLogger()
         testLoggingPassThough(
                 { l.isWarningLoggingAllowed = it },
@@ -89,7 +89,7 @@ class LLoggerTest {
     }
 
     @Test
-    fun testError() {
+    fun testErrorTag() {
         val l = LLogger()
         testLoggingPassThough(
                 { l.isErrorLoggingAllowed = it },
@@ -102,7 +102,7 @@ class LLoggerTest {
     }
 
     @Test
-    fun testLogProd() {
+    fun testLogProdTag() {
         val l = LLogger()
         testLoggingPassThough(
                 { l.isProductionLoggingAllowed = it },
@@ -119,43 +119,69 @@ class LLoggerTest {
     fun testToString() {
         LoggingLevel.Debug.toString().assert("Debug")
         LoggingLevel.Production.toString().assert("Production")
-    }
-
-    @Test
-    fun warningLazy() {
-
+        LoggingLevel.Warning.toString().assert("Warning")
+        LoggingLevel.Error.toString().assert("Error")
 
     }
 
     @Test
-    fun debugLazy() {
-        //TODO make me.
-
-    }
-
-    @Test
-    fun logProdLazy() {
-        //TODO make me.
-
-    }
-    //TODO make a general solution.
-    @Test
-    fun errorLazy() {
+    fun warningLazyTag() {
         val l = LLogger()
-        l.isErrorLoggingAllowed = false
-        l.errorLoggers.clear()
-        l.errorLazy("tag", { failTest("") })
-        //if we get here the message was not computed for disallowed loggers.
-        l.isErrorLoggingAllowed = true
-        l.errorLazy("tag", { failTest("") })
-        //if we get here the message was not computed for missing loggers.
-        var logCount = 0
-        l.errorLoggers.add { _, _, _ -> logCount += 1; 42 }
-        l.errorLazy("tag", { "message" })
-        logCount.assert(1)
-
+        testLazyLoggingPassingThough(
+                { l.isWarningLoggingAllowed = it },
+                l.warningLoggers,
+                l::warningLazy
+        )
     }
 
+    @Test
+    fun debugLazyTag() {
+        val l = LLogger()
+        testLazyLoggingPassingThough(
+                { l.isDebugLoggingAllowed = it },
+                l.debugLoggers,
+                l::debugLazy
+        )
+    }
+
+    @Test
+    fun logProdLazyTag() {
+        val l = LLogger()
+        testLazyLoggingPassingThough(
+                { l.isProductionLoggingAllowed = it },
+                l.productionLoggers,
+                l::logProdLazy
+        )
+    }
+
+    @Test
+    fun errorLazyTag() {
+        val l = LLogger()
+        testLazyLoggingPassingThough(
+                { l.isErrorLoggingAllowed = it },
+                l.errorLoggers,
+                l::errorLazy
+        )
+    }
+
+}
+
+private inline fun testLazyLoggingPassingThough(
+        setAllowed: (Boolean) -> Unit,
+        loggers: MutableList<LoggingFunctionType<Any>>,
+        log: (tag: String, function: () -> String) -> Unit
+) {
+    setAllowed(false)
+    loggers.clear()
+    log("tag") { failTest() }
+    //if we get here the message was not computed for disallowed loggers.
+    setAllowed(true)
+    log("tag") { failTest() }
+    //if we get here the message was not computed for missing loggers.
+    var logCount = 0
+    loggers.add { _, _, _ -> logCount += 1; 42 }
+    log("tag") { "message" }
+    logCount.assert(1)
 }
 
 private inline fun testLoggingPassThough(

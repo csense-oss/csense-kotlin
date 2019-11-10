@@ -132,7 +132,7 @@ inline fun <U> String.forEachMatching(subString: String,
                                       ignoreCase: Boolean = false,
                                       crossinline mapper: Function1<Int, U>): List<U> {
     if (subString.isEmpty() || this.isEmpty()) {
-        return listOf()
+        return emptyList()
     }
     var currentIndex = 0
     val appendLenght = searchByWord.map(subString.length, 1)
