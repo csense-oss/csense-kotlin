@@ -1,15 +1,17 @@
 # Changelog
 
 ## 0.0.23
+- kotlin 1.3.60
+
+
+## 0.0.22
+- kotlin 1.3.50
+- coroutines 1.3.2
 - lazy logging
 - split logging functions to method referencing works (since default arguments is not allowed for method refs).
 - massive amounts of tests added.
     - and some bugs fixed eg. with ranges
     
-
-## 0.0.22
-- kotlin 1.3.50
-- coroutines 1.3.2
 
 ## 0.0.21
 - moved LLogger extension to separated file

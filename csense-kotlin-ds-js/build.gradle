@@ -8,8 +8,8 @@ dependencies {
 
     expectedBy project(":csense-kotlin-ds-common")
 
-    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-    testCompile project(":csense-kotlin-test-js")
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    testImplementation project(":csense-kotlin-test-js")
 }
 
 

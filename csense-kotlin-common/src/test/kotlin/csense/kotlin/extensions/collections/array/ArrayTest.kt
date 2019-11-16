@@ -25,4 +25,72 @@ class ArrayTest {
         val singleCol: Array<String> = arrayOf("omg")
         singleCol.isNullOrEmpty().assert(false)
     }
+
+    object arrayTForEachBackwards {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    object arrayTForEach2 {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    object arrayTForEach2Indexed {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    object arrayTForEachDiscard {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
 }

@@ -2,14 +2,14 @@ apply plugin: 'kotlin-platform-jvm'
 
 dependencies {
     expectedBy project(":csense-kotlin-test-common")
-    compile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    compile 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    compile 'junit:junit:4.12'
-    compile 'org.junit.vintage:junit-vintage-engine:5.3.1'
+    api "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+    api "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+    api 'junit:junit:4.12'
+    api "org.junit.vintage:junit-vintage-engine:$junit5Version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    compile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
 }
 
 

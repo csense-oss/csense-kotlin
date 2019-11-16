@@ -36,7 +36,7 @@ class LExtensionsKtTest {
     }
 
     //for jdk 8, in jdk 11 this is actually implemented
-    @Suppress("unused")
+    @Suppress("unused", "EXTENSION_SHADOWED_BY_MEMBER")
     private fun ByteArrayOutputStream.toString(charset: Charset): String {
         return toString(charset.name())
     }
