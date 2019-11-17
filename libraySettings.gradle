@@ -1,7 +1,0 @@
-ext.setupProject = { it ->
-
-    it.extensions.findByName("kapt")?.with {
-        println "Enabling kapt cache"
-        it.useBuildCache = true
-    }
-}
