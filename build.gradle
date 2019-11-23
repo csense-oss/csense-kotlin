@@ -5,7 +5,7 @@ buildscript {
     ext.coroutinesVersion = "1.3.2"
     ext.junit5Version = "5.5.2"
     ext.useCsenseVersion = "0.0.24"
-    ext.csenseAnnotationVersion = "0.0.3"
+    ext.csenseAnnotationVersion = "0.0.5"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
