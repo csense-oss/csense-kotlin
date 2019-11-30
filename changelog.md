@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.26
+- more annotations
+- more logging extensions
+
+- LockableValue & SetOnceBool added. 
+
 ## 0.0.25
 - use of csense kotlin annotations. (mostly ranges)
 

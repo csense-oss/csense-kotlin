@@ -4,13 +4,13 @@ buildscript {
     ext.kotlin_version = "1.3.60"
     ext.coroutinesVersion = "1.3.2"
     ext.junit5Version = "5.5.2"
-    ext.useCsenseVersion = "0.0.24"
-    ext.csenseAnnotationVersion = "0.0.5"
+    ext.csenseTestsVersion = "0.0.25"
+    ext.csenseAnnotationVersion = "0.0.11"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.25"
+    ext.csenseVersionName = "0.0.26"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -62,7 +62,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation "csense.kotlin:csense-kotlin-tests-metadata:$useCsenseVersion"
+                implementation "csense.kotlin:csense-kotlin-tests-metadata:$csenseTestsVersion"
             }
         }
         jvmMain {
@@ -76,7 +76,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation "org.jetbrains.kotlin:kotlin-reflect"
-                implementation "csense.kotlin:csense-kotlin-tests-jvm:$useCsenseVersion"
+                implementation "csense.kotlin:csense-kotlin-tests-jvm:$csenseTestsVersion"
             }
 
         }
@@ -91,7 +91,7 @@ kotlin {
         jsTest {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-js'
-                implementation "csense.kotlin:csense-kotlin-tests-js:$useCsenseVersion"
+                implementation "csense.kotlin:csense-kotlin-tests-js:$csenseTestsVersion"
             }
         }
     }

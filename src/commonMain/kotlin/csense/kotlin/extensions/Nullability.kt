@@ -29,14 +29,10 @@ inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
  * returns true if this is null
  */
 inline val <T> T?.isNull: Boolean
-    get() {
-        return this == null
-    }
+    get() = this == null
 
 /**
  * returns true if this is not null.
  */
 inline val <T> T?.isNotNull: Boolean
-    get() {
-        return this != null
-    }
+    get() = this != null
