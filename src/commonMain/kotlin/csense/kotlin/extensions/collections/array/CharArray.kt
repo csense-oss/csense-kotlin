@@ -11,7 +11,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver ByteArray
  * @param receiver (T) -> U
  */
-inline fun <U> CharArray.forEachDiscard(receiver: kotlin.Function1<Char, U>) =
+inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 

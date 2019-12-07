@@ -12,7 +12,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver Array<T>
  * @param receiver (T) -> U
  */
-inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>) =
+inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 
@@ -20,18 +20,18 @@ inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>) =
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
-inline fun BooleanArray.forEach2Indexed(action: Function2IndexedUnit<Boolean, Boolean>) =
+inline fun BooleanArray.forEach2Indexed(action: Function2IndexedUnit<Boolean, Boolean>): Unit =
         GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
-inline fun BooleanArray.forEach2(action: Function2Unit<Boolean, Boolean>) =
+inline fun BooleanArray.forEach2(action: Function2Unit<Boolean, Boolean>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this list.
  */
-inline fun BooleanArray.forEachBackwards(action: FunctionUnit<Boolean>) =
+inline fun BooleanArray.forEachBackwards(action: FunctionUnit<Boolean>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion

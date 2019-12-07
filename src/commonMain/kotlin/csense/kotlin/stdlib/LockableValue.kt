@@ -6,7 +6,7 @@ import csense.kotlin.extensions.primitives.isNegativeOrZero
 /**
  * A mutable container that locks the amount of updates that are allowed
  * @param T the type of value we are to contain
- * @property remainingUpdateCount Int the amount of updates that are allowed
+ * @property maxUpdateCount Int the amount of updates that are allowed
  * @property value T the starting value that "may" be updated up to the provided update count
  */
 open class LockableValue<T>(

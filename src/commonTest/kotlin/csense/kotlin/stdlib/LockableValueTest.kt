@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.stdlib
 
 import csense.kotlin.tests.assertions.assert
@@ -5,7 +7,8 @@ import kotlin.test.Test
 
 class LockableValueTest {
 
-    class InitialValue {
+    class Value {
+
         @Test
         fun testValue() {
             val lockableValue = LockableValue(1, "")

@@ -57,7 +57,7 @@ sealed class Expected<out Value> {
     /**
      * If this is valid (not an error)
      */
-    val isValid: Boolean
+    inline val isValid: Boolean
         get() = !isError
 
     /**
@@ -192,22 +192,3 @@ inline fun <T, U> Expected<T>.mapIfValidOr(onValid: Function1<T, U>,
         is ExpectedSuccess -> onValid(this.value)
     }
 }
-
-/*
-//to consider
-
-fun <T> Expected<T>.valueOr(otherValue: T): T {
-    if (this.isValid) {
-        return value
-    }
-    return otherValue
-}
-
-
-fun <T, U> Expected<T>.mapOr(mapper: Function1<T, U>, otherValue: U): U {
-    if (this.isValid) {
-        return mapper(value)
-    }
-    return otherValue
-}
-* */
