@@ -1,24 +1,23 @@
 # Changelog
 
+## 0.0.27
+- more extensions. 
+
 ## 0.0.26
 - more annotations
 - more logging extensions
-
 - LockableValue & SetOnceBool added. 
 
 ## 0.0.25
 - use of csense kotlin annotations. (mostly ranges)
-
 
 ## 0.0.24
 - changed project to new MPP format
 - updated location in bintray
 - fixed group name (from . to -)
 
-
 ## 0.0.23
 - kotlin 1.3.60
-
 
 ## 0.0.22
 - kotlin 1.3.50

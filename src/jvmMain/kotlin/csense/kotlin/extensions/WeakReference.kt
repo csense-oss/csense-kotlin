@@ -14,15 +14,15 @@ import java.util.*
  * @receiver T the object to create a weak reference of
  * @return WeakReference<T> a weak reference to the given object
  */
-inline fun <T> T.weakReference(): WeakReference<T> = WeakReference(this)
+inline fun <T> T.weakReference(): WeakReference<T> =
+        WeakReference(this)
 
 /**
  * Will use the value if the weak reference is not pointing to null
  * This differes from `use` where we cannot use it on an optional value inside of a WeakReference
  */
-inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>) {
-    get()?.let(action)
-}
+inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>): Unit =
+        get()?.let(action).toUnit()
 
 /**
  * Uses the given weak reference if available or does the other action
@@ -33,9 +33,7 @@ inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>) {
 inline fun <T> WeakReference<T>.useOr(
         ifAvailable: ReceiverFunctionUnit<T>,
         ifNotAvailable: EmptyFunction
-) {
-    get().useOr(ifAvailable, ifNotAvailable)
-}
+): Unit = get().useOr(ifAvailable, ifNotAvailable)
 
 
 /**
@@ -43,9 +41,8 @@ inline fun <T> WeakReference<T>.useOr(
  * @receiver WeakReference<FunctionUnit<T>?> the weak reference
  * @param input T the type of wrapped object
  */
-inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T) {
-    get()?.let { it(input) }
-}
+inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T): Unit =
+        get()?.invoke(input).toUnit()
 
 
 /**
