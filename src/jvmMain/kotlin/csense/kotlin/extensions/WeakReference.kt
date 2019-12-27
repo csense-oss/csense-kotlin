@@ -3,6 +3,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.EmptyFunction
+import csense.kotlin.Function1
 import csense.kotlin.FunctionUnit
 import csense.kotlin.ReceiverFunctionUnit
 import java.lang.ref.WeakReference
@@ -21,7 +22,7 @@ inline fun <T> T.weakReference(): WeakReference<T> =
  * Will use the value if the weak reference is not pointing to null
  * This differes from `use` where we cannot use it on an optional value inside of a WeakReference
  */
-inline fun <T> WeakReference<T?>.use(action: ReceiverFunctionUnit<T>): Unit =
+inline fun <T> WeakReference<T>.use(action: ReceiverFunctionUnit<T>): Unit =
         get()?.let(action).toUnit()
 
 /**
@@ -43,6 +44,15 @@ inline fun <T> WeakReference<T>.useOr(
  */
 inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T): Unit =
         get()?.invoke(input).toUnit()
+
+/**
+ * invokes the function ( wrapped in a weakReference) with the input, if the WeakReference is not pointing to null
+ * @receiver WeakReference<Function1<T,R>?> the weak reference
+ * @param input T the type of wrapped object
+ * @return R? the result of the function, or null if the weak reference is null (or the return type could be nullable).
+ */
+inline fun <T, R> WeakReference<Function1<T, R>?>.use(input: T): R? =
+        get()?.invoke(input)
 
 
 /**

@@ -61,25 +61,25 @@ class DoubleTest {
 
     @Test
     fun equalWithin() {
-        0.0.equalWithin(1.0, 2.0).assertTrue("is 0 in the range [1 - 2; 1+2] => [-1 to 3] => yes")
-        0.0.equalWithin(1.0, 0.5).assertFalse("is 0 in the range [1 - 0.5; 1+0.5] => [0.5 to 1.5] => no")
+        0.0.equalsWithin(1.0, 2.0).assertTrue("is 0 in the range [1 - 2; 1+2] => [-1 to 3] => yes")
+        0.0.equalsWithin(1.0, 0.5).assertFalse("is 0 in the range [1 - 0.5; 1+0.5] => [0.5 to 1.5] => no")
 
-        1.0.equalWithin(1.0).assertTrue("default margin should work for concepttually equal numbers")
-        0.0.equalWithin(0.0).assertTrue("default margin should work for concepttually equal numbers")
-        0.1.equalWithin(0.1).assertTrue("default margin should work for concepttually equal numbers")
-        0.0001.equalWithin(0.0001).assertTrue("default margin should work for concepttually equal numbers")
-        0.0000001.equalWithin(0.0000001).assertTrue("default margin should work for concepttually equal numbers")
+        1.0.equalsWithin(1.0).assertTrue("default margin should work for concepttually equal numbers")
+        0.0.equalsWithin(0.0).assertTrue("default margin should work for concepttually equal numbers")
+        0.1.equalsWithin(0.1).assertTrue("default margin should work for concepttually equal numbers")
+        0.0001.equalsWithin(0.0001).assertTrue("default margin should work for concepttually equal numbers")
+        0.0000001.equalsWithin(0.0000001).assertTrue("default margin should work for concepttually equal numbers")
 
-        0.001.equalWithin(0.002, 0.0001).assertFalse("precision mismatch by a factor 10")
+        0.001.equalsWithin(0.002, 0.0001).assertFalse("precision mismatch by a factor 10")
 
-        500.05.equalWithin(500.0).assertTrue("default should be a close equal")
-        500.05.equalWithin(500.0, 0.01).assertFalse("specified should not be close enough")
+        500.05.equalsWithin(500.0).assertTrue("default should be a close equal")
+        500.05.equalsWithin(500.0, 0.01).assertFalse("specified should not be close enough")
 
-        Double.MAX_VALUE.equalWithin(Double.MAX_VALUE).assertTrue()
-        Double.MAX_VALUE.equalWithin(Double.MAX_VALUE, -0.5).assertTrue()
-        Double.MIN_VALUE.equalWithin(Double.MIN_VALUE).assertTrue()
+        Double.MAX_VALUE.equalsWithin(Double.MAX_VALUE).assertTrue()
+        Double.MAX_VALUE.equalsWithin(Double.MAX_VALUE, -0.5).assertTrue()
+        Double.MIN_VALUE.equalsWithin(Double.MIN_VALUE).assertTrue()
 
-        5.0.equalWithin(3.0, -2.5).assertTrue("margin should be abs, not negative.")
+        5.0.equalsWithin(3.0, -2.5).assertTrue("margin should be abs, not negative.")
 
 
     }

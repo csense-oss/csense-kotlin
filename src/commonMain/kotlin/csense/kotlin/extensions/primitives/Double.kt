@@ -48,7 +48,7 @@ inline val Double.isPositiveOrZero: Boolean
  * If you need more margin, see Double.equalWithin
  */
 inline val Double.isZero: Boolean
-    get() = this.equalWithin(0.0, 0.1)
+    get() = this.equalsWithin(0.0, 0.1)
 
 /**
  * Compares this double to the given value,with a margin;
@@ -61,7 +61,7 @@ inline val Double.isZero: Boolean
  * @return Boolean
  */
 
-inline fun Double.equalWithin(value: Double, margin: Double = 0.1): Boolean {
+inline fun Double.equalsWithin(value: Double, margin: Double = 0.1): Boolean {
     val lower = value - margin.positive
     val upper = value + margin.positive
     return this in lower..upper

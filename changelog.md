@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.28
+- weak reference extensions improved.
+- more float extensions 
+- equalsWithin (float) renamed from equalWithin 
+
 ## 0.0.27
 - more extensions. 
 

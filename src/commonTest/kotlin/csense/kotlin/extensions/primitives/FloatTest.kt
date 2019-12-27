@@ -26,7 +26,7 @@ class FloatTest {
     fun floatIsZero() {
         2f.isZero.assert(false)
         0f.isZero.assert(true)
-        0.1f.equalWithin(0.0f, 0.2f).assert(true)
+        0.1f.equalsWithin(0.0f, 0.2f).assert(true)
     }
 
     @Test
