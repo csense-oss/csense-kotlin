@@ -221,50 +221,50 @@ inline fun String.replaceIfOr(condition: Boolean,
 /**
  * Returns whenever this string ends with at least one of the given collection
  * @receiver C
- * @param items Collection<C>
+ * @param collection Collection<C>
  * @param ignoreCase Boolean
  * @return Boolean
  */
 inline fun String.endsWithAny(
-        items: Collection<String>,
+        collection: Collection<String>,
         ignoreCase: Boolean = false): Boolean =
-        items.any { this.endsWith(it, ignoreCase) }
+        collection.any { this.endsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string ends with at least one of the given collection
  * @receiver C
- * @param items Array<out C>
+ * @param strings Array<out C>
  * @param ignoreCase Boolean
  * @return Boolean
  */
 inline fun String.endsWithAny(
-        vararg items: String,
+        vararg strings: String,
         ignoreCase: Boolean = false): Boolean =
-        items.any { this.endsWith(it, ignoreCase) }
+        strings.any { this.endsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string starts with at least one of the given collection
  * @receiver C
- * @param items Array<out C>
+ * @param strings Array<out C>
  * @param ignoreCase Boolean
  * @return Boolean
  */
 inline fun String.startsWithAny(
-        vararg items: String,
+        vararg strings: String,
         ignoreCase: Boolean = false): Boolean =
-        items.any { this.startsWith(it, ignoreCase) }
+        strings.any { this.startsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string starts with at least one of the given collection
  * @receiver C
- * @param items Collection<C>
+ * @param collection Collection<C>
  * @param ignoreCase Boolean
  * @return Boolean
  */
 inline fun String.startsWithAny(
-        items: Collection<String>,
+        collection: Collection<String>,
         ignoreCase: Boolean = false): Boolean =
-        items.any { this.startsWith(it, ignoreCase) }
+        collection.any { this.startsWith(it, ignoreCase) }
 //endregion
 
 //region Modification / computing

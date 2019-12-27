@@ -9,18 +9,18 @@ import org.junit.Test
 
 class JvmExceptionsTests {
 
-
     @Test
-    fun tryJavaClass() = assertCalled {
-        tryAndLog(this::class.java, "",
+    fun tryAndLogKClazz() = assertCalled {
+        tryAndLog(this::class, "",
                 logger = getLoggerForNameAssertion(this::class.java.simpleName, it)) {
             throw Exception()
         }
     }
 
+
     @Test
-    fun tryKotlinClass() = assertCalled {
-        tryAndLog(this::class, "",
+    fun tryAndLogClazz() = assertCalled {
+        tryAndLog(this::class.java, "",
                 logger = getLoggerForNameAssertion(this::class.java.simpleName, it)) {
             throw Exception()
         }

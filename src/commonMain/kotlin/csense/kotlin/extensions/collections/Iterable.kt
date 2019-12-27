@@ -15,7 +15,7 @@ import kotlin.contracts.contract
  * @param element Function0R<I1>
  */
 @UseExperimental(ExperimentalContracts::class)
-inline fun <I1, O> Iterable<kotlin.Function1<I1, O>>.invokeEachWithLazy(
+inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
         element: Function0R<I1>
 ) {
     contract {
@@ -289,7 +289,7 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
  * @param action FunctionUnit<E>
  */
 
-inline fun <E> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
+inline fun <E : Any> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
     forEach { it?.let(action) }
 }
 

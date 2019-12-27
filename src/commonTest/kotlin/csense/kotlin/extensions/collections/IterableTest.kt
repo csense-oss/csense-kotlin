@@ -1,9 +1,6 @@
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.tests.assertions.assertCalled
-import csense.kotlin.tests.assertions.assertFalse
-import csense.kotlin.tests.assertions.assertTrue
-import csense.kotlin.tests.assertions.failTest
+import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
 class IterableTest {
@@ -40,4 +37,44 @@ class IterableTest {
         val multiple: Iterable<String> = arrayListOf("a", "b")
         assertCalled { multiple.skipIfEmptyOr(it) }
     }
+
+    class iterableEForEachNotNull {
+        @Test
+        fun empty() {
+            val itt: Iterable<String?> = listOf()
+            itt.forEachNotNull { failTest("should not be called") }
+        }
+
+        @Test
+        fun singelNull() {
+            val itt: Iterable<String?> = listOf(null)
+            itt.forEachNotNull { failTest("should not be called") }
+        }
+
+        @Test
+        fun singleNotNull() = assertCalled {
+            val itt: Iterable<String?> = listOf("asd")
+            itt.forEachNotNull { it() }
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 2) {
+            val itt: Iterable<String?> = listOf("asd", "1234")
+            itt.forEachNotNull { it() }
+        }
+
+        @Test
+        fun multipleNull() = assertNotCalled {
+            val itt: Iterable<String?> = listOf(null, null)
+            itt.forEachNotNull { it() }
+        }
+
+        @Test
+        fun multipleMixed() = assertCalled(times = 3) {
+            val itt: Iterable<String?> =
+                    listOf(null, "asd", "1234", null, "1")
+            itt.forEachNotNull { it() }
+        }
+    }
+
 }

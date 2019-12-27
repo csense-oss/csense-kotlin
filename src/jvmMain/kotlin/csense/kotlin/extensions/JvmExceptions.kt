@@ -17,7 +17,7 @@ inline fun <T> tryAndLog(clazz: Class<*>,
                          message: String = "",
                          logger: LoggingFunctionType<*> = L::error,
                          throwableAction: EmptyFunctionResult<T>): T? =
-        tryAndLog<T>(clazz.simpleName, message, logger, throwableAction)
+        tryAndLog(clazz.simpleName, message, logger, throwableAction)
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
@@ -31,4 +31,4 @@ inline fun <T> tryAndLog(kClazz: KClass<*>,
                          message: String = "",
                          logger: LoggingFunctionType<*> = L::error,
                          throwableAction: EmptyFunctionResult<T>): T? =
-        tryAndLog<T>(kClazz.java.simpleName, message, logger, throwableAction)
+        tryAndLog(kClazz.java.simpleName, message, logger, throwableAction)

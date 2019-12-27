@@ -176,61 +176,6 @@ class StringTest {
         "abc".ifNotBlank { "123" }.assert("123")
     }
 
-    @Test
-    fun endsWithAny() {
-
-        "".endsWithAny(listOf("a", "b")).assertFalse()
-
-        "".endsWithAny(listOf("a")).assertFalse()
-        "a".endsWithAny(listOf("a")).assertTrue()
-        "b".endsWithAny(listOf("a")).assertFalse()
-
-        "a".endsWithAny(listOf("a", "b")).assertTrue()
-        "b".endsWithAny(listOf("a", "b")).assertTrue()
-        "c".endsWithAny(listOf("a", "b")).assertFalse()
-
-        "A".endsWithAny(listOf("a", "b")).assertFalse()
-        "B".endsWithAny(listOf("a", "b")).assertFalse()
-        "AB".endsWithAny(listOf("a", "b")).assertFalse()
-
-        "a".endsWithAny(listOf("a", "b"), true).assertTrue()
-        "a".endsWithAny(listOf("A", "b"), true).assertTrue()
-        "A".endsWithAny(listOf("a", "B"), true).assertTrue()
-        "A".endsWithAny(listOf("A", "B"), true).assertTrue()
-        "c".endsWithAny(listOf("A", "B"), true).assertFalse()
-        "C".endsWithAny(listOf("A", "B"), true).assertFalse()
-
-
-        "aba".endsWithAny(listOf("a")).assertTrue()
-        "aba".endsWithAny(listOf("b")).assertFalse()
-        "aba".endsWithAny(listOf("ba")).assertTrue()
-        "aba".endsWithAny(listOf("ab")).assertFalse()
-        "aba".endsWithAny(listOf("aba")).assertTrue()
-    }
-
-    @Test
-    fun endsWithAnyVararg() {
-
-        "".endsWithAny("a", "b").assertFalse()
-
-        "".endsWithAny("a").assertFalse()
-        "a".endsWithAny("a").assertTrue()
-        "b".endsWithAny("a").assertFalse()
-
-        "a".endsWithAny("a", "b").assertTrue()
-        "b".endsWithAny("a", "b").assertTrue()
-        "c".endsWithAny("a", "b").assertFalse()
-
-        "a".endsWithAny("a", "b", ignoreCase = true).assertTrue()
-        "b".endsWithAny("a", "b", ignoreCase = true).assertTrue()
-        "c".endsWithAny("a", "b", ignoreCase = true).assertFalse()
-
-        "aba".endsWithAny("a").assertTrue()
-        "aba".endsWithAny("b").assertFalse()
-        "aba".endsWithAny("ba").assertTrue()
-        "aba".endsWithAny("ab").assertFalse()
-        "aba".endsWithAny("aba").assertTrue()
-    }
 
     @Test
     fun replaceIf() {
@@ -331,37 +276,127 @@ class StringTest {
 
 
     @Test
-    fun stringCompanionCreateFromChars() {
-        //TODO make me.
+    fun stringStartsWithAnyStrings() {
+        "a".startsWithAny("a", ignoreCase = true).assertTrue()
+        "a".startsWithAny("a", ignoreCase = false).assertTrue()
+
+        "a".startsWithAny("A", ignoreCase = true).assertTrue()
+        "a".startsWithAny("A", ignoreCase = false).assertFalse()
+
+        "A".startsWithAny("a", ignoreCase = true).assertTrue()
+        "A".startsWithAny("a", ignoreCase = false).assertFalse()
+
+        "A".startsWithAny("A", ignoreCase = true).assertTrue()
+        "A".startsWithAny("A", ignoreCase = false).assertTrue()
+
+
+        "a".startsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "b-".startsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "b-".startsWithAny("a", "b", ignoreCase = false).assertTrue()
+        "ab".startsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "a-b-c".startsWithAny("a", "b", ignoreCase = true).assertTrue()
+
+        "ABC".startsWithAny("c", ignoreCase = true).assertFalse()
 
     }
 
     @Test
-    fun stringInsertInto() {
-        //TODO make me.
+    fun stringStartsWithAnyCollection() {
+
+        "".startsWithAny(listOf(), false).assertFalse()
+        "".startsWithAny(listOf(), true).assertFalse()
+
+        "a".startsWithAny(listOf(), false).assertFalse()
+        "a".startsWithAny(listOf(), true).assertFalse()
+
+        "a".startsWithAny(listOf("a"), true).assertTrue()
+        "a".startsWithAny(listOf("a"), false).assertTrue()
+
+        "a".startsWithAny(listOf("A"), true).assertTrue()
+        "a".startsWithAny(listOf("A"), false).assertFalse()
+
+        "A".startsWithAny(listOf("a"), true).assertTrue()
+        "A".startsWithAny(listOf("a"), false).assertFalse()
+
+        "A".startsWithAny(listOf("A"), true).assertTrue()
+        "A".startsWithAny(listOf("A"), false).assertTrue()
+
+
+        "a".startsWithAny(listOf("a", "b"), true).assertTrue()
+        "b-".startsWithAny(listOf("a", "b"), true).assertTrue()
+        "b-".startsWithAny(listOf("a", "b"), false).assertTrue()
+        "ab".startsWithAny(listOf("a", "b"), true).assertTrue()
+        "a-b-c".startsWithAny(listOf("a", "b"), true).assertTrue()
+
+        "ABC".startsWithAny(listOf("c"), true).assertFalse()
 
     }
 
     @Test
-    fun stringForEachMatching() {
-        //TODO make me.
+    fun stringEndsWithAnyCollection() {
+
+        "".endsWithAny(listOf(), false).assertFalse()
+        "".endsWithAny(listOf(), true).assertFalse()
+
+        "a".endsWithAny(listOf(), false).assertFalse()
+        "a".endsWithAny(listOf(), true).assertFalse()
+
+        "a".endsWithAny(listOf("a"), true).assertTrue()
+        "a".endsWithAny(listOf("a"), false).assertTrue()
+
+        "a".endsWithAny(listOf("A"), true).assertTrue()
+        "a".endsWithAny(listOf("A"), false).assertFalse()
+
+        "A".endsWithAny(listOf("a"), true).assertTrue()
+        "A".endsWithAny(listOf("a"), false).assertFalse()
+
+        "A".endsWithAny(listOf("A"), true).assertTrue()
+        "A".endsWithAny(listOf("A"), false).assertTrue()
+
+
+        "a".endsWithAny(listOf("a", "b"), true).assertTrue()
+        "b-".endsWithAny(listOf("a", "b"), ignoreCase = true).assertFalse()
+        "b-".endsWithAny(listOf("a", "b"), ignoreCase = false).assertFalse()
+        "-b".endsWithAny(listOf("a", "b"), ignoreCase = true).assertTrue()
+        "-b".endsWithAny(listOf("a", "b"), ignoreCase = false).assertTrue()
+        "ab".endsWithAny(listOf("a", "b"), true).assertTrue()
+        "a-b-c".endsWithAny(listOf("a", "b"), true).assertFalse()
+
+        "a-b-c".endsWithAny(listOf("a", "b"), ignoreCase = true).assertFalse()
+        "a-b-c".endsWithAny(listOf("d", "c"), true).assertTrue()
+
+        "ABC".endsWithAny(listOf("c"), ignoreCase = true).assertTrue()
+        "ABC".endsWithAny(listOf("c"), ignoreCase = false).assertFalse()
 
     }
 
     @Test
-    fun stringReplaceIfOrCondition() {
-        //TODO make me.
+    fun stringEndsWithAnyStrings() {
+        "a".endsWithAny("a", ignoreCase = true).assertTrue()
+        "a".endsWithAny("a", ignoreCase = false).assertTrue()
+
+        "a".endsWithAny("A", ignoreCase = true).assertTrue()
+        "a".endsWithAny("A", ignoreCase = false).assertFalse()
+
+        "A".endsWithAny("a", ignoreCase = true).assertTrue()
+        "A".endsWithAny("a", ignoreCase = false).assertFalse()
+
+        "A".endsWithAny("A", ignoreCase = true).assertTrue()
+        "A".endsWithAny("A", ignoreCase = false).assertTrue()
+
+
+        "a".endsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "b-".endsWithAny("a", "b", ignoreCase = true).assertFalse()
+        "b-".endsWithAny("a", "b", ignoreCase = false).assertFalse()
+        "-b".endsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "-b".endsWithAny("a", "b", ignoreCase = false).assertTrue()
+        "ab".endsWithAny("a", "b", ignoreCase = true).assertTrue()
+        "a-b-c".endsWithAny("a", "b", ignoreCase = true).assertFalse()
+
+        "ABC".endsWithAny("c", ignoreCase = true).assertTrue()
+        "ABC".endsWithAny("c", ignoreCase = false).assertFalse()
 
     }
-    @Test
-    fun stringReplaceIfOrConditionFunction() {
-        //TODO make me.
 
-    }
 
-    @Test
-    fun stringEndsWithAnyItems() {
-        //TODO make me.
-
-    }
 }

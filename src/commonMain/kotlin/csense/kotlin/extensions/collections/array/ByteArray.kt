@@ -23,6 +23,9 @@ import csense.kotlin.extensions.primitives.toCase
 
 inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
                                  shouldBeUppercase: Boolean = true): String {
+    if(isEmpty()){
+        return ""
+    }
 
     val prefixSize = appendHexPrefix.map(2, 0)
 
