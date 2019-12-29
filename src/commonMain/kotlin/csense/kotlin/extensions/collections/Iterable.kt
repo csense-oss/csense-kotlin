@@ -171,7 +171,8 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
  * @param element I1
  */
 
-inline fun <I1, O> Iterable<kotlin.Function1<I1, O>>.invokeEachWith(element: I1) =
+inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
+        element: I1) =
         forEach { it(element) }
 
 /**

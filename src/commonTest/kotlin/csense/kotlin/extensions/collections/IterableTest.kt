@@ -5,6 +5,7 @@ import kotlin.test.Test
 
 class IterableTest {
 
+
     @Test
     fun iterableTIsEmpty() {
         val empty: Iterable<String> = arrayListOf()
@@ -29,7 +30,7 @@ class IterableTest {
     @Test
     fun iterableTSkipIfEmptyOr() {
         val empty: Iterable<String> = arrayListOf()
-        empty.skipIfEmptyOr { failTest("should not be called") }
+        empty.skipIfEmptyOr { shouldNotBeCalled() }
 
         val single: Iterable<String> = arrayListOf("1")
         assertCalled { single.skipIfEmptyOr(it) }
@@ -42,13 +43,13 @@ class IterableTest {
         @Test
         fun empty() {
             val itt: Iterable<String?> = listOf()
-            itt.forEachNotNull { failTest("should not be called") }
+            itt.forEachNotNull { shouldNotBeCalled() }
         }
 
         @Test
         fun singelNull() {
             val itt: Iterable<String?> = listOf(null)
-            itt.forEachNotNull { failTest("should not be called") }
+            itt.forEachNotNull { shouldNotBeCalled() }
         }
 
         @Test
@@ -76,5 +77,117 @@ class IterableTest {
             itt.forEachNotNull { it() }
         }
     }
+
+    //region Invoke each lazy (1 - 6 )
+    class IterableFunction1I1OInvokeEachWithLazyElement {
+        @Test
+        fun empty() {
+            listOf<Function1<String, String>>().invokeEachWithLazy(::shouldNotBeCalled)
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class IterableFunction2I1I2OInvokeEachWithLazyFirstElement {
+        @Test
+        fun empty() {
+            listOf<Function2<String, String, String>>().invokeEachWithLazy(::shouldNotBeCalled, ::shouldNotBeCalled)
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class IterableFunction3I1I2I3OInvokeEachWithLazyFirstElement {
+        @Test
+        fun empty() {
+            listOf<Function3<String, String, String, String>>().invokeEachWithLazy(
+                    ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled)
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class IterableFunction4I1I2I3I4OInvokeEachWithLazyFirstElement {
+        @Test
+        fun empty() {
+            listOf<Function4<String, String, String, String, String>>().invokeEachWithLazy(
+                    ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled)
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class IterableFunction5I1I2I3I4I5OInvokeEachWithLazyFirstElement {
+        @Test
+        fun empty() {
+            listOf<Function5<String, String, String, String, String, String>>().invokeEachWithLazy(
+                    ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled)
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class IterableFunction6I1I2I3I4I5I6OInvokeEachWithLazyFirstElement {
+        @Test
+        fun empty() {
+            listOf<Function6<String, String, String, String, String, String, String>>().invokeEachWithLazy(
+                    ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled,
+                    ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled)
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+    //endregion
+
 
 }

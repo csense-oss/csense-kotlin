@@ -92,10 +92,10 @@ class ExpectedTest {
     @Test
     fun ifValidOr() {
         val success = expectedSucceded(42)
-        success.ifValidOr({ it.assert(42) }, { failTest("should not be called") })
+        success.ifValidOr({ it.assert(42) }, { shouldNotBeCalled() })
 
         val failed = expectedFailed<Int>(Exception("errorMessage"))
-        failed.ifValidOr({ failTest("should not be called") }, { it.message.assertNotNullAndEquals("errorMessage") })
+        failed.ifValidOr({ shouldNotBeCalled() }, { it.message.assertNotNullAndEquals("errorMessage") })
     }
 
     @Test
@@ -104,12 +104,12 @@ class ExpectedTest {
         success.mapIfValidOr({
             it.toString()
         }, {
-            failTest("should not be called")
+            shouldNotBeCalled()
         }).assert("42")
 
         val failed = expectedFailed<Int>(Exception("errorMessage"))
         failed.mapIfValidOr({
-            failTest("should not be called")
+            shouldNotBeCalled()
         }, {
             it.message
         }).assertNotNullAndEquals("errorMessage")
