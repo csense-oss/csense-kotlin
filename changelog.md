@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.29
+- iterable extension for contains (for strings)
+- more tests
+
 ## 0.0.28
 - weak reference extensions improved.
 - more float extensions 
