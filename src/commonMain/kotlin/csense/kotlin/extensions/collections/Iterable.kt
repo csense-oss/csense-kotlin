@@ -42,7 +42,7 @@ inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
-        forEach { it(firstElement(), secondElement()) }
+        invokeEachWith(firstElement(), secondElement())
     }
 }
 
@@ -92,8 +92,11 @@ inline fun <I1, I2, I3, I4, O>
         callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
-        invokeEachWith(firstElement(), secondElement(),
-                thirdElement(), forthElement())
+        invokeEachWith(
+                firstElement(),
+                secondElement(),
+                thirdElement(),
+                forthElement())
     }
 }
 
@@ -122,9 +125,13 @@ inline fun <I1, I2, I3, I4, I5, O>
         callsInPlace(fifthElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
-        invokeEachWith(firstElement(), secondElement(),
-                thirdElement(), forthElement(),
-                fifthElement())
+        invokeEachWith(
+                firstElement(),
+                secondElement(),
+                thirdElement(),
+                forthElement(),
+                fifthElement()
+        )
     }
 }
 
@@ -156,9 +163,14 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
         callsInPlace(sixthElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
-        invokeEachWith(firstElement(), secondElement(),
-                thirdElement(), forthElement(),
-                fifthElement(), sixthElement())
+        invokeEachWith(
+                firstElement(),
+                secondElement(),
+                thirdElement(),
+                forthElement(),
+                fifthElement(),
+                sixthElement()
+        )
     }
 }
 
@@ -350,10 +362,9 @@ inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     contract {
         callsInPlace(function, InvocationKind.AT_MOST_ONCE)
     }
-    if (isEmpty()) {
-        return
+    if (isNotEmpty()) {
+        function()
     }
-    function()
 }
 
 inline fun <T> Iterable<T>.isEmpty(): Boolean = !isNotEmpty()
