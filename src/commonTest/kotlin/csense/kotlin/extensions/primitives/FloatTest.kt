@@ -71,4 +71,20 @@ class FloatTest {
         (-50).toFloat().isPositiveOrZero.assertFalse()
         42.toFloat().isPositiveOrZero.assertTrue()
     }
+
+    @Test
+    fun floatEqualsWithin() {
+        2.0f.equalsWithin(2.0f, 1.0f).assertTrue()
+        2.0f.equalsWithin(2.9f, 1.0f).assertTrue()
+        2.0f.equalsWithin(4.0f, 1.0f).assertFalse()
+
+    }
+
+    @Test
+    fun floatEquals() {
+        2.0f.equals(2.0f, 1.0f).assertTrue()
+        2.0f.equals(2.9f, 1.0f).assertTrue()
+        2.0f.equals(4.0f, 1.0f).assertFalse()
+    }
+
 }

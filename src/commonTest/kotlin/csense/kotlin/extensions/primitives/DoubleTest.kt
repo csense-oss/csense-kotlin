@@ -60,7 +60,25 @@ class DoubleTest {
     }
 
     @Test
-    fun equalWithin() {
+    fun doubleIsNegativeOrZero() {
+        (-1).toDouble().isNegativeOrZero.assertTrue()
+        0.toDouble().isNegativeOrZero.assertTrue()
+        1.toDouble().isNegativeOrZero.assertFalse()
+        (-50).toDouble().isNegativeOrZero.assertTrue()
+        42.toDouble().isNegativeOrZero.assertFalse()
+    }
+
+    @Test
+    fun doubleIsPositiveOrZero() {
+        (-1).toDouble().isPositiveOrZero.assertFalse()
+        0.toDouble().isPositiveOrZero.assertTrue()
+        1.toDouble().isPositiveOrZero.assertTrue()
+        (-50).toDouble().isPositiveOrZero.assertFalse()
+        42.toDouble().isPositiveOrZero.assertTrue()
+    }
+
+    @Test
+    fun doubleEqualsWithin() {
         0.0.equalsWithin(1.0, 2.0).assertTrue("is 0 in the range [1 - 2; 1+2] => [-1 to 3] => yes")
         0.0.equalsWithin(1.0, 0.5).assertFalse("is 0 in the range [1 - 0.5; 1+0.5] => [0.5 to 1.5] => no")
 
@@ -80,25 +98,5 @@ class DoubleTest {
         Double.MIN_VALUE.equalsWithin(Double.MIN_VALUE).assertTrue()
 
         5.0.equalsWithin(3.0, -2.5).assertTrue("margin should be abs, not negative.")
-
-
-    }
-
-    @Test
-    fun doubleIsNegativeOrZero() {
-        (-1).toDouble().isNegativeOrZero.assertTrue()
-        0.toDouble().isNegativeOrZero.assertTrue()
-        1.toDouble().isNegativeOrZero.assertFalse()
-        (-50).toDouble().isNegativeOrZero.assertTrue()
-        42.toDouble().isNegativeOrZero.assertFalse()
-    }
-
-    @Test
-    fun doubleIsPositiveOrZero() {
-        (-1).toDouble().isPositiveOrZero.assertFalse()
-        0.toDouble().isPositiveOrZero.assertTrue()
-        1.toDouble().isPositiveOrZero.assertTrue()
-        (-50).toDouble().isPositiveOrZero.assertFalse()
-        42.toDouble().isPositiveOrZero.assertTrue()
     }
 }
