@@ -1,4 +1,7 @@
 # Changelog
+## 0.0.30
+- more string extensions (does not start with)
+
 
 ## 0.0.29
 - iterable extension for contains (for strings)

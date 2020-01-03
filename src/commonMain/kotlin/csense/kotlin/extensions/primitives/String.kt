@@ -393,6 +393,44 @@ inline fun String.fromHexStringToByteArray(): ShortArray? {
 //endregion
 
 
+//region Does not starts with
+//TODO comment.
+inline fun String.doesNotStartsWith(
+        prefix: String,
+        ignoreCase: Boolean = false
+): Boolean =
+        !startsWith(prefix, ignoreCase)
+
+
+inline fun String.doesNotStartsWith(
+        prefix: CharSequence,
+        ignoreCase: Boolean = false
+): Boolean =
+        !startsWith(prefix, ignoreCase)
+
+inline fun String.doesNotStartsWith(
+        prefix: Char,
+        ignoreCase: Boolean = false
+): Boolean =
+        !startsWith(prefix, ignoreCase)
+
+
+inline fun String.doesNotStartsWithAny(
+        vararg items: String,
+        ignoreCase: Boolean = false
+): Boolean =
+        !startsWithAny(*items, ignoreCase = ignoreCase)
+
+inline fun String.doesNotStartsWithAny(
+        items: Collection<String>,
+        ignoreCase: Boolean = false
+): Boolean =
+        !startsWithAny(items, ignoreCase)
+
+
+//endregion
+
+
 //region does not ends with
 inline fun String.doesNotEndsWith(
         item: String,
