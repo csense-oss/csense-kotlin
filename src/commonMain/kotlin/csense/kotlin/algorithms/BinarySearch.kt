@@ -11,7 +11,7 @@ import csense.kotlin.extensions.collections.GenericGetterIndexMethod
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver List<T>
- * @param compare Function2<T, Int, ItemComparison>
+ * @param compareFnc Function2<T, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -23,7 +23,7 @@ inline fun <T> List<T>.binarySearch(crossinline compareFnc: Function2<T, Int, It
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver Array<T>
- * @param comparere Function2<T, Int, ItemComparison>
+ * @param compareFnc Function2<T, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -34,7 +34,7 @@ inline fun <T> Array<T>.binarySearch(crossinline compareFnc: Function2<T, Int, I
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver ShortArray
- * @param comparere Function2<Short, Int, ItemComparison>
+ * @param compareFnc Function2<Short, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -45,7 +45,7 @@ inline fun ShortArray.binarySearch(crossinline compareFnc: Function2<Short, Int,
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver IntArray
- * @param comparere Function2<Int, Int, ItemComparison>
+ * @param compareFnc Function2<Int, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -56,7 +56,7 @@ inline fun IntArray.binarySearch(crossinline compareFnc: Function2<Int, Int, Ite
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver LongArray
- * @param comparere Function2<Long, Int, ItemComparison>
+ * @param compareFnc Function2<Long, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -67,7 +67,7 @@ inline fun LongArray.binarySearch(crossinline compareFnc: Function2<Long, Int, I
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver FloatArray
- * @param comparere Function2<Float, Int, ItemComparison>
+ * @param compareFnc Function2<Float, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -78,7 +78,7 @@ inline fun FloatArray.binarySearch(crossinline compareFnc: Function2<Float, Int,
  * Performs the binary search algorithm , by providing a custom compare function, that given the current item and the index,
  * yielding the comparison result
  * @receiver DoubleArray
- * @param comparere Function2<Double, Int, ItemComparison>
+ * @param compareFnc Function2<Double, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
@@ -93,7 +93,7 @@ inline fun DoubleArray.binarySearch(crossinline compareFnc: Function2<Double, In
  * @receiver GenericAlgorithms (to limit the namespace)
  * @param length Int
  * @param constantGetter GenericGetterIndexMethod<T>
- * @param comparere Function2<T, Int, ItemComparison>
+ * @param compareFnc Function2<T, Int, ItemComparison>
  * @return Int? null if no predicate was equal, or the index if any was found to be equal.
  */
 @IntLimit(from = 0)
