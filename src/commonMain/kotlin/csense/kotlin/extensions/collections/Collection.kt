@@ -110,6 +110,7 @@ fun <Element> Element.categorizeInto(
             result[index].add(this)
             //should we stop finding filters that accepts this item ? if so then go on.
             allowItemInMultipleBuckets.ifFalse {
+                @Suppress("UnlabeledReturnInsideLambda")
                 return //break out.
             }
         }

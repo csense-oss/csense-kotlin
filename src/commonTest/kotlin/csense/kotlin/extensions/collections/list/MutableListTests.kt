@@ -190,3 +190,68 @@ class MutableExtensionsTest {
 
 
 }
+
+class MutableListTest {
+    @Test
+    fun mutableListTRemoveLast() {
+
+        class mutableListTRemoveLast {
+            @Test
+            fun empty() {
+                val lst = mutableListOf<String>()
+                val last = lst.removeLast()
+                last.assertNull("there are no elements")
+            }
+
+            @Test
+            fun single() {
+                val lst = mutableListOf("test")
+                val last = lst.removeLast()
+                last.assertNotNullAndEquals("test")
+                lst.assertSize(0,"there should be no elements left")
+            }
+
+            @Test
+            fun multiple() {
+                val lst = mutableListOf("test","1234","abc")
+                val last = lst.removeLast()
+                last.assertNotNullAndEquals("abc")
+                lst.assertSize(2,"there should still be 2 elements left")
+                lst.assertContains("test")
+                lst.assertContains("1234")
+            }
+        }
+
+    }
+
+    @Test
+    fun mutableListTRemoveFirst() {
+        class mutableListTRemoveFirst {
+            @Test
+            fun empty() {
+                val lst = mutableListOf<String>()
+                val last = lst.removeFirst()
+                last.assertNull("there are no elements")
+            }
+
+            @Test
+            fun single() {
+                val lst = mutableListOf("test")
+                val last = lst.removeFirst()
+                last.assertNotNullAndEquals("test")
+                lst.assertSize(0,"there should be no elements left")
+            }
+
+            @Test
+            fun multiple() {
+                val lst = mutableListOf("test","1234","abc")
+                val last = lst.removeFirst()
+                last.assertNotNullAndEquals("test")
+                lst.assertSize(2,"there should still be 2 elements left")
+                lst.assertContains("abc")
+                lst.assertContains("1234")
+            }
+        }
+
+    }
+}

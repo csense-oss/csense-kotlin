@@ -83,10 +83,29 @@ fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
  * @param default T?
  * @return T?
  */
-fun <T> MutableList<T>.removeAtOr(@IntLimit(from = 0) index: Int,
-                                  default: T?): T? = if (isIndexValid(index)) {
-    removeAt(index)
-} else {
-    default
+fun <T> MutableList<T>.removeAtOr(
+        @IntLimit(from = 0) index: Int,
+        default: T?): T? {
+    return if (isIndexValid(index)) {
+        removeAt(index)
+    } else {
+        default
+    }
 }
 
+
+/**
+ * Removes the first entry in this list and returns it (or null if no elements exists)
+ * @receiver MutableList<T>
+ * @return T?
+ */
+inline fun <T> MutableList<T>.removeFirst(): T? =
+        removeAtOr(0, null)
+
+/**
+ * Removes the last element of this list and returns it (or null if there are no elements)
+ * @receiver MutableList<T>
+ * @return T?
+ */
+inline fun <T> MutableList<T>.removeLast(): T? =
+        removeAtOr(lastIndex, null)

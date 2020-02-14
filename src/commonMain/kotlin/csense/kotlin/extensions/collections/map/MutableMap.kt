@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.Function1
+import csense.kotlin.extensions.collections.list.removeAtOr
 import kotlin.collections.set
 
 
@@ -27,7 +28,7 @@ inline fun <K, V> MutableMap<K, V>.removeAll(
  * @param key K
  * @param value V
  */
-fun <K, V : Iterable<*>> MutableMap<K, V>.setIfNotEmpty(key: K, value: V) {
+inline fun <K, V : Iterable<*>> MutableMap<K, V>.setIfNotEmpty(key: K, value: V) {
     if (value.any()) {
         this[key] = value
     }
@@ -39,6 +40,6 @@ fun <K, V : Iterable<*>> MutableMap<K, V>.setIfNotEmpty(key: K, value: V) {
  * @param key K
  * @param value V
  */
-fun <K, V> MutableMap<K, MutableList<V>>.putSubList(key: K, value: V) {
+inline fun <K, V> MutableMap<K, MutableList<V>>.putSubList(key: K, value: V) {
     getOrPut(key, ::mutableListOf).add(value)
 }

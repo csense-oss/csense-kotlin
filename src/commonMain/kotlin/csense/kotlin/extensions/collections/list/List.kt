@@ -93,5 +93,3 @@ inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: Int): Li
     //and add the sublist missing part.
     return resultList + this.subList(0, missingItemsToCopy)
 }
-
-
