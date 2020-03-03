@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.extensions.collections.set
+import csense.kotlin.extensions.collections.setAll
 import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
@@ -116,12 +117,12 @@ class MutableExtensionsTest {
             val list = mutableListOf(
                     42, 2, 1
             )
-            list.set(listOf())
+            list.setAll(listOf())
             list.assertEmpty("should have removed all things before setting")
-            list.set(listOf(989))
+            list.setAll(listOf(989))
             list.assertSize(1)
             list.first().assert(989)
-            list.set(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+            list.setAll(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
             list.assertSize(10)
             list.first().assert(1)
             list.last().assert(10)

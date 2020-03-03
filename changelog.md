@@ -1,4 +1,9 @@
 # Changelog
+## 0.0.32
+
+## 0.0.31
+- more extensions for mutableCollection
+
 ## 0.0.30
 - more string extensions (does not start with)
 - removeLast & removeFirst from lists.
