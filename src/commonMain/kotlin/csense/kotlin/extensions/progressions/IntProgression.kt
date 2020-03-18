@@ -22,3 +22,18 @@ inline val IntProgression.length
     @IntLimit(from = 0)
     get() = ((last + step) - first) / step //+ step due to "inclusive".
 
+/**
+ *
+ * @receiver IntProgression
+ * @param length Int
+ * @return IntProgression
+ */
+inline fun IntProgression.skip(length: Int): IntProgression {
+    val lengthEnd = (length * step) + first
+    val end = lengthEnd.coerceAtMost(last)
+    return IntProgression.fromClosedRange(lengthEnd, end, step)
+}
+
+//inline fun IntProgression.take(length: Int): IntProgression {
+//
+//}

@@ -15,6 +15,28 @@ import csense.kotlin.ReceiverFunctionUnit
  */
 inline fun <reified T> Any.cast(): T? = this as? T
 
+//TODO is this a good strategy or should remove first edition and use "toUnit" ext fun ?
+/**
+ *
+ * @receiver Any
+ * @param action Function1<T, Unit>
+ * @return Unit
+ */
+inline fun <reified T> Any?.InvokeIsInstance(action: (T) -> Unit): Unit {
+    InvokeIsInstance<T, Unit>(action)
+}
+
+/**
+ *
+ * @receiver Any
+ * @param action Function1<T, R>
+ * @return R?
+ */
+inline fun <reified T, R> Any?.InvokeIsInstance(action: (T) -> R): R? = when (this) {
+    is T -> action(this)
+    else -> null
+}
+
 /**
  * Converts any type into a "unit"
  * @receiver Any?

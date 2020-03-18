@@ -1,5 +1,8 @@
 # Changelog
+
 ## 0.0.32
+- forEachIsInstance<T> added as a "allocation free" alternative to filterIsInstance + foreach
+- indexOfOrNull to collections (why is this even missing from the Std lib ? - https://youtrack.jetbrains.com/issue/KT-37585) 
 
 ## 0.0.31
 - more extensions for mutableCollection

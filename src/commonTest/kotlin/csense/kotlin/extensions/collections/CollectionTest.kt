@@ -335,7 +335,42 @@ class CollectionTest {
         fun multiple(){
 
         }
-
-
+    }
+    class CollectionTIndexOfOrNull {
+        @Test
+        fun empty() {
+            val lst = listOf<String>()
+            lst.indexOfOrNull("a").assertNull()
+            lst.indexOfOrNull("").assertNull()
+            lst.indexOfOrNull("b").assertNull()
+        }
+        
+        @Test
+        fun single() {
+            val lst = listOf("a")
+            lst.indexOfOrNull("a").assertNotNullAndEquals(0)
+            lst.indexOfOrNull("").assertNull()
+            lst.indexOfOrNull("b").assertNull()
+        }
+        
+        @Test
+        fun multiple() {
+            val lst = listOf("d", "c")
+            lst.indexOfOrNull("a").assertNull()
+            lst.indexOfOrNull("").assertNull()
+            lst.indexOfOrNull("b").assertNull()
+            lst.indexOfOrNull("c").assertNotNullAndEquals(1)
+            lst.indexOfOrNull("d").assertNotNullAndEquals(0)
+            lst.indexOfOrNull("dc").assertNull()
+        }
+        
+        @Test
+        fun multipleOccurrences() {
+            val lst = listOf("d", "c", "d", "c")
+            lst.indexOfOrNull("a").assertNull()
+            lst.indexOfOrNull("").assertNull()
+            lst.indexOfOrNull("c").assertNotNullAndEquals(1)
+            lst.indexOfOrNull("d").assertNotNullAndEquals(0)
+        }
     }
 }

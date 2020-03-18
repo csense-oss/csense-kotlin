@@ -195,3 +195,16 @@ inline fun <T> Collection<T>.secondLastOrNull(): T? {
     return elementAtOrNull(size - 2)
 }
 
+
+/**
+ * finds the given element, or null if it was not found.
+ * @receiver Collection<T>
+ */
+@IntLimit(from = 0)
+inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
+    //will use the list indexOf if this is a list, thus this should be as optimal as the other collection extensions
+    return when (val index = indexOf(element)) {
+        -1 -> null
+        else -> index
+    }
+}

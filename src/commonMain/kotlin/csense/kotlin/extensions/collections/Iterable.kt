@@ -3,7 +3,9 @@
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
+import csense.kotlin.extensions.InvokeIsInstance
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.progressions.skip
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -356,7 +358,11 @@ inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
 
-
+/**
+ *
+ * @receiver Iterable<T>
+ * @param function Function0<Unit>
+ */
 @UseExperimental(ExperimentalContracts::class)
 inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     contract {
@@ -367,6 +373,28 @@ inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     }
 }
 
+/**
+ * Tells if this iterable is empty
+ * @receiver Iterable<T>
+ * @return Boolean false if it has "next" true otherwise
+ */
 inline fun <T> Iterable<T>.isEmpty(): Boolean = !isNotEmpty()
 
+/**
+ * Tells if this iterable is not empty
+ * @receiver Iterable<T>
+ * @return Boolean true if it has "next" false otherwise
+ */
 inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()
+
+/**
+ *
+ * @receiver Iterable<*>
+ * @param action Function1<U, *>
+ */
+inline fun <reified U> Iterable<*>.forEachIsInstance(
+        action: Function1<U, *>
+) = forEach {
+    it.InvokeIsInstance(action)
+}
+
