@@ -156,7 +156,6 @@ class ListKtTest {
         }
     }
     
-
     
     class ListForEachIsInstanceIntProgression {
         @Test
@@ -193,8 +192,8 @@ class ListKtTest {
             assertCalled {
                 anyList.forEachIsInstance<Boolean>(anyList.indices) { it() }
             }
-            anyList.forEachIsInstance<Double>(anyList.indices) { shouldNotBeCalled() }
-            anyList.forEachIsInstance<Long>(anyList.indices) { shouldNotBeCalled() }
+            anyList.forEachIsInstance<Array<*>>(anyList.indices) { shouldNotBeCalled() }
+            anyList.forEachIsInstance<Char>(anyList.indices) { shouldNotBeCalled() }
             
         }
         
@@ -219,47 +218,114 @@ class ListKtTest {
                 anyList.forEachIsInstance<Int>(0..1) { it() }
             }
             anyList.forEachIsInstance<Int>(2..2) { shouldNotBeCalled() }
-    
+            
         }
     }
     
-    class ListForEachIsInstanceAction {
-        @Test
-        fun empty() {
-            val anyList = listOf<Any>()
-            anyList.forEachIsInstance<String>(anyList.indices) { shouldNotBeCalled() }
-            anyList.forEachIsInstance<String> { shouldNotBeCalled() }
+    
+    class ListListTCombine {
+        class Empty {
+            
+            @Test
+            fun emptyOuter() {
+                val emptyA = listOf<List<String>>()
+                val emptyB = listOf<List<String>>()
+                emptyA.combine(emptyB).assertSize(0)
+            }
+            
+            @Test
+            fun emptyInnerSameLength() {
+                val emptyA = listOf<List<String>>(listOf())
+                val emptyB = listOf<List<String>>(listOf())
+                emptyA.combine(emptyB).apply {
+                    assertSize(1)
+                    first().assertSize(0)
+                }
+            }
+            
+            @Test
+            fun emptyInnerNotSameLength() {
+                val emptyA = listOf<List<String>>(listOf(), listOf())
+                val emptyB = listOf<List<String>>(listOf())
+                emptyA.combine(emptyB).apply {
+                    assertSize(2)
+                    first().assertSize(0)
+                    last().assertSize(0)
+                }
+            }
+            
+            @Test
+            fun emptyInnerNotSameLengthBToA() {
+                val emptyA = listOf<List<String>>(listOf(), listOf())
+                val emptyB = listOf<List<String>>(listOf())
+                emptyB.combine(emptyA).apply {
+                    assertSize(2)
+                    first().assertSize(0)
+                    last().assertSize(0)
+                }
+            }
         }
         
-        @Test
-        fun single() {
-            val anyList = listOf<Any>("")
-            assertCalled {
-                anyList.forEachIsInstance<String>{ it() }
+        class SinglesSingleTop {
+            
+            @Test
+            fun singleA() {
+                val a = listOf<List<String>>(listOf("a"))
+                val b = listOf<List<String>>()
+                val res = a.combine(b)
+                res.assertSize(1)
+                res.first().assertSize(1)
+                res.first().first().assert("a")
             }
-            anyList.forEachIsInstance<Int>{ shouldNotBeCalled() }
-            assertCalled {
-                anyList.forEachIsInstance<CharSequence>{ it() }
+            
+            @Test
+            fun singleB() {
+                val a = listOf<List<String>>()
+                val b = listOf<List<String>>(listOf("b"))
+                val res = a.combine(b)
+                res.assertSize(1)
+                res.first().assertSize(1)
+                res.first().first().assert("b")
             }
-            assertCalled {
-                anyList.forEachIsInstance<Comparable<String>>{ it() }
+            
+        }
+        
+        class MultipleSingleTop {
+            @Test
+            fun multipleAToBMultipleSameLength() {
+                val a = listOf<List<String>>(listOf("a", "b"))
+                val b = listOf<List<String>>(listOf("1", "2"))
+                val res = a.combine(b)
+                res.assertSize(1)
+                res.first().assertSize(4)
+                res.first().elementAt(0).assert("a")
+                res.first().elementAt(1).assert("b")
+                res.first().elementAt(2).assert("1")
+                res.first().elementAt(3).assert("2")
+            }
+            
+            @Test
+            fun multipleBToAMultipleSameLength() {
+                val a = listOf<List<String>>(listOf("q", "w", "e"))
+                val b = listOf<List<String>>(listOf("z", "x", "c"))
+                val res = b.combine(a)
+                res.assertSize(1)
+                res.first().assertSize(6)
+                res.first().elementAt(0).assert("z")
+                res.first().elementAt(1).assert("x")
+                res.first().elementAt(2).assert("c")
+                res.first().elementAt(3).assert("q")
+                res.first().elementAt(4).assert("w")
+                res.first().elementAt(5).assert("e")
+            }
+            
+            @Test
+            fun multipleNotSameLength() {
+                val a = listOf<List<String>>()
+                val b = listOf<List<String>>()
+                //TODO test multiple element condition here.
             }
         }
         
-        @Test
-        fun multiple() {
-            val anyList = listOf<Any>("", 42, true)
-            assertCalled {
-                anyList.forEachIsInstance<String> { it() }
-            }
-            assertCalled {
-                anyList.forEachIsInstance<Int> { it() }
-            }
-            assertCalled {
-                anyList.forEachIsInstance<Boolean>{ it() }
-            }
-            anyList.forEachIsInstance<Double> { shouldNotBeCalled() }
-            anyList.forEachIsInstance<Long> { shouldNotBeCalled() }
-        }
     }
 }

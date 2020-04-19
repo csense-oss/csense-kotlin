@@ -22,7 +22,7 @@ fun <T, R> T.runIfNotNull(block: ReceiverFunction0<T, R>?): R? = block?.let(::ru
  * @param block EmptyFunction
  * @return T
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <T> T.also(block: EmptyFunction): T {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)

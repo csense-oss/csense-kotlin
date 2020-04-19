@@ -14,7 +14,7 @@ import kotlin.contracts.contract
  * @param block EmptyFunctionResult<R>
  * @return Pair<Long, R> the first is the time in ms the second is the result of the function.
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> measureTimeMillisResult(block: EmptyFunctionResult<R>): Pair<Long, R> {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -32,7 +32,7 @@ inline fun <R> measureTimeMillisResult(block: EmptyFunctionResult<R>): Pair<Long
  * @param action EmptyFunctionResult<T>
  * @return T the result type of the action invocation.
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <T> logMeasureTimeInMillis(
         loggingTitle: String = "Timing",
         loggingMethod: LoggingFunctionType<Unit> = L::debug,

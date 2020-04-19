@@ -2,10 +2,7 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function1
-import csense.kotlin.FunctionUnit
-import csense.kotlin.ReceiverFunctionUnit
+import csense.kotlin.*
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -26,6 +23,23 @@ inline fun <T> WeakReference<T>.use(action: ReceiverFunctionUnit<T>): Unit =
         get()?.let(action).toUnit()
 
 /**
+ * Uses this weak reference if valid and calls the method if there
+ * @receiver WeakReference<EmptyFunction>
+ * @return Unit
+ */
+inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
+        get()?.let { it() }.toUnit()
+
+/**
+ * Uses this weak reference if valid and calls the function and returns the result.
+ * returns null if the weak reference is null (or if the function returns null)
+ * @receiver WeakReference<Function0R<R>>
+ * @return R?
+ */
+inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
+        get()?.let { it() }
+
+/**
  * Uses the given weak reference if available or does the other action
  * @receiver WeakReference<T>
  * @param ifAvailable ReceiverFunctionUnit<T> the action to perform iff the weak reference did contain something (not null)
@@ -42,6 +56,8 @@ inline fun <T> WeakReference<T>.useOr(
  * @receiver WeakReference<FunctionUnit<T>?> the weak reference
  * @param input T the type of wrapped object
  */
+//TODO useInvoke
+@Deprecated("This will be renamed in the following version")
 inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T): Unit =
         get()?.invoke(input).toUnit()
 
@@ -51,6 +67,8 @@ inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T): Unit =
  * @param input T the type of wrapped object
  * @return R? the result of the function, or null if the weak reference is null (or the return type could be nullable).
  */
+//TODO useInvoke
+@Deprecated("This will be renamed in the following version")
 inline fun <T, R> WeakReference<Function1<T, R>?>.use(input: T): R? =
         get()?.invoke(input)
 

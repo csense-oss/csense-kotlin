@@ -3,7 +3,7 @@
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.InvokeIsInstance
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.primitives.isNegativeOrZero
 
 /**
@@ -105,29 +105,24 @@ inline fun <reified U> List<*>.forEachIsInstance(
         indices: IntProgression,
         action: Function1<U, *>
 ) = indices.forEach {
-    getOrNull(it)?.InvokeIsInstance(action)
-}
-
-/**
- * invokes the given action on each item that is of the expected type (U)
- * @receiver List<*>
- * @param action Function1<U, *> action to invoke if the element is of type U
- */
-inline fun <reified U> List<*>.forEachIsInstance(
-        action: Function1<U, *>
-) = forEach {
-    it.InvokeIsInstance(action)
+    getOrNull(it)?.invokeIsInstance(action)
 }
 
 
 /**
  * Combines the inner list of the other with this.
+ * The length will always match the longest of the receiver and the other parameter.
  * @receiver List<List<T>>
  * @param other List<List<T>>
  * @return List<List<T>>
  */
 fun <T> List<List<T>>.combine(
         other: List<List<T>>
-): List<List<T>> = mapIndexed { index, list ->
-    list + other.getOrNull(index).orEmpty()
+): List<List<T>> {
+    val isOtherLarger = other.size > this.size
+    val largest = isOtherLarger.map(other, this)
+    val smallest = isOtherLarger.map(this, other)
+    return largest.mapIndexed { index, list ->
+        list + smallest.getOrNull(index).orEmpty()
+    }
 }

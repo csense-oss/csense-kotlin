@@ -2,8 +2,7 @@
 
 package csense.kotlin.patterns
 
-import csense.kotlin.Function1
-import csense.kotlin.FunctionUnit
+import csense.kotlin.*
 
 //TODO polish the experince.
 

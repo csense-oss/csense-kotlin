@@ -10,9 +10,7 @@ import java.io.StringWriter
  * @receiver Throwable
  * @return String
  */
-
-fun Throwable.stackTraceToString(): String =
-        StringWriter().use {
-            printStackTrace(PrintWriter(it))
-            return it.toString()
-        }
+fun Throwable.stackTraceToString(): String = StringWriter().use {
+    printStackTrace(PrintWriter(it))
+    it.toString()
+}

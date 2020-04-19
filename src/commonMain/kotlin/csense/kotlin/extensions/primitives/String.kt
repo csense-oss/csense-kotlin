@@ -395,11 +395,6 @@ inline fun String.fromHexStringToByteArray(): ShortArray? {
 
 //region Does not starts with
 //TODO comment.
-inline fun String.doesNotStartsWith(
-        prefix: String,
-        ignoreCase: Boolean = false
-): Boolean =
-        !startsWith(prefix, ignoreCase)
 
 
 inline fun String.doesNotStartsWith(

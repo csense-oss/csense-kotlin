@@ -109,3 +109,11 @@ inline fun <T> MutableList<T>.removeFirst(): T? =
  */
 inline fun <T> MutableList<T>.removeLast(): T? =
         removeAtOr(lastIndex, null)
+
+
+inline fun <T> MutableList<T>.addAll(
+        index: Int,
+        elements: Iterable<T>
+) = elements.forEachIndexed { counter: Int, element: T ->
+    add(counter + index, element)
+}

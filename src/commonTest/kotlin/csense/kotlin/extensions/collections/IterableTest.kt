@@ -1,7 +1,7 @@
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class IterableTest {
 
@@ -188,6 +188,48 @@ class IterableTest {
         }
     }
     //endregion
-
-
+    
+    
+    
+    class IterableForEachIsInstanceAction {
+        @Test
+        fun empty() {
+            val anyList = listOf<Any>()
+            
+            anyList.forEachIsInstance<String> { shouldNotBeCalled() }
+        }
+        
+        @Test
+        fun single() {
+            val anyList = listOf<Any>("")
+            assertCalled {
+                anyList.forEachIsInstance<String> { it() }
+            }
+            anyList.forEachIsInstance<Int> { shouldNotBeCalled() }
+            assertCalled {
+                anyList.forEachIsInstance<CharSequence> { it() }
+            }
+            assertCalled {
+                anyList.forEachIsInstance<Comparable<String>> { it() }
+            }
+        }
+        
+        @Test
+        fun multiple() {
+            val anyList = listOf<Any>("", 42, true)
+            assertCalled {
+                anyList.forEachIsInstance<String> { it() }
+            }
+            assertCalled {
+                anyList.forEachIsInstance<Int> { it() }
+            }
+            assertCalled {
+                anyList.forEachIsInstance<Boolean> { it() }
+            }
+            anyList.forEachIsInstance<Char> {
+                shouldNotBeCalled()
+            }
+            anyList.forEachIsInstance<Array<*>> { shouldNotBeCalled() }
+        }
+    }
 }

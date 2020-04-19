@@ -3,12 +3,9 @@
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
-import csense.kotlin.extensions.InvokeIsInstance
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.progressions.skip
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import kotlin.contracts.*
 
 //region Invoke each Lazy
 /**
@@ -16,7 +13,7 @@ import kotlin.contracts.contract
  * @receiver Iterable<kotlin.Function1<I1, O>>
  * @param element Function0R<I1>
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
         element: Function0R<I1>
 ) {
@@ -35,7 +32,7 @@ inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
  * @param secondElement I2
  */
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
         secondElement: Function0R<I2>) {
@@ -56,7 +53,7 @@ inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
  * @param secondElement I2
  * @param thirdElement I3
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
@@ -80,7 +77,7 @@ inline fun <I1, I2, I3, O>
  * @param thirdElement I3
  * @param forthElement I4
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, I3, I4, O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
@@ -111,7 +108,7 @@ inline fun <I1, I2, I3, I4, O>
  * @param forthElement I4
  * @param fifthElement I5
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, I3, I4, I5, O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
@@ -147,7 +144,7 @@ inline fun <I1, I2, I3, I4, I5, O>
  * @param fifthElement I5
  * @param sixthElement I6
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, I3, I4, I5, I6, O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
@@ -179,6 +176,15 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
 //endregion
 
 //region Invoke each with
+
+/**
+ * Invokes each callable argument and discards the result
+ * @receiver Iterable<Function0R<O>>
+ * @return Unit
+ */
+inline fun <O> Iterable<Function0R<O>>.invokeEach(): Unit =
+        forEach { it() }
+
 /**
  * Invokes each function with the given arguments
  * @receiver Iterable<kotlin.Function1<I1, O>>
@@ -186,7 +192,8 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
  */
 
 inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
-        element: I1) =
+        element: I1
+): Unit =
         forEach { it(element) }
 
 /**
@@ -199,7 +206,7 @@ inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
 
 inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
         firstElement: I1,
-        secondElement: I2) =
+        secondElement: I2): Unit =
         forEach { it(firstElement, secondElement) }
 
 /**
@@ -363,7 +370,7 @@ inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>) =
  * @receiver Iterable<T>
  * @param function Function0<Unit>
  */
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     contract {
         callsInPlace(function, InvocationKind.AT_MOST_ONCE)
@@ -387,14 +394,14 @@ inline fun <T> Iterable<T>.isEmpty(): Boolean = !isNotEmpty()
  */
 inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()
 
+
 /**
- *
- * @receiver Iterable<*>
- * @param action Function1<U, *>
+ * invokes the given action on each item that is of the expected type (U)
+ * @receiver List<*>
+ * @param action Function1<U, *> action to invoke if the element is of type U
  */
 inline fun <reified U> Iterable<*>.forEachIsInstance(
-        action: Function1<U, *>
+        action: kotlin.Function1<U, *>
 ) = forEach {
-    it.InvokeIsInstance(action)
+    it.invokeIsInstance(action)
 }
-

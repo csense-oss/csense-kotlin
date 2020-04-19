@@ -22,9 +22,9 @@ inline fun <reified T> Any.cast(): T? = this as? T
  * @param action Function1<T, Unit>
  * @return Unit
  */
-inline fun <reified T> Any?.InvokeIsInstance(action: (T) -> Unit): Unit {
-    InvokeIsInstance<T, Unit>(action)
-}
+inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
+        invokeIsInstance<T, Unit>(action).toUnit()
+
 
 /**
  *
@@ -32,7 +32,7 @@ inline fun <reified T> Any?.InvokeIsInstance(action: (T) -> Unit): Unit {
  * @param action Function1<T, R>
  * @return R?
  */
-inline fun <reified T, R> Any?.InvokeIsInstance(action: (T) -> R): R? = when (this) {
+inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? = when (this) {
     is T -> action(this)
     else -> null
 }

@@ -2,8 +2,7 @@
 
 package csense.kotlin.extensions.collections.map
 
-import csense.kotlin.Function1
-import csense.kotlin.extensions.collections.list.removeAtOr
+import csense.kotlin.*
 import kotlin.collections.set
 
 

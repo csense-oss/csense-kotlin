@@ -27,12 +27,12 @@ inline fun Collection<*>.isIndexValidForInsert(index: Int) =
         index >= 0 && index <= count()
 
 /**
- * Element at witouth throwing exception but instead returning null if index out of bounds
+ * Element at without throwing exception but instead returning null if index out of bounds
  * @receiver Collection<T>
  * @param index Int
  * @return T?
  */
-
+@Deprecated("Use getOrNull", ReplaceWith("getOrNull"), DeprecationLevel.WARNING)
 inline fun <T> Collection<T>.getSafe(@IntLimit(from = 0) index: Int): T? =
         if (this.isIndexValid(index)) {
             elementAt(index)
@@ -204,6 +204,13 @@ inline fun <T> Collection<T>.secondLastOrNull(): T? {
 inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
     //will use the list indexOf if this is a list, thus this should be as optimal as the other collection extensions
     return when (val index = indexOf(element)) {
+        -1 -> null
+        else -> index
+    }
+}
+
+inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? {
+    return when (val index = this.lastIndexOf(element)) {
         -1 -> null
         else -> index
     }
