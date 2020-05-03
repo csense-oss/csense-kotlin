@@ -267,7 +267,7 @@ class CollectionTest {
     
     class IsAllTrue {
         @Test
-        fun empty() {
+        fun emptyTest() {
             val empty: Collection<Boolean> = listOf()
             empty.isAllTrue().assertTrue()
         }
@@ -306,10 +306,10 @@ class CollectionTest {
     
     @Test
     fun collectionTSecondLastOrNull() {
-        val empty: Collection<String> = listOf()
-        empty.secondLastOrNull().assertNull()
-        val single: Collection<String> = listOf("a")
-        single.secondLastOrNull().assertNull()
+        val emptyData: Collection<String> = listOf()
+        emptyData.secondLastOrNull().assertNull()
+        val singleData: Collection<String> = listOf("a")
+        singleData.secondLastOrNull().assertNull()
         val two: Collection<String> = listOf("a", "b")
         two.secondLastOrNull().assertNotNullAndEquals("a")
         val aLot = listOf("a", "1", "2", "b")

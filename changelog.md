@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.33
+- isNot extension added to Any 
+- indexOfOrNull for CharSequence (as it is not a collection)
+
 ## 0.0.32
 - forEachIsInstance<T> added as an "allocation free" alternative to filterIsInstance + foreach
 - indexOfOrNull to collections (why is this even missing from the Std lib ? - https://youtrack.jetbrains.com/issue/KT-37585) 

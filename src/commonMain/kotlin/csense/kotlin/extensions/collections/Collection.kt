@@ -197,8 +197,10 @@ inline fun <T> Collection<T>.secondLastOrNull(): T? {
 
 
 /**
- * finds the given element, or null if it was not found.
+ * finds the index of the given element, or null if it was not found.
  * @receiver Collection<T>
+ * @param element T
+ * @return Int?
  */
 @IntLimit(from = 0)
 inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
@@ -209,6 +211,13 @@ inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
     }
 }
 
+/**
+ * finds the last index of the given element, or null if it was not found.
+ * @receiver Collection<T>
+ * @param element T
+ * @return Int? null if
+ */
+@IntLimit(from = 0)
 inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? {
     return when (val index = this.lastIndexOf(element)) {
         -1 -> null

@@ -43,4 +43,15 @@ class GeneralTest {
         stringValue.useOr({ stringCounter += length }, { failTest("magic test is not null") })
         stringCounter.assert(stringValue?.length ?: 0, "should get the right string back.")
     }
+    
+    @Test
+    fun anyIsNot() {
+        42.isNot<Int>().assertFalse()
+        "".isNot<String>().assertFalse()
+        "".isNot<CharSequence>().assertFalse()
+        42.isNot<Char>().assertTrue()
+        42.0.isNot<Char>().assertTrue()
+        42.0.isNot<Number>().assertFalse()
+        listOf<String>().isNot<List<Double>>().assertFalse("Type erasure...")
+    }
 }

@@ -6,6 +6,7 @@ import csense.kotlin.EmptyFunction
 import csense.kotlin.Function1
 import csense.kotlin.FunctionUnit
 import csense.kotlin.ReceiverFunctionUnit
+import kotlin.contracts.*
 
 
 /**
@@ -62,11 +63,27 @@ inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
  * @param ifNotNull T.() -> Unit the action to perform iff this is not null
  * @param ifNull EmptyFunction  if the this is null this action will be performed
  */
-inline fun <T> T?.useOr(ifNotNull: ReceiverFunctionUnit<T>,
-                        ifNull: EmptyFunction) {
+inline fun <T> T?.useOr(
+        ifNotNull: ReceiverFunctionUnit<T>,
+        ifNull: EmptyFunction
+) {
     if (this != null) {
         ifNotNull(this)
     } else {
         ifNull()
     }
+}
+
+/**
+ * Another way of writing "!is" with is not "inversed" logic (not is), this "is not"
+ * NB TYPE ERASURE STILL APPLIES SO LIST<STRING> IS == LIST<OBJECT> (because they become LIST<*>)
+ * @receiver Any
+ * @return Boolean true if this is not the given type, false if this is
+ */
+@OptIn(ExperimentalContracts::class)
+inline fun <reified U> Any.isNot(): Boolean {
+//    contract {
+//        returns(false) implies (this is U)
+//    }
+    return (this !is U)
 }

@@ -480,4 +480,3 @@ fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false
     this.contains(it, ignoreCase)
 }
 //endregion
-
