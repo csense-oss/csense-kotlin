@@ -1,9 +1,6 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertFalse
-import csense.kotlin.tests.assertions.assertTrue
-import csense.kotlin.tests.assertions.failTest
+import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
 class IntTest {
@@ -135,5 +132,25 @@ class IntTest {
             55.forEach { counter += 1 }
             counter.assert(55)
         }
+    }
+    
+    @Test
+    fun indexOfExtensionsUnwrapUnsafeIndexOf() {
+        (-59).indexOfExtensions.unwrapUnsafeIndexOf().assertNull()
+        (-1).indexOfExtensions.unwrapUnsafeIndexOf().assertNull()
+        (-0).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(0)
+        (0).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(0)
+        (1).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(1)
+        (20).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(20)
+        (8000).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(8000)
+    }
+    
+    @Test
+    fun intIndexOfExtensions() {
+        (-1).indexOfExtensions.value.assert(-1)
+        0.indexOfExtensions.value.assert(0)
+        1.indexOfExtensions.value.assert(1)
+        (-50).indexOfExtensions.value.assert(-50)
+        42.indexOfExtensions.value.assert(42)
     }
 }
