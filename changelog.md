@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.34
+- added extensions to collections
+    - indexOfFirstOrNull
+    - indexOfLastOrNull
+
 ## 0.0.33
 - isNot extension added to Any 
 - indexOfOrNull for CharSequence (as it is not a collection)

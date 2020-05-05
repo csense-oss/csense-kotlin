@@ -4,6 +4,8 @@ package csense.kotlin.extensions.primitives
 
 import csense.kotlin.FunctionUnit
 import csense.kotlin.annotations.numbers.IntLimit
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.*
 import kotlin.math.absoluteValue
 
 /**
@@ -66,6 +68,7 @@ inline val Int.isPositive: Boolean
  */
 inline val Int.isEven: Boolean
     get() = this % 2 == 0
+
 /**
  * If this whole number is odd (1,3,5 ...)
  */
@@ -87,3 +90,21 @@ inline fun Int.forEach(action: FunctionUnit<Int>) {
         action(i)
     }
 }
+
+
+//region indexOf extensions
+
+
+inline class IndexOfExtensions(val value: Int)
+
+inline val Int.indexOfExtensions: IndexOfExtensions
+    get() = IndexOfExtensions(this)
+
+/**
+ * Unwraps an unsafe index of int. everything below 0 becomes null otherwise the given number
+ * @receiver Int
+ * @return Int? null if negative, the value otherwise
+ */
+@IntLimit(from = 0)
+inline fun IndexOfExtensions.unwrapUnsafeIndexOf(): Int? = value.isNegative.map(null, value)
+//endregion

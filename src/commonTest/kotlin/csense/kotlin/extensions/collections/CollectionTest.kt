@@ -402,7 +402,7 @@ class CollectionTest {
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(0)
             lst.lastIndexOfOrNull("dc").assertNull()
         }
-        
+    
         @Test
         fun multipleOccurrences() {
             val lst = listOf("d", "c", "d", "c")
@@ -415,4 +415,5 @@ class CollectionTest {
         
         
     }
+
 }

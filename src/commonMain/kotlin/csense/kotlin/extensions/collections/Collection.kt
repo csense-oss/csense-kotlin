@@ -2,9 +2,10 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.Function1
 import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.primitives.ifFalse
-import csense.kotlin.extensions.primitives.onTrue
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.primitives.*
 
 /**
  * Validates the given index for the given collection (so 0 until length)
@@ -203,13 +204,31 @@ inline fun <T> Collection<T>.secondLastOrNull(): T? {
  * @return Int?
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
-    //will use the list indexOf if this is a list, thus this should be as optimal as the other collection extensions
-    return when (val index = indexOf(element)) {
-        -1 -> null
-        else -> index
-    }
-}
+inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
+        indexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
+
+
+/**
+ *
+ * @receiver Collection<T>
+ * @param predicate Function1<T, Boolean>
+ * @return Int? null if not found, the index otherwise.
+ */
+@IntLimit(from = 0)
+inline fun <T> Collection<T>.indexOfFirstOrNull(predicate: Function1<T, Boolean>): Int? =
+        indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+
+
+/**
+ *
+ * @receiver Collection<T>
+ * @param predicate Function1<T, Boolean>
+ * @return Int? null if not found, the index otherwise.
+ */
+@IntLimit(from = 0)
+inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
+        indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+
 
 /**
  * finds the last index of the given element, or null if it was not found.
@@ -218,9 +237,7 @@ inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? {
  * @return Int? null if
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? {
-    return when (val index = this.lastIndexOf(element)) {
-        -1 -> null
-        else -> index
-    }
-}
+inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
+        this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
+
+
