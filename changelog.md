@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.36
+- ...
+
+## 0.0.35
+- char is{Upper, lower} case extensions and
+- string is{Upper, lower}CaseOnly extensions
+
 ## 0.0.34
 - added extensions to collections
     - indexOfFirstOrNull

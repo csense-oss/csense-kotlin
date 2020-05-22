@@ -47,7 +47,7 @@ fun Char.asHexDigit(): Byte? {
     if (thisByte.isNegative || thisByte > hexCharsCount) {
         return null
     }
-
+    
     return (thisByte + 0x0a).toByte()
 }
 
@@ -72,10 +72,25 @@ private const val charAAsByte = 'a'.toByte()
  * The length (0 indexed) of numbers ( 0 until 9)
  */
 const val numberCharsCount: Int = 9
+
 /**
  * The length (0 indexed) of chars that represents hex numbers ( a - f)
  */
 const val hexCharsCount: Int = 5
 //endregion
 
+/**
+ * Tells if this char is uppercase
+ * for native use this implementation
+ *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
+ */
+expect val Char.isUpperCase: Boolean
+    //get() = toUpperCase().equals(this, false)
 
+/**
+ * Tells if this char is lowercase
+ * for native use this implementation
+ *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
+ */
+expect val Char.isLowerCase: Boolean
+    //get() = toLowerCase().equals(this, false)

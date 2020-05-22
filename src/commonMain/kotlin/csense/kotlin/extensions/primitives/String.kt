@@ -86,7 +86,7 @@ data class StringInserts(val toInsert: String,
  */
 fun String.insertInto(vararg toInsert: StringInserts): String? {
     val size = count()
-
+    
     val sb = StringBuilder()
     toInsert.sortBy { it.atIndex } //make sure its sorted, such that we are never run into any issues.
     val lastInsertIndex = toInsert.lastOrNull()?.atIndex
@@ -465,7 +465,7 @@ inline fun String.doesNotEndsWithAny(
  * @param strings Array<out String>
  * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
  */
-fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boolean = strings.any {
+inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boolean = strings.any {
     this.contains(it, ignoreCase)
 }
 
@@ -476,7 +476,24 @@ fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boo
  * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
  * @return Boolean
  */
-fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false): Boolean = collection.any {
+inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false): Boolean = collection.any {
     this.contains(it, ignoreCase)
 }
 //endregion
+
+/**
+ * Tells if this string solely consists of uppercase characters
+ * @receiver String
+ * @return Boolean true if either the string is empty or all chars are upper case
+ * @timecomplexity O(n)
+ */
+inline fun String.isOnlyUpperCase(): Boolean = all(Char::isUpperCase)
+
+
+/**
+ * Tells if this string solely consists of lowercase characters
+ * @receiver String
+ * @return Boolean true if either the string is empty or all chars are lowercase
+ * @timecomplexity O(n)
+ */
+inline fun String.isOnlyLowerCase(): Boolean = all(Char::isLowerCase)

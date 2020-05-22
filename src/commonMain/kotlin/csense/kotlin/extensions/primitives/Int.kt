@@ -2,11 +2,10 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.FunctionUnit
-import csense.kotlin.annotations.numbers.IntLimit
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.*
-import kotlin.math.absoluteValue
+import kotlin.math.*
 
 /**
  * Gets this int negative, if it is already negative, returns that.

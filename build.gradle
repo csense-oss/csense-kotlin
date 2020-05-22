@@ -1,14 +1,14 @@
 buildscript {
 
-    ext.coroutinesVersion = "1.3.5"
+    ext.coroutinesVersion = "1.3.6"
     ext.junit5Version = "5.5.2"
-    ext.csenseTestsVersion = "0.0.26"
+    ext.csenseTestsVersion = "0.0.27"
     ext.csenseAnnotationVersion = "0.0.17"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.34"
+    ext.csenseVersionName = "0.0.35"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
