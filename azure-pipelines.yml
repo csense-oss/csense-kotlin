@@ -6,6 +6,7 @@ variables:
   GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
 
 trigger:
+  batch: true
   branches:
     include:
       - '*'
