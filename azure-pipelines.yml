@@ -21,11 +21,6 @@ steps:
       restoreKeys: gradle
       path: $(GRADLE_USER_HOME)
     displayName: Gradle build cache
-  - script: |
-      ./gradlew --build-cache build
-      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
-      ./gradlew --stop
-    displayName: Build
 
   - task: Gradle@2
     inputs:
@@ -35,7 +30,6 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
-      publishJUnitResults: false
+      publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'
-      tasks: 'alltests'
-
+      tasks: '--build-cache build alltests'
