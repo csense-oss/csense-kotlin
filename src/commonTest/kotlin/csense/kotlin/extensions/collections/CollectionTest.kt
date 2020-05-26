@@ -62,19 +62,20 @@ class CollectionTest {
     class GetSafeTests {
         @Test
         fun getSafeEmpty() {
+            val lst = listOf<String>()
             val collection: MutableCollection<String> = mutableListOf()
-            collection.getSafe(-1).assertNull()
-            collection.getSafe(0).assertNull("collection is empty.")
-            collection.getSafe(1).assertNull()
+            collection.getOrNull(-1).assertNull()
+            collection.getOrNull(0).assertNull("collection is empty.")
+            collection.getOrNull(1).assertNull()
         }
         
         @Test
         fun getSafeSingle() {
             val collection: MutableCollection<String> = mutableListOf()
             collection.add("test")
-            collection.getSafe(-1).assertNull()
-            collection.getSafe(0).assertNotNullAndEquals("test")
-            collection.getSafe(1).assertNull()
+            collection.getOrNull(-1).assertNull()
+            collection.getOrNull(0).assertNotNullAndEquals("test")
+            collection.getOrNull(1).assertNull()
         }
         
         @Test
@@ -84,10 +85,10 @@ class CollectionTest {
             collection.add("1")
             collection.add("2")
             collection.add("3")
-            collection.getSafe(3).assertNotNullAndEquals("3")
-            collection.getSafe(4).assertNull()
-            collection.getSafe(2).assertNotNullAndEquals("2")
-            collection.getSafe(1).assertNotNullAndEquals("1")
+            collection.getOrNull(3).assertNotNullAndEquals("3")
+            collection.getOrNull(4).assertNull()
+            collection.getOrNull(2).assertNotNullAndEquals("2")
+            collection.getOrNull(1).assertNotNullAndEquals("1")
         }
         
     }

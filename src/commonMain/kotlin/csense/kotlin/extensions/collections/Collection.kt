@@ -33,13 +33,9 @@ inline fun Collection<*>.isIndexValidForInsert(index: Int) =
  * @param index Int
  * @return T?
  */
-@Deprecated("Use getOrNull", ReplaceWith("getOrNull"), DeprecationLevel.WARNING)
-inline fun <T> Collection<T>.getSafe(@IntLimit(from = 0) index: Int): T? =
-        if (this.isIndexValid(index)) {
-            elementAt(index)
-        } else {
-            null
-        }
+inline fun <T> Collection<T>.getOrNull(
+        @IntLimit(from = 0) index: Int
+): T? = elementAtOrNull(index)
 
 /**
  * Tells if the given range is in the collection (akk range in [ 0 ; length [
