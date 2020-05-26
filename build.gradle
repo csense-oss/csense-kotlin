@@ -123,6 +123,8 @@ bintray {
         key = properties.getProperty('bintrayApiKey')
     } catch (Exception ignored) {
         print "could not read local.properties"
+        user = ""
+        key = ""
     }
     publications = publishing.publications.getNames()
     override = true
