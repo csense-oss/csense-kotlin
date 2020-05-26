@@ -32,4 +32,4 @@ steps:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'
-      tasks: '--build-cache build alltests'
+      tasks: '--build-cache build'
