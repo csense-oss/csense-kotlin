@@ -99,6 +99,10 @@ kotlin.sourceSets.all {
 
 jvmTest {
     useJUnitPlatform()
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
 }
 dokka {
     multiplatform {

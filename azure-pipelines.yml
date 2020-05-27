@@ -31,7 +31,7 @@ steps:
       jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
+      testResultsFiles: 'build/test-results/jvmTest/*.xml'
       tasks: '--build-cache build'
     displayName: Assemble & Test
 #  - task: Gradle@2
