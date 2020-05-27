@@ -415,32 +415,32 @@ class StringTest {
         "a".doesNotStartsWith('a').assertFalse()
         "abc".doesNotStartsWith('a').assertFalse()
     }
-    
-    @Test
-    fun stringIsOnlyUpperCase() {
-        "".isOnlyUpperCase().assertTrue() //nothing is always valid.
-        " ".isOnlyUpperCase().assertFalse()
-        "a".isOnlyUpperCase().assertFalse()
-        "abc".isOnlyUpperCase().assertFalse()
-        "1234".isOnlyUpperCase().assertFalse()
-        "\n".isOnlyUpperCase().assertFalse()
-        "...()[]".isOnlyUpperCase().assertFalse()
-        "A".isOnlyUpperCase().assertTrue()
-        "aA".isOnlyUpperCase().assertFalse()
-        
-    }
-    
-    @Test
-    fun stringIsOnlyLowerCase() {
-        "".isOnlyLowerCase().assertTrue() //nothing is always valid.
-        " ".isOnlyLowerCase().assertFalse()
-        "a".isOnlyLowerCase().assertTrue()
-        "abc".isOnlyLowerCase().assertTrue()
-        "1234".isOnlyLowerCase().assertFalse()
-        "\n".isOnlyLowerCase().assertFalse()
-        "...()[]".isOnlyLowerCase().assertFalse()
-        
-        "A".isOnlyLowerCase().assertFalse()
-        "aA".isOnlyLowerCase().assertFalse()
-    }
+//
+//    @Test
+//    fun stringIsOnlyUpperCase() {
+//        "".isOnlyUpperCase().assertTrue() //nothing is always valid.
+//        " ".isOnlyUpperCase().assertTrue()
+//        "a".isOnlyUpperCase().assertFalse()
+//        "abc".isOnlyUpperCase().assertFalse()
+//        "1234".isOnlyUpperCase().assertTrue()
+//        "\n".isOnlyUpperCase().assertTrue()
+//        "...()[]".isOnlyUpperCase().assertTrue()
+//        "A".isOnlyUpperCase().assertTrue()
+//        "aA".isOnlyUpperCase().assertFalse()
+//
+//    }
+//
+//    @Test
+//    fun stringIsOnlyLowerCase() {
+//        "".isOnlyLowerCase().assertTrue() //nothing is always valid.
+//        " ".isOnlyLowerCase().assertTrue()
+//        "a".isOnlyLowerCase().assertTrue()
+//        "abc".isOnlyLowerCase().assertTrue()
+//        "1234".isOnlyLowerCase().assertTrue()
+//        "\n".isOnlyLowerCase().assertTrue()
+//        "...()[]".isOnlyLowerCase().assertTrue()
+//
+//        "A".isOnlyLowerCase().assertFalse()
+//        "aA".isOnlyLowerCase().assertFalse()
+//    }
 }
