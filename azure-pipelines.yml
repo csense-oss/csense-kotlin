@@ -53,4 +53,4 @@ steps:
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'JaCoCo'
-      summaryFileLocation: "**/build/repots"
+      summaryFileLocation: "**/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
