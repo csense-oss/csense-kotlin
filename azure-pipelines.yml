@@ -42,8 +42,7 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
-      publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
+      publishJUnitResults: false
       tasks: '--rerun-tasks jvmTest'
     displayName: Jvm test with xml
 
