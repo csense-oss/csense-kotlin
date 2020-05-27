@@ -2,14 +2,24 @@ package csense.kotlin.extensions.primitives
 
 /**
  * tells if this char is uppercase
- * Sub optimal (jvm and js can do better)
+// * space is lowercase always
+// * numbers are always lowercase
  */
 actual val Char.isUpperCase: Boolean
-    get() = toUpperCase().equals(this, false)
+    get() {
+
+        return toUpperCase().equals(this, false)
+    }
 
 /**
  * tells if this char is lowercase
- * Sub optimal (jvm and js can do better)
+// * space is lowercase always
+// * numbers are always lowercase
  */
 actual val Char.isLowerCase: Boolean
-    get() = toLowerCase().equals(this, false)
+    get() {
+//        if (this.isWhitespace()) {
+//            return true
+//        }
+        return toLowerCase().equals(this, false)
+    }

@@ -1,8 +1,6 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
+import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
 class CharTest {
@@ -64,5 +62,24 @@ class CharTest {
         'f'.asHexDigit().assertNotNullAndEquals(0x0f)
         'F'.asHexDigit().assertNotNullAndEquals(0x0F)
         'g'.asHexDigit().assertNull()
+    }
+    
+    @Test
+    fun charIsDigit() {
+        ' '.isDigit.assertFalse()
+        'a'.isDigit.assertFalse()
+        '?'.isDigit.assertFalse()
+        '\n'.isDigit.assertFalse()
+        
+        '0'.isDigit.assertTrue()
+        '1'.isDigit.assertTrue()
+        '2'.isDigit.assertTrue()
+        '3'.isDigit.assertTrue()
+        '4'.isDigit.assertTrue()
+        '5'.isDigit.assertTrue()
+        '6'.isDigit.assertTrue()
+        '7'.isDigit.assertTrue()
+        '8'.isDigit.assertTrue()
+        '9'.isDigit.assertTrue()
     }
 }

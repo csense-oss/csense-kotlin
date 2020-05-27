@@ -2,22 +2,55 @@
 # Build your Java project and run tests with Gradle using a Gradle wrapper script.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
+variables:
+  GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
 
 trigger:
-  - master
+  batch: true
+  branches:
+    include:
+      - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+  - task: Cache@2
+    inputs:
+      key: 'gradle | "$(Agent.OS)"'
+      restoreKeys: gradle
+      path: $(GRADLE_USER_HOME)
+    displayName: Gradle build cache
+
   - task: Gradle@2
     inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
       gradleOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
+      jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: false
-      testResultsFiles: '**/TEST-*.xml'
-      tasks: 'test'
+      tasks: '--build-cache build'
+    displayName: Assemble & Test
+
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      gradleOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: false
+      tasks: '--rerun-tasks jvmTest jacocoTestReport'
+    displayName: Jvm test with xml & jacoco
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: 'build/test-results/jvmTest/*.xml'
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'JaCoCo'
+      summaryFileLocation: "**/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
