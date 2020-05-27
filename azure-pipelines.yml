@@ -50,3 +50,7 @@ steps:
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: 'build/test-results/jvmTest/*.xml'
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'JaCoCo'
+      summaryFileLocation: "**/build/repots"

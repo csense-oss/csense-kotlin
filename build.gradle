@@ -25,6 +25,7 @@ plugins {
     id 'org.jetbrains.dokka' version '0.10.1'
     id "maven-publish"
     id "com.jfrog.bintray" version "1.8.5"
+    id "jacoco"
 }
 
 repositories {
@@ -103,6 +104,9 @@ jvmTest {
         junitXml.enabled = true
         html.enabled = true
     }
+    jacoco {
+        destinationFile = file("${buildDir}/jacoco/test.exec")
+    }
 }
 dokka {
     multiplatform {
@@ -117,7 +121,21 @@ dokka {
         }
     }
 }
+jacoco {
+    toolVersion = "0.8.5"
+}
 
+task jacocoTestReport(type: JacocoReport, dependsOn: ["jvmTest"]) {
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled true
+    }
+    classDirectories.setFrom(files("${project.buildDir}/classes/kotlin/jvm/main"))
+    executionData(file("${buildDir}/jacoco/test.exec"))
+    additionalSourceDirs(files("src/commonMain/kotlin"))
+    additionalSourceDirs(files("src/jvmMain/kotlin"))
+}
 
 bintray {
     Properties properties = new Properties()

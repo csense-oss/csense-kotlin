@@ -7,9 +7,7 @@ package csense.kotlin.extensions.primitives
  */
 actual val Char.isUpperCase: Boolean
     get() {
-//        if (this.isWhitespace() || this.isNumber()) {
-//            return true
-//        }
+
         return toUpperCase().equals(this, false)
     }
 

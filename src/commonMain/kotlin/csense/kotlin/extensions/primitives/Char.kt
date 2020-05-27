@@ -85,7 +85,7 @@ const val hexCharsCount: Int = 5
  *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
 expect val Char.isUpperCase: Boolean
-    //get() = toUpperCase().equals(this, false)
+//get() = toUpperCase().equals(this, false)
 
 /**
  * Tells if this char is lowercase
@@ -93,4 +93,11 @@ expect val Char.isUpperCase: Boolean
  *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
 expect val Char.isLowerCase: Boolean
-    //get() = toLowerCase().equals(this, false)
+//get() = toLowerCase().equals(this, false)
+
+/**
+ * Tells if this is a number / digit (0,1,2,3,4,5,6,7,8,9)
+ * true if it is a number, false otherwise
+ */
+inline val Char.isDigit: Boolean
+    get() = this in '0'..'9'

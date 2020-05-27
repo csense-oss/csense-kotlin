@@ -9,6 +9,7 @@ import csense.kotlin.extensions.primitives.isNegativeOrZero
  * @property maxUpdateCount Int the amount of updates that are allowed
  * @property value T the starting value that "may" be updated up to the provided update count
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class LockableValue<T>(
         @IntLimit(from = 0) private var maxUpdateCount: Int,
         initialValue: T

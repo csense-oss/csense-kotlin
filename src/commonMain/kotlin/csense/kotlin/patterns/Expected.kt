@@ -38,6 +38,7 @@ import csense.kotlin.*
  * which throws in case its an error
  *
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 sealed class Expected<out Value> {
 
     /**

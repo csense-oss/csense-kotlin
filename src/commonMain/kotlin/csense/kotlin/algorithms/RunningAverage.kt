@@ -11,6 +11,7 @@ import csense.kotlin.annotations.numbers.LongLimit
  * /akk the running average.
  *
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 abstract class RunningAverageAbstract<T : Number> {
 
     /**
@@ -69,6 +70,7 @@ abstract class RunningAverageAbstract<T : Number> {
 /**
  *
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageInt : RunningAverageAbstract<Int>() {
     override fun addValues(first: Int, second: Int): Int = first + second
     override val zero: Int
@@ -78,6 +80,7 @@ open class RunningAverageInt : RunningAverageAbstract<Int>() {
 /**
  *
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageDouble : RunningAverageAbstract<Double>() {
     override fun addValues(first: Double, second: Double): Double = first + second
     override val zero: Double
@@ -87,6 +90,7 @@ open class RunningAverageDouble : RunningAverageAbstract<Double>() {
 /**
  *
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageFloat : RunningAverageAbstract<Float>() {
     override fun addValues(first: Float, second: Float): Float = first + second
     override val zero: Float
@@ -102,6 +106,7 @@ open class RunningAverageFloat : RunningAverageAbstract<Float>() {
  * @property average Double
  * @constructor
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 abstract class RunningAverageCappedAbstract<T : Number>(
         @IntLimit(from = 0) private val cappedNumberOfValues: Int) {
 
@@ -168,6 +173,7 @@ abstract class RunningAverageCappedAbstract<T : Number>(
  * @property values FloatArray
  * @constructor
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageFloatCapped(cappedValuesToAverage: Int) : RunningAverageCappedAbstract<Float>(cappedValuesToAverage) {
 
     private val values = FloatArray(cappedValuesToAverage)
@@ -186,6 +192,7 @@ open class RunningAverageFloatCapped(cappedValuesToAverage: Int) : RunningAverag
  * @property values IntArray
  * @constructor
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageIntCapped(cappedValuesToAverage: Int) : RunningAverageCappedAbstract<Int>(cappedValuesToAverage) {
 
     private val values = IntArray(cappedValuesToAverage)
@@ -204,6 +211,7 @@ open class RunningAverageIntCapped(cappedValuesToAverage: Int) : RunningAverageC
  * @property values DoubleArray
  * @constructor
  */
+@Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 open class RunningAverageDoubleCapped(cappedValuesToAverage: Int) : RunningAverageCappedAbstract<Double>(cappedValuesToAverage) {
 
     private val values = DoubleArray(cappedValuesToAverage)
