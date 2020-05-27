@@ -50,4 +50,4 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: '**/TEST-*.xml'
+      testResultsFiles: 'build/test-results/jvmTest/*.xml'
