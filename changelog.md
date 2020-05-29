@@ -1,14 +1,16 @@
 # Changelog
 
 ## 0.0.36
+- added more tests
+
+
+## 0.0.35
 - deprecation for more "algorithm" / "datastructure" code. 
     - might also be updated to include logger.
 - char.isDigit method added
 - improved impl for isAllUppercase & isAllLowercase (whitespace & digit handling)
 - azure pipelines working
 - doesNotContain for maps, sets & lists
-
-## 0.0.35
 - char is{Upper, lower} case extensions and
 - string is{Upper, lower}CaseOnly extensions
 

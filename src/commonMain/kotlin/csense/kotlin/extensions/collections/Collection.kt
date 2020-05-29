@@ -2,9 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.Function1
-import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.*
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
 
 /**
