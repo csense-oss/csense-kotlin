@@ -21,8 +21,10 @@ import csense.kotlin.extensions.primitives.toCase
  * @return String
  */
 
-inline fun ByteArray.toHexString(appendHexPrefix: Boolean = false,
-                                 shouldBeUppercase: Boolean = true): String {
+inline fun ByteArray.toHexString(
+        appendHexPrefix: Boolean = false,
+        shouldBeUppercase: Boolean = true
+): String {
     if(isEmpty()){
         return ""
     }

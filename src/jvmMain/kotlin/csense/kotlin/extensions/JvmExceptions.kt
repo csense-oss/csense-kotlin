@@ -13,10 +13,12 @@ import kotlin.reflect.KClass
  * @param throwableAction EmptyFunctionResult<T>
  * @return T?
  */
-inline fun <T> tryAndLog(clazz: Class<*>,
-                         message: String = "",
-                         logger: LoggingFunctionType<*> = L::error,
-                         throwableAction: EmptyFunctionResult<T>): T? =
+inline fun <T> tryAndLog(
+        clazz: Class<*>,
+        message: String = "",
+        logger: LoggingFunctionType<*> = L::error,
+        throwableAction: EmptyFunctionResult<T>
+): T? =
         tryAndLog(clazz.simpleName, message, logger, throwableAction)
 
 /**
@@ -27,8 +29,10 @@ inline fun <T> tryAndLog(clazz: Class<*>,
  * @param throwableAction EmptyFunctionResult<T>
  * @return T?
  */
-inline fun <T> tryAndLog(kClazz: KClass<*>,
-                         message: String = "",
-                         logger: LoggingFunctionType<*> = L::error,
-                         throwableAction: EmptyFunctionResult<T>): T? =
+inline fun <T> tryAndLog(
+        kClazz: KClass<*>,
+        message: String = "",
+        logger: LoggingFunctionType<*> = L::error,
+        throwableAction: EmptyFunctionResult<T>
+): T? =
         tryAndLog(kClazz.java.simpleName, message, logger, throwableAction)

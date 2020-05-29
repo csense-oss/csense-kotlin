@@ -108,7 +108,8 @@ open class RunningAverageFloat : RunningAverageAbstract<Float>() {
  */
 @Deprecated("Will be removed in 0.40, as it will be placed in either datastructures / algorithm module", level = DeprecationLevel.WARNING)
 abstract class RunningAverageCappedAbstract<T : Number>(
-        @IntLimit(from = 0) private val cappedNumberOfValues: Int) {
+        @IntLimit(from = 0) private val cappedNumberOfValues: Int
+) {
 
     /**
      *

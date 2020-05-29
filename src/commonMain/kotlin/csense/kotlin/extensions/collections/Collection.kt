@@ -101,7 +101,8 @@ inline fun <Element> Collection<Element>.categorizeInto(
 fun <Element> Element.categorizeInto(
         result: ArrayList<MutableList<Element>>,
         filters: Array<out Function1<Element, Boolean>>,
-        allowItemInMultipleBuckets: Boolean = true) {
+        allowItemInMultipleBuckets: Boolean = true
+) {
     filters.forEachIndexed { index, filterAccepts ->
         filterAccepts(this).onTrue {
             result[index].add(this)

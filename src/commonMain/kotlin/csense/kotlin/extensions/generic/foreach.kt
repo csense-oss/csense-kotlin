@@ -44,7 +44,8 @@ inline fun <Element> Generic.filter(
         @IntLimit(from = 0) length: Int,
         retriever: Function1<Int, Element>,
         @IntLimit(from = 0) startIndex: Int = 0,
-        filterFunction: Function1<Element, Boolean>): List<Element> {
+        filterFunction: Function1<Element, Boolean>
+): List<Element> {
     val result = mutableListOf<Element>()
     forEach(length, retriever, startIndex) {
         if (filterFunction(it)) {

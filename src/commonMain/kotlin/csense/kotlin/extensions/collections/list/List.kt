@@ -116,7 +116,7 @@ inline fun <reified U> List<*>.forEachIsInstance(
  * @param other List<List<T>>
  * @return List<List<T>>
  */
-fun <T> List<List<T>>.combine(
+inline fun <T> List<List<T>>.combine(
         other: List<List<T>>
 ): List<List<T>> {
     val isOtherLarger = other.size > this.size
@@ -126,3 +126,13 @@ fun <T> List<List<T>>.combine(
         list + smallest.getOrNull(index).orEmpty()
     }
 }
+
+/**
+ * Tells if there are no element of the given
+ *
+ * @receiver List<T> the list to check
+ * @param element T the element to search for
+ * @return Boolean true if the element was not found, false if it was found.
+ */
+inline fun <T> List<T>.doesNotContain(element: T): Boolean =
+        !contains(element)

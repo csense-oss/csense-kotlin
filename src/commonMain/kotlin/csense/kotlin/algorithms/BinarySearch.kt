@@ -100,7 +100,8 @@ inline fun DoubleArray.binarySearch(crossinline compareFnc: Function2<Double, In
 inline fun <T> GenericAlgorithms.binarySearch(
         @IntLimit(from = 0) length: Int,
         crossinline constantGetter: GenericGetterIndexMethod<T>,
-        crossinline compareFnc: Function2<T, Int, ItemComparison>): Int? {
+        crossinline compareFnc: Function2<T, Int, ItemComparison>
+): Int? {
     var start = 0
     var end = length
     while (start < end) {

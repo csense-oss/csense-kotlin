@@ -67,7 +67,8 @@ inline fun <reified T : Any> T.logClassProduction(message: String, exception: Th
 inline fun logCurrentStackTraceDebug(
         tag: String = "stack",
         limit: Int = 10,
-        skipFirstFunctions: Int = 0) = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
+        skipFirstFunctions: Int = 0
+) = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to warning
@@ -79,7 +80,8 @@ inline fun logCurrentStackTraceDebug(
 inline fun logCurrentStackTraceWarning(
         tag: String = "stack",
         limit: Int = 10,
-        skipFirstFunctions: Int = 0) = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
+        skipFirstFunctions: Int = 0
+) = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to error
@@ -91,7 +93,8 @@ inline fun logCurrentStackTraceWarning(
 inline fun logCurrentStackTraceError(
         tag: String = "stack",
         limit: Int = 10,
-        skipFirstFunctions: Int = 0) = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
+        skipFirstFunctions: Int = 0
+) = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
 
 
 /**
@@ -104,7 +107,8 @@ inline fun logCurrentStackTraceError(
 inline fun logCurrentStackTraceProd(
         tag: String = "stack",
         limit: Int = 10,
-        skipFirstFunctions: Int = 0) = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
+        skipFirstFunctions: Int = 0
+) = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to debug
@@ -117,7 +121,8 @@ inline fun logCurrentStackTrace(
         tag: String = "stack",
         logTo: LoggingFunctionType<Unit>,
         limit: Int = 10,
-        skipFirstFunctions: Int = 0) {
+        skipFirstFunctions: Int = 0
+) {
     val text = Thread.currentThread().stackTrace.asSequence().drop(skipFirstFunctions).take(limit).joinToString("\n")
     logTo(tag, text, null)
 }

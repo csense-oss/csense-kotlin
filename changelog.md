@@ -6,7 +6,7 @@
 - char.isDigit method added
 - improved impl for isAllUppercase & isAllLowercase (whitespace & digit handling)
 - azure pipelines working
-
+- doesNotContain for maps, sets & lists
 
 ## 0.0.35
 - char is{Upper, lower} case extensions and

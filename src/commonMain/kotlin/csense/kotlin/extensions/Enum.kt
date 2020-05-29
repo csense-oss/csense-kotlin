@@ -38,8 +38,10 @@ inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T {
  * @param ifNotFound T? if the find action never returned true this will be returned
  * @return T? the value if findAction returns true, or ifNotFound. allowing for null
  */
-inline fun <reified T : Enum<T>> enumFromOrNull(ifNotFound: T? = null,
-                                                findAction: Function1<T, Boolean>): T? {
+inline fun <reified T : Enum<T>> enumFromOrNull(
+        ifNotFound: T? = null,
+        findAction: Function1<T, Boolean>
+): T? {
     return enumValues<T>().find(findAction) ?: ifNotFound
 }
 
@@ -52,8 +54,10 @@ inline fun <reified T : Enum<T>> enumFromOrNull(ifNotFound: T? = null,
  * @param ifNotFound T if the find action never returned true this will be returned
  * @return T the value if findAction returns true, or ifNotFound.
  */
-inline fun <reified T : Enum<T>> enumFromOr(ifNotFound: T,
-                                            findAction: Function1<T, Boolean>): T {
+inline fun <reified T : Enum<T>> enumFromOr(
+        ifNotFound: T,
+        findAction: Function1<T, Boolean>
+): T {
     @Suppress("RemoveExplicitTypeArguments")
     //see https://youtrack.jetbrains.net/issue/KT-32165 for the "<T>" here..
     return enumFromOrNull<T>(null, findAction) ?: ifNotFound

@@ -35,7 +35,8 @@ inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
 @OptIn(ExperimentalContracts::class)
 inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>) {
+        secondElement: Function0R<I2>
+) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
@@ -58,7 +59,8 @@ inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWithLazy(
         firstElement: Function0R<I1>,
         secondElement: Function0R<I2>,
-        thirdElement: Function0R<I3>) {
+        thirdElement: Function0R<I3>
+) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
@@ -83,7 +85,8 @@ inline fun <I1, I2, I3, I4, O>
         firstElement: Function0R<I1>,
         secondElement: Function0R<I2>,
         thirdElement: Function0R<I3>,
-        forthElement: Function0R<I4>) {
+        forthElement: Function0R<I4>
+) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
@@ -115,7 +118,8 @@ inline fun <I1, I2, I3, I4, I5, O>
         secondElement: Function0R<I2>,
         thirdElement: Function0R<I3>,
         forthElement: Function0R<I4>,
-        fifthElement: Function0R<I5>) {
+        fifthElement: Function0R<I5>
+) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
@@ -152,7 +156,8 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
         thirdElement: Function0R<I3>,
         forthElement: Function0R<I4>,
         fifthElement: Function0R<I5>,
-        sixthElement: Function0R<I6>) {
+        sixthElement: Function0R<I6>
+) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
@@ -206,7 +211,8 @@ inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
 
 inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
         firstElement: I1,
-        secondElement: I2): Unit =
+        secondElement: I2
+): Unit =
         forEach { it(firstElement, secondElement) }
 
 /**
@@ -221,7 +227,8 @@ inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWith(
         firstElement: I1,
         secondElement: I2,
-        thirdElement: I3) =
+        thirdElement: I3
+) =
         forEach {
             it(firstElement,
                     secondElement,
@@ -242,7 +249,8 @@ inline fun <I1, I2, I3, I4, O>
         firstElement: I1,
         secondElement: I2,
         thirdElement: I3,
-        forthElement: I4) =
+        forthElement: I4
+) =
         forEach {
             it(firstElement,
                     secondElement,
@@ -266,7 +274,8 @@ inline fun <I1, I2, I3, I4, I5, O>
         secondElement: I2,
         thirdElement: I3,
         forthElement: I4,
-        fifthElement: I5) =
+        fifthElement: I5
+) =
         forEach {
             it(firstElement,
                     secondElement,
@@ -293,7 +302,8 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
         thirdElement: I3,
         forthElement: I4,
         fifthElement: I5,
-        sixthElement: I6) =
+        sixthElement: I6
+) =
         forEach {
             it(firstElement,
                     secondElement,

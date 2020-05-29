@@ -52,10 +52,11 @@ inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
  * @param otherSet Set<T>
  * @return Pair<Set<T>, Set<T>>
  */
+@Deprecated("Return type will change in 0.40.0 to a class", level = DeprecationLevel.WARNING)
 inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): Pair<Set<T>, Set<T>> {
     val aDif = toMutableSet()
     val bDif = mutableSetOf<T>()
-
+    
     otherSet.forEach {
         if (aDif.contains(it)) {
             aDif.remove(it)
@@ -65,3 +66,12 @@ inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): Pair<Set<T>, Set<T>
     }
     return Pair(aDif, bDif)
 }
+
+/**
+ * Tells if the given value is not in the set
+ * @receiver Set<T> the set to test for the given value
+ * @param value T the value to test existence of
+ * @return Boolean true if the value is not found / contained
+ */
+inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
+        !contains(value)

@@ -270,7 +270,7 @@ class ListKtTest {
             
             @Test
             fun singleA() {
-                val a = listOf<List<String>>(listOf("a"))
+                val a = listOf(listOf("a"))
                 val b = listOf<List<String>>()
                 val res = a.combine(b)
                 res.assertSize(1)
@@ -281,7 +281,7 @@ class ListKtTest {
             @Test
             fun singleB() {
                 val a = listOf<List<String>>()
-                val b = listOf<List<String>>(listOf("b"))
+                val b = listOf(listOf("b"))
                 val res = a.combine(b)
                 res.assertSize(1)
                 res.first().assertSize(1)
@@ -293,8 +293,8 @@ class ListKtTest {
         class MultipleSingleTop {
             @Test
             fun multipleAToBMultipleSameLength() {
-                val a = listOf<List<String>>(listOf("a", "b"))
-                val b = listOf<List<String>>(listOf("1", "2"))
+                val a = listOf(listOf("a", "b"))
+                val b = listOf(listOf("1", "2"))
                 val res = a.combine(b)
                 res.assertSize(1)
                 res.first().assertSize(4)
@@ -306,8 +306,8 @@ class ListKtTest {
             
             @Test
             fun multipleBToAMultipleSameLength() {
-                val a = listOf<List<String>>(listOf("q", "w", "e"))
-                val b = listOf<List<String>>(listOf("z", "x", "c"))
+                val a = listOf(listOf("q", "w", "e"))
+                val b = listOf(listOf("z", "x", "c"))
                 val res = b.combine(a)
                 res.assertSize(1)
                 res.first().assertSize(6)
@@ -327,5 +327,30 @@ class ListKtTest {
             }
         }
         
+    }
+    
+    class ListTDoesNotContain {
+        @Test
+        fun empty() {
+            listOf<String>().doesNotContain("a").assertTrue()
+            listOf<String>().doesNotContain("b").assertTrue()
+        }
+        
+        @Test
+        fun single() {
+            listOf("1").doesNotContain("a").assertTrue()
+            listOf("a").doesNotContain("b").assertTrue()
+            listOf("a").doesNotContain("a").assertFalse()
+            listOf("1").doesNotContain("1").assertFalse()
+        }
+        
+        @Test
+        fun multiple() {
+            listOf("1","a").doesNotContain("c").assertTrue()
+            listOf("1","a").doesNotContain("b").assertTrue()
+            listOf("1","a").doesNotContain("a").assertFalse()
+            listOf("1","a").doesNotContain("1").assertFalse()
+            listOf("1","a").doesNotContain("2").assertTrue()
+        }
     }
 }

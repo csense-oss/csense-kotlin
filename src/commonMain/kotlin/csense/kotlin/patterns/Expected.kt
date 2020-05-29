@@ -97,7 +97,8 @@ inline fun <T> expectedSucceded(value: T): ExpectedSuccess<T> =
  */
 
 inline fun <T> expectedFailed(
-        exception: Throwable = Exception(defaultExceptionMessage)): ExpectedFailed<T> =
+        exception: Throwable = Exception(defaultExceptionMessage)
+): ExpectedFailed<T> =
         Expected.failed(exception)
 
 /**
@@ -170,8 +171,10 @@ inline fun <T> Expected<T>.ifError(action: FunctionUnit<Throwable>) {
  * @param onValid FunctionUnit<T>
  * @param onError FunctionUnit<Throwable>
  */
-inline fun <T> Expected<T>.ifValidOr(onValid: FunctionUnit<T>,
-                                     onError: FunctionUnit<Throwable>) {
+inline fun <T> Expected<T>.ifValidOr(
+        onValid: FunctionUnit<T>,
+        onError: FunctionUnit<Throwable>
+) {
     when (this) {
         is ExpectedFailed -> onError(this.error)
         is ExpectedSuccess -> onValid(this.value)
@@ -185,8 +188,10 @@ inline fun <T> Expected<T>.ifValidOr(onValid: FunctionUnit<T>,
  * @param onError Function1<Throwable, U>
  * @return U
  */
-inline fun <T, U> Expected<T>.mapIfValidOr(onValid: Function1<T, U>,
-                                           onError: Function1<Throwable, U>): U {
+inline fun <T, U> Expected<T>.mapIfValidOr(
+        onValid: Function1<T, U>,
+        onError: Function1<Throwable, U>
+): U {
     return when (this) {
         is ExpectedFailed -> onError(this.error)
         is ExpectedSuccess -> onValid(this.value)

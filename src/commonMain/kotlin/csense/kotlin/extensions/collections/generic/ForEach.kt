@@ -25,7 +25,8 @@ typealias Function2IndexedUnit<T, U> = (index: Int, first: T, second: U) -> Unit
 inline fun <T> GenericCollectionExtensions.forEachBackwards(
         @IntLimit(from = 0) length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
-        action: FunctionUnit<T>) {
+        action: FunctionUnit<T>
+) {
     for (i in (length - 1) downTo 0) {
         action(getter(i))
     }
@@ -43,7 +44,8 @@ inline fun <T> GenericCollectionExtensions.forEachBackwards(
 inline fun <T> GenericCollectionExtensions.forEach2(
         @IntLimit(from = 0) length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
-        action: Function2Unit<T, T>) {
+        action: Function2Unit<T, T>
+) {
     forEach2Indexed(length, getter, { _: Int, first: T, second: T ->
         action(first, second)
     })
@@ -59,7 +61,8 @@ inline fun <T> GenericCollectionExtensions.forEach2(
 inline fun <T> GenericCollectionExtensions.forEach2Indexed(
         @IntLimit(from = 0) length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
-        action: Function2IndexedUnit<T, T>) {
+        action: Function2IndexedUnit<T, T>
+) {
     if (canNOTForeach2(length)) {
         return
     }
@@ -84,7 +87,8 @@ inline fun <T> GenericCollectionExtensions.forEach2Indexed(
 inline fun <T, U> GenericCollectionExtensions.mapEach2(
         @IntLimit(from = 0) length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
-        mapper: Function2<T, T, U>): List<U> =
+        mapper: Function2<T, T, U>
+): List<U> =
         mapEach2Indexed(length, getter, { _, first, second ->
             mapper(first, second)
         })
@@ -100,7 +104,8 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2(
 inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
         @IntLimit(from = 0) length: Int,
         crossinline getter: GenericGetterIndexMethod<T>,
-        mapper: Function3<Int, T, T, U>): List<U> {
+        mapper: Function3<Int, T, T, U>
+): List<U> {
     if (canNOTForeach2(2)) {
         return emptyList()
     }

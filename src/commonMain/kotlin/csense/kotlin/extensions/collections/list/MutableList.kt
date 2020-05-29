@@ -36,8 +36,10 @@ inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1
  * @param item T
  * @param position Int
  */
-fun <T> MutableList<T>.replace(item: T,
-                               @IntLimit(from = 0) position: Int) {
+fun <T> MutableList<T>.replace(
+        item: T,
+        @IntLimit(from = 0) position: Int
+) {
     if (isIndexValid(position)) {
         add(position, item)
         removeAt(position + 1) //the +1 : we just moved all content before the original position.
@@ -85,7 +87,8 @@ fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
  */
 fun <T> MutableList<T>.removeAtOr(
         @IntLimit(from = 0) index: Int,
-        default: T?): T? {
+        default: T?
+): T? {
     return if (isIndexValid(index)) {
         removeAt(index)
     } else {

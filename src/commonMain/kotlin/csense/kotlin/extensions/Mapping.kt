@@ -14,7 +14,8 @@ import csense.kotlin.Function1
  */
 inline fun <U> Any?.mapOptional(
         ifNotNull: U,
-        ifNull: U): U {
+        ifNull: U
+): U {
     return this.isNotNull.map(ifNotNull, ifNull)
 }
 
@@ -27,7 +28,8 @@ inline fun <U> Any?.mapOptional(
  */
 inline fun <U> Any?.mapLazyOptional(
         ifNotNull: EmptyFunctionResult<U>,
-        ifNull: EmptyFunctionResult<U>): U {
+        ifNull: EmptyFunctionResult<U>
+): U {
     return if (this.isNotNull) {
         ifNotNull()
     } else {

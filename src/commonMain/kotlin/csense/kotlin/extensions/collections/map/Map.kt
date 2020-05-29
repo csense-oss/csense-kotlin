@@ -68,7 +68,8 @@ inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.En
 inline fun <K, V> Map<K, V>.useValueOr(
         key: K,
         onKeyFound: FunctionUnit<V>,
-        onKeyNotFound: EmptyFunction) {
+        onKeyNotFound: EmptyFunction
+) {
     val value = this[key]
     if (value != null) {
         onKeyFound(value)
@@ -77,3 +78,11 @@ inline fun <K, V> Map<K, V>.useValueOr(
     }
 }
 
+/**
+ * Tells if the given key is not in the map
+ * @receiver Map<K, V> the map to test for the given key
+ * @param key K the key to test existence of
+ * @return Boolean true if the key is not found / contained
+ */
+inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
+        !containsKey(key)

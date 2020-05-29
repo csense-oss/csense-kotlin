@@ -75,8 +75,10 @@ inline fun String.Companion.createFromChars(charArray: CharArray): String =
  * @property toInsert String the string to insert
  * @property atIndex Int at what raw index in the string
  */
-data class StringInserts(val toInsert: String,
-                         @IntLimit(from = 0) val atIndex: Int)
+data class StringInserts(
+        val toInsert: String,
+        @IntLimit(from = 0) val atIndex: Int
+)
 
 /**
  *
@@ -119,9 +121,11 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
  * @return Set<Int>
  */
 
-inline fun String.findAllOf(subString: String,
-                            searchByWord: Boolean,
-                            ignoreCase: Boolean = false): Set<Int> {
+inline fun String.findAllOf(
+        subString: String,
+        searchByWord: Boolean,
+        ignoreCase: Boolean = false
+): Set<Int> {
     return forEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
 
@@ -134,10 +138,12 @@ inline fun String.findAllOf(subString: String,
  * @param mapper Function1<Int, U>
  * @return List<U>
  */
-inline fun <U> String.forEachMatching(subString: String,
-                                      searchByWord: Boolean,
-                                      ignoreCase: Boolean = false,
-                                      crossinline mapper: Function1<Int, U>): List<U> {
+inline fun <U> String.forEachMatching(
+        subString: String,
+        searchByWord: Boolean,
+        ignoreCase: Boolean = false,
+        crossinline mapper: Function1<Int, U>
+): List<U> {
     if (subString.isEmpty() || this.isEmpty()) {
         return emptyList()
     }
@@ -165,10 +171,12 @@ inline fun <U> String.forEachMatching(subString: String,
  * @param ignoreCase Boolean
  * @return String
  */
-inline fun String.replaceIf(condition: Boolean,
-                            toReplace: String,
-                            newValue: String,
-                            ignoreCase: Boolean = false): String {
+inline fun String.replaceIf(
+        condition: Boolean,
+        toReplace: String,
+        newValue: String,
+        ignoreCase: Boolean = false
+): String {
     return if (condition) {
         this.replace(toReplace, newValue, ignoreCase)
     } else {
@@ -187,11 +195,13 @@ inline fun String.replaceIf(condition: Boolean,
  * @param ignoreCase Boolean
  * @return String
  */
-inline fun String.replaceIfOr(condition: Boolean,
-                              toReplace: String,
-                              ifTrueValue: String,
-                              ifFalseValue: String,
-                              ignoreCase: Boolean = false): String {
+inline fun String.replaceIfOr(
+        condition: Boolean,
+        toReplace: String,
+        ifTrueValue: String,
+        ifFalseValue: String,
+        ignoreCase: Boolean = false
+): String {
     val replacement = condition.map(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
@@ -207,11 +217,13 @@ inline fun String.replaceIfOr(condition: Boolean,
  * @param ignoreCase Boolean
  * @return String
  */
-inline fun String.replaceIfOr(condition: Boolean,
-                              toReplace: String,
-                              crossinline ifTrueValue: EmptyFunctionResult<String>,
-                              crossinline ifFalseValue: EmptyFunctionResult<String>,
-                              ignoreCase: Boolean = false): String {
+inline fun String.replaceIfOr(
+        condition: Boolean,
+        toReplace: String,
+        crossinline ifTrueValue: EmptyFunctionResult<String>,
+        crossinline ifFalseValue: EmptyFunctionResult<String>,
+        ignoreCase: Boolean = false
+): String {
     val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
 }
@@ -227,7 +239,8 @@ inline fun String.replaceIfOr(condition: Boolean,
  */
 inline fun String.endsWithAny(
         collection: Collection<String>,
-        ignoreCase: Boolean = false): Boolean =
+        ignoreCase: Boolean = false
+): Boolean =
         collection.any { this.endsWith(it, ignoreCase) }
 
 /**
@@ -239,7 +252,8 @@ inline fun String.endsWithAny(
  */
 inline fun String.endsWithAny(
         vararg strings: String,
-        ignoreCase: Boolean = false): Boolean =
+        ignoreCase: Boolean = false
+): Boolean =
         strings.any { this.endsWith(it, ignoreCase) }
 
 /**
@@ -251,7 +265,8 @@ inline fun String.endsWithAny(
  */
 inline fun String.startsWithAny(
         vararg strings: String,
-        ignoreCase: Boolean = false): Boolean =
+        ignoreCase: Boolean = false
+): Boolean =
         strings.any { this.startsWith(it, ignoreCase) }
 
 /**
@@ -263,7 +278,8 @@ inline fun String.startsWithAny(
  */
 inline fun String.startsWithAny(
         collection: Collection<String>,
-        ignoreCase: Boolean = false): Boolean =
+        ignoreCase: Boolean = false
+): Boolean =
         collection.any { this.startsWith(it, ignoreCase) }
 //endregion
 
@@ -343,7 +359,8 @@ inline fun String.ifNotBlank(action: Function1<String, String>): String = if (is
  */
 inline fun String.skipStartsWith(
         prefix: String,
-        ignoreCase: Boolean = false): String {
+        ignoreCase: Boolean = false
+): String {
     val startsWith = startsWith(prefix, ignoreCase)
     return startsWith.mapLazy(
             ifTrue = { substring(prefix.length) },
