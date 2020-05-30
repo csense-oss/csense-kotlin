@@ -332,7 +332,7 @@ inline fun <E : Any> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
  * @param predicate Function1<E, Boolean>
  * @return CollectionPartition<E>
  */
-fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionPartition<E> {
+inline fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionPartition<E> {
     return this.partition(predicate).let {
         CollectionPartition(it.first, it.second)
     }
