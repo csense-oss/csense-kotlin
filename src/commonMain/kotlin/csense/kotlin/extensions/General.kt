@@ -34,9 +34,11 @@ inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
  * @param action Function1<T, R> the action to call if this is actually a T
  * @return R? the return result
  */
-inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? = when (this) {
-    is T -> action(this)
-    else -> null
+inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? {
+    return when (this) {
+        is T -> action(this)
+        else -> null
+    }
 }
 
 /**
@@ -84,7 +86,7 @@ inline fun <T> T?.useOr(
 @OptIn(ExperimentalContracts::class)
 inline fun <reified U> Any.isNot(): Boolean {
 //    contract {
-//        returns(false) implies (this is U)
+//        returns(false) implies (this@isNot is U)
 //    }
     return (this !is U)
 }

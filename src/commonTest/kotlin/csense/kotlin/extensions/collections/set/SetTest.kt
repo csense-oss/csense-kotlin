@@ -106,4 +106,78 @@ class SetTest {
         }
         //endregion
     }
+    
+    class SetEContainsAny {
+        @Test
+        fun emptySet() {
+            setOf<String>().containsAny(listOf()).assertFalse()
+            setOf<String>().containsAny(listOf("1")).assertFalse()
+            setOf<String>().containsAny(listOf("1", "2")).assertFalse()
+        }
+        
+        @Test
+        fun emptyOther() {
+            setOf("1", "2").containsAny(listOf()).assertFalse()
+            setOf("1").containsAny(listOf()).assertFalse()
+            setOf("1", "2", "3").containsAny(listOf()).assertFalse()
+        }
+        
+        @Test
+        fun singleItemInBoth() {
+            setOf("1").containsAny(listOf("1")).assertTrue()
+            setOf("1").containsAny(listOf("2")).assertFalse()
+            setOf("3").containsAny(listOf("2")).assertFalse()
+        }
+        
+        @Test
+        fun multipleHaveItems() {
+            
+            setOf("1", "4").containsAny(listOf("1")).assertTrue()
+            setOf("1", "4").containsAny(listOf("4")).assertTrue()
+            setOf("1", "4").containsAny(listOf("5")).assertFalse()
+            
+            setOf("1", "2").containsAny(listOf("2", "1")).assertTrue()
+            setOf("4", "6").containsAny(listOf("2", "1")).assertFalse()
+            
+            setOf("3", "9").containsAny(listOf("2", "1", "3")).assertTrue()
+        }
+        
+        // since sets are optimized we want to assert that it still works (performance is for benchmark tests)
+        @Test
+        fun sampleForSets() {
+            setOf<String>().containsAny(setOf()).assertFalse()
+            setOf("1").containsAny(setOf()).assertFalse()
+            setOf<String>().containsAny(setOf("1")).assertFalse()
+            setOf<String>("1").containsAny(setOf("1")).assertTrue()
+            setOf<String>("1").containsAny(setOf("2")).assertFalse()
+            
+            setOf<String>("2").containsAny(setOf("1", "3")).assertFalse()
+            setOf<String>("2").containsAny(setOf("1", "2")).assertTrue()
+            
+            setOf<String>("2", "3").containsAny(setOf("1")).assertFalse()
+            setOf<String>("2", "3").containsAny(setOf("2")).assertTrue()
+            setOf<String>("2", "3").containsAny(setOf("3")).assertTrue()
+            setOf<String>("2", "3").containsAny(setOf("4")).assertFalse()
+            setOf<String>("2", "3").containsAny(setOf("4", "2")).assertTrue()
+        }
+    }
+    
+    class SetEDoesNotContainAny {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+        
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+        
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+    
+    
 }

@@ -39,30 +39,11 @@ class CollectionTest {
         collection.isIndexValidForInsert(2).assertFalse()
         collection.isIndexValidForInsert(12).assertFalse()
     }
-
-//    @Test
-//    fun getSafe() {
-//        val collection: MutableCollection<String> = mutableListOf()
-//        collection.getSafe(-1).assertNull()
-//        collection.getSafe(0).assertNull("collection is empty.")
-//        collection.getSafe(1).assertNull()
-//        collection.add("test")
-//        collection.getSafe(-1).assertNull()
-//        collection.getSafe(0).assertNotNullAndEquals("test")
-//        collection.getSafe(1).assertNull()
-//        collection.add("1")
-//        collection.add("2")
-//        collection.add("3")
-//        collection.getSafe(3).assertNotNullAndEquals("3")
-//        collection.getSafe(4).assertNull()
-//        collection.getSafe(2).assertNotNullAndEquals("2")
-//        collection.getSafe(1).assertNotNullAndEquals("1")
-//    }
     
-    class GetSafeTests {
+    
+    class GetOrNullTests {
         @Test
-        fun getSafeEmpty() {
-            val lst = listOf<String>()
+        fun getOrNullEmpty() {
             val collection: MutableCollection<String> = mutableListOf()
             collection.getOrNull(-1).assertNull()
             collection.getOrNull(0).assertNull("collection is empty.")
@@ -70,7 +51,7 @@ class CollectionTest {
         }
         
         @Test
-        fun getSafeSingle() {
+        fun getOrNullSingle() {
             val collection: MutableCollection<String> = mutableListOf()
             collection.add("test")
             collection.getOrNull(-1).assertNull()
@@ -79,7 +60,7 @@ class CollectionTest {
         }
         
         @Test
-        fun getSafeMultiple() {
+        fun getOrNullMultiple() {
             val collection: MutableCollection<String> = mutableListOf()
             collection.add("test")
             collection.add("1")
@@ -403,7 +384,7 @@ class CollectionTest {
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(0)
             lst.lastIndexOfOrNull("dc").assertNull()
         }
-    
+        
         @Test
         fun multipleOccurrences() {
             val lst = listOf("d", "c", "d", "c")
@@ -412,9 +393,6 @@ class CollectionTest {
             lst.lastIndexOfOrNull("c").assertNotNullAndEquals(3)
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(2)
         }
-        
-        
-        
     }
-
+    
 }

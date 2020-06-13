@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions
 
+import kotlin.contracts.*
+
 
 /**
  * returns true if this is null or equal to the given argument.
@@ -10,4 +12,10 @@ package csense.kotlin.extensions
  * @param other T? the value to compare to
  * @return Boolean true this is null or is equal to the other object (equals)
  */
-inline fun <T> T?.isNullOrEqualTo(other: T?): Boolean = this == null || this == other
+@OptIn(ExperimentalContracts::class)
+inline fun <T> T?.isNullOrEqualTo(other: T?): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEqualTo != null)
+    }
+    return this == null || this == other
+}

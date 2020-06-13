@@ -1,10 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.ReceiverFunction0
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import csense.kotlin.*
+import kotlin.contracts.*
 
 /**
  * Like run except it works for nullable blocks; iff null does nothing
@@ -14,7 +11,9 @@ import kotlin.contracts.contract
  *
  * TODO potentially a better name..
  */
-fun <T, R> T.runIfNotNull(block: ReceiverFunction0<T, R>?): R? = block?.let(::run)
+fun <T, R> T.runIfNotNull(block: ReceiverFunction0<T, R>?): R? {
+    return block?.let(::run)
+}
 
 /**
  * Like also, but for empty functions / lambdas.

@@ -2,8 +2,13 @@
 
 ## 0.0.36
 - added more tests
-
-
+- improved contracts
+- cleanup more docs
+- add extensions
+    - set containAny
+    - set doesNotContainAny
+    - collection largest 
+     
 ## 0.0.35
 - deprecation for more "algorithm" / "datastructure" code. 
     - might also be updated to include logger.
