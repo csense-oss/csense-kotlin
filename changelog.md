@@ -8,7 +8,8 @@
     - set containAny
     - set doesNotContainAny
     - collection largest 
-     
+- changed is{Uppercase,Lowercase} impl to never count numbers, whitespace ect as either (not lower, nor upper)- it does not make sense
+- removed  MutableCollection<E>.set
 ## 0.0.35
 - deprecation for more "algorithm" / "datastructure" code. 
     - might also be updated to include logger.

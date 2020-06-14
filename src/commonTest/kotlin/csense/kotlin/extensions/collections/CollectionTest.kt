@@ -41,7 +41,7 @@ class CollectionTest {
     }
     
     
-    class GetOrNullTests {
+    class CollectionTGetOrNull {
         @Test
         fun getOrNullEmpty() {
             val collection: MutableCollection<String> = mutableListOf()
@@ -394,5 +394,4 @@ class CollectionTest {
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(2)
         }
     }
-    
 }

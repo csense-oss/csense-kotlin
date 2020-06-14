@@ -4,7 +4,7 @@ package csense.kotlin.extensions.primitives
  * Tells if this char is uppercase
  *
  */
-actual val Char.isUpperCase: Boolean
+actual val Char.isUpperCaseLetter: Boolean
     get() {
         if (this.isWhitespace() || this.isDigit) {
             return false
@@ -15,7 +15,7 @@ actual val Char.isUpperCase: Boolean
 /**
  * Tells if this char is lowercase
  */
-actual val Char.isLowerCase: Boolean
+actual val Char.isLowerCaseLetter: Boolean
     get() {
         if (this.isWhitespace() || this.isDigit) {
             return false

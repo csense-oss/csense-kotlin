@@ -5,7 +5,7 @@ package csense.kotlin.extensions.primitives
 // * space is lowercase always
 // * numbers are always lowercase
  */
-actual val Char.isUpperCase: Boolean
+actual val Char.isUpperCaseLetter: Boolean
     get() {
 
         return toUpperCase().equals(this, false)
@@ -16,7 +16,7 @@ actual val Char.isUpperCase: Boolean
 // * space is lowercase always
 // * numbers are always lowercase
  */
-actual val Char.isLowerCase: Boolean
+actual val Char.isLowerCaseLetter: Boolean
     get() {
 //        if (this.isWhitespace()) {
 //            return true

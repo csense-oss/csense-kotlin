@@ -84,7 +84,7 @@ const val hexCharsCount: Int = 5
  * for native use this implementation
  *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect val Char.isUpperCase: Boolean
+expect val Char.isUpperCaseLetter: Boolean
 //get() = toUpperCase().equals(this, false)
 
 /**
@@ -92,7 +92,7 @@ expect val Char.isUpperCase: Boolean
  * for native use this implementation
  *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect val Char.isLowerCase: Boolean
+expect val Char.isLowerCaseLetter: Boolean
 //get() = toLowerCase().equals(this, false)
 
 /**

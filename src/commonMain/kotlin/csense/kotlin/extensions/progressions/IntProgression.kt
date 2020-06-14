@@ -33,7 +33,3 @@ inline fun IntProgression.skip(length: Int): IntProgression {
     val end = lengthEnd.coerceAtMost(last)
     return IntProgression.fromClosedRange(lengthEnd, end, step)
 }
-
-//inline fun IntProgression.take(length: Int): IntProgression {
-//
-//}

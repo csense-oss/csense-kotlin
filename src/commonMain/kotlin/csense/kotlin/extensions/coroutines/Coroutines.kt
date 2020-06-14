@@ -15,6 +15,7 @@ import kotlin.coroutines.CoroutineContext
  * @receiver List<Deferred<T>> the deferred jobs to wait for.
  * @return List<T> the computed results awaited.
  */
+@Deprecated(message = "Use AwaitAll from kotlinx.coroutines", replaceWith = ReplaceWith("awaitAll()"), level = DeprecationLevel.WARNING)
 suspend fun <T> List<Deferred<T>>.await(): List<T> {
     return this.map { it.await() }
 }

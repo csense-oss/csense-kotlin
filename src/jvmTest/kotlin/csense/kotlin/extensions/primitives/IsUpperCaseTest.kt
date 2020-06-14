@@ -6,24 +6,24 @@ import org.junit.jupiter.api.*
 class IsUpperCaseTest {
     @Test
     fun charIsUpperCase() {
-        ' '.isUpperCase.assertFalse()
-        'a'.isUpperCase.assertFalse()
-        'A'.isUpperCase.assertTrue()
-        '1'.isUpperCase.assertFalse()
-        '?'.isUpperCase.assertFalse()
-        'Q'.isUpperCase.assertTrue()
-        '\n'.isUpperCase.assertFalse()
+        ' '.isUpperCaseLetter.assertFalse()
+        'a'.isUpperCaseLetter.assertFalse()
+        'A'.isUpperCaseLetter.assertTrue()
+        '1'.isUpperCaseLetter.assertFalse()
+        '?'.isUpperCaseLetter.assertFalse()
+        'Q'.isUpperCaseLetter.assertTrue()
+        '\n'.isUpperCaseLetter.assertFalse()
     }
     
     @Test
     fun charIsLowerCase() {
-        ' '.isLowerCase.assertFalse()
-        'a'.isLowerCase.assertTrue()
-        'B'.isLowerCase.assertFalse()
-        '1'.isLowerCase.assertFalse()
-        '?'.isLowerCase.assertFalse()
-        '\n'.isLowerCase.assertFalse()
-        'Q'.isLowerCase.assertFalse()
-        'q'.isLowerCase.assertTrue()
+        ' '.isLowerCaseLetter.assertFalse()
+        'a'.isLowerCaseLetter.assertTrue()
+        'B'.isLowerCaseLetter.assertFalse()
+        '1'.isLowerCaseLetter.assertFalse()
+        '?'.isLowerCaseLetter.assertFalse()
+        '\n'.isLowerCaseLetter.assertFalse()
+        'Q'.isLowerCaseLetter.assertFalse()
+        'q'.isLowerCaseLetter.assertTrue()
     }
 }

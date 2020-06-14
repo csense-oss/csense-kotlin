@@ -70,17 +70,17 @@ class StringTest {
         
         val funnyString = "ababab"
         funnyString.forEachMatching(
-                        "abab",
-                        searchByWord = false,
-                        ignoreCase = false) { it }
+                "abab",
+                searchByWord = false,
+                ignoreCase = false) { it }
                 .assertSize(2, "since searching by chars, we will encounter an overlap , which then " +
                         "will give us 2 results since we are only advancing by 1 chars")
         
         
         funnyString.forEachMatching(
-                        "abab",
-                        searchByWord = true,
-                        ignoreCase = false) { it }
+                "abab",
+                searchByWord = true,
+                ignoreCase = false) { it }
                 .assertSize(1, "since searching by word, we will NOT encounter an overlap , so " +
                         "we will only see [abab] followed by the last part (ab), so not 2 matches")
         
@@ -415,32 +415,65 @@ class StringTest {
         "a".doesNotStartsWith('a').assertFalse()
         "abc".doesNotStartsWith('a').assertFalse()
     }
-//
-//    @Test
-//    fun stringIsOnlyUpperCase() {
-//        "".isOnlyUpperCase().assertTrue() //nothing is always valid.
-//        " ".isOnlyUpperCase().assertTrue()
-//        "a".isOnlyUpperCase().assertFalse()
-//        "abc".isOnlyUpperCase().assertFalse()
-//        "1234".isOnlyUpperCase().assertTrue()
-//        "\n".isOnlyUpperCase().assertTrue()
-//        "...()[]".isOnlyUpperCase().assertTrue()
-//        "A".isOnlyUpperCase().assertTrue()
-//        "aA".isOnlyUpperCase().assertFalse()
-//
-//    }
-//
-//    @Test
-//    fun stringIsOnlyLowerCase() {
-//        "".isOnlyLowerCase().assertTrue() //nothing is always valid.
-//        " ".isOnlyLowerCase().assertTrue()
-//        "a".isOnlyLowerCase().assertTrue()
-//        "abc".isOnlyLowerCase().assertTrue()
-//        "1234".isOnlyLowerCase().assertTrue()
-//        "\n".isOnlyLowerCase().assertTrue()
-//        "...()[]".isOnlyLowerCase().assertTrue()
-//
-//        "A".isOnlyLowerCase().assertFalse()
-//        "aA".isOnlyLowerCase().assertFalse()
-//    }
+    
+    class StringIsOnlyUpperCaseLetters {
+        @Test
+        fun noIgnoreNoneLetters() {
+            "".isOnlyUpperCaseLetters().assertFalse() //nothing is always false.
+            " ".isOnlyUpperCaseLetters().assertFalse()
+            "a".isOnlyUpperCaseLetters().assertFalse()
+            "A".isOnlyUpperCaseLetters().assertTrue()
+            "abc".isOnlyUpperCaseLetters().assertFalse()
+            "aBc".isOnlyUpperCaseLetters().assertFalse()
+            "ABC".isOnlyUpperCaseLetters().assertTrue()
+            "1234".isOnlyUpperCaseLetters().assertFalse()
+            "\n".isOnlyUpperCaseLetters().assertFalse()
+            "...()[]".isOnlyUpperCaseLetters().assertFalse()
+        }
+        
+        @Test
+        fun ignoreNoneLetters() {
+            "".isOnlyUpperCaseLetters(true).assertFalse() //nothing is always false.
+            " ".isOnlyUpperCaseLetters(true).assertTrue() //there are no "lowercase" letters
+            "a".isOnlyUpperCaseLetters(true).assertFalse()
+            "A".isOnlyUpperCaseLetters(true).assertTrue()
+            "abc".isOnlyUpperCaseLetters(true).assertFalse()
+            "aBc".isOnlyUpperCaseLetters(true).assertFalse()
+            "ABC".isOnlyUpperCaseLetters(true).assertTrue()
+            "1234".isOnlyUpperCaseLetters(true).assertTrue()
+            "\n".isOnlyUpperCaseLetters(true).assertTrue()
+            "...()[]".isOnlyUpperCaseLetters(true).assertTrue()
+        }
+    }
+    
+    class StringIsOnlyLowerCaseLetters{
+        @Test
+        fun noIgnoreNoneLetters() {
+            "".isOnlyLowerCaseLetters().assertFalse()//nothing is always false.
+            " ".isOnlyLowerCaseLetters().assertFalse()
+            "a".isOnlyLowerCaseLetters().assertTrue()
+            "A".isOnlyLowerCaseLetters().assertFalse()
+            "abc".isOnlyLowerCaseLetters().assertTrue()
+            "aBc".isOnlyLowerCaseLetters().assertFalse()
+            "ABC".isOnlyLowerCaseLetters().assertFalse()
+            "1234".isOnlyLowerCaseLetters().assertFalse()
+            "\n".isOnlyLowerCaseLetters().assertFalse()
+            "...()[]".isOnlyLowerCaseLetters().assertFalse()
+        }
+    
+        @Test
+        fun ignoreNoneLetters() {
+            "".isOnlyLowerCaseLetters(true).assertFalse() //nothing is always false.
+            " ".isOnlyLowerCaseLetters(true).assertTrue() //there are no "lowercase" letters
+            "a".isOnlyLowerCaseLetters(true).assertTrue()
+            "A".isOnlyLowerCaseLetters(true).assertFalse()
+            "abc".isOnlyLowerCaseLetters(true).assertTrue()
+            "aBc".isOnlyLowerCaseLetters(true).assertFalse()
+            "ABC".isOnlyLowerCaseLetters(true).assertFalse()
+            "1234".isOnlyLowerCaseLetters(true).assertTrue()
+            "\n".isOnlyLowerCaseLetters(true).assertTrue()
+            "...()[]".isOnlyLowerCaseLetters(true).assertTrue()
+        }
+    
+    }
 }
