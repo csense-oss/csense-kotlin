@@ -84,7 +84,7 @@ const val hexCharsCount: Int = 5
  * for native use this implementation
  *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect val Char.isUpperCaseLetter: Boolean
+expect fun Char.isUpperCaseLetter(): Boolean
 //get() = toUpperCase().equals(this, false)
 
 /**
@@ -92,12 +92,22 @@ expect val Char.isUpperCaseLetter: Boolean
  * for native use this implementation
  *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect val Char.isLowerCaseLetter: Boolean
+expect fun Char.isLowerCaseLetter(): Boolean
 //get() = toLowerCase().equals(this, false)
 
 /**
  * Tells if this is a number / digit (0,1,2,3,4,5,6,7,8,9)
  * true if it is a number, false otherwise
  */
-inline val Char.isDigit: Boolean
-    get() = this in '0'..'9'
+inline fun Char.isDigit(): Boolean =
+        this in '0'..'9'
+
+/**
+ *
+ * @receiver Char
+ * @return Boolean
+ */
+fun Char.isNotDigit(): Boolean =
+        !isDigit()
+
+//validate whenever "digit" in other text systems are more than "0-9" (eg say Chinese)
