@@ -2,17 +2,10 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.EmptyFunctionResult
-import csense.kotlin.Function1
-import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.exceptions.NoStackTraceException
-import csense.kotlin.extensions.appendContentOf
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.map
-import csense.kotlin.extensions.mapLazy
-import csense.kotlin.patterns.Expected
-import csense.kotlin.patterns.ExpectedFailed
-import csense.kotlin.patterns.expectedSucceded
 
 //TODO unit tests.
 
@@ -34,30 +27,6 @@ inline fun String.fileExtension(): String? {
  * @receiver String
  */
 inline fun String.removeFileExtension(): String = substringBeforeLast(".")
-//endregion
-
-//region IndexOf safe
-/**
- *
- * @receiver String
- * @param subString String
- * @param index Int
- * @param ignoreCase Boolean
- * @return Expected<Int>
- */
-fun String.indexOfSafe(subString: String, @IntLimit(from = 0) index: Int, ignoreCase: Boolean): Expected<Int> {
-    val result = indexOf(subString, index, ignoreCase)
-    return if (result == -1) {
-        failedIndexOfExpected
-    } else {
-        expectedSucceded(result)
-    }
-}
-
-private val IndexOfMissingException = NoStackTraceException("Unable to find substring")
-
-private val failedIndexOfExpected = ExpectedFailed<Int>(IndexOfMissingException)
-
 //endregion
 
 //region Creation and insertion
@@ -149,12 +118,12 @@ inline fun <U> String.forEachMatching(
     }
     var currentIndex = 0
     val appendLenght = searchByWord.map(subString.length, 1)
-    var next = this.indexOfSafe(subString, currentIndex, ignoreCase)
+    var next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
     val result = mutableListOf<U>()
-    while (next.isValid) {
-        result.add(mapper(next.value))
-        currentIndex = next.value + appendLenght
-        next = this.indexOfSafe(subString, currentIndex, ignoreCase)
+    while (next != null) {
+        result.add(mapper(next))
+        currentIndex = next + appendLenght
+        next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
     }
     return result
 }

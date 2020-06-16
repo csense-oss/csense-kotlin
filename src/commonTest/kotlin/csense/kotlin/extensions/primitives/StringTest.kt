@@ -100,30 +100,7 @@ class StringTest {
         
         textString.findAllOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
     }
-    
-    @Test
-    fun indexOfSafe() {
-        "".indexOfSafe("a", 0, false).isError
-                .assertTrue("indexof a in nothing i not found")
-        "a".indexOfSafe("a", 0, false).value
-                .assert(0, "should be first index")
-        
-        "a".indexOfSafe("A", 0, false).isError
-                .assertTrue("case sensitivity should be respected")
-        "a".indexOfSafe("A", 0, true).isError
-                .assertFalse("case sensitivity should be respected")
-        
-        "aba".indexOfSafe("a", 1, false).value
-                .assert(2, "should find second a")
-        
-        "abA".indexOfSafe("a", 1, false).isError
-                .assertTrue("case sensitivity should be respected even with index")
-        
-        "abA".indexOfSafe("a", 1, true).value
-                .assert(2, "should find second a")
-        
-    }
-    
+
     @Test
     fun limitTo() {
         "".limitTo(0).assert("")

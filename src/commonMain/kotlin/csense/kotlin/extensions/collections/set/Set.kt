@@ -49,15 +49,13 @@ inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
  * Pair.second = {7,9,0} UNIQUE IN B
  * The Timecomplexity should be around "O(N)" Where N is the largest size of the sets.
  * @timecomplexity O(N)
- * @receiver Set<T>
- * @param otherSet Set<T>
- * @return Pair<Set<T>, Set<T>>
+ * @receiver [Set]<T>
+ * @param otherSet [Set]<T>
+ * @return [SymmetricDifferenceResult]<T>
  */
-@Deprecated("Return type will change in 0.40.0 to a class", level = DeprecationLevel.WARNING)
-inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): Pair<Set<T>, Set<T>> {
+inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDifferenceResult<T> {
     val aDif = toMutableSet()
     val bDif = mutableSetOf<T>()
-    
     otherSet.forEach {
         if (aDif.contains(it)) {
             aDif.remove(it)
@@ -65,8 +63,19 @@ inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): Pair<Set<T>, Set<T>
             bDif.add(it)
         }
     }
-    return Pair(aDif, bDif)
+    return SymmetricDifferenceResult(aDif, bDif)
 }
+
+/**
+ * Represents the result from a symmetric difference
+ * @param T the type of the sets.
+ * @property uniqueInFirst [Set]<T> the elements that were ONLY found in the first set
+ * @property uniqueInSecond [Set]<T> the elements that were ONLY found in the second set.
+ */
+class SymmetricDifferenceResult<T>(
+        val uniqueInFirst: Set<T>,
+        val uniqueInSecond: Set<T>
+)
 
 /**
  * Tells if the given value is not in the set

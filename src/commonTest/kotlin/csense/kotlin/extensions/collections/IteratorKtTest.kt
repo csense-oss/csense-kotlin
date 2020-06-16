@@ -1,4 +1,4 @@
-package csense.kotlin.extensions.iterator
+package csense.kotlin.extensions.collections
 
 import csense.kotlin.tests.assertions.assertNotNullAndEquals
 import csense.kotlin.tests.assertions.assertNull
