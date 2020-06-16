@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.40
+- removed deprecated things
+- removed stuff that was not very generic or does not fit into this "module"
+- improved documentation & spelling
+- more annotations
+
 ## 0.0.36
 - added more tests
 - improved contracts
