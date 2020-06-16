@@ -8,11 +8,11 @@ import csense.kotlin.annotations.numbers.IntLimit
 
 /**
  * A very generic foreach, should work with any kind of design.
- * @receiver Generic
- * @param onEach Function0<Element>
- * @param length Int
- * @param retriever Function1<Int, Element>
- * @param startIndex Int
+ * @receiver [Generic]
+ * @param onEach [Function0]<[Element]>
+ * @param length [Int]
+ * @param retriever [Function1]<[Int], [Element]>
+ * @param startIndex [Int]
  */
 inline fun <Element> Generic.forEach(
         @IntLimit(from = 0) length: Int,

@@ -147,7 +147,7 @@ val myValue = someBool.map(ifTrue = 42, ifFalse = 40)
 
 
 ### Crypto
-Since the introduction of Random in kotlin MPP std lib, its now possible to share some more cryptographically things, 
+Since the introduction of Random in kotlin MPP standard library, its now possible to share some more cryptographically things, 
 and one of such is UUID version 4 (the random one)
 which is implemented in UUID.
 

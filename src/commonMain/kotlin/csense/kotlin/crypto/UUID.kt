@@ -20,9 +20,9 @@ object UUID4 {
      * Creates a random UUID version 4 (random).
      *
      * see https://www.ietf.org/rfc/rfc4122.txt
-     * @param random Random
-     * @param shouldBeUppercase Boolean
-     * @return String
+     * @param random [Random]
+     * @param shouldBeUppercase [Boolean]
+     * @return [String]
      */
     fun create(
             random: Random = Random,

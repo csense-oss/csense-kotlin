@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.array
 
+import csense.kotlin.Function1
 import csense.kotlin.FunctionUnit
 import csense.kotlin.extensions.collections.array.generic.GenericArray
 import csense.kotlin.extensions.collections.array.generic.foreachDiscardResult
@@ -8,12 +9,11 @@ import csense.kotlin.extensions.collections.generic.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver ByteArray
- * @param receiver (T) -> U
+ * @receiver [CharArray]
+ * @param receiver [Function1]<[Char], U>
  */
 inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
-
 
 
 //region Generic collection extensions
@@ -30,7 +30,7 @@ inline fun CharArray.forEach2(action: Function2Unit<Char, Char>) =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [CharArray].
  */
 inline fun CharArray.forEachBackwards(action: FunctionUnit<Char>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

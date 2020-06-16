@@ -9,8 +9,8 @@ import csense.kotlin.extensions.collections.generic.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver Array<T>
- * @param receiver (T) -> U
+ * @receiver [BooleanArray]
+ * @param receiver [Function1]<[Boolean], U>
  */
 inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -30,7 +30,7 @@ inline fun BooleanArray.forEach2(action: Function2Unit<Boolean, Boolean>): Unit 
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [BooleanArray].
  */
 inline fun BooleanArray.forEachBackwards(action: FunctionUnit<Boolean>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

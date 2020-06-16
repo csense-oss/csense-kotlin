@@ -19,7 +19,7 @@ import csense.kotlin.annotations.numbers.LongLimit
  * or if you go from byte to bit, there is a potential overflow as well
  *
  *
- * @property value Long
+ * @property value [Long]
  * @constructor
  */
 sealed class BinaryBitSizes(@LongLimit(from = 0) val value: Long) {

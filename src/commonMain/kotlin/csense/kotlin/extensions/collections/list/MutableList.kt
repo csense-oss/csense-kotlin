@@ -11,7 +11,7 @@ import csense.kotlin.extensions.primitives.onTrue
 /**
  * Finds and removes the first item that matches the given predicate
  * @receiver [MutableList]<T> the list to remove from
- * @param foundAction [Function1]<T, Boolean> the predicate
+ * @param foundAction [Function1]<T, [Boolean]> the predicate
  */
 inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T, Boolean>) {
     val index = this.indexOfFirst(foundAction)
@@ -21,7 +21,7 @@ inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T
 /**
  *
  * @receiver [MutableList]<T>
- * @param findAction [Function1]<T, Boolean>
+ * @param findAction [Function1]<T, [Boolean]>
  * @return [List]<T>
  */
 inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1<T, Boolean>): List<T> {

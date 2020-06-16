@@ -7,9 +7,9 @@ import csense.kotlin.EmptyFunction
 
 /**
  * performs the action if the boolean is false.
- * @receiver Boolean
- * @param action EmptyFunction
- * @return Boolean
+ * @receiver [Boolean]
+ * @param action [EmptyFunction]
+ * @return [Boolean]
  */
 inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
     if (!this) {
@@ -20,9 +20,9 @@ inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
 
 /**
  * performs the action if the boolean is true.
- * @receiver Boolean
- * @param action EmptyFunction
- * @return Boolean
+ * @receiver [Boolean]
+ * @param action [EmptyFunction]
+ * @return [Boolean]
  */
 inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
     if (this) {
@@ -33,19 +33,19 @@ inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
 
 
 /**
- * Makes a more "elegant" sentence for some expressions, same as "com.commonsense.android.kotlin.com.commonsense.android.kotlin.base.onTrue"
- * @receiver Boolean
- * @param action EmptyFunction
- * @return Boolean
+ * Makes a more "elegant" sentence for some expressions same as "OnTrue"
+ * @receiver [Boolean]
+ * @param action [EmptyFunction]
+ * @return [Boolean]
  */
 inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
 
 
 /**
- * Makes a more "elegant" sentence for some expressions, same as "com.commonsense.android.kotlin.com.commonsense.android.kotlin.base.onTrue"
- * @receiver Boolean
- * @param action EmptyFunction
- * @return Boolean
+ * Makes a more "elegant" sentence for some expressions, same as "onFalse"
+ * @receiver [Boolean]
+ * @param action [EmptyFunction]
+ * @return [Boolean]
  */
 inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
         onFalse(action)

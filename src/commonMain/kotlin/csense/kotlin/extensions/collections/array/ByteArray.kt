@@ -15,10 +15,10 @@ import csense.kotlin.extensions.primitives.toCase
 
 /**
  *
- * @receiver ByteArray
- * @param appendHexPrefix Boolean
- * @param shouldBeUppercase Boolean
- * @return String
+ * @receiver [ByteArray]
+ * @param appendHexPrefix [Boolean]
+ * @param shouldBeUppercase [Boolean]
+ * @return [String]
  */
 
 inline fun ByteArray.toHexString(
@@ -51,8 +51,8 @@ inline fun ByteArray.toHexString(
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver ByteArray
- * @param receiver (T) -> U
+ * @receiver [ByteArray]
+ * @param receiver [Function1]<[Byte], U>
  */
 inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -71,7 +71,7 @@ inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>) =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [ByteArray].
  */
 inline fun ByteArray.forEachBackwards(action: FunctionUnit<Byte>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

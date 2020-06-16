@@ -9,8 +9,9 @@ import csense.kotlin.extensions.collections.generic.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver
- * @param receiver (T) -> U
+ *
+ * @receiver [ShortArray]
+ * @param receiver [Function1]<[Short], U>
  */
 inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -30,7 +31,7 @@ inline fun ShortArray.forEach2(action: Function2Unit<Short, Short>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [ShortArray].
  */
 inline fun ShortArray.forEachBackwards(action: FunctionUnit<Short>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

@@ -9,8 +9,8 @@ import csense.kotlin.extensions.collections.generic.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver
- * @param receiver (T) -> U
+ * @receiver [LongArray]
+ * @param receiver [Function1]<[Long], U>
  */
 inline fun <U> LongArray.forEachDiscard(receiver: Function1<Long, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -29,7 +29,7 @@ inline fun LongArray.forEach2(action: Function2Unit<Long, Long>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [LongArray].
  */
 inline fun LongArray.forEachBackwards(action: FunctionUnit<Long>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

@@ -7,7 +7,7 @@ import csense.kotlin.Function1
 
 /**
  * Maps an optional value into another value
- * @receiver Any?
+ * @receiver [Any]?
  * @param ifNotNull U the value if 'this' is not null
  * @param ifNull U the value if 'this' is null
  * @return U the value depending on 'this' value
@@ -21,9 +21,9 @@ inline fun <U> Any?.mapOptional(
 
 /**
  * Maps an optional value into another value
- * @receiver Any?
- * @param ifNotNull EmptyFunctionResult<U> the value if 'this' is not null
- * @param ifNull EmptyFunctionResult<U> the value if 'this' is null
+ * @receiver [Any]?
+ * @param ifNotNull [EmptyFunctionResult]<U> the value if 'this' is not null
+ * @param ifNull [EmptyFunctionResult]<U> the value if 'this' is null
  * @return U the value depending on 'this' value
  */
 inline fun <U> Any?.mapLazyOptional(
@@ -39,7 +39,7 @@ inline fun <U> Any?.mapLazyOptional(
 
 /**
  * Maps a boolean into a value.
- * @receiver Boolean
+ * @receiver [Boolean]
  * @param ifTrue T
  * @param ifFalse T
  * @return T
@@ -60,9 +60,9 @@ inline fun <T> Boolean.map(
  * since its inline, then the code would be as if you wrote the "if else statement"
  * and then only did the computation iff that branch was chosen.
  *
- * @receiver Boolean
- * @param ifTrue EmptyFunctionResult<T>
- * @param ifFalse EmptyFunctionResult<T>
+ * @receiver [Boolean]
+ * @param ifTrue [EmptyFunctionResult]<T>
+ * @param ifFalse [EmptyFunctionResult]<T>
  * @return T
  */
 inline fun <T> Boolean.mapLazy(
@@ -77,9 +77,9 @@ inline fun <T> Boolean.mapLazy(
 
 /**
  * Maps the receiver into a set.
- * @receiver Iterable<T>
- * @param mapper Function1<T, U>
- * @return Set<U>
+ * @receiver [Iterable]<T>
+ * @param mapper [Function1]<T, U>
+ * @return [Set]<U>
  */
 fun <T, U> Iterable<T>.mapToSet(
         mapper: Function1<T, U>

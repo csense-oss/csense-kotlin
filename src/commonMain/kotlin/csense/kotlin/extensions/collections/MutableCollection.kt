@@ -6,9 +6,9 @@ package csense.kotlin.extensions.collections
 //region set & setAll
 
 /**
- * Clears the collection and add's the given collection
- * @receiver MutableCollection<E>
- * @param collection Collection<E>
+ * Clears the collection and adds the given collection
+ * @receiver [MutableCollection]<E>
+ * @param collection [Collection]<E>
  */
 inline fun <E> MutableCollection<E>.setAll(collection: Collection<E>) {
     clear()
@@ -16,9 +16,9 @@ inline fun <E> MutableCollection<E>.setAll(collection: Collection<E>) {
 }
 
 /**
- * Clears the collection and add's the given vararg of items.
- * @receiver MutableCollection<E>
- * @param items Collection<E>
+ * Clears the collection and adds the given vararg of items.
+ * @receiver [MutableCollection]<E>
+ * @param items [Collection]<E>
  */
 inline fun <E> MutableCollection<E>.setAll(vararg items: E) {
     clear()
@@ -26,8 +26,8 @@ inline fun <E> MutableCollection<E>.setAll(vararg items: E) {
 }
 
 /**
- * Clears the collection and add's the given element
- * @receiver MutableCollection<E>
+ * Clears the collection and adds the given element
+ * @receiver [MutableCollection]<E>
  * @param item E
  */
 inline fun <E> MutableCollection<E>.set(item: E) {
@@ -38,9 +38,9 @@ inline fun <E> MutableCollection<E>.set(item: E) {
 
 
 /**
- * Missing from Std-lib, a vararg edition of add all
- * @receiver MutableCollection<E>
- * @param items Array<out E>
+ * Missing from Standard library, a vararg edition of add all
+ * @receiver [MutableCollection]<E>
+ * @param items [Array]<out E>
  */
 inline fun <E> MutableCollection<E>.addAll(vararg items: E) {
     addAll(items)

@@ -7,15 +7,12 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 
-//TODO unit tests.
-
 //region File related string apis
 /**
  *
- * @receiver String
- * @return String?
+ * @receiver [String]
+ * @return [String]?
  */
-
 inline fun String.fileExtension(): String? {
     val fileExtension = substringAfterLast(".", "")
     return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
@@ -24,7 +21,7 @@ inline fun String.fileExtension(): String? {
 
 /**
  * Tries to remove any kind of file extensions.
- * @receiver String
+ * @receiver [String]
  */
 inline fun String.removeFileExtension(): String = substringBeforeLast(".")
 //endregion
@@ -32,8 +29,8 @@ inline fun String.removeFileExtension(): String = substringBeforeLast(".")
 //region Creation and insertion
 /**
  *
- * @param charArray CharArray
- * @return String
+ * @param charArray [CharArray]
+ * @return [String]
  */
 inline fun String.Companion.createFromChars(charArray: CharArray): String =
         StringBuilder().appendContentOf(charArray).toString()
@@ -51,9 +48,9 @@ data class StringInserts(
 
 /**
  *
- * @receiver String
- * @param toInsert Array<out StringInserts>
- * @return String? null if any index is outside of bounds
+ * @receiver [String]
+ * @param toInsert [Array]<out [StringInserts]>
+ * @return [String]? null if any index is outside of bounds
  */
 fun String.insertInto(vararg toInsert: StringInserts): String? {
     val size = count()
@@ -83,11 +80,11 @@ fun String.insertInto(vararg toInsert: StringInserts): String? {
 //region Searching / find
 /**
  *
- * @receiver String
- * @param subString String
- * @param searchByWord Boolean
- * @param ignoreCase Boolean
- * @return Set<Int>
+ * @receiver [String]
+ * @param subString [String]
+ * @param searchByWord [Boolean]
+ * @param ignoreCase [Boolean]
+ * @return [Set]<[Int]>
  */
 
 inline fun String.findAllOf(
@@ -100,12 +97,12 @@ inline fun String.findAllOf(
 
 /**
  *
- * @receiver String
- * @param subString String
- * @param searchByWord Boolean
- * @param ignoreCase Boolean
- * @param mapper Function1<Int, U>
- * @return List<U>
+ * @receiver [String]
+ * @param subString [String]
+ * @param searchByWord [Boolean]
+ * @param ignoreCase [Boolean]
+ * @param mapper [Function1]<[Int], U>
+ * @return [List]<U>
  */
 inline fun <U> String.forEachMatching(
         subString: String,
@@ -133,12 +130,12 @@ inline fun <U> String.forEachMatching(
 /**
  * Replaces a value given a criteria. if the condition is true, the replace is called with the value
  * otherwise this string is returned as is.
- * @receiver String
- * @param condition Boolean
- * @param toReplace String
- * @param newValue String
- * @param ignoreCase Boolean
- * @return String
+ * @receiver [String]
+ * @param condition [Boolean]
+ * @param toReplace [String]
+ * @param newValue [String]
+ * @param ignoreCase [Boolean]
+ * @return [String]
  */
 inline fun String.replaceIf(
         condition: Boolean,
@@ -156,13 +153,13 @@ inline fun String.replaceIf(
 /**
  * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
  * if the condition is false, the ifFalseValue is used.
- * @receiver String
- * @param condition Boolean
- * @param toReplace String
- * @param ifTrueValue String
- * @param ifFalseValue String
- * @param ignoreCase Boolean
- * @return String
+ * @receiver [String]
+ * @param condition [Boolean]
+ * @param toReplace [String]
+ * @param ifTrueValue [String]
+ * @param ifFalseValue [String]
+ * @param ignoreCase [Boolean]
+ * @return [String]
  */
 inline fun String.replaceIfOr(
         condition: Boolean,
@@ -178,13 +175,13 @@ inline fun String.replaceIfOr(
 /**
  * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
  * if the condition is false, the ifFalseValue is used. lazily evaluates the values.
- * @receiver String
- * @param condition Boolean
- * @param toReplace String
- * @param ifTrueValue EmptyFunctionResult<String>
- * @param ifFalseValue EmptyFunctionResult<String>
- * @param ignoreCase Boolean
- * @return String
+ * @receiver [String]
+ * @param condition [Boolean]
+ * @param toReplace [String]
+ * @param ifTrueValue [EmptyFunctionResult]<[String]>
+ * @param ifFalseValue [EmptyFunctionResult]<[String]>
+ * @param ignoreCase [Boolean]
+ * @return [String]
  */
 inline fun String.replaceIfOr(
         condition: Boolean,
@@ -198,13 +195,13 @@ inline fun String.replaceIfOr(
 }
 //endregion
 
-//region contains / startwith queries
+//region contains / startWith queries
 /**
  * Returns whenever this string ends with at least one of the given collection
  * @receiver C
- * @param collection Collection<C>
- * @param ignoreCase Boolean
- * @return Boolean
+ * @param collection [Collection]<C>
+ * @param ignoreCase [Boolean]
+ * @return [Boolean]
  */
 inline fun String.endsWithAny(
         collection: Collection<String>,
@@ -215,9 +212,9 @@ inline fun String.endsWithAny(
 /**
  * Returns whenever this string ends with at least one of the given collection
  * @receiver C
- * @param strings Array<out C>
- * @param ignoreCase Boolean
- * @return Boolean
+ * @param strings [Array]<out C>
+ * @param ignoreCase [Boolean]
+ * @return [Boolean]
  */
 inline fun String.endsWithAny(
         vararg strings: String,
@@ -228,9 +225,9 @@ inline fun String.endsWithAny(
 /**
  * Returns whenever this string starts with at least one of the given collection
  * @receiver C
- * @param strings Array<out C>
- * @param ignoreCase Boolean
- * @return Boolean
+ * @param strings [Array]<out C>
+ * @param ignoreCase [Boolean]
+ * @return [Boolean]
  */
 inline fun String.startsWithAny(
         vararg strings: String,
@@ -241,9 +238,9 @@ inline fun String.startsWithAny(
 /**
  * Returns whenever this string starts with at least one of the given collection
  * @receiver C
- * @param collection Collection<C>
- * @param ignoreCase Boolean
- * @return Boolean
+ * @param collection [Collection]<C>
+ * @param ignoreCase [Boolean]
+ * @return [Boolean]
  */
 inline fun String.startsWithAny(
         collection: Collection<String>,
@@ -254,11 +251,12 @@ inline fun String.startsWithAny(
 
 //region Modification / computing
 /**
- * Limits this string to the given number of characters
- * @receiver String the string to potentially limit
- * @param maxLength Int the max length
- * @return String a string at max the given max length;
- * if maxLength is zero or negative, an empty string is returned
+ * Limits this [String] to the given number of characters
+ * @receiver [String] the [String] to limit
+ * @param maxLength [Int] the max length
+ * @return [String] a [String] at max the given length
+ *
+ * if [maxLength] is zero or negative, an empty string is returned
  */
 inline fun String.limitTo(@IntLimit(from = 0) maxLength: Int): String {
     if (maxLength.isNegativeOrZero) {
@@ -270,18 +268,18 @@ inline fun String.limitTo(@IntLimit(from = 0) maxLength: Int): String {
 
 /**
  * Wraps this string with the given prefix and postfix strings.
- * @receiver String
- * @param prefix String
- * @param postFix String
- * @return String the combined result (prefix + this + postfix)
+ * @receiver [String]
+ * @param prefix [String]
+ * @param postFix [String]
+ * @return [String] the combined result (prefix + this + postfix)
  */
 inline fun String.wrapIn(prefix: String, postFix: String): String =
         prefix + this + postFix
 
 /**
- * As the name implies wraps the given receiver into a pair of quoutes at each end
- * @receiver String
- * @return String the wrapped string.
+ * As the name implies wraps the given receiver into a pair of quotes at each end
+ * @receiver [String]
+ * @return [String] the wrapped string.
  */
 inline fun String.wrapInQuotes(): String = wrapIn("\"", "\"")
 
@@ -289,11 +287,11 @@ inline fun String.wrapInQuotes(): String = wrapIn("\"", "\"")
 
 //region Action on state
 /**
- * Opposite of "ifEmpty"
- * if this string is not empty , executes the method and returns that
- * if it is empty, then it returns that.
+ * Opposite of "[ifEmpty]"
+ * if this [String] is not empty , executes the method and returns that
+ * if it is empty, then it returns "this".
  * @receiver C
- * @param action Function1<C, C>
+ * @param action [Function1]<C, C>
  * @return C
  */
 inline fun String.ifNotEmpty(action: Function1<String, String>): String = if (isEmpty()) {
@@ -303,11 +301,11 @@ inline fun String.ifNotEmpty(action: Function1<String, String>): String = if (is
 }
 
 /**
- * Opposite of "ifBlank"
+ * Opposite of "[ifBlank]"
  * if this string is not blank, executes the method and returns that
- * if it is blank, then it returns that.
+ * if it is blank, then it returns this.
  * @receiver C
- * @param action Function1<C, C>
+ * @param action [Function1]<C, C>
  * @return C
  */
 inline fun String.ifNotBlank(action: Function1<String, String>): String = if (isBlank()) {
@@ -321,10 +319,10 @@ inline fun String.ifNotBlank(action: Function1<String, String>): String = if (is
 
 /**
  * Skips the given part if it starts with it.
- * @receiver String
- * @param prefix String the prefix we are looking for (and the part that will be skipped iff there.
- * @param ignoreCase Boolean how we should compare prefix with this string
- * @return String the resulting string, either the original or substring by the prefix length
+ * @receiver [String]
+ * @param prefix [String] the prefix we are looking for (and the part that will be skipped iff there.
+ * @param ignoreCase [Boolean] how we should compare prefix with this string
+ * @return [String] the resulting string, either the original or substring by the prefix length
  */
 inline fun String.skipStartsWith(
         prefix: String,
@@ -340,16 +338,16 @@ inline fun String.skipStartsWith(
 //region foreach generic(s)
 /**
  * Iterates over 2 characters at ones; only get executed iff the length is a factor of 2
- * @receiver String
- * @param action (first: Char, second: Char) -> Unit
+ * @receiver [String]
+ * @param action (first: [Char], second: [Char]) -> Unit
  */
 inline fun String.foreach2(action: Function2Unit<Char, Char>) =
         GenericCollectionExtensions.forEach2(length, this::get, action)
 
 /**
  * Iterates over 2 characters at ones with the index(first) as well; only get executed iff the length is a factor of 2
- * @receiver String
- * @param action (first: Char, second: Char) -> Unit
+ * @receiver [String]
+ * @param action (first: [Char], second: [Char]) -> Unit
  */
 inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>) =
         GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
@@ -357,10 +355,10 @@ inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>) =
 
 //region Hex converting
 /**
- * The opposite of ByteArray.toHexString , so takes a hex string (eg "0x20") and converts it to a byte array of that
+ * The opposite of [csense.kotlin.extensions.collections.array.toHexString] , so takes a hex string (eg "0x20") and converts it to a byte array of that
  * if any error is found during the "deserialization, null will be returned.
- * @receiver String
- * @return ShortArray? since UBytes are still experimental, shorts are used to make sure the size "is ok"
+ * @receiver [String]
+ * @return [ShortArray]? since [UByte]s are still experimental, [Short]s are used to make sure the size "is ok"
  */
 inline fun String.fromHexStringToByteArray(): ShortArray? {
     //strip prefix iff asked to
@@ -447,9 +445,10 @@ inline fun String.doesNotEndsWithAny(
 //region Contains any editions
 /**
  *
- * @receiver String
- * @param strings Array<out String>
- * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
+ * @receiver [String]
+ * @param strings [Array]<out [String]>
+ * @param ignoreCase [Boolean]  `true` to ignore character case when comparing strings. By default `false`.
+ * @return [Boolean]
  */
 inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boolean = strings.any {
     this.contains(it, ignoreCase)
@@ -457,10 +456,10 @@ inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean = fals
 
 /**
  *
- * @receiver String
- * @param collection Iterable<String>
- * @param ignoreCase `true` to ignore character case when comparing strings. By default `false`.
- * @return Boolean
+ * @receiver [String]
+ * @param collection [Iterable]<[String]>
+ * @param ignoreCase [Boolean] `true` to ignore character case when comparing strings. By default `false`.
+ * @return [Boolean]
  */
 inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false): Boolean = collection.any {
     this.contains(it, ignoreCase)
@@ -468,7 +467,7 @@ inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean 
 //endregion
 
 /**
- * Tells if this string solely consists of uppercase characters
+ * Tells if this [String] solely consists of uppercase characters
  * @receiver [String]
  * @return [Boolean] true if all chars are upper case (if empty, returns false)
  * @timecomplexity O(n)
@@ -486,7 +485,7 @@ inline fun String.isOnlyUpperCaseLetters(IgnoreNoneLetters: Boolean = false): Bo
 
 
 /**
- * Tells if this string solely consists of lowercase characters
+ * Tells if this [String] solely consists of lowercase characters
  * @receiver [String]
  * @return [Boolean] true if either the string is empty or all chars are lowercase
  * @timecomplexity O(n)

@@ -9,9 +9,9 @@ import kotlin.contracts.*
 
 
 /**
- * performs the given action if we are null
- * @receiver Any? the optional value
- * @param action EmptyFunction the function to run if the receiver is not null
+ * Performs the given action if we are null
+ * @receiver [Any]? the optional value
+ * @param action [EmptyFunction] the function to run if the receiver is not null
  */
 @OptIn(ExperimentalContracts::class)
 inline fun <T> T?.ifNull(action: EmptyFunction) {
@@ -22,9 +22,9 @@ inline fun <T> T?.ifNull(action: EmptyFunction) {
 }
 
 /**
- * performs the given action, if we are not null
+ * Performs the given action, if we are not null
  * @receiver T? the optional value
- * @param action FunctionUnit<T> the action to call if the receiver is not null
+ * @param action [FunctionUnit]<T> the action to call if the receiver is not null
  */
 @OptIn(ExperimentalContracts::class)
 inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {

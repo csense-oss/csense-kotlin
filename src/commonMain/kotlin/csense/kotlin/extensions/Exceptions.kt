@@ -9,10 +9,10 @@ import csense.kotlin.logger.LoggingFunctionType
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
- * @param title String
- * @param message String
- * @param logger LoggingFunctionType<*>
- * @param throwableAction EmptyFunctionResult<T>
+ * @param title [String]
+ * @param message [String]
+ * @param logger [LoggingFunctionType]<*>
+ * @param throwableAction [EmptyFunctionResult]<T>
  * @return T?
  */
 inline fun <T> tryAndLog(
@@ -31,9 +31,9 @@ inline fun <T> tryAndLog(
 
 /**
  *
- * @receiver Throwable
- * @param lineSeparator String
- * @param indentation String
+ * @receiver [Throwable]
+ * @param lineSeparator [String]
+ * @param indentation [String]
  */
 inline fun Throwable.toPrettyString(
         lineSeparator: String = "\n",

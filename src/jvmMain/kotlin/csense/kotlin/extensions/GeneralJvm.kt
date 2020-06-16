@@ -1,10 +1,10 @@
 package csense.kotlin.extensions
 
 /**
- * Like typeK except it converts to java class types instead.
+ * Creates a java class based on the expected type (by type inference)
  *
- * see typeK
- * @return Class<T>
+ * so you do not have to spell out a particular class name if it is already known
+ * @return [Class]<T>
  */
 inline fun <reified T : Any> type(): Class<T> = T::class.java
 

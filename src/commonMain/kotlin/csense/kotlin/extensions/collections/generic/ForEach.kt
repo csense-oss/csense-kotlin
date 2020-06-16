@@ -18,9 +18,9 @@ typealias Function2IndexedUnit<T, U> = (index: Int, first: T, second: U) -> Unit
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action FunctionUnit<T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [FunctionUnit]<T>
  */
 inline fun <T> GenericCollectionExtensions.forEachBackwards(
         @IntLimit(from = 0) length: Int,
@@ -37,9 +37,9 @@ inline fun <T> GenericCollectionExtensions.forEachBackwards(
 /**
  * This is the "internal" generic function ,from which all the instances will be using.
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action Function2Unit<T, T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [Function2Unit]<T, T>
  */
 inline fun <T> GenericCollectionExtensions.forEach2(
         @IntLimit(from = 0) length: Int,
@@ -54,9 +54,9 @@ inline fun <T> GenericCollectionExtensions.forEach2(
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action Function2IndexedUnit<T, T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [Function2IndexedUnit]<T, T>
  */
 inline fun <T> GenericCollectionExtensions.forEach2Indexed(
         @IntLimit(from = 0) length: Int,
@@ -79,10 +79,10 @@ inline fun <T> GenericCollectionExtensions.forEach2Indexed(
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param mapper Function2<T, T, U>
- * @return List<U>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param mapper [Function2]<T, T, U>
+ * @return [List]<U>
  */
 inline fun <T, U> GenericCollectionExtensions.mapEach2(
         @IntLimit(from = 0) length: Int,
@@ -96,10 +96,10 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2(
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param mapper Function3<Int, T, T, U>
- * @return List<U>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param mapper [Function3]<Int, T, T, U>
+ * @return [List]<U>
  */
 inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
         @IntLimit(from = 0) length: Int,
@@ -121,9 +121,9 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
 //region foreach / map 2 helper
 /**
  * Tells if we are able to perform any actions (foreach2) on the given length of a "collection"
- * @receiver GenericCollectionExtensions
- * @param length Int
- * @return Boolean
+ * @receiver [GenericCollectionExtensions]
+ * @param length [Int]
+ * @return [Boolean]
  */
 inline fun GenericCollectionExtensions.canNOTForeach2(length: Int): Boolean {
     return (length <= 0 || length.isOdd)

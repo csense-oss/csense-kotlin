@@ -1,5 +1,7 @@
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.Function1
+
 /**
  * Loops through the iterator and returns the first element matching the given predicate (and then breaks)
  * @receiver [Iterator]<T>

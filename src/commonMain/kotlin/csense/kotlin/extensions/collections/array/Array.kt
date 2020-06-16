@@ -11,8 +11,8 @@ import kotlin.contracts.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver Array<T>
- * @param receiver (T) -> U
+ * @receiver [Array]<T>
+ * @param receiver [Function1]<T, U>
  */
 inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>) =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -40,9 +40,9 @@ inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>) =
 
 
 /**
- * Tells if this Array is NOT null And NOT empty (size > 0)
- * @receiver Array<T>? the nullable Array
- * @return Boolean true if the Array is NOT null AND NOT empty
+ * Tells if this [Array] is NOT null And NOT empty (size > 0)
+ * @receiver [Array]<T>? the nullable Array
+ * @return [Boolean] true if the Array is NOT null AND NOT empty
  */
 @OptIn(ExperimentalContracts::class)
 inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
@@ -53,9 +53,9 @@ inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
 }
 
 /**
- * Tells if this Array is null or empty (size = 0)
- * @receiver Array<T>? the nullable Array
- * @return Boolean true if the Array is null or empty
+ * Tells if this [Array] is null or empty (size = 0)
+ * @receiver [Array]<T>? the nullable Array
+ * @return [Boolean] true if the Array is null or empty
  */
 @OptIn(ExperimentalContracts::class)
 inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {

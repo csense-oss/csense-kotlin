@@ -3,8 +3,8 @@ package csense.kotlin.extensions.primitives
 /**
  *
  *
- * @receiver Char
- * @return Boolean
+ * @receiver [Char]
+ * @return [Boolean]
  *
  * see
  * https://en.wikipedia.org/wiki/List_of_Unicode_characters
@@ -16,7 +16,8 @@ inline fun Char.isSymbol(): Boolean {
 //INCOMPLETE
 /**
  *
- * @receiver Char
+ * @receiver [Char]
+ * @return [Boolean]
  * see
  * https://en.wikipedia.org/wiki/List_of_Unicode_characters
  */
@@ -38,9 +39,11 @@ inline fun Char.isNotLetter(): Boolean =
         !isLetter()
 
 /**
- * tells if this char is uppercase
+ * tells if this [Char] is uppercase
  * space is lowercase always
  * numbers are always lowercase
+ * @receiver [Char]
+ * @return [Boolean]
  */
 actual fun Char.isUpperCaseLetter(): Boolean {
     if (isNotLetter()) {
@@ -50,9 +53,11 @@ actual fun Char.isUpperCaseLetter(): Boolean {
 }
 
 /**
- * tells if this char is lowercase
-// * space is lowercase always
-// * numbers are always lowercase
+ * tells if this [Char] is lowercase
+ * space is lowercase always
+ * numbers are always lowercase
+ * @receiver [Char]
+ * @return [Boolean]
  */
 actual fun Char.isLowerCaseLetter(): Boolean {
     if (isNotLetter()) {

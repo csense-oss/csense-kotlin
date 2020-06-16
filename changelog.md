@@ -35,7 +35,7 @@
 
 ## 0.0.32
 - forEachIsInstance<T> added as an "allocation free" alternative to filterIsInstance + foreach
-- indexOfOrNull to collections (why is this even missing from the Std lib ? - https://youtrack.jetbrains.com/issue/KT-37585) 
+- indexOfOrNull to collections (why is this even missing from the standard library ? - https://youtrack.jetbrains.com/issue/KT-37585) 
 - minor collection extension(s)
 
 ## 0.0.31
@@ -143,7 +143,7 @@
 - added mapToSet
 - added setIfNotEmpty to map
 - added a bunch of string extensions
-- improved some of the string functions to use more of the std lib.
+- improved some of the string functions to use more of the standard library.
 - moved generic code from global namespace to generic array.
 - fixed bug in StringBuilder.clear (by removing it as the extension is available from kotlin stdlib)
 - fixed functions depending on old StringBuilder.clear
@@ -179,7 +179,7 @@
 - gradle 5.1.1
 - kotlin 1.3.20
 - suspend function arity. (0 to 6)
-- removed awaitAll since this is in the std lib
+- removed awaitAll since this is in the standard library
 - added helper functions for launch/async on various dispatchers 
 
 ## 0.0.9

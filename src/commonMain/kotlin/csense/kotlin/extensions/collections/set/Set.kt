@@ -10,9 +10,9 @@ import csense.kotlin.extensions.collections.generic.*
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
+ * @receiver [List]<T>
+ * @param action [Function2IndexedUnit]<T, T>
  * @timecomplexity O(N)
- * @receiver List<T>
- * @param action Function2IndexedUnit<T, T>
  */
 inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>) =
         GenericCollectionExtensions.forEach2Indexed(
@@ -23,18 +23,18 @@ inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>) =
 
 /**
  * Performs traversal in pairs of 2
+ * @receiver [List]<T>
+ * @param action [Function2Unit]<T, T>
  * @timecomplexity O(N)
- * @receiver List<T>
- * @param action Function2Unit<T, T>
  */
 inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>) =
         GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 
 /**
  * Performs backwards traversal on this
+ * @receiver [List]<T>
+ * @param action [FunctionUnit]<T>
  * @timecomplexity O(N)
- * @receiver List<T>
- * @param action FunctionUnit<T>
  */
 inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
         GenericCollectionExtensions.forEachBackwards(size, this::elementAt, action)
@@ -47,11 +47,11 @@ inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
  * then the results are
  * Pair.first = {2,3,4} (UNIQUE IN A)
  * Pair.second = {7,9,0} UNIQUE IN B
- * The Timecomplexity should be around "O(N)" Where N is the largest size of the sets.
- * @timecomplexity O(N)
  * @receiver [Set]<T>
  * @param otherSet [Set]<T>
  * @return [SymmetricDifferenceResult]<T>
+ * The Timecomplexity should be around "O(N)" Where N is the largest size of the sets.
+ * @timecomplexity O(N)
  */
 inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDifferenceResult<T> {
     val aDif = toMutableSet()
@@ -79,9 +79,9 @@ class SymmetricDifferenceResult<T>(
 
 /**
  * Tells if the given value is not in the set
- * @receiver Set<T> the set to test for the given value
+ * @receiver [Set]<T> the set to test for the given value
  * @param value T the value to test existence of
- * @return Boolean true if the value is not found / contained
+ * @return [Boolean] true if the value is not found / contained
  */
 inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
         !contains(value)
@@ -93,7 +93,7 @@ inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
  * Optimized for other being a [Set]
  * @receiver [Set]<E> the
  * @param other [Iterable]<E>
- * @return Boolean true if at least one element from other is in this set.
+ * @return [Boolean] true if at least one element from other is in this set.
  * @timecomplexity worstcase o(n * lg(n))
  */
 inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
@@ -122,7 +122,7 @@ inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
  * Optimized for other being a [Set]
  * @receiver [Set]<E>
  * @param other [Iterable]<E>
- * @return Boolean true if there are no disjoint elements
+ * @return [Boolean] true if there are no disjoint elements
  * @timecomplexity worstcase o(n * lg(n))
  */
 inline fun <E> Set<E>.doesNotContainAny(other: Iterable<E>): Boolean {

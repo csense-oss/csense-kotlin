@@ -9,8 +9,8 @@ import csense.kotlin.extensions.collections.generic.*
 
 /**
  * A foreach, but not taking any result for the given receiver
- * @receiver
- * @param receiver (T) -> U
+ * @receiver [FloatArray]
+ * @param receiver [Function1]<[Float], U>
  */
 inline fun <U> FloatArray.forEachDiscard(receiver: Function1<Float, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
@@ -29,7 +29,7 @@ inline fun FloatArray.forEach2(action: Function2Unit<Float, Float>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
- * Performs backwards traversal on this list.
+ * Performs backwards traversal on this [FloatArray].
  */
 inline fun FloatArray.forEachBackwards(action: FunctionUnit<Float>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)

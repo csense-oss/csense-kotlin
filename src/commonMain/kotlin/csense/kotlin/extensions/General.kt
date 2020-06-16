@@ -20,8 +20,7 @@ inline fun <reified T> Any.cast(): T? = this as? T
 /**
  *
  * @receiver Any
- * @param action Function1<T, Unit>
- * @return Unit
+ * @param action [Function1]<T, [Unit]>
  */
 inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
         invokeIsInstance<T, Unit>(action).toUnit()
@@ -30,8 +29,8 @@ inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
 /**
  * invokes the given action if this is the specific type (and returns the result) or null if this is
  * not the specific type
- * @receiver Any the unknown type
- * @param action Function1<T, R> the action to call if this is actually a T
+ * @receiver [Any] the unknown type
+ * @param action [Function1]<T, R> the action to call if this is actually a T
  * @return R? the return result
  */
 inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? {
@@ -43,16 +42,15 @@ inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? {
 
 /**
  * Converts any type into a "unit"
- * @receiver Any?
+ * @receiver [Any]?
  */
-@Suppress("RedundantUnitReturnType")
 inline fun Any?.toUnit(): Unit = Unit
 
 
 /**
  * Converts a function with a result to a function "without" a result.
- * @receiver Function1<T, *>
- * @return FunctionUnit<T>
+ * @receiver [Function1]<T, *>
+ * @return [FunctionUnit]<T>
  */
 inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
 
@@ -64,7 +62,7 @@ inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
  *
  * @receiver T?
  * @param ifNotNull T.() -> Unit the action to perform iff this is not null
- * @param ifNull EmptyFunction  if the this is null this action will be performed
+ * @param ifNull [EmptyFunction]  if the this is null this action will be performed
  */
 inline fun <T> T?.useOr(
         ifNotNull: ReceiverFunctionUnit<T>,
@@ -80,8 +78,8 @@ inline fun <T> T?.useOr(
 /**
  * Another way of writing "!is" with is not "inverse" logic (not is), this "is not"
  * NB TYPE ERASURE STILL APPLIES SO LIST<STRING> IS == LIST<OBJECT> (because they become LIST<*>)
- * @receiver Any
- * @return Boolean true if this is not the given type, false if this is
+ * @receiver [Any]
+ * @return [Boolean] true if this is not the given type, false if this is
  */
 @OptIn(ExperimentalContracts::class)
 inline fun <reified U> Any.isNot(): Boolean {
