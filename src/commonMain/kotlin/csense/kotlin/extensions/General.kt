@@ -28,14 +28,17 @@ inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
 
 
 /**
- *
- * @receiver Any
- * @param action Function1<T, R>
- * @return R?
+ * invokes the given action if this is the specific type (and returns the result) or null if this is
+ * not the specific type
+ * @receiver Any the unknown type
+ * @param action Function1<T, R> the action to call if this is actually a T
+ * @return R? the return result
  */
-inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? = when (this) {
-    is T -> action(this)
-    else -> null
+inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? {
+    return when (this) {
+        is T -> action(this)
+        else -> null
+    }
 }
 
 /**
@@ -75,7 +78,7 @@ inline fun <T> T?.useOr(
 }
 
 /**
- * Another way of writing "!is" with is not "inversed" logic (not is), this "is not"
+ * Another way of writing "!is" with is not "inverse" logic (not is), this "is not"
  * NB TYPE ERASURE STILL APPLIES SO LIST<STRING> IS == LIST<OBJECT> (because they become LIST<*>)
  * @receiver Any
  * @return Boolean true if this is not the given type, false if this is
@@ -83,7 +86,7 @@ inline fun <T> T?.useOr(
 @OptIn(ExperimentalContracts::class)
 inline fun <reified U> Any.isNot(): Boolean {
 //    contract {
-//        returns(false) implies (this is U)
+//        returns(false) implies (this@isNot is U)
 //    }
     return (this !is U)
 }

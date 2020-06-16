@@ -4,13 +4,6 @@ package csense.kotlin.extensions.collections
 
 
 //region set & setAll
-/**
- * Clears the collection and add's the given collection
- * @receiver MutableCollection<E>
- * @param collection Collection<E>
- */
-@Deprecated("Will be removed in next version, naming is bad", ReplaceWith("setAll(collection)"), DeprecationLevel.ERROR)
-inline fun <E> MutableCollection<E>.set(collection: Collection<E>) = setAll(collection)
 
 /**
  * Clears the collection and add's the given collection

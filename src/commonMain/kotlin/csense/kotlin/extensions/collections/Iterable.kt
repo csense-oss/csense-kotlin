@@ -327,12 +327,13 @@ inline fun <E : Any> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>) {
 
 
 /**
- * A safer alternative to the STD partition, that only yields a pair, which does not enforce a clear understanding of what the first or second is.
- * @receiver Iterable<E>
- * @param predicate Function1<E, Boolean>
- * @return CollectionPartition<E>
+ * Performs a partition of the given iterable. (also known as splitting) by the given predicate function
+ * A safer alternative to the STD partition(that only yields a pair, which does not enforce a clear understanding of what the first or second is.
+ * @receiver [Iterable]<E> the collection to partition
+ * @param predicate [Function1]<E, Boolean> whenever the given element should be in the "true" list or false
+ * @return [CollectionPartition]<E> the result by partition / splitting the content by the given function
  */
-fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionPartition<E> {
+inline fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionPartition<E> {
     return this.partition(predicate).let {
         CollectionPartition(it.first, it.second)
     }
@@ -340,13 +341,15 @@ fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): CollectionP
 
 
 /**
- *
- * @param E
- * @property trueForPredicate List<E>
- * @property falseForPredicate List<E>
- * @constructor
+ * The result from a safe partition / split operation
+ * @param E  The data / element type
+ * @property trueForPredicate List<E> the elements considered "true" / included
+ * @property falseForPredicate List<E> the elements considered "false" / not included
  */
-data class CollectionPartition<out E>(val trueForPredicate: List<E>, val falseForPredicate: List<E>)
+data class CollectionPartition<out E>(
+        val trueForPredicate: List<E>,
+        val falseForPredicate: List<E>
+)
 
 
 //region Generic collection extensions
@@ -414,4 +417,27 @@ inline fun <reified U> Iterable<*>.forEachIsInstance(
         action: kotlin.Function1<U, *>
 ) = forEach {
     it.invokeIsInstance(action)
+}
+
+/**
+ * Finds the largest element (and returns it if found)
+ * @receiver [Iterable]<E> the iterable to go though
+ * @param selector [Function1]<E, V> given an element (E) selects a Value (V) to be used for comparisons
+ * @return E? the largest element or null if non were found
+ * @timecomplexity O(n)
+ */
+inline fun <E, V : Comparable<V>> Iterable<E>.largest(
+        selector: Function1<E, V>
+): E? {
+    var currentResult: E? = null
+    var currentValue: V? = null
+    forEach {
+        val value = selector(it)
+        val safeCurrentValue = currentValue
+        if (safeCurrentValue == null || value > safeCurrentValue) {
+            currentResult = it
+            currentValue = value
+        }
+    }
+    return currentResult
 }

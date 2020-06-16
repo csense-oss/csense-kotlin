@@ -1,14 +1,26 @@
 # Changelog
 
 ## 0.0.36
+- added more tests
+- improved contracts
+- cleanup more docs
+- add extensions
+    - set containAny
+    - set doesNotContainAny
+    - collection largest
+    - char.isNotDigit()
+- changed is{Uppercase,Lowercase} impl to never count numbers, whitespace ect as either (not lower, nor upper)- it does not make sense
+- removed  MutableCollection<E>.set
+- isUpperCase and isLowerCase on char is now a function.
+    - javascript now has a "isLetter" that tries to test for the full unicode range of "real" letters. (WIP)
+    
+## 0.0.35
 - deprecation for more "algorithm" / "datastructure" code. 
     - might also be updated to include logger.
 - char.isDigit method added
 - improved impl for isAllUppercase & isAllLowercase (whitespace & digit handling)
 - azure pipelines working
 - doesNotContain for maps, sets & lists
-
-## 0.0.35
 - char is{Upper, lower} case extensions and
 - string is{Upper, lower}CaseOnly extensions
 

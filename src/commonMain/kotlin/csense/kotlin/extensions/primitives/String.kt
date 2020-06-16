@@ -500,17 +500,36 @@ inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean 
 
 /**
  * Tells if this string solely consists of uppercase characters
- * @receiver String
- * @return Boolean true if either the string is empty or all chars are upper case
+ * @receiver [String]
+ * @return [Boolean] true if all chars are upper case (if empty, returns false)
  * @timecomplexity O(n)
  */
-inline fun String.isOnlyUpperCase(): Boolean = all(Char::isUpperCase)
+inline fun String.isOnlyUpperCaseLetters(IgnoreNoneLetters: Boolean = false): Boolean {
+    if (isEmpty()) {
+        return false
+    }
+    return if (IgnoreNoneLetters) {
+        none(Char::isLowerCaseLetter)
+    } else {
+        all(Char::isUpperCaseLetter)
+    }
+}
 
 
 /**
  * Tells if this string solely consists of lowercase characters
- * @receiver String
- * @return Boolean true if either the string is empty or all chars are lowercase
+ * @receiver [String]
+ * @return [Boolean] true if either the string is empty or all chars are lowercase
  * @timecomplexity O(n)
  */
-inline fun String.isOnlyLowerCase(): Boolean = all(Char::isLowerCase)
+inline fun String.isOnlyLowerCaseLetters(IgnoreNoneLetters: Boolean = false): Boolean {
+    if (isEmpty()) {
+        return false
+    }
+    return if (IgnoreNoneLetters) {
+        none(Char::isUpperCaseLetter)
+    } else {
+        all(Char::isLowerCaseLetter)
+    }
+}
+

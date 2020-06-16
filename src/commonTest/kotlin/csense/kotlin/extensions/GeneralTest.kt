@@ -25,6 +25,7 @@ class GeneralTest {
     fun toUnitFunction() {
         var counter = 0
         val fnc1 = { _: String -> counter += 1; "" }.toUnitFunction()
+
         @Suppress("UNUSED_VARIABLE")
         val data: Unit = fnc1("") //this would case a complie time error, and thus validating that the function does what
         //its supposed to type wise.
@@ -43,7 +44,7 @@ class GeneralTest {
         stringValue.useOr({ stringCounter += length }, { failTest("magic test is not null") })
         stringCounter.assert(stringValue?.length ?: 0, "should get the right string back.")
     }
-    
+
     @Test
     fun anyIsNot() {
         42.isNot<Int>().assertFalse()
@@ -53,5 +54,25 @@ class GeneralTest {
         42.0.isNot<Char>().assertTrue()
         42.0.isNot<Number>().assertFalse()
         listOf<String>().isNot<List<Double>>().assertFalse("Type erasure...")
+    }
+
+    @Test
+    fun anyInvokeIsInstanceActionUnit() {
+        "test".invokeIsInstance<Int> {
+            failTest("should not be called")
+        }
+        assertCalled { didCall ->
+            "testString".invokeIsInstance<String> {
+                it.assert("testString")
+                didCall()
+            }
+        }
+    }
+
+    @Test
+    fun anyInvokeIsInstanceAction() {
+        "test".invokeIsInstance<Int, Int> { it }.assertNull("string and int are not same type")
+        "test".invokeIsInstance<String, String> { it }.assertNotNullAndEquals("test")
+        42.invokeIsInstance<String, Int> { 42 }.assertNull()
     }
 }

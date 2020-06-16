@@ -4,14 +4,14 @@ package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.Function1
 import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.collections.isIndexValid
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.isNegative
 import csense.kotlin.extensions.primitives.onTrue
 
 /**
  * Finds and removes the first item that matches the given predicate
- * @receiver MutableList<T> the list to remove from
- * @param foundAction Function1<T, Boolean> the predicate
+ * @receiver [MutableList]<T> the list to remove from
+ * @param foundAction [Function1]<T, Boolean> the predicate
  */
 inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T, Boolean>) {
     val index = this.indexOfFirst(foundAction)
@@ -20,9 +20,9 @@ inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T
 
 /**
  *
- * @receiver MutableList<T>
- * @param findAction Function1<T, Boolean>
- * @return List<T>
+ * @receiver [MutableList]<T>
+ * @param findAction [Function1]<T, Boolean>
+ * @return [List]<T>
  */
 inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1<T, Boolean>): List<T> {
     val collection = this.filter(findAction)
@@ -32,9 +32,9 @@ inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1
 
 /**
  * replaces an item at the given position. iff the position is valid ofc.
- * @receiver MutableList<T>
+ * @receiver [MutableList]<T>
  * @param item T
- * @param position Int
+ * @param position [Int]
  */
 fun <T> MutableList<T>.replace(
         item: T,
@@ -48,7 +48,7 @@ fun <T> MutableList<T>.replace(
 
 /**
  * Replaces the given "toReplace" with the "WithItem" (if "toReplace" is found in this collection)
- * @receiver MutableList<T>
+ * @receiver [MutableList]<T>
  * @param toReplace T
  * @param withItem T
  */
@@ -58,9 +58,9 @@ fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
 
 /**
  * returns true iff all could be removed
- * @receiver MutableList<T>
- * @param intRange kotlin.ranges.IntRange
- * @return Boolean
+ * @receiver [MutableList]<T>
+ * @param intRange [IntRange]
+ * @return [Boolean]
  */
 fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
     //skip negative ranges and ranges that ends on 0.
@@ -80,8 +80,8 @@ fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
 
 /**
  * remove an item at a given place and returns that or if not possible returns the given value (or)
- * @receiver MutableList<T>
- * @param index Int
+ * @receiver [MutableList]<T>
+ * @param index [Int]
  * @param default T?
  * @return T?
  */
@@ -99,7 +99,7 @@ fun <T> MutableList<T>.removeAtOr(
 
 /**
  * Removes the first entry in this list and returns it (or null if no elements exists)
- * @receiver MutableList<T>
+ * @receiver [MutableList]<T>
  * @return T?
  */
 inline fun <T> MutableList<T>.removeFirst(): T? =
@@ -107,16 +107,31 @@ inline fun <T> MutableList<T>.removeFirst(): T? =
 
 /**
  * Removes the last element of this list and returns it (or null if there are no elements)
- * @receiver MutableList<T>
+ * @receiver [MutableList]<T>
  * @return T?
  */
 inline fun <T> MutableList<T>.removeLast(): T? =
         removeAtOr(lastIndex, null)
 
+/**
+ * Adds all the given elements starting at the given index
+ * if the index is out of bounds the function returns false
+ * @receiver [MutableList]<T> the list to add the given elements to
+ * @param index [Int] the index to insert at (must be in [0; size] of the receiver)
+ * @param elements [Iterable]<T> the elements to insert
+ * @return [Boolean] true if the add was a success, false if out of bounds
+ * @timecomplexity O(n)
+ */
 
 inline fun <T> MutableList<T>.addAll(
-        index: Int,
+        @IntLimit(from = 0) index: Int,
         elements: Iterable<T>
-) = elements.forEachIndexed { counter: Int, element: T ->
-    add(counter + index, element)
+): Boolean {
+    if (!isIndexValidForInsert(index)) {
+        return false
+    }
+    elements.forEachIndexed { counter: Int, element: T ->
+        add(counter + index, element)
+    }
+    return true
 }

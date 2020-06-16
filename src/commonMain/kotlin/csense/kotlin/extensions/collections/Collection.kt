@@ -2,10 +2,10 @@
 
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.Function1
-import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.*
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.contracts.*
 
 /**
  * Validates the given index for the given collection (so 0 until length)
@@ -104,12 +104,11 @@ fun <Element> Element.categorizeInto(
         allowItemInMultipleBuckets: Boolean = true
 ) {
     filters.forEachIndexed { index, filterAccepts ->
-        filterAccepts(this).onTrue {
+        filterAccepts(this).ifTrue {
             result[index].add(this)
             //should we stop finding filters that accepts this item ? if so then go on.
             allowItemInMultipleBuckets.ifFalse {
-                @Suppress("UnlabeledReturnInsideLambda")
-                return //break out.
+                return@categorizeInto //break out.
             }
         }
     }
@@ -170,7 +169,11 @@ inline fun Collection<Boolean>.isAllTrue() = all { it }
  * @receiver Collection<T>? the nullable collection
  * @return Boolean true if the collection is NOT null AND NOT empty
  */
+@OptIn(ExperimentalContracts::class)
 inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrEmpty != null)
+    }
     return this != null && this.isNotEmpty()
 }
 
@@ -179,7 +182,11 @@ inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
  * @receiver Collection<T>? the nullable collection
  * @return Boolean true if the collection is null or empty
  */
+@OptIn(ExperimentalContracts::class)
 inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEmpty != null)
+    }
     return this == null || this.isEmpty()
 }
 
@@ -236,5 +243,3 @@ inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>)
 @IntLimit(from = 0)
 inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
         this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
-
-

@@ -8,7 +8,7 @@ buildscript {
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.35"
+    ext.csenseVersionName = "0.0.36"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -26,6 +26,7 @@ plugins {
     id "maven-publish"
     id "com.jfrog.bintray" version "1.8.5"
     id "jacoco"
+    id 'kotlinx.benchmark' version "0.2.0-dev-5"
 }
 
 repositories {
@@ -179,5 +180,14 @@ publishing {
         jvm {
             artifact(javaDocJarTask)
         }
+    }
+}
+
+benchmark {
+    targets {
+        register("jvm") {
+            jmhVersion = "1.23" // available only for JVM compilations & Java source sets
+        }
+
     }
 }

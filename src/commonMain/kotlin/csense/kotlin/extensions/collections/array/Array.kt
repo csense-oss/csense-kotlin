@@ -7,6 +7,7 @@ import csense.kotlin.FunctionUnit
 import csense.kotlin.extensions.collections.array.generic.GenericArray
 import csense.kotlin.extensions.collections.array.generic.foreachDiscardResult
 import csense.kotlin.extensions.collections.generic.*
+import kotlin.contracts.*
 
 /**
  * A foreach, but not taking any result for the given receiver
@@ -43,7 +44,11 @@ inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>) =
  * @receiver Array<T>? the nullable Array
  * @return Boolean true if the Array is NOT null AND NOT empty
  */
+@OptIn(ExperimentalContracts::class)
 inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrEmpty != null)
+    }
     return this != null && this.isNotEmpty()
 }
 
@@ -52,6 +57,10 @@ inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
  * @receiver Array<T>? the nullable Array
  * @return Boolean true if the Array is null or empty
  */
+@OptIn(ExperimentalContracts::class)
 inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEmpty != null)
+    }
     return this == null || this.isEmpty()
 }

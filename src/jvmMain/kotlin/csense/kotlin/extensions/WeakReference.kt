@@ -50,29 +50,6 @@ inline fun <T> WeakReference<T>.useOr(
         ifNotAvailable: EmptyFunction
 ): Unit = get().useOr(ifAvailable, ifNotAvailable)
 
-
-/**
- * invokes the function ( wrapped in a weakReference) with the input, if the WeakReference is not pointing to null
- * @receiver WeakReference<FunctionUnit<T>?> the weak reference
- * @param input T the type of wrapped object
- */
-//TODO useInvoke
-@Deprecated("This will be renamed in the following version")
-inline fun <T> WeakReference<FunctionUnit<T>?>.use(input: T): Unit =
-        get()?.invoke(input).toUnit()
-
-/**
- * invokes the function ( wrapped in a weakReference) with the input, if the WeakReference is not pointing to null
- * @receiver WeakReference<Function1<T,R>?> the weak reference
- * @param input T the type of wrapped object
- * @return R? the result of the function, or null if the weak reference is null (or the return type could be nullable).
- */
-//TODO useInvoke
-@Deprecated("This will be renamed in the following version")
-inline fun <T, R> WeakReference<Function1<T, R>?>.use(input: T): R? =
-        get()?.invoke(input)
-
-
 /**
  * Creates a weak reference, if this is not null. otherwise returns null.
  * @receiver T? the potential not null object

@@ -39,7 +39,10 @@ inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
  * @param toIndex Int (exclusive)    ]fromIndex;size[
  * @return List<T>
  */
-inline fun <T> List<T>.subListSafe(@IntLimit(from = 0) fromIndex: Int, @IntLimit(from = 0) toIndex: Int): List<T> {
+inline fun <T> List<T>.subListSafe(
+        @IntLimit(from = 0) fromIndex: Int,
+        @IntLimit(from = 0) toIndex: Int
+): List<T> {
     return if (fromIndex >= 0 && toIndex <= size && fromIndex <= toIndex) {
         subList(fromIndex, toIndex)
     } else {
@@ -56,7 +59,9 @@ inline fun <T> List<T>.subListSafe(@IntLimit(from = 0) fromIndex: Int, @IntLimit
  * @param repeatBy Int
  * @return List<T>
  */
-inline fun <T> List<T>.repeat(@IntLimit(from = 0) repeatBy: Int): List<T> {
+inline fun <T> List<T>.repeat(
+        @IntLimit(from = 0) repeatBy: Int
+): List<T> {
     if (repeatBy.isNegativeOrZero) {
         return emptyList()
     }
@@ -104,7 +109,7 @@ inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: Int): Li
 inline fun <reified U> List<*>.forEachIsInstance(
         indices: IntProgression,
         action: Function1<U, *>
-) = indices.forEach {
+): Unit = indices.forEach {
     getOrNull(it)?.invokeIsInstance(action)
 }
 

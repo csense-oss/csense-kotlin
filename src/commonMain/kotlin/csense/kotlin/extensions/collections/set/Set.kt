@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.set
 
 import csense.kotlin.FunctionUnit
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 
 
@@ -75,3 +76,61 @@ inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): Pair<Set<T>, Set<T>
  */
 inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
         !contains(value)
+
+
+/**
+ * Tells if this set does contain any of the given data
+ * Also known as "disjoint"
+ * Optimized for other being a [Set]
+ * @receiver [Set]<E> the
+ * @param other [Iterable]<E>
+ * @return Boolean true if at least one element from other is in this set.
+ * @timecomplexity worstcase o(n * lg(n))
+ */
+inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
+    return if (other is Set) {
+        //if we have 2 sets, then the optimization is to iterate over the smallest
+        // set and call contains on the larger (linear is slower than logarithm)
+        val smallest: Set<E>
+        val largest: Set<E>
+        if (size > other.size) {
+            smallest = other
+            largest = this
+        } else {
+            smallest = this
+            largest = other
+        }
+        smallest.any { largest.contains(it) }
+    } else {
+        other.any { contains(it) }
+    }
+    
+}
+
+/**
+ * Tells if this set does not contain any of the given data
+ *
+ * Optimized for other being a [Set]
+ * @receiver [Set]<E>
+ * @param other [Iterable]<E>
+ * @return Boolean true if there are no disjoint elements
+ * @timecomplexity worstcase o(n * lg(n))
+ */
+inline fun <E> Set<E>.doesNotContainAny(other: Iterable<E>): Boolean {
+    return if (other is Set) {
+        //if we have 2 sets, then the optimization is to iterate over the smallest
+        // set and call contains on the larger (linear is slower than logarithm)
+        val smallest: Set<E>
+        val largest: Set<E>
+        if (size > other.size) {
+            smallest = other
+            largest = this
+        } else {
+            smallest = this
+            largest = other
+        }
+        smallest.none { largest.contains(it) }
+    } else {
+        other.none { contains(it) }
+    }
+}
