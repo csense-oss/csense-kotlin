@@ -8,8 +8,6 @@ import kotlin.contracts.*
  * @receiver T
  * @param block [ReceiverFunction0]<T, R>?
  * @return R?
- *
- * TODO potentially a better name..
  */
 fun <T, R> T.runIfNotNull(block: ReceiverFunction0<T, R>?): R? {
     return block?.let(::run)

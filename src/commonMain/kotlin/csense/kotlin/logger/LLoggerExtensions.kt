@@ -13,8 +13,8 @@ import csense.kotlin.Function4
  * @receiver LLogger the logger to add the formatter(s) to
  * @param formatter [Function4]<[LoggingLevel], [String], [String], [Throwable]?, [String]> formatter function
  */
-fun LLogger.usePrintAsLoggers(
-        formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
+inline fun LLogger.usePrintAsLoggers(
+        crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
             "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
         }
 ) {

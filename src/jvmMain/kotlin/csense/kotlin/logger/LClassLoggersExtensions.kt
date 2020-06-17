@@ -2,8 +2,6 @@
 
 package csense.kotlin.logger
 
-//TODO find a way to test the L instance in a test thread safe way.until just suppress.
-
 /**
  * logs the given message and or the exception, using the class's name as the tag
  *
@@ -63,7 +61,7 @@ inline fun logCurrentStackTraceDebug(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to warning
@@ -75,7 +73,7 @@ inline fun logCurrentStackTraceWarning(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to error
@@ -87,7 +85,7 @@ inline fun logCurrentStackTraceError(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
 
 
 /**
@@ -100,7 +98,7 @@ inline fun logCurrentStackTraceProd(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to debug

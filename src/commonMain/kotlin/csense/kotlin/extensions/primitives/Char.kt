@@ -22,9 +22,9 @@ inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
  * @return [Byte]?
  */
 @ByteLimit(from = 0, to = 9)
-fun Char.asDigit(): Byte? {
-    val diff = toByte() - charZeroAsByte
-    if (diff.isNegative || diff > numberCharsCount) {
+inline fun Char.asDigit(): Byte? {
+    val diff = toByte() - CharExtensions.charZeroAsByte
+    if (diff.isNegative || diff > CharExtensions.numberCharsCount) {
         return null
     }
     return diff.toByte()
@@ -37,14 +37,14 @@ fun Char.asDigit(): Byte? {
  * @receiver [Char]
  * @return [Byte]?
  */
-fun Char.asHexDigit(): Byte? {
+inline fun Char.asHexDigit(): Byte? {
     val asNumber = asDigit()
     if (asNumber != null) {
         return asNumber
     }
     //then its either [A-F] or not a hex
-    val thisByte = toLowerCase().toByte() - charAAsByte
-    if (thisByte.isNegative || thisByte > hexCharsCount) {
+    val thisByte = toLowerCase().toByte() - CharExtensions.charAAsByte
+    if (thisByte.isNegative || thisByte > CharExtensions.hexCharsCount) {
         return null
     }
     
@@ -65,18 +65,6 @@ inline fun hexCharsToValue(first: Char, second: Char): Short? {
 }
 
 
-private const val charZeroAsByte = '0'.toByte()
-private const val charAAsByte = 'a'.toByte()
-
-/**
- * The length (0 indexed) of numbers ( 0 until 9)
- */
-const val numberCharsCount: Int = 9
-
-/**
- * The length (0 indexed) of chars that represents hex numbers ( a - f)
- */
-const val hexCharsCount: Int = 5
 //endregion
 
 /**
@@ -84,7 +72,7 @@ const val hexCharsCount: Int = 5
  * for native use this implementation
  *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect fun Char.isUpperCaseLetter(): Boolean
+expect inline fun Char.isUpperCaseLetter(): Boolean
 //get() = toUpperCase().equals(this, false)
 
 /**
@@ -92,7 +80,7 @@ expect fun Char.isUpperCaseLetter(): Boolean
  * for native use this implementation
  *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect fun Char.isLowerCaseLetter(): Boolean
+expect inline fun Char.isLowerCaseLetter(): Boolean
 //get() = toLowerCase().equals(this, false)
 
 /**
@@ -108,7 +96,26 @@ inline fun Char.isDigit(): Boolean =
  * @receiver [Char] the char to test
  * @return [Boolean] true if it is not a digit, false if it is
  */
-fun Char.isNotDigit(): Boolean =
+inline fun Char.isNotDigit(): Boolean =
         !isDigit()
 
+
+inline class CharExtensions(val char: Char) {
+    companion object {
+        
+        const val charZeroAsByte = '0'.toByte()
+        
+        const val charAAsByte = 'a'.toByte()
+        
+        /**
+         * The length (0 indexed) of numbers ( 0 until 9)
+         */
+        const val numberCharsCount: Int = 9
+        
+        /**
+         * The length (0 indexed) of chars that represents hex numbers ( a - f)
+         */
+        const val hexCharsCount: Int = 5
+    }
+}
 //validate whenever "digit" in other text systems are more than "0-9" (eg say Chinese)

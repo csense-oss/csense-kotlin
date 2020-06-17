@@ -59,6 +59,6 @@ suspend fun <T, U> Iterable<T>.mapAsyncAwait(
  * Since this is missing from Standard Library.
  * @receiver [Array]<out [Job]>
  */
-suspend fun Array<out Job>.joinAll() {
+suspend inline fun Array<out Job>.joinAll() {
     forEach { it.join() }
 }

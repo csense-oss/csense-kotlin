@@ -14,7 +14,7 @@ import kotlin.contracts.*
  * @return [Boolean]
  */
 
-inline fun Collection<*>.isIndexValid(index: Int) =
+inline fun Collection<*>.isIndexValid(index: Int): Boolean =
         index >= 0 && index < count()
 
 /**
@@ -24,7 +24,7 @@ inline fun Collection<*>.isIndexValid(index: Int) =
  * @return [Boolean]
  */
 
-inline fun Collection<*>.isIndexValidForInsert(index: Int) =
+inline fun Collection<*>.isIndexValidForInsert(index: Int): Boolean =
         index >= 0 && index <= count()
 
 /**
@@ -98,7 +98,7 @@ inline fun <Element> Collection<Element>.categorizeInto(
  * @param allowItemInMultipleBuckets [Boolean] if true, will allow multiple filters to look at this element,
  * if false then it will stop once a filter accepts it.
  */
-fun <Element> Element.categorizeInto(
+inline fun <Element> Element.categorizeInto(
         result: ArrayList<MutableList<Element>>,
         filters: Array<out Function1<Element, Boolean>>,
         allowItemInMultipleBuckets: Boolean = true
@@ -151,7 +151,7 @@ inline fun <T, K> Collection<T>.categorize(
  * @param shouldReverse [Boolean] if true the result will be reversed
  * @return [Collection]<T>
  */
-inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReverse) {
+inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean): Collection<T> = if (shouldReverse) {
     reversed()
 } else {
     this
@@ -162,7 +162,7 @@ inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReve
  * @receiver [Collection]<[Boolean]>
  * @return [Boolean] true if all is true, false otherwise. for empty its "true"
  */
-inline fun Collection<Boolean>.isAllTrue() = all { it }
+inline fun Collection<Boolean>.isAllTrue(): Boolean = all { it }
 
 /**
  * Tells if this collection is NOT null And NOT empty (size > 0)

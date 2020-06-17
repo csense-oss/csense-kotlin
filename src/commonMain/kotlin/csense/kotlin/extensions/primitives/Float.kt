@@ -15,7 +15,6 @@ import kotlin.math.absoluteValue
  * since a negative margin would always yield false
  * @return [Boolean]
  */
-
 inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolean {
     val lower = value - margin.positive
     val upper = value + margin.positive
@@ -29,7 +28,8 @@ inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolean {
  * @param margin [Float]
  * @return [Boolean]
  */
-inline fun Float.equals(value: Float, margin: Float) = equalsWithin(value, margin)
+inline fun Float.equals(value: Float, margin: Float): Boolean =
+        equalsWithin(value, margin)
 
 /**
  * if this [Float] is 0 within a margin of 0.1 akk
@@ -45,7 +45,8 @@ inline val Float.isZero: Boolean
  * @param margin [Float]
  * @return [Boolean]
  */
-inline fun Float.isZero(margin: Float): Boolean = equalsWithin(0.0f, margin)
+inline fun Float.isZero(margin: Float): Boolean =
+        equalsWithin(0.0f, margin)
 
 /**
  * Gets this [Float] negative, if it is already negative, returns that.

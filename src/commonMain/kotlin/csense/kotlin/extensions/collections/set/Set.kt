@@ -2,8 +2,7 @@
 
 package csense.kotlin.extensions.collections.set
 
-import csense.kotlin.FunctionUnit
-import csense.kotlin.extensions.*
+import csense.kotlin.*
 import csense.kotlin.extensions.collections.generic.*
 
 
@@ -14,7 +13,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @param action [Function2IndexedUnit]<T, T>
  * @timecomplexity O(N)
  */
-inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>) =
+inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
         GenericCollectionExtensions.forEach2Indexed(
                 size,
                 ::elementAt,
@@ -27,7 +26,7 @@ inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>) =
  * @param action [Function2Unit]<T, T>
  * @timecomplexity O(N)
  */
-inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>) =
+inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
         GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 
 /**
@@ -36,7 +35,7 @@ inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>) =
  * @param action [FunctionUnit]<T>
  * @timecomplexity O(N)
  */
-inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
+inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>): Unit =
         GenericCollectionExtensions.forEachBackwards(size, this::elementAt, action)
 //endregion
 
@@ -50,7 +49,7 @@ inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>) =
  * @receiver [Set]<T>
  * @param otherSet [Set]<T>
  * @return [SymmetricDifferenceResult]<T>
- * The Timecomplexity should be around "O(N)" Where N is the largest size of the sets.
+ * The time complexity should be around "O(N)" Where N is the largest size of the sets.
  * @timecomplexity O(N)
  */
 inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDifferenceResult<T> {
@@ -94,7 +93,7 @@ inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
  * @receiver [Set]<E> the
  * @param other [Iterable]<E>
  * @return [Boolean] true if at least one element from other is in this set.
- * @timecomplexity worstcase o(n * lg(n))
+ * @timecomplexity worst case o(n * lg(n))
  */
 inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
     return if (other is Set) {
@@ -123,7 +122,7 @@ inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
  * @receiver [Set]<E>
  * @param other [Iterable]<E>
  * @return [Boolean] true if there are no disjoint elements
- * @timecomplexity worstcase o(n * lg(n))
+ * @timecomplexity worst case o(n * lg(n))
  */
 inline fun <E> Set<E>.doesNotContainAny(other: Iterable<E>): Boolean {
     return if (other is Set) {

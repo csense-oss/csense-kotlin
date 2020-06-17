@@ -499,6 +499,6 @@ fun Days.toHours(): Hours =
 /**
  * Sleeps (coroutine) this time unit
  */
-suspend fun TimeUnit.delay() {
+suspend inline fun TimeUnit.delay() {
     delay(this.toMilliSeconds().value)
 }

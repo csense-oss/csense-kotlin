@@ -45,7 +45,7 @@ inline fun Char.isNotLetter(): Boolean =
  * @receiver [Char]
  * @return [Boolean]
  */
-actual fun Char.isUpperCaseLetter(): Boolean {
+actual inline fun Char.isUpperCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }
@@ -59,7 +59,7 @@ actual fun Char.isUpperCaseLetter(): Boolean {
  * @receiver [Char]
  * @return [Boolean]
  */
-actual fun Char.isLowerCaseLetter(): Boolean {
+actual inline fun Char.isLowerCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }

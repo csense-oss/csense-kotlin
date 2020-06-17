@@ -227,7 +227,7 @@ inline fun <I1, I2, I3, O>
         firstElement: I1,
         secondElement: I2,
         thirdElement: I3
-) =
+): Unit =
         forEach {
             it(firstElement,
                     secondElement,
@@ -249,7 +249,7 @@ inline fun <I1, I2, I3, I4, O>
         secondElement: I2,
         thirdElement: I3,
         forthElement: I4
-) =
+): Unit =
         forEach {
             it(firstElement,
                     secondElement,
@@ -274,7 +274,7 @@ inline fun <I1, I2, I3, I4, I5, O>
         thirdElement: I3,
         forthElement: I4,
         fifthElement: I5
-) =
+): Unit =
         forEach {
             it(firstElement,
                     secondElement,
@@ -302,7 +302,7 @@ inline fun <I1, I2, I3, I4, I5, I6, O>
         forthElement: I4,
         fifthElement: I5,
         sixthElement: I6
-) =
+): Unit =
         forEach {
             it(firstElement,
                     secondElement,
@@ -345,7 +345,7 @@ inline fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>): Coll
  * @property trueForPredicate [List]<E> the elements considered "true" / included
  * @property falseForPredicate [List]<E> the elements considered "false" / not included
  */
-data class CollectionPartition<out E>(
+class CollectionPartition<out E>(
         val trueForPredicate: List<E>,
         val falseForPredicate: List<E>
 )
@@ -357,7 +357,7 @@ data class CollectionPartition<out E>(
  * @receiver [List]<T>
  * @param action [Function2IndexedUnit]<T, T>
  */
-inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>) =
+inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
         GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
@@ -365,7 +365,7 @@ inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>) =
  * @receiver [List]<T>
  * @param action [Function2Unit]<T, T>
  */
-inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>) =
+inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
@@ -373,7 +373,7 @@ inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>) =
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>
  */
-inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>) =
+inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
 
@@ -414,7 +414,7 @@ inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()
  */
 inline fun <reified U> Iterable<*>.forEachIsInstance(
         action: kotlin.Function1<U, *>
-) = forEach {
+): Unit = forEach {
     it.invokeIsInstance(action)
 }
 

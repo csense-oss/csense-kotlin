@@ -341,7 +341,7 @@ inline fun String.skipStartsWith(
  * @receiver [String]
  * @param action (first: [Char], second: [Char]) -> Unit
  */
-inline fun String.foreach2(action: Function2Unit<Char, Char>) =
+inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
         GenericCollectionExtensions.forEach2(length, this::get, action)
 
 /**
@@ -349,7 +349,7 @@ inline fun String.foreach2(action: Function2Unit<Char, Char>) =
  * @receiver [String]
  * @param action (first: [Char], second: [Char]) -> Unit
  */
-inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>) =
+inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
         GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
 //endregion
 

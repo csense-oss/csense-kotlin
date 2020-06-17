@@ -81,7 +81,7 @@ inline fun <T> Boolean.mapLazy(
  * @param mapper [Function1]<T, U>
  * @return [Set]<U>
  */
-fun <T, U> Iterable<T>.mapToSet(
+inline fun <T, U> Iterable<T>.mapToSet(
         mapper: Function1<T, U>
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 

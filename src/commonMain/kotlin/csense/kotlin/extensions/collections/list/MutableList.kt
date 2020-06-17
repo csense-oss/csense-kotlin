@@ -36,7 +36,7 @@ inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1
  * @param item T
  * @param position [Int]
  */
-fun <T> MutableList<T>.replace(
+inline fun <T> MutableList<T>.replace(
         item: T,
         @IntLimit(from = 0) position: Int
 ) {
@@ -52,7 +52,7 @@ fun <T> MutableList<T>.replace(
  * @param toReplace T
  * @param withItem T
  */
-fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
+inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
         replace(withItem, indexOf(toReplace))
 
 
@@ -62,7 +62,7 @@ fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
  * @param intRange [IntRange]
  * @return [Boolean]
  */
-fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
+inline fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
     //skip negative ranges and ranges that ends on 0.
     // and Ranges that are not inverted ( last is less than first)
     if (intRange.first.isNegative || intRange.last.isNegative || intRange.last < intRange.first) {
@@ -85,7 +85,7 @@ fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
  * @param default T?
  * @return T?
  */
-fun <T> MutableList<T>.removeAtOr(
+inline fun <T> MutableList<T>.removeAtOr(
         @IntLimit(from = 0) index: Int,
         default: T?
 ): T? {
