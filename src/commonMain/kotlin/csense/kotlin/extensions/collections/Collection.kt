@@ -103,7 +103,7 @@ inline fun <Element> Element.categorizeInto(
         filters: Array<out Function1<Element, Boolean>>,
         allowItemInMultipleBuckets: Boolean = true
 ) {
-    filters.forEachIndexed { index, filterAccepts ->
+    filters.forEachIndexed { index: @IntLimit(from = 0) Int, filterAccepts: (Element) -> Boolean ->
         filterAccepts(this).ifTrue {
             result[index].add(this)
             //should we stop finding filters that accepts this item ? if so then go on.

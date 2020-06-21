@@ -8,7 +8,7 @@ buildscript {
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.0"
+    ext.csenseVersionName = "0.0.40"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -38,6 +38,7 @@ group project.csenseGroupId
 version project.csenseVersionName
 
 kotlin {
+//    explicitApi = 'strict' //for 1.4
     jvm()
     js {
         browser {

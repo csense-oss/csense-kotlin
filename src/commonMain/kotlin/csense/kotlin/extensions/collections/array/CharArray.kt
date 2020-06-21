@@ -34,4 +34,5 @@ inline fun CharArray.forEach2(action: Function2Unit<Char, Char>) =
  */
 inline fun CharArray.forEachBackwards(action: FunctionUnit<Char>) =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+
 //endregion

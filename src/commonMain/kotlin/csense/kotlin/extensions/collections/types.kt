@@ -6,4 +6,4 @@ import csense.kotlin.annotations.numbers.*
 //@IntLimit(from = 0)
 typealias GenericGetterIndexMethod<T> = (index: @IntLimit(from = 0) Int) -> T
 
-typealias GenericSetterIndexMethod<T> = (index: Int, item: T) -> Unit
+typealias GenericSetterIndexMethod<T> = (index: @IntLimit(from = 0) Int, item: T) -> Unit

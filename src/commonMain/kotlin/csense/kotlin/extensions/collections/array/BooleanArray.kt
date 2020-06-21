@@ -12,7 +12,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver [BooleanArray]
  * @param receiver [Function1]<[Boolean], U>
  */
-inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>): Unit =
+inline fun <U> BooleanArray.forEachDiscard(receiver: Function1<Boolean, U>):Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 

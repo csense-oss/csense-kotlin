@@ -2,16 +2,14 @@
 
 package csense.kotlin.extensions.collections.generic
 
-import csense.kotlin.Function2
-import csense.kotlin.Function3
-import csense.kotlin.FunctionUnit
-import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.collections.GenericGetterIndexMethod
-import csense.kotlin.extensions.primitives.isOdd
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.primitives.*
 
 
 typealias Function2Unit<T, U> = (first: T, second: U) -> Unit
-typealias Function2IndexedUnit<T, U> = (index: Int, first: T, second: U) -> Unit
+typealias Function2IndexedUnit<T, U> = (index: @IntLimit(from = 0) Int, first: T, second: U) -> Unit
 
 
 //region backwards

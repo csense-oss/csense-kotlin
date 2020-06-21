@@ -16,7 +16,7 @@ import csense.kotlin.annotations.numbers.IntLimit
  */
 inline fun <Element> Generic.forEach(
         @IntLimit(from = 0) length: Int,
-        retriever: Function1<Int, Element>,
+        retriever: Function1<@IntLimit(from = 0) Int, Element>,
         @IntLimit(from = 0) startIndex: Int = 0,
         onEach: Function0<Element>
 ) {
@@ -27,7 +27,7 @@ inline fun <Element> Generic.forEach(
 
 inline fun <ElementIn, ElementOut> Generic.map(
         @IntLimit(from = 0) length: Int,
-        retriever: Function1<Int, ElementIn>,
+        retriever: Function1<@IntLimit(from = 0)Int, ElementIn>,
         @IntLimit(from = 0) startIndex: Int = 0,
         mapper: Function1<ElementIn, ElementOut>
 ): List<ElementOut> {
@@ -42,7 +42,7 @@ inline fun <ElementIn, ElementOut> Generic.map(
 
 inline fun <Element> Generic.filter(
         @IntLimit(from = 0) length: Int,
-        retriever: Function1<Int, Element>,
+        retriever: Function1<@IntLimit(from = 0) Int, Element>,
         @IntLimit(from = 0) startIndex: Int = 0,
         filterFunction: Function1<Element, Boolean>
 ): List<Element> {
