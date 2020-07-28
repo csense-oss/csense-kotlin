@@ -129,7 +129,7 @@ inline fun <T> Byte.toChars(
  */
 
 inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
-    String.createFromChars(charArrayOf(upperChar, lowerChar))
+    charArrayOf(upperChar, lowerChar).concatToString()
 }
 
 

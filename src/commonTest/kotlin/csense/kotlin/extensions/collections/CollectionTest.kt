@@ -2,10 +2,9 @@
 
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.extensions.primitives.asDigit
-import csense.kotlin.extensions.primitives.forEach
+import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class CollectionTest {
     
@@ -392,6 +391,38 @@ class CollectionTest {
             lst.lastIndexOfOrNull("").assertNull()
             lst.lastIndexOfOrNull("c").assertNotNullAndEquals(3)
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(2)
+        }
+    }
+
+    
+    class CollectionTNullOnEmpty {
+        @Test
+        fun empty() {
+            listOf<String>()
+                    .nullOnEmpty()
+                    .assertNull("as the name suggest, should be null on empty")
+        }
+        
+        @Test
+        fun single() {
+            listOf("a")
+                    .nullOnEmpty()
+                    .assertNotNullApply("should not be null and have a single element that is 'a'") {
+                        assertSize(1)
+                        first().assert("a")
+                    }
+        }
+        
+        @Test
+        fun multiple() {
+            listOf("1","b","3")
+                    .nullOnEmpty()
+                    .assertNotNullApply("should not be null and have a 3 elements") {
+                        assertSize(3)
+                        this.elementAt(0).assert("1")
+                        this.elementAt(1).assert("b")
+                        this.elementAt(2).assert("3")
+                    }
         }
     }
 }

@@ -4,16 +4,6 @@ import csense.kotlin.*
 import kotlin.contracts.*
 
 /**
- * Like run except it works for nullable blocks; iff null does nothing
- * @receiver T
- * @param block [ReceiverFunction0]<T, R>?
- * @return R?
- */
-fun <T, R> T.runIfNotNull(block: ReceiverFunction0<T, R>?): R? {
-    return block?.let(::run)
-}
-
-/**
  * Like also, but for empty functions / lambdas.
  * @receiver T
  * @param block [EmptyFunction]

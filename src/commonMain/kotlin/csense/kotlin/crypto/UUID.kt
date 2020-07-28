@@ -1,8 +1,7 @@
 package csense.kotlin.crypto
 
 import csense.kotlin.extensions.collections.array.toHexString
-import csense.kotlin.extensions.primitives.StringInserts
-import csense.kotlin.extensions.primitives.insertInto
+import csense.kotlin.specificExtensions.string.*
 import kotlin.experimental.and
 import kotlin.experimental.or
 import kotlin.random.Random
@@ -90,11 +89,11 @@ object UUID4 {
 
         val hexString = randomData.toHexString(false, shouldBeUppercase)
         return if (shouldHaveDashes) {
-            return hexString.insertInto(
-                    StringInserts("-", 8),
-                    StringInserts("-", 12),
-                    StringInserts("-", 16),
-                    StringInserts("-", 20)) ?: hexString
+            return hexString.mpp.insertInto(
+                    StringMpp.StringInserts("-", 8),
+                    StringMpp.StringInserts("-", 12),
+                    StringMpp.StringInserts("-", 16),
+                    StringMpp.StringInserts("-", 20)) ?: hexString
         } else {
             hexString
         }

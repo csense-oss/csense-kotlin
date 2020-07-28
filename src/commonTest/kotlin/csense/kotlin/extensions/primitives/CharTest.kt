@@ -82,4 +82,38 @@ class CharTest {
         '8'.isDigit().assertTrue()
         '9'.isDigit().assertTrue()
     }
+
+
+    @Test
+    fun charIsLowerCaseLetter() {
+        ' '.isLowerCaseLetter().assertFalse()
+        'a'.isLowerCaseLetter().assertTrue()
+        'Q'.isLowerCaseLetter().assertFalse()
+        '1'.isLowerCaseLetter().assertFalse()
+        '?'.isLowerCaseLetter().assertFalse()
+        ''.isLowerCaseLetter().assertFalse()
+        '\n'.isLowerCaseLetter().assertFalse()
+    }
+
+    @Test
+    fun charIsUpperCaseLetter() {
+        ' '.isUpperCaseLetter().assertFalse()
+        'a'.isUpperCaseLetter().assertFalse()
+        'Q'.isUpperCaseLetter().assertTrue()
+        '1'.isUpperCaseLetter().assertFalse()
+        '?'.isUpperCaseLetter().assertFalse()
+        ''.isUpperCaseLetter().assertFalse()
+        '\n'.isUpperCaseLetter().assertFalse()
+    }
+
+    @Test
+    fun charIsNotDigit() {
+        ' '.isNotDigit().assertTrue()
+        'a'.isNotDigit().assertTrue()
+        'Q'.isNotDigit().assertTrue()
+        '1'.isNotDigit().assertFalse()
+        '?'.isNotDigit().assertTrue()
+        ''.isNotDigit().assertTrue()
+        '\n'.isNotDigit().assertTrue()
+    }
 }

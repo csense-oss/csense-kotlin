@@ -7,119 +7,48 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 
-//region File related string apis
-/**
- *
- * @receiver [String]
- * @return [String]?
- */
-inline fun String.fileExtension(): String? {
-    val fileExtension = substringAfterLast(".", "")
-    return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
-}
-
-
-/**
- * Tries to remove any kind of file extensions.
- * @receiver [String]
- */
-inline fun String.removeFileExtension(): String = substringBeforeLast(".")
-//endregion
-
-//region Creation and insertion
-/**
- *
- * @param charArray [CharArray]
- * @return [String]
- */
-inline fun String.Companion.createFromChars(charArray: CharArray): String =
-        StringBuilder().appendContentOf(charArray).toString()
-
-
-/**
- * A class representing an insert to be made into a string
- * @property toInsert String the string to insert
- * @property atIndex Int at what raw index in the string
- */
-data class StringInserts(
-        val toInsert: String,
-        @IntLimit(from = 0) val atIndex: Int
-)
-
-/**
- *
- * @receiver [String]
- * @param toInsert [Array]<out [StringInserts]>
- * @return [String]? null if any index is outside of bounds
- */
-fun String.insertInto(vararg toInsert: StringInserts): String? {
-    val size = count()
-    
-    val sb = StringBuilder()
-    toInsert.sortBy { it.atIndex } //make sure its sorted, such that we are never run into any issues.
-    val lastInsertIndex = toInsert.lastOrNull()?.atIndex
-    if (lastInsertIndex != null && lastInsertIndex > size) {
-        return null
-    }
-    //all indexes are guaranteed to be in this string. or either the test or sort does not work.
-    var currentToIndex = 0
-    var currentLastIndex: Int
-    toInsert.forEach {
-        currentLastIndex = currentToIndex
-        currentToIndex = it.atIndex
-        sb.append(this.subSequence(currentLastIndex, currentToIndex),
-                it.toInsert)
-    }
-    if (currentToIndex < size) {
-        sb.append(this.substring(currentToIndex))
-    }
-    return sb.toString()
-}
-//endregion
-
 //region Searching / find
 /**
- *
- * @receiver [String]
- * @param subString [String]
+ * Finds all indices of the given substring
+ * @receiver [String] The string we are searching in
+ * @param subString [String] the substring we are searching for
  * @param searchByWord [Boolean]
- * @param ignoreCase [Boolean]
- * @return [Set]<[Int]>
+ * @param ignoreCase [Boolean] if we should ignore casing
+ * @return [Set]<[Int]> a set of indices
  */
-
 inline fun String.findAllOf(
         subString: String,
         searchByWord: Boolean,
         ignoreCase: Boolean = false
-): Set<Int> {
-    return forEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
+): Set<@IntLimit(from = 0) Int> {
+    return mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
-
+//TODO consider moving..
 /**
- *
- * @receiver [String]
- * @param subString [String]
+ * Maps each matching occurrence of a substring
+ * @receiver [String] the string to search in
+ * @param subString [String] the string we are searching for
  * @param searchByWord [Boolean]
- * @param ignoreCase [Boolean]
- * @param mapper [Function1]<[Int], U>
- * @return [List]<U>
+ * @param ignoreCase [Boolean] whenver we should ignore casing
+ * @param mapper [Function1]<[Int], U> Maps the given index to a given value
+ * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
-inline fun <U> String.forEachMatching(
+inline fun <U> String.mapEachMatching(
         subString: String,
         searchByWord: Boolean,
         ignoreCase: Boolean = false,
-        crossinline mapper: Function1<Int, U>
+        mapper: Function1<Int, U>
 ): List<U> {
     if (subString.isEmpty() || this.isEmpty()) {
         return emptyList()
     }
     var currentIndex = 0
-    val appendLenght = searchByWord.map(subString.length, 1)
+    val appendLength = searchByWord.map(subString.length, 1)
     var next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
     val result = mutableListOf<U>()
     while (next != null) {
         result.add(mapper(next))
-        currentIndex = next + appendLenght
+        currentIndex = next + appendLength
         next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
     }
     return result
@@ -210,11 +139,12 @@ inline fun String.endsWithAny(
         collection.any { this.endsWith(it, ignoreCase) }
 
 /**
- * Returns whenever this string ends with at least one of the given collection
- * @receiver C
- * @param strings [Array]<out C>
+ * Returns whenever this string ends with at least one of the given Array
+ * @receiver [String] the string to ask if it ends with any of [strings]
+ * @param strings [Array]<out C> the strings we want to tell if this ends with
  * @param ignoreCase [Boolean]
  * @return [Boolean]
+ * @timecomplexity o(n*m) where n is this strings length and m is the size of all the any strings
  */
 inline fun String.endsWithAny(
         vararg strings: String,
@@ -249,41 +179,7 @@ inline fun String.startsWithAny(
         collection.any { this.startsWith(it, ignoreCase) }
 //endregion
 
-//region Modification / computing
-/**
- * Limits this [String] to the given number of characters
- * @receiver [String] the [String] to limit
- * @param maxLength [Int] the max length
- * @return [String] a [String] at max the given length
- *
- * if [maxLength] is zero or negative, an empty string is returned
- */
-inline fun String.limitTo(@IntLimit(from = 0) maxLength: Int): String {
-    if (maxLength.isNegativeOrZero) {
-        return ""
-    }
-    return substring(0, minOf(length, maxLength))
-}
 
-
-/**
- * Wraps this string with the given prefix and postfix strings.
- * @receiver [String]
- * @param prefix [String]
- * @param postFix [String]
- * @return [String] the combined result (prefix + this + postfix)
- */
-inline fun String.wrapIn(prefix: String, postFix: String): String =
-        prefix + this + postFix
-
-/**
- * As the name implies wraps the given receiver into a pair of quotes at each end
- * @receiver [String]
- * @return [String] the wrapped string.
- */
-inline fun String.wrapInQuotes(): String = wrapIn("\"", "\"")
-
-//endregion
 
 //region Action on state
 /**
@@ -380,13 +276,26 @@ inline fun String.fromHexStringToByteArray(): ShortArray? {
 //region Does not starts with
 //TODO comment.
 
-
+/**
+ * Tells if this string does not start with the given [prefix]
+ * @receiver [String] the string to test
+ * @param prefix [CharSequence] the value we want to know if the receiver starts with or not
+ * @param ignoreCase [Boolean] whenever we should ignore casing
+ * @return [Boolean] true if this has a different start from [prefix] false if not
+ */
 inline fun String.doesNotStartsWith(
         prefix: CharSequence,
         ignoreCase: Boolean = false
 ): Boolean =
         !startsWith(prefix, ignoreCase)
 
+/**
+ * Tells if this string does not start with the given [prefix]
+ * @receiver [String] the string to test
+ * @param prefix [Char] the [Char] we want to know if the receiver starts with or not
+ * @param ignoreCase [Boolean] whenever we should ignore casing
+ * @return [Boolean] true if this has a different start from [prefix] false if not
+ */
 inline fun String.doesNotStartsWith(
         prefix: Char,
         ignoreCase: Boolean = false
@@ -394,12 +303,26 @@ inline fun String.doesNotStartsWith(
         !startsWith(prefix, ignoreCase)
 
 
+/**
+ * Tells if this string starts with something different than the given or not
+ * @receiver [String] the string to test
+ * @param subStrings [Array]<out [String]> the items to test if the receiver starts with or not
+ * @param ignoreCase [Boolean] whenever we should ignore casing
+ * @return [Boolean] true if this string starts with something different from any of the given [subStrings]
+ */
 inline fun String.doesNotStartsWithAny(
-        vararg items: String,
+        vararg subStrings: String,
         ignoreCase: Boolean = false
 ): Boolean =
-        !startsWithAny(*items, ignoreCase = ignoreCase)
+        !startsWithAny(*subStrings, ignoreCase = ignoreCase)
 
+/**
+ * Tells if this string starts with something different than the given or not
+ * @receiver [String] the string to test
+ * @param items [Collection]<[String]> the items to test if the receiver starts with or not
+ * @param ignoreCase [Boolean] whenever we should ignore casing
+ * @return [Boolean] true if this string starts with something different from any of the given [items]
+ */
 inline fun String.doesNotStartsWithAny(
         items: Collection<String>,
         ignoreCase: Boolean = false
@@ -411,29 +334,30 @@ inline fun String.doesNotStartsWithAny(
 
 
 //region does not ends with
+/**
+ * Tells if this string ends with something different than the given [sequence] or not
+ * @receiver [String]
+ * @param sequence [String]
+ * @param ignoreCase [Boolean]
+ * @return [Boolean]
+ */
 inline fun String.doesNotEndsWith(
-        item: String,
+        sequence: CharSequence,
         ignoreCase: Boolean = false
 ): Boolean =
-        !endsWith(item, ignoreCase)
+        !endsWith(sequence, ignoreCase)
 
 inline fun String.doesNotEndsWith(
-        item: CharSequence,
+        char: Char,
         ignoreCase: Boolean = false
 ): Boolean =
-        !endsWith(item, ignoreCase)
-
-inline fun String.doesNotEndsWith(
-        item: Char,
-        ignoreCase: Boolean = false
-): Boolean =
-        !endsWith(item, ignoreCase)
+        !endsWith(char, ignoreCase)
 
 inline fun String.doesNotEndsWithAny(
-        vararg items: String,
+        vararg subStrings: String,
         ignoreCase: Boolean = false
 ): Boolean =
-        !endsWithAny(*items, ignoreCase = ignoreCase)
+        !endsWithAny(*subStrings, ignoreCase = ignoreCase)
 
 inline fun String.doesNotEndsWithAny(
         items: Collection<String>,
@@ -449,6 +373,8 @@ inline fun String.doesNotEndsWithAny(
  * @param strings [Array]<out [String]>
  * @param ignoreCase [Boolean]  `true` to ignore character case when comparing strings. By default `false`.
  * @return [Boolean]
+ * @timecomplexity O(n*m) where n is the length of this string, and m is the size of strings (times the average length)
+ * This will be improved in later versions to use a better algorithm for larger data sets
  */
 inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean = false): Boolean = strings.any {
     this.contains(it, ignoreCase)
@@ -460,8 +386,13 @@ inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean = fals
  * @param collection [Iterable]<[String]>
  * @param ignoreCase [Boolean] `true` to ignore character case when comparing strings. By default `false`.
  * @return [Boolean]
+ * @timecomplexity O(n*m) where n is the length of this string, and m is the size of strings (times the average length)
+ * This will be improved in later versions to use a better algorithm for larger data sets
  */
-inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean = false): Boolean = collection.any {
+inline fun String.containsAny(
+        collection: Iterable<String>,
+        ignoreCase: Boolean = false
+): Boolean = collection.any {
     this.contains(it, ignoreCase)
 }
 //endregion
@@ -472,15 +403,12 @@ inline fun String.containsAny(collection: Iterable<String>, ignoreCase: Boolean 
  * @return [Boolean] true if all chars are upper case (if empty, returns false)
  * @timecomplexity O(n)
  */
-inline fun String.isOnlyUpperCaseLetters(IgnoreNoneLetters: Boolean = false): Boolean {
-    if (isEmpty()) {
-        return false
-    }
-    return if (IgnoreNoneLetters) {
-        none(Char::isLowerCaseLetter)
-    } else {
-        all(Char::isUpperCaseLetter)
-    }
+inline fun String.isOnlyUpperCaseLetters(
+        IgnoreNoneLetters: Boolean = false
+): Boolean = when {
+    isEmpty() -> false
+    IgnoreNoneLetters -> none(Char::isLowerCaseLetter)
+    else -> all(Char::isUpperCaseLetter)
 }
 
 
@@ -490,14 +418,32 @@ inline fun String.isOnlyUpperCaseLetters(IgnoreNoneLetters: Boolean = false): Bo
  * @return [Boolean] true if either the string is empty or all chars are lowercase
  * @timecomplexity O(n)
  */
-inline fun String.isOnlyLowerCaseLetters(IgnoreNoneLetters: Boolean = false): Boolean {
-    if (isEmpty()) {
-        return false
-    }
-    return if (IgnoreNoneLetters) {
-        none(Char::isUpperCaseLetter)
-    } else {
-        all(Char::isLowerCaseLetter)
-    }
+inline fun String.isOnlyLowerCaseLetters(
+        IgnoreNoneLetters: Boolean = false
+): Boolean = when {
+    isEmpty() -> false
+    IgnoreNoneLetters -> none(Char::isUpperCaseLetter)
+    else -> all(Char::isLowerCaseLetter)
 }
 
+/**
+ *
+ * @receiver [String]
+ * @param action [Function1]<[Char]>
+ * @timecomplexity O(n)
+ */
+inline fun String.forEachBackwards(
+        action: FunctionUnit<Char>
+): Unit =
+        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+
+/**
+ *
+ * @receiver [String]
+ * @param action [Function2]<[Int], [Char]>
+ * @timecomplexity O(n)
+ */
+inline fun String.forEachBackwardsIndexed(
+        action: Function2Unit<@IntLimit(from = 0) Int, Char>
+): Unit =
+        GenericCollectionExtensions.forEachBackwardsIndexed(count(), this::elementAt, action)

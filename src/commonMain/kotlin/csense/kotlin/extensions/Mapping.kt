@@ -4,6 +4,7 @@ package csense.kotlin.extensions
 
 import csense.kotlin.EmptyFunctionResult
 import csense.kotlin.Function1
+import kotlin.contracts.*
 
 /**
  * Maps an optional value into another value
@@ -22,16 +23,16 @@ inline fun <U> Any?.mapOptional(
 /**
  * Maps an optional value into another value
  * @receiver [Any]?
- * @param ifNotNull [EmptyFunctionResult]<U> the value if 'this' is not null
- * @param ifNull [EmptyFunctionResult]<U> the value if 'this' is null
- * @return U the value depending on 'this' value
+ * @param ifNotNull [Function1]<[U>] the value if 'this' is not null (with the non null value)
+ * @param ifNull [EmptyFunctionResult]<[U]> the value if 'this' is null
+ * @return [U] the value depending on 'this' value
  */
-inline fun <U> Any?.mapLazyOptional(
-        ifNotNull: EmptyFunctionResult<U>,
+inline fun <U,T> T?.mapLazyOptional(
+        ifNotNull: Function1<T,U>,
         ifNull: EmptyFunctionResult<U>
 ): U {
-    return if (this.isNotNull) {
-        ifNotNull()
+    return if (this != null) {
+        ifNotNull(this)
     } else {
         ifNull()
     }
@@ -74,7 +75,7 @@ inline fun <T> Boolean.mapLazy(
     ifFalse()
 }
 
-
+//TODO this seems off.
 /**
  * Maps the receiver into a set.
  * @receiver [Iterable]<T>
@@ -85,3 +86,16 @@ inline fun <T, U> Iterable<T>.mapToSet(
         mapper: Function1<T, U>
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 
+
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {
+    contract {
+        callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
+        returnsNotNull() implies (this@mapIfInstanceOrThis is TT)
+    }
+    return when (this) {
+        is TT -> action(this)
+        else -> this
+    }
+}

@@ -372,6 +372,7 @@ inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
  * Performs backwards traversal on this list.
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>
+ * Might be suboptimal for collection that does not store the count
  */
 inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
@@ -415,7 +416,7 @@ inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()
 inline fun <reified U> Iterable<*>.forEachIsInstance(
         action: kotlin.Function1<U, *>
 ): Unit = forEach {
-    it.invokeIsInstance(action)
+    it?.invokeIsInstance(action)
 }
 
 /**
@@ -439,4 +440,22 @@ inline fun <E, V : Comparable<V>> Iterable<E>.largest(
         }
     }
     return currentResult
+}
+
+/**
+ * If this [C] is [isEmpty] or null then it will return null, otherwise the receiver (which is [isNotEmpty])
+ * @receiver [C]?
+ * @return [C]?
+ */
+inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
+    return isNotNullOrEmpty().map(ifTrue = this, ifFalse = null)
+}
+
+/**
+ * Tells if this iterable has content (meaning it is not null nor is it empty)
+ * @receiver [C]? the optional type
+ * @return [Boolean] true if this has content (is not null or empty) false if it is null or empty
+ */
+inline fun <T,C:Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
+    return this != null && this.isNotEmpty()
 }

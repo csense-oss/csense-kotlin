@@ -4,6 +4,7 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 

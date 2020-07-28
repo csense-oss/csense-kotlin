@@ -1,11 +1,11 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.primitives
 
 /**
  *
- *
  * @receiver [Char]
  * @return [Boolean]
- *
  * see
  * https://en.wikipedia.org/wiki/List_of_Unicode_characters
  */

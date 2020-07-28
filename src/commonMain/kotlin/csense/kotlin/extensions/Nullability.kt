@@ -44,4 +44,6 @@ inline val <T> T?.isNull: Boolean
  * returns true if this is not null.
  */
 inline val <T> T?.isNotNull: Boolean
-    get() = this != null
+    get() {
+        return this != null
+    }

@@ -2,10 +2,7 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function1
-import csense.kotlin.FunctionUnit
-import csense.kotlin.ReceiverFunctionUnit
+import csense.kotlin.*
 import kotlin.contracts.*
 
 
@@ -14,7 +11,25 @@ import kotlin.contracts.*
  * @receiver Any the value to cast
  * @return T? the potential cast, if it is unable, null will be returned
  */
-inline fun <reified T> Any.cast(): T? = this as? T
+@OptIn(ExperimentalContracts::class)
+inline fun <reified T> Any.cast(): T? {
+    contract {
+        returnsNotNull() implies (this@cast is T)
+    }
+    return this as? T
+}
+
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified T, U> Any.castMap(
+        mapper: ReceiverFunction0<T, U>
+): U? {
+    contract {
+        callsInPlace(mapper, kind = InvocationKind.AT_MOST_ONCE)
+        returnsNotNull() implies (this@castMap is T)
+    }
+    return (this as? T)?.mapper()
+}
 
 //TODO is this a good strategy or should remove first edition and use "toUnit" ext fun ?
 /**
@@ -22,26 +37,34 @@ inline fun <reified T> Any.cast(): T? = this as? T
  * @receiver Any
  * @param action [Function1]<T, [Unit]>
  */
-inline fun <reified T> Any?.invokeIsInstance(action: FunctionUnit<T>): Unit =
-        invokeIsInstance<T, Unit>(action).toUnit()
+@OptIn(ExperimentalContracts::class)
+inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
+    contract {
+        callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
+    }
+    invokeIsInstance<T, Unit>(action).toUnit()
+}
 
 
 /**
- * invokes the given action if this is the specific type (and returns the result) or null if this is
+ * invokes the given action if this is the specific type [T] (and returns the result) or null if this is
  * not the specific type
  * @receiver [Any] the unknown type
  * @param action [Function1]<T, R> the action to call if this is actually a T
  * @return R? the return result
  */
-inline fun <reified T, R> Any?.invokeIsInstance(action: Function1<T, R>): R? {
-    return when (this) {
-        is T -> action(this)
-        else -> null
+@OptIn(ExperimentalContracts::class)
+inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
+    contract {
+        callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
+        returnsNotNull() implies (this@invokeIsInstance is T)
     }
+    return this.cast<T>()?.let(action)
 }
 
+
 /**
- * Converts any type into a "unit"
+ * Converts any type into a "[Unit]"
  * @receiver [Any]?
  */
 inline fun Any?.toUnit(): Unit = Unit
@@ -82,9 +105,9 @@ inline fun <T> T?.useOr(
  * @return [Boolean] true if this is not the given type, false if this is
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <reified U> Any.isNot(): Boolean {
-//    contract {
-//        returns(false) implies (this@isNot is U)
-//    }
-    return (this !is U)
+inline fun <reified T> Any.isNot(): Boolean {
+    contract {
+        returns(false) implies (this@isNot is T)
+    }
+    return (this !is T)
 }

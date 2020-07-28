@@ -4,9 +4,11 @@ package csense.kotlin.extensions.collections.array
 
 import csense.kotlin.Function1
 import csense.kotlin.FunctionUnit
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.array.generic.GenericArray
 import csense.kotlin.extensions.collections.array.generic.foreachDiscardResult
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 
 /**
@@ -64,3 +66,18 @@ inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
     }
     return this == null || this.isEmpty()
 }
+
+
+inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean): Int? =
+        indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+
+
+/**
+ *
+ * @receiver [Collection]<T>
+ * @param predicate [Function1]<T, [Boolean]>
+ * @return [Int]? null if not found, the index otherwise.
+ */
+@IntLimit(from = 0)
+inline fun <T> Array<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
+        indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()

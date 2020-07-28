@@ -1,10 +1,14 @@
 # Changelog
 
 ## 0.0.40
+- kotlin 1.4
 - removed deprecated things
 - removed stuff that was not very generic or does not fit into this "module"
 - improved documentation & spelling
 - more annotations
+- more extensions (forEachBackwards on strings)
+    - forEachBackwardsIndexed
+- moved certain extensions to "Named" / scoped parts to avoid clutter say String with a lot of extensions.
 
 ## 0.0.36
 - added more tests

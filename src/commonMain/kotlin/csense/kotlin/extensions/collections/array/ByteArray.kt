@@ -42,7 +42,7 @@ inline fun ByteArray.toHexString(
             hexChars[currentIndex + 1] = lower.toCase(shouldBeUppercase)
         }
     }
-    return String.createFromChars(hexChars)
+    return hexChars.concatToString()
 }
 
 /**

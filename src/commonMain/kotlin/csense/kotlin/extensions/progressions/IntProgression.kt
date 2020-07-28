@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.progressions
 
-import csense.kotlin.annotations.numbers.IntLimit
+import csense.kotlin.annotations.numbers.*
 
 
 /**
@@ -23,13 +23,16 @@ inline val IntProgression.length: Int
     get() = ((last + step) - first) / step //+ step due to "inclusive".
 
 /**
- *
- * @receiver [IntProgression]
- * @param length [Int]
- * @return [IntProgression]
+ * Skips "[step]s" of this [IntProgression]
+ * @receiver [IntProgression] the progression to skip the given steps (if this has a negative length, the given value is returned)
+ * @param lengthToSkip [Int] the [step]s to skip
+ * @return [IntProgression] the resulting IntProgression when skipping
  */
-inline fun IntProgression.skip(length: Int): IntProgression {
-    val lengthEnd = (length * step) + first
-    val end = lengthEnd.coerceAtMost(last)
-    return IntProgression.fromClosedRange(lengthEnd, end, step)
+inline fun IntProgression.skip(lengthToSkip: Int): IntProgression {
+    if (length <= 0) {
+        return this
+    }
+    val lengthEnd = (lengthToSkip * step) + first
+    val newStart = lengthEnd.coerceAtMost(last)
+    return IntProgression.fromClosedRange(newStart, last, step)
 }

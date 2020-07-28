@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions
 
-import java.lang.reflect.Field
+import java.lang.reflect.*
 
 /**
  * Gets a field as the expected type.
