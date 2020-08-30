@@ -1,10 +1,13 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.primitives
 
 /**
  * Tells if this char is uppercase
- *
+ * @receiver [Char]
+ * @return [Boolean]
  */
-actual fun Char.isUpperCaseLetter(): Boolean {
+public actual inline fun Char.isUpperCaseLetter(): Boolean {
     if (this.isWhitespace() || this.isDigit()) {
         return false
     }
@@ -13,8 +16,10 @@ actual fun Char.isUpperCaseLetter(): Boolean {
 
 /**
  * Tells if this char is lowercase
+ * @receiver [Char]
+ * @return [Boolean]
  */
-actual fun Char.isLowerCaseLetter(): Boolean {
+public actual inline fun Char.isLowerCaseLetter(): Boolean {
     if (this.isWhitespace() || this.isDigit()) {
         return false
     }

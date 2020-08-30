@@ -3,88 +3,69 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 
 class StringTest {
-    @Test
-    fun fileExtension() {
-        val noExtensionMessage = "there are no extensions in this string"
-        "".fileExtension().assertNull(noExtensionMessage)
-        "test".fileExtension().assertNull(noExtensionMessage)
-        "test.".fileExtension().assertNull(noExtensionMessage)
-        "test..".fileExtension().assertNull(noExtensionMessage)
-        
-        "test.a".fileExtension().assertNotNullAndEquals("a")
-        "test.a.".fileExtension().assertNull("since the text ends in . then there are no extension.")
-        "test.a.b".fileExtension().assertNotNullAndEquals("b")
-        "test..a".fileExtension().assertNotNullAndEquals("a")
-        
-        //more real life examples
-        "test.xml".fileExtension().assertNotNullAndEquals("xml")
-        "test.\$java".fileExtension().assertNotNullAndEquals("\$java")
-        "test.\"xml".fileExtension().assertNotNullAndEquals("\"xml")
-        
-    }
     
-    @Test
-    fun forEachMatchingBad() {
-        "".forEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("nothing in nothing should be nothing")
-        "".forEachMatching("0", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding something in nothing happens never")
+    class ForEachMatching {
         
-        "0".forEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding nothing in something happens never")
+        @Test
+        fun bad() {
+            "".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+                    .assertEmpty("nothing in nothing should be nothing")
+            "".mapEachMatching("0", searchByWord = false, ignoreCase = false) { it }
+                    .assertEmpty("finding something in nothing happens never")
+            
+            "0".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+                    .assertEmpty("finding nothing in something happens never")
+            
+            "0".mapEachMatching("", searchByWord = true, ignoreCase = true) { it }
+                    .assertEmpty("no parameter changes that behavior")
+            "".mapEachMatching("0", searchByWord = true, ignoreCase = true) { it }
+                    .assertEmpty("no parameter changes that behavior")
+        }
         
-        "0".forEachMatching("", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-        "".forEachMatching("0", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-        
-    }
-    
-    @Test
-    fun forEachMatchingGood() {
-        
-        
-        val textString = "-abc-aa-bb-cc-"
-        val indexes = textString.forEachMatching(
-                "a",
-                searchByWord = false,
-                ignoreCase = false) { it }
-        indexes.assertSize(3, "there are 3 a's in the text")
-        
-        indexes[0].assert(1, "first is at second index of string")
-        
-        indexes[1].assert(5, "second is past 5 chars")
-        
-        indexes[2].assert(6, "third is past 6 chars")
-        
-        textString.forEachMatching("A", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("should search case sensitive when asked")
-        
-        textString.forEachMatching("A", searchByWord = false, ignoreCase = true) { it }
-                .assertSize(3, "should find all case insensitive")
-        
-        
-        val funnyString = "ababab"
-        funnyString.forEachMatching(
-                "abab",
-                searchByWord = false,
-                ignoreCase = false) { it }
-                .assertSize(2, "since searching by chars, we will encounter an overlap , which then " +
-                        "will give us 2 results since we are only advancing by 1 chars")
-        
-        
-        funnyString.forEachMatching(
-                "abab",
-                searchByWord = true,
-                ignoreCase = false) { it }
-                .assertSize(1, "since searching by word, we will NOT encounter an overlap , so " +
-                        "we will only see [abab] followed by the last part (ab), so not 2 matches")
-        
-        
+        @Test
+        fun good() {
+            
+            val textString = "-abc-aa-bb-cc-"
+            val indexes = textString.mapEachMatching(
+                    "a",
+                    searchByWord = false,
+                    ignoreCase = false) { it }
+            indexes.assertSize(3, "there are 3 a's in the text")
+            
+            indexes[0].assert(1, "first is at second index of string")
+            
+            indexes[1].assert(5, "second is past 5 chars")
+            
+            indexes[2].assert(6, "third is past 6 chars")
+            
+            textString.mapEachMatching("A", searchByWord = false, ignoreCase = false) { it }
+                    .assertEmpty("should search case sensitive when asked")
+            
+            textString.mapEachMatching("A", searchByWord = false, ignoreCase = true) { it }
+                    .assertSize(3, "should find all case insensitive")
+            
+            
+            val funnyString = "ababab"
+            funnyString.mapEachMatching(
+                    "abab",
+                    searchByWord = false,
+                    ignoreCase = false) { it }
+                    .assertSize(2, "since searching by chars, we will encounter an overlap , which then " +
+                            "will give us 2 results since we are only advancing by 1 chars")
+            
+            
+            funnyString.mapEachMatching(
+                    "abab",
+                    searchByWord = true,
+                    ignoreCase = false) { it }
+                    .assertSize(1, "since searching by word, we will NOT encounter an overlap , so " +
+                            "we will only see [abab] followed by the last part (ab), so not 2 matches")
+            
+        }
     }
     
     @Test
@@ -99,65 +80,6 @@ class StringTest {
         }
         
         textString.findAllOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
-    }
-    
-    @Test
-    fun indexOfSafe() {
-        "".indexOfSafe("a", 0, false).isError
-                .assertTrue("indexof a in nothing i not found")
-        "a".indexOfSafe("a", 0, false).value
-                .assert(0, "should be first index")
-        
-        "a".indexOfSafe("A", 0, false).isError
-                .assertTrue("case sensitivity should be respected")
-        "a".indexOfSafe("A", 0, true).isError
-                .assertFalse("case sensitivity should be respected")
-        
-        "aba".indexOfSafe("a", 1, false).value
-                .assert(2, "should find second a")
-        
-        "abA".indexOfSafe("a", 1, false).isError
-                .assertTrue("case sensitivity should be respected even with index")
-        
-        "abA".indexOfSafe("a", 1, true).value
-                .assert(2, "should find second a")
-        
-    }
-    
-    @Test
-    fun limitTo() {
-        "".limitTo(0).assert("")
-        "".limitTo(-1).assert("")
-        "".limitTo(1).assert("")
-        "abc".limitTo(0).assert("")
-        "abc".limitTo(-2).assert("")
-        "abc".limitTo(2).assert("ab")
-        "abc".limitTo(1).assert("a")
-        "abc".limitTo(3).assert("abc")
-        "abc".limitTo(10).assert("abc")
-    }
-    
-    @Test
-    fun removeFileExtension() {
-        "".removeFileExtension().assert("")
-        "test".removeFileExtension().assert("test")
-        "random string with some fun".removeFileExtension().assert("random string with some fun")
-        "test.asd".removeFileExtension().assert("test")
-        "qwerty.xml".removeFileExtension().assert("qwerty")
-        "qwerty.xml.js".removeFileExtension().assert("qwerty.xml")
-    }
-    
-    @Test
-    fun wrapIn() {
-        "".wrapIn("", "").assert("")
-        "".wrapIn("aa", "").assert("aa")
-        "".wrapIn("", "bb").assert("bb")
-        "".wrapIn("a", "b").assert("ab")
-        "1234".wrapIn("<", ">").assert("<1234>")
-        "1234".wrapIn("<", "").assert("<1234")
-        "1234".wrapIn("", ">").assert("1234>")
-        "1234".wrapIn("", "").assert("1234")
-        
     }
     
     @Test
@@ -185,16 +107,6 @@ class StringTest {
         "abc".replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
         "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
     }
-    
-    
-    @Test
-    fun wrapInQuotes() {
-        "".wrapInQuotes().assert("\"\"")
-        "a".wrapInQuotes().assert("\"a\"")
-        "\"".wrapInQuotes().assert("\"\"\"")
-        "yzz x".wrapInQuotes().assert("\"yzz x\"")
-    }
-    
     
     class ContainsAnyCollection {
         
@@ -446,7 +358,7 @@ class StringTest {
         }
     }
     
-    class StringIsOnlyLowerCaseLetters{
+    class StringIsOnlyLowerCaseLetters {
         @Test
         fun noIgnoreNoneLetters() {
             "".isOnlyLowerCaseLetters().assertFalse()//nothing is always false.
@@ -460,7 +372,7 @@ class StringTest {
             "\n".isOnlyLowerCaseLetters().assertFalse()
             "...()[]".isOnlyLowerCaseLetters().assertFalse()
         }
-    
+        
         @Test
         fun ignoreNoneLetters() {
             "".isOnlyLowerCaseLetters(true).assertFalse() //nothing is always false.
@@ -474,6 +386,134 @@ class StringTest {
             "\n".isOnlyLowerCaseLetters(true).assertTrue()
             "...()[]".isOnlyLowerCaseLetters(true).assertTrue()
         }
+        
+    }
     
+    @Test
+    fun stringSkipStartsWith() {
+        "".skipStartsWith("").assert("")
+        "abc".skipStartsWith("a").assert("bc")
+        "abc".skipStartsWith("12").assert("abc")
+        "abc".skipStartsWith("bc").assert("abc")
+        "a10bc".skipStartsWith("a10").assert("bc")
+    }
+    
+    @Test
+    fun stringForeach2() {
+        "".foreach2 { first, second -> shouldNotBeCalled() }
+        "a".foreach2 { first, second -> shouldNotBeCalled() }
+        assertCalled(times = 1) {
+            "ab".foreach2 { first, second ->
+                first.assert('a')
+                second.assert('b')
+                it()
+            }
+        }
+        assertCalled(times = 3) {
+            "ababab".foreach2 { first, second ->
+                first.assert('a')
+                second.assert('b')
+                it()
+            }
+        }
+        //odd length
+        "abababc".foreach2 { first, second -> shouldNotBeCalled() }
+    }
+    
+    @Test
+    fun StringDoesNotEndsWithSequence() {
+        "".doesNotEndsWith("").assertFalse("anything does end with nothing")
+        "abc".doesNotEndsWith("").assertFalse("anything ends with nothing")
+        "abc".doesNotEndsWith("1234").assertTrue()
+        "abc".doesNotEndsWith("a").assertTrue()
+        "abc".doesNotEndsWith("a", ignoreCase = true).assertTrue()
+        "abc".doesNotEndsWith("b").assertTrue()
+        "abc".doesNotEndsWith("c").assertFalse()
+        "abc".doesNotEndsWith("c", ignoreCase = true).assertFalse()
+        "abc".doesNotEndsWith("C", ignoreCase = true).assertFalse()
+        "abc".doesNotEndsWith("C", ignoreCase = false).assertTrue()
+        "test 1234".doesNotEndsWith("1234").assertFalse()
+        "test 1234".doesNotEndsWith("test").assertTrue()
+    }
+    
+    @Test
+    fun stringDoesNotEndsWithChar() {
+        "".doesNotEndsWith('a').assertTrue()
+        "a".doesNotEndsWith('a').assertFalse()
+        "a".doesNotEndsWith('A').assertTrue()
+        "a".doesNotEndsWith('A', ignoreCase = true).assertFalse()
+        
+    }
+    
+    
+    @Test
+    fun stringDoesNotEndsWithAnySubStrings() {
+        //TODO make me.
+        "".doesNotEndsWithAny("").assertFalse("ends with nothing")
+        "".doesNotEndsWithAny("", "").assertFalse("ends with nothing, no matter how many times you ask")
+        
+        "abc".doesNotEndsWithAny("c").assertFalse()
+        "abc".doesNotEndsWithAny("c", "c").assertFalse()
+        
+        "abc".doesNotEndsWithAny("a").assertTrue()
+        "abc".doesNotEndsWithAny("a", "a").assertTrue()
+        "abc".doesNotEndsWithAny("a", "b").assertTrue()
+        
+    }
+    
+    @Test
+    fun stringDoesNotEndsWithAnyItems() {
+        "".doesNotEndsWithAny(listOf("")).assertFalse("ends with nothing")
+        "".doesNotEndsWithAny(listOf("", "")).assertFalse("ends with nothing, no matter how many times you ask")
+        
+        "abc".doesNotEndsWithAny(listOf("c")).assertFalse()
+        "abc".doesNotEndsWithAny(listOf("c", "c")).assertFalse()
+        
+        "abc".doesNotEndsWithAny(listOf("a")).assertTrue()
+        "abc".doesNotEndsWithAny(listOf("a", "a")).assertTrue()
+        "abc".doesNotEndsWithAny(listOf("a", "b")).assertTrue()
+        
+    }
+    
+    
+    class StringSplitWhen {
+        @Test
+        fun alwaysSplitEmpty() {
+            "".splitWhen { true }.assertEmpty("nothing cannot be split")
+        }
+        
+        @Test
+        fun alwaysSplitSingle() {
+            "a".splitWhen { true }.apply {
+                assertSize(0,"since we do not include the split")
+            }
+        }
+        
+        @Test
+        fun alwaysSplitMultiple() {
+            "ab".splitWhen { true }.apply {
+                assertSize(0,"since we do not include the split")
+            }
+        }
+        
+        @Test
+        fun splitMultipleDigits() {
+            "20/80 8000".splitWhen { it.isNotDigit() }.apply {
+                assertSize(3)
+                this[0].assert("20")
+                this[1].assert("80")
+                this[2].assert("8000")
+            }
+        }
+        @Test
+        fun splitMultipleDigitsWeird() {
+            "20/80 abc 8000".splitWhen { it.isNotDigit() }.apply {
+                assertSize(3)
+                this[0].assert("20")
+                this[1].assert("80")
+                this[2].assert("8000")
+            }
+        }
+        
     }
 }

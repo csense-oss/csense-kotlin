@@ -44,64 +44,64 @@ class SetTest {
         fun emptyFirst() {
             //empty to empty
             val empty = setOf<String>().symmetricDifference(setOf())
-            empty.first.assertEmpty()
-            empty.second.assertEmpty()
+            empty.uniqueInFirst.assertEmpty()
+            empty.uniqueInSecond.assertEmpty()
             
             val single = setOf<String>().symmetricDifference(setOf("1"))
-            single.first.assertEmpty()
-            single.second.assertContainsAll("1")
+            single.uniqueInFirst.assertEmpty()
+            single.uniqueInSecond.assertContainsAll("1")
             
             val multiple = setOf<String>().symmetricDifference(setOf("1", "a"))
             
-            multiple.first.assertEmpty()
-            multiple.second.assertContainsAll("1", "a")
+            multiple.uniqueInFirst.assertEmpty()
+            multiple.uniqueInSecond.assertContainsAll("1", "a")
         }
         
         @Test
         fun singleFirst() {
             val empty = setOf<String>("b").symmetricDifference(setOf())
-            empty.first.assertContainsAll("b")
-            empty.second.assertEmpty()
+            empty.uniqueInFirst.assertContainsAll("b")
+            empty.uniqueInSecond.assertEmpty()
             
             val single = setOf<String>("b").symmetricDifference(setOf("1"))
-            single.first.assertContainsAll("b")
-            single.second.assertContainsAll("1")
+            single.uniqueInFirst.assertContainsAll("b")
+            single.uniqueInSecond.assertContainsAll("1")
             
             val multipleWithCollision = setOf<String>("b").symmetricDifference(setOf("1", "a", "b"))
             
-            multipleWithCollision.first.assertEmpty()
-            multipleWithCollision.second.assertContainsAll("1", "a")
+            multipleWithCollision.uniqueInFirst.assertEmpty()
+            multipleWithCollision.uniqueInSecond.assertContainsAll("1", "a")
             
             val multipleWithNoCollision = setOf<String>("b").symmetricDifference(setOf("1", "a", "c"))
-            multipleWithNoCollision.first.assertContainsAll("b")
-            multipleWithNoCollision.second.assertContainsAll("1", "a", "c")
+            multipleWithNoCollision.uniqueInFirst.assertContainsAll("b")
+            multipleWithNoCollision.uniqueInSecond.assertContainsAll("1", "a", "c")
         }
         
         @Test
         fun multipleFirst() {
             val empty = setOf<String>("b", "2").symmetricDifference(setOf())
-            empty.first.assertContainsAll("b", "2")
-            empty.second.assertEmpty()
+            empty.uniqueInFirst.assertContainsAll("b", "2")
+            empty.uniqueInSecond.assertEmpty()
             
             val single = setOf<String>("b", "2").symmetricDifference(setOf("1"))
-            single.first.assertContainsAll("b", "2")
-            single.second.assertContainsAll("1")
+            single.uniqueInFirst.assertContainsAll("b", "2")
+            single.uniqueInSecond.assertContainsAll("1")
             
             val singleCollision = setOf<String>("b", "2", "1").symmetricDifference(setOf("1"))
-            singleCollision.first.assertContainsAll("b", "2")
-            singleCollision.second.assertEmpty()
+            singleCollision.uniqueInFirst.assertContainsAll("b", "2")
+            singleCollision.uniqueInSecond.assertEmpty()
             
             val multipleWithCollision = setOf<String>("b", "2").symmetricDifference(setOf("1", "a", "b"))
-            multipleWithCollision.first.assertContainsAll("2")
-            multipleWithCollision.second.assertContainsAll("1", "a")
+            multipleWithCollision.uniqueInFirst.assertContainsAll("2")
+            multipleWithCollision.uniqueInSecond.assertContainsAll("1", "a")
             
             val firstOnlyCollision = setOf<String>("a", "1").symmetricDifference(setOf("1", "a", "b"))
-            firstOnlyCollision.first.assertEmpty()
-            firstOnlyCollision.second.assertContainsAll("b")
+            firstOnlyCollision.uniqueInFirst.assertEmpty()
+            firstOnlyCollision.uniqueInSecond.assertContainsAll("b")
             
             val multipleWithNoCollision = setOf<String>("b", "2").symmetricDifference(setOf("1", "a", "c"))
-            multipleWithNoCollision.first.assertContainsAll("b", "2")
-            multipleWithNoCollision.second.assertContainsAll("1", "a", "c")
+            multipleWithNoCollision.uniqueInFirst.assertContainsAll("b", "2")
+            multipleWithNoCollision.uniqueInSecond.assertContainsAll("1", "a", "c")
             
         }
         //endregion

@@ -2,33 +2,48 @@
 
 package csense.kotlin.extensions.collections.generic
 
-import csense.kotlin.Function2
-import csense.kotlin.Function3
-import csense.kotlin.FunctionUnit
-import csense.kotlin.annotations.numbers.IntLimit
-import csense.kotlin.extensions.collections.GenericGetterIndexMethod
-import csense.kotlin.extensions.primitives.isOdd
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.primitives.*
 
 
-typealias Function2Unit<T, U> = (first: T, second: U) -> Unit
-typealias Function2IndexedUnit<T, U> = (index: Int, first: T, second: U) -> Unit
+public typealias Function2Unit<T, U> = (first: T, second: U) -> Unit
+public typealias Function2IndexedUnit<T, U> = (index: @IntLimit(from = 0) Int, first: T, second: U) -> Unit
 
 
 //region backwards
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action FunctionUnit<T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [FunctionUnit]<T>
  */
-inline fun <T> GenericCollectionExtensions.forEachBackwards(
+public inline fun <T> GenericCollectionExtensions.forEachBackwards(
         @IntLimit(from = 0) length: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
+        getter: GenericGetterIndexMethod<T>,
         action: FunctionUnit<T>
 ) {
     for (i in (length - 1) downTo 0) {
         action(getter(i))
+    }
+}
+
+/**
+ *
+ * @receiver GenericCollectionExtensions
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [FunctionUnit]<T>
+ */
+public inline fun <T> GenericCollectionExtensions.forEachBackwardsIndexed(
+        @IntLimit(from = 0) length: Int,
+        getter: GenericGetterIndexMethod<T>,
+        action: Function2Unit<@IntLimit(from = 0) Int, T>
+) {
+    for (i in (length - 1) downTo 0) {
+        action(i, getter(i))
     }
 }
 //endregion
@@ -37,30 +52,35 @@ inline fun <T> GenericCollectionExtensions.forEachBackwards(
 /**
  * This is the "internal" generic function ,from which all the instances will be using.
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action Function2Unit<T, T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [Function2Unit]<T, T>
  */
-inline fun <T> GenericCollectionExtensions.forEach2(
+public inline fun <T> GenericCollectionExtensions.forEach2(
         @IntLimit(from = 0) length: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
+        getter: GenericGetterIndexMethod<T>,
         action: Function2Unit<T, T>
 ) {
-    forEach2Indexed(length, getter, { _: Int, first: T, second: T ->
+    if (canNOTForeach2(length)) {
+        return
+    }
+    for (i in (0 until length step 2)) {
+        val first = getter(i)
+        val second = getter(i + 1)
         action(first, second)
-    })
+    }
 }
 
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param action Function2IndexedUnit<T, T>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param action [Function2IndexedUnit]<T, T>
  */
-inline fun <T> GenericCollectionExtensions.forEach2Indexed(
+public inline fun <T> GenericCollectionExtensions.forEach2Indexed(
         @IntLimit(from = 0) length: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
+        getter: GenericGetterIndexMethod<T>,
         action: Function2IndexedUnit<T, T>
 ) {
     if (canNOTForeach2(length)) {
@@ -79,31 +99,38 @@ inline fun <T> GenericCollectionExtensions.forEach2Indexed(
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param mapper Function2<T, T, U>
- * @return List<U>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param mapper [Function2]<T, T, U>
+ * @return [List]<U>
  */
-inline fun <T, U> GenericCollectionExtensions.mapEach2(
+public inline fun <T, U> GenericCollectionExtensions.mapEach2(
         @IntLimit(from = 0) length: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
+        getter: GenericGetterIndexMethod<T>,
         mapper: Function2<T, T, U>
-): List<U> =
-        mapEach2Indexed(length, getter, { _, first, second ->
-            mapper(first, second)
-        })
+): List<U> {
+    if (canNOTForeach2(2)) {
+        return emptyList()
+    }
+    return List(length / 2) { counter: Int ->
+        val doubleIndex = counter * 2
+        val first = getter(doubleIndex)
+        val second = getter(doubleIndex + 1)
+        mapper(first, second)
+    }
+}
 
 /**
  *
  * @receiver GenericCollectionExtensions
- * @param length Int
- * @param getter GenericGetterIndexMethod<T>
- * @param mapper Function3<Int, T, T, U>
- * @return List<U>
+ * @param length [Int]
+ * @param getter [GenericGetterIndexMethod]<T>
+ * @param mapper [Function3]<Int, T, T, U>
+ * @return [List]<U>
  */
-inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
+public inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
         @IntLimit(from = 0) length: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
+        getter: GenericGetterIndexMethod<T>,
         mapper: Function3<Int, T, T, U>
 ): List<U> {
     if (canNOTForeach2(2)) {
@@ -121,11 +148,11 @@ inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
 //region foreach / map 2 helper
 /**
  * Tells if we are able to perform any actions (foreach2) on the given length of a "collection"
- * @receiver GenericCollectionExtensions
- * @param length Int
- * @return Boolean
+ * @receiver [GenericCollectionExtensions]
+ * @param length [Int]
+ * @return [Boolean]
  */
-inline fun GenericCollectionExtensions.canNOTForeach2(length: Int): Boolean {
+public inline fun GenericCollectionExtensions.canNOTForeach2(length: Int): Boolean {
     return (length <= 0 || length.isOdd)
 }
 //endregion

@@ -2,19 +2,16 @@
 
 package csense.kotlin.logger
 
-//TODO find a way to test the L instance in a test thread safe way.until just suppress.
-
 /**
  * logs the given message and or the exception, using the class's name as the tag
  *
  * this logs as an error
  * @receiver T
- * @param message String
- * @param exception Throwable?
- * see L.error
+ * @param message [String]
+ * @param exception [Throwable]?
+ * see [L.error]
  */
-@Suppress("MissingTestFunction")
-inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
     L.error(T::class.java.simpleName, message, exception)
 }
 
@@ -22,12 +19,11 @@ inline fun <reified T : Any> T.logClassError(message: String, exception: Throwab
  * logs the given message and or the exception, using the class's name as the tag
  * this logs as a warning
  * @receiver T
- * @param message String
- * @param exception Throwable?
- * see L.warning
+ * @param message [String]
+ * @param exception [Throwable]?
+ * see [L.warning]
  */
-@Suppress("MissingTestFunction")
-inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
     L.warning(T::class.java.simpleName, message, exception)
 }
 
@@ -35,12 +31,11 @@ inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throw
  * logs the given message and or the exception, using the class's name as the tag
  * this logs as a debug message
  * @receiver T
- * @param message String
- * @param exception Throwable?
- * see L.debug
+ * @param message [String]
+ * @param exception [Throwable]?
+ * see [L.debug]
  */
-@Suppress("MissingTestFunction")
-inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
     L.debug(T::class.java.simpleName, message, exception)
 }
 
@@ -48,76 +43,71 @@ inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwab
  * logs the given message and or the exception, using the class's name as the tag
  * this logs as a production log
  * @receiver T
- * @param message String
- * @param exception Throwable?
- * see L.logProd
+ * @param message [String]
+ * @param exception [Throwable]?
+ * see [L.logProd]
  */
-@Suppress("MissingTestFunction")
-inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
     L.logProd(T::class.java.simpleName, message, exception)
 }
 
 /**
  * Logs the current stack to debug
- * @param tag String  the tagged name
- * @param limit Int the max length of the stacktrace
- * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
+ * @param tag [String]  the tagged name
+ * @param limit [Int] the max length of the stacktrace
+ * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-@Suppress("MissingTestFunction")
-inline fun logCurrentStackTraceDebug(
+public inline fun logCurrentStackTraceDebug(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to warning
- * @param tag String  the tagged name
- * @param limit Int the max length of the stacktrace
- * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
+ * @param tag [String]  the tagged name
+ * @param limit [Int] the max length of the stacktrace
+ * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-@Suppress("MissingTestFunction")
-inline fun logCurrentStackTraceWarning(
+public inline fun logCurrentStackTraceWarning(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to error
- * @param tag String  the tagged name
- * @param limit Int the max length of the stacktrace
- * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
+ * @param tag [String]  the tagged name
+ * @param limit [Int] the max length of the stacktrace
+ * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-@Suppress("MissingTestFunction")
-inline fun logCurrentStackTraceError(
+public inline fun logCurrentStackTraceError(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
 
 
 /**
  * Logs the current stack to Production
- * @param tag String  the tagged name
- * @param limit Int the max length of the stacktrace
- * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
+ * @param tag [String] the tagged name
+ * @param limit [Int] the max length of the stacktrace
+ * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-@Suppress("MissingTestFunction")
-inline fun logCurrentStackTraceProd(
+public inline fun logCurrentStackTraceProd(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
-) = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
+): Unit = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
 
 /**
  * Logs the current stack to debug
- * @param tag String  the tagged name
- * @param logTo LoggingFunctionType<Unit> the function to log via.
- * @param limit Int the max length of the stacktrace
- * @param skipFirstFunctions Int how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
+ * @param tag [String] the tagged name
+ * @param logTo [LoggingFunctionType]<[Unit]> the function to log via.
+ * @param limit [Int] the max length of the stacktrace
+ * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTrace(
+public inline fun logCurrentStackTrace(
         tag: String = "stack",
         logTo: LoggingFunctionType<Unit>,
         limit: Int = 10,

@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.10.0")
+    }
+}
+repositories {
+    jcenter()
+}
+apply plugin: "org.jetbrains.dokka"
+
+dokka {
+    multiplatform {
+        global {
+            perPackageOption {
+                prefix = project.name
+                suppress = true
+            }
+        }
+        js {}
+        jvm {}
+    }
+}
+
+
+
+task jvmJavadoc(type: Jar, dependsOn: "docJvm") {
+    archiveClassifier.set('javadoc')
+    from "${project.buildDir}/doc_jvm"
+}
+

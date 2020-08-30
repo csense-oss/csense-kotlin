@@ -1,7 +1,7 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions
-import csense.kotlin.Function1
+import csense.kotlin.*
 
 //region String search for enum
 /**
@@ -12,7 +12,7 @@ import csense.kotlin.Function1
  *  which in the regular simple case is char by char comparison and not a anything fancier).
  *  so if you ask for an enum extremely many times consider making a map or some other form available to optimize it.
  */
-inline fun <reified T : Enum<T>> enumFromOrNull(name: String?): T? {
+public inline fun <reified T : Enum<T>> enumFromOrNull(name: String?): T? {
     return enumFromOrNull<T> { it.name == name }
 }
 
@@ -25,7 +25,7 @@ inline fun <reified T : Enum<T>> enumFromOrNull(name: String?): T? {
  *  which in the regular simple case is char by char comparison and not a anything fancier).
  *  so if you ask for an enum extremely many times consider making a map or some other form available to optimize it.
  */
-inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T {
+public inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T {
     return enumFromOrNull<T>(name) ?: orElse
 }
 //endregion
@@ -39,7 +39,7 @@ inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T {
  * @return T? the value if findAction returns true, or ifNotFound. allowing for null
  * @timeComplexity O(n * x) where n is the size of the enum, x is the "timecomplexity" of the findAction.
  */
-inline fun <reified T : Enum<T>> enumFromOrNull(
+public inline fun <reified T : Enum<T>> enumFromOrNull(
         ifNotFound: T? = null,
         findAction: Function1<T, Boolean>
 ): T? {
@@ -55,12 +55,11 @@ inline fun <reified T : Enum<T>> enumFromOrNull(
  * @return T the value if findAction returns true, or ifNotFound.
  * @timeComplexity O(n * x) where n is the size of the enum, x is the "timecomplexity" of the findAction.
  */
-inline fun <reified T : Enum<T>> enumFromOr(
+public inline fun <reified T : Enum<T>> enumFromOr(
         ifNotFound: T,
         findAction: Function1<T, Boolean>
 ): T {
-    //see https://youtrack.jetbrains.net/issue/KT-32165 for the "<T>" here..
-    return enumFromOrNull<T>(null, findAction) ?: ifNotFound
+    return enumFromOrNull(null, findAction) ?: ifNotFound
 }
 //endregion
 
@@ -71,7 +70,7 @@ inline fun <reified T : Enum<T>> enumFromOr(
  * @return T either the found or null if not found.
  * @timeComplexity O(n) where n is the size of the enum
  */
-inline fun <reified T : Enum<T>> enumFromOrNull(value: Int): T? {
+public inline fun <reified T : Enum<T>> enumFromOrNull(value: Int): T? {
     return enumFromOrNull<T> { it.ordinal == value }
 }
 
@@ -83,7 +82,7 @@ inline fun <reified T : Enum<T>> enumFromOrNull(value: Int): T? {
  * @return T either the found or the orElse value.
  * @timeComplexity O(n) where n is the size of the enum
  */
-inline fun <reified T : Enum<T>> enumFromOr(value: Int, orElse: T): T {
+public inline fun <reified T : Enum<T>> enumFromOr(value: Int, orElse: T): T {
     return enumFromOrNull<T>(value) ?: orElse
 }
 //endregion

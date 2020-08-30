@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions
 
@@ -6,11 +6,11 @@ import java.io.PrintWriter
 import java.io.StringWriter
 
 /**
- *  Converts a throwable to a string with the stacktrace
- * @receiver Throwable
- * @return String
+ * Converts a throwable to a string with the stacktrace
+ * @receiver [Throwable]
+ * @return [String]
  */
-fun Throwable.stackTraceToString(): String = StringWriter().use {
+public inline fun Throwable.stackTraceToString(): String = StringWriter().use {
     printStackTrace(PrintWriter(it))
     it.toString()
 }

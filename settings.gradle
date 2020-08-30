@@ -1,9 +1,10 @@
 pluginManagement {
     repositories {
+        maven { url "https://dl.bintray.com/csense-oss/maven" }
         maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
-        mavenCentral()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
+        jcenter()
         gradlePluginPortal()
     }
 }
-enableFeaturePreview('GRADLE_METADATA')
 rootProject.name = 'csense-kotlin'

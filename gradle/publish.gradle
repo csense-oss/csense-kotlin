@@ -1,0 +1,90 @@
+apply plugin: "maven-publish"
+
+
+afterEvaluate {
+    project.publishing.publications.all {
+        groupId = group
+
+        // add empty javadocs
+        if (it.name != "kotlinMultiplatform") {
+            it.artifact(jvmJavadoc)
+        }
+
+        // Rename MPP artifacts for backward compatibility
+        def type = it.name
+        switch (type) {
+            case 'kotlinMultiplatform':
+                // With Kotlin 1.4 & HMPP, the root module should have no suffix in the ID, but for compatibility with
+                // the consumers who can't read Gradle module metadata, we publish the JVM artifacts in it, too
+                it.artifactId = project.name
+                apply from: "$rootDir/gradle/publish-mpp-root-module-in-platform.gradle"
+                publishPlatformArtifactsInRootModule(publishing.publications["jvm"])
+                break
+            case 'metadata':
+                // As the old -common dependencies will fail to resolve with Gradle module metadata, rename the module
+                // to '*-metadata' so that the resolution failure are more clear
+                it.artifactId = "$project.name-metadata"
+                break
+            case 'jvm':
+                it.artifactId = "$project.name-jvm"
+                break
+            case 'js':
+            case 'native':
+                it.artifactId = "$project.name-$type"
+                break
+        }
+    }
+}
+
+tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }.configureEach {
+    dependsOn(tasks["generatePomFileForJvmPublication"])
+}
+
+
+publishing {
+    publications {
+        withType(MavenPublication) {
+            groupId = csenseGroupId
+            artifactId = csenseArtifactId
+            version = csenseVersionName
+
+            pom {
+                name = csenseArtifactId
+                description = csenseArtifactDescription
+                url = csenseWebsite
+
+                licenses {
+                    license {
+                        name = csenseLicense
+                        url = csenseLicenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id = csenseDeveloperAlias
+                        name = csenseDeveloperName
+                        email = csenseDeveloperEmail
+                    }
+                }
+                organization {
+                    name = csenseUserOrg
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = "https://api.bintray.com/maven/${csenseUserOrg}/${csenseRepoName}/${csenseArtifactId}/;publish=0"
+            credentials {
+                Properties properties = new Properties()
+                try {
+                    properties.load(project.rootProject.file('local.properties')?.newDataInputStream())
+                    username = properties.getProperty('bintrayUser')
+                    password = properties.getProperty('bintrayApiKey')
+                } catch (Exception ignored) {
+                    print "could not read local.properties"
+                }
+            }
+        }
+    }
+}

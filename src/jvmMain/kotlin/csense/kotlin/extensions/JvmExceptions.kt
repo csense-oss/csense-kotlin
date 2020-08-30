@@ -7,13 +7,13 @@ import kotlin.reflect.KClass
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
- * @param clazz Class<*>
- * @param message String
- * @param logger LoggingFunctionType<*>
- * @param throwableAction EmptyFunctionResult<T>
+ * @param clazz [Class]<*>
+ * @param message [String]
+ * @param logger [LoggingFunctionType]<*>
+ * @param throwableAction [EmptyFunctionResult]<T>
  * @return T?
  */
-inline fun <T> tryAndLog(
+public inline fun <T> tryAndLog(
         clazz: Class<*>,
         message: String = "",
         logger: LoggingFunctionType<*> = L::error,
@@ -23,13 +23,13 @@ inline fun <T> tryAndLog(
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null
- * @param kClazz: KClass<*>
- * @param message String
- * @param logger LoggingFunctionType<*>
- * @param throwableAction EmptyFunctionResult<T>
+ * @param kClazz: [KClass]<*>
+ * @param message [String]
+ * @param logger [LoggingFunctionType]<*>
+ * @param throwableAction [EmptyFunctionResult]<T>
  * @return T?
  */
-inline fun <T> tryAndLog(
+public inline fun <T> tryAndLog(
         kClazz: KClass<*>,
         message: String = "",
         logger: LoggingFunctionType<*> = L::error,

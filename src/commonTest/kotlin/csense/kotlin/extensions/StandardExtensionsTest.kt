@@ -7,18 +7,6 @@ import kotlin.test.Test
 class StandardExtensionsTest {
 
     @Test
-    fun runIfNotNull() {
-        var counter = 0
-        val potentialString = ""
-        potentialString.runIfNotNull { counter += 1 }
-        counter.assert(1)
-        //the following should not crash..
-        potentialString.runIfNotNull<String, String>(null)
-
-
-    }
-
-    @Test
     fun also() {
         var someCounter = 0
 

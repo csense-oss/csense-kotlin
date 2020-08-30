@@ -4,46 +4,47 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 
 /**
  * Validates the given index for the given collection (so 0 until length)
- * @receiver Collection<*>
- * @param index Int
- * @return Boolean
+ * @receiver [Collection]<*>
+ * @param index [Int]
+ * @return [Boolean]
  */
 
-inline fun Collection<*>.isIndexValid(index: Int) =
+public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
         index >= 0 && index < count()
 
 /**
  * Validates the given index for the given collection, accounting for inserting in the end (so 0 until (including) length)
- * @receiver Collection<*>
- * @param index Int
- * @return Boolean
+ * @receiver [Collection]<*>
+ * @param index [Int]
+ * @return [Boolean]
  */
 
-inline fun Collection<*>.isIndexValidForInsert(index: Int) =
+public inline fun Collection<*>.isIndexValidForInsert(index: Int): Boolean =
         index >= 0 && index <= count()
 
 /**
  * Element at without throwing exception but instead returning null if index out of bounds
- * @receiver Collection<T>
- * @param index Int
+ * @receiver [Collection]<T>
+ * @param index [Int]
  * @return T?
  */
-inline fun <T> Collection<T>.getOrNull(
+public inline fun <T> Collection<T>.getOrNull(
         @IntLimit(from = 0) index: Int
 ): T? = elementAtOrNull(index)
 
 /**
  * Tells if the given range is in the collection (akk range in [ 0 ; length [
- * @receiver Collection<*>
- * @param intRange IntRange
- * @return Boolean
+ * @receiver [Collection]<*>
+ * @param intRange [IntRange]
+ * @return [Boolean]
  */
-inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
+public inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
         (intRange.first >= 0 &&
                 intRange.last >= 0 &&
                 intRange.last < size &&
@@ -53,32 +54,32 @@ inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
 /**
  * Maps the given list into "buckets" / akk categorizes the items.
  * item will appear in multiple buckets / categories iff multiple filters accept them
- * @receiver Collection<T>
- * @param filters Array<out Function1<T, Boolean>>
- * @return List<List<T>>
+ * @receiver [Collection]<T>
+ * @param filters [Array]<out [Function1]<T, [Boolean]>>
+ * @return [List]<[List]<T>>
  */
-inline fun <T> Collection<T>.categorizeIntoMultiple(vararg filters: Function1<T, Boolean>): List<List<T>> =
+public inline fun <T> Collection<T>.categorizeIntoMultiple(vararg filters: Function1<T, Boolean>): List<List<T>> =
         this.categorizeInto(*filters, allowItemInMultipleBuckets = true)
 
 
 /**
  * Maps the given list into "buckets" / akk categorizes the items.
  * items will NOT appear in multiple buckets / categories even if multiple filters accept them (first one wins)
- * @receiver Collection<T>
- * @param filters Array<out Function1<T, Boolean>>
- * @return List<List<T>>
+ * @receiver [Collection]<T>
+ * @param filters [Array]<out [Function1]<T, [Boolean]>>
+ * @return [List]<[List]<T>>
  */
-inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, Boolean>): List<List<T>> =
+public inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, Boolean>): List<List<T>> =
         this.categorizeInto(*filters, allowItemInMultipleBuckets = false)
 
 /**
  *
- * @receiver Collection<Element>
- * @param filters Array<out Function1<Element, Boolean>>
- * @param allowItemInMultipleBuckets Boolean
- * @return List<List<Element>>
+ * @receiver [Collection]<Element>
+ * @param filters [Array]<out [Function1]<Element, [Boolean]>>
+ * @param allowItemInMultipleBuckets [Boolean]
+ * @return [List]<[List]<Element>>
  */
-inline fun <Element> Collection<Element>.categorizeInto(
+public inline fun <Element> Collection<Element>.categorizeInto(
         vararg filters: Function1<Element, Boolean>,
         allowItemInMultipleBuckets: Boolean = true
 ): List<List<Element>> {
@@ -92,18 +93,18 @@ inline fun <Element> Collection<Element>.categorizeInto(
 
 /**
  * Categorises a single element into the given result array (size of filters)
- * @receiver Element the element to categorize.
- * @param result ArrayList<MutableList<Element>> the place to put the result, given the index of the filter.
- * @param filters Array<out Function1<Element, Boolean>> the filters to use
- * @param allowItemInMultipleBuckets Boolean if true, will allow multiple filters to look at this element,
+ * @receiver [Element] the element to categorize.
+ * @param result [ArrayList]<[MutableList]<Element>> the place to put the result, given the index of the filter.
+ * @param filters [Array]<out [Function1]<Element, [Boolean]>> the filters to use
+ * @param allowItemInMultipleBuckets [Boolean] if true, will allow multiple filters to look at this element,
  * if false then it will stop once a filter accepts it.
  */
-fun <Element> Element.categorizeInto(
+public inline fun <Element> Element.categorizeInto(
         result: ArrayList<MutableList<Element>>,
         filters: Array<out Function1<Element, Boolean>>,
         allowItemInMultipleBuckets: Boolean = true
 ) {
-    filters.forEachIndexed { index, filterAccepts ->
+    filters.forEachIndexed { index: @IntLimit(from = 0) Int, filterAccepts: (Element) -> Boolean ->
         filterAccepts(this).ifTrue {
             result[index].add(this)
             //should we stop finding filters that accepts this item ? if so then go on.
@@ -119,22 +120,22 @@ fun <Element> Element.categorizeInto(
  * Categorizes the collection into a map of string -> items, such that each of the items gets mapped into a string representation
  * This is only here since categorizing by strings are such a common operation.
  *
- * @receiver Collection<T>
- * @param categorizer Function1<T, String>
- * @return Map<String, List<T>>
+ * @receiver [Collection]<T>
+ * @param categorizer [Function1]<T, [String]>
+ * @return [Map]<[String], [List]<T>>
  */
-inline fun <T> Collection<T>.categorizeByString(
+public inline fun <T> Collection<T>.categorizeByString(
         categorizer: Function1<T, String>
 ): Map<String, List<T>> = categorize(categorizer)
 
 /**
  * Categorizes the given collection via the categorizer into a map of categories mapping to the elements matching this.
  * Each element can only be in 1 category. (and will)
- * @receiver Collection<T>
- * @param categorizer Function1<T, K>
- * @return Map<K, List<T>>
+ * @receiver [Collection]<T>
+ * @param categorizer [Function1]<T, K>
+ * @return [Map]<K, [List]<T>>
  */
-inline fun <T, K> Collection<T>.categorize(
+public inline fun <T, K> Collection<T>.categorize(
         categorizer: Function1<T, K>
 ): Map<K, List<T>> {
     val result = mutableMapOf<K, MutableList<T>>()
@@ -147,11 +148,11 @@ inline fun <T, K> Collection<T>.categorize(
 
 /**
  * Reverses this collection (a view) if the given boolean is true, otherwise the original collection view is returned
- * @receiver Collection<T>
- * @param shouldReverse Boolean if true the result will be reversed
- * @return Collection<T>
+ * @receiver [Collection]<T>
+ * @param shouldReverse [Boolean] if true the result will be reversed
+ * @return [Collection]<T>
  */
-inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReverse) {
+public inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean): Collection<T> = if (shouldReverse) {
     reversed()
 } else {
     this
@@ -159,18 +160,18 @@ inline fun <T> Collection<T>.reversedIf(shouldReverse: Boolean) = if (shouldReve
 
 /**
  * Tells if all booleans in the given collection are true.
- * @receiver Collection<Boolean>
- * @return Boolean true if all is true, false otherwise. for emtpy its "true"
+ * @receiver [Collection]<[Boolean]>
+ * @return [Boolean] true if all is true, false otherwise. for empty its "true"
  */
-inline fun Collection<Boolean>.isAllTrue() = all { it }
+public inline fun Collection<Boolean>.isAllTrue(): Boolean = all { it }
 
 /**
  * Tells if this collection is NOT null And NOT empty (size > 0)
- * @receiver Collection<T>? the nullable collection
- * @return Boolean true if the collection is NOT null AND NOT empty
+ * @receiver [Collection]<T>? the nullable collection
+ * @return [Boolean] true if the collection is NOT null AND NOT empty
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
+public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrEmpty != null)
     }
@@ -179,11 +180,11 @@ inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
 
 /**
  * Tells if this collection is null or empty (size = 0)
- * @receiver Collection<T>? the nullable collection
- * @return Boolean true if the collection is null or empty
+ * @receiver [Collection]<T>? the nullable collection
+ * @return [Boolean] true if the collection is null or empty
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
+public inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)
     }
@@ -193,53 +194,112 @@ inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
 //TODO arrays ect ?s
 /**
  * Returns the second last element or null if there is no second last (less than 2 elements)
- * @receiver Collection<T>
+ * @receiver [Collection]<T>
  * @return T?
  */
-inline fun <T> Collection<T>.secondLastOrNull(): T? {
-    return elementAtOrNull(size - 2)
-}
+public inline fun <T> Collection<T>.secondLastOrNull(): T? =
+        elementAtOrNull(size - 2)
 
 
 /**
  * finds the index of the given element, or null if it was not found.
- * @receiver Collection<T>
+ * @receiver [Collection]<T>
  * @param element T
- * @return Int?
+ * @return [Int]?
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
+public inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
         indexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
  *
- * @receiver Collection<T>
- * @param predicate Function1<T, Boolean>
- * @return Int? null if not found, the index otherwise.
+ * @receiver [Collection]<T>
+ * @param predicate [Function1]<T, [Boolean]>
+ * @return [Int]? null if not found, the index otherwise.
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.indexOfFirstOrNull(predicate: Function1<T, Boolean>): Int? =
+public inline fun <T> Collection<T>.indexOfFirstOrNull(predicate: Function1<T, Boolean>): Int? =
         indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
  *
- * @receiver Collection<T>
- * @param predicate Function1<T, Boolean>
- * @return Int? null if not found, the index otherwise.
+ * @receiver [Collection]<T>
+ * @param predicate [Function1]<T, [Boolean]>
+ * @return [Int]? null if not found, the index otherwise.
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
+public inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
         indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
  * finds the last index of the given element, or null if it was not found.
- * @receiver Collection<T>
- * @param element T
- * @return Int? null if
+ * @receiver [Collection]<[T]>
+ * @param element [T]
+ * @return [Int]? null if not found, or the last index of it
  */
 @IntLimit(from = 0)
-inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
+public inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
         this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
+
+/**
+ * Selects the first item that is able to be "mapped" by the [mappingPredicate]
+ * @receiver [Collection]<[T]> the collection to search though
+ * @param [mappingPredicate] [Function1]<[T], [U]?> the predicate, that either returns null (means not found)
+ * or the value that should be returned from this method call
+ * @return [U]? the first item that could be mapped to a value or null if non was applicable via the [mappingPredicate]
+ */
+public inline fun <T, U> Collection<T>.selectFirstOrNull(
+        mappingPredicate: (T) -> U?
+): U? {
+    forEach { item ->
+        mappingPredicate(item)?.let { mapped: U ->
+            return@selectFirstOrNull mapped
+        }
+    }
+    return null
+}
+
+//region joinEvery
+
+/**
+ * Joins [toJoin] between [itemsBetweenJoin] into a single [List].
+ * @receiver [Collection]<[T]> The items to insert the joins between
+ * @param itemsBetweenJoin [Int] how many items there should be between a join. a join can not be the first or last item in the result
+ * @param toJoin [T] what to join in between the items
+ * @return [List]<T>
+ */
+public inline fun <reified T> Collection<T>.joinEvery(
+        @IntLimit(from = 1) itemsBetweenJoin: Int,
+        toJoin: T
+): List<T> = joinEveryAction(
+        itemsBetweenJoin,
+        toJoinAction = { toJoin }
+)
+
+
+/**
+ * Joins the item from the given [toJoinAction] between [itemsBetweenJoin] into a single [List].
+ * @receiver [Collection]<[T]> The items to insert the joins between
+ * @param itemsBetweenJoin [Int] how many items there should be between a join. a join can not be the first or last item in the result
+ * @param toJoinAction [T] the action producing what to join in between the items
+ * @return [List]<T>
+ */
+public inline fun <reified T> Collection<T>.joinEveryAction(
+        @IntLimit(from = 1) itemsBetweenJoin: Int,
+        crossinline toJoinAction: () -> T
+): List<T> {
+    if (itemsBetweenJoin <= 0) {
+        return this.toList()
+    }
+    return GenericCollectionExtensions.joinEveryAction(
+            itemsBetweenJoin,
+            toJoinAction,
+            size,
+            this::elementAt,
+            ::List
+    )
+}
+//endregion
