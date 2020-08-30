@@ -1,4 +1,6 @@
 # Changelog
+## 0.0.41
+- fixed "Channel.forEach" missing inline modifier
 
 ## 0.0.40
 - kotlin 1.4

@@ -12,7 +12,7 @@ import kotlin.coroutines.*
  * @receiver [Channel]<E>
  * @param function [FunctionUnit]<E>
  */
-public suspend fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
+public suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
     for (item in this) {
         function(item)
     }

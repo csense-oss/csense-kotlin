@@ -8,7 +8,7 @@ buildscript {
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.40"
+    ext.csenseVersionName = "0.0.41"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
