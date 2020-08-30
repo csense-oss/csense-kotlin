@@ -1,11 +1,13 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
 
-inline class StringModification(val string: String)
+public inline class StringModification(public val string: String)
 
-inline val String.modifications: StringModification
+public inline val String.modifications: StringModification
     inline get() = StringModification(this)
 
 
@@ -18,7 +20,7 @@ inline val String.modifications: StringModification
  *
  * if [maxLength] [Int.isNegativeOrZero], an empty string is returned
  */
-inline fun StringModification.limitTo(@IntLimit(from = 0) maxLength: Int): String {
+public inline fun StringModification.limitTo(@IntLimit(from = 0) maxLength: Int): String {
     if (maxLength.isNegativeOrZero) {
         return ""
     }
@@ -33,7 +35,7 @@ inline fun StringModification.limitTo(@IntLimit(from = 0) maxLength: Int): Strin
  * @param postFix [String]
  * @return [String] the combined result (prefix + this + postfix)
  */
-inline fun StringModification.wrapIn(prefix: String, postFix: String): String =
+public inline fun StringModification.wrapIn(prefix: String, postFix: String): String =
         prefix + string + postFix
 
 /**
@@ -41,6 +43,6 @@ inline fun StringModification.wrapIn(prefix: String, postFix: String): String =
  * @receiver [String]
  * @return [String] the wrapped string.
  */
-inline fun StringModification.wrapInQuotes(): String = wrapIn("\"", "\"")
+public inline fun StringModification.wrapInQuotes(): String = wrapIn("\"", "\"")
 
 //endregion

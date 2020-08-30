@@ -2,7 +2,8 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.EmptyFunction
+import csense.kotlin.*
+import kotlin.contracts.*
 
 
 /**
@@ -11,7 +12,7 @@ import csense.kotlin.EmptyFunction
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
+public inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
     if (!this) {
         action()
     }
@@ -24,7 +25,7 @@ inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
+public inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
     if (this) {
         action()
     }
@@ -38,7 +39,7 @@ inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
+public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
 
 
 /**
@@ -47,6 +48,38 @@ inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
+public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
         onFalse(action)
 
+
+@OptIn(ExperimentalContracts::class)
+public inline fun Boolean?.isNullOrFalse(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrFalse != null)
+    }
+    return this == null || !this
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun Boolean?.isNullOrTrue(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrTrue != null)
+    }
+    return this == null || this
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun Boolean?.isNotNullOrTrue(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrTrue != null)
+    }
+    return this != null && !this
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun Boolean?.isNotNullOrFalse(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrFalse != null)
+    }
+    return this != null && this
+}

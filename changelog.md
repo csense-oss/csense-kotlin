@@ -6,9 +6,10 @@
 - removed stuff that was not very generic or does not fit into this "module"
 - improved documentation & spelling
 - more annotations
-- more extensions (forEachBackwards on strings)
-    - forEachBackwardsIndexed
+- many more extensions (forEachBackwards on strings, "or", and more)
+- many more contracts added
 - moved certain extensions to "Named" / scoped parts to avoid clutter say String with a lot of extensions.
+- moved algorithms out.
 
 ## 0.0.36
 - added more tests

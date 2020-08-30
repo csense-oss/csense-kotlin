@@ -2,9 +2,7 @@
 
 package csense.kotlin.extensions.collections.map
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function1
-import csense.kotlin.FunctionUnit
+import csense.kotlin.*
 import csense.kotlin.extensions.collections.generic.*
 
 
@@ -14,7 +12,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver [Map]<K, V>
  * @param action ([Map.Entry]<K, V>, [Int]) -> [Unit]
  */
-inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int) -> Unit) {
+public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int) -> Unit) {
     var i = 0
     forEach {
         action(it, i)
@@ -29,7 +27,7 @@ inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int) -> Uni
  * @receiver [List]<T>
  * @param action [Function2IndexedUnit]<T, T>
  */
-inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Entry<K, V>, Map.Entry<K, V>>) =
+public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
         GenericCollectionExtensions.forEach2Indexed(size, this.entries::elementAt, action)
 
 /**
@@ -37,7 +35,7 @@ inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Ent
  * @receiver [List]<T>
  * @param action [Function2Unit]<T, T>
  */
-inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.Entry<K, V>>) =
+public inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
         GenericCollectionExtensions.forEach2(size, this.entries::elementAt, action)
 
 /**
@@ -45,7 +43,7 @@ inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>
  */
-inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>) =
+public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>): Unit =
         GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
 //endregion
 
@@ -55,7 +53,7 @@ inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V
  * @param predicate [Function1]<[Map.Entry]<K, V>, Boolean>
  * @return [List]<K>
  */
-inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
+public inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
         filter(predicate).map(Map.Entry<K, V>::key)
 
 /**
@@ -65,7 +63,7 @@ inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.En
  * @param onKeyFound [FunctionUnit]<V> if the key is there / found then performs the given action with the value
  * @param onKeyNotFound [EmptyFunction] if the key is not there, then this function gets invoked.
  */
-inline fun <K, V> Map<K, V>.useValueOr(
+public inline fun <K, V> Map<K, V>.useValueOr(
         key: K,
         onKeyFound: FunctionUnit<V>,
         onKeyNotFound: EmptyFunction
@@ -84,5 +82,5 @@ inline fun <K, V> Map<K, V>.useValueOr(
  * @param key K the key to test existence of
  * @return [Boolean] true if the key is not found / contained
  */
-inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
+public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
         !containsKey(key)

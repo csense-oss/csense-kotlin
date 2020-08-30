@@ -11,7 +11,7 @@ package csense.kotlin.logger
  * @param exception [Throwable]?
  * see [L.error]
  */
-inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassError(message: String, exception: Throwable? = null) {
     L.error(T::class.java.simpleName, message, exception)
 }
 
@@ -23,7 +23,7 @@ inline fun <reified T : Any> T.logClassError(message: String, exception: Throwab
  * @param exception [Throwable]?
  * see [L.warning]
  */
-inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throwable? = null) {
     L.warning(T::class.java.simpleName, message, exception)
 }
 
@@ -35,7 +35,7 @@ inline fun <reified T : Any> T.logClassWarning(message: String, exception: Throw
  * @param exception [Throwable]?
  * see [L.debug]
  */
-inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwable? = null) {
     L.debug(T::class.java.simpleName, message, exception)
 }
 
@@ -47,7 +47,7 @@ inline fun <reified T : Any> T.logClassDebug(message: String, exception: Throwab
  * @param exception [Throwable]?
  * see [L.logProd]
  */
-inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
+public inline fun <reified T : Any> T.logClassProduction(message: String, exception: Throwable? = null) {
     L.logProd(T::class.java.simpleName, message, exception)
 }
 
@@ -57,7 +57,7 @@ inline fun <reified T : Any> T.logClassProduction(message: String, exception: Th
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTraceDebug(
+public inline fun logCurrentStackTraceDebug(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
@@ -69,7 +69,7 @@ inline fun logCurrentStackTraceDebug(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTraceWarning(
+public inline fun logCurrentStackTraceWarning(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
@@ -81,7 +81,7 @@ inline fun logCurrentStackTraceWarning(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTraceError(
+public inline fun logCurrentStackTraceError(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
@@ -94,7 +94,7 @@ inline fun logCurrentStackTraceError(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTraceProd(
+public inline fun logCurrentStackTraceProd(
         tag: String = "stack",
         limit: Int = 10,
         skipFirstFunctions: Int = 0
@@ -107,7 +107,7 @@ inline fun logCurrentStackTraceProd(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-inline fun logCurrentStackTrace(
+public inline fun logCurrentStackTrace(
         tag: String = "stack",
         logTo: LoggingFunctionType<Unit>,
         limit: Int = 10,

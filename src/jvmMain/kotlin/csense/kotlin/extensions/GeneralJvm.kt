@@ -6,5 +6,5 @@ package csense.kotlin.extensions
  * so you do not have to spell out a particular class name if it is already known
  * @return [Class]<T>
  */
-inline fun <reified T : Any> type(): Class<T> = T::class.java
+public inline fun <reified T : Any> type(): Class<T> = T::class.java
 

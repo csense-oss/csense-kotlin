@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.extensions.collections.array.forEachDiscard
+import csense.kotlin.extensions.collections.array.*
 
 /**
  * Clears the content and sets the content to the given string
@@ -10,7 +10,7 @@ import csense.kotlin.extensions.collections.array.forEachDiscard
  * @param content [String]
  * @return [StringBuilder]
  */
-inline fun StringBuilder.set(content: String): StringBuilder = apply {
+public inline fun StringBuilder.set(content: String): StringBuilder = apply {
     clear()
     append(content)
 }
@@ -21,7 +21,7 @@ inline fun StringBuilder.set(content: String): StringBuilder = apply {
  * @param charArray [CharArray]
  * @return [StringBuilder]
  */
-inline fun StringBuilder.set(charArray: CharArray): StringBuilder = apply {
+public inline fun StringBuilder.set(charArray: CharArray): StringBuilder = apply {
     clear()
     appendContentOf(charArray)
 }
@@ -33,6 +33,6 @@ inline fun StringBuilder.set(charArray: CharArray): StringBuilder = apply {
  * @param charArray [CharArray]
  * @return [StringBuilder]
  */
-inline fun StringBuilder.appendContentOf(charArray: CharArray): StringBuilder = apply {
+public inline fun StringBuilder.appendContentOf(charArray: CharArray): StringBuilder = apply {
     charArray.forEachDiscard(this::append)
 }

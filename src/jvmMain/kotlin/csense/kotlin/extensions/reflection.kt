@@ -10,7 +10,7 @@ import java.lang.reflect.*
  * @param obj [Any]
  * @return T?
  */
-inline fun <reified T> Field.getAs(obj: Any): T? {
+public inline fun <reified T> Field.getAs(obj: Any): T? {
     return try {
         get(obj) as T?
     } catch (_: Exception) {

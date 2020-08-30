@@ -12,7 +12,7 @@ import kotlin.contracts.*
  * @return T? the potential cast, if it is unable, null will be returned
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T> Any.cast(): T? {
+public inline fun <reified T> Any.cast(): T? {
     contract {
         returnsNotNull() implies (this@cast is T)
     }
@@ -21,7 +21,7 @@ inline fun <reified T> Any.cast(): T? {
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T, U> Any.castMap(
+public inline fun <reified T, U> Any.castMap(
         mapper: ReceiverFunction0<T, U>
 ): U? {
     contract {
@@ -38,7 +38,7 @@ inline fun <reified T, U> Any.castMap(
  * @param action [Function1]<T, [Unit]>
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
+public inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
     }
@@ -54,7 +54,7 @@ inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
  * @return R? the return result
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
+public inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
         returnsNotNull() implies (this@invokeIsInstance is T)
@@ -67,17 +67,26 @@ inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
  * Converts any type into a "[Unit]"
  * @receiver [Any]?
  */
-inline fun Any?.toUnit(): Unit = Unit
+public inline fun Any?.toUnit(): Unit = Unit
 
+
+//region toUnitFunction
+/**
+ * Converts a function with a result to a function "without" a result.
+ * @receiver [Function0R]<T, *>
+ * @return [FunctionUnit]<T>
+ */
+public inline fun <T> Function0R<T>.toUnitFunction(): FunctionUnit<T> = { this() }
 
 /**
  * Converts a function with a result to a function "without" a result.
  * @receiver [Function1]<T, *>
  * @return [FunctionUnit]<T>
  */
-inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
+public inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
+//TODO more of the toUnitFunction (for empty, for multiple args) ??
+//endregion
 
-//TODO more of the toUnitFunction (for empty, for multiple args)
 
 /**
  * Uses this value iff not null or another if it is.
@@ -87,10 +96,15 @@ inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this(it) }
  * @param ifNotNull T.() -> Unit the action to perform iff this is not null
  * @param ifNull [EmptyFunction]  if the this is null this action will be performed
  */
-inline fun <T> T?.useOr(
+@OptIn(ExperimentalContracts::class)
+public inline fun <T> T?.useOr(
         ifNotNull: ReceiverFunctionUnit<T>,
         ifNull: EmptyFunction
 ) {
+    contract {
+        callsInPlace(ifNotNull, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(ifNull, InvocationKind.AT_MOST_ONCE)
+    }
     if (this != null) {
         ifNotNull(this)
     } else {
@@ -105,9 +119,35 @@ inline fun <T> T?.useOr(
  * @return [Boolean] true if this is not the given type, false if this is
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T> Any.isNot(): Boolean {
+public inline fun <reified T> Any.isNot(): Boolean {
     contract {
         returns(false) implies (this@isNot is T)
     }
     return (this !is T)
+}
+
+/**
+ * this if it is not null, or the other if this is null
+ * the same as ?:
+ *
+ * @receiver T? the optional value to either use or the supplied
+ * @param ifNull T the other value to use if this receiver is null
+ * @return T the non null value
+ */
+public inline infix fun <reified T> T?.or(ifNull: T): T = this ?: ifNull
+
+/**
+ * this if it is not null, or the other if this is null
+ * the same as ?:
+ *
+ * @receiver T? the optional value to either use or the supplied
+ * @param ifNullAction [Function0R] the other value (to compute) if this receiver is null
+ * @return T the non null value
+ */
+@OptIn(ExperimentalContracts::class)
+public inline infix fun <reified T> T?.orLazy(ifNullAction: Function0R<T>): T {
+    contract {
+        callsInPlace(ifNullAction, InvocationKind.AT_MOST_ONCE)
+    }
+    return this ?: ifNullAction()
 }

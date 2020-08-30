@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -309,12 +311,34 @@ class CollectionTest {
         
         @Test
         fun single() {
-        
+            listOf("test").categorizeByString { it }.apply{
+                assertSize(1)
+                keys.first().assert("test")
+                values.first().assertSize(1)
+                values.first().first().assert("test")
+            }
+            
+            listOf("test").categorizeByString { "same" }.apply{
+                assertSize(1)
+                keys.first().assert("same")
+                values.first().assertSize(1)
+                values.first().first().assert("test")
+            }
         }
         
         @Test
         fun multiple() {
-        
+            listOf("test","1234").categorizeByString { "constantKey" }.apply{
+                assertSize(1)
+                keys.first().assert("constantKey")
+                values.first().assertSize(2)
+                values.assertContainsAll(listOf("test","1234"))
+            }
+            listOf("test","1234").categorizeByString { it }.apply{
+                assertSize(2)
+                keys.assertContainsAll("1234","test")
+                values.assertContainsAll(listOf("1234"), listOf("test"))
+            }
         }
     }
     
@@ -393,7 +417,7 @@ class CollectionTest {
             lst.lastIndexOfOrNull("d").assertNotNullAndEquals(2)
         }
     }
-
+    
     
     class CollectionTNullOnEmpty {
         @Test
@@ -415,7 +439,7 @@ class CollectionTest {
         
         @Test
         fun multiple() {
-            listOf("1","b","3")
+            listOf("1", "b", "3")
                     .nullOnEmpty()
                     .assertNotNullApply("should not be null and have a 3 elements") {
                         assertSize(3)
@@ -423,6 +447,164 @@ class CollectionTest {
                         this.elementAt(1).assert("b")
                         this.elementAt(2).assert("3")
                     }
+        }
+    }
+    
+    class CollectionTSelectFirstOrNull {
+        @Test
+        fun emptySelect() {
+            listOf<String>().selectFirstOrNull {
+                it.length
+            }.assertNull("cannot find anything in an empty list")
+        }
+        
+        @Test
+        fun emptySelectNotFound() {
+            listOf<String>().selectFirstOrNull {
+                null
+            }.assertNull("cannot find anything in an empty list")
+        }
+        
+        @Test
+        fun singleSelect() {
+            listOf("test").selectFirstOrNull {
+                it.length
+            }.assertNotNullAndEquals(
+                    4,
+                    "length of test is 4 , and there is a single element in the collection"
+            )
+        }
+        
+        @Test
+        fun singleSelectNotFound() {
+            listOf("test").selectFirstOrNull {
+                null
+            }.assertNull("Non is ever selected, so should be null")
+        }
+        
+        @Test
+        fun multipleFound() {
+            listOf("test", "asdf").selectFirstOrNull {
+                it.firstOrNull()
+            }.assertNotNullAndEquals('t', "test is first")
+            
+            listOf("test", "2").selectFirstOrNull {
+                if (it.length == 1) {
+                    it.firstOrNull()
+                } else {
+                    null
+                }
+            }.assertNotNullAndEquals('2', "since we only return the char when the string has a length of 1")
+        }
+        
+        @Test
+        fun multipleNotFound() {
+            listOf("test", "asdf", "1234").selectFirstOrNull {
+                (it.length > 10).map(this, null)
+            }.assertNull("no string is larger than 10 chars.")
+        }
+    }
+    
+    //TODO when test plugin understands it,use "toJoin" as the end name
+    class CollectionTJoinEveryItemsBetweenJoin {
+        @Test
+        fun empty() {
+            listOf<String>().joinEvery(-1, "").assertSize(0)
+            listOf<String>().joinEvery(0, "").assertSize(0)
+            listOf<String>().joinEvery(1, "").assertSize(0)
+        }
+        
+        @Test
+        fun single() {
+            listOf("a").joinEvery(-1, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            listOf("a").joinEvery(0, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            listOf("a").joinEvery(1, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+        }
+        
+        @Test
+        fun multiple() {
+            listOf("a", "b").joinEvery(1, "0").apply {
+                assertSize(3)
+                this[0].assert("a")
+                this[1].assert("0")
+                this[2].assert("b")
+            }
+            
+            listOf("a", "b", "c").joinEvery(1, "0").apply {
+                assertSize(5)
+                this[0].assert("a")
+                this[1].assert("0")
+                this[2].assert("b")
+                this[3].assert("0")
+                this[4].assert("c")
+            }
+            listOf("a", "b", "c").joinEvery(2, ",").apply {
+                assertSize(4)
+                this[0].assert("a")
+                this[1].assert("b")
+                this[2].assert(",")
+                this[3].assert("c")
+            }
+        }
+    }
+    
+    class CollectionTJoinEveryAction {
+        @Test
+        fun empty() {
+            listOf<String>().joinEveryAction(-1) { failTest() }.assertSize(0)
+            listOf<String>().joinEveryAction(0) { failTest() }.assertSize(0)
+            listOf<String>().joinEveryAction(1) { failTest() }.assertSize(0)
+        }
+        
+        @Test
+        fun single() {
+            listOf("a").joinEvery(-1, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            listOf("a").joinEvery(0, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            listOf("a").joinEvery(1, "b").apply {
+                assertSize(1)
+                first().assert("a")
+            }
+        }
+        
+        @Test
+        fun multiple() {
+            listOf("a", "b").joinEveryAction(1) { "0" }.apply {
+                assertSize(3)
+                this[0].assert("a")
+                this[1].assert("0")
+                this[2].assert("b")
+            }
+            
+            listOf("a", "b", "c").joinEveryAction(1) { "0" }.apply {
+                assertSize(5)
+                this[0].assert("a")
+                this[1].assert("0")
+                this[2].assert("b")
+                this[3].assert("0")
+                this[4].assert("c")
+            }
+            listOf("a", "b", "c").joinEveryAction(2) { "," }.apply {
+                assertSize(4)
+                this[0].assert("a")
+                this[1].assert("b")
+                this[2].assert(",")
+                this[3].assert("c")
+            }
         }
     }
 }

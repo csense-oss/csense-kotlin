@@ -12,7 +12,7 @@ import java.util.*
  * @receiver T the object to create a weak reference of
  * @return [WeakReference]<T> a weak reference to the given object
  */
-inline fun <T> T.weakReference(): WeakReference<T> =
+public inline fun <T> T.weakReference(): WeakReference<T> =
         WeakReference(this)
 
 /**
@@ -20,14 +20,14 @@ inline fun <T> T.weakReference(): WeakReference<T> =
  * This differs from `use` where we cannot use it
  * on an optional value inside of a [WeakReference]
  */
-inline fun <T> WeakReference<T>.use(action: ReceiverFunctionUnit<T>): Unit =
+public inline fun <T> WeakReference<T>.use(action: ReceiverFunctionUnit<T>): Unit =
         get()?.let(action).toUnit()
 
 /**
  * Uses this weak reference if valid and calls the method if there
  * @receiver [WeakReference]<[EmptyFunction]>
  */
-inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
+public inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
         get()?.let { it() }.toUnit()
 
 /**
@@ -36,7 +36,7 @@ inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
  * @receiver [WeakReference]<[Function0R]<R>>
  * @return R?
  */
-inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
+public inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
         get()?.let { it() }
 
 /**
@@ -46,7 +46,7 @@ inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
  * @param ifNotAvailable [EmptyFunction] if the [WeakReference] gave null,
  * this action will be performed
  */
-inline fun <T> WeakReference<T>.useOr(
+public inline fun <T> WeakReference<T>.useOr(
         ifAvailable: ReceiverFunctionUnit<T>,
         ifNotAvailable: EmptyFunction
 ): Unit = get().useOr(ifAvailable, ifNotAvailable)
@@ -57,5 +57,5 @@ inline fun <T> WeakReference<T>.useOr(
  * @return [WeakReference]<T>? the weak reference of the object,
  * or null if this parameter was null
  */
-inline fun <T> T?.weakReference(): WeakReference<T>? where T : Optional<*> =
+public inline fun <T> T?.weakReference(): WeakReference<T>? where T : Optional<*> =
         this?.let(::WeakReference)

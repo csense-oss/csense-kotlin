@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.primitives
 
-import kotlin.math.absoluteValue
+import kotlin.math.*
 
 
 /**
@@ -15,7 +15,7 @@ import kotlin.math.absoluteValue
  * since a negative margin would always yield false
  * @return [Boolean]
  */
-inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolean {
+public inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolean {
     val lower = value - margin.positive
     val upper = value + margin.positive
     return this in lower..upper
@@ -28,7 +28,7 @@ inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolean {
  * @param margin [Float]
  * @return [Boolean]
  */
-inline fun Float.equals(value: Float, margin: Float): Boolean =
+public inline fun Float.equals(value: Float, margin: Float): Boolean =
         equalsWithin(value, margin)
 
 /**
@@ -36,7 +36,7 @@ inline fun Float.equals(value: Float, margin: Float): Boolean =
  * in range (from inclusive) -0.1 to 0.1 inclusive
  * If you need more margin, see [Float.equalsWithin]
  */
-inline val Float.isZero: Boolean
+public inline val Float.isZero: Boolean
     get() = isZero(margin = 0.1f)
 
 /**
@@ -45,7 +45,7 @@ inline val Float.isZero: Boolean
  * @param margin [Float]
  * @return [Boolean]
  */
-inline fun Float.isZero(margin: Float): Boolean =
+public inline fun Float.isZero(margin: Float): Boolean =
         equalsWithin(0.0f, margin)
 
 /**
@@ -53,7 +53,7 @@ inline fun Float.isZero(margin: Float): Boolean =
  *
  * could also be called negative abs
  */
-inline val Float.negative: Float
+public inline val Float.negative: Float
     get() = minOf(this, -this)
 
 /**
@@ -61,39 +61,39 @@ inline val Float.negative: Float
  *
  * also known as abs
  */
-inline val Float.positive: Float
+public inline val Float.positive: Float
     get() = this.absoluteValue
 
 /**
  * Tells if this [Float] is < 0 (not neutral including)
  */
-inline val Float.isNegative: Boolean
+public inline val Float.isNegative: Boolean
     get() = this < 0
 
 /**
  * Tells if this [Float] is > 0 (not neutral including)
  */
-inline val Float.isPositive: Boolean
+public inline val Float.isPositive: Boolean
     get() = this > 0
 
 
 /**
  * Tells if this [Float] is either negative or zero
  */
-inline val Float.isNegativeOrZero: Boolean
+public inline val Float.isNegativeOrZero: Boolean
     get() = this.isNegative || this.isZero
 
 /**
  * Tells if this [Float] is either positive or zero
  */
-inline val Float.isPositiveOrZero: Boolean
+public inline val Float.isPositiveOrZero: Boolean
     get() = this.isPositive || this.isZero
 
 
 /**
  *  if this [Float] is not 0 => returns true. false otherwise
  */
-inline val Float.isNotZero: Boolean
+public inline val Float.isNotZero: Boolean
     get() = !isZero
 
 /**
@@ -102,5 +102,5 @@ inline val Float.isNotZero: Boolean
  * @param margin [Float]
  * @return [Boolean]
  */
-inline fun Float.isNotZero(margin: Float): Boolean =
+public inline fun Float.isNotZero(margin: Float): Boolean =
         !isZero(margin)

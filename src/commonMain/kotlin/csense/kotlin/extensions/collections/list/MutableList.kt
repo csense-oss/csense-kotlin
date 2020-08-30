@@ -2,18 +2,17 @@
 
 package csense.kotlin.extensions.collections.list
 
-import csense.kotlin.Function1
-import csense.kotlin.annotations.numbers.IntLimit
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.primitives.isNegative
-import csense.kotlin.extensions.primitives.onTrue
+import csense.kotlin.extensions.primitives.*
 
 /**
  * Finds and removes the first item that matches the given predicate
  * @receiver [MutableList]<T> the list to remove from
  * @param foundAction [Function1]<T, [Boolean]> the predicate
  */
-inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T, Boolean>) {
+public inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T, Boolean>) {
     val index = this.indexOfFirst(foundAction)
     isIndexValid(index).onTrue { removeAt(index) }
 }
@@ -24,7 +23,7 @@ inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T
  * @param findAction [Function1]<T, [Boolean]>
  * @return [List]<T>
  */
-inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1<T, Boolean>): List<T> {
+public inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1<T, Boolean>): List<T> {
     val collection = this.filter(findAction)
     removeAll(collection)
     return collection
@@ -36,7 +35,7 @@ inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1
  * @param item T
  * @param position [Int]
  */
-inline fun <T> MutableList<T>.replace(
+public inline fun <T> MutableList<T>.replace(
         item: T,
         @IntLimit(from = 0) position: Int
 ) {
@@ -52,7 +51,7 @@ inline fun <T> MutableList<T>.replace(
  * @param toReplace T
  * @param withItem T
  */
-inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
+public inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T): Unit =
         replace(withItem, indexOf(toReplace))
 
 
@@ -62,7 +61,7 @@ inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T) =
  * @param intRange [IntRange]
  * @return [Boolean]
  */
-inline fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
+public inline fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
     //skip negative ranges and ranges that ends on 0.
     // and Ranges that are not inverted ( last is less than first)
     if (intRange.first.isNegative || intRange.last.isNegative || intRange.last < intRange.first) {
@@ -85,7 +84,7 @@ inline fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
  * @param default T?
  * @return T?
  */
-inline fun <T> MutableList<T>.removeAtOr(
+public inline fun <T> MutableList<T>.removeAtOr(
         @IntLimit(from = 0) index: Int,
         default: T?
 ): T? {
@@ -102,7 +101,7 @@ inline fun <T> MutableList<T>.removeAtOr(
  * @receiver [MutableList]<T>
  * @return T?
  */
-inline fun <T> MutableList<T>.removeFirst(): T? =
+public inline fun <T> MutableList<T>.removeFirst(): T? =
         removeAtOr(0, null)
 
 /**
@@ -110,7 +109,7 @@ inline fun <T> MutableList<T>.removeFirst(): T? =
  * @receiver [MutableList]<T>
  * @return T?
  */
-inline fun <T> MutableList<T>.removeLast(): T? =
+public inline fun <T> MutableList<T>.removeLast(): T? =
         removeAtOr(lastIndex, null)
 
 /**
@@ -123,7 +122,7 @@ inline fun <T> MutableList<T>.removeLast(): T? =
  * @timecomplexity O(n)
  */
 
-inline fun <T> MutableList<T>.addAll(
+public inline fun <T> MutableList<T>.addAll(
         @IntLimit(from = 0) index: Int,
         elements: Iterable<T>
 ): Boolean {

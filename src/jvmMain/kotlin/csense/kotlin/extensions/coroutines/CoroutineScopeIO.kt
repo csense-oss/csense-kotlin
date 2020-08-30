@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
  * @param action [CoroutineScopeFunction0]<T>
  * @return [Deferred]<T>
  */
-fun <T> CoroutineScope.asyncIO(
+public fun <T> CoroutineScope.asyncIO(
         action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.IO, block = action)
 
@@ -21,7 +21,7 @@ fun <T> CoroutineScope.asyncIO(
  * @param action [CoroutineScopeFunction0]<[Unit]>
  * @return [Job]
  */
-fun CoroutineScope.launchIO(
+public fun CoroutineScope.launchIO(
         action: CoroutineScopeFunction0<Unit>
 ): Job = launch(Dispatchers.IO, block = action)
 

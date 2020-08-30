@@ -17,7 +17,7 @@ import csense.kotlin.extensions.primitives.*
  * @return [String]
  */
 
-inline fun ByteArray.toHexString(
+public inline fun ByteArray.toHexString(
         appendHexPrefix: Boolean = false,
         shouldBeUppercase: Boolean = true
 ): String {
@@ -36,8 +36,8 @@ inline fun ByteArray.toHexString(
     forEachIndexed { index: @IntLimit(from = 0) Int, it: Byte ->
         it.splitIntoComponents { upperByte: Byte, lowerByte: Byte ->
             val currentIndex = (index * 2) + prefixSize
-            val upper = hexCharsAsString[upperByte.toInt()]
-            val lower = hexCharsAsString[lowerByte.toInt()]
+            val upper = ByteExtensions.hexCharsAsString[upperByte.toInt()]
+            val lower = ByteExtensions.hexCharsAsString[lowerByte.toInt()]
             hexChars[currentIndex] = upper.toCase(shouldBeUppercase)
             hexChars[currentIndex + 1] = lower.toCase(shouldBeUppercase)
         }
@@ -50,25 +50,25 @@ inline fun ByteArray.toHexString(
  * @receiver [ByteArray]
  * @param receiver [Function1]<[Byte], U>
  */
-inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>) =
+public inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
-inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>) =
+public inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>): Unit =
         GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
-inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>) =
+public inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this [ByteArray].
  */
-inline fun ByteArray.forEachBackwards(action: FunctionUnit<Byte>) =
+public inline fun ByteArray.forEachBackwards(action: FunctionUnit<Byte>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion

@@ -2,9 +2,9 @@
 
 package csense.kotlin.units
 
-import csense.kotlin.annotations.numbers.LongLimit
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.units.TimeUnit.*
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 
 /**
  * Created by Kasper Tvede
@@ -19,7 +19,7 @@ import kotlinx.coroutines.delay
  *
  * @property value [Long] the value of this timeunit
  */
-sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
+public sealed class TimeUnit(@LongLimit(from = 0) public val value: Long) {
     
     /**
      * a "value unit" [String]
@@ -33,13 +33,13 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
     /**
      * What kind of "Unit" (seconds => "s", ect)
      */
-    abstract val prefix: String
+    public abstract val prefix: String
     
     /**
      * Converts this time unit to a [MilliSeconds] instance
      * @return [MilliSeconds]
      */
-    abstract fun toMilliSeconds(): MilliSeconds
+    public abstract fun toMilliSeconds(): MilliSeconds
     
     /**
      * Converts this time unit to the [String] "value Unit"
@@ -52,26 +52,26 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * A measure of nanoseconds
      * @constructor
      */
-    class NanoSeconds(@LongLimit(from = 0) nanoSeconds: Long) : TimeUnit(nanoSeconds) {
+    public class NanoSeconds(@LongLimit(from = 0) nanoSeconds: Long) : TimeUnit(nanoSeconds) {
         
         override val prefix: String = "ns"
         
         override fun toMilliSeconds(): MilliSeconds =
                 MilliSeconds(value / milliSecondsToNanoSecondsMultiplier)
         
-        operator fun plus(other: NanoSeconds): NanoSeconds {
+        public operator fun plus(other: NanoSeconds): NanoSeconds {
             return NanoSeconds(this.value + other.value)
         }
         
-        operator fun minus(other: NanoSeconds): NanoSeconds {
+        public operator fun minus(other: NanoSeconds): NanoSeconds {
             return NanoSeconds(this.value - other.value)
         }
         
-        operator fun times(other: NanoSeconds): NanoSeconds {
+        public operator fun times(other: NanoSeconds): NanoSeconds {
             return NanoSeconds(this.value * other.value)
         }
         
-        operator fun div(other: NanoSeconds): NanoSeconds {
+        public operator fun div(other: NanoSeconds): NanoSeconds {
             return NanoSeconds(this.value / other.value)
         }
         
@@ -81,25 +81,25 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * A measure of milliseconds
      * @constructor
      */
-    class MilliSeconds(@LongLimit(from = 0) milliseconds: Long) : TimeUnit(milliseconds) {
+    public class MilliSeconds(@LongLimit(from = 0) milliseconds: Long) : TimeUnit(milliseconds) {
         
         override val prefix: String = "ms"
         
         override fun toMilliSeconds(): MilliSeconds = this
         
-        operator fun plus(other: MilliSeconds): MilliSeconds {
+        public operator fun plus(other: MilliSeconds): MilliSeconds {
             return MilliSeconds(this.value + other.value)
         }
         
-        operator fun minus(other: MilliSeconds): MilliSeconds {
+        public operator fun minus(other: MilliSeconds): MilliSeconds {
             return MilliSeconds(this.value - other.value)
         }
         
-        operator fun times(other: MilliSeconds): MilliSeconds {
+        public operator fun times(other: MilliSeconds): MilliSeconds {
             return MilliSeconds(this.value * other.value)
         }
         
-        operator fun div(other: MilliSeconds): MilliSeconds {
+        public operator fun div(other: MilliSeconds): MilliSeconds {
             return MilliSeconds(this.value / other.value)
         }
     }
@@ -108,25 +108,25 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * A measure of seconds
      * @constructor
      */
-    class Seconds(@LongLimit(from = 0) seconds: Long) : TimeUnit(seconds) {
+    public class Seconds(@LongLimit(from = 0) seconds: Long) : TimeUnit(seconds) {
         override val prefix: String = "s"
         
         override fun toMilliSeconds(): MilliSeconds =
                 MilliSeconds(value * secondsToMillisecondsMultiplier)
         
-        operator fun plus(other: Seconds): Seconds {
+        public operator fun plus(other: Seconds): Seconds {
             return Seconds(this.value + other.value)
         }
         
-        operator fun minus(other: Seconds): Seconds {
+        public operator fun minus(other: Seconds): Seconds {
             return Seconds(this.value - other.value)
         }
         
-        operator fun times(other: Seconds): Seconds {
+        public operator fun times(other: Seconds): Seconds {
             return Seconds(this.value * other.value)
         }
         
-        operator fun div(other: Seconds): Seconds {
+        public operator fun div(other: Seconds): Seconds {
             return Seconds(this.value / other.value)
         }
     }
@@ -136,7 +136,7 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * ( 60 minutes in a second).
      * @constructor
      */
-    class Minutes(@LongLimit(from = 0) minutes: Long) : TimeUnit(minutes) {
+    public class Minutes(@LongLimit(from = 0) minutes: Long) : TimeUnit(minutes) {
         
         override val prefix: String = "m"
         
@@ -147,19 +147,19 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
                                     secondsToMillisecondsMultiplier))
         }
         
-        operator fun plus(other: Minutes): Minutes {
+        public operator fun plus(other: Minutes): Minutes {
             return Minutes(this.value + other.value)
         }
         
-        operator fun minus(other: Minutes): Minutes {
+        public operator fun minus(other: Minutes): Minutes {
             return Minutes(this.value - other.value)
         }
         
-        operator fun times(other: Minutes): Minutes {
+        public operator fun times(other: Minutes): Minutes {
             return Minutes(this.value * other.value)
         }
         
-        operator fun div(other: Minutes): Minutes {
+        public operator fun div(other: Minutes): Minutes {
             return Minutes(this.value / other.value)
         }
     }
@@ -169,7 +169,7 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * The classic 60 minutes => 1 hour
      * @constructor
      */
-    class Hours(@LongLimit(from = 0) hours: Long) : TimeUnit(hours) {
+    public class Hours(@LongLimit(from = 0) hours: Long) : TimeUnit(hours) {
         
         override val prefix: String = "h"
         
@@ -181,19 +181,19 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
                                     secondsToMillisecondsMultiplier))
         }
         
-        operator fun plus(other: Hours): Hours {
+        public operator fun plus(other: Hours): Hours {
             return Hours(this.value + other.value)
         }
         
-        operator fun minus(other: Hours): Hours {
+        public operator fun minus(other: Hours): Hours {
             return Hours(this.value - other.value)
         }
         
-        operator fun times(other: Hours): Hours {
+        public operator fun times(other: Hours): Hours {
             return Hours(this.value * other.value)
         }
         
-        operator fun div(other: Hours): Hours {
+        public operator fun div(other: Hours): Hours {
             return Hours(this.value / other.value)
         }
     }
@@ -204,7 +204,7 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
      * @property prefix [String]
      * @constructor
      */
-    class Days(@LongLimit(from = 0) days: Long) : TimeUnit(days) {
+    public class Days(@LongLimit(from = 0) days: Long) : TimeUnit(days) {
         
         override val prefix: String = "d"
         
@@ -217,19 +217,19 @@ sealed class TimeUnit(@LongLimit(from = 0) val value: Long) {
                                     secondsToMillisecondsMultiplier))
         }
         
-        operator fun plus(other: Days): Days {
+        public operator fun plus(other: Days): Days {
             return Days(this.value + other.value)
         }
         
-        operator fun minus(other: Days): Days {
+        public operator fun minus(other: Days): Days {
             return Days(this.value - other.value)
         }
         
-        operator fun times(other: Days): Days {
+        public operator fun times(other: Days): Days {
             return Days(this.value * other.value)
         }
         
-        operator fun div(other: Days): Days {
+        public operator fun div(other: Days): Days {
             return Days(this.value / other.value)
         }
     }
@@ -277,7 +277,7 @@ private val TimeUnit.milliSecondsToNanoSecondsMultiplier: Long
  * @receiver [NanoSeconds]
  * @return [Seconds]
  */
-fun NanoSeconds.toSeconds(): Seconds =
+public fun NanoSeconds.toSeconds(): Seconds =
         toMilliSeconds().toSeconds()
 
 /**
@@ -285,7 +285,7 @@ fun NanoSeconds.toSeconds(): Seconds =
  * @receiver [NanoSeconds]
  * @return [Minutes]
  */
-fun NanoSeconds.toMinutes(): Minutes =
+public fun NanoSeconds.toMinutes(): Minutes =
         toSeconds().toMinutes()
 
 /**
@@ -293,7 +293,7 @@ fun NanoSeconds.toMinutes(): Minutes =
  * @receiver [NanoSeconds]
  * @return [Hours]
  */
-fun NanoSeconds.toHours(): Hours =
+public fun NanoSeconds.toHours(): Hours =
         toMinutes().toHours()
 
 /**
@@ -301,7 +301,7 @@ fun NanoSeconds.toHours(): Hours =
  * @receiver [NanoSeconds]
  * @return [Days]
  */
-fun NanoSeconds.toDays(): Days =
+public fun NanoSeconds.toDays(): Days =
         toHours().toDays()
 
 //endregion
@@ -313,7 +313,7 @@ fun NanoSeconds.toDays(): Days =
  * @receiver [MilliSeconds]
  * @return [NanoSeconds]
  */
-fun MilliSeconds.toNanoSeconds(): NanoSeconds =
+public fun MilliSeconds.toNanoSeconds(): NanoSeconds =
         NanoSeconds(value * milliSecondsToNanoSecondsMultiplier)
 
 /**
@@ -321,7 +321,7 @@ fun MilliSeconds.toNanoSeconds(): NanoSeconds =
  * @receiver [MilliSeconds]
  * @return [Seconds]
  */
-fun MilliSeconds.toSeconds(): Seconds =
+public fun MilliSeconds.toSeconds(): Seconds =
         Seconds(value / secondsToMillisecondsMultiplier)
 
 /**
@@ -329,7 +329,7 @@ fun MilliSeconds.toSeconds(): Seconds =
  * @receiver [MilliSeconds]
  * @return [Minutes]
  */
-fun MilliSeconds.toMinutes(): Minutes =
+public fun MilliSeconds.toMinutes(): Minutes =
         toSeconds().toMinutes()
 
 /**
@@ -337,7 +337,7 @@ fun MilliSeconds.toMinutes(): Minutes =
  * @receiver [MilliSeconds]
  * @return [Hours]
  */
-fun MilliSeconds.toHours(): Hours =
+public fun MilliSeconds.toHours(): Hours =
         toMinutes().toHours()
 
 /**
@@ -345,7 +345,7 @@ fun MilliSeconds.toHours(): Hours =
  * @receiver [MilliSeconds]
  * @return [Days]
  */
-fun MilliSeconds.toDays(): Days =
+public fun MilliSeconds.toDays(): Days =
         toHours().toDays()
 
 
@@ -358,7 +358,7 @@ fun MilliSeconds.toDays(): Days =
  * @receiver [Seconds]
  * @return [NanoSeconds]
  */
-fun Seconds.toNanoSeconds(): NanoSeconds =
+public fun Seconds.toNanoSeconds(): NanoSeconds =
         toMilliSeconds().toNanoSeconds()
 
 /**
@@ -366,7 +366,7 @@ fun Seconds.toNanoSeconds(): NanoSeconds =
  * @receiver [Seconds]
  * @return [Minutes]
  */
-fun Seconds.toMinutes(): Minutes =
+public fun Seconds.toMinutes(): Minutes =
         Minutes(value / minutesToSecondsMultiplier)
 
 /**
@@ -374,7 +374,7 @@ fun Seconds.toMinutes(): Minutes =
  * @receiver [Seconds]
  * @return [Hours]
  */
-fun Seconds.toHours(): Hours =
+public fun Seconds.toHours(): Hours =
         toMinutes().toHours()
 
 /**
@@ -382,7 +382,7 @@ fun Seconds.toHours(): Hours =
  * @receiver [Seconds]
  * @return [Days]
  */
-fun Seconds.toDays(): Days =
+public fun Seconds.toDays(): Days =
         toHours().toDays()
 
 
@@ -394,7 +394,7 @@ fun Seconds.toDays(): Days =
  * @receiver [Minutes]
  * @return [NanoSeconds]
  */
-fun Minutes.toNanoSeconds(): NanoSeconds =
+public fun Minutes.toNanoSeconds(): NanoSeconds =
         toMilliSeconds().toNanoSeconds()
 
 /**
@@ -402,7 +402,7 @@ fun Minutes.toNanoSeconds(): NanoSeconds =
  * @receiver [Minutes]
  * @return [Seconds]
  */
-fun Minutes.toSeconds(): Seconds =
+public fun Minutes.toSeconds(): Seconds =
         Seconds(value * minutesToSecondsMultiplier)
 
 /**
@@ -410,7 +410,7 @@ fun Minutes.toSeconds(): Seconds =
  * @receiver [Minutes]
  * @return [Hours]
  */
-fun Minutes.toHours(): Hours =
+public fun Minutes.toHours(): Hours =
         Hours(value / hoursToMinutesMultiplier)
 
 /**
@@ -418,7 +418,7 @@ fun Minutes.toHours(): Hours =
  * @receiver [Minutes]
  * @return [Days]
  */
-fun Minutes.toDays(): Days =
+public fun Minutes.toDays(): Days =
         toHours().toDays()
 
 
@@ -430,7 +430,7 @@ fun Minutes.toDays(): Days =
  * @receiver [Hours]
  * @return [NanoSeconds]
  */
-fun Hours.toNanoSeconds(): NanoSeconds =
+public fun Hours.toNanoSeconds(): NanoSeconds =
         toMilliSeconds().toNanoSeconds()
 
 /**
@@ -438,7 +438,7 @@ fun Hours.toNanoSeconds(): NanoSeconds =
  * @receiver [Hours]
  * @return [Seconds]
  */
-fun Hours.toSeconds(): Seconds =
+public fun Hours.toSeconds(): Seconds =
         toMinutes().toSeconds()
 
 /**
@@ -446,7 +446,7 @@ fun Hours.toSeconds(): Seconds =
  * @receiver [Hours]
  * @return [Minutes]
  */
-fun Hours.toMinutes(): Minutes =
+public fun Hours.toMinutes(): Minutes =
         Minutes(value * hoursToMinutesMultiplier)
 
 /**
@@ -454,7 +454,7 @@ fun Hours.toMinutes(): Minutes =
  * @receiver [Hours]
  * @return [Days]
  */
-fun Hours.toDays(): Days =
+public fun Hours.toDays(): Days =
         Days(value / daysToHoursMultiplier)
 
 //endregion
@@ -465,7 +465,7 @@ fun Hours.toDays(): Days =
  * @receiver [Days]
  * @return [NanoSeconds]
  */
-fun Days.toNanoSeconds(): NanoSeconds =
+public fun Days.toNanoSeconds(): NanoSeconds =
         toMilliSeconds().toNanoSeconds()
 
 /**
@@ -473,7 +473,7 @@ fun Days.toNanoSeconds(): NanoSeconds =
  * @receiver [Days]
  * @return [Seconds]
  */
-fun Days.toSeconds(): Seconds =
+public fun Days.toSeconds(): Seconds =
         toMinutes().toSeconds()
 
 /**
@@ -481,7 +481,7 @@ fun Days.toSeconds(): Seconds =
  * @receiver [Days]
  * @return [Minutes]
  */
-fun Days.toMinutes(): Minutes =
+public fun Days.toMinutes(): Minutes =
         toHours().toMinutes()
 
 /**
@@ -489,7 +489,7 @@ fun Days.toMinutes(): Minutes =
  * @receiver [Days]
  * @return [Hours]
  */
-fun Days.toHours(): Hours =
+public fun Days.toHours(): Hours =
         Hours(value * daysToHoursMultiplier)
 
 
@@ -499,6 +499,6 @@ fun Days.toHours(): Hours =
 /**
  * Sleeps (coroutine) this time unit
  */
-suspend inline fun TimeUnit.delay() {
+public suspend inline fun TimeUnit.delay() {
     delay(this.toMilliSeconds().value)
 }

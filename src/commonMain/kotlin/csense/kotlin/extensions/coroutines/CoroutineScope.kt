@@ -2,10 +2,8 @@
 
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.CoroutineScopeFunction
-import csense.kotlin.CoroutineScopeFunction0
-import csense.kotlin.annotations.threading.InBackground
-import csense.kotlin.annotations.threading.InUi
+import csense.kotlin.*
+import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 
 /**
@@ -14,7 +12,7 @@ import kotlinx.coroutines.*
  * @param action suspend [CoroutineScope].() -> T
  * @return [Deferred]<T>
  */
-inline fun <T> CoroutineScope.asyncDefault(
+public inline fun <T> CoroutineScope.asyncDefault(
         @InBackground noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Default, block = action)
 
@@ -24,7 +22,7 @@ inline fun <T> CoroutineScope.asyncDefault(
  * @param action suspend [CoroutineScope].() -> T
  * @return [Deferred]<T>
  */
-inline fun <T> CoroutineScope.asyncMain(
+public inline fun <T> CoroutineScope.asyncMain(
         @InUi noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Main, block = action)
 
@@ -34,7 +32,7 @@ inline fun <T> CoroutineScope.asyncMain(
  * @param action suspend [CoroutineScope].() -> [Unit]
  * @return [Job]
  */
-inline fun CoroutineScope.launchDefault(
+public inline fun CoroutineScope.launchDefault(
         @InBackground noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Default, block = action)
 
@@ -44,7 +42,7 @@ inline fun CoroutineScope.launchDefault(
  * @param action suspend [CoroutineScope].() -> [Unit]
  * @return [Job]
  */
-inline fun CoroutineScope.launchMain(
+public inline fun CoroutineScope.launchMain(
         @InUi noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Main, block = action)
 
@@ -54,7 +52,7 @@ inline fun CoroutineScope.launchMain(
  * @param action suspend [CoroutineScope].() -> T
  * @return T
  */
-suspend fun <T> CoroutineScope.withContextDefault(
+public suspend fun <T> CoroutineScope.withContextDefault(
         @InBackground action: CoroutineScopeFunction0<T>
 ): T = withContext(Dispatchers.Default, action)
 
@@ -64,7 +62,7 @@ suspend fun <T> CoroutineScope.withContextDefault(
  * @param action suspend [CoroutineScope].() -> T
  * @return T
  */
-suspend fun <T> CoroutineScope.withContextMain(
+public suspend fun <T> CoroutineScope.withContextMain(
         @InUi action: CoroutineScopeFunction0<T>
 ): T = withContext(Dispatchers.Main, action)
 

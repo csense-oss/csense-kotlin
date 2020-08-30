@@ -2,10 +2,10 @@
 
 package csense.kotlin.extensions.collections.list
 
-import csense.kotlin.Function1
-import csense.kotlin.annotations.numbers.IntLimit
+import csense.kotlin.*
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.primitives.isNegativeOrZero
+import csense.kotlin.extensions.primitives.*
 
 /**
  * Returns a limited view of this list, by limiting the size of it (if the list is shorter than the limit,
@@ -15,7 +15,7 @@ import csense.kotlin.extensions.primitives.isNegativeOrZero
  * @return [List]<E>
  */
 
-inline fun <E> List<E>.limitToSize(@IntLimit(from = 0) size: Int): List<E> {
+public inline fun <E> List<E>.limitToSize(@IntLimit(from = 0) size: Int): List<E> {
     if (size.isNegativeOrZero) {
         return emptyList()
     }
@@ -29,7 +29,7 @@ inline fun <E> List<E>.limitToSize(@IntLimit(from = 0) size: Int): List<E> {
  * @param intRange [IntRange]
  * @return [List]<T>
  */
-inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
+public inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
         subListSafe(intRange.first, intRange.last)
 
 /**
@@ -40,7 +40,7 @@ inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
  * @param toIndex [Int] (exclusive)    ]fromIndex;size[
  * @return [List]<T>
  */
-inline fun <T> List<T>.subListSafe(
+public inline fun <T> List<T>.subListSafe(
         @IntLimit(from = 0) fromIndex: Int,
         @IntLimit(from = 0) toIndex: Int
 ): List<T> {
@@ -60,7 +60,7 @@ inline fun <T> List<T>.subListSafe(
  * @param repeatBy [Int]
  * @return [List]<T>
  */
-inline fun <T> List<T>.repeat(
+public inline fun <T> List<T>.repeat(
         @IntLimit(from = 0) repeatBy: Int
 ): List<T> {
     if (repeatBy.isNegativeOrZero) {
@@ -82,7 +82,7 @@ inline fun <T> List<T>.repeat(
  * @param toSize [Int]
  * @return [List]<T> a new list to the desired size, by repeating this list, over and over again.
  */
-inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: Int): List<T> {
+public inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: Int): List<T> {
     //empty bounds
     if (size.isNegativeOrZero || toSize.isNegativeOrZero) {
         return emptyList()
@@ -107,7 +107,7 @@ inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: Int): Li
  * @param indices [IntProgression] the indexes to go over.
  * @param action [Function1]<U, *>
  */
-inline fun <reified U> List<*>.forEachIsInstance(
+public inline fun <reified U> List<*>.forEachIsInstance(
         indices: IntProgression,
         action: Function1<U, *>
 ): Unit = indices.forEach {
@@ -122,7 +122,7 @@ inline fun <reified U> List<*>.forEachIsInstance(
  * @param other [List]<[List]<T>>
  * @return [List]<[List]<T>>
  */
-inline fun <T> List<List<T>>.combine(
+public inline fun <T> List<List<T>>.combine(
         other: List<List<T>>
 ): List<List<T>> {
     val isOtherLarger = other.size > this.size
@@ -140,5 +140,5 @@ inline fun <T> List<List<T>>.combine(
  * @param element T the element to search for
  * @return [Boolean] true if the element was not found, false if it was found.
  */
-inline fun <T> List<T>.doesNotContain(element: T): Boolean =
+public inline fun <T> List<T>.doesNotContain(element: T): Boolean =
         !contains(element)

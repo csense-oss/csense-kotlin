@@ -2,18 +2,17 @@
 
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.AsyncFunction1
-import csense.kotlin.FunctionUnit
+import csense.kotlin.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.channels.*
+import kotlin.coroutines.*
 
 /**
  * Iterates over the given [Channel], executing the given function each time
  * @receiver [Channel]<E>
  * @param function [FunctionUnit]<E>
  */
-suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
+public suspend fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
     for (item in this) {
         function(item)
     }
@@ -30,10 +29,10 @@ suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
  * @param mapper [AsyncFunction1]<T, U>
  * @return [List]<[Deferred]<U>>
  */
-fun <T, U> Iterable<T>.mapAsync(
+public inline fun <T, U> Iterable<T>.mapAsync(
         coroutineScope: CoroutineScope,
         context: CoroutineContext = Dispatchers.Default,
-        mapper: AsyncFunction1<T, U>
+        crossinline mapper: AsyncFunction1<T, U>
 ): List<Deferred<U>> = map {
     coroutineScope.async(context) {
         mapper(it)
@@ -48,7 +47,7 @@ fun <T, U> Iterable<T>.mapAsync(
  * @param mapper [AsyncFunction1]<T, U>
  * @return [List]<U>
  */
-suspend fun <T, U> Iterable<T>.mapAsyncAwait(
+public suspend fun <T, U> Iterable<T>.mapAsyncAwait(
         coroutineScope: CoroutineScope,
         context: CoroutineContext = Dispatchers.Default,
         mapper: AsyncFunction1<T, U>
@@ -59,6 +58,6 @@ suspend fun <T, U> Iterable<T>.mapAsyncAwait(
  * Since this is missing from Standard Library.
  * @receiver [Array]<out [Job]>
  */
-suspend inline fun Array<out Job>.joinAll() {
+public suspend fun Array<out Job>.joinAll() {
     forEach { it.join() }
 }

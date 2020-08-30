@@ -7,7 +7,7 @@ package csense.kotlin.extensions.primitives
  * @receiver [Char]
  * @return [Boolean]
  */
-actual inline fun Char.isUpperCaseLetter(): Boolean {
+public actual inline fun Char.isUpperCaseLetter(): Boolean {
     if (this.isWhitespace() || this.isDigit()) {
         return false
     }
@@ -19,7 +19,7 @@ actual inline fun Char.isUpperCaseLetter(): Boolean {
  * @receiver [Char]
  * @return [Boolean]
  */
-actual inline fun Char.isLowerCaseLetter(): Boolean {
+public actual inline fun Char.isLowerCaseLetter(): Boolean {
     if (this.isWhitespace() || this.isDigit()) {
         return false
     }

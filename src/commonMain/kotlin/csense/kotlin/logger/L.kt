@@ -2,10 +2,9 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function0R
-import csense.kotlin.extensions.collections.invokeEachWith
-import csense.kotlin.extensions.primitives.onTrue
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.primitives.*
 
 
 /**
@@ -13,7 +12,7 @@ import csense.kotlin.extensions.primitives.onTrue
  * A simple enumeration over the types of logging that can happen.
  * @property stringValue [String] the textual representation (useful for tags)
  */
-enum class LoggingLevel(val stringValue: String) {
+public enum class LoggingLevel(public val stringValue: String) {
     Debug("Debug"),
     Warning("Warning"),
     Error("Error"),
@@ -31,20 +30,20 @@ enum class LoggingLevel(val stringValue: String) {
 /**
  * The Basis logging function.
  */
-typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
+public typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
 
 /**
  * The definition of a logging formatter.
  */
-typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
+public typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
 
 /**
  * The L logger, capable of being instantiated, and inherited.
- * Contains all necessary logging features. [LoggingLevel] channels, each capable of beeing enabled / disabled.
+ * Contains all necessary logging features. [LoggingLevel] channels, each capable of being enabled / disabled.
  * and a list of listeners for that logging level.
  * The main instance is called "L"
  */
-open class LLogger {
+public open class LLogger {
     
     /**
      * Controls whenever logging is allowed.
@@ -52,7 +51,7 @@ open class LLogger {
      * INCLUDING productionLogging (so if you want to turn off all logs, except production logging
      * the advice is to set isAllowedLogging(false); and then explicit enable productionLogging.
      */
-    fun isLoggingAllowed(value: Boolean) {
+    public fun isLoggingAllowed(value: Boolean) {
         isDebugLoggingAllowed = value
         isWarningLoggingAllowed = value
         isProductionLoggingAllowed = value
@@ -64,25 +63,25 @@ open class LLogger {
      * Controls whenever error logging is allowed.
      * default is true
      */
-    var isErrorLoggingAllowed = true
+    public var isErrorLoggingAllowed: Boolean = true
     
     /**
      * controls whenever warning logging is allowed
      * default is true
      */
-    var isWarningLoggingAllowed = true
+    public var isWarningLoggingAllowed: Boolean = true
     
     /**
      * controls whenever debug logging is allowed
      * default is true
      */
-    var isDebugLoggingAllowed = true
+    public var isDebugLoggingAllowed: Boolean = true
     
     /**
      * controls whenever production logging is allowed
      * default is true
      */
-    var isProductionLoggingAllowed = true
+    public var isProductionLoggingAllowed: Boolean = true
     //endregion
     
     //region loggers
@@ -90,22 +89,22 @@ open class LLogger {
      * Production level loggers; the intention here is to allow this logging in production.
      * its controlled separate from all the other logging flags.
      */
-    var productionLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
+    public var productionLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
     
     /**
      *
      */
-    var debugLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
+    public var debugLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
     
     /**
      *
      */
-    var warningLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
+    public var warningLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
     
     /**
      *
      */
-    var errorLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
+    public var errorLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
     //endregion
     
     //region log error
@@ -121,14 +120,14 @@ open class LLogger {
      * Requires the isErrorLoggingAllowed to be true to log anything
      *
      */
-    fun error(tag: String, message: String, exception: Throwable?): Unit = ifMayLogError {
+    public fun error(tag: String, message: String, exception: Throwable?): Unit = ifMayLogError {
         errorLoggers.invokeEachWith(tag, message, exception)
     }
     
     /**
      *
      */
-    fun error(tag: String, message: String): Unit =
+    public fun error(tag: String, message: String): Unit =
             error(tag, message, null)
     
     /**
@@ -137,12 +136,12 @@ open class LLogger {
      * @param messageFnc [Function0R]<[String]>
      * @param exception [Throwable]?
      */
-    fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogError {
+    public fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogError {
         errorLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
     
     
-    fun errorLazy(tag: String, messageFnc: Function0R<String>): Unit =
+    public fun errorLazy(tag: String, messageFnc: Function0R<String>): Unit =
             errorLazy(tag, messageFnc, null)
     //endregion
     
@@ -155,12 +154,12 @@ open class LLogger {
      * @param message [String]
      * @param exception [Throwable]?
      */
-    fun warning(tag: String, message: String, exception: Throwable?): Unit = ifMayLogWarning {
+    public fun warning(tag: String, message: String, exception: Throwable?): Unit = ifMayLogWarning {
         warningLoggers.invokeEachWith(tag, message, exception)
     }
     
     
-    fun warning(tag: String, message: String): Unit =
+    public fun warning(tag: String, message: String): Unit =
             warning(tag, message, null)
     
     /**
@@ -170,11 +169,11 @@ open class LLogger {
      * @param exception [Throwable]?
      *
      */
-    fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogWarning {
+    public fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogWarning {
         warningLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
     
-    fun warningLazy(tag: String, messageFnc: Function0R<String>): Unit =
+    public fun warningLazy(tag: String, messageFnc: Function0R<String>): Unit =
             warningLazy(tag, messageFnc, null)
     //endregion
     
@@ -186,11 +185,11 @@ open class LLogger {
      * @param exception [Throwable]?
      *
      */
-    fun debug(tag: String, message: String, exception: Throwable? = null): Unit = ifMayLogDebug {
+    public fun debug(tag: String, message: String, exception: Throwable? = null): Unit = ifMayLogDebug {
         debugLoggers.invokeEachWith(tag, message, exception)
     }
     
-    fun debug(tag: String, message: String): Unit =
+    public fun debug(tag: String, message: String): Unit =
             debug(tag, message, null)
     
     /**
@@ -200,11 +199,11 @@ open class LLogger {
      * @param exception [Throwable]?
      *
      */
-    fun debugLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogDebug {
+    public fun debugLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogDebug {
         debugLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
     
-    fun debugLazy(tag: String, messageFnc: Function0R<String>) =
+    public fun debugLazy(tag: String, messageFnc: Function0R<String>): Unit =
             debugLazy(tag, messageFnc, null)
     //endregion
     
@@ -218,11 +217,11 @@ open class LLogger {
      * @param message [String]
      * @param exception [Throwable]?
      */
-    fun logProd(tag: String, message: String, exception: Throwable?): Unit = ifMayLogProduction {
+    public fun logProd(tag: String, message: String, exception: Throwable?): Unit = ifMayLogProduction {
         productionLoggers.invokeEachWith(tag, message, exception)
     }
     
-    fun logProd(tag: String, message: String) =
+    public fun logProd(tag: String, message: String): Unit =
             logProd(tag, message, null)
     
     /**
@@ -232,11 +231,11 @@ open class LLogger {
      * @param messageFnc [Function0R]<[String]>
      * @param exception [Throwable]?
      */
-    fun logProdLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogProduction {
+    public fun logProdLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogProduction {
         productionLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
     
-    fun logProdLazy(tag: String, messageFnc: Function0R<String>): Unit =
+    public fun logProdLazy(tag: String, messageFnc: Function0R<String>): Unit =
             logProdLazy(tag, messageFnc, null)
     //endregion
     
@@ -282,4 +281,4 @@ open class LLogger {
  * Container for all shared logging.
  * Shared single instance.
  */
-object L : LLogger()
+public object L : LLogger()

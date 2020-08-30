@@ -2,9 +2,9 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.annotations.numbers.ByteLimit
-import csense.kotlin.extensions.mapLazy
-import kotlin.experimental.or
+import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.*
+import kotlin.experimental.*
 
 /**
  *changes the casing of this char to the given casing
@@ -12,7 +12,7 @@ import kotlin.experimental.or
  * @param upperCase [Boolean]
  * @return [Char]
  */
-inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
+public inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
         ifTrue = this::toUpperCase,
         ifFalse = this::toLowerCase)
 
@@ -22,7 +22,7 @@ inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
  * @return [Byte]?
  */
 @ByteLimit(from = 0, to = 9)
-inline fun Char.asDigit(): Byte? {
+public inline fun Char.asDigit(): Byte? {
     val diff = toByte() - CharExtensions.charZeroAsByte
     if (diff.isNegative || diff > CharExtensions.numberCharsCount) {
         return null
@@ -37,7 +37,7 @@ inline fun Char.asDigit(): Byte? {
  * @receiver [Char]
  * @return [Byte]?
  */
-inline fun Char.asHexDigit(): Byte? {
+public inline fun Char.asHexDigit(): Byte? {
     val asNumber = asDigit()
     if (asNumber != null) {
         return asNumber
@@ -58,7 +58,7 @@ inline fun Char.asHexDigit(): Byte? {
  * @param second [Char]
  * @return [Short]? the potential valid hex value.
  */
-inline fun hexCharsToValue(first: Char, second: Char): Short? {
+public inline fun hexCharsToValue(first: Char, second: Char): Short? {
     val firstToInt = first.asHexDigit()?.toShort() ?: return null
     val secondToInt = second.asHexDigit()?.toShort() ?: return null
     return firstToInt.shl(4) or secondToInt
@@ -72,7 +72,7 @@ inline fun hexCharsToValue(first: Char, second: Char): Short? {
  * for native use this implementation
  *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect inline fun Char.isUpperCaseLetter(): Boolean
+public expect inline fun Char.isUpperCaseLetter(): Boolean
 //get() = toUpperCase().equals(this, false)
 
 /**
@@ -80,7 +80,7 @@ expect inline fun Char.isUpperCaseLetter(): Boolean
  * for native use this implementation
  *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
-expect inline fun Char.isLowerCaseLetter(): Boolean
+public expect inline fun Char.isLowerCaseLetter(): Boolean
 //get() = toLowerCase().equals(this, false)
 
 /**
@@ -88,7 +88,7 @@ expect inline fun Char.isLowerCaseLetter(): Boolean
  *
  * true if it is a number, false otherwise
  */
-inline fun Char.isDigit(): Boolean =
+public inline fun Char.isDigit(): Boolean =
         this in '0'..'9'
 
 /**
@@ -96,26 +96,26 @@ inline fun Char.isDigit(): Boolean =
  * @receiver [Char] the char to test
  * @return [Boolean] true if it is not a digit, false if it is
  */
-inline fun Char.isNotDigit(): Boolean =
+public inline fun Char.isNotDigit(): Boolean =
         !isDigit()
 
 
-inline class CharExtensions(val char: Char) {
-    companion object {
+public inline class CharExtensions(public val char: Char) {
+    public companion object {
         
-        const val charZeroAsByte = '0'.toByte()
+        public const val charZeroAsByte: Byte = '0'.toByte()
         
-        const val charAAsByte = 'a'.toByte()
+        public const val charAAsByte: Byte = 'a'.toByte()
         
         /**
          * The length (0 indexed) of numbers ( 0 until 9)
          */
-        const val numberCharsCount: Int = 9
+        public const val numberCharsCount: Int = 9
         
         /**
          * The length (0 indexed) of chars that represents hex numbers ( a - f)
          */
-        const val hexCharsCount: Int = 5
+        public const val hexCharsCount: Int = 5
     }
 }
 //validate whenever "digit" in other text systems are more than "0-9" (eg say Chinese)

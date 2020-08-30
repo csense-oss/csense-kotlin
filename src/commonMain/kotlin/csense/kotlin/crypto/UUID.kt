@@ -1,15 +1,14 @@
 package csense.kotlin.crypto
 
-import csense.kotlin.extensions.collections.array.toHexString
+import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.specificExtensions.string.*
-import kotlin.experimental.and
-import kotlin.experimental.or
-import kotlin.random.Random
+import kotlin.experimental.*
+import kotlin.random.*
 
 /**
  * An implementation of a UUID version 4
  */
-object UUID4 {
+public object UUID4 {
 
     private const val clk_seq_hi_resIndex = 8
     private const val time_hi_and_versionIndex = 6
@@ -23,7 +22,7 @@ object UUID4 {
      * @param shouldBeUppercase [Boolean]
      * @return [String]
      */
-    fun create(
+    public fun create(
             random: Random = Random,
             shouldBeUppercase: Boolean = true,
             shouldHaveDashes: Boolean = true

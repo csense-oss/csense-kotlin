@@ -2,20 +2,20 @@ package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
 
-inline class StringMpp(val string: String) {
+public inline class StringMpp(public val string: String) {
     
     /**
      * A class representing an insert to be made into a string
      * @property toInsert String the string to insert
      * @property atIndex Int at what raw index in the string
      */
-    class StringInserts(
-            val toInsert: String,
-            @IntLimit(from = 0) val atIndex: Int
+    public class StringInserts(
+            public val toInsert: String,
+            @IntLimit(from = 0) public val atIndex: Int
     )
 }
 
-inline val String.mpp: StringMpp
+public inline val String.mpp: StringMpp
     inline get() = StringMpp(this)
 
 //region Creation and insertion
@@ -26,7 +26,7 @@ inline val String.mpp: StringMpp
  * @param toInsert [Array]<out [StringMpp.StringInserts]> the insets to insert
  * @return [String]? the resulting string,or null if any index is outside of bounds
  */
-fun StringMpp.insertInto(vararg toInsert: StringMpp.StringInserts): String? = with(string) {
+public fun StringMpp.insertInto(vararg toInsert: StringMpp.StringInserts): String? = with(string) {
     val size = count()
     
     val sb = StringBuilder()

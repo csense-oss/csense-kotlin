@@ -2,9 +2,8 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
-import csense.kotlin.logger.L
-import csense.kotlin.logger.LoggingFunctionType
+import csense.kotlin.*
+import csense.kotlin.logger.*
 
 
 /**
@@ -15,7 +14,7 @@ import csense.kotlin.logger.LoggingFunctionType
  * @param throwableAction [EmptyFunctionResult]<T>
  * @return T?
  */
-inline fun <T> tryAndLog(
+public inline fun <T> tryAndLog(
         title: String = "",
         message: String = "",
         logger: LoggingFunctionType<*> = L::error,
@@ -35,7 +34,7 @@ inline fun <T> tryAndLog(
  * @param lineSeparator [String]
  * @param indentation [String]
  */
-inline fun Throwable.toPrettyString(
+public inline fun Throwable.toPrettyString(
         lineSeparator: String = "\n",
         indentation: String = "\t"
 ): String {

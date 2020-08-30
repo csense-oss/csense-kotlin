@@ -10,7 +10,7 @@ import kotlin.contracts.*
  * @return T
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <T> T.also(block: EmptyFunction): T {
+public inline fun <T> T.also(block: EmptyFunction): T {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }

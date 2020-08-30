@@ -75,4 +75,24 @@ class GeneralTest {
         "test".invokeIsInstance<String, String> { it }.assertNotNullAndEquals("test")
         42.invokeIsInstance<String, Int> { 42 }.assertNull()
     }
+    
+    @Test
+    fun tOr() {
+        val optString: String? = null
+        optString.or("test").assert("test")
+        optString.or("1234").assert("1234")
+        
+        val str: String? = "test"
+        str.or("1234").assert("test")
+        
+    }
+    
+    @Test
+    fun tOrLazy() {
+        val optInt: Int? = null
+        optInt.orLazy { 99 }.assert(99)
+        
+        val optInt2: Int? = 42
+        optInt2.orLazy { 111 }.assert(42)
+    }
 }

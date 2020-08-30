@@ -8,7 +8,7 @@ package csense.kotlin.extensions.collections.map
  * @receiver [Iterable]<[Map.Entry]<K, V>>
  * @return [List]<K>
  */
-inline fun <K, V> Iterable<Map.Entry<K, V>>.mapKeys(): List<K> =
+public inline fun <K, V> Iterable<Map.Entry<K, V>>.mapKeys(): List<K> =
         map { it.key }
 
 /**
@@ -16,6 +16,6 @@ inline fun <K, V> Iterable<Map.Entry<K, V>>.mapKeys(): List<K> =
  * @receiver [Iterable]<[Map.Entry]<K, V>>
  * @return [List]<V>
  */
-inline fun <K, V> Iterable<Map.Entry<K, V>>.mapValues(): List<V> =
+public inline fun <K, V> Iterable<Map.Entry<K, V>>.mapValues(): List<V> =
         map { it.value }
 

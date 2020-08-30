@@ -11,7 +11,7 @@ package csense.kotlin.extensions.collections.set
  * @timecomplexity O(1)
  */
 
-inline fun <T> MutableSet<T>.toggleExistence(item: T) {
+public inline fun <T> MutableSet<T>.toggleExistence(item: T) {
     setExistence(item, !contains(item))
 }
 
@@ -23,7 +23,7 @@ inline fun <T> MutableSet<T>.toggleExistence(item: T) {
  * @param shouldExists [Boolean]
  * @timecomplexity O(1)
  */
-inline fun <T> MutableSet<T>.setExistence(item: T, shouldExists: Boolean) {
+public inline fun <T> MutableSet<T>.setExistence(item: T, shouldExists: Boolean) {
     if (shouldExists) {
         add(item)
     } else {

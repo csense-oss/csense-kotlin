@@ -1,9 +1,9 @@
 buildscript {
 
-    ext.coroutinesVersion = "1.3.7"
+    ext.coroutinesVersion = "1.3.9"
     ext.junit5Version = "5.5.2"
-    ext.csenseTestsVersion = "0.0.27"
-    ext.csenseAnnotationVersion = "0.0.18"
+    ext.csenseTestsVersion = "0.0.40"
+    ext.csenseAnnotationVersion = "0.0.40"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
@@ -13,25 +13,28 @@ buildscript {
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
     ext.csenseLicense = "MIT"
+    ext.csenseLicenseUrl = "https://mit-license.org/"
+
+    ext.csenseDeveloperAlias = "tvede-dk"
+    ext.csenseDeveloperName = "Kasper Tvede"
+    ext.csenseDeveloperEmail = "csenseoss@tvedesys.dk"
+
     ext.readme = "readme.md"
     ext.csenseWebsite = "https://github.com/csense-oss/csense-kotlin"
     ext.csenseGit = "https://github.com/csense-oss/csense-kotlin.git"
+    ext.csenseArtifactDescription = ""
     //end library settings
 }
 
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '1.4-M3'
-    id 'org.jetbrains.dokka' version '0.10.1'
-
+    id 'org.jetbrains.kotlin.multiplatform' version "1.4.0"
+    id("org.jetbrains.dokka") version "0.10.0"
     id "maven-publish"
-    id "com.jfrog.bintray" version "1.8.5"
-    id "jacoco"
-//    id 'kotlinx.benchmark' version "0.2.0-dev-16"
+    id 'kotlinx.benchmark' version "0.2.0-dev-20"
 }
 
 repositories {
-
     jcenter()
     maven { url "https://dl.bintray.com/csense-oss/maven" }
     maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
@@ -43,71 +46,60 @@ group project.csenseGroupId
 version project.csenseVersionName
 
 kotlin {
-//    explicitApi = 'strict' //for 1.4
+    explicitApi = 'strict'
     jvm()
-    js {
-        browser {
-        }
-        nodejs {
-        }
+    js(LEGACY) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
+        browser()
+        nodejs()
     }
+
     sourceSets {
         commonMain {
             dependencies {
-                implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion"
-                implementation "csense.kotlin:csense-kotlin-annotations-metadata:$csenseAnnotationVersion"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+                implementation "csense.kotlin:csense-kotlin-annotations:$csenseAnnotationVersion"
             }
         }
         commonTest {
             dependencies {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation "csense.kotlin:csense-kotlin-tests-metadata:$csenseTestsVersion"
-//                implementation 'org.jetbrains.kotlinx:kotlinx.benchmark.runtime-metadata:0.2.0-dev-8'
+                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
+//                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-dev-20")
             }
         }
         jvmMain {
-            dependencies {
-                implementation kotlin('stdlib-jdk8')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-                implementation "csense.kotlin:csense-kotlin-annotations-jvm:$csenseAnnotationVersion"
-            }
+
         }
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation "org.jetbrains.kotlin:kotlin-reflect"
-                implementation "csense.kotlin:csense-kotlin-tests-jvm:$csenseTestsVersion"
-//                implementation 'org.jetbrains.kotlinx:kotlinx.benchmark.runtime-jvm:0.2.0-dev-8'
-
+//                implementation "csense.kotlin:csense-kotlin-tests-jvm:$csenseTestsVersion"
             }
 
         }
 
         jsMain {
-            dependencies {
-                implementation kotlin('stdlib-js')
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion"
-                implementation "csense.kotlin:csense-kotlin-annotations-js:$csenseAnnotationVersion"
-            }
+
         }
+
         jsTest {
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-js'
-                implementation "csense.kotlin:csense-kotlin-tests-js:$csenseTestsVersion"
-//                implementation 'org.jetbrains.kotlinx:kotlinx.benchmark.runtime-js:0.2.0-dev-8'
+//                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+//                implementation "csense.kotlin:csense-kotlin-tests-js:$csenseTestsVersion"
+//                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime-js:0.2.0-dev-20")
 
             }
         }
         all {
-            languageSettings.enableLanguageFeature("InlineClasses")
+            languageSettings {
+                enableLanguageFeature("InlineClasses")
+                useExperimentalAnnotation('kotlin.RequiresOptIn')
+                progressiveMode = true
+            }
         }
     }
-}
-
-kotlin.sourceSets.all {
-    languageSettings.progressiveMode = true
 }
 
 jvmTest {
@@ -116,93 +108,42 @@ jvmTest {
         junitXml.enabled = true
         html.enabled = true
     }
-    jacoco {
-        destinationFile = file("${buildDir}/jacoco/test.exec")
-    }
+//    jacoco {
+//        destinationFile = file("${buildDir}/jacoco/test.exec")
+//    }
 }
-dokka {
-    multiplatform {
-        global {
-            perPackageOption {
-                prefix = "csense.kotlin"
-                suppress = true
-            }
+
+
+//required for the dokka.
+
+task docJvm(type: org.jetbrains.dokka.gradle.DokkaTask) {
+
+    outputFormat = 'javadoc'
+
+    outputDirectory = "$buildDir/doc_jvm"
+
+    impliedPlatforms = ["Common"] // This will force platform tags for all non-common sources e.g. "JVM"
+}
+
+
+project.group = csenseGroupId
+project.version = csenseVersionName
+
+apply from: "$rootDir/gradle/dokka.gradle"
+apply from: "$rootDir/gradle/publish.gradle"
+
+task uploadProd(dependsOn: ["assemble", "allTests", "publish"])
+
+
+benchmark {
+    targets {
+        register("jvmTest") {
+            jmhVersion = "1.23" // available only for JVM compilations & Java source sets
         }
-        js {}
-        jvm {
-        }
-    }
-}
-jacoco {
-    toolVersion = "0.8.5"
-}
-
-task jacocoTestReport(type: JacocoReport, dependsOn: ["jvmTest"]) {
-    reports {
-        html.enabled true
-        xml.enabled true
-        csv.enabled true
-    }
-    classDirectories.setFrom(files("${project.buildDir}/classes/kotlin/jvm/main"))
-    executionData(file("${buildDir}/jacoco/test.exec"))
-    additionalSourceDirs(files("src/commonMain/kotlin"))
-    additionalSourceDirs(files("src/jvmMain/kotlin"))
-}
-
-bintray {
-    Properties properties = new Properties()
-    try {
-        properties.load(project.rootProject.file('local.properties')?.newDataInputStream())
-        user = properties.getProperty('bintrayUser')
-        key = properties.getProperty('bintrayApiKey')
-    } catch (Exception ignored) {
-        print "could not read local.properties"
-        user = ""
-        key = ""
-    }
-    publications = publishing.publications.getNames()
-    override = true
-    publish = false
-    pkg {
-        repo = project.csenseRepoName
-        userOrg = project.csenseUserOrg
-        vcsUrl = project.csenseGit
-        licenses = project.csenseLicense
-        name = project.csenseArtifactId
-    }
-}
-
-task uploadProd(dependsOn: ["assemble", "allTests", "dokka", "javadocJar", "bintrayUpload"])
-
-
-task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-    outputFormat = "javadoc"
-    outputDirectory = "$buildDir/dokkaJavadoc"
-}
-
-final def javaDocJarTask = task("javadocJar", type: Jar, dependsOn: "dokkaJavadoc") {
-    archiveClassifier.set('javadoc')
-    from "${project.buildDir}/dokkaJavadoc"
-}
-
-
-publishing {
-    publications {
-        jvm {
-            artifact(javaDocJarTask)
-        }
-    }
-}
-
-//benchmark {
-//    targets {
-//        register("jvmTest") {
-//            jmhVersion = "1.23" // available only for JVM compilations & Java source sets
-//        }
 //        register("js") {
 //            // Note, that benchmarks.js uses a different approach of minTime & maxTime and run benchmarks
 //            // until results are stable. We estimate minTime as iterationTime and maxTime as iterationTime*iterations
 //        }
-////        register("native")
-//    }
-//}
+//        register("native")
+    }
+}

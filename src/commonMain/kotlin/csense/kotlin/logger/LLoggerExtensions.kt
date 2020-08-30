@@ -1,10 +1,8 @@
 package csense.kotlin.logger
 
-import csense.kotlin.Function0R
-import csense.kotlin.extensions.collections.invokeEachWith
-import csense.kotlin.extensions.collections.skipIfEmptyOr
-import csense.kotlin.extensions.toPrettyString
-import csense.kotlin.Function4
+import csense.kotlin.*
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.*
 
 // this requires us to take over STD out which is platform agnostic.
 // This should be fixed in test plugin (csense kotlin test)
@@ -13,7 +11,7 @@ import csense.kotlin.Function4
  * @receiver LLogger the logger to add the formatter(s) to
  * @param formatter [Function4]<[LoggingLevel], [String], [String], [Throwable]?, [String]> formatter function
  */
-inline fun LLogger.usePrintAsLoggers(
+public inline fun LLogger.usePrintAsLoggers(
         crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
             "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
         }
@@ -46,10 +44,10 @@ inline fun LLogger.usePrintAsLoggers(
  * @param messageFnc [Function0R]<String>
  * @param exception [Throwable]?
  */
-inline fun <T : LoggingFunctionType<*>> Iterable<T>.invokeEachWithLoggingLazy(
+public inline fun <T : LoggingFunctionType<*>> Iterable<T>.invokeEachWithLoggingLazy(
         tag: String,
         messageFnc: Function0R<String>,
         exception: Throwable?
-) = skipIfEmptyOr {
+): Unit = skipIfEmptyOr {
     invokeEachWith(tag, messageFnc(), exception)
 }

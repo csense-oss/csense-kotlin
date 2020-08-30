@@ -2,20 +2,20 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.annotations.numbers.ByteLimit
-import kotlin.experimental.and
+import csense.kotlin.annotations.numbers.*
+import kotlin.experimental.*
 
 
 //region Zero, negative, positive
 
-inline val Byte.Companion.zero: Byte
+public inline val Byte.Companion.zero: Byte
     get() = 0
 
 /**
  * This [Byte] as negative, if it is already negative, returns that.
  * this is also negative Abs.
  */
-inline val Byte.negative: Byte
+public inline val Byte.negative: Byte
     @ByteLimit(to = 0)
     get() = if (this.isPositiveOrZero) {
         (-this).toByte()
@@ -28,7 +28,7 @@ inline val Byte.negative: Byte
  * this [Byte] as positive, if it is already positive, returns that.
  * also known as abs
  */
-inline val Byte.positive: Byte
+public inline val Byte.positive: Byte
     @ByteLimit(from = 0)
     get() = if (this.isNegative) {
         (this * -1).toByte()
@@ -39,51 +39,51 @@ inline val Byte.positive: Byte
 /**
  *  if this [Byte] is not 0 => returns true. false otherwise
  */
-inline val Byte.isNotZero: Boolean
+public inline val Byte.isNotZero: Boolean
     get() = !isZero
 
 /**
  *  if this [Byte] is 0 => returns true. false otherwise
  */
-inline val Byte.isZero: Boolean
+public inline val Byte.isZero: Boolean
     get() = this == Byte.zero
 
 /**
  * Tells if this [Byte] is either negative or zero
  */
-inline val Byte.isNegativeOrZero: Boolean
+public inline val Byte.isNegativeOrZero: Boolean
     get() = this.isNegative || this.isZero
 
 /**
  * Tells if this [Byte] is either positive or zero
  */
-inline val Byte.isPositiveOrZero: Boolean
+public inline val Byte.isPositiveOrZero: Boolean
     get() = this.isPositive || this.isZero
 
 
 /**
  * If this [Byte] is less than 0 then its negative
  */
-inline val Byte.isNegative: Boolean
+public inline val Byte.isNegative: Boolean
     get() = this < 0
 
 /**
  * If this [Byte] is positive, meaning iff its greater than neutral (0)
  */
-inline val Byte.isPositive: Boolean
+public inline val Byte.isPositive: Boolean
     get() = this > 0
 
 
 /**
  * if this [Byte] is even (2,4,6....)
  */
-inline val Byte.isEven: Boolean
+public inline val Byte.isEven: Boolean
     get() = this % 2 == 0
 
 /**
  * If this [Byte] is odd (1,3,5 ...)
  */
-inline val Byte.isOdd: Boolean
+public inline val Byte.isOdd: Boolean
     get() = !isEven
 //endregion
 
@@ -95,7 +95,7 @@ inline val Byte.isOdd: Boolean
  * @return [Byte] the resulting byte; overflow are discarded
  */
 
-inline infix fun Byte.shl(shift: Int): Byte =
+public inline infix fun Byte.shl(shift: Int): Byte =
         (this.toInt() shl shift).toByte()
 
 /**
@@ -105,7 +105,7 @@ inline infix fun Byte.shl(shift: Int): Byte =
  * @return [Byte] the resulting byte; overflow are discared
  */
 
-inline infix fun Byte.shr(shift: Int): Byte =
+public inline infix fun Byte.shr(shift: Int): Byte =
         (this.toInt() shr shift).toByte()
 //endregion
 
@@ -116,10 +116,10 @@ inline infix fun Byte.shr(shift: Int): Byte =
  * @param action (upperChar: [Char], lowerChar: [Char]) -> T
  * @return T
  */
-inline fun <T> Byte.toChars(
+public fun <T> Byte.toChars(
         action: (upperChar: Char, lowerChar: Char) -> T
 ): T = splitIntoComponents { upperByte, lowerByte ->
-    action(hexCharsAsString[upperByte.toInt()], hexCharsAsString[lowerByte.toInt()])
+    action(ByteExtensions.hexCharsAsString[upperByte.toInt()], ByteExtensions.hexCharsAsString[lowerByte.toInt()])
 }
 
 /**
@@ -128,7 +128,7 @@ inline fun <T> Byte.toChars(
  * @return [String]
  */
 
-inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
+public inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
     charArrayOf(upperChar, lowerChar).concatToString()
 }
 
@@ -139,7 +139,7 @@ inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
  * @param action (upperByte: [Byte], lowerByte: [Byte]) -> T
  * @return T
  */
-inline fun <T> Byte.splitIntoComponents(
+public inline fun <T> Byte.splitIntoComponents(
         action: (upperByte: Byte, lowerByte: Byte) -> T
 ): T {
     val lower: Byte = this and 0x0f
@@ -147,9 +147,11 @@ inline fun <T> Byte.splitIntoComponents(
     return action(upper, lower)
 }
 
-/**
- *
- */
-const val hexCharsAsString = "0123456789ABCDEF"
 //endregion
 
+
+public inline class ByteExtensions(public val byte: Byte) {
+    public companion object {
+        public const val hexCharsAsString: String = "0123456789ABCDEF"
+    }
+}

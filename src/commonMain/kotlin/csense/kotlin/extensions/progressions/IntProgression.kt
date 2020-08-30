@@ -11,14 +11,14 @@ import csense.kotlin.annotations.numbers.*
  * @return [IntArray]
  */
 
-inline fun IntProgression.toIntArray(): IntArray = this.toList().toIntArray()
+public inline fun IntProgression.toIntArray(): IntArray = this.toList().toIntArray()
 
 /**
  * The length of an [IntProgression]
  * its the number of times steps have to be taken to get to the end.
  * or simply put, the number of times it would run in a loop.
  */
-inline val IntProgression.length: Int
+public inline val IntProgression.length: Int
     @IntLimit(from = 0)
     get() = ((last + step) - first) / step //+ step due to "inclusive".
 
@@ -28,7 +28,7 @@ inline val IntProgression.length: Int
  * @param lengthToSkip [Int] the [step]s to skip
  * @return [IntProgression] the resulting IntProgression when skipping
  */
-inline fun IntProgression.skip(lengthToSkip: Int): IntProgression {
+public inline fun IntProgression.skip(lengthToSkip: Int): IntProgression {
     if (length <= 0) {
         return this
     }

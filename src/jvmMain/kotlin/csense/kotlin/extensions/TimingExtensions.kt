@@ -16,7 +16,7 @@ import kotlin.contracts.contract
  * @return [Pair]<[Long], R> the first is the time in ms the second is the result of the function.
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <R> measureTimeMillisResult(
+public inline fun <R> measureTimeMillisResult(
         block: EmptyFunctionResult<R>
 ): Pair<@LongLimit(from = 0) Long, R> {
     contract {
@@ -36,7 +36,7 @@ inline fun <R> measureTimeMillisResult(
  * @return T the result type of the action invocation.
  */
 @OptIn(ExperimentalContracts::class)
-inline fun <T> logMeasureTimeInMillis(
+public inline fun <T> logMeasureTimeInMillis(
         loggingTitle: String = "Timing",
         loggingMethod: LoggingFunctionType<Unit> = L::debug,
         action: EmptyFunctionResult<T>

@@ -1,9 +1,7 @@
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.Function1
-import csense.kotlin.FunctionUnit
-import csense.kotlin.extensions.collections.array.generic.GenericArray
-import csense.kotlin.extensions.collections.array.generic.foreachDiscardResult
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.extensions.collections.generic.*
 
 
@@ -12,7 +10,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @receiver [CharArray]
  * @param receiver [Function1]<[Char], U>
  */
-inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) =
+public inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>): Unit =
         GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 
@@ -20,19 +18,19 @@ inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>) =
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
-inline fun CharArray.forEach2Indexed(action: Function2IndexedUnit<Char, Char>) =
+public inline fun CharArray.forEach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
         GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
-inline fun CharArray.forEach2(action: Function2Unit<Char, Char>) =
+public inline fun CharArray.forEach2(action: Function2Unit<Char, Char>): Unit =
         GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this [CharArray].
  */
-inline fun CharArray.forEachBackwards(action: FunctionUnit<Char>) =
+public inline fun CharArray.forEachBackwards(action: FunctionUnit<Char>): Unit =
         GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 
 //endregion

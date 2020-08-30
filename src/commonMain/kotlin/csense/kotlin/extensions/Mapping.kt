@@ -2,8 +2,7 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
-import csense.kotlin.Function1
+import csense.kotlin.*
 import kotlin.contracts.*
 
 /**
@@ -13,10 +12,11 @@ import kotlin.contracts.*
  * @param ifNull U the value if 'this' is null
  * @return U the value depending on 'this' value
  */
-inline fun <U> Any?.mapOptional(
+public inline fun <U> Any?.mapOptional(
         ifNotNull: U,
         ifNull: U
 ): U {
+    
     return this.isNotNull.map(ifNotNull, ifNull)
 }
 
@@ -27,10 +27,15 @@ inline fun <U> Any?.mapOptional(
  * @param ifNull [EmptyFunctionResult]<[U]> the value if 'this' is null
  * @return [U] the value depending on 'this' value
  */
-inline fun <U,T> T?.mapLazyOptional(
+@OptIn(ExperimentalContracts::class)
+public inline fun <U,T> T?.mapLazyOptional(
         ifNotNull: Function1<T,U>,
         ifNull: EmptyFunctionResult<U>
 ): U {
+    contract {
+        callsInPlace(ifNotNull, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(ifNull, InvocationKind.AT_MOST_ONCE)
+    }
     return if (this != null) {
         ifNotNull(this)
     } else {
@@ -46,7 +51,7 @@ inline fun <U,T> T?.mapLazyOptional(
  * @return T
  */
 
-inline fun <T> Boolean.map(
+public inline fun <T> Boolean.map(
         ifTrue: T,
         ifFalse: T
 ): T = if (this) {
@@ -66,10 +71,15 @@ inline fun <T> Boolean.map(
  * @param ifFalse [EmptyFunctionResult]<T>
  * @return T
  */
-inline fun <T> Boolean.mapLazy(
+@OptIn(ExperimentalContracts::class)
+public inline fun <T> Boolean.mapLazy(
         ifTrue: EmptyFunctionResult<T>,
         ifFalse: EmptyFunctionResult<T>
 ): T = if (this) {
+    contract {
+        callsInPlace(ifTrue, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(ifFalse, InvocationKind.AT_MOST_ONCE)
+    }
     ifTrue()
 } else {
     ifFalse()
@@ -82,14 +92,14 @@ inline fun <T> Boolean.mapLazy(
  * @param mapper [Function1]<T, U>
  * @return [Set]<U>
  */
-inline fun <T, U> Iterable<T>.mapToSet(
+public inline fun <T, U> Iterable<T>.mapToSet(
         mapper: Function1<T, U>
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {
+public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
         returnsNotNull() implies (this@mapIfInstanceOrThis is TT)

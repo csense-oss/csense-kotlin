@@ -8,6 +8,6 @@ package csense.kotlin.extensions.collections.typed
  * @return [Boolean] true if other is contained (depending on ignore case) or false if not.
  * @timecomplexity O(n)
  */
-fun Iterable<String>.contains(other: String, ignoreCase: Boolean): Boolean = any { ourString ->
+public fun Iterable<String>.contains(other: String, ignoreCase: Boolean): Boolean = any { ourString ->
     ourString.equals(other, ignoreCase)
 }

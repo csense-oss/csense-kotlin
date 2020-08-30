@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions.primitives
 
@@ -9,7 +9,7 @@ package csense.kotlin.extensions.primitives
  * see
  * https://en.wikipedia.org/wiki/List_of_Unicode_characters
  */
-inline fun Char.isSymbol(): Boolean {
+public inline fun Char.isSymbol(): Boolean {
     return isNotLetter() && isNotDigit()
 }
 
@@ -21,7 +21,7 @@ inline fun Char.isSymbol(): Boolean {
  * see
  * https://en.wikipedia.org/wiki/List_of_Unicode_characters
  */
-fun Char.isLetter(): Boolean {
+public fun Char.isLetter(): Boolean {
     return this in latinLowerCase ||
             this in latinUpperCase ||
             this in latin1SuppUpperCase ||
@@ -35,7 +35,7 @@ fun Char.isLetter(): Boolean {
             this in cyrillic
 }
 
-inline fun Char.isNotLetter(): Boolean =
+public inline fun Char.isNotLetter(): Boolean =
         !isLetter()
 
 /**
@@ -45,7 +45,7 @@ inline fun Char.isNotLetter(): Boolean =
  * @receiver [Char]
  * @return [Boolean]
  */
-actual inline fun Char.isUpperCaseLetter(): Boolean {
+public actual inline fun Char.isUpperCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }
@@ -59,7 +59,7 @@ actual inline fun Char.isUpperCaseLetter(): Boolean {
  * @receiver [Char]
  * @return [Boolean]
  */
-actual inline fun Char.isLowerCaseLetter(): Boolean {
+public actual inline fun Char.isLowerCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }

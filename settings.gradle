@@ -7,5 +7,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-enableFeaturePreview('GRADLE_METADATA')
 rootProject.name = 'csense-kotlin'
