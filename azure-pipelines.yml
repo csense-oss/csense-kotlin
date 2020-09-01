@@ -43,7 +43,7 @@ steps:
       jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: false
-      tasks: '--rerun-tasks jvmTest jacocoTestReport'
+      tasks: '--rerun-tasks jvmTest'
     displayName: Jvm test with xml & jacoco
 
   - task: PublishTestResults@2

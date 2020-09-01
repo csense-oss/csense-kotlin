@@ -1,4 +1,9 @@
 # Changelog
+
+## 0.0.42
+- re-introduce NoStackTraceException but only for JVM.
+- jacoco disabled for ci
+
 ## 0.0.41
 - fixed "Channel.forEach" missing inline modifier
 
