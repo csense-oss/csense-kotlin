@@ -42,9 +42,6 @@ repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
 }
 
-group project.csenseGroupId
-version project.csenseVersionName
-
 kotlin {
     explicitApi = 'strict'
     jvm()
@@ -65,7 +62,7 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
-//                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-dev-20")
+                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-dev-20")
             }
         }
         jvmMain {
@@ -85,10 +82,6 @@ kotlin {
 
         jsTest {
             dependencies {
-//                implementation 'org.jetbrains.kotlin:kotlin-test-js'
-//                implementation "csense.kotlin:csense-kotlin-tests-js:$csenseTestsVersion"
-//                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime-js:0.2.0-dev-20")
-
             }
         }
         all {
@@ -139,10 +132,5 @@ benchmark {
         register("jvmTest") {
             jmhVersion = "1.23" // available only for JVM compilations & Java source sets
         }
-//        register("js") {
-//            // Note, that benchmarks.js uses a different approach of minTime & maxTime and run benchmarks
-//            // until results are stable. We estimate minTime as iterationTime and maxTime as iterationTime*iterations
-//        }
-//        register("native")
     }
 }
