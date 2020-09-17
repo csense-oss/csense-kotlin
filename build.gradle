@@ -8,7 +8,7 @@ buildscript {
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.42"
+    ext.csenseVersionName = "0.0.45"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -28,7 +28,7 @@ buildscript {
 
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version "1.4.0"
+    id 'org.jetbrains.kotlin.multiplatform' version "1.4.10"
     id("org.jetbrains.dokka") version "0.10.0"
     id "maven-publish"
     id 'kotlinx.benchmark' version "0.2.0-dev-20"
@@ -62,7 +62,7 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
-                implementation("org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-dev-20")
+                implementation 'org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-hmpp-1.4.0'
             }
         }
         jvmMain {

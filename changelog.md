@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.0.45
+- added Double.isNotZero
+- added replaceFirst to list with a predicate
+
+## 0.0.44
+- re-enabled benchmark after investigation
+- kotlin 1.4.10
+
+## 0.0.43
+- added string.isNewline
+- added collection.joinEvery
+- added Array.joinEvery
+- removed the benchmark(jmh) test as it got though to regular code somehow.
+
 ## 0.0.42
 - re-introduce NoStackTraceException but only for JVM.
 - jacoco disabled for ci

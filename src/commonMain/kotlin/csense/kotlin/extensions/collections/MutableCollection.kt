@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.Function1
+
 
 //region set & setAll
 

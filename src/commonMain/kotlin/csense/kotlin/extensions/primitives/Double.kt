@@ -54,6 +54,13 @@ public inline val Double.isPositiveOrZero: Boolean
 public inline val Double.isZero: Boolean
     get() = this.equalsWithin(0.0, 0.1)
 
+
+/**
+ *  if this [Double] is not within 0.1 of 0 => returns true. false otherwise
+ */
+public inline val Double.isNotZero: Boolean
+    get() = !isZero
+
 /**
  * Compares this double to the given value,with a margin;
  * this is done since doubles / floating numbers are not precise in computers.

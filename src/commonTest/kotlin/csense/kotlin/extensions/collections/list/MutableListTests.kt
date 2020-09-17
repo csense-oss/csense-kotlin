@@ -306,4 +306,71 @@ class MutableListTest {
             lst.assertContainsAll("456", "qwerty", "---", "777", "---", "iop")
         }
     }
+    
+    class MutableListTReplaceFirst {
+        @Test
+        fun empty() {
+            val lst = mutableListOf<String>()
+            val didReplace = lst.replaceFirst("test") {
+                true
+            }
+            didReplace.assertFalse()
+            lst.assertEmpty()
+        }
+        
+        @Test
+        fun singleFound() {
+            val lst = mutableListOf("a")
+            val didReplace = lst.replaceFirst("2") {
+                true
+            }
+            didReplace.assertTrue()
+            lst.assertSize(1)
+            lst.first().assert("2")
+        }
+        
+        @Test
+        fun singleNotFound() {
+            val lst = mutableListOf("b")
+            val didReplace = lst.replaceFirst("1") {
+                false
+            }
+            didReplace.assertFalse()
+            lst.assertSize(1)
+            lst.first().assert("b")
+        }
+        
+        @Test
+        fun multipleNoneFound() {
+            val lst = mutableListOf("b", "qwerty")
+            val didReplace = lst.replaceFirst("1") {
+                false
+            }
+            didReplace.assertFalse()
+            lst.assertSize(2)
+            lst.assertContainsInOrder("b", "qwerty")
+        }
+        
+        @Test
+        fun multipleAllFound() {
+            val lst = mutableListOf("b", "qwerty")
+            val didReplace = lst.replaceFirst("1") {
+                true
+            }
+            didReplace.assertTrue()
+            lst.assertSize(2)
+            lst.assertContainsInOrder("1", "qwerty")
+        }
+        
+        @Test
+        fun multipleOneFound() {
+            val lst = mutableListOf("1234", "c", "qwerty")
+            val didReplace = lst.replaceFirst("1") {
+                it == "c"
+            }
+            didReplace.assertTrue()
+            lst.assertSize(3)
+            lst.assertContainsInOrder("1234", "1", "qwerty")
+        }
+    }
 }

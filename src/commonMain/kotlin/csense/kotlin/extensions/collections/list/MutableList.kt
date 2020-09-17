@@ -116,7 +116,7 @@ public inline fun <T> MutableList<T>.removeLast(): T? =
  * Adds all the given elements starting at the given index
  * if the index is out of bounds the function returns false
  * @receiver [MutableList]<T> the list to add the given elements to
- * @param index [Int] the index to insert at (must be in [0; size] of the receiver)
+ * @param index [Int] the index to insert at (must be in between 0 to (inc) size of the receiver)
  * @param elements [Iterable]<T> the elements to insert
  * @return [Boolean] true if the add was a success, false if out of bounds
  * @timecomplexity O(n)
@@ -132,5 +132,20 @@ public inline fun <T> MutableList<T>.addAll(
     elements.forEachIndexed { counter: Int, element: T ->
         add(counter + index, element)
     }
+    return true
+}
+
+/**
+ * Searches for the first element matching the given [predicate] with [replaceWith] or nothing if none matches the [predicate]
+ * @receiver [MutableList]<T>
+ * @param predicate [Function1]<T, Boolean>
+ * @param replaceWith T what to replace the given element with (at the same place)
+ * @return [Boolean] true if there was anything matching the [predicate]  or false if none did
+ */
+public inline fun <reified T> MutableList<T>.replaceFirst(
+        replaceWith: T,
+        predicate: Function1<T, Boolean>): Boolean {
+    val index = indexOfFirstOrNull(predicate) ?: return false
+    replace(replaceWith, index)
     return true
 }

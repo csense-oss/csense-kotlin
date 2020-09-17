@@ -39,6 +39,12 @@ public inline fun Float.equals(value: Float, margin: Float): Boolean =
 public inline val Float.isZero: Boolean
     get() = isZero(margin = 0.1f)
 
+
+/**
+ *  if this [Float] is not within 0.1 of 0 => returns true. false otherwise
+ */
+public inline val Float.isNotZero: Boolean
+    get() = !isZero
 /**
  *
  * @receiver [Float]
@@ -88,13 +94,6 @@ public inline val Float.isNegativeOrZero: Boolean
  */
 public inline val Float.isPositiveOrZero: Boolean
     get() = this.isPositive || this.isZero
-
-
-/**
- *  if this [Float] is not 0 => returns true. false otherwise
- */
-public inline val Float.isNotZero: Boolean
-    get() = !isZero
 
 /**
  *

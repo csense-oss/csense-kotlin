@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.tests.assertions.*
+//import kotlinx.benchmark.*
 import kotlin.test.*
 
 
@@ -485,14 +486,14 @@ class StringTest {
         @Test
         fun alwaysSplitSingle() {
             "a".splitWhen { true }.apply {
-                assertSize(0,"since we do not include the split")
+                assertSize(0, "since we do not include the split")
             }
         }
         
         @Test
         fun alwaysSplitMultiple() {
             "ab".splitWhen { true }.apply {
-                assertSize(0,"since we do not include the split")
+                assertSize(0, "since we do not include the split")
             }
         }
         
@@ -505,6 +506,7 @@ class StringTest {
                 this[2].assert("8000")
             }
         }
+        
         @Test
         fun splitMultipleDigitsWeird() {
             "20/80 abc 8000".splitWhen { it.isNotDigit() }.apply {
@@ -516,4 +518,55 @@ class StringTest {
         }
         
     }
+    
+    @Test
+    fun stringIsNewLine() {
+        "".isNewLine().assertFalse()
+        " ".isNewLine().assertFalse()
+        "a".isNewLine().assertFalse()
+        "abc".isNewLine().assertFalse()
+        "1234".isNewLine().assertFalse()
+        "Other region 한".isNewLine().assertFalse()
+        "Hi ☺".isNewLine().assertFalse()
+        "�".isNewLine().assertFalse()
+        "\n".isNewLine().assertTrue()
+        "...()[]".isNewLine().assertFalse()
+    }
 }
+//
+//@State(Scope.Benchmark)
+//@BenchmarkMode(Mode.AverageTime)
+//@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+//@Warmup(iterations = 5)
+//@Measurement(iterations = 5, time = 5,timeUnit = BenchmarkTimeUnit.MILLISECONDS)
+//open class StringBenchmarks {
+//    @Benchmark
+//    open fun stringIsNewLineNot() {
+//        "".isNewLine()
+//    }
+//
+//    @Benchmark
+//    open fun stringIsNewLineLinux() {
+//        "\n".isNewLine()
+//    }
+//
+//    @Benchmark
+//    open fun stringIsNewLineSingleNotLinux() {
+//        "a".isNewLine()
+//    }
+//
+//    @Benchmark
+//    open fun stringIsNewLineSingleWindows() {
+//        "\r\n".isNewLine()
+//    }
+//
+//    @Benchmark
+//    open fun stringIsNewLineSingleNotWindows() {
+//        "ab".isNewLine()
+//    }
+//
+//    @Benchmark
+//    open fun stringIsNewLineNo() {
+//        "abc weee".isNewLine()
+//    }
+//}
