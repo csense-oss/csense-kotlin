@@ -4,6 +4,7 @@ import csense.kotlin.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.*
 
+@Suppress("MissingTestFunction")
 // this requires us to take over STD out which is platform agnostic.
 // This should be fixed in test plugin (csense kotlin test)
 /**
@@ -16,25 +17,38 @@ public inline fun LLogger.usePrintAsLoggers(
             "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
         }
 ) {
-    
-    val debug: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter(LoggingLevel.Debug, tag, message, exception))
+    val createLogger: (LoggingLevel) -> LoggingFunctionType<Any> = { level: LoggingLevel ->
+        { tag: String, message: String, exception: Throwable? ->
+            println(formatter(level, tag, message, exception))
+        }
     }
-    val warning: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter(LoggingLevel.Warning, tag, message, exception))
-    }
-    val error: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter(LoggingLevel.Error, tag, message, exception))
-    }
-    val prod: LoggingFunctionType<Any> = { tag: String, message: String, exception: Throwable? ->
-        println(formatter(LoggingLevel.Production, tag, message, exception))
-    }
-    debugLoggers.add(debug)
-    warningLoggers.add(warning)
-    errorLoggers.add(error)
-    productionLoggers.add(prod)
+    debugLoggers.add(createLogger(LoggingLevel.Debug))
+    warningLoggers.add(createLogger(LoggingLevel.Warning))
+    errorLoggers.add(createLogger(LoggingLevel.Error))
+    productionLoggers.add(createLogger(LoggingLevel.Production))
 }
 
+public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
+        crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
+            "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
+        },
+        debugColor: String = "\u001B[35m", // purple
+        warningColor: String = "\u001B[33m", // yellow
+        ErrorColor: String = "\u001B[31m",  // red
+        ProductionColor: String = "\u001B[36m" //cyan
+) {
+    val reset = "\u001B[0m"
+    
+    val createLogger: (level: LoggingLevel, color: String) -> LoggingFunctionType<Any> = { level: LoggingLevel, color: String ->
+        { tag: String, message: String, exception: Throwable? ->
+            println(color + formatter(level, tag, message, exception) + reset)
+        }
+    }
+    debugLoggers.add(createLogger(LoggingLevel.Debug, debugColor))
+    warningLoggers.add(createLogger(LoggingLevel.Warning, warningColor))
+    errorLoggers.add(createLogger(LoggingLevel.Error, ErrorColor))
+    productionLoggers.add(createLogger(LoggingLevel.Production, ProductionColor))
+}
 
 /**
  * Invokes each listener of a logging type function with a lazily computed message.

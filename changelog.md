@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.46
+- added ability for LLoggers to use ansi colored output
+
 ## 0.0.45
 - added Double.isNotZero
 - added replaceFirst to list with a predicate
