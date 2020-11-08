@@ -21,9 +21,9 @@ public typealias Function2IndexedUnit<T, U> = (index: @IntLimit(from = 0) Int, f
  * @param action [FunctionUnit]<T>
  */
 public inline fun <T> GenericCollectionExtensions.forEachBackwards(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        action: FunctionUnit<T>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    action: FunctionUnit<T>
 ) {
     for (i in (length - 1) downTo 0) {
         action(getter(i))
@@ -38,9 +38,9 @@ public inline fun <T> GenericCollectionExtensions.forEachBackwards(
  * @param action [FunctionUnit]<T>
  */
 public inline fun <T> GenericCollectionExtensions.forEachBackwardsIndexed(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        action: Function2Unit<@IntLimit(from = 0) Int, T>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    action: Function2Unit<@IntLimit(from = 0) Int, T>
 ) {
     for (i in (length - 1) downTo 0) {
         action(i, getter(i))
@@ -57,9 +57,9 @@ public inline fun <T> GenericCollectionExtensions.forEachBackwardsIndexed(
  * @param action [Function2Unit]<T, T>
  */
 public inline fun <T> GenericCollectionExtensions.forEach2(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        action: Function2Unit<T, T>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    action: Function2Unit<T, T>
 ) {
     if (canNOTForeach2(length)) {
         return
@@ -79,9 +79,9 @@ public inline fun <T> GenericCollectionExtensions.forEach2(
  * @param action [Function2IndexedUnit]<T, T>
  */
 public inline fun <T> GenericCollectionExtensions.forEach2Indexed(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        action: Function2IndexedUnit<T, T>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    action: Function2IndexedUnit<T, T>
 ) {
     if (canNOTForeach2(length)) {
         return
@@ -105,9 +105,9 @@ public inline fun <T> GenericCollectionExtensions.forEach2Indexed(
  * @return [List]<U>
  */
 public inline fun <T, U> GenericCollectionExtensions.mapEach2(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        mapper: Function2<T, T, U>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    mapper: Function2<T, T, U>
 ): List<U> {
     if (canNOTForeach2(2)) {
         return emptyList()
@@ -129,9 +129,9 @@ public inline fun <T, U> GenericCollectionExtensions.mapEach2(
  * @return [List]<U>
  */
 public inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
-        @IntLimit(from = 0) length: Int,
-        getter: GenericGetterIndexMethod<T>,
-        mapper: Function3<Int, T, T, U>
+    @IntLimit(from = 0) length: Int,
+    getter: GenericGetterIndexMethod<T>,
+    mapper: Function3<Int, T, T, U>
 ): List<U> {
     if (canNOTForeach2(2)) {
         return emptyList()

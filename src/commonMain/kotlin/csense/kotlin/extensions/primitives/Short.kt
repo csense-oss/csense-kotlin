@@ -11,7 +11,7 @@ import csense.kotlin.annotations.numbers.*
  * @return [Short]
  */
 public inline infix fun Short.shl(@IntLimit(from = 1) shift: Int): Short =
-        (this.toInt() shl shift).toShort()
+    (this.toInt() shl shift).toShort()
 
 /**
  * Shifts this [Short] right the given times
@@ -20,7 +20,7 @@ public inline infix fun Short.shl(@IntLimit(from = 1) shift: Int): Short =
  * @return [Short]
  */
 public inline infix fun Short.shr(@IntLimit(from = 1) shift: Int): Short =
-        (this.toInt() shr shift).toShort()
+    (this.toInt() shr shift).toShort()
 
 
 //region Zero, negative, positive

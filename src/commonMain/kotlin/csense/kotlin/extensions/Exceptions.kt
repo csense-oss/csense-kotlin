@@ -15,10 +15,10 @@ import csense.kotlin.logger.*
  * @return T?
  */
 public inline fun <T> tryAndLog(
-        title: String = "",
-        message: String = "",
-        logger: LoggingFunctionType<*> = L::error,
-        throwableAction: EmptyFunctionResult<T>
+    title: String = "",
+    message: String = "",
+    logger: LoggingFunctionType<*> = L::error,
+    throwableAction: EmptyFunctionResult<T>
 ): T? {
     return try {
         throwableAction()
@@ -35,11 +35,11 @@ public inline fun <T> tryAndLog(
  * @param indentation [String]
  */
 public inline fun Throwable.toPrettyString(
-        lineSeparator: String = "\n",
-        indentation: String = "\t"
+    lineSeparator: String = "\n",
+    indentation: String = "\t"
 ): String {
     val builder = StringBuilder()
-            .append(message ?: "No message", lineSeparator)
+        .append(message ?: "No message", lineSeparator)
 
     var currentException = cause
     while (currentException != null) {

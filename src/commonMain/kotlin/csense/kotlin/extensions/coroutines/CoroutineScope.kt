@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
  * @return [Deferred]<T>
  */
 public inline fun <T> CoroutineScope.asyncDefault(
-        @InBackground noinline action: CoroutineScopeFunction0<T>
+    @InBackground noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Default, block = action)
 
 /**
@@ -23,7 +23,7 @@ public inline fun <T> CoroutineScope.asyncDefault(
  * @return [Deferred]<T>
  */
 public inline fun <T> CoroutineScope.asyncMain(
-        @InUi noinline action: CoroutineScopeFunction0<T>
+    @InUi noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Main, block = action)
 
 /**
@@ -33,7 +33,7 @@ public inline fun <T> CoroutineScope.asyncMain(
  * @return [Job]
  */
 public inline fun CoroutineScope.launchDefault(
-        @InBackground noinline action: CoroutineScopeFunction
+    @InBackground noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Default, block = action)
 
 /**
@@ -43,7 +43,7 @@ public inline fun CoroutineScope.launchDefault(
  * @return [Job]
  */
 public inline fun CoroutineScope.launchMain(
-        @InUi noinline action: CoroutineScopeFunction
+    @InUi noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Main, block = action)
 
 /**
@@ -53,7 +53,7 @@ public inline fun CoroutineScope.launchMain(
  * @return T
  */
 public suspend fun <T> CoroutineScope.withContextDefault(
-        @InBackground action: CoroutineScopeFunction0<T>
+    @InBackground action: CoroutineScopeFunction0<T>
 ): T = withContext(Dispatchers.Default, action)
 
 /**
@@ -63,6 +63,6 @@ public suspend fun <T> CoroutineScope.withContextDefault(
  * @return T
  */
 public suspend fun <T> CoroutineScope.withContextMain(
-        @InUi action: CoroutineScopeFunction0<T>
+    @InUi action: CoroutineScopeFunction0<T>
 ): T = withContext(Dispatchers.Main, action)
 

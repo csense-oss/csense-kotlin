@@ -17,7 +17,7 @@ public enum class LoggingLevel(public val stringValue: String) {
     Warning("Warning"),
     Error("Error"),
     Production("Production");
-    
+
     /**
      * Gets the string representation.
      * @return String
@@ -44,7 +44,7 @@ public typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, me
  * The main instance is called "L"
  */
 public open class LLogger {
-    
+
     /**
      * Controls whenever logging is allowed.
      * This turns on all the other logging features
@@ -57,56 +57,56 @@ public open class LLogger {
         isProductionLoggingAllowed = value
         isErrorLoggingAllowed = value
     }
-    
+
     //region loggers allowed controls
     /**
      * Controls whenever error logging is allowed.
      * default is true
      */
     public var isErrorLoggingAllowed: Boolean = true
-    
+
     /**
      * controls whenever warning logging is allowed
      * default is true
      */
     public var isWarningLoggingAllowed: Boolean = true
-    
+
     /**
      * controls whenever debug logging is allowed
      * default is true
      */
     public var isDebugLoggingAllowed: Boolean = true
-    
+
     /**
      * controls whenever production logging is allowed
      * default is true
      */
     public var isProductionLoggingAllowed: Boolean = true
     //endregion
-    
+
     //region loggers
     /**
      * Production level loggers; the intention here is to allow this logging in production.
      * its controlled separate from all the other logging flags.
      */
     public var productionLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
-    
+
     /**
      *
      */
     public var debugLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
-    
+
     /**
      *
      */
     public var warningLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
-    
+
     /**
      *
      */
     public var errorLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
     //endregion
-    
+
     //region log error
     /**
      * An error logging channel
@@ -123,13 +123,13 @@ public open class LLogger {
     public fun error(tag: String, message: String, exception: Throwable?): Unit = ifMayLogError {
         errorLoggers.invokeEachWith(tag, message, exception)
     }
-    
+
     /**
      *
      */
     public fun error(tag: String, message: String): Unit =
-            error(tag, message, null)
-    
+        error(tag, message, null)
+
     /**
      *
      * @param tag [String]
@@ -139,12 +139,12 @@ public open class LLogger {
     public fun errorLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogError {
         errorLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
-    
-    
+
+
     public fun errorLazy(tag: String, messageFnc: Function0R<String>): Unit =
-            errorLazy(tag, messageFnc, null)
+        errorLazy(tag, messageFnc, null)
     //endregion
-    
+
     //region log warning
     /**
      * A warning logging channel
@@ -157,11 +157,11 @@ public open class LLogger {
     public fun warning(tag: String, message: String, exception: Throwable?): Unit = ifMayLogWarning {
         warningLoggers.invokeEachWith(tag, message, exception)
     }
-    
-    
+
+
     public fun warning(tag: String, message: String): Unit =
-            warning(tag, message, null)
-    
+        warning(tag, message, null)
+
     /**
      *
      * @param tag [String]
@@ -172,11 +172,11 @@ public open class LLogger {
     public fun warningLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogWarning {
         warningLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
-    
+
     public fun warningLazy(tag: String, messageFnc: Function0R<String>): Unit =
-            warningLazy(tag, messageFnc, null)
+        warningLazy(tag, messageFnc, null)
     //endregion
-    
+
     //region log debug
     /**
      * Debug level logging channel.
@@ -188,10 +188,10 @@ public open class LLogger {
     public fun debug(tag: String, message: String, exception: Throwable? = null): Unit = ifMayLogDebug {
         debugLoggers.invokeEachWith(tag, message, exception)
     }
-    
+
     public fun debug(tag: String, message: String): Unit =
-            debug(tag, message, null)
-    
+        debug(tag, message, null)
+
     /**
      * A lazy debug logging
      * @param tag [String]
@@ -202,11 +202,11 @@ public open class LLogger {
     public fun debugLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogDebug {
         debugLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
     }
-    
+
     public fun debugLazy(tag: String, messageFnc: Function0R<String>): Unit =
-            debugLazy(tag, messageFnc, null)
+        debugLazy(tag, messageFnc, null)
     //endregion
-    
+
     //region log prod
     /**
      * A production logging channel.
@@ -220,10 +220,10 @@ public open class LLogger {
     public fun logProd(tag: String, message: String, exception: Throwable?): Unit = ifMayLogProduction {
         productionLoggers.invokeEachWith(tag, message, exception)
     }
-    
+
     public fun logProd(tag: String, message: String): Unit =
-            logProd(tag, message, null)
-    
+        logProd(tag, message, null)
+
     /**
      * Lazy logging where, computing the message is non "trivial" or you do not wanna pay for creating / computing
      *  it if its not going to get logged.
@@ -231,15 +231,16 @@ public open class LLogger {
      * @param messageFnc [Function0R]<[String]>
      * @param exception [Throwable]?
      */
-    public fun logProdLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit = ifMayLogProduction {
-        productionLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
-    }
-    
+    public fun logProdLazy(tag: String, messageFnc: Function0R<String>, exception: Throwable?): Unit =
+        ifMayLogProduction {
+            productionLoggers.invokeEachWithLoggingLazy(tag, messageFnc, exception)
+        }
+
     public fun logProdLazy(tag: String, messageFnc: Function0R<String>): Unit =
-            logProdLazy(tag, messageFnc, null)
+        logProdLazy(tag, messageFnc, null)
     //endregion
-    
-    
+
+
     //region Util functions
     /**
      * if production logging is allowed, runs the given action.
@@ -248,7 +249,7 @@ public open class LLogger {
     private fun ifMayLogProduction(action: EmptyFunction) {
         isProductionLoggingAllowed.onTrue(action)
     }
-    
+
     /**
      * if error logging is allowed, runs the given action.
      * @param action [EmptyFunction]
@@ -256,7 +257,7 @@ public open class LLogger {
     private fun ifMayLogError(action: EmptyFunction) {
         isErrorLoggingAllowed.onTrue(action)
     }
-    
+
     /**
      * if warning logging is allowed, runs the given action.
      * @param action [EmptyFunction]
@@ -264,7 +265,7 @@ public open class LLogger {
     private fun ifMayLogWarning(action: EmptyFunction) {
         isWarningLoggingAllowed.onTrue(action)
     }
-    
+
     /**
      * if debug logging is allowed, runs the given action.
      * @param action [EmptyFunction]
@@ -273,7 +274,7 @@ public open class LLogger {
         isDebugLoggingAllowed.onTrue(action)
     }
     //endregion
-    
+
 }
 
 

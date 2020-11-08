@@ -13,9 +13,9 @@ import csense.kotlin.extensions.collections.*
  * @param formatter [Function4]<[LoggingLevel], [String], [String], [Throwable]?, [String]> formatter function
  */
 public inline fun LLogger.usePrintAsLoggers(
-        crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-            "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
-        }
+    crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
+        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
+    }
 ) {
     val createLogger: (LoggingLevel) -> LoggingFunctionType<Any> = { level: LoggingLevel ->
         { tag: String, message: String, exception: Throwable? ->
@@ -29,21 +29,22 @@ public inline fun LLogger.usePrintAsLoggers(
 }
 
 public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
-        crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-            "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
-        },
-        debugColor: String = "\u001B[35m", // purple
-        warningColor: String = "\u001B[33m", // yellow
-        ErrorColor: String = "\u001B[31m",  // red
-        ProductionColor: String = "\u001B[36m" //cyan
+    crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
+        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
+    },
+    debugColor: String = "\u001B[35m", // purple
+    warningColor: String = "\u001B[33m", // yellow
+    ErrorColor: String = "\u001B[31m",  // red
+    ProductionColor: String = "\u001B[36m" //cyan
 ) {
     val reset = "\u001B[0m"
-    
-    val createLogger: (level: LoggingLevel, color: String) -> LoggingFunctionType<Any> = { level: LoggingLevel, color: String ->
-        { tag: String, message: String, exception: Throwable? ->
-            println(color + formatter(level, tag, message, exception) + reset)
+
+    val createLogger: (level: LoggingLevel, color: String) -> LoggingFunctionType<Any> =
+        { level: LoggingLevel, color: String ->
+            { tag: String, message: String, exception: Throwable? ->
+                println(color + formatter(level, tag, message, exception) + reset)
+            }
         }
-    }
     debugLoggers.add(createLogger(LoggingLevel.Debug, debugColor))
     warningLoggers.add(createLogger(LoggingLevel.Warning, warningColor))
     errorLoggers.add(createLogger(LoggingLevel.Error, ErrorColor))
@@ -59,9 +60,9 @@ public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
  * @param exception [Throwable]?
  */
 public inline fun <T : LoggingFunctionType<*>> Iterable<T>.invokeEachWithLoggingLazy(
-        tag: String,
-        messageFnc: Function0R<String>,
-        exception: Throwable?
+    tag: String,
+    messageFnc: Function0R<String>,
+    exception: Throwable?
 ): Unit = skipIfEmptyOr {
     invokeEachWith(tag, messageFnc(), exception)
 }

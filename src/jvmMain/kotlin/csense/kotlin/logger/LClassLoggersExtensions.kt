@@ -58,9 +58,9 @@ public inline fun <reified T : Any> T.logClassProduction(message: String, except
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
 public inline fun logCurrentStackTraceDebug(
-        tag: String = "stack",
-        limit: Int = 10,
-        skipFirstFunctions: Int = 0
+    tag: String = "stack",
+    limit: Int = 10,
+    skipFirstFunctions: Int = 0
 ): Unit = logCurrentStackTrace(tag, L::debug, limit, skipFirstFunctions)
 
 /**
@@ -70,9 +70,9 @@ public inline fun logCurrentStackTraceDebug(
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
 public inline fun logCurrentStackTraceWarning(
-        tag: String = "stack",
-        limit: Int = 10,
-        skipFirstFunctions: Int = 0
+    tag: String = "stack",
+    limit: Int = 10,
+    skipFirstFunctions: Int = 0
 ): Unit = logCurrentStackTrace(tag, L::warning, limit, skipFirstFunctions)
 
 /**
@@ -82,9 +82,9 @@ public inline fun logCurrentStackTraceWarning(
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
 public inline fun logCurrentStackTraceError(
-        tag: String = "stack",
-        limit: Int = 10,
-        skipFirstFunctions: Int = 0
+    tag: String = "stack",
+    limit: Int = 10,
+    skipFirstFunctions: Int = 0
 ): Unit = logCurrentStackTrace(tag, L::error, limit, skipFirstFunctions)
 
 
@@ -95,9 +95,9 @@ public inline fun logCurrentStackTraceError(
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
 public inline fun logCurrentStackTraceProd(
-        tag: String = "stack",
-        limit: Int = 10,
-        skipFirstFunctions: Int = 0
+    tag: String = "stack",
+    limit: Int = 10,
+    skipFirstFunctions: Int = 0
 ): Unit = logCurrentStackTrace(tag, L::logProd, limit, skipFirstFunctions)
 
 /**
@@ -108,10 +108,10 @@ public inline fun logCurrentStackTraceProd(
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
 public inline fun logCurrentStackTrace(
-        tag: String = "stack",
-        logTo: LoggingFunctionType<Unit>,
-        limit: Int = 10,
-        skipFirstFunctions: Int = 0
+    tag: String = "stack",
+    logTo: LoggingFunctionType<Unit>,
+    limit: Int = 10,
+    skipFirstFunctions: Int = 0
 ) {
     val text = Thread.currentThread().stackTrace.asSequence().drop(skipFirstFunctions).take(limit).joinToString("\n")
     logTo(tag, text, null)

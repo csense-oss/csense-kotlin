@@ -96,7 +96,7 @@ public inline val Byte.isOdd: Boolean
  */
 
 public inline infix fun Byte.shl(shift: Int): Byte =
-        (this.toInt() shl shift).toByte()
+    (this.toInt() shl shift).toByte()
 
 /**
  * Shifts the bits to the right the given amount of times
@@ -106,7 +106,7 @@ public inline infix fun Byte.shl(shift: Int): Byte =
  */
 
 public inline infix fun Byte.shr(shift: Int): Byte =
-        (this.toInt() shr shift).toByte()
+    (this.toInt() shr shift).toByte()
 //endregion
 
 //region hex converting
@@ -117,7 +117,7 @@ public inline infix fun Byte.shr(shift: Int): Byte =
  * @return T
  */
 public fun <T> Byte.toChars(
-        action: (upperChar: Char, lowerChar: Char) -> T
+    action: (upperChar: Char, lowerChar: Char) -> T
 ): T = splitIntoComponents { upperByte, lowerByte ->
     action(ByteExtensions.hexCharsAsString[upperByte.toInt()], ByteExtensions.hexCharsAsString[lowerByte.toInt()])
 }
@@ -140,7 +140,7 @@ public inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerCh
  * @return T
  */
 public inline fun <T> Byte.splitIntoComponents(
-        action: (upperByte: Byte, lowerByte: Byte) -> T
+    action: (upperByte: Byte, lowerByte: Byte) -> T
 ): T {
     val lower: Byte = this and 0x0f
     val upper: Byte = (this shr 4) and 0x0F.toByte()

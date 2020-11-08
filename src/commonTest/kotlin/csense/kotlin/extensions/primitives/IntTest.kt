@@ -133,7 +133,7 @@ class IntTest {
             counter.assert(55)
         }
     }
-    
+
     @Test
     fun indexOfExtensionsUnwrapUnsafeIndexOf() {
         (-59).indexOfExtensions.unwrapUnsafeIndexOf().assertNull()
@@ -144,7 +144,7 @@ class IntTest {
         (20).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(20)
         (8000).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(8000)
     }
-    
+
     @Test
     fun intIndexOfExtensions() {
         (-1).indexOfExtensions.value.assert(-1)
@@ -153,7 +153,7 @@ class IntTest {
         (-50).indexOfExtensions.value.assert(-50)
         42.indexOfExtensions.value.assert(42)
     }
-    
+
     @Test
     fun intIsNotNullOrZero() {
         val nullable: Int? = null
@@ -163,7 +163,7 @@ class IntTest {
         1.isNotNullOrZero().assertTrue("a nonnull or non zero number")
         9999.isNotNullOrZero().assertTrue("a nonnull or non zero number")
     }
-    
+
     @Test
     fun intIsNullOrZero() {
         val nullable: Int? = null

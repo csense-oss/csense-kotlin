@@ -34,7 +34,7 @@ class BoolTest {
         var counter = 0
         false.ifFalse { counter += 1 }
     }
-    
+
     @Test
     fun booleanIsNullOrFalse() {
         val opt: Boolean? = null
@@ -42,7 +42,7 @@ class BoolTest {
         false.isNullOrFalse().assertTrue()
         true.isNullOrFalse().assertFalse()
     }
-    
+
     @Test
     fun booleanIsNullOrTrue() {
         val opt: Boolean? = null
@@ -50,7 +50,7 @@ class BoolTest {
         false.isNullOrTrue().assertFalse()
         true.isNullOrTrue().assertTrue()
     }
-    
+
     @Test
     fun booleanIsNotNullOrTrue() {
         val opt: Boolean? = null
@@ -58,7 +58,7 @@ class BoolTest {
         false.isNotNullOrTrue().assertTrue()
         true.isNotNullOrTrue().assertFalse()
     }
-    
+
     @Test
     fun booleanIsNotNullOrFalse() {
         val opt: Boolean? = null

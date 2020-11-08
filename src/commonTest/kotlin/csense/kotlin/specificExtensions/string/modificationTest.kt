@@ -16,7 +16,7 @@ class modificationTest {
         "abc".modifications.limitTo(3).assert("abc")
         "abc".modifications.limitTo(10).assert("abc")
     }
-    
+
     @Test
     fun stringModificationWrapIn() {
         "".modifications.wrapIn("", "").assert("")
@@ -27,9 +27,9 @@ class modificationTest {
         "1234".modifications.wrapIn("<", "").assert("<1234")
         "1234".modifications.wrapIn("", ">").assert("1234>")
         "1234".modifications.wrapIn("", "").assert("1234")
-        
+
     }
-    
+
     @Test
     fun stringModificationWrapInQuotes() {
         "".modifications.wrapInQuotes().assert("\"\"")

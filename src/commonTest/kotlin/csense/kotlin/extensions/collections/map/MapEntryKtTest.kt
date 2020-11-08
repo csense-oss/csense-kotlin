@@ -10,9 +10,9 @@ class MapEntryKtTest {
     private val singlEntry = listOf(SimpleMapEntry("1234", "asdf"))
 
     private val multipleEntries = listOf(
-            SimpleMapEntry("123", "asdf"),
-            SimpleMapEntry("456", "qwerty"),
-            SimpleMapEntry("789", "zxcv")
+        SimpleMapEntry("123", "asdf"),
+        SimpleMapEntry("456", "qwerty"),
+        SimpleMapEntry("789", "zxcv")
     )
 
     @Test
@@ -46,5 +46,6 @@ class MapEntryKtTest {
 }
 
 class SimpleMapEntry<K, V>(
-        override val key: K,
-        override val value: V) : Map.Entry<K, V>
+    override val key: K,
+    override val value: V
+) : Map.Entry<K, V>

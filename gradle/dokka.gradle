@@ -25,7 +25,6 @@ dokka {
 }
 
 
-
 task jvmJavadoc(type: Jar, dependsOn: "docJvm") {
     archiveClassifier.set('javadoc')
     from "${project.buildDir}/doc_jvm"

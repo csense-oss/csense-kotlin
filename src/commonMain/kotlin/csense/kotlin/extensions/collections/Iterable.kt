@@ -15,7 +15,7 @@ import kotlin.contracts.*
  */
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
-        element: Function0R<I1>
+    element: Function0R<I1>
 ) {
     contract {
         callsInPlace(element, InvocationKind.AT_MOST_ONCE)
@@ -34,8 +34,8 @@ public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
 
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
-        firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>
+    firstElement: Function0R<I1>,
+    secondElement: Function0R<I2>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
@@ -57,9 +57,9 @@ public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWithLazy(
-        firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>,
-        thirdElement: Function0R<I3>
+    firstElement: Function0R<I1>,
+    secondElement: Function0R<I2>,
+    thirdElement: Function0R<I3>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
@@ -82,10 +82,10 @@ public inline fun <I1, I2, I3, O>
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, I3, I4, O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWithLazy(
-        firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>,
-        thirdElement: Function0R<I3>,
-        forthElement: Function0R<I4>
+    firstElement: Function0R<I1>,
+    secondElement: Function0R<I2>,
+    thirdElement: Function0R<I3>,
+    forthElement: Function0R<I4>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
@@ -95,10 +95,11 @@ public inline fun <I1, I2, I3, I4, O>
     }
     skipIfEmptyOr {
         invokeEachWith(
-                firstElement(),
-                secondElement(),
-                thirdElement(),
-                forthElement())
+            firstElement(),
+            secondElement(),
+            thirdElement(),
+            forthElement()
+        )
     }
 }
 
@@ -114,11 +115,11 @@ public inline fun <I1, I2, I3, I4, O>
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, I3, I4, I5, O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWithLazy(
-        firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>,
-        thirdElement: Function0R<I3>,
-        forthElement: Function0R<I4>,
-        fifthElement: Function0R<I5>
+    firstElement: Function0R<I1>,
+    secondElement: Function0R<I2>,
+    thirdElement: Function0R<I3>,
+    forthElement: Function0R<I4>,
+    fifthElement: Function0R<I5>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
@@ -129,11 +130,11 @@ public inline fun <I1, I2, I3, I4, I5, O>
     }
     skipIfEmptyOr {
         invokeEachWith(
-                firstElement(),
-                secondElement(),
-                thirdElement(),
-                forthElement(),
-                fifthElement()
+            firstElement(),
+            secondElement(),
+            thirdElement(),
+            forthElement(),
+            fifthElement()
         )
     }
 }
@@ -151,12 +152,12 @@ public inline fun <I1, I2, I3, I4, I5, O>
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, I3, I4, I5, I6, O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWithLazy(
-        firstElement: Function0R<I1>,
-        secondElement: Function0R<I2>,
-        thirdElement: Function0R<I3>,
-        forthElement: Function0R<I4>,
-        fifthElement: Function0R<I5>,
-        sixthElement: Function0R<I6>
+    firstElement: Function0R<I1>,
+    secondElement: Function0R<I2>,
+    thirdElement: Function0R<I3>,
+    forthElement: Function0R<I4>,
+    fifthElement: Function0R<I5>,
+    sixthElement: Function0R<I6>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
@@ -168,12 +169,12 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
     }
     skipIfEmptyOr {
         invokeEachWith(
-                firstElement(),
-                secondElement(),
-                thirdElement(),
-                forthElement(),
-                fifthElement(),
-                sixthElement()
+            firstElement(),
+            secondElement(),
+            thirdElement(),
+            forthElement(),
+            fifthElement(),
+            sixthElement()
         )
     }
 }
@@ -187,7 +188,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
  * @receiver [Iterable]<[Function0R]<O>>
  */
 public inline fun <O> Iterable<Function0R<O>>.invokeEach(): Unit =
-        forEach { it() }
+    forEach { it() }
 
 /**
  * Invokes each function with the given arguments
@@ -196,9 +197,9 @@ public inline fun <O> Iterable<Function0R<O>>.invokeEach(): Unit =
  */
 
 public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
-        element: I1
+    element: I1
 ): Unit =
-        forEach { it(element) }
+    forEach { it(element) }
 
 /**
  * Invokes each function with the given arguments
@@ -209,10 +210,10 @@ public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
 
 
 public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
-        firstElement: I1,
-        secondElement: I2
+    firstElement: I1,
+    secondElement: I2
 ): Unit =
-        forEach { it(firstElement, secondElement) }
+    forEach { it(firstElement, secondElement) }
 
 /**
  * Invokes each function with the given arguments
@@ -224,15 +225,17 @@ public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
 
 public inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWith(
-        firstElement: I1,
-        secondElement: I2,
-        thirdElement: I3
+    firstElement: I1,
+    secondElement: I2,
+    thirdElement: I3
 ): Unit =
-        forEach {
-            it(firstElement,
-                    secondElement,
-                    thirdElement)
-        }
+    forEach {
+        it(
+            firstElement,
+            secondElement,
+            thirdElement
+        )
+    }
 
 /**
  *  Invokes each function with the given arguments
@@ -245,17 +248,19 @@ public inline fun <I1, I2, I3, O>
 
 public inline fun <I1, I2, I3, I4, O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWith(
-        firstElement: I1,
-        secondElement: I2,
-        thirdElement: I3,
-        forthElement: I4
+    firstElement: I1,
+    secondElement: I2,
+    thirdElement: I3,
+    forthElement: I4
 ): Unit =
-        forEach {
-            it(firstElement,
-                    secondElement,
-                    thirdElement,
-                    forthElement)
-        }
+    forEach {
+        it(
+            firstElement,
+            secondElement,
+            thirdElement,
+            forthElement
+        )
+    }
 
 /**
  * Invokes each function with the given arguments
@@ -269,19 +274,21 @@ public inline fun <I1, I2, I3, I4, O>
 
 public inline fun <I1, I2, I3, I4, I5, O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWith(
-        firstElement: I1,
-        secondElement: I2,
-        thirdElement: I3,
-        forthElement: I4,
-        fifthElement: I5
+    firstElement: I1,
+    secondElement: I2,
+    thirdElement: I3,
+    forthElement: I4,
+    fifthElement: I5
 ): Unit =
-        forEach {
-            it(firstElement,
-                    secondElement,
-                    thirdElement,
-                    forthElement,
-                    fifthElement)
-        }
+    forEach {
+        it(
+            firstElement,
+            secondElement,
+            thirdElement,
+            forthElement,
+            fifthElement
+        )
+    }
 
 /**
  * Invokes each function with the given arguments
@@ -296,21 +303,23 @@ public inline fun <I1, I2, I3, I4, I5, O>
 
 public inline fun <I1, I2, I3, I4, I5, I6, O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWith(
-        firstElement: I1,
-        secondElement: I2,
-        thirdElement: I3,
-        forthElement: I4,
-        fifthElement: I5,
-        sixthElement: I6
+    firstElement: I1,
+    secondElement: I2,
+    thirdElement: I3,
+    forthElement: I4,
+    fifthElement: I5,
+    sixthElement: I6
 ): Unit =
-        forEach {
-            it(firstElement,
-                    secondElement,
-                    thirdElement,
-                    forthElement,
-                    fifthElement,
-                    sixthElement)
-        }
+    forEach {
+        it(
+            firstElement,
+            secondElement,
+            thirdElement,
+            forthElement,
+            fifthElement,
+            sixthElement
+        )
+    }
 //endregion
 
 
@@ -345,8 +354,8 @@ public inline fun <E> Iterable<E>.partitionSafe(predicate: Function1<E, Boolean>
  * @property falseForPredicate [List]<E> the elements considered "false" / not included
  */
 public class CollectionPartition<out E>(
-        public val trueForPredicate: List<E>,
-        public val falseForPredicate: List<E>
+    public val trueForPredicate: List<E>,
+    public val falseForPredicate: List<E>
 )
 
 
@@ -357,7 +366,7 @@ public class CollectionPartition<out E>(
  * @param action [Function2IndexedUnit]<T, T>
  */
 public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
@@ -365,7 +374,7 @@ public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T
  * @param action [Function2Unit]<T, T>
  */
 public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this list.
@@ -374,7 +383,7 @@ public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
  * Might be suboptimal for collection that does not store the count
  */
 public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
-        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
 
 /**
@@ -413,7 +422,7 @@ public inline fun <T> Iterable<T>.isNotEmpty(): Boolean = any()
  * @param action [Function1]<U, *> action to invoke if the element is of type U
  */
 public inline fun <reified U> Iterable<*>.forEachIsInstance(
-        action: kotlin.Function1<U, *>
+    action: kotlin.Function1<U, *>
 ): Unit = forEach {
     it?.invokeIsInstance(action)
 }
@@ -426,7 +435,7 @@ public inline fun <reified U> Iterable<*>.forEachIsInstance(
  * @timecomplexity O(n)
  */
 public inline fun <E, V : Comparable<V>> Iterable<E>.largest(
-        selector: Function1<E, V>
+    selector: Function1<E, V>
 ): E? {
     var currentResult: E? = null
     var currentValue: V? = null
@@ -455,6 +464,6 @@ public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
  * @receiver [C]? the optional type
  * @return [Boolean] true if this has content (is not null or empty) false if it is null or empty
  */
-public inline fun <T,C:Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
+public inline fun <T, C : Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }

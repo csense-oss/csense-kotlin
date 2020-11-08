@@ -36,7 +36,7 @@ public inline fun StringModification.limitTo(@IntLimit(from = 0) maxLength: Int)
  * @return [String] the combined result (prefix + this + postfix)
  */
 public inline fun StringModification.wrapIn(prefix: String, postFix: String): String =
-        prefix + string + postFix
+    prefix + string + postFix
 
 /**
  * As the name implies wraps the given receiver into a pair of quotes at each end

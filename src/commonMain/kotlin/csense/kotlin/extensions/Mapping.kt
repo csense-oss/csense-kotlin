@@ -13,10 +13,10 @@ import kotlin.contracts.*
  * @return U the value depending on 'this' value
  */
 public inline fun <U> Any?.mapOptional(
-        ifNotNull: U,
-        ifNull: U
+    ifNotNull: U,
+    ifNull: U
 ): U {
-    
+
     return this.isNotNull.map(ifNotNull, ifNull)
 }
 
@@ -28,9 +28,9 @@ public inline fun <U> Any?.mapOptional(
  * @return [U] the value depending on 'this' value
  */
 @OptIn(ExperimentalContracts::class)
-public inline fun <U,T> T?.mapLazyOptional(
-        ifNotNull: Function1<T,U>,
-        ifNull: EmptyFunctionResult<U>
+public inline fun <U, T> T?.mapLazyOptional(
+    ifNotNull: Function1<T, U>,
+    ifNull: EmptyFunctionResult<U>
 ): U {
     contract {
         callsInPlace(ifNotNull, InvocationKind.AT_MOST_ONCE)
@@ -52,8 +52,8 @@ public inline fun <U,T> T?.mapLazyOptional(
  */
 
 public inline fun <T> Boolean.map(
-        ifTrue: T,
-        ifFalse: T
+    ifTrue: T,
+    ifFalse: T
 ): T = if (this) {
     ifTrue
 } else {
@@ -73,8 +73,8 @@ public inline fun <T> Boolean.map(
  */
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> Boolean.mapLazy(
-        ifTrue: EmptyFunctionResult<T>,
-        ifFalse: EmptyFunctionResult<T>
+    ifTrue: EmptyFunctionResult<T>,
+    ifFalse: EmptyFunctionResult<T>
 ): T = if (this) {
     contract {
         callsInPlace(ifTrue, InvocationKind.AT_MOST_ONCE)
@@ -93,9 +93,8 @@ public inline fun <T> Boolean.mapLazy(
  * @return [Set]<U>
  */
 public inline fun <T, U> Iterable<T>.mapToSet(
-        mapper: Function1<T, U>
+    mapper: Function1<T, U>
 ): Set<U> = mapTo(mutableSetOf(), mapper)
-
 
 
 @OptIn(ExperimentalContracts::class)
@@ -107,5 +106,13 @@ public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Func
     return when (this) {
         is TT -> action(this)
         else -> this
+    }
+}
+
+public inline fun <T, reified U> Iterable<T>.mapToTypedArray(mapper: Function1<T, U>): Array<U> {
+    val size = count()
+    val iterator = iterator()//todo improve test perf (might want to specialize impls)
+    return Array(size) {
+        mapper(iterator.next())
     }
 }

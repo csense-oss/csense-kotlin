@@ -24,13 +24,25 @@ public inline fun <E> List<E>.limitToSize(@IntLimit(from = 0) size: Int): List<E
 
 /**
  * Creates a sublist with the given range (including the end)
- * Checks bounds before accessing. returns empty list of out of bounds.
+ * Checks bounds before accessing. returns empty list if out of bounds.
  * @receiver [List]<T>
  * @param intRange [IntRange]
  * @return [List]<T>
  */
 public inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
-        subListSafe(intRange.first, intRange.last)
+    subListSafe(intRange.first, intRange.last)
+
+/**
+ * Creates a sublist from the given [fromIndex] to the end
+ * Checks bounds before accessing. returns empty list if out of bounds.
+ * @receiver [List]<T>
+ * @param fromIndex [Int] where from we should start including elements
+ * @return [List]<T>
+ */
+public inline fun <T> List<T>.subList(
+    @IntLimit(from = 0) fromIndex: Int
+): List<T> = subListSafe(fromIndex, size)
+
 
 /**
  * Extracts a sublist or returns an empty list if the requested range is out of bounds.
@@ -41,8 +53,8 @@ public inline fun <T> List<T>.subList(intRange: IntRange): List<T> =
  * @return [List]<T>
  */
 public inline fun <T> List<T>.subListSafe(
-        @IntLimit(from = 0) fromIndex: Int,
-        @IntLimit(from = 0) toIndex: Int
+    @IntLimit(from = 0) fromIndex: Int,
+    @IntLimit(from = 0) toIndex: Int
 ): List<T> {
     return if (fromIndex >= 0 && toIndex <= size && fromIndex <= toIndex) {
         subList(fromIndex, toIndex)
@@ -61,7 +73,7 @@ public inline fun <T> List<T>.subListSafe(
  * @return [List]<T>
  */
 public inline fun <T> List<T>.repeat(
-        @IntLimit(from = 0) repeatBy: Int
+    @IntLimit(from = 0) repeatBy: Int
 ): List<T> {
     if (repeatBy.isNegativeOrZero) {
         return emptyList()
@@ -108,8 +120,8 @@ public inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: I
  * @param action [Function1]<U, *>
  */
 public inline fun <reified U> List<*>.forEachIsInstance(
-        indices: IntProgression,
-        action: Function1<U, *>
+    indices: IntProgression,
+    action: Function1<U, *>
 ): Unit = indices.forEach {
     getOrNull(it)?.invokeIsInstance(action)
 }
@@ -123,7 +135,7 @@ public inline fun <reified U> List<*>.forEachIsInstance(
  * @return [List]<[List]<T>>
  */
 public inline fun <T> List<List<T>>.combine(
-        other: List<List<T>>
+    other: List<List<T>>
 ): List<List<T>> {
     val isOtherLarger = other.size > this.size
     val largest = isOtherLarger.map(other, this)
@@ -141,4 +153,4 @@ public inline fun <T> List<List<T>>.combine(
  * @return [Boolean] true if the element was not found, false if it was found.
  */
 public inline fun <T> List<T>.doesNotContain(element: T): Boolean =
-        !contains(element)
+    !contains(element)

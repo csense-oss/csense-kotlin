@@ -63,14 +63,14 @@ class CharTest {
         'F'.asHexDigit().assertNotNullAndEquals(0x0F)
         'g'.asHexDigit().assertNull()
     }
-    
+
     @Test
     fun charIsDigit() {
         ' '.isDigit().assertFalse()
         'a'.isDigit().assertFalse()
         '?'.isDigit().assertFalse()
         '\n'.isDigit().assertFalse()
-        
+
         '0'.isDigit().assertTrue()
         '1'.isDigit().assertTrue()
         '2'.isDigit().assertTrue()

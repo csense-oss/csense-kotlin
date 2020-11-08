@@ -13,8 +13,9 @@ import kotlin.experimental.*
  * @return [Char]
  */
 public inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
-        ifTrue = this::toUpperCase,
-        ifFalse = this::toLowerCase)
+    ifTrue = this::toUpperCase,
+    ifFalse = this::toLowerCase
+)
 
 /**
  * Tries to convert this char into a decimal value (0 to 9)
@@ -47,7 +48,7 @@ public inline fun Char.asHexDigit(): Byte? {
     if (thisByte.isNegative || thisByte > CharExtensions.hexCharsCount) {
         return null
     }
-    
+
     return (thisByte + 0x0a).toByte()
 }
 
@@ -89,7 +90,7 @@ public expect inline fun Char.isLowerCaseLetter(): Boolean
  * true if it is a number, false otherwise
  */
 public inline fun Char.isDigit(): Boolean =
-        this in '0'..'9'
+    this in '0'..'9'
 
 /**
  * Tells if this is NOT a digit (0 to 9)
@@ -97,21 +98,21 @@ public inline fun Char.isDigit(): Boolean =
  * @return [Boolean] true if it is not a digit, false if it is
  */
 public inline fun Char.isNotDigit(): Boolean =
-        !isDigit()
+    !isDigit()
 
 
 public inline class CharExtensions(public val char: Char) {
     public companion object {
-        
+
         public const val charZeroAsByte: Byte = '0'.toByte()
-        
+
         public const val charAAsByte: Byte = 'a'.toByte()
-        
+
         /**
          * The length (0 indexed) of numbers ( 0 until 9)
          */
         public const val numberCharsCount: Int = 9
-        
+
         /**
          * The length (0 indexed) of chars that represents hex numbers ( a - f)
          */

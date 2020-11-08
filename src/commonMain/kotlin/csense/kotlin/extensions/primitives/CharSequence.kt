@@ -32,7 +32,11 @@ public inline fun CharSequence?.isNotNullOrEmpty(): Boolean {
  * @return [Int]? null if the given character was not found or first found index of it.
  */
 @IntLimit(from = 0)
-public inline fun CharSequence.indexOfOrNull(char: Char,@IntLimit(from = 0) startIndex: Int = 0, ignoreCase: Boolean = false): Int? {
+public inline fun CharSequence.indexOfOrNull(
+    char: Char,
+    @IntLimit(from = 0) startIndex: Int = 0,
+    ignoreCase: Boolean = false
+): Int? {
     return when (val index = indexOf(char, startIndex, ignoreCase)) {
         -1 -> null
         else -> index
@@ -47,7 +51,11 @@ public inline fun CharSequence.indexOfOrNull(char: Char,@IntLimit(from = 0) star
  * @return [Int]? null if the given string was not found or first found index of it.
  */
 @IntLimit(from = 0)
-public inline fun CharSequence.indexOfOrNull(string: String,@IntLimit(from = 0) startIndex: Int = 0, ignoreCase: Boolean = false): Int? {
+public inline fun CharSequence.indexOfOrNull(
+    string: String,
+    @IntLimit(from = 0) startIndex: Int = 0,
+    ignoreCase: Boolean = false
+): Int? {
     return when (val index = indexOf(string, startIndex, ignoreCase)) {
         -1 -> null
         else -> index
@@ -63,7 +71,11 @@ public inline fun CharSequence.indexOfOrNull(string: String,@IntLimit(from = 0) 
  * @return [Int]? null if the given character was not found or the latest index of it.
  */
 @IntLimit(from = 0)
-public inline fun CharSequence.lastIndexOfOrNull(char: Char,@IntLimit(from = 0) startIndex: Int = lastIndex, ignoreCase: Boolean = false): Int? {
+public inline fun CharSequence.lastIndexOfOrNull(
+    char: Char,
+    @IntLimit(from = 0) startIndex: Int = lastIndex,
+    ignoreCase: Boolean = false
+): Int? {
     return when (val index = lastIndexOf(char, startIndex, ignoreCase)) {
         -1 -> null
         else -> index
@@ -78,7 +90,11 @@ public inline fun CharSequence.lastIndexOfOrNull(char: Char,@IntLimit(from = 0) 
  * @return [Int]? null if the given string was not found or the latest index of it.
  */
 @IntLimit(from = 0)
-public inline fun CharSequence.lastIndexOfOrNull(string: String, @IntLimit(from = 0) startIndex: Int = lastIndex, ignoreCase: Boolean = false): Int? {
+public inline fun CharSequence.lastIndexOfOrNull(
+    string: String,
+    @IntLimit(from = 0) startIndex: Int = lastIndex,
+    ignoreCase: Boolean = false
+): Int? {
     return when (val index = lastIndexOf(string, startIndex, ignoreCase)) {
         -1 -> null
         else -> index

@@ -1,6 +1,7 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions
+
 import csense.kotlin.*
 
 //region String search for enum
@@ -40,8 +41,8 @@ public inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T 
  * @timeComplexity O(n * x) where n is the size of the enum, x is the "timecomplexity" of the findAction.
  */
 public inline fun <reified T : Enum<T>> enumFromOrNull(
-        ifNotFound: T? = null,
-        findAction: Function1<T, Boolean>
+    ifNotFound: T? = null,
+    findAction: Function1<T, Boolean>
 ): T? {
     return enumValues<T>().find(findAction) ?: ifNotFound
 }
@@ -56,8 +57,8 @@ public inline fun <reified T : Enum<T>> enumFromOrNull(
  * @timeComplexity O(n * x) where n is the size of the enum, x is the "timecomplexity" of the findAction.
  */
 public inline fun <reified T : Enum<T>> enumFromOr(
-        ifNotFound: T,
-        findAction: Function1<T, Boolean>
+    ifNotFound: T,
+    findAction: Function1<T, Boolean>
 ): T {
     return enumFromOrNull(null, findAction) ?: ifNotFound
 }

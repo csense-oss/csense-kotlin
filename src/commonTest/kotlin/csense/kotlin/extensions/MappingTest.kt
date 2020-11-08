@@ -11,6 +11,7 @@ class MappingTest {
     fun mapOptional() {
         val strNull: String? = null
         strNull.mapOptional(42, 0).assert(0, "should map to ifNull")
+        @Suppress("RedundantNullableReturnType")
         val strNotNull: String? = "NotNull"
         strNotNull.mapOptional(42, 0).assert(42, "should map to ifNotNull")
     }
@@ -20,15 +21,16 @@ class MappingTest {
         val strNull: String? = null
         assertCalled {
             strNull.mapLazyOptional(
-                    ifNotNull = { failTest() },
-                    ifNull = { it() }
+                ifNotNull = { failTest() },
+                ifNull = { it() }
             )
         }
+        @Suppress("RedundantNullableReturnType")
         val strNotNull: String? = "NotNull"
         assertCalled {
             strNotNull.mapLazyOptional(
-                    ifNotNull = { it() },
-                    ifNull = { failTest() }
+                ifNotNull = { it() },
+                ifNull = { failTest() }
             )
         }
     }
@@ -67,6 +69,60 @@ class MappingTest {
                 assertSize(10, "should map each element (and since non is duplicated)")
                 for (i in 0 until 10) {
                     this.contains("$i").assertTrue()
+                }
+            }
+        }
+    }
+
+
+    private class FirstChild : Parent()
+    private class SecondChild : Parent()
+    private open class Parent
+
+    @Test
+    fun tMapIfInstanceOrThis() {
+        val parent = Parent()
+        parent.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(parent, "its not a FirstChild")
+        parent.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }.assertAs(parent, "its not a SecondChild")
+
+        val firstChild: Parent = FirstChild()
+        assertCalled { called ->
+            firstChild.mapIfInstanceOrThis<Parent, FirstChild> { called(); it }.assertAs(firstChild)
+        }
+        firstChild.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }.assertAs(firstChild)
+
+        val secondChild: Parent = SecondChild()
+        secondChild.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(secondChild)
+        assertCalled { called ->
+            secondChild.mapIfInstanceOrThis<Parent, SecondChild> { called(); it }.assertAs(secondChild)
+        }
+    }
+
+    class IterableTMapToTypedArray {
+        @Test
+        fun empty() {
+            listOf<String>().mapToTypedArray<String, Int> { shouldNotBeCalled() }.assertSize(0)
+        }
+
+        @Test
+        fun single() {
+            listOf(42).mapToTypedArray { "a" }.apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            listOf(42).mapToTypedArray { "$it" }.apply {
+                assertSize(1)
+                first().assert("42")
+            }
+        }
+
+        @Test
+        fun multiple() {
+            assertCalled(times = 2) { shouldBeCalled ->
+                listOf(42, 11).mapToTypedArray { shouldBeCalled();"$it" }.apply {
+                    assertSize(2)
+                    first().assert("42")
+                    last().assert("11")
                 }
             }
         }

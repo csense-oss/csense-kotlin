@@ -29,7 +29,7 @@ public inline fun Float.equalsWithin(value: Float, margin: Float = 0.1f): Boolea
  * @return [Boolean]
  */
 public inline fun Float.equals(value: Float, margin: Float): Boolean =
-        equalsWithin(value, margin)
+    equalsWithin(value, margin)
 
 /**
  * if this [Float] is 0 within a margin of 0.1 akk
@@ -45,6 +45,7 @@ public inline val Float.isZero: Boolean
  */
 public inline val Float.isNotZero: Boolean
     get() = !isZero
+
 /**
  *
  * @receiver [Float]
@@ -52,7 +53,7 @@ public inline val Float.isNotZero: Boolean
  * @return [Boolean]
  */
 public inline fun Float.isZero(margin: Float): Boolean =
-        equalsWithin(0.0f, margin)
+    equalsWithin(0.0f, margin)
 
 /**
  * Gets this [Float] negative, if it is already negative, returns that.
@@ -102,4 +103,4 @@ public inline val Float.isPositiveOrZero: Boolean
  * @return [Boolean]
  */
 public inline fun Float.isNotZero(margin: Float): Boolean =
-        !isZero(margin)
+    !isZero(margin)

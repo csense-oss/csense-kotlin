@@ -11,24 +11,24 @@ import csense.kotlin.extensions.collections.generic.*
  * @param receiver [Function1]<[Float], U>
  */
 public inline fun <U> FloatArray.forEachDiscard(receiver: Function1<Float, U>): Unit =
-        GenericArray.foreachDiscardResult(count(), this::get, receiver)
+    GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 public inline fun FloatArray.forEach2Indexed(action: Function2IndexedUnit<Float, Float>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
 public inline fun FloatArray.forEach2(action: Function2Unit<Float, Float>): Unit =
-        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this [FloatArray].
  */
 public inline fun FloatArray.forEachBackwards(action: FunctionUnit<Float>): Unit =
-        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion

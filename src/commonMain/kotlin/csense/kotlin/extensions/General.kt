@@ -22,7 +22,7 @@ public inline fun <reified T> Any.cast(): T? {
 
 @OptIn(ExperimentalContracts::class)
 public inline fun <reified T, U> Any.castMap(
-        mapper: ReceiverFunction0<T, U>
+    mapper: ReceiverFunction0<T, U>
 ): U? {
     contract {
         callsInPlace(mapper, kind = InvocationKind.AT_MOST_ONCE)
@@ -98,8 +98,8 @@ public inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this
  */
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> T?.useOr(
-        ifNotNull: ReceiverFunctionUnit<T>,
-        ifNull: EmptyFunction
+    ifNotNull: ReceiverFunctionUnit<T>,
+    ifNull: EmptyFunction
 ) {
     contract {
         callsInPlace(ifNotNull, InvocationKind.AT_MOST_ONCE)

@@ -70,6 +70,7 @@ public inline val Long.isPositive: Boolean
  */
 public inline val Long.isEven: Boolean
     get() = this % 2L == 0L
+
 /**
  * If this [Long] is odd (1,3,5 ...)
  */
@@ -83,7 +84,7 @@ public inline val Long.isOdd: Boolean
  * @return [Boolean] false if this is null or zero, true otherwise
  */
 @OptIn(ExperimentalContracts::class)
-public inline fun Long?.isNotNullOrZero(): Boolean{
+public inline fun Long?.isNotNullOrZero(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrZero != null)
     }
@@ -96,7 +97,7 @@ public inline fun Long?.isNotNullOrZero(): Boolean{
  * @return [Boolean] true if this is null or zero, false otherwise
  */
 @OptIn(ExperimentalContracts::class)
-public inline fun Long?.isNullOrZero(): Boolean{
+public inline fun Long?.isNullOrZero(): Boolean {
     contract {
         returns(false) implies (this@isNullOrZero != null)
     }

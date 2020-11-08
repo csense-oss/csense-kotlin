@@ -28,7 +28,11 @@ public inline fun LLogger.debug(kClass: KClass<*>, message: String, exception: T
     debug(kClass.java, message, exception)
 }
 
-public inline fun LLogger.debugLazy(kClass: KClass<*>, noinline message: Function0R<String>, exception: Throwable? = null) {
+public inline fun LLogger.debugLazy(
+    kClass: KClass<*>,
+    noinline message: Function0R<String>,
+    exception: Throwable? = null
+) {
     debugLazy(kClass.java, message, exception)
 }
 //endregion
@@ -42,7 +46,11 @@ public inline fun LLogger.warning(cls: Class<*>, message: String, throwable: Thr
     warning(cls.simpleName, message, throwable)
 }
 
-public inline fun LLogger.warningLazy(cls: Class<*>, noinline message: Function0R<String>, throwable: Throwable? = null) {
+public inline fun LLogger.warningLazy(
+    cls: Class<*>,
+    noinline message: Function0R<String>,
+    throwable: Throwable? = null
+) {
     warningLazy(cls.simpleName, message, throwable)
 }
 
@@ -54,7 +62,11 @@ public inline fun LLogger.warning(kClass: KClass<*>, message: String, throwable:
     warning(kClass.java, message, throwable)
 }
 
-public inline fun LLogger.warning(kClass: KClass<*>, noinline message: Function0R<String>, throwable: Throwable? = null) {
+public inline fun LLogger.warning(
+    kClass: KClass<*>,
+    noinline message: Function0R<String>,
+    throwable: Throwable? = null
+) {
     warningLazy(kClass.java, message, throwable)
 }
 //endregion
@@ -80,7 +92,11 @@ public inline fun LLogger.error(kClass: KClass<*>, message: String, exception: T
     error(kClass.java, message, exception)
 }
 
-public inline fun LLogger.errorLazy(kClass: KClass<*>, noinline message: Function0R<String>, exception: Throwable? = null) {
+public inline fun LLogger.errorLazy(
+    kClass: KClass<*>,
+    noinline message: Function0R<String>,
+    exception: Throwable? = null
+) {
     errorLazy(kClass.java, message, exception)
 }
 //endregion
@@ -94,7 +110,11 @@ public inline fun LLogger.logProd(cls: Class<*>, message: String, throwable: Thr
     logProd(cls.simpleName, message, throwable)
 }
 
-public inline fun LLogger.logProdLazy(cls: Class<*>, noinline message: Function0R<String>, throwable: Throwable? = null) {
+public inline fun LLogger.logProdLazy(
+    cls: Class<*>,
+    noinline message: Function0R<String>,
+    throwable: Throwable? = null
+) {
     logProdLazy(cls.simpleName, message, throwable)
 }
 
@@ -107,7 +127,11 @@ public inline fun LLogger.logProd(kClass: KClass<*>, message: String, throwable:
     logProd(kClass.java, message, throwable)
 }
 
-public inline fun LLogger.logProdLazy(kClass: KClass<*>, noinline message: Function0R<String>, throwable: Throwable? = null) {
+public inline fun LLogger.logProdLazy(
+    kClass: KClass<*>,
+    noinline message: Function0R<String>,
+    throwable: Throwable? = null
+) {
     logProdLazy(kClass.java, message, throwable)
 }
 //endregion

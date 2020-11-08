@@ -13,7 +13,7 @@ import java.util.*
  * @return [WeakReference]<T> a weak reference to the given object
  */
 public inline fun <T> T.weakReference(): WeakReference<T> =
-        WeakReference(this)
+    WeakReference(this)
 
 /**
  * Will use the value if the weak reference is not pointing to null
@@ -21,14 +21,14 @@ public inline fun <T> T.weakReference(): WeakReference<T> =
  * on an optional value inside of a [WeakReference]
  */
 public inline fun <T> WeakReference<T>.use(action: ReceiverFunctionUnit<T>): Unit =
-        get()?.let(action).toUnit()
+    get()?.let(action).toUnit()
 
 /**
  * Uses this weak reference if valid and calls the method if there
  * @receiver [WeakReference]<[EmptyFunction]>
  */
 public inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
-        get()?.let { it() }.toUnit()
+    get()?.let { it() }.toUnit()
 
 /**
  * Uses this weak reference if valid and calls the function and returns the result.
@@ -37,7 +37,7 @@ public inline fun WeakReference<EmptyFunction>.useInvoke(): Unit =
  * @return R?
  */
 public inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
-        get()?.let { it() }
+    get()?.let { it() }
 
 /**
  * Uses the given weak reference if available or does the other action
@@ -47,8 +47,8 @@ public inline fun <R> WeakReference<Function0R<R>>.useInvoke(): R? =
  * this action will be performed
  */
 public inline fun <T> WeakReference<T>.useOr(
-        ifAvailable: ReceiverFunctionUnit<T>,
-        ifNotAvailable: EmptyFunction
+    ifAvailable: ReceiverFunctionUnit<T>,
+    ifNotAvailable: EmptyFunction
 ): Unit = get().useOr(ifAvailable, ifNotAvailable)
 
 /**
@@ -58,4 +58,4 @@ public inline fun <T> WeakReference<T>.useOr(
  * or null if this parameter was null
  */
 public inline fun <T> T?.weakReference(): WeakReference<T>? where T : Optional<*> =
-        this?.let(::WeakReference)
+    this?.let(::WeakReference)

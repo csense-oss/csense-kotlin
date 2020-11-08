@@ -36,7 +36,7 @@ public fun Char.isLetter(): Boolean {
 }
 
 public inline fun Char.isNotLetter(): Boolean =
-        !isLetter()
+    !isLetter()
 
 /**
  * tells if this [Char] is uppercase

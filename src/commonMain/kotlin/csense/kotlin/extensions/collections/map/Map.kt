@@ -28,7 +28,7 @@ public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int)
  * @param action [Function2IndexedUnit]<T, T>
  */
 public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(size, this.entries::elementAt, action)
+    GenericCollectionExtensions.forEach2Indexed(size, this.entries::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
@@ -36,7 +36,7 @@ public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<
  * @param action [Function2Unit]<T, T>
  */
 public inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
-        GenericCollectionExtensions.forEach2(size, this.entries::elementAt, action)
+    GenericCollectionExtensions.forEach2(size, this.entries::elementAt, action)
 
 /**
  * Performs backwards traversal on this
@@ -44,7 +44,7 @@ public inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V
  * @param action [FunctionUnit]<T>
  */
 public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>): Unit =
-        GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
 //endregion
 
 /**
@@ -54,7 +54,7 @@ public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Ent
  * @return [List]<K>
  */
 public inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
-        filter(predicate).map(Map.Entry<K, V>::key)
+    filter(predicate).map(Map.Entry<K, V>::key)
 
 /**
  * maps the ability to get an entry and use it safely or do something else.
@@ -64,9 +64,9 @@ public inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1
  * @param onKeyNotFound [EmptyFunction] if the key is not there, then this function gets invoked.
  */
 public inline fun <K, V> Map<K, V>.useValueOr(
-        key: K,
-        onKeyFound: FunctionUnit<V>,
-        onKeyNotFound: EmptyFunction
+    key: K,
+    onKeyFound: FunctionUnit<V>,
+    onKeyNotFound: EmptyFunction
 ) {
     val value = this[key]
     if (value != null) {
@@ -83,4 +83,4 @@ public inline fun <K, V> Map<K, V>.useValueOr(
  * @return [Boolean] true if the key is not found / contained
  */
 public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
-        !containsKey(key)
+    !containsKey(key)

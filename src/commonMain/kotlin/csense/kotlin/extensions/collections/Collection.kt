@@ -16,7 +16,7 @@ import kotlin.contracts.*
  */
 
 public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
-        index >= 0 && index < count()
+    index >= 0 && index < count()
 
 /**
  * Validates the given index for the given collection, accounting for inserting in the end (so 0 until (including) length)
@@ -26,7 +26,7 @@ public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
  */
 
 public inline fun Collection<*>.isIndexValidForInsert(index: Int): Boolean =
-        index >= 0 && index <= count()
+    index >= 0 && index <= count()
 
 /**
  * Element at without throwing exception but instead returning null if index out of bounds
@@ -35,7 +35,7 @@ public inline fun Collection<*>.isIndexValidForInsert(index: Int): Boolean =
  * @return T?
  */
 public inline fun <T> Collection<T>.getOrNull(
-        @IntLimit(from = 0) index: Int
+    @IntLimit(from = 0) index: Int
 ): T? = elementAtOrNull(index)
 
 /**
@@ -45,10 +45,10 @@ public inline fun <T> Collection<T>.getOrNull(
  * @return [Boolean]
  */
 public inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
-        (intRange.first >= 0 &&
-                intRange.last >= 0 &&
-                intRange.last < size &&
-                intRange.first <= size)
+    (intRange.first >= 0 &&
+            intRange.last >= 0 &&
+            intRange.last < size &&
+            intRange.first <= size)
 
 
 /**
@@ -59,7 +59,7 @@ public inline fun Collection<*>.isRangeValid(intRange: IntRange): Boolean =
  * @return [List]<[List]<T>>
  */
 public inline fun <T> Collection<T>.categorizeIntoMultiple(vararg filters: Function1<T, Boolean>): List<List<T>> =
-        this.categorizeInto(*filters, allowItemInMultipleBuckets = true)
+    this.categorizeInto(*filters, allowItemInMultipleBuckets = true)
 
 
 /**
@@ -70,7 +70,7 @@ public inline fun <T> Collection<T>.categorizeIntoMultiple(vararg filters: Funct
  * @return [List]<[List]<T>>
  */
 public inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Function1<T, Boolean>): List<List<T>> =
-        this.categorizeInto(*filters, allowItemInMultipleBuckets = false)
+    this.categorizeInto(*filters, allowItemInMultipleBuckets = false)
 
 /**
  *
@@ -80,11 +80,11 @@ public inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Functio
  * @return [List]<[List]<Element>>
  */
 public inline fun <Element> Collection<Element>.categorizeInto(
-        vararg filters: Function1<Element, Boolean>,
-        allowItemInMultipleBuckets: Boolean = true
+    vararg filters: Function1<Element, Boolean>,
+    allowItemInMultipleBuckets: Boolean = true
 ): List<List<Element>> {
     val result =
-            ArrayList(filters.map { mutableListOf<Element>() })
+        ArrayList(filters.map { mutableListOf<Element>() })
     forEach {
         it.categorizeInto(result, filters, allowItemInMultipleBuckets)
     }
@@ -100,9 +100,9 @@ public inline fun <Element> Collection<Element>.categorizeInto(
  * if false then it will stop once a filter accepts it.
  */
 public inline fun <Element> Element.categorizeInto(
-        result: ArrayList<MutableList<Element>>,
-        filters: Array<out Function1<Element, Boolean>>,
-        allowItemInMultipleBuckets: Boolean = true
+    result: ArrayList<MutableList<Element>>,
+    filters: Array<out Function1<Element, Boolean>>,
+    allowItemInMultipleBuckets: Boolean = true
 ) {
     filters.forEachIndexed { index: @IntLimit(from = 0) Int, filterAccepts: (Element) -> Boolean ->
         filterAccepts(this).ifTrue {
@@ -125,7 +125,7 @@ public inline fun <Element> Element.categorizeInto(
  * @return [Map]<[String], [List]<T>>
  */
 public inline fun <T> Collection<T>.categorizeByString(
-        categorizer: Function1<T, String>
+    categorizer: Function1<T, String>
 ): Map<String, List<T>> = categorize(categorizer)
 
 /**
@@ -136,7 +136,7 @@ public inline fun <T> Collection<T>.categorizeByString(
  * @return [Map]<K, [List]<T>>
  */
 public inline fun <T, K> Collection<T>.categorize(
-        categorizer: Function1<T, K>
+    categorizer: Function1<T, K>
 ): Map<K, List<T>> {
     val result = mutableMapOf<K, MutableList<T>>()
     forEach { item: T ->
@@ -198,7 +198,7 @@ public inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
  * @return T?
  */
 public inline fun <T> Collection<T>.secondLastOrNull(): T? =
-        elementAtOrNull(size - 2)
+    elementAtOrNull(size - 2)
 
 
 /**
@@ -209,7 +209,7 @@ public inline fun <T> Collection<T>.secondLastOrNull(): T? =
  */
 @IntLimit(from = 0)
 public inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
-        indexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
+    indexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
@@ -220,7 +220,7 @@ public inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
  */
 @IntLimit(from = 0)
 public inline fun <T> Collection<T>.indexOfFirstOrNull(predicate: Function1<T, Boolean>): Int? =
-        indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+    indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
@@ -231,7 +231,7 @@ public inline fun <T> Collection<T>.indexOfFirstOrNull(predicate: Function1<T, B
  */
 @IntLimit(from = 0)
 public inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
-        indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+    indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
@@ -242,7 +242,7 @@ public inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Bo
  */
 @IntLimit(from = 0)
 public inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
-        this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
+    this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
 
 /**
  * Selects the first item that is able to be "mapped" by the [mappingPredicate]
@@ -252,7 +252,7 @@ public inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
  * @return [U]? the first item that could be mapped to a value or null if non was applicable via the [mappingPredicate]
  */
 public inline fun <T, U> Collection<T>.selectFirstOrNull(
-        mappingPredicate: (T) -> U?
+    mappingPredicate: (T) -> U?
 ): U? {
     forEach { item ->
         mappingPredicate(item)?.let { mapped: U ->
@@ -272,11 +272,11 @@ public inline fun <T, U> Collection<T>.selectFirstOrNull(
  * @return [List]<T>
  */
 public inline fun <reified T> Collection<T>.joinEvery(
-        @IntLimit(from = 1) itemsBetweenJoin: Int,
-        toJoin: T
+    @IntLimit(from = 1) itemsBetweenJoin: Int,
+    toJoin: T
 ): List<T> = joinEveryAction(
-        itemsBetweenJoin,
-        toJoinAction = { toJoin }
+    itemsBetweenJoin,
+    toJoinAction = { toJoin }
 )
 
 
@@ -288,18 +288,18 @@ public inline fun <reified T> Collection<T>.joinEvery(
  * @return [List]<T>
  */
 public inline fun <reified T> Collection<T>.joinEveryAction(
-        @IntLimit(from = 1) itemsBetweenJoin: Int,
-        crossinline toJoinAction: () -> T
+    @IntLimit(from = 1) itemsBetweenJoin: Int,
+    crossinline toJoinAction: () -> T
 ): List<T> {
     if (itemsBetweenJoin <= 0) {
         return this.toList()
     }
     return GenericCollectionExtensions.joinEveryAction(
-            itemsBetweenJoin,
-            toJoinAction,
-            size,
-            this::elementAt,
-            ::List
+        itemsBetweenJoin,
+        toJoinAction,
+        size,
+        this::elementAt,
+        ::List
     )
 }
 //endregion

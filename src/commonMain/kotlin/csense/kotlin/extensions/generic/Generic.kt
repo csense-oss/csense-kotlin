@@ -16,10 +16,10 @@ public object Generic
  * @param startIndex [Int]
  */
 public inline fun <Element> Generic.forEach(
-        @IntLimit(from = 0) length: Int,
-        retriever: Function1<@IntLimit(from = 0) Int, Element>,
-        @IntLimit(from = 0) startIndex: Int = 0,
-        onEach: Function0<Element>
+    @IntLimit(from = 0) length: Int,
+    retriever: Function1<@IntLimit(from = 0) Int, Element>,
+    @IntLimit(from = 0) startIndex: Int = 0,
+    onEach: Function0<Element>
 ) {
     for (i in startIndex until length) {
         onEach(retriever(i))
@@ -27,12 +27,12 @@ public inline fun <Element> Generic.forEach(
 }
 
 public inline fun <ElementIn, ElementOut> Generic.map(
-        @IntLimit(from = 0) length: Int,
-        retriever: Function1<@IntLimit(from = 0) Int, ElementIn>,
-        @IntLimit(from = 0) startIndex: Int = 0,
-        mapper: Function1<ElementIn, ElementOut>
+    @IntLimit(from = 0) length: Int,
+    retriever: Function1<@IntLimit(from = 0) Int, ElementIn>,
+    @IntLimit(from = 0) startIndex: Int = 0,
+    mapper: Function1<ElementIn, ElementOut>
 ): List<ElementOut> {
-    
+
     val result = mutableListOf<ElementOut>()
     for (i in startIndex until length) {
         result += mapper(retriever(i))
@@ -42,10 +42,10 @@ public inline fun <ElementIn, ElementOut> Generic.map(
 
 
 public inline fun <Element> Generic.filter(
-        @IntLimit(from = 0) length: Int,
-        retriever: Function1<@IntLimit(from = 0) Int, Element>,
-        @IntLimit(from = 0) startIndex: Int = 0,
-        filterFunction: Function1<Element, Boolean>
+    @IntLimit(from = 0) length: Int,
+    retriever: Function1<@IntLimit(from = 0) Int, Element>,
+    @IntLimit(from = 0) startIndex: Int = 0,
+    filterFunction: Function1<Element, Boolean>
 ): List<Element> {
     val result = mutableListOf<Element>()
     forEach(length, retriever, startIndex) {

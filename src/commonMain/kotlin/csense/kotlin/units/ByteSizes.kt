@@ -25,6 +25,7 @@ import csense.kotlin.annotations.numbers.*
 public sealed class BinaryBitSizes(@LongLimit(from = 0) public val value: Long) {
     public class Bit(@LongLimit(from = 0) bits: Long) : BinaryBitSizes(bits)
     public class Byte(@LongLimit(from = 0) bytes: Long) : BinaryBitSizes(bytes)
+
     //and then each listed below in both forms
     /*bytes*/
     public class KiloByte(@LongLimit(from = 0) kiloBytes: Long) : BinaryBitSizes(kiloBytes)
@@ -48,6 +49,7 @@ public sealed class BinaryBitSizes(@LongLimit(from = 0) public val value: Long) 
  * The factor between bits and bytes ( 8 bits = 1 byte)
  */
 private const val bitByteFactor = 8
+
 /**
  * The prefix multiplicity factor
  */
@@ -69,7 +71,8 @@ public fun BinaryBitSizes.Byte.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBi
 public fun BinaryBitSizes.KiloByte.toKiloBits(): BinaryBitSizes.KiloBit = BinaryBitSizes.KiloBit(value * bitByteFactor)
 
 public fun BinaryBitSizes.KiloByte.toBytes(): BinaryBitSizes.Byte = BinaryBitSizes.Byte(value * prefixFactor)
-public fun BinaryBitSizes.KiloByte.toMegaBytes(): BinaryBitSizes.MegaByte = BinaryBitSizes.MegaByte(value / prefixFactor)
+public fun BinaryBitSizes.KiloByte.toMegaBytes(): BinaryBitSizes.MegaByte =
+    BinaryBitSizes.MegaByte(value / prefixFactor)
 
 
 //kilobits
@@ -79,9 +82,12 @@ public fun BinaryBitSizes.KiloBit.toBits(): BinaryBitSizes.Bit = BinaryBitSizes.
 public fun BinaryBitSizes.KiloBit.toMegaBits(): BinaryBitSizes.MegaBit = BinaryBitSizes.MegaBit(value / prefixFactor)
 
 // megabytes
-public fun BinaryBitSizes.MegaByte.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBitSizes.KiloByte(value * prefixFactor)
+public fun BinaryBitSizes.MegaByte.toKiloBytes(): BinaryBitSizes.KiloByte =
+    BinaryBitSizes.KiloByte(value * prefixFactor)
 
-public fun BinaryBitSizes.MegaByte.toGigaBytes(): BinaryBitSizes.GigaByte = BinaryBitSizes.GigaByte(value / prefixFactor)
+public fun BinaryBitSizes.MegaByte.toGigaBytes(): BinaryBitSizes.GigaByte =
+    BinaryBitSizes.GigaByte(value / prefixFactor)
+
 public fun BinaryBitSizes.MegaByte.toMegaBit(): BinaryBitSizes.MegaBit = BinaryBitSizes.MegaBit(value * bitByteFactor)
 
 // megabits
@@ -92,37 +98,47 @@ public fun BinaryBitSizes.MegaBit.toGigaBits(): BinaryBitSizes.GigaBit = BinaryB
 
 
 // gigaBytes
-public fun BinaryBitSizes.GigaByte.toMegaBytes(): BinaryBitSizes.MegaByte = BinaryBitSizes.MegaByte(value * prefixFactor)
+public fun BinaryBitSizes.GigaByte.toMegaBytes(): BinaryBitSizes.MegaByte =
+    BinaryBitSizes.MegaByte(value * prefixFactor)
 
 public fun BinaryBitSizes.GigaByte.toGigaBits(): BinaryBitSizes.GigaBit = BinaryBitSizes.GigaBit(value * bitByteFactor)
-public fun BinaryBitSizes.GigaByte.toTeraBytes(): BinaryBitSizes.TeraByte = BinaryBitSizes.TeraByte(value / prefixFactor)
+public fun BinaryBitSizes.GigaByte.toTeraBytes(): BinaryBitSizes.TeraByte =
+    BinaryBitSizes.TeraByte(value / prefixFactor)
 
 // gigabits
 public fun BinaryBitSizes.GigaBit.toMegaBits(): BinaryBitSizes.MegaBit = BinaryBitSizes.MegaBit(value * prefixFactor)
 
-public fun BinaryBitSizes.GigaBit.toGigaBytes(): BinaryBitSizes.GigaByte = BinaryBitSizes.GigaByte(value / bitByteFactor)
+public fun BinaryBitSizes.GigaBit.toGigaBytes(): BinaryBitSizes.GigaByte =
+    BinaryBitSizes.GigaByte(value / bitByteFactor)
+
 public fun BinaryBitSizes.GigaBit.toTeraBits(): BinaryBitSizes.TeraBit = BinaryBitSizes.TeraBit(value / prefixFactor)
 
 
 // terabytes
-public fun BinaryBitSizes.TeraByte.toPetaBytes(): BinaryBitSizes.PetaByte = BinaryBitSizes.PetaByte(value / prefixFactor)
+public fun BinaryBitSizes.TeraByte.toPetaBytes(): BinaryBitSizes.PetaByte =
+    BinaryBitSizes.PetaByte(value / prefixFactor)
 
 public fun BinaryBitSizes.TeraByte.toTeraBits(): BinaryBitSizes.TeraBit = BinaryBitSizes.TeraBit(value * bitByteFactor)
-public fun BinaryBitSizes.TeraByte.toGigaBytes(): BinaryBitSizes.GigaByte = BinaryBitSizes.GigaByte(value * prefixFactor)
+public fun BinaryBitSizes.TeraByte.toGigaBytes(): BinaryBitSizes.GigaByte =
+    BinaryBitSizes.GigaByte(value * prefixFactor)
 
 // terabits
 public fun BinaryBitSizes.TeraBit.toPetaBits(): BinaryBitSizes.PetaBit = BinaryBitSizes.PetaBit(value / prefixFactor)
 
-public fun BinaryBitSizes.TeraBit.toTeraBytes(): BinaryBitSizes.TeraByte = BinaryBitSizes.TeraByte(value / bitByteFactor)
+public fun BinaryBitSizes.TeraBit.toTeraBytes(): BinaryBitSizes.TeraByte =
+    BinaryBitSizes.TeraByte(value / bitByteFactor)
+
 public fun BinaryBitSizes.TeraBit.toGigaBits(): BinaryBitSizes.GigaBit = BinaryBitSizes.GigaBit(value * prefixFactor)
 
 // petabytes
 public fun BinaryBitSizes.PetaByte.toPetaBits(): BinaryBitSizes.PetaBit = BinaryBitSizes.PetaBit(value * bitByteFactor)
 
-public fun BinaryBitSizes.PetaByte.toTeraBytes(): BinaryBitSizes.TeraByte = BinaryBitSizes.TeraByte(value * prefixFactor)
+public fun BinaryBitSizes.PetaByte.toTeraBytes(): BinaryBitSizes.TeraByte =
+    BinaryBitSizes.TeraByte(value * prefixFactor)
 
 // petabits
-public fun BinaryBitSizes.PetaBit.toPetaBytes(): BinaryBitSizes.PetaByte = BinaryBitSizes.PetaByte(value / bitByteFactor)
+public fun BinaryBitSizes.PetaBit.toPetaBytes(): BinaryBitSizes.PetaByte =
+    BinaryBitSizes.PetaByte(value / bitByteFactor)
 
 public fun BinaryBitSizes.PetaBit.toTeraBits(): BinaryBitSizes.TeraBit = BinaryBitSizes.TeraBit(value * prefixFactor)
 

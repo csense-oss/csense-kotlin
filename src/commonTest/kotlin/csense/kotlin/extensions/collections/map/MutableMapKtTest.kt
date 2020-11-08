@@ -23,12 +23,14 @@ class MutableMapKtTest {
         map.removeAll { it.key == "a" }
         map.assertSize(0, "should have matching predicate and thus remove element")
 
-        map.putAll(listOf(
+        map.putAll(
+            listOf(
                 "a" to "b",
                 "c" to "d",
                 "1" to "2",
                 "3" to "4"
-        ))
+            )
+        )
 
         map.removeAll { false }
         map.assertSize(4, "should not have removed any elements when no predicates matches")

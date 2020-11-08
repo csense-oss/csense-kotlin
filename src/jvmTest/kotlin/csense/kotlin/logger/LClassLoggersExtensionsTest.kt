@@ -13,11 +13,11 @@ class LClassLoggersExtensionsTest {
         var tagString = ""
         fun inner() {
             logCurrentStackTrace(
-                    "tag",
-                    { tag: String, message: String, _: Throwable? ->
-                        stackString = message
-                        tagString = tag
-                    })
+                "tag",
+                { tag: String, message: String, _: Throwable? ->
+                    stackString = message
+                    tagString = tag
+                })
         }
         inner()
         stackString.assertContains(::testLogCurrentStackTrace.name)

@@ -30,9 +30,9 @@ public suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
  * @return [List]<[Deferred]<U>>
  */
 public inline fun <T, U> Iterable<T>.mapAsync(
-        coroutineScope: CoroutineScope,
-        context: CoroutineContext = Dispatchers.Default,
-        crossinline mapper: AsyncFunction1<T, U>
+    coroutineScope: CoroutineScope,
+    context: CoroutineContext = Dispatchers.Default,
+    crossinline mapper: AsyncFunction1<T, U>
 ): List<Deferred<U>> = map {
     coroutineScope.async(context) {
         mapper(it)
@@ -48,9 +48,9 @@ public inline fun <T, U> Iterable<T>.mapAsync(
  * @return [List]<U>
  */
 public suspend fun <T, U> Iterable<T>.mapAsyncAwait(
-        coroutineScope: CoroutineScope,
-        context: CoroutineContext = Dispatchers.Default,
-        mapper: AsyncFunction1<T, U>
+    coroutineScope: CoroutineScope,
+    context: CoroutineContext = Dispatchers.Default,
+    mapper: AsyncFunction1<T, U>
 ): List<U> = this.mapAsync(coroutineScope, context, mapper).awaitAll()
 
 /**

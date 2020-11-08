@@ -49,7 +49,7 @@ public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action
  * @return [Boolean]
  */
 public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
-        onFalse(action)
+    onFalse(action)
 
 
 @OptIn(ExperimentalContracts::class)

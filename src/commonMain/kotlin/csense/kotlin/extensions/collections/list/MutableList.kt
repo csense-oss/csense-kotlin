@@ -36,8 +36,8 @@ public inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Fu
  * @param position [Int]
  */
 public inline fun <T> MutableList<T>.replace(
-        item: T,
-        @IntLimit(from = 0) position: Int
+    item: T,
+    @IntLimit(from = 0) position: Int
 ) {
     if (isIndexValid(position)) {
         add(position, item)
@@ -52,7 +52,7 @@ public inline fun <T> MutableList<T>.replace(
  * @param withItem T
  */
 public inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T): Unit =
-        replace(withItem, indexOf(toReplace))
+    replace(withItem, indexOf(toReplace))
 
 
 /**
@@ -85,8 +85,8 @@ public inline fun <T> MutableList<T>.removeAll(intRange: IntRange): Boolean {
  * @return T?
  */
 public inline fun <T> MutableList<T>.removeAtOr(
-        @IntLimit(from = 0) index: Int,
-        default: T?
+    @IntLimit(from = 0) index: Int,
+    default: T?
 ): T? {
     return if (isIndexValid(index)) {
         removeAt(index)
@@ -102,7 +102,7 @@ public inline fun <T> MutableList<T>.removeAtOr(
  * @return T?
  */
 public inline fun <T> MutableList<T>.removeFirst(): T? =
-        removeAtOr(0, null)
+    removeAtOr(0, null)
 
 /**
  * Removes the last element of this list and returns it (or null if there are no elements)
@@ -110,7 +110,7 @@ public inline fun <T> MutableList<T>.removeFirst(): T? =
  * @return T?
  */
 public inline fun <T> MutableList<T>.removeLast(): T? =
-        removeAtOr(lastIndex, null)
+    removeAtOr(lastIndex, null)
 
 /**
  * Adds all the given elements starting at the given index
@@ -123,8 +123,8 @@ public inline fun <T> MutableList<T>.removeLast(): T? =
  */
 
 public inline fun <T> MutableList<T>.addAll(
-        @IntLimit(from = 0) index: Int,
-        elements: Iterable<T>
+    @IntLimit(from = 0) index: Int,
+    elements: Iterable<T>
 ): Boolean {
     if (!isIndexValidForInsert(index)) {
         return false
@@ -143,8 +143,9 @@ public inline fun <T> MutableList<T>.addAll(
  * @return [Boolean] true if there was anything matching the [predicate]  or false if none did
  */
 public inline fun <reified T> MutableList<T>.replaceFirst(
-        replaceWith: T,
-        predicate: Function1<T, Boolean>): Boolean {
+    replaceWith: T,
+    predicate: Function1<T, Boolean>
+): Boolean {
     val index = indexOfFirstOrNull(predicate) ?: return false
     replace(replaceWith, index)
     return true

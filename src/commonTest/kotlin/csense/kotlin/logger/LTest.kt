@@ -18,10 +18,10 @@ class LLoggerTest {
             LLogger().apply {
                 isLoggingAllowed(false)
                 assertLoggingAllowedStates(
-                        assertProd = false,
-                        assertError = false,
-                        assertWarning = false,
-                        assertDebug = false
+                    assertProd = false,
+                    assertError = false,
+                    assertWarning = false,
+                    assertDebug = false
                 )
             }
         }
@@ -31,10 +31,10 @@ class LLoggerTest {
             LLogger().apply {
                 isLoggingAllowed(true)
                 assertLoggingAllowedStates(
-                        assertProd = true,
-                        assertError = true,
-                        assertWarning = true,
-                        assertDebug = true
+                    assertProd = true,
+                    assertError = true,
+                    assertWarning = true,
+                    assertDebug = true
                 )
             }
         }
@@ -45,20 +45,22 @@ class LLoggerTest {
                 isLoggingAllowed(false)
                 isProductionLoggingAllowed = true
                 assertLoggingAllowedStates(
-                        assertProd = true,
-                        assertError = false,
-                        assertWarning = false,
-                        assertDebug = false)
+                    assertProd = true,
+                    assertError = false,
+                    assertWarning = false,
+                    assertDebug = false
+                )
 
                 isWarningLoggingAllowed = true
 
                 isProductionLoggingAllowed = false
 
                 assertLoggingAllowedStates(
-                        assertProd = false,
-                        assertError = false,
-                        assertWarning = true,
-                        assertDebug = false)
+                    assertProd = false,
+                    assertError = false,
+                    assertWarning = true,
+                    assertDebug = false
+                )
                 //make sure they are not dependent on each other.
 
             }
@@ -69,12 +71,12 @@ class LLoggerTest {
     fun testDebugTag() {
         val l = LLogger()
         testLoggingPassThough(
-                { l.isDebugLoggingAllowed = it },
-                { l.debugLoggers.set(it) },
-                l::debug,
-                "Debugtag",
-                "messageDebug",
-                RuntimeException("someDebug")
+            { l.isDebugLoggingAllowed = it },
+            { l.debugLoggers.set(it) },
+            l::debug,
+            "Debugtag",
+            "messageDebug",
+            RuntimeException("someDebug")
         )
     }
 
@@ -82,12 +84,12 @@ class LLoggerTest {
     fun testWarningTag() {
         val l = LLogger()
         testLoggingPassThough(
-                { l.isWarningLoggingAllowed = it },
-                { l.warningLoggers.set(it) },
-                l::warning,
-                "tagwarning\r\n",
-                "wmessage",
-                RuntimeException("warning ")
+            { l.isWarningLoggingAllowed = it },
+            { l.warningLoggers.set(it) },
+            l::warning,
+            "tagwarning\r\n",
+            "wmessage",
+            RuntimeException("warning ")
         )
     }
 
@@ -95,12 +97,12 @@ class LLoggerTest {
     fun testErrorTag() {
         val l = LLogger()
         testLoggingPassThough(
-                { l.isErrorLoggingAllowed = it },
-                { l.errorLoggers.set(it) },
-                l::error,
-                "tagError",
-                "EmessageRror",
-                RuntimeException("warningtoError")
+            { l.isErrorLoggingAllowed = it },
+            { l.errorLoggers.set(it) },
+            l::error,
+            "tagError",
+            "EmessageRror",
+            RuntimeException("warningtoError")
         )
     }
 
@@ -108,12 +110,12 @@ class LLoggerTest {
     fun testLogProdTag() {
         val l = LLogger()
         testLoggingPassThough(
-                { l.isProductionLoggingAllowed = it },
-                { l.productionLoggers.set(it) },
-                l::logProd,
-                "prod",
-                "very usuable message",
-                RuntimeException("prod not allowed on test")
+            { l.isProductionLoggingAllowed = it },
+            { l.productionLoggers.set(it) },
+            l::logProd,
+            "prod",
+            "very usuable message",
+            RuntimeException("prod not allowed on test")
         )
     }
 
@@ -131,9 +133,9 @@ class LLoggerTest {
     fun warningLazyTag() {
         val l = LLogger()
         testLazyLoggingPassingThough(
-                { l.isWarningLoggingAllowed = it },
-                l.warningLoggers,
-                l::warningLazy
+            { l.isWarningLoggingAllowed = it },
+            l.warningLoggers,
+            l::warningLazy
         )
     }
 
@@ -141,9 +143,9 @@ class LLoggerTest {
     fun debugLazyTag() {
         val l = LLogger()
         testLazyLoggingPassingThough(
-                { l.isDebugLoggingAllowed = it },
-                l.debugLoggers,
-                l::debugLazy
+            { l.isDebugLoggingAllowed = it },
+            l.debugLoggers,
+            l::debugLazy
         )
     }
 
@@ -151,9 +153,9 @@ class LLoggerTest {
     fun logProdLazyTag() {
         val l = LLogger()
         testLazyLoggingPassingThough(
-                { l.isProductionLoggingAllowed = it },
-                l.productionLoggers,
-                l::logProdLazy
+            { l.isProductionLoggingAllowed = it },
+            l.productionLoggers,
+            l::logProdLazy
         )
     }
 
@@ -161,18 +163,18 @@ class LLoggerTest {
     fun errorLazyTag() {
         val l = LLogger()
         testLazyLoggingPassingThough(
-                { l.isErrorLoggingAllowed = it },
-                l.errorLoggers,
-                l::errorLazy
+            { l.isErrorLoggingAllowed = it },
+            l.errorLoggers,
+            l::errorLazy
         )
     }
 
 }
 
 private inline fun testLazyLoggingPassingThough(
-        setAllowed: (Boolean) -> Unit,
-        loggers: MutableList<LoggingFunctionType<Any>>,
-        log: (tag: String, function: () -> String) -> Unit
+    setAllowed: (Boolean) -> Unit,
+    loggers: MutableList<LoggingFunctionType<Any>>,
+    log: (tag: String, function: () -> String) -> Unit
 ) {
     setAllowed(false)
     loggers.clear()
@@ -188,12 +190,13 @@ private inline fun testLazyLoggingPassingThough(
 }
 
 private inline fun testLoggingPassThough(
-        controlLoggingMethod: FunctionUnit<Boolean>,
-        setLoggerMethod: FunctionUnit<LoggingFunctionType<Unit>>,
-        loggerMethod: LoggingFunctionType<Unit>,
-        tagToUse: String,
-        messageToUse: String,
-        exceptionToUse: Throwable) {
+    controlLoggingMethod: FunctionUnit<Boolean>,
+    setLoggerMethod: FunctionUnit<LoggingFunctionType<Unit>>,
+    loggerMethod: LoggingFunctionType<Unit>,
+    tagToUse: String,
+    messageToUse: String,
+    exceptionToUse: Throwable
+) {
     var outerTag = ""
     var outerMessage = ""
     var outerThrowable: Throwable? = null
@@ -221,11 +224,13 @@ private inline fun testLoggingPassThough(
 /**
  * Asserts the state on the L. properties.
  */
-private fun LLogger.assertLoggingAllowedStates(assertProd: Boolean,
-                                               assertError: Boolean,
-                                               assertWarning: Boolean,
-                                               assertDebug: Boolean,
-                                               optionalMessage: String = "") {
+private fun LLogger.assertLoggingAllowedStates(
+    assertProd: Boolean,
+    assertError: Boolean,
+    assertWarning: Boolean,
+    assertDebug: Boolean,
+    optionalMessage: String = ""
+) {
     isProductionLoggingAllowed.assert(assertProd, optionalMessage)
     isErrorLoggingAllowed.assert(assertError, optionalMessage)
     isWarningLoggingAllowed.assert(assertWarning, optionalMessage)

@@ -11,8 +11,10 @@ class JvmExceptionsTests {
 
     @Test
     fun tryAndLogKClazz() = assertCalled {
-        tryAndLog(this::class, "",
-                logger = getLoggerForNameAssertion(this::class.java.simpleName, it)) {
+        tryAndLog(
+            this::class, "",
+            logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
+        ) {
             throw Exception()
         }
     }
@@ -20,8 +22,10 @@ class JvmExceptionsTests {
 
     @Test
     fun tryAndLogClazz() = assertCalled {
-        tryAndLog(this::class.java, "",
-                logger = getLoggerForNameAssertion(this::class.java.simpleName, it)) {
+        tryAndLog(
+            this::class.java, "",
+            logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
+        ) {
             throw Exception()
         }
     }
@@ -33,8 +37,8 @@ class JvmExceptionsTests {
      * @return Function3<String, String, Throwable?, Unit>
      */
     fun getLoggerForNameAssertion(
-            name: String,
-            verifyCall: EmptyFunction
+        name: String,
+        verifyCall: EmptyFunction
     ): Function3<String, String, Throwable?, Unit> {
         return { tag: String, _: String, _: Throwable? ->
             tag.assert(name)

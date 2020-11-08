@@ -4,24 +4,24 @@ import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class IntProgressionTest {
-    
+
     @Test
     fun intProgressionToIntArray() {
         IntProgression.fromClosedRange(0, 9, 1) //[0, .. 9]
-                .toIntArray().apply {
-                    assertSize(10)
-                    first().assert(0)
-                    last().assert(9)
-                }
-        
+            .toIntArray().apply {
+                assertSize(10)
+                first().assert(0)
+                last().assert(9)
+            }
+
         IntProgression.fromClosedRange(0, 9, 5)
-                .toIntArray().apply {
-                    assertSize(2)
-                    first().assert(0)
-                    last().assert(5)
-                }
+            .toIntArray().apply {
+                assertSize(2)
+                first().assert(0)
+                last().assert(5)
+            }
     }
-    
+
     @Test
     fun intProgressionLength() {
         IntProgression.fromClosedRange(0, -50, 1).length.assert(-49)
@@ -31,8 +31,8 @@ class IntProgressionTest {
         IntProgression.fromClosedRange(0, 9, 5).length.assert(2)
         IntProgression.fromClosedRange(0, 9, 1).length.assert(10)
     }
-    
-    class IntProgressionSkip{
+
+    class IntProgressionSkip {
         @Test
         fun empty() {
             IntProgression.fromClosedRange(0, 0, 1).skip(0).apply {
@@ -46,8 +46,8 @@ class IntProgressionTest {
                 last.assert(10)
             }
         }
-        
-        
+
+
         @Test
         fun singlePositive() {
             IntProgression.fromClosedRange(0, 10, 1).skip(2).apply {
@@ -56,7 +56,7 @@ class IntProgressionTest {
                 last.assert(10)
             }
         }
-        
+
         @Test
         fun singleNegative() {
             //should return the original as we are a "negative" length range.
@@ -66,7 +66,7 @@ class IntProgressionTest {
                 last.assert(-10)
             }
         }
-        
+
         @Test
         fun respectsSteps() {
             IntProgression.fromClosedRange(0, 50, 5).skip(5).apply {
@@ -74,7 +74,7 @@ class IntProgressionTest {
                 step.assert(5)
                 last.assert(50)
             }
-        
+
         }
     }
 }

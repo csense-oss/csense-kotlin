@@ -6,7 +6,7 @@ import csense.kotlin.tests.assertions.shouldNotBeCalled
 import kotlin.test.Test
 
 class BooleanArrayTest {
-    
+
     @Test
     fun booleanArrayForEachDiscard() {
         //empty

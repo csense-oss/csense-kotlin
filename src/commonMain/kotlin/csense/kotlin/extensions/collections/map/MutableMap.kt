@@ -13,7 +13,7 @@ import kotlin.collections.set
  *
  */
 public inline fun <K, V> MutableMap<K, V>.removeAll(
-        crossinline predicate: Function1<Map.Entry<K, V>, Boolean>
+    crossinline predicate: Function1<Map.Entry<K, V>, Boolean>
 ) {
     //find all to remove, and get the key
     val toRemove = entries.filter(predicate).mapKeys()

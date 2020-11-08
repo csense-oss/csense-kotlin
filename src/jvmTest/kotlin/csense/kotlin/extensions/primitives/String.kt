@@ -17,7 +17,7 @@ public inline fun String.isNewLine1(): Boolean {
 }
 
 //This is somehow faster on almost all jvms, either by a lot or by a very tiny amount, but consistent(almost always)
-public inline fun String.isNewLine2(): Boolean = when(this.length){
+public inline fun String.isNewLine2(): Boolean = when (this.length) {
     1 -> this == "\n"
     2 -> this == "\r\n"
     else -> false

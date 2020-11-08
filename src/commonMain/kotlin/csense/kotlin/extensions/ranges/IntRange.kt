@@ -17,6 +17,7 @@ public inline val IntRange.length: Int
  */
 public inline val IntRange.largest: Int
     get() = maxOf(last, start)
+
 /**
  * The maximum value in the range (exclusive)
  */

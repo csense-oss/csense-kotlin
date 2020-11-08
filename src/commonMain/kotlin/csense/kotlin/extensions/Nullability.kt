@@ -15,7 +15,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> T?.ifNull(action: EmptyFunction) {
     contract {
-        callsInPlace(action,InvocationKind.AT_MOST_ONCE)
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
     this.isNull.ifTrue(action)
 }
@@ -28,7 +28,7 @@ public inline fun <T> T?.ifNull(action: EmptyFunction) {
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
     contract {
-        callsInPlace(action,InvocationKind.AT_MOST_ONCE)
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
     this?.let(action)
 }

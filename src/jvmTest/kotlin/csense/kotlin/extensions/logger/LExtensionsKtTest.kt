@@ -81,7 +81,12 @@ class LExtensionsKtTest {
     }
 
 
-    private fun createSingleLoggerAssertion(expectedTag: String, expectedMessage: String, maxCounter: Int, counter: WrappedInt): LoggingFunctionType<Unit> {
+    private fun createSingleLoggerAssertion(
+        expectedTag: String,
+        expectedMessage: String,
+        maxCounter: Int,
+        counter: WrappedInt
+    ): LoggingFunctionType<Unit> {
         return { tag: String, value: String, _: Throwable? ->
             counter.value += 1
             expectedTag.assert(tag)
@@ -94,12 +99,13 @@ class LExtensionsKtTest {
     @Test
     fun testLDebug() {
         L.isDebugLoggingAllowed = true
-        assertCounterAndContentOfLog(L.debugLoggers, {
-            L.debug(this::class, "test")
-        },
-                "LExtensionsKtTest",
-                "test",
-                null
+        assertCounterAndContentOfLog(
+            L.debugLoggers, {
+                L.debug(this::class, "test")
+            },
+            "LExtensionsKtTest",
+            "test",
+            null
         )
 
     }
@@ -108,12 +114,13 @@ class LExtensionsKtTest {
     @Test
     fun testLWarning() {
         L.isWarningLoggingAllowed = true
-        assertCounterAndContentOfLog(L.warningLoggers, {
-            L.warning(this::class, "test2")
-        },
-                "LExtensionsKtTest",
-                "test2",
-                null
+        assertCounterAndContentOfLog(
+            L.warningLoggers, {
+                L.warning(this::class, "test2")
+            },
+            "LExtensionsKtTest",
+            "test2",
+            null
         )
 
     }
@@ -122,12 +129,13 @@ class LExtensionsKtTest {
     @Test
     fun testLError() {
         L.isErrorLoggingAllowed = true
-        assertCounterAndContentOfLog(L.errorLoggers, {
-            L.error(this::class, "test3")
-        },
-                "LExtensionsKtTest",
-                "test3",
-                null
+        assertCounterAndContentOfLog(
+            L.errorLoggers, {
+                L.error(this::class, "test3")
+            },
+            "LExtensionsKtTest",
+            "test3",
+            null
         )
     }
 
@@ -135,21 +143,22 @@ class LExtensionsKtTest {
     fun testLProd() {
         L.isProductionLoggingAllowed = true
         val runtimeException = RuntimeException()
-        assertCounterAndContentOfLog(L.productionLoggers, {
-            L.logProd(this::class, "log", runtimeException)
-        },
-                "LExtensionsKtTest",
-                "log",
-                runtimeException
+        assertCounterAndContentOfLog(
+            L.productionLoggers, {
+                L.logProd(this::class, "log", runtimeException)
+            },
+            "LExtensionsKtTest",
+            "log",
+            runtimeException
         )
     }
 
     private fun assertCounterAndContentOfLog(
-            loggers: MutableList<LoggingFunctionType<Any>>,
-            logAction: EmptyFunction,
-            expectedTag: String,
-            expectedMessage: String,
-            expectedThrowable: Throwable?
+        loggers: MutableList<LoggingFunctionType<Any>>,
+        logAction: EmptyFunction,
+        expectedTag: String,
+        expectedMessage: String,
+        expectedThrowable: Throwable?
     ) {
         var counter = 0
         loggers.clear()

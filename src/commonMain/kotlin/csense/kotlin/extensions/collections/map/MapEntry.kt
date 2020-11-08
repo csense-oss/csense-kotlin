@@ -9,7 +9,7 @@ package csense.kotlin.extensions.collections.map
  * @return [List]<K>
  */
 public inline fun <K, V> Iterable<Map.Entry<K, V>>.mapKeys(): List<K> =
-        map { it.key }
+    map { it.key }
 
 /**
  * Maps all the values from the given [Iterable]
@@ -17,5 +17,5 @@ public inline fun <K, V> Iterable<Map.Entry<K, V>>.mapKeys(): List<K> =
  * @return [List]<V>
  */
 public inline fun <K, V> Iterable<Map.Entry<K, V>>.mapValues(): List<V> =
-        map { it.value }
+    map { it.value }
 

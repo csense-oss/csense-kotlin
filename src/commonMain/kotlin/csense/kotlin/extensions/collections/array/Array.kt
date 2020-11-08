@@ -15,7 +15,7 @@ import kotlin.contracts.*
  * @param receiver [Function1]<T, U>
  */
 public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Unit =
-        GenericArray.foreachDiscardResult(count(), this::get, receiver)
+    GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 
 //region Generic collection extensions
@@ -23,19 +23,19 @@ public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Uni
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 public inline fun <T> Array<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
 public inline fun <T> Array<T>.forEach2(action: Function2Unit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this list.
  */
 public inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
-        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion
 
 
@@ -67,7 +67,7 @@ public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
 
 
 public inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean): Int? =
-        indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+    indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 /**
@@ -78,16 +78,16 @@ public inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean)
  */
 @IntLimit(from = 0)
 public inline fun <T> Array<T>.indexOfLastOrNull(predicate: Function1<T, Boolean>): Int? =
-        indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
+    indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
 //region joinEvery
 public inline fun <reified T> Array<T>.joinEvery(
-        @IntLimit(from = 0) itemsBetweenJoins: Int,
-        toJoin: T
+    @IntLimit(from = 0) itemsBetweenJoins: Int,
+    toJoin: T
 ): Array<T> = joinEveryAction(
-        itemsBetweenJoins,
-        toJoinAction = { toJoin }
+    itemsBetweenJoins,
+    toJoinAction = { toJoin }
 )
 
 /**
@@ -98,18 +98,18 @@ public inline fun <reified T> Array<T>.joinEvery(
  * @return List<T>
  */
 public inline fun <reified T> Array<T>.joinEveryAction(
-        @IntLimit(from = 0) itemsBetweenJoins: Int,
-        crossinline toJoinAction: () -> T
+    @IntLimit(from = 0) itemsBetweenJoins: Int,
+    crossinline toJoinAction: () -> T
 ): Array<T> {
     if (itemsBetweenJoins <= 0) {
         return this
     }
     return GenericCollectionExtensions.joinEveryAction(
-            itemsBetweenJoins,
-            toJoinAction,
-            size,
-            this::get,
-            ::Array
+        itemsBetweenJoins,
+        toJoinAction,
+        size,
+        this::get,
+        ::Array
     )
 }
 

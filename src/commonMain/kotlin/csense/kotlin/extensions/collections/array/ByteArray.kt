@@ -18,21 +18,21 @@ import csense.kotlin.extensions.primitives.*
  */
 
 public inline fun ByteArray.toHexString(
-        appendHexPrefix: Boolean = false,
-        shouldBeUppercase: Boolean = true
+    appendHexPrefix: Boolean = false,
+    shouldBeUppercase: Boolean = true
 ): String {
     if (isEmpty()) {
         return ""
     }
-    
+
     val prefixSize = appendHexPrefix.map(2, 0)
-    
+
     val hexChars = CharArray(size * 2 + prefixSize)
     if (appendHexPrefix) {
         hexChars[0] = '0'
         hexChars[1] = 'x'
     }
-    
+
     forEachIndexed { index: @IntLimit(from = 0) Int, it: Byte ->
         it.splitIntoComponents { upperByte: Byte, lowerByte: Byte ->
             val currentIndex = (index * 2) + prefixSize
@@ -51,24 +51,24 @@ public inline fun ByteArray.toHexString(
  * @param receiver [Function1]<[Byte], U>
  */
 public inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>): Unit =
-        GenericArray.foreachDiscardResult(count(), this::get, receiver)
+    GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 //region Generic collection extensions
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 public inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
 public inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>): Unit =
-        GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
+    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
 /**
  * Performs backwards traversal on this [ByteArray].
  */
 public inline fun ByteArray.forEachBackwards(action: FunctionUnit<Byte>): Unit =
-        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 //endregion

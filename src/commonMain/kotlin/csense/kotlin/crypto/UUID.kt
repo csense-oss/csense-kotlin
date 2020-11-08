@@ -23,9 +23,9 @@ public object UUID4 {
      * @return [String]
      */
     public fun create(
-            random: Random = Random,
-            shouldBeUppercase: Boolean = true,
-            shouldHaveDashes: Boolean = true
+        random: Random = Random,
+        shouldBeUppercase: Boolean = true,
+        shouldHaveDashes: Boolean = true
     ): String {
         //create 16 bit random
         val randomData = random.nextBytes(16)
@@ -62,9 +62,9 @@ public object UUID4 {
              */
 
             randomData[clk_seq_hi_resIndex] =
-                    randomData[clk_seq_hi_resIndex]
-                            .and(0b0111_1111)
-                            .or(0b1000_0000.toByte())
+                randomData[clk_seq_hi_resIndex]
+                    .and(0b0111_1111)
+                    .or(0b1000_0000.toByte())
             //AND => removes all the unwanted 1's (akk at the second last location
             //OR => adds the 1 to the last bit. => 0b10xxxxxx
             //akk set upper part to 0b10xx
@@ -78,9 +78,9 @@ public object UUID4 {
              */
 
             randomData[time_hi_and_versionIndex] =
-                    randomData[time_hi_and_versionIndex]
-                            .and(0b0100_1111)
-                            .or(0b0100_0000)
+                randomData[time_hi_and_versionIndex]
+                    .and(0b0100_1111)
+                    .or(0b0100_0000)
             //AND => removes all the unwanted 1's (akk all the x*xx in the upper part)
             //OR => adds the second last bit. => 0b010xxxxxx
             //ak set upper part to 0b0100
@@ -89,10 +89,11 @@ public object UUID4 {
         val hexString = randomData.toHexString(false, shouldBeUppercase)
         return if (shouldHaveDashes) {
             return hexString.mpp.insertInto(
-                    StringMpp.StringInserts("-", 8),
-                    StringMpp.StringInserts("-", 12),
-                    StringMpp.StringInserts("-", 16),
-                    StringMpp.StringInserts("-", 20)) ?: hexString
+                StringMpp.StringInserts("-", 8),
+                StringMpp.StringInserts("-", 12),
+                StringMpp.StringInserts("-", 16),
+                StringMpp.StringInserts("-", 20)
+            ) ?: hexString
         } else {
             hexString
         }

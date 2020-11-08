@@ -14,11 +14,11 @@ import csense.kotlin.extensions.collections.generic.*
  * @timecomplexity O(N)
  */
 public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(
-                size,
-                ::elementAt,
-                action
-        )
+    GenericCollectionExtensions.forEach2Indexed(
+        size,
+        ::elementAt,
+        action
+    )
 
 /**
  * Performs traversal in pairs of 2
@@ -27,7 +27,7 @@ public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>)
  * @timecomplexity O(N)
  */
 public inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
-        GenericCollectionExtensions.forEach2(size, ::elementAt, action)
+    GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 
 /**
  * Performs backwards traversal on this
@@ -36,7 +36,7 @@ public inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
  * @timecomplexity O(N)
  */
 public inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>): Unit =
-        GenericCollectionExtensions.forEachBackwards(size, this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(size, this::elementAt, action)
 //endregion
 
 /**
@@ -72,8 +72,8 @@ public inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDif
  * @property uniqueInSecond [Set]<T> the elements that were ONLY found in the second set.
  */
 public class SymmetricDifferenceResult<T>(
-        public val uniqueInFirst: Set<T>,
-        public val uniqueInSecond: Set<T>
+    public val uniqueInFirst: Set<T>,
+    public val uniqueInSecond: Set<T>
 )
 
 /**
@@ -83,7 +83,7 @@ public class SymmetricDifferenceResult<T>(
  * @return [Boolean] true if the value is not found / contained
  */
 public inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
-        !contains(value)
+    !contains(value)
 
 
 /**
@@ -112,7 +112,7 @@ public inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
     } else {
         other.any { contains(it) }
     }
-    
+
 }
 
 /**

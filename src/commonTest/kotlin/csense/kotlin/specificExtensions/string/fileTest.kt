@@ -11,19 +11,19 @@ class fileTest {
         "test".fileExtensions.fileExtension().assertNull(noExtensionMessage)
         "test.".fileExtensions.fileExtension().assertNull(noExtensionMessage)
         "test..".fileExtensions.fileExtension().assertNull(noExtensionMessage)
-    
+
         "test.a".fileExtensions.fileExtension().assertNotNullAndEquals("a")
         "test.a.".fileExtensions.fileExtension().assertNull("since the text ends in . then there are no extension.")
         "test.a.b".fileExtensions.fileExtension().assertNotNullAndEquals("b")
         "test..a".fileExtensions.fileExtension().assertNotNullAndEquals("a")
-    
+
         //more real life examples
         "test.xml".fileExtensions.fileExtension().assertNotNullAndEquals("xml")
         "test.\$java".fileExtensions.fileExtension().assertNotNullAndEquals("\$java")
         "test.\"xml".fileExtensions.fileExtension().assertNotNullAndEquals("\"xml")
-        
+
     }
-    
+
     @Test
     fun stringFileRemoveFileExtension() {
         "".fileExtensions.removeFileExtension().assert("")

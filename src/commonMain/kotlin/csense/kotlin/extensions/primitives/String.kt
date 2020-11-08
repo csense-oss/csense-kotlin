@@ -17,9 +17,9 @@ import csense.kotlin.extensions.collections.generic.*
  * @return [Set]<[Int]> a set of indices
  */
 public inline fun String.findAllOf(
-        subString: String,
-        searchByWord: Boolean,
-        ignoreCase: Boolean = false
+    subString: String,
+    searchByWord: Boolean,
+    ignoreCase: Boolean = false
 ): Set<@IntLimit(from = 0) Int> {
     return mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
@@ -34,10 +34,10 @@ public inline fun String.findAllOf(
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
 public inline fun <U> String.mapEachMatching(
-        subString: String,
-        searchByWord: Boolean,
-        ignoreCase: Boolean = false,
-        mapper: Function1<Int, U>
+    subString: String,
+    searchByWord: Boolean,
+    ignoreCase: Boolean = false,
+    mapper: Function1<Int, U>
 ): List<U> {
     if (subString.isEmpty() || this.isEmpty()) {
         return emptyList()
@@ -67,10 +67,10 @@ public inline fun <U> String.mapEachMatching(
  * @return [String]
  */
 public inline fun String.replaceIf(
-        condition: Boolean,
-        toReplace: String,
-        newValue: String,
-        ignoreCase: Boolean = false
+    condition: Boolean,
+    toReplace: String,
+    newValue: String,
+    ignoreCase: Boolean = false
 ): String {
     return if (condition) {
         this.replace(toReplace, newValue, ignoreCase)
@@ -91,11 +91,11 @@ public inline fun String.replaceIf(
  * @return [String]
  */
 public inline fun String.replaceIfOr(
-        condition: Boolean,
-        toReplace: String,
-        ifTrueValue: String,
-        ifFalseValue: String,
-        ignoreCase: Boolean = false
+    condition: Boolean,
+    toReplace: String,
+    ifTrueValue: String,
+    ifFalseValue: String,
+    ignoreCase: Boolean = false
 ): String {
     val replacement = condition.map(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
@@ -113,11 +113,11 @@ public inline fun String.replaceIfOr(
  * @return [String]
  */
 public inline fun String.replaceIfOr(
-        condition: Boolean,
-        toReplace: String,
-        crossinline ifTrueValue: EmptyFunctionResult<String>,
-        crossinline ifFalseValue: EmptyFunctionResult<String>,
-        ignoreCase: Boolean = false
+    condition: Boolean,
+    toReplace: String,
+    crossinline ifTrueValue: EmptyFunctionResult<String>,
+    crossinline ifFalseValue: EmptyFunctionResult<String>,
+    ignoreCase: Boolean = false
 ): String {
     val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
     return this.replace(toReplace, replacement, ignoreCase)
@@ -133,10 +133,10 @@ public inline fun String.replaceIfOr(
  * @return [Boolean]
  */
 public inline fun String.endsWithAny(
-        collection: Collection<String>,
-        ignoreCase: Boolean = false
+    collection: Collection<String>,
+    ignoreCase: Boolean = false
 ): Boolean =
-        collection.any { this.endsWith(it, ignoreCase) }
+    collection.any { this.endsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string ends with at least one of the given Array
@@ -147,10 +147,10 @@ public inline fun String.endsWithAny(
  * @timecomplexity o(n*m) where n is this strings length and m is the size of all the any strings
  */
 public inline fun String.endsWithAny(
-        vararg strings: String,
-        ignoreCase: Boolean = false
+    vararg strings: String,
+    ignoreCase: Boolean = false
 ): Boolean =
-        strings.any { this.endsWith(it, ignoreCase) }
+    strings.any { this.endsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string starts with at least one of the given collection
@@ -160,10 +160,10 @@ public inline fun String.endsWithAny(
  * @return [Boolean]
  */
 public inline fun String.startsWithAny(
-        vararg strings: String,
-        ignoreCase: Boolean = false
+    vararg strings: String,
+    ignoreCase: Boolean = false
 ): Boolean =
-        strings.any { this.startsWith(it, ignoreCase) }
+    strings.any { this.startsWith(it, ignoreCase) }
 
 /**
  * Returns whenever this string starts with at least one of the given collection
@@ -173,10 +173,10 @@ public inline fun String.startsWithAny(
  * @return [Boolean]
  */
 public inline fun String.startsWithAny(
-        collection: Collection<String>,
-        ignoreCase: Boolean = false
+    collection: Collection<String>,
+    ignoreCase: Boolean = false
 ): Boolean =
-        collection.any { this.startsWith(it, ignoreCase) }
+    collection.any { this.startsWith(it, ignoreCase) }
 //endregion
 
 
@@ -220,13 +220,13 @@ public inline fun String.ifNotBlank(action: Function1<String, String>): String =
  * @return [String] the resulting string, either the original or substring by the prefix length
  */
 public inline fun String.skipStartsWith(
-        prefix: String,
-        ignoreCase: Boolean = false
+    prefix: String,
+    ignoreCase: Boolean = false
 ): String {
     val startsWith = startsWith(prefix, ignoreCase)
     return startsWith.mapLazy(
-            ifTrue = { substring(prefix.length) },
-            ifFalse = { this })
+        ifTrue = { substring(prefix.length) },
+        ifFalse = { this })
 }
 //endregion
 
@@ -237,7 +237,7 @@ public inline fun String.skipStartsWith(
  * @param action (first: [Char], second: [Char]) -> Unit
  */
 public inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
-        GenericCollectionExtensions.forEach2(length, this::get, action)
+    GenericCollectionExtensions.forEach2(length, this::get, action)
 
 /**
  * Iterates over 2 characters at ones with the index(first) as well; only get executed iff the length is a factor of 2
@@ -245,7 +245,7 @@ public inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
  * @param action (first: [Char], second: [Char]) -> Unit
  */
 public inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
-        GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
+    GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
 //endregion
 
 //region Hex converting
@@ -283,10 +283,10 @@ public inline fun String.fromHexStringToByteArray(): ShortArray? {
  * @return [Boolean] true if this has a different start from [prefix] false if not
  */
 public inline fun String.doesNotStartsWith(
-        prefix: CharSequence,
-        ignoreCase: Boolean = false
+    prefix: CharSequence,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !startsWith(prefix, ignoreCase)
+    !startsWith(prefix, ignoreCase)
 
 /**
  * Tells if this string does not start with the given [prefix]
@@ -296,10 +296,10 @@ public inline fun String.doesNotStartsWith(
  * @return [Boolean] true if this has a different start from [prefix] false if not
  */
 public inline fun String.doesNotStartsWith(
-        prefix: Char,
-        ignoreCase: Boolean = false
+    prefix: Char,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !startsWith(prefix, ignoreCase)
+    !startsWith(prefix, ignoreCase)
 
 
 /**
@@ -310,10 +310,10 @@ public inline fun String.doesNotStartsWith(
  * @return [Boolean] true if this string starts with something different from any of the given [subStrings]
  */
 public inline fun String.doesNotStartsWithAny(
-        vararg subStrings: String,
-        ignoreCase: Boolean = false
+    vararg subStrings: String,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !startsWithAny(*subStrings, ignoreCase = ignoreCase)
+    !startsWithAny(*subStrings, ignoreCase = ignoreCase)
 
 /**
  * Tells if this string starts with something different than the given or not
@@ -323,10 +323,10 @@ public inline fun String.doesNotStartsWithAny(
  * @return [Boolean] true if this string starts with something different from any of the given [items]
  */
 public inline fun String.doesNotStartsWithAny(
-        items: Collection<String>,
-        ignoreCase: Boolean = false
+    items: Collection<String>,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !startsWithAny(items, ignoreCase)
+    !startsWithAny(items, ignoreCase)
 
 
 //endregion
@@ -341,28 +341,28 @@ public inline fun String.doesNotStartsWithAny(
  * @return [Boolean]
  */
 public inline fun String.doesNotEndsWith(
-        sequence: CharSequence,
-        ignoreCase: Boolean = false
+    sequence: CharSequence,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !endsWith(sequence, ignoreCase)
+    !endsWith(sequence, ignoreCase)
 
 public inline fun String.doesNotEndsWith(
-        char: Char,
-        ignoreCase: Boolean = false
+    char: Char,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !endsWith(char, ignoreCase)
+    !endsWith(char, ignoreCase)
 
 public inline fun String.doesNotEndsWithAny(
-        vararg subStrings: String,
-        ignoreCase: Boolean = false
+    vararg subStrings: String,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !endsWithAny(*subStrings, ignoreCase = ignoreCase)
+    !endsWithAny(*subStrings, ignoreCase = ignoreCase)
 
 public inline fun String.doesNotEndsWithAny(
-        items: Collection<String>,
-        ignoreCase: Boolean = false
+    items: Collection<String>,
+    ignoreCase: Boolean = false
 ): Boolean =
-        !endsWithAny(items, ignoreCase)
+    !endsWithAny(items, ignoreCase)
 //endregion
 
 //region Contains any editions
@@ -389,8 +389,8 @@ public inline fun String.containsAny(vararg strings: String, ignoreCase: Boolean
  * This will be improved in later versions to use a better algorithm for larger data sets
  */
 public inline fun String.containsAny(
-        collection: Iterable<String>,
-        ignoreCase: Boolean = false
+    collection: Iterable<String>,
+    ignoreCase: Boolean = false
 ): Boolean = collection.any {
     this.contains(it, ignoreCase)
 }
@@ -403,7 +403,7 @@ public inline fun String.containsAny(
  * @timecomplexity O(n)
  */
 public inline fun String.isOnlyUpperCaseLetters(
-        IgnoreNoneLetters: Boolean = false
+    IgnoreNoneLetters: Boolean = false
 ): Boolean = when {
     isEmpty() -> false
     IgnoreNoneLetters -> none(Char::isLowerCaseLetter)
@@ -418,7 +418,7 @@ public inline fun String.isOnlyUpperCaseLetters(
  * @timecomplexity O(n)
  */
 public inline fun String.isOnlyLowerCaseLetters(
-        IgnoreNoneLetters: Boolean = false
+    IgnoreNoneLetters: Boolean = false
 ): Boolean = when {
     isEmpty() -> false
     IgnoreNoneLetters -> none(Char::isUpperCaseLetter)
@@ -432,9 +432,9 @@ public inline fun String.isOnlyLowerCaseLetters(
  * @timecomplexity O(n)
  */
 public inline fun String.forEachBackwards(
-        action: FunctionUnit<Char>
+    action: FunctionUnit<Char>
 ): Unit =
-        GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 
 /**
  *
@@ -443,9 +443,9 @@ public inline fun String.forEachBackwards(
  * @timecomplexity O(n)
  */
 public inline fun String.forEachBackwardsIndexed(
-        action: Function2Unit<@IntLimit(from = 0) Int, Char>
+    action: Function2Unit<@IntLimit(from = 0) Int, Char>
 ): Unit =
-        GenericCollectionExtensions.forEachBackwardsIndexed(count(), this::elementAt, action)
+    GenericCollectionExtensions.forEachBackwardsIndexed(count(), this::elementAt, action)
 
 /**
  *
@@ -477,7 +477,7 @@ public inline fun String.splitWhen(splitFun: Function1<Char, Boolean>): List<Str
  * see
  * https://en.wikipedia.org/wiki/Newline#Representation
  */
-public inline fun String.isNewLine(): Boolean = when(this.length){
+public inline fun String.isNewLine(): Boolean = when (this.length) {
     1 -> this == "\n" //unix
     2 -> this == "\r\n" // windows
     else -> false

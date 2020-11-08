@@ -7,10 +7,10 @@ import kotlin.test.Test
 
 
 class EnumKtTest {
-    
-    
+
+
     //region String search for enum
-    
+
     @Test
     fun enumFromOrNullName() {
         enumFromOrNull<EnumKtTestEnum>("A").assertNotNullAndEquals(EnumKtTestEnum.A)
@@ -20,7 +20,7 @@ class EnumKtTest {
         enumFromOrNull<EnumKtTestEnum>("C").assertNotNullAndEquals(EnumKtTestEnum.C)
         enumFromOrNull<EnumKtTestEnum>("Q").assertNull()
     }
-    
+
     @Test
     fun enumFromOrName() {
         enumFromOr("A", EnumKtTestEnum.C).assert(EnumKtTestEnum.A)
@@ -30,12 +30,12 @@ class EnumKtTest {
         enumFromOr("C", EnumKtTestEnum.A).assert(EnumKtTestEnum.C)
         enumFromOr("Q", EnumKtTestEnum.C).assert(EnumKtTestEnum.C)
     }
-    
-    
+
+
     //endregion
-    
+
     //region Generalized search for enum
-    
+
     @Test
     fun enumFromOrNullIfNotFound() {
         enumFromOrNull<EnumKtTestEnum>(null, { false }).assertNull()
@@ -44,17 +44,17 @@ class EnumKtTest {
         enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
         enumFromOrNull<EnumKtTestEnum>(null, { it == EnumKtTestEnum.C }).assertNotNullAndEquals(EnumKtTestEnum.C)
     }
-    
+
     @Test
     fun enumFromOrIfNotFound() {
         enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.B, { false }).assert(EnumKtTestEnum.B)
         enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.B, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
         enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
     }
-    
+
     //endregion
-    
-    
+
+
     //region Ordinal search for enum
     @Test
     fun enumFromOrValue() {
@@ -65,8 +65,8 @@ class EnumKtTest {
         enumFromOr(EnumKtTestEnum.C.ordinal, EnumKtTestEnum.A).assert(EnumKtTestEnum.C)
         enumFromOr("Q", EnumKtTestEnum.C).assert(EnumKtTestEnum.C)
     }
-    
-    
+
+
     @Test
     fun enumFromOrNullValue() {
         enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.A.ordinal).assertNotNullAndEquals(EnumKtTestEnum.A)

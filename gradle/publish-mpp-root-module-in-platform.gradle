@@ -14,7 +14,7 @@ project.ext.publishPlatformArtifactsInRootModule = { platformPublication ->
 
     platformPublication.pom.withXml { platformPomBuilder = asString() }
 
-    publishing.publications.kotlinMultiplatform  {
+    publishing.publications.kotlinMultiplatform {
         platformPublication.artifacts.forEach {
             artifact(it)
         }
@@ -33,7 +33,7 @@ project.ext.publishPlatformArtifactsInRootModule = { platformPublication ->
         }
     }
 
-    tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication"}.configureEach {
+    tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }.configureEach {
         dependsOn(tasks["generatePomFileFor${platformPublication.name.capitalize()}Publication"])
     }
 }

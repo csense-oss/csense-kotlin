@@ -15,11 +15,11 @@ import csense.kotlin.extensions.collections.*
  * @return [List]<T> the resulting list by joining the starting items with the [toJoinAction]
  */
 public inline fun <reified T, reified U> GenericCollectionExtensions.joinEveryAction(
-        @IntLimit(from = 1) itemsBetweenJoins: Int,
-        crossinline toJoinAction: Function0R<T>,
-        size: Int,
-        crossinline getter: GenericGetterIndexMethod<T>,
-        crossinline builderType: Function2<Int, Function1<Int, T>, U>
+    @IntLimit(from = 1) itemsBetweenJoins: Int,
+    crossinline toJoinAction: Function0R<T>,
+    size: Int,
+    crossinline getter: GenericGetterIndexMethod<T>,
+    crossinline builderType: Function2<Int, Function1<Int, T>, U>
 ): U {
     val numberOfJoins = (size - 1).div(itemsBetweenJoins)
     if (numberOfJoins <= 0) {

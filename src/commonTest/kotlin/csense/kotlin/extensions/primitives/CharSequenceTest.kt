@@ -4,7 +4,7 @@ import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
 class CharSequenceTest {
-    
+
     @Test
     fun isNotNullOrBlank() {
         val nullStr: String? = null
@@ -13,7 +13,7 @@ class CharSequenceTest {
         " ".isNotNullOrBlank().assert(false)
         "test".isNotNullOrBlank().assert(true)
     }
-    
+
     @Test
     fun isNotNullOrEmpty() {
         val nullStr: String? = null
@@ -22,7 +22,7 @@ class CharSequenceTest {
         " ".isNotNullOrEmpty().assert(true)
         "test".isNotNullOrEmpty().assert(true)
     }
-    
+
     @Test
     fun charSequenceIndexOfOrNullChar() {
         "".indexOfOrNull('0').assertNull()
@@ -37,7 +37,7 @@ class CharSequenceTest {
         "0a0A".indexOfOrNull('a', ignoreCase = false, startIndex = 2).assertNull()
         "0a0A".indexOfOrNull('A', ignoreCase = false, startIndex = 2).assertNotNullAndEquals(3)
     }
-    
+
     @Test
     fun charSequenceIndexOfOrNullString() {
         "".indexOfOrNull("").assertNotNullAndEquals(0)
@@ -52,9 +52,9 @@ class CharSequenceTest {
         "0abC".indexOfOrNull("Abc", ignoreCase = true).assertNotNullAndEquals(1)
         "aABC".indexOfOrNull("ABC", ignoreCase = false).assertNotNullAndEquals(1)
         "abCABC".indexOfOrNull("ABC", ignoreCase = false).assertNotNullAndEquals(3)
-        
+
     }
-    
+
     @Test
     fun charSequenceLastIndexOfOrNullChar() {
         "".lastIndexOfOrNull('0').assertNull()
@@ -69,10 +69,10 @@ class CharSequenceTest {
         "0A0a".lastIndexOfOrNull('a', ignoreCase = false, startIndex = 1).assertNull()
         "0A0a".lastIndexOfOrNull('A', ignoreCase = false, startIndex = 1).assertNotNullAndEquals(1)
     }
-    
+
     @Test
     fun charSequenceLastIndexOfOrNullString() {
         //TODO make me.
-        
+
     }
 }

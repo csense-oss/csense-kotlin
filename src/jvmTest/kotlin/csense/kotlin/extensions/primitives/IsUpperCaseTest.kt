@@ -14,7 +14,7 @@ class IsUpperCaseTest {
         'Q'.isUpperCaseLetter().assertTrue()
         '\n'.isUpperCaseLetter().assertFalse()
     }
-    
+
     @Test
     fun charIsLowerCase() {
         ' '.isLowerCaseLetter().assertFalse()
