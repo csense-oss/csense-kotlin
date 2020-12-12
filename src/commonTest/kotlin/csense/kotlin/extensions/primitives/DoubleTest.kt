@@ -111,4 +111,34 @@ class DoubleTest {
         (-50).toDouble().isNotZero.assertTrue()
         42.toDouble().isNotZero.assertTrue()
     }
+
+    @Test
+    fun doubleWithoutDecimalPart() {
+        (-1).toDouble().withoutDecimalPart().assert(value = -1.0, delta = 0.001)
+        0.toDouble().withoutDecimalPart().assert(value = 0.0, delta = 0.001)
+        1.toDouble().withoutDecimalPart().assert(value = 1.0, delta = 0.001)
+        20.5.withoutDecimalPart().assert(value = 20.0, delta = 0.001)
+        20.9.withoutDecimalPart().assert(value = 20.0, delta = 0.001)
+        20.0001.withoutDecimalPart().assert(value = 20.0, delta = 0.0001, message = "should be more precise than not doing it")
+    }
+
+    @Test
+    fun doubleWithDecimalPart() {
+        (-1).toDouble().withDecimalPart(0.0).assert(value = -1.0, delta = 0.0001)
+        0.toDouble().withDecimalPart(0.0).assert(value = 0.0, delta = 0.0001)
+        1.toDouble().withDecimalPart(0.0).assert(value = 1.0, delta = 0.0001)
+        1.5.withDecimalPart(0.0).assert(value = 1.0, delta = 0.0001)
+        1.6.withDecimalPart(0.1).assert(value = 1.1, delta = 0.0001)
+        90.0579.withDecimalPart(0.01234).assert(value = 90.01234, delta = 0.00001)
+    }
+
+    @Test
+    fun doubleDecimalPart() {
+        (-1).toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
+        0.toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
+        1.toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
+        100.5.decimalPart().assert(value = 0.5, delta = 0.0001)
+        100.99.decimalPart().assert(value = 0.99, delta = 0.0001)
+        100.0005.decimalPart().assert(value = 0.0005, delta = 0.0001)
+    }
 }

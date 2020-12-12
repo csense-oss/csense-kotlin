@@ -190,4 +190,73 @@ class ArrayTest {
             //TODO test multiple element condition here.
         }
     }
+
+    class ArrayTJoinEvery {
+        @Test
+        fun empty() {
+            arrayOf<String>().joinEvery(1,"").assertSize(0)
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class ArrayTJoinEveryAction {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class ArrayoutTIndexOfFirstOrNull {
+        @Test
+        fun empty() {
+            arrayOf<String>().indexOfFirstOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+    class ArrayTIndexOfLastOrNull {
+        @Test
+        fun empty() {
+            arrayOf<String>().indexOfLastOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
 }

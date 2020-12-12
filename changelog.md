@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.47
+- added more missing extensions to iterable and added more contracts
+- added double & float extensions for decimal parts 
+
 ## 0.0.46
 - added ability for LLoggers to use ansi colored output
 - added sublist with single parameter ( length)

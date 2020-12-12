@@ -65,7 +65,7 @@ public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
 
-
+@IntLimit(from = 0)
 public inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean): Int? =
     indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 

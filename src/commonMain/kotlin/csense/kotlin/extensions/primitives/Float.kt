@@ -104,3 +104,29 @@ public inline val Float.isPositiveOrZero: Boolean
  */
 public inline fun Float.isNotZero(margin: Float): Boolean =
     !isZero(margin)
+
+
+/**
+ * The whole part of this [Float] (2.4 becomes 2.0)
+ * Imprecise (thus 2.4 can become 2.000000<something> etc)
+ */
+public inline fun Float.withoutDecimalPart(): Float {
+    return toInt().toFloat()
+}
+
+/**
+ * The decimal part (2.4 becomes 0.4)
+ * Imprecise (thus 2.4 can become 0.39999 etc)
+ */
+public inline fun Float.decimalPart(): Float =
+    this - withoutDecimalPart()
+
+/**
+ * Adds the given decimal part from the given part to this
+ * @receiver [Float]
+ * @param decimalPart [Float] the decimal part to add (will ignore the whole part)
+ * @return [Float] the "whole part" of this Float + the decimal part of [decimalPart]'s Float
+ * Imprecise (thus 2.4 with decimal part (0.3) can become 2.299999999)
+ */
+public inline fun Float.withDecimalPart(decimalPart: Float): Float =
+    withoutDecimalPart() + decimalPart.decimalPart()

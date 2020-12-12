@@ -87,4 +87,33 @@ class FloatTest {
         2.0f.equals(4.0f, 1.0f).assertFalse()
     }
 
+    @Test
+    fun floatWithoutDecimalPart() {
+        (-1).toFloat().withoutDecimalPart().assert(value = -1.0f, delta = 0.001f)
+        0.toFloat().withoutDecimalPart().assert(value = 0.0f, delta = 0.001f)
+        1.toFloat().withoutDecimalPart().assert(value = 1.0f, delta = 0.001f)
+        20.5f.withoutDecimalPart().assert(value = 20.0f, delta = 0.001f)
+        20.9f.withoutDecimalPart().assert(value = 20.0f, delta = 0.001f)
+        20.0001f.withoutDecimalPart().assert(value = 20.0f, delta = 0.0001f, message = "should be more precise than not doing it")
+    }
+
+    @Test
+    fun floatWithDecimalPart() {
+        (-1).toFloat().withDecimalPart(0.0f).assert(value = -1.0f, delta = 0.0001f)
+        0.toFloat().withDecimalPart(0.0f).assert(value = 0.0f, delta = 0.0001f)
+        1.toFloat().withDecimalPart(0.0f).assert(value = 1.0f, delta = 0.0001f)
+        1.5f.withDecimalPart(0.0f).assert(value = 1.0f, delta = 0.0001f)
+        1.6f.withDecimalPart(0.1f).assert(value = 1.1f, delta = 0.0001f)
+        90.0579f.withDecimalPart(0.01234f).assert(value = 90.01234f, delta = 0.00001f)
+    }
+
+    @Test
+    fun floatDecimalPart() {
+        (-1).toFloat().decimalPart().assert(value = 0.0f, delta = 0.0001f)
+        0.toFloat().decimalPart().assert(value = 0.0f, delta = 0.0001f)
+        1.toFloat().decimalPart().assert(value = 0.0f, delta = 0.0001f)
+        100.5f.decimalPart().assert(value = 0.5f, delta = 0.0001f)
+        100.99f.decimalPart().assert(value = 0.99f, delta = 0.0001f)
+        100.0005f.decimalPart().assert(value = 0.0005f, delta = 0.0001f)
+    }
 }

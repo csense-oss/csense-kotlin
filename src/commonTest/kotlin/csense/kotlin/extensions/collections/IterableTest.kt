@@ -445,4 +445,22 @@ class IterableTest {
             listOf(42, 100, 1, 102).largest { 0 - it }.assertNotNullAndEquals(1)
         }
     }
+
+    @Test
+    fun cIsNullOrEmpty() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun cIsNotNullOrEmpty() {
+        //TODO make me.
+
+    }
+
+    @Test
+    fun cNullOnEmpty() {
+        //TODO make me.
+
+    }
 }

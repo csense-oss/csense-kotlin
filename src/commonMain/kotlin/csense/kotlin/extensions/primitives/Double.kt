@@ -76,3 +76,28 @@ public inline fun Double.equalsWithin(value: Double, margin: Double = 0.1): Bool
     val upper = value + margin.positive
     return this in lower..upper
 }
+
+/**
+ * The whole part of this [Double] (2.4 becomes 2.0)
+ * Imprecise (thus 2.4 can become 2.000000<something> etc)
+ */
+public inline fun Double.withoutDecimalPart(): Double {
+    return toInt().toDouble()
+}
+
+/**
+ * The decimal part (2.4 becomes 0.4)
+ * Imprecise (thus 2.4 can become 0.39999 etc)
+ */
+public inline fun Double.decimalPart(): Double =
+    this - withoutDecimalPart()
+
+/**
+ * Adds the given decimal part from the given part to this
+ * @receiver [Double]
+ * @param decimalPart [Double] the decimal part to add (will ignore the whole part)
+ * @return [Double] the "whole part" of this Double + the decimal part of [decimalPart]'s double
+ * Imprecise (thus 2.4 with decimal part (0.3) can become 2.299999999)
+ */
+public inline fun Double.withDecimalPart(decimalPart: Double): Double =
+    withoutDecimalPart() + decimalPart.decimalPart()

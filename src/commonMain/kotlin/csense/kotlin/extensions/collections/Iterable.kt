@@ -4,6 +4,7 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.extensions.collections.generic.*
 import kotlin.contracts.*
 
@@ -455,7 +456,11 @@ public inline fun <E, V : Comparable<V>> Iterable<E>.largest(
  * @receiver [C]?
  * @return [C]?
  */
+@OptIn(ExperimentalContracts::class)
 public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
+    contract {
+        returnsNotNull() implies (this@nullOnEmpty != null)
+    }
     return isNotNullOrEmpty().map(ifTrue = this, ifFalse = null)
 }
 
@@ -464,6 +469,23 @@ public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
  * @receiver [C]? the optional type
  * @return [Boolean] true if this has content (is not null or empty) false if it is null or empty
  */
+@OptIn(ExperimentalContracts::class)
 public inline fun <T, C : Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrEmpty != null)
+    }
     return this != null && this.isNotEmpty()
+}
+
+/**
+ * Tells if this iteration is null or empty (size = 0)
+ * @receiver [Iterable]<T>? the nullable iteration
+ * @return [Boolean] true if the iteration is null or empty
+ */
+@OptIn(ExperimentalContracts::class)
+public inline fun <T, C : Iterable<T>> C?.isNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNullOrEmpty != null)
+    }
+    return this == null || this.isEmpty()
 }
