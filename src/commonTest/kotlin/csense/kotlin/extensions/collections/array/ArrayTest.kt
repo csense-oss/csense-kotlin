@@ -1,8 +1,7 @@
 package csense.kotlin.extensions.collections.array
 
 import csense.kotlin.tests.assertions.*
-import kotlin.collections.isNullOrEmpty
-import kotlin.test.Test
+import kotlin.test.*
 
 class ArrayTest {
 
@@ -14,16 +13,6 @@ class ArrayTest {
         emptyCol.isNotNullOrEmpty().assert(false)
         val singleCol: Array<String> = arrayOf("omg")
         singleCol.isNotNullOrEmpty().assert(true)
-    }
-
-    @Test
-    fun isNullOrEmpty() {
-        val nullCol: Array<String>? = null
-        nullCol.isNullOrEmpty().assert(true)
-        val emptyCol: Array<String> = arrayOf()
-        emptyCol.isNullOrEmpty().assert(true)
-        val singleCol: Array<String> = arrayOf("omg")
-        singleCol.isNullOrEmpty().assert(false)
     }
 
     class ArrayTForEachBackwards {
@@ -194,35 +183,54 @@ class ArrayTest {
     class ArrayTJoinEvery {
         @Test
         fun empty() {
-            arrayOf<String>().joinEvery(1,"").assertSize(0)
-            //TODO test empty condition here.
+            val lst = arrayOf<String>().joinEvery(1, "")
+            lst.assertEmpty()
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            val res = arrayOf("1").joinEvery(1, "test")
+            res.assertSize(1)
+            res.first().assert("1", message = "cannot join when only one element")
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            val res = arrayOf("1", "3").joinEvery(1, "2")
+            res.assertSize(3)
+            res[0].assert("1")
+            res[1].assert("2")
+            res[2].assert("3")
         }
     }
 
     class ArrayTJoinEveryAction {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            val lst = arrayOf<String>().joinEveryAction(1) {
+                "1"
+            }
+            lst.assertEmpty()
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            val res = arrayOf("1").joinEveryAction(1){
+                "test"
+            }
+            res.assertSize(1)
+            res.first().assert("1", message = "cannot join when only one element")
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            val res = arrayOf("1", "3").joinEveryAction(1){
+                "2"
+            }
+            res.assertSize(3)
+            res[0].assert("1")
+            res[1].assert("2")
+            res[2].assert("3")
         }
     }
 
@@ -233,13 +241,24 @@ class ArrayTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun singleFound() {
+            arrayOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(0)
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun singleNotFound() {
+            arrayOf("test").indexOfFirstOrNull { false }.assertNull()
+        }
+
+        @Test
+        fun multipleFound() {
+            arrayOf("test", "1234", "test").indexOfFirstOrNull { it == "test" }
+                .assertNotNullAndEquals(0, message = "should find the first matching item")
+        }
+
+        @Test
+        fun multipleNotFound() {
+            arrayOf("test", "1234").indexOfFirstOrNull { false }.assertNull()
         }
     }
 
@@ -250,13 +269,24 @@ class ArrayTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun singleFound() {
+            arrayOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(0)
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun singleNotFound() {
+            arrayOf("test").indexOfLastOrNull { false }.assertNull()
+        }
+
+        @Test
+        fun multipleFound() {
+            arrayOf("test", "1234", "test").indexOfLastOrNull { it == "test" }
+                .assertNotNullAndEquals(2, message = "should find the last matching item")
+        }
+
+        @Test
+        fun multipleNotFound() {
+            arrayOf("test", "1234").indexOfLastOrNull { false }.assertNull()
         }
     }
 }

@@ -2,12 +2,6 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.tests.assertions.*
-import kotlin.Function1
-import kotlin.Function2
-import kotlin.Function3
-import kotlin.Function4
-import kotlin.Function5
-import kotlin.Function6
 import kotlin.test.*
 
 class IterableTest {
@@ -448,19 +442,28 @@ class IterableTest {
 
     @Test
     fun cIsNullOrEmpty() {
-        //TODO make me.
-
+        val nullLst: List<String>? = null
+        nullLst.isNullOrEmpty().assertTrue()
+        listOf<String>().isNullOrEmpty().assertTrue()
+        listOf("").isNullOrEmpty().assertFalse()
+        listOf("","test2").isNullOrEmpty().assertFalse()
     }
 
     @Test
     fun cIsNotNullOrEmpty() {
-        //TODO make me.
-
+        val nullLst: List<String>? = null
+        nullLst.isNotNullOrEmpty().assertFalse()
+        listOf<String>().isNotNullOrEmpty().assertFalse()
+        listOf("").isNotNullOrEmpty().assertTrue()
+        listOf("","test2").isNotNullOrEmpty().assertTrue()
     }
 
     @Test
     fun cNullOnEmpty() {
-        //TODO make me.
-
+        val nullLst: List<String>? = null
+        nullLst.nullOnEmpty().assertNull()
+        listOf<String>().nullOnEmpty().assertNull()
+        listOf("").nullOnEmpty().assertNotNull()
+        listOf("","test2").nullOnEmpty().assertNotNull()
     }
 }

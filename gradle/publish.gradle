@@ -14,6 +14,7 @@ afterEvaluate {
         def type = it.name
         switch (type) {
             case 'kotlinMultiplatform':
+                it.artifact(metadataSourcesJar)
                 // With Kotlin 1.4 & HMPP, the root module should have no suffix in the ID, but for compatibility with
                 // the consumers who can't read Gradle module metadata, we publish the JVM artifacts in it, too
                 it.artifactId = project.name
@@ -21,13 +22,7 @@ afterEvaluate {
                 publishPlatformArtifactsInRootModule(publishing.publications["jvm"])
                 break
             case 'metadata':
-                // As the old -common dependencies will fail to resolve with Gradle module metadata, rename the module
-                // to '*-metadata' so that the resolution failure are more clear
-                it.artifactId = "$project.name-metadata"
-                break
             case 'jvm':
-                it.artifactId = "$project.name-jvm"
-                break
             case 'js':
             case 'native':
                 it.artifactId = "$project.name-$type"
