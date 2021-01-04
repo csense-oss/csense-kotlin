@@ -36,7 +36,7 @@ class LExtensionsKtTest {
         prodLog.assertStartsWith("Production - [prodtest] message prod")
     }
 
-    //for jdk 8, in jdk 11 this is actually implemented
+    //for jdk 8. in jdk 11 this is actually implemented
     @Suppress("unused", "EXTENSION_SHADOWED_BY_MEMBER")
     private fun ByteArrayOutputStream.toString(charset: Charset): String {
         return toString(charset.name())
