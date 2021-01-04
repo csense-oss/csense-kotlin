@@ -6,9 +6,9 @@ import kotlin.test.*
 class SetTest {
 
     //to make IDEA work
+    @Suppress("MissingTestCode")
     @Test
     fun emptyTest() {
-        val x = 4
     }
 
     class SetTDoesNotContain {

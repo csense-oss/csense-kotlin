@@ -35,7 +35,6 @@ tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }
     dependsOn(tasks["generatePomFileForJvmPublication"])
 }
 
-
 publishing {
     publications {
         withType(MavenPublication) {
