@@ -3,7 +3,7 @@ package csense.kotlin.specificExtensions.string
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class modificationTest {
+class ModificationTest {
     @Test
     fun stringModificationLimitTo() {
         "".modifications.limitTo(0).assert("")

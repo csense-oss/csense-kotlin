@@ -18,7 +18,7 @@ class IterableTest {
         @Test
         fun single() {
             assertCalled {
-                listOf<Function0R<String>>({
+                listOf({
                     it();""
                 }).invokeEach()
             }
@@ -27,7 +27,7 @@ class IterableTest {
         @Test
         fun multiple() {
             assertCalled(times = 2) {
-                listOf<Function0R<String>>({
+                listOf({
                     it();"23"
                 }, {
                     it();"154"

@@ -2,7 +2,7 @@ package csense.kotlin.extensions.generic
 
 import kotlin.test.*
 
-class foreachTest {
+class ForeachTest {
     @Test
     fun genericMap() {
         //TODO make me.

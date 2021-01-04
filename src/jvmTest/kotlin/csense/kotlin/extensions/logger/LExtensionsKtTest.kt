@@ -167,7 +167,6 @@ class LExtensionsKtTest {
             message.assert(expectedMessage)
             (expectedThrowable == throwable).assertTrue()
             counter += 1
-            Unit
         }
         logAction()
         counter.assert(1)

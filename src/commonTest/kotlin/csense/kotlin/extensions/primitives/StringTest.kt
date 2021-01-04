@@ -429,7 +429,7 @@ class StringTest {
     }
 
     @Test
-    fun StringDoesNotEndsWithSequence() {
+    fun stringDoesNotEndsWithSequence() {
         "".doesNotEndsWith("").assertFalse("anything does end with nothing")
         "abc".doesNotEndsWith("").assertFalse("anything ends with nothing")
         "abc".doesNotEndsWith("1234").assertTrue()

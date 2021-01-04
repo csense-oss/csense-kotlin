@@ -41,6 +41,7 @@ class GeneralTest {
         optStringCounter.assert(1, "should run the ifNull Callback")
 
         var stringCounter = 0
+        @Suppress("RedundantNullableReturnType")
         val stringValue: String? = "magic test"
         stringValue.useOr({ stringCounter += length }, { failTest("magic test is not null") })
         stringCounter.assert(stringValue?.length ?: 0, "should get the right string back.")
@@ -83,6 +84,7 @@ class GeneralTest {
         optString.or("test").assert("test")
         optString.or("1234").assert("1234")
 
+        @Suppress("RedundantNullableReturnType")
         val str: String? = "test"
         str.or("1234").assert("test")
 
@@ -93,6 +95,7 @@ class GeneralTest {
         val optInt: Int? = null
         optInt.orLazy { 99 }.assert(99)
 
+        @Suppress("RedundantNullableReturnType")
         val optInt2: Int? = 42
         optInt2.orLazy { 111 }.assert(42)
     }

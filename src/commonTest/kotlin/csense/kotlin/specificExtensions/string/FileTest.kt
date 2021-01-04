@@ -3,7 +3,7 @@ package csense.kotlin.specificExtensions.string
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class fileTest {
+class FileTest {
     @Test
     fun stringFileFileExtension() {
         val noExtensionMessage = "there are no extensions in this string"

@@ -37,7 +37,7 @@ class MutableExtensionsTest {
 
     }
 
-    class RemoveAllIntRange {
+    class MutableListTRemoveAll {
 
         @Test
         fun testOutOfBoundsEmpty() {
@@ -196,7 +196,7 @@ class MutableListTest {
     @Test
     fun mutableListTRemoveLast() {
 
-        class mutableListTRemoveLast {
+        class MutableListTRemoveLast {
             @Test
             fun empty() {
                 val lst = mutableListOf<String>()
@@ -227,7 +227,7 @@ class MutableListTest {
 
     @Test
     fun mutableListTRemoveFirst() {
-        class mutableListTRemoveFirst {
+        class MutableListTRemoveFirst {
             @Test
             fun empty() {
                 val lst = mutableListOf<String>()

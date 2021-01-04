@@ -36,14 +36,13 @@ class JvmExceptionsTests {
      * @param verifyCall Function0<Unit>
      * @return Function3<String, String, Throwable?, Unit>
      */
-    fun getLoggerForNameAssertion(
+    private fun getLoggerForNameAssertion(
         name: String,
         verifyCall: EmptyFunction
     ): Function3<String, String, Throwable?, Unit> {
         return { tag: String, _: String, _: Throwable? ->
             tag.assert(name)
             verifyCall()
-            Unit
         }
     }
 

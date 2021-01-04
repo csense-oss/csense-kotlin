@@ -617,8 +617,8 @@ class CollectionTest {
         @Test
         fun single() {
             listOf("test").indexOfFirstOrNull { false }.assertNull()
-            listOf("test").indexOfFirstOrNull { true }.assertNotNullAndEquals(1)
-            listOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(1)
+            listOf("test").indexOfFirstOrNull { true }.assertNotNullAndEquals(0)
+            listOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(0)
         }
 
         @Test
@@ -638,8 +638,8 @@ class CollectionTest {
         @Test
         fun single() {
             listOf("test").indexOfLastOrNull { false }.assertNull()
-            listOf("test").indexOfLastOrNull { true }.assertNotNullAndEquals(1)
-            listOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(1)
+            listOf("test").indexOfLastOrNull { true }.assertNotNullAndEquals(0)
+            listOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(0)
         }
 
         @Test

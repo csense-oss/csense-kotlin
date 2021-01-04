@@ -48,7 +48,7 @@ class MapKtTest {
         notFoundCounter.assert(1)
     }
 
-    class MapKVDoesNotContainKey() {
+    class MapKVDoesNotContainKey {
         @Test
         fun empty() {
             val map = mapOf<String, String>()

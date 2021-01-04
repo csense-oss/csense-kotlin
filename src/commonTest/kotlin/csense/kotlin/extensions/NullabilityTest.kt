@@ -15,6 +15,7 @@ class NullabilityTest {
         assertCalled { signal ->
             onNull.ifNull(signal)
         }
+        @Suppress("RedundantNullableReturnType")
         val onNotNull: String? = ""
         assertNotCalled { signal ->
             onNotNull.ifNull(signal)
@@ -27,6 +28,7 @@ class NullabilityTest {
         assertNotCalled { signal ->
             onNull.ifNotNull { signal() }
         }
+        @Suppress("RedundantNullableReturnType")
         val onNotNull: String? = ""
         assertCalled { signal ->
             onNotNull.ifNotNull { signal() }
@@ -37,6 +39,7 @@ class NullabilityTest {
     fun tIsNull() {
         val onNull: String? = null
         onNull.isNull.assertTrue()
+        @Suppress("RedundantNullableReturnType")
         val onNotNull: String? = ""
         onNotNull.isNull.assertFalse()
     }
@@ -45,6 +48,7 @@ class NullabilityTest {
     fun tIsNotNull() {
         val onNull: String? = null
         onNull.isNotNull.assertFalse()
+        @Suppress("RedundantNullableReturnType")
         val onNotNull: String? = ""
         onNotNull.isNotNull.assertTrue()
     }

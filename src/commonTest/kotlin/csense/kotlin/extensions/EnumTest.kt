@@ -39,17 +39,17 @@ class EnumKtTest {
     @Test
     fun enumFromOrNullIfNotFound() {
         enumFromOrNull<EnumKtTestEnum>(null, { false }).assertNull()
-        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.B, { false }).assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull(EnumKtTestEnum.B, { false }).assertNotNullAndEquals(EnumKtTestEnum.B)
         enumFromOrNull<EnumKtTestEnum>(null, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
         enumFromOrNull<EnumKtTestEnum>(null, { it == EnumKtTestEnum.C }).assertNotNullAndEquals(EnumKtTestEnum.C)
     }
 
     @Test
     fun enumFromOrIfNotFound() {
-        enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.B, { false }).assert(EnumKtTestEnum.B)
-        enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.B, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOr<EnumKtTestEnum>(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.B, { false }).assert(EnumKtTestEnum.B)
+        enumFromOr(EnumKtTestEnum.B, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
     }
 
     //endregion

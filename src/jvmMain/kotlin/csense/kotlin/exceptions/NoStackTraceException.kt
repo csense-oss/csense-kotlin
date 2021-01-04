@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package csense.kotlin.exceptions
 
 import kotlin.Exception

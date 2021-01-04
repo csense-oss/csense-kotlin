@@ -1,9 +1,7 @@
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.failTest
-import csense.kotlin.tests.assertions.shouldNotBeCalled
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class BooleanArrayTest {
 
