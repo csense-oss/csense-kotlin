@@ -167,6 +167,8 @@ class LExtensionsKtTest {
             message.assert(expectedMessage)
             (expectedThrowable == throwable).assertTrue()
             counter += 1
+            @Suppress("RedundantUnitExpression") //idea thinks this can be removed, but compiler states otherwise
+            Unit
         }
         logAction()
         counter.assert(1)

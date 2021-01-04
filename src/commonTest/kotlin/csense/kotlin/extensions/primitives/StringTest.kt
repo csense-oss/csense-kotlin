@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.tests.assertions.*
-//import kotlinx.benchmark.*
 import kotlin.test.*
 
 
@@ -540,40 +539,3 @@ class StringTest {
         "...()[]".isNewLine().assertFalse()
     }
 }
-//
-//@State(Scope.Benchmark)
-//@BenchmarkMode(Mode.AverageTime)
-//@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
-//@Warmup(iterations = 5)
-//@Measurement(iterations = 5, time = 5,timeUnit = BenchmarkTimeUnit.MILLISECONDS)
-//open class StringBenchmarks {
-//    @Benchmark
-//    open fun stringIsNewLineNot() {
-//        "".isNewLine()
-//    }
-//
-//    @Benchmark
-//    open fun stringIsNewLineLinux() {
-//        "\n".isNewLine()
-//    }
-//
-//    @Benchmark
-//    open fun stringIsNewLineSingleNotLinux() {
-//        "a".isNewLine()
-//    }
-//
-//    @Benchmark
-//    open fun stringIsNewLineSingleWindows() {
-//        "\r\n".isNewLine()
-//    }
-//
-//    @Benchmark
-//    open fun stringIsNewLineSingleNotWindows() {
-//        "ab".isNewLine()
-//    }
-//
-//    @Benchmark
-//    open fun stringIsNewLineNo() {
-//        "abc weee".isNewLine()
-//    }
-//}
