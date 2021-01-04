@@ -8,7 +8,7 @@ class SetTest {
     //to make IDEA work
     @Test
     fun emptyTest() {
-
+        val x = 4
     }
 
     class SetTDoesNotContain {
@@ -59,47 +59,47 @@ class SetTest {
 
         @Test
         fun singleFirst() {
-            val empty = setOf<String>("b").symmetricDifference(setOf())
+            val empty = setOf("b").symmetricDifference(setOf())
             empty.uniqueInFirst.assertContainsAll("b")
             empty.uniqueInSecond.assertEmpty()
 
-            val single = setOf<String>("b").symmetricDifference(setOf("1"))
+            val single = setOf("b").symmetricDifference(setOf("1"))
             single.uniqueInFirst.assertContainsAll("b")
             single.uniqueInSecond.assertContainsAll("1")
 
-            val multipleWithCollision = setOf<String>("b").symmetricDifference(setOf("1", "a", "b"))
+            val multipleWithCollision = setOf("b").symmetricDifference(setOf("1", "a", "b"))
 
             multipleWithCollision.uniqueInFirst.assertEmpty()
             multipleWithCollision.uniqueInSecond.assertContainsAll("1", "a")
 
-            val multipleWithNoCollision = setOf<String>("b").symmetricDifference(setOf("1", "a", "c"))
+            val multipleWithNoCollision = setOf("b").symmetricDifference(setOf("1", "a", "c"))
             multipleWithNoCollision.uniqueInFirst.assertContainsAll("b")
             multipleWithNoCollision.uniqueInSecond.assertContainsAll("1", "a", "c")
         }
 
         @Test
         fun multipleFirst() {
-            val empty = setOf<String>("b", "2").symmetricDifference(setOf())
+            val empty = setOf("b", "2").symmetricDifference(setOf())
             empty.uniqueInFirst.assertContainsAll("b", "2")
             empty.uniqueInSecond.assertEmpty()
 
-            val single = setOf<String>("b", "2").symmetricDifference(setOf("1"))
+            val single = setOf("b", "2").symmetricDifference(setOf("1"))
             single.uniqueInFirst.assertContainsAll("b", "2")
             single.uniqueInSecond.assertContainsAll("1")
 
-            val singleCollision = setOf<String>("b", "2", "1").symmetricDifference(setOf("1"))
+            val singleCollision = setOf("b", "2", "1").symmetricDifference(setOf("1"))
             singleCollision.uniqueInFirst.assertContainsAll("b", "2")
             singleCollision.uniqueInSecond.assertEmpty()
 
-            val multipleWithCollision = setOf<String>("b", "2").symmetricDifference(setOf("1", "a", "b"))
+            val multipleWithCollision = setOf("b", "2").symmetricDifference(setOf("1", "a", "b"))
             multipleWithCollision.uniqueInFirst.assertContainsAll("2")
             multipleWithCollision.uniqueInSecond.assertContainsAll("1", "a")
 
-            val firstOnlyCollision = setOf<String>("a", "1").symmetricDifference(setOf("1", "a", "b"))
+            val firstOnlyCollision = setOf("a", "1").symmetricDifference(setOf("1", "a", "b"))
             firstOnlyCollision.uniqueInFirst.assertEmpty()
             firstOnlyCollision.uniqueInSecond.assertContainsAll("b")
 
-            val multipleWithNoCollision = setOf<String>("b", "2").symmetricDifference(setOf("1", "a", "c"))
+            val multipleWithNoCollision = setOf("b", "2").symmetricDifference(setOf("1", "a", "c"))
             multipleWithNoCollision.uniqueInFirst.assertContainsAll("b", "2")
             multipleWithNoCollision.uniqueInSecond.assertContainsAll("1", "a", "c")
 
@@ -148,34 +148,42 @@ class SetTest {
             setOf<String>().containsAny(setOf()).assertFalse()
             setOf("1").containsAny(setOf()).assertFalse()
             setOf<String>().containsAny(setOf("1")).assertFalse()
-            setOf<String>("1").containsAny(setOf("1")).assertTrue()
-            setOf<String>("1").containsAny(setOf("2")).assertFalse()
+            setOf("1").containsAny(setOf("1")).assertTrue()
+            setOf("1").containsAny(setOf("2")).assertFalse()
 
-            setOf<String>("2").containsAny(setOf("1", "3")).assertFalse()
-            setOf<String>("2").containsAny(setOf("1", "2")).assertTrue()
+            setOf("2").containsAny(setOf("1", "3")).assertFalse()
+            setOf("2").containsAny(setOf("1", "2")).assertTrue()
 
-            setOf<String>("2", "3").containsAny(setOf("1")).assertFalse()
-            setOf<String>("2", "3").containsAny(setOf("2")).assertTrue()
-            setOf<String>("2", "3").containsAny(setOf("3")).assertTrue()
-            setOf<String>("2", "3").containsAny(setOf("4")).assertFalse()
-            setOf<String>("2", "3").containsAny(setOf("4", "2")).assertTrue()
+            setOf("2", "3").containsAny(setOf("1")).assertFalse()
+            setOf("2", "3").containsAny(setOf("2")).assertTrue()
+            setOf("2", "3").containsAny(setOf("3")).assertTrue()
+            setOf("2", "3").containsAny(setOf("4")).assertFalse()
+            setOf("2", "3").containsAny(setOf("4", "2")).assertTrue()
         }
     }
 
     class SetEDoesNotContainAny {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            setOf<String>().doesNotContainAny(listOf()).assertTrue("nothing does not contain anything")
+            setOf<String>().doesNotContainAny(listOf("test")).assertTrue("nothing does not contain something")
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            setOf("test").doesNotContainAny(listOf()).assertTrue("something does not contains nothing")
+            setOf("test").doesNotContainAny(listOf("test")).assertFalse("nothing does not contain something")
+            setOf("test2").doesNotContainAny(listOf("test")).assertTrue("nothing does not contain something")
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            setOf("test", "1234").doesNotContainAny(listOf()).assertTrue("something does not contains nothing")
+            setOf("test", "1234").doesNotContainAny(listOf("test")).assertFalse("nothing does not contain something")
+            setOf("test", "1234").doesNotContainAny(listOf("1234")).assertFalse("nothing does not contain something")
+            setOf("test", "1234").doesNotContainAny(listOf("a", "b")).assertTrue("nothing does not contain something")
+            setOf("test", "1234").doesNotContainAny(listOf("a", "b", "test")).assertFalse("nothing does not contain something")
+            setOf("test2", "1234").doesNotContainAny(listOf("test")).assertTrue("nothing does not contain something")
         }
     }
 

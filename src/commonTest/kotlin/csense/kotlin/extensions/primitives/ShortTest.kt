@@ -9,7 +9,6 @@ class ShortTest {
 
     @Test
     fun shortIsOdd() {
-        //TODO make me
         0.toShort().isOdd.assertFalse()
         (-1).toShort().isOdd.assertTrue()
         1.toShort().isOdd.assertTrue()
@@ -19,7 +18,6 @@ class ShortTest {
 
     @Test
     fun shortIsEven() {
-        //TODO make me
         0.toShort().isEven.assertTrue()
         (-1).toShort().isEven.assertFalse()
         1.toShort().isEven.assertFalse()
@@ -29,7 +27,6 @@ class ShortTest {
 
     @Test
     fun shortIsPositive() {
-        //TODO make me
         0.toShort().isPositive.assertFalse()
         (-1).toShort().isPositive.assertFalse()
         1.toShort().isPositive.assertTrue()
@@ -39,7 +36,6 @@ class ShortTest {
 
     @Test
     fun shortIsNegative() {
-        //TODO make me
         0.toShort().isNegative.assertFalse()
         (-1).toShort().isNegative.assertTrue()
         1.toShort().isNegative.assertFalse()
@@ -49,7 +45,6 @@ class ShortTest {
 
     @Test
     fun shortIsPositiveOrZero() {
-        //TODO make me
         0.toShort().isPositiveOrZero.assertTrue()
         (-1).toShort().isPositiveOrZero.assertFalse()
         1.toShort().isPositiveOrZero.assertTrue()
@@ -59,7 +54,6 @@ class ShortTest {
 
     @Test
     fun shortIsNegativeOrZero() {
-        //TODO make me
         0.toShort().isNegativeOrZero.assertTrue()
         (-1).toShort().isNegativeOrZero.assertTrue()
         1.toShort().isNegativeOrZero.assertFalse()
@@ -69,7 +63,6 @@ class ShortTest {
 
     @Test
     fun shortIsZero() {
-        //TODO make me
         0.toShort().isZero.assertTrue()
         (-1).toShort().isZero.assertFalse()
         1.toShort().isZero.assertFalse()
@@ -79,7 +72,6 @@ class ShortTest {
 
     @Test
     fun shortIsNotZero() {
-        //TODO make me
         0.toShort().isNotZero.assertFalse()
         (-1).toShort().isNotZero.assertTrue()
         1.toShort().isNotZero.assertTrue()
@@ -89,7 +81,6 @@ class ShortTest {
 
     @Test
     fun shortPositive() {
-        //TODO make me
         0.toShort().positive.assert(0)
         (-1).toShort().positive.assert(1)
         1.toShort().positive.assert(1)
@@ -99,7 +90,6 @@ class ShortTest {
 
     @Test
     fun shortNegative() {
-        //TODO make me
         0.toShort().negative.assert(-0)
         (-1).toShort().negative.assert(-1)
         1.toShort().negative.assert(-1)
@@ -110,13 +100,29 @@ class ShortTest {
 
     @Test
     fun shortShr() {
-        //TODO make me.
+        0.toShort().shr(0).assert(0)
+        1.toShort().shr(0).assert(1)
+        50.toShort().shr(0).assert(50)
 
+        1.toShort().shr(1).assert(0)
+        (0b0111).toShort().shr(1).assert(0b0011)
+        (0b0111).toShort().shr(2).assert(0b0001)
+        (0b0111).toShort().shr(3).assert(0b0000)
+        (0b0111).toShort().shr(4).assert(0b0000)
     }
+
 
     @Test
     fun shortShl() {
-        //TODO make me.
+        0.toShort().shl(0).assert(0)
+        1.toShort().shl(0).assert(1)
+        50.toShort().shl(0).assert(50)
+
+        1.toShort().shl(1).assert(2)
+        (0b0111).toShort().shl(1).assert(0b1110)
+        (0b0001).toShort().shl(2).assert(0b0100)
+        (0b0001).toShort().shl(3).assert(0b1000)
+        (0b0001).toShort().shl(4).assert(0b10000)
 
     }
 
