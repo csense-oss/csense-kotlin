@@ -139,7 +139,8 @@ task uploadProd(dependsOn: ["assemble", "allTests", "publish"])
 benchmark {
     targets {
         register("jvmTest") {
-            jmhVersion = "1.23" // available only for JVM compilations & Java source sets
+            //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
+            jmhVersion = "1.27" // available only for JVM compilations & Java source sets
         }
     }
 }

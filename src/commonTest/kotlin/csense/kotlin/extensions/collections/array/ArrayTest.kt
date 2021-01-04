@@ -215,7 +215,7 @@ class ArrayTest {
 
         @Test
         fun single() {
-            val res = arrayOf("1").joinEveryAction(1){
+            val res = arrayOf("1").joinEveryAction(1) {
                 "test"
             }
             res.assertSize(1)
@@ -224,7 +224,7 @@ class ArrayTest {
 
         @Test
         fun multiple() {
-            val res = arrayOf("1", "3").joinEveryAction(1){
+            val res = arrayOf("1", "3").joinEveryAction(1) {
                 "2"
             }
             res.assertSize(3)

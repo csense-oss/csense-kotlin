@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -606,6 +605,48 @@ class CollectionTest {
                 this[2].assert(",")
                 this[3].assert("c")
             }
+        }
+    }
+
+    class CollectionTIndexOfFirstOrNull {
+        @Test
+        fun empty() {
+            listOf<String>().indexOfFirstOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun single() {
+            listOf("test").indexOfFirstOrNull { false }.assertNull()
+            listOf("test").indexOfFirstOrNull { true }.assertNotNullAndEquals(1)
+            listOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(1)
+        }
+
+        @Test
+        fun multiple() {
+            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "1" }.assertNotNullAndEquals(0,"should search from the start")
+            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "3" }.assertNotNullAndEquals(2)
+            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "4" }.assertNull()
+        }
+    }
+
+    class CollectionTIndexOfLastOrNull {
+        @Test
+        fun empty() {
+            listOf<String>().indexOfLastOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun single() {
+            listOf("test").indexOfLastOrNull { false }.assertNull()
+            listOf("test").indexOfLastOrNull { true }.assertNotNullAndEquals(1)
+            listOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(1)
+        }
+
+        @Test
+        fun multiple() {
+            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "1" }.assertNotNullAndEquals(3,"should search from the end towards the start")
+            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "3" }.assertNotNullAndEquals(2)
+            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "4" }.assertNull()
         }
     }
 }

@@ -57,6 +57,7 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
  * @receiver [Array]<T>? the nullable Array
  * @return [Boolean] true if the Array is null or empty
  */
+@Suppress("MissingTestFunction")
 @Deprecated(message = "use kotlin std lib instead", level = DeprecationLevel.ERROR)
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
