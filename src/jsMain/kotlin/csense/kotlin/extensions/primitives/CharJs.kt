@@ -54,13 +54,12 @@ public actual inline fun Char.isUpperCaseLetter(): Boolean {
 
 /**
  * tells if this [Char] is lowercase
- * space is lowercase always
  * numbers are always lowercase
  * @receiver [Char]
  * @return [Boolean]
  */
 public actual inline fun Char.isLowerCaseLetter(): Boolean {
-    if (isNotLetter()) {
+    if (isNotLetter() && isWhitespace()) {
         return false
     }
     return toLowerCase().equals(this, false)

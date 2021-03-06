@@ -45,6 +45,7 @@ class ExceptionsTest {
 
         val fails: String? = tryAndLog(logger = LLogger()::error) {
             throw Exception("test")
+            @Suppress("UNREACHABLE_CODE")
             "123"
         }
         fails.assertNull()

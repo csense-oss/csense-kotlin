@@ -1,8 +1,7 @@
 package csense.kotlin.crypto
 
 import csense.kotlin.extensions.primitives.asHexDigit
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotEquals
+import csense.kotlin.tests.assertions.*
 import kotlin.experimental.and
 import kotlin.random.Random
 import kotlin.test.Test
@@ -27,7 +26,7 @@ class UUID4Test {
 
         firstUUId.assertIsValidUUIDWithVersion('4')
 
-        firstUUId.assertNotEquals(secondUUID)
+        firstUUId.assertNot(secondUUID)
 
         secondUUID.assertIsValidUUIDWithVersion('4')
 

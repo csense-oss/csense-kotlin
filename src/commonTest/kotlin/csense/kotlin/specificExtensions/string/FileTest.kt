@@ -21,16 +21,32 @@ class FileTest {
         "test.xml".fileExtensions.fileExtension().assertNotNullAndEquals("xml")
         "test.\$java".fileExtensions.fileExtension().assertNotNullAndEquals("\$java")
         "test.\"xml".fileExtensions.fileExtension().assertNotNullAndEquals("\"xml")
+    }
+
+    @Test
+    fun stringFileWithFileExtension() {
+        "".fileExtensions.withFileExtension("test").assert(".test")
+        ".".fileExtensions.withFileExtension("test").assert(".test")
+        ".t".fileExtensions.withFileExtension("test").assert(".test")
+        "t.t".fileExtensions.withFileExtension("test").assert("t.test")
+        "i.am.a.long.string".fileExtensions.withFileExtension("long.string").assert("i.am.a.long.long.string")
+    }
+
+    @Test
+    fun stringFileWithoutFileExtension() {
+        "".fileExtensions.withoutFileExtension().assert("")
+        "test".fileExtensions.withoutFileExtension().assert("test")
+        "random string with some fun".fileExtensions.withoutFileExtension().assert("random string with some fun")
+        "test.asd".fileExtensions.withoutFileExtension().assert("test")
+        "qwerty.xml".fileExtensions.withoutFileExtension().assert("qwerty")
+        "qwerty.xml.js".fileExtensions.withoutFileExtension().assert("qwerty.xml")
 
     }
 
     @Test
-    fun stringFileRemoveFileExtension() {
-        "".fileExtensions.removeFileExtension().assert("")
-        "test".fileExtensions.removeFileExtension().assert("test")
-        "random string with some fun".fileExtensions.removeFileExtension().assert("random string with some fun")
-        "test.asd".fileExtensions.removeFileExtension().assert("test")
-        "qwerty.xml".fileExtensions.removeFileExtension().assert("qwerty")
-        "qwerty.xml.js".fileExtensions.removeFileExtension().assert("qwerty.xml")
+    fun stringFileExtensions() {
+        val x = "".fileExtensions
+        val y = " ".fileExtensions
+        (x != y).assertTrue("should have unique instances")
     }
 }

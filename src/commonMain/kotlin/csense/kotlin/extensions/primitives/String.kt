@@ -29,7 +29,7 @@ public inline fun String.findAllOf(
  * @receiver [String] the string to search in
  * @param subString [String] the string we are searching for
  * @param searchByWord [Boolean]
- * @param ignoreCase [Boolean] whenver we should ignore casing
+ * @param ignoreCase [Boolean] whenever we should ignore casing
  * @param mapper [Function1]<[Int], U> Maps the given index to a given value
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
@@ -37,7 +37,7 @@ public inline fun <U> String.mapEachMatching(
     subString: String,
     searchByWord: Boolean,
     ignoreCase: Boolean = false,
-    mapper: Function1<Int, U>
+    mapper: (index: Int) -> U
 ): List<U> {
     if (subString.isEmpty() || this.isEmpty()) {
         return emptyList()

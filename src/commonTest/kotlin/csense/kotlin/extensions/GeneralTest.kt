@@ -99,4 +99,10 @@ class GeneralTest {
         val optInt2: Int? = 42
         optInt2.orLazy { 111 }.assert(42)
     }
+
+    @Test
+    fun anyCastMap() {
+        
+
+    }
 }

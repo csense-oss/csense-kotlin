@@ -2,7 +2,7 @@ buildscript {
 
     ext.coroutinesVersion = "1.4.2"
     ext.junit5Version = "5.7.0"
-    ext.csenseTestsVersion = "0.0.44"
+    ext.csenseTestsVersion = "0.0.45"
     ext.csenseAnnotationVersion = "0.0.40"
 
     //library settings
@@ -28,7 +28,7 @@ buildscript {
 
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version "1.4.21"
+    id 'org.jetbrains.kotlin.multiplatform' version "1.4.31"
     id("org.jetbrains.dokka") version "0.10.0"
     id "maven-publish"
     id 'kotlinx.benchmark' version "0.2.0-dev-20"
@@ -36,6 +36,7 @@ plugins {
 
 repositories {
     jcenter()
+    mavenCentral()
     maven { url "https://dl.bintray.com/csense-oss/maven" }
     maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
@@ -72,6 +73,7 @@ kotlin {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation "org.jetbrains.kotlin:kotlin-reflect"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
             }
 
         }
@@ -109,9 +111,6 @@ jvmTest {
         junitXml.enabled = true
         html.enabled = true
     }
-//    jacoco {
-//        destinationFile = file("${buildDir}/jacoco/test.exec")
-//    }
 }
 
 

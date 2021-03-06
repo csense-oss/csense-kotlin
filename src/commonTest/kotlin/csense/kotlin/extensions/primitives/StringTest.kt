@@ -8,7 +8,7 @@ import kotlin.test.*
 
 class StringTest {
 
-    class ForEachMatching {
+    class StringMapEachMatching {
 
         @Test
         fun bad() {
@@ -407,8 +407,8 @@ class StringTest {
 
     @Test
     fun stringForeach2() {
-        "".foreach2 { first, second -> shouldNotBeCalled() }
-        "a".foreach2 { first, second -> shouldNotBeCalled() }
+        "".foreach2 { _, _ -> shouldNotBeCalled() }
+        "a".foreach2 { _, _ -> shouldNotBeCalled() }
         assertCalled(times = 1) {
             "ab".foreach2 { first, second ->
                 first.assert('a')
@@ -424,7 +424,7 @@ class StringTest {
             }
         }
         //odd length
-        "abababc".foreach2 { first, second -> shouldNotBeCalled() }
+        "abababc".foreach2 { _, _ -> shouldNotBeCalled() }
     }
 
     @Test
@@ -538,4 +538,203 @@ class StringTest {
         "\n".isNewLine().assertTrue()
         "...()[]".isNewLine().assertFalse()
     }
+
+
+    class StringForEachBackwardsIndexed {
+        @Test
+        fun empty() {
+            "".forEachBackwardsIndexed { _, _ ->
+                shouldNotBeCalled()
+            }
+        }
+
+        @Test
+        fun single() = assertCalled { shouldBeCalled ->
+            "a".forEachBackwardsIndexed { index, char ->
+                index.assert(0)
+                char.assert('a')
+                shouldBeCalled()
+            }
+        }
+
+
+        @Test
+        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled ->
+            "abc".forEachBackwardsIndexed { _, _ ->
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun startsFromTheBack() {
+            "abc".forEachBackwardsIndexed { index, char ->
+                index.assert(2)
+                char.assert('c')
+                return@startsFromTheBack
+            }
+        }
+
+    }
+
+    class StringForEachBackwards {
+        @Test
+        fun empty() {
+            "".forEachBackwards { _ ->
+                shouldNotBeCalled()
+            }
+        }
+
+        @Test
+        fun single() = assertCalled { shouldBeCalled ->
+            "a".forEachBackwards { char ->
+                char.assert('a')
+                shouldBeCalled()
+            }
+        }
+
+
+        @Test
+        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled ->
+            "abc".forEachBackwards { _ ->
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun startsFromTheBack() {
+            "abc".forEachBackwards { char ->
+                char.assert('c')
+                return@startsFromTheBack
+            }
+        }
+
+    }
+
+
+    class StringDoesNotStartsWithAnyItems {
+        @Test
+        fun emptyString() {
+            "".doesNotStartsWithAny(listOf("test")).assertTrue("empty does not start with something")
+            "".doesNotStartsWithAny(listOf("test", "")).assertFalse("empty starts with empty")
+        }
+
+        @Test
+        fun emptyList() {
+            "".doesNotStartsWithAny(listOf()).assertTrue()
+            "test".doesNotStartsWithAny(listOf()).assertTrue()
+        }
+
+    }
+
+    class StringDoesNotStartsWithAnySubStrings{
+        @Test
+        fun emptyString() {
+            "".doesNotStartsWithAny(subStrings = arrayOf("test")).assertTrue("empty does not start with something")
+            "".doesNotStartsWithAny(subStrings = arrayOf("test", "")).assertFalse("empty starts with empty")
+        }
+
+        @Test
+        fun emptyList() {
+            "".doesNotStartsWithAny(subStrings = arrayOf()).assertTrue()
+            "test".doesNotStartsWithAny(subStrings = arrayOf()).assertTrue()
+        }
+    }
+
+
+    @Test
+    fun stringFromHexStringToByteArray() {
+        "".fromHexStringToByteArray().assertNull("not hex")
+        " ".fromHexStringToByteArray().assertNull("not hex")
+        "0xFF".fromHexStringToByteArray().assertNotNullApply {
+            assertSize(1)
+            first().assert(0xFF)
+        }
+    }
+
+    @Test
+    fun stringForeach2Indexed() {
+        "".foreach2Indexed { indexOfFirst, first, second ->
+            shouldNotBeCalled()
+        }
+        "a".foreach2Indexed { indexOfFirst, first, second ->
+            shouldNotBeCalled()
+        }
+        assertCalled { shouldBeCalled ->
+            "ab".foreach2Indexed { indexOfFirst, first, second ->
+                shouldBeCalled()
+                indexOfFirst.assert(0)
+                first.assert('a')
+                second.assert('b')
+            }
+        }
+
+        assertCalled(times = 2) { shouldBeCalled ->
+            var indexCounter = 0
+            "ab12".foreach2Indexed { indexOfFirst, first, second ->
+                indexOfFirst.assert(indexCounter)
+                if (indexCounter == 0) {
+                    first.assert('a')
+                    second.assert('b')
+                } else {
+                    first.assert('1')
+                    second.assert('2')
+                }
+                shouldBeCalled()
+                indexCounter += 2
+            }
+        }
+    }
+
+
+    class StringReplaceIfOrStrings {
+        @Test
+        fun empty() {
+            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("")
+            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("")
+        }
+
+        @Test
+        fun notFound() {
+            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("abc")
+            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("abc")
+            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("TEST")
+        }
+
+        @Test
+        fun found() {
+            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false").assert("false")
+            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false").assert("true")
+            "TEST".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false", ignoreCase = true)
+                .assert("false")
+            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false", ignoreCase = true)
+                .assert("true")
+        }
+
+    }
+
+    class StringReplaceIfOrCondition {
+        @Test
+        fun empty() {
+            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("")
+            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("")
+        }
+
+        @Test
+        fun notFound() {
+            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("abc")
+            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("abc")
+            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("TEST")
+        }
+
+        @Test
+        fun found() {
+            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("false")
+            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("true")
+            "TEST".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }, ignoreCase = true)
+                .assert("false")
+            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }, ignoreCase = true)
+                .assert("true")
+        }
+    }
+
 }

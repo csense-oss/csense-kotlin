@@ -9,7 +9,7 @@ import csense.kotlin.extensions.primitives.*
 
 
 public typealias Function2Unit<T, U> = (first: T, second: U) -> Unit
-public typealias Function2IndexedUnit<T, U> = (index: @IntLimit(from = 0) Int, first: T, second: U) -> Unit
+public typealias Function2IndexedUnit<T, U> = (indexOfFirst: @IntLimit(from = 0) Int, first: T, second: U) -> Unit
 
 
 //region backwards

@@ -113,20 +113,22 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesPetaBitToTeraBits() {
-        //TODO make me.
-
+        BinaryBitSizes.PetaBit(0).toTeraBits().assert(0)
+        BinaryBitSizes.PetaBit(1).toTeraBits().assert(1024)
     }
 
     @Test
     fun binaryBitSizesPetaBitToPetaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.PetaBit(0).toPetaBytes().assert(0)
+        BinaryBitSizes.PetaBit(1).toPetaBytes().assert(0)
+        BinaryBitSizes.PetaBit(8).toPetaBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesPetaByteToTeraBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.PetaByte(1).toTeraBytes().assert(1024)
+        BinaryBitSizes.PetaByte(0).toTeraBytes().assert(0)
+        BinaryBitSizes.PetaByte(2).toTeraBytes().assert(2048)
     }
 
     @Test
@@ -155,7 +157,9 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesTeraByteToGigaBytes() {
-        //TODO make me.
+        BinaryBitSizes.PetaByte(1).toTeraBytes().assert(1024)
+        BinaryBitSizes.PetaByte(0).toTeraBytes().assert(0)
+        BinaryBitSizes.PetaByte(2).toTeraBytes().assert(2048)
 
     }
 
@@ -185,7 +189,9 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesGigaBitToMegaBits() {
-        //TODO make me.
+        BinaryBitSizes.GigaBit(1).toMegaBits().assert(1024)
+        BinaryBitSizes.GigaBit(0).toMegaBits().assert(0)
+        BinaryBitSizes.GigaBit(2).toMegaBits().assert(2048)
 
     }
 
@@ -203,8 +209,9 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesGigaByteToMegaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.GigaByte(1).toMegaBytes().assert(1024)
+        BinaryBitSizes.GigaByte(0).toMegaBytes().assert(0)
+        BinaryBitSizes.GigaByte(2).toMegaBytes().assert(2048)
     }
 
     @Test
