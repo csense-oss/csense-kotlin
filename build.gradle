@@ -8,7 +8,7 @@ buildscript {
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.46"
+    ext.csenseVersionName = "0.0.46-snapshot.2"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -28,10 +28,11 @@ buildscript {
 
 
 plugins {
+    id "net.linguica.maven-settings" version "0.5"
     id 'org.jetbrains.kotlin.multiplatform' version "1.4.31"
-    id("org.jetbrains.dokka") version "0.10.0"
+    id("org.jetbrains.dokka") version "1.4.20"
     id "maven-publish"
-    id 'kotlinx.benchmark' version "0.2.0-dev-20"
+    id 'org.jetbrains.kotlinx.benchmark' version '0.3.0'
 }
 
 repositories {
@@ -113,23 +114,9 @@ jvmTest {
     }
 }
 
-
-//required for the dokka.
-
-task docJvm(type: org.jetbrains.dokka.gradle.DokkaTask) {
-
-    outputFormat = 'javadoc'
-
-    outputDirectory = "$buildDir/doc_jvm"
-
-    impliedPlatforms = ["Common"] // This will force platform tags for all non-common sources e.g. "JVM"
-}
-
-
 project.group = csenseGroupId
 project.version = csenseVersionName
 
-apply from: "$rootDir/gradle/dokka.gradle"
 apply from: "$rootDir/gradle/publish.gradle"
 
 task uploadProd(dependsOn: ["assemble", "allTests", "publish"])
@@ -139,7 +126,8 @@ benchmark {
     targets {
         register("jvmTest") {
             //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
-            jmhVersion = "1.27" // available only for JVM compilations & Java source sets
+            jmhVersion = "1.28" // available only for JVM compilations & Java source sets
         }
     }
 }
+

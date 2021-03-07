@@ -4,17 +4,10 @@ apply plugin: "maven-publish"
 afterEvaluate {
     project.publishing.publications.all {
         groupId = group
-
-        // add empty javadocs
-        if (it.name != "kotlinMultiplatform") {
-            it.artifact(jvmJavadoc)
-        }
-
         // Rename MPP artifacts for backward compatibility
         def type = it.name
         switch (type) {
             case 'kotlinMultiplatform':
-                it.artifact(metadataSourcesJar)
                 // With Kotlin 1.4 & HMPP, the root module should have no suffix in the ID, but for compatibility with
                 // the consumers who can't read Gradle module metadata, we publish the JVM artifacts in it, too
                 it.artifactId = project.name
@@ -68,16 +61,10 @@ publishing {
     }
     repositories {
         maven {
-            url = "https://api.bintray.com/maven/${csenseUserOrg}/${csenseRepoName}/${csenseArtifactId}/;publish=0"
-            credentials {
-                Properties properties = new Properties()
-                try {
-                    properties.load(project.rootProject.file('local.properties')?.newDataInputStream())
-                    username = properties.getProperty('bintrayUser')
-                    password = properties.getProperty('bintrayApiKey')
-                } catch (Exception ignored) {
-                    print "could not read local.properties"
-                }
+            url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
+            name 'csense-oss'
+            authentication {
+                basic(BasicAuthentication)
             }
         }
     }
