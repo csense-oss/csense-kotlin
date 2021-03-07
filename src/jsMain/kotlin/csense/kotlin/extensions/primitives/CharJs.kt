@@ -59,7 +59,7 @@ public actual inline fun Char.isUpperCaseLetter(): Boolean {
  * @return [Boolean]
  */
 public actual inline fun Char.isLowerCaseLetter(): Boolean {
-    if (isNotLetter() && isWhitespace()) {
+    if (isNotLetter()) {
         return false
     }
     return toLowerCase().equals(this, false)
