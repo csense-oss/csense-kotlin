@@ -1,10 +1,10 @@
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.coroutines.*
-import csense.kotlin.test.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlin.test.*
+
 //see https://github.com/Kotlin/kotlinx.coroutines/issues/1996 for Main issue(s)
 class CoroutineScopeTest {
 
@@ -19,7 +19,6 @@ class CoroutineScopeTest {
     }
 
 
-
     @Test
     fun coroutineScopeWithContextDefault() = runBlockingTest {
         withContextDefault {
@@ -27,7 +26,6 @@ class CoroutineScopeTest {
             "result"
         }.assert("result")
     }
-
 
 
     @Test
@@ -39,8 +37,9 @@ class CoroutineScopeTest {
             }.join()
         }
     }
+
     @Test
-    fun coroutineScopeWithContextMain(){
+    fun coroutineScopeWithContextMain() {
         @Suppress("UNUSED_VARIABLE") val x = 0 //Due to platform dependent tests
     }
 

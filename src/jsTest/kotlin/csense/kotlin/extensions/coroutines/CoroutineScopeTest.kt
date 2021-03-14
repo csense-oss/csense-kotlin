@@ -1,7 +1,6 @@
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.coroutines.*
-import csense.kotlin.test.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlin.test.*

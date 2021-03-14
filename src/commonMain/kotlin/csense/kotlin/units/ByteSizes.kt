@@ -4,7 +4,6 @@ package csense.kotlin.units
 
 import csense.kotlin.annotations.numbers.*
 
-//TODO use inline classes when able
 /**
  * Base 2 implementation of the math between bit  / byte and various sizes
  * A list of measurements of binary sizes.

@@ -70,8 +70,7 @@ class CoroutinesTest {
                     it
                 }
                 lst.assertSize(2)
-                lst.assertContains("input1")
-                lst.assertContains("input2")
+                lst.assertContainsAll("input1", "input2")
             }
         }
     }

@@ -1,14 +1,14 @@
 buildscript {
 
     ext.coroutinesVersion = "1.4.3"
-    ext.junit5Version = "5.7.0"
-    ext.csenseTestsVersion = "0.0.45"
-    ext.csenseAnnotationVersion = "0.0.40"
+    ext.junit5Version = "5.7.1"
+    ext.csenseTestsVersion = "0.0.46"
+    ext.csenseAnnotationVersion = "0.0.41"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
     ext.csenseRepoName = "maven"
-    ext.csenseVersionName = "0.0.46-snapshot.2"
+    ext.csenseVersionName = "0.0.46"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseGithub = "csense-oss/csense-kotlin"
@@ -37,10 +37,10 @@ plugins {
 
 repositories {
     jcenter()
-    maven { url "https://dl.bintray.com/csense-oss/maven" }
-    maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
+    maven {
+        url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
+        name 'csense-oss'
+    }
 }
 
 kotlin {

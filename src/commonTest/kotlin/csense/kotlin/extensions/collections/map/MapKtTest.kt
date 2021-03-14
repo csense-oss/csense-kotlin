@@ -125,10 +125,7 @@ class MapKtTest {
             val mapped = mapOf("test" to "1234").toMapViaKeyValuePair {
                 toAssert
             }
-            mapped.assertSingle {//TODO update with newer test version
-                it.key.assert(toAssert.first)
-                it.value.assert(toAssert.second)
-            }
+            mapped.assertSingle(toAssert)
         }
 
         @Test
