@@ -455,7 +455,6 @@ class StringTest {
 
     @Test
     fun stringDoesNotEndsWithAnySubStrings() {
-        //TODO make me.
         "".doesNotEndsWithAny("").assertFalse("ends with nothing")
         "".doesNotEndsWithAny("", "").assertFalse("ends with nothing, no matter how many times you ask")
 
@@ -579,7 +578,7 @@ class StringTest {
     class StringForEachBackwards {
         @Test
         fun empty() {
-            "".forEachBackwards { _ ->
+            "".forEachBackwards {
                 shouldNotBeCalled()
             }
         }
@@ -595,7 +594,7 @@ class StringTest {
 
         @Test
         fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled ->
-            "abc".forEachBackwards { _ ->
+            "abc".forEachBackwards {
                 shouldBeCalled()
             }
         }
@@ -626,7 +625,7 @@ class StringTest {
 
     }
 
-    class StringDoesNotStartsWithAnySubStrings{
+    class StringDoesNotStartsWithAnySubStrings {
         @Test
         fun emptyString() {
             "".doesNotStartsWithAny(subStrings = arrayOf("test")).assertTrue("empty does not start with something")
@@ -653,10 +652,10 @@ class StringTest {
 
     @Test
     fun stringForeach2Indexed() {
-        "".foreach2Indexed { indexOfFirst, first, second ->
+        "".foreach2Indexed { _, _, _ ->
             shouldNotBeCalled()
         }
-        "a".foreach2Indexed { indexOfFirst, first, second ->
+        "a".foreach2Indexed { _, _, _ ->
             shouldNotBeCalled()
         }
         assertCalled { shouldBeCalled ->

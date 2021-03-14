@@ -3,6 +3,9 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.classes.*
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.map.foreachBackwards
+import csense.kotlin.extensions.collections.set.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
@@ -141,6 +144,122 @@ class MapKtTest {
 
             mapped["a"].assertNotNullAndEquals(21)
             mapped["b"].assertNotNullAndEquals(22)
+        }
+    }
+
+    class MapOrgKeyOrgValueToMapViaMapEntry {
+        @Test
+        fun empty() {
+            mapOf<Int, Int>().toMapViaMapEntry<Int, Int, Int, Int> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            mapOf(0 to 1).toMapViaMapEntry {
+                MapEntry(it.key, it.value)
+            }.assertSingle {
+                it.key.assert(0)
+                it.value.assert(1)
+            }
+            mapOf(0 to 1).toMapViaMapEntry {
+                MapEntry(10, 20)
+            }.assertSingle {
+                it.key.assert(10)
+                it.value.assert(20)
+            }
+
+        }
+
+        @Test
+        fun multipleDirect() {
+            val result = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
+                MapEntry(it.key, it.value)
+            }
+
+            result.assertSize(2)
+            result.assertContainsKeyAnd(0) { value ->
+                value.assert(1)
+            }
+            result.assertContainsKeyAnd(10) { value ->
+                value.assert(20)
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val result = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
+                MapEntry(0, 30)
+            }
+
+            result.assertSingle {
+                it.key.assert(0)
+                it.value.assert(30)
+            }
+        }
+
+    }
+
+    class MapOrgKeyOrgValueToMapViaKeyValuePair {
+        @Test
+        fun empty() {
+            mapOf<Int, Int>().toMapViaKeyValuePair<Int, Int, Int, Int> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            mapOf(0 to 1).toMapViaKeyValuePair {
+                it.key to it.value
+            }.assertSingle {
+                it.key.assert(0)
+                it.value.assert(1)
+            }
+            mapOf(0 to 1).toMapViaKeyValuePair {
+                10 to 20
+            }.assertSingle {
+                it.key.assert(10)
+                it.value.assert(20)
+            }
+
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val result = mapOf(0 to 1, 10 to 20).toMapViaKeyValuePair {
+                0 to 10
+            }
+
+            result.assertSingle {
+                it.key.assert(0)
+                it.value.assert(10)
+            }
+        }
+    }
+
+    class MapKVForeachBackwards {
+
+        @Test
+        fun empty() {
+            mapOf<String, String>().foreachBackwards { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() = assertCalled { shouldBeCalled ->
+            mapOf("test" to "1234").foreachBackwards {
+                it.key.assert("test")
+                it.value.assert("1234")
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            var haveCalled = false
+            mapOf("first" to 0, "last" to 1).foreachBackwards {
+                it.key.assert(haveCalled.map("first", "last"))
+                it.value.assert(haveCalled.map(0, 1))
+                haveCalled = true
+                shouldBeCalled()
+            }
         }
     }
 }

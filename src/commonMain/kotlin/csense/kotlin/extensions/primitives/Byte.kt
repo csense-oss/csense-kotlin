@@ -4,7 +4,6 @@ package csense.kotlin.extensions.primitives
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.number.*
-import kotlin.experimental.*
 
 
 //region Zero, negative, positive
@@ -121,8 +120,12 @@ public inline infix fun Byte.shr(shift: Int): Byte =
  */
 public fun <T> Byte.toChars(
     action: (upperChar: Char, lowerChar: Char) -> T
-): T = splitIntoComponents { upperByte, lowerByte ->
-    action(ByteExtensions.hexCharsAsString[upperByte.toInt()], ByteExtensions.hexCharsAsString[lowerByte.toInt()])
+): T {
+    val (upper: Byte, lower: Byte) = bitOperations.splitIntoNibbles()
+    return action(
+        ByteExtensions.hexCharsAsString[upper.toInt()],
+        ByteExtensions.hexCharsAsString[lower.toInt()]
+    )
 }
 
 /**

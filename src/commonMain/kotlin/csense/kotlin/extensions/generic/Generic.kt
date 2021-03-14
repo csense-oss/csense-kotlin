@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.generic
 
 import csense.kotlin.Function0

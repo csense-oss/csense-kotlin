@@ -13,6 +13,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @param action [Function2IndexedUnit]<T, T>
  * @timecomplexity O(N)
  */
+@Deprecated("will be removed")
 public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(
         size,
@@ -26,6 +27,7 @@ public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>)
  * @param action [Function2Unit]<T, T>
  * @timecomplexity O(N)
  */
+@Deprecated("will be removed")
 public inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 

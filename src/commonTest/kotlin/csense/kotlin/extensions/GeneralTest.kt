@@ -41,6 +41,7 @@ class GeneralTest {
         optStringCounter.assert(1, "should run the ifNull Callback")
 
         var stringCounter = 0
+
         @Suppress("RedundantNullableReturnType")
         val stringValue: String? = "magic test"
         stringValue.useOr({ stringCounter += length }, { failTest("magic test is not null") })
@@ -102,7 +103,8 @@ class GeneralTest {
 
     @Test
     fun anyCastMap() {
-        
-
+        "".castMap<String, Int> { 32 }.assertNotNullAndEquals(32)
+        "".castMap<Int, Int> { 32 }.assertNull()
+        80.castMap<Number, Int> { this.toInt() }.assertNotNullAndEquals(80)
     }
 }

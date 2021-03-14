@@ -236,6 +236,7 @@ public inline fun String.skipStartsWith(
  * @receiver [String]
  * @param action (first: [Char], second: [Char]) -> Unit
  */
+@Deprecated("will be removed")
 public inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
     GenericCollectionExtensions.forEach2(length, this::get, action)
 
@@ -244,6 +245,7 @@ public inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
  * @receiver [String]
  * @param action (first: [Char], second: [Char]) -> Unit
  */
+@Deprecated("will be removed")
 public inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
     GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
 //endregion
@@ -273,7 +275,7 @@ public inline fun String.fromHexStringToByteArray(): ShortArray? {
 
 
 //region Does not starts with
-//TODO comment.
+
 
 /**
  * Tells if this string does not start with the given [prefix]

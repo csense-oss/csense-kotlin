@@ -29,6 +29,7 @@ public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int)
  * @receiver [List]<T>
  * @param action [Function2IndexedUnit]<T, T>
  */
+@Deprecated("will be removed")
 public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
     GenericCollectionExtensions.forEach2Indexed(size, this.entries::elementAt, action)
 
@@ -37,6 +38,7 @@ public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<
  * @receiver [List]<T>
  * @param action [Function2Unit]<T, T>
  */
+@Deprecated("will be removed")
 public inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
     GenericCollectionExtensions.forEach2(size, this.entries::elementAt, action)
 

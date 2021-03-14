@@ -18,6 +18,7 @@ class MppTest {
                 )
             ).assertNotNullAndEquals("ab")
         }
+
         @Test
         fun singleInsertBefore() {
             "a".mpp.insertInto(
@@ -46,5 +47,14 @@ class MppTest {
         }
 
 
+    }
+
+    @Test
+    fun stringMpp() {
+        val first = "".mpp
+        val second = " ".mpp
+        first.string.assert("")
+        second.string.assert(" ")
+        assertNotEquals(first, second)
     }
 }

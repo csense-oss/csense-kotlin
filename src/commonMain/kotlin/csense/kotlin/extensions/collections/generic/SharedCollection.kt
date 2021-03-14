@@ -3,13 +3,14 @@ package csense.kotlin.extensions.collections.generic
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.primitives.*
 
 
 /**
  * Joins the item from the given [toJoinAction] between [itemsBetweenJoins] into a single [List].
  * @param itemsBetweenJoins [Int] how many items there should be between a join. a join can not be the first or last item in the result
  * @param toJoinAction [T] the action producing what to join in between the items
- * @param size [Int] the size of the "getter"'s collection
+ * @param size [Int] the size of the "getter"'s collection (if size is 0 then the builderType will be called with 0 index anyway)
  * @param getter [GenericGetterIndexMethod]<[T]> the collection to get the starting items from
  * @param builderType
  * @return [List]<T> the resulting list by joining the starting items with the [toJoinAction]
@@ -18,10 +19,13 @@ import csense.kotlin.extensions.collections.*
 public inline fun <reified T, reified U> GenericCollectionExtensions.joinEveryAction(
     @IntLimit(from = 1) itemsBetweenJoins: Int,
     crossinline toJoinAction: Function0R<T>,
-    size: Int,
+    @IntLimit(from = 1) size: Int,
     crossinline getter: GenericGetterIndexMethod<T>,
-    crossinline builderType: Function2<Int, Function1<Int, T>, U>
+    crossinline builderType: Function2<Int, Function1<@IntLimit(from = 1) Int, T>, U>
 ): U {
+    if (itemsBetweenJoins.isNegativeOrZero) {
+        return builderType(size) { getter(it) }
+    }
     val numberOfJoins = (size - 1).div(itemsBetweenJoins)
     if (numberOfJoins <= 0) {
         return builderType(size) { getter(it) }

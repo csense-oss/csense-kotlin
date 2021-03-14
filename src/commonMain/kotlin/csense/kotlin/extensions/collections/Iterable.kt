@@ -4,7 +4,6 @@ package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.extensions.collections.generic.*
 import kotlin.contracts.*
 
@@ -78,7 +77,7 @@ public inline fun <I1, I2, I3, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  */
 @OptIn(ExperimentalContracts::class)
 public inline fun <I1, I2, I3, I4, O>
@@ -86,20 +85,20 @@ public inline fun <I1, I2, I3, I4, O>
     firstElement: Function0R<I1>,
     secondElement: Function0R<I2>,
     thirdElement: Function0R<I3>,
-    forthElement: Function0R<I4>
+    fourthElement: Function0R<I4>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
-        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(fourthElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
         invokeEachWith(
             firstElement(),
             secondElement(),
             thirdElement(),
-            forthElement()
+            fourthElement()
         )
     }
 }
@@ -110,7 +109,7 @@ public inline fun <I1, I2, I3, I4, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  * @param fifthElement I5
  */
 @OptIn(ExperimentalContracts::class)
@@ -119,14 +118,14 @@ public inline fun <I1, I2, I3, I4, I5, O>
     firstElement: Function0R<I1>,
     secondElement: Function0R<I2>,
     thirdElement: Function0R<I3>,
-    forthElement: Function0R<I4>,
+    fourthElement: Function0R<I4>,
     fifthElement: Function0R<I5>
 ) {
     contract {
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
-        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(fourthElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(fifthElement, InvocationKind.AT_MOST_ONCE)
     }
     skipIfEmptyOr {
@@ -134,7 +133,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
             firstElement(),
             secondElement(),
             thirdElement(),
-            forthElement(),
+            fourthElement(),
             fifthElement()
         )
     }
@@ -146,7 +145,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  * @param fifthElement I5
  * @param sixthElement I6
  */
@@ -156,7 +155,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
     firstElement: Function0R<I1>,
     secondElement: Function0R<I2>,
     thirdElement: Function0R<I3>,
-    forthElement: Function0R<I4>,
+    fourthElement: Function0R<I4>,
     fifthElement: Function0R<I5>,
     sixthElement: Function0R<I6>
 ) {
@@ -164,7 +163,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
         callsInPlace(firstElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(secondElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(thirdElement, InvocationKind.AT_MOST_ONCE)
-        callsInPlace(forthElement, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(fourthElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(fifthElement, InvocationKind.AT_MOST_ONCE)
         callsInPlace(sixthElement, InvocationKind.AT_MOST_ONCE)
     }
@@ -173,7 +172,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
             firstElement(),
             secondElement(),
             thirdElement(),
-            forthElement(),
+            fourthElement(),
             fifthElement(),
             sixthElement()
         )
@@ -244,7 +243,7 @@ public inline fun <I1, I2, I3, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  */
 
 public inline fun <I1, I2, I3, I4, O>
@@ -252,14 +251,14 @@ public inline fun <I1, I2, I3, I4, O>
     firstElement: I1,
     secondElement: I2,
     thirdElement: I3,
-    forthElement: I4
+    fourthElement: I4
 ): Unit =
     forEach {
         it(
             firstElement,
             secondElement,
             thirdElement,
-            forthElement
+            fourthElement
         )
     }
 
@@ -269,7 +268,7 @@ public inline fun <I1, I2, I3, I4, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  * @param fifthElement I5
  */
 
@@ -278,7 +277,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
     firstElement: I1,
     secondElement: I2,
     thirdElement: I3,
-    forthElement: I4,
+    fourthElement: I4,
     fifthElement: I5
 ): Unit =
     forEach {
@@ -286,7 +285,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
             firstElement,
             secondElement,
             thirdElement,
-            forthElement,
+            fourthElement,
             fifthElement
         )
     }
@@ -297,7 +296,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
  * @param firstElement I1
  * @param secondElement I2
  * @param thirdElement I3
- * @param forthElement I4
+ * @param fourthElement I4
  * @param fifthElement I5
  * @param sixthElement I6
  */
@@ -307,7 +306,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
     firstElement: I1,
     secondElement: I2,
     thirdElement: I3,
-    forthElement: I4,
+    fourthElement: I4,
     fifthElement: I5,
     sixthElement: I6
 ): Unit =
@@ -316,7 +315,7 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
             firstElement,
             secondElement,
             thirdElement,
-            forthElement,
+            fourthElement,
             fifthElement,
             sixthElement
         )
@@ -366,6 +365,7 @@ public class CollectionPartition<out E>(
  * @receiver [List]<T>
  * @param action [Function2IndexedUnit]<T, T>
  */
+@Deprecated("will be removed")
 public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -374,6 +374,7 @@ public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T
  * @receiver [List]<T>
  * @param action [Function2Unit]<T, T>
  */
+@Deprecated("will be removed")
 public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

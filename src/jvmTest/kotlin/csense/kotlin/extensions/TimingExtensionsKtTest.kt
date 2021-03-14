@@ -1,8 +1,6 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertLargerOrEqualTo
-import csense.kotlin.tests.assertions.assertLessThan
+import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test

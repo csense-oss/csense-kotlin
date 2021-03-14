@@ -133,26 +133,30 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesPetaByteToPetaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.PetaByte(1).toPetaBits().assert(8)
+        BinaryBitSizes.PetaByte(0).toPetaBits().assert(0)
+        BinaryBitSizes.PetaByte(2).toPetaBits().assert(16)
     }
 
     @Test
     fun binaryBitSizesTeraBitToGigaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.TeraBit(1).toGigaBits().assert(1024)
+        BinaryBitSizes.TeraBit(0).toGigaBits().assert(0)
+        BinaryBitSizes.TeraBit(8).toGigaBits().assert(8192)
     }
 
     @Test
     fun binaryBitSizesTeraBitToTeraBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.TeraBit(0).toTeraBytes().assert(0)
+        BinaryBitSizes.TeraBit(1).toTeraBytes().assert(0)
+        BinaryBitSizes.TeraBit(8).toTeraBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesTeraBitToPetaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.TeraBit(0).toPetaBits().assert(0)
+        BinaryBitSizes.TeraBit(1).toPetaBits().assert(0)
+        BinaryBitSizes.TeraBit(1024).toPetaBits().assert(1)
     }
 
     @Test
@@ -165,26 +169,29 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesTeraByteToTeraBits() {
-        //TODO make me.
-
+        BinaryBitSizes.TeraByte(0).toTeraBits().assert(0)
+        BinaryBitSizes.TeraByte(1).toTeraBits().assert(8)
     }
 
     @Test
     fun binaryBitSizesTeraByteToPetaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.TeraByte(0).toPetaBytes().assert(0)
+        BinaryBitSizes.TeraByte(1).toPetaBytes().assert(0)
+        BinaryBitSizes.TeraByte(1024).toPetaBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesGigaBitToTeraBits() {
-        //TODO make me.
-
+        BinaryBitSizes.GigaBit(0).toTeraBits().assert(0)
+        BinaryBitSizes.GigaBit(1).toTeraBits().assert(0)
+        BinaryBitSizes.GigaBit(1024).toTeraBits().assert(1)
     }
 
     @Test
     fun binaryBitSizesGigaBitToGigaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.GigaBit(0).toGigaBytes().assert(0)
+        BinaryBitSizes.GigaBit(1).toGigaBytes().assert(0)
+        BinaryBitSizes.GigaBit(8).toGigaBytes().assert(1)
     }
 
     @Test
@@ -197,14 +204,16 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesGigaByteToTeraBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.GigaByte(0).toTeraBytes().assert(0)
+        BinaryBitSizes.GigaByte(1).toTeraBytes().assert(0)
+        BinaryBitSizes.GigaByte(1024).toTeraBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesGigaByteToGigaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.GigaByte(0).toGigaBits().assert(0)
+        BinaryBitSizes.GigaByte(1).toGigaBits().assert(8)
+        BinaryBitSizes.GigaByte(2).toGigaBits().assert(16)
     }
 
     @Test
@@ -216,86 +225,101 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesMegaBitToGigaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaBit(0).toGigaBits().assert(0)
+        BinaryBitSizes.MegaBit(1).toGigaBits().assert(0)
+        BinaryBitSizes.MegaBit(1024).toGigaBits().assert(1)
     }
 
     @Test
     fun binaryBitSizesMegaBitToKiloBits() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaBit(0).toKiloBits().assert(0)
+        BinaryBitSizes.MegaBit(1).toKiloBits().assert(1024)
+        BinaryBitSizes.MegaBit(2).toKiloBits().assert(2048)
     }
 
     @Test
     fun binaryBitSizesMegaBitToMegaByte() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaBit(2).toMegaByte().assert(0)
+        BinaryBitSizes.MegaBit(0).toMegaByte().assert(0)
+        BinaryBitSizes.MegaBit(8).toMegaByte().assert(1)
     }
 
     @Test
     fun binaryBitSizesMegaByteToMegaBit() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaByte(0).toMegaBit().assert(0)
+        BinaryBitSizes.MegaByte(1).toMegaBit().assert(8)
+        BinaryBitSizes.MegaByte(2).toMegaBit().assert(16)
     }
 
     @Test
     fun binaryBitSizesMegaByteToGigaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaByte(0).toGigaBytes().assert(0)
+        BinaryBitSizes.MegaByte(1).toGigaBytes().assert(0)
+        BinaryBitSizes.MegaByte(1024).toGigaBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesMegaByteToKiloBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.MegaByte(0).toKiloBytes().assert(0)
+        BinaryBitSizes.MegaByte(1).toKiloBytes().assert(1024)
+        BinaryBitSizes.MegaByte(2).toKiloBytes().assert(2048)
     }
 
     @Test
     fun binaryBitSizesKiloBitToMegaBits() {
-        //TODO make me.
-
+        BinaryBitSizes.KiloBit(0).toMegaBits().assert(0)
+        BinaryBitSizes.KiloBit(1).toMegaBits().assert(0)
+        BinaryBitSizes.KiloBit(1024).toMegaBits().assert(1)
     }
 
     @Test
     fun binaryBitSizesKiloBitToBits() {
-        //TODO make me.
+        BinaryBitSizes.KiloBit(0).toMegaBits().assert(0)
+        BinaryBitSizes.KiloBit(1).toMegaBits().assert(0)
+        BinaryBitSizes.KiloBit(1024).toMegaBits().assert(1)
 
     }
 
     @Test
     fun binaryBitSizesKiloBitToKiloBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.KiloBit(0).toKiloBytes().assert(0)
+        BinaryBitSizes.KiloBit(1).toKiloBytes().assert(0)
+        BinaryBitSizes.KiloBit(8).toKiloBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesKiloByteToMegaBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.KiloByte(0).toMegaBytes().assert(0)
+        BinaryBitSizes.KiloByte(1).toMegaBytes().assert(0)
+        BinaryBitSizes.KiloByte(1024).toMegaBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesKiloByteToBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.KiloByte(0).toBytes().assert(0)
+        BinaryBitSizes.KiloByte(1).toBytes().assert(1024)
+        BinaryBitSizes.KiloByte(2).toBytes().assert(2048)
     }
 
     @Test
     fun binaryBitSizesKiloByteToKiloBits() {
-        //TODO make me.
-
+        BinaryBitSizes.KiloByte(0).toKiloBits().assert(0)
+        BinaryBitSizes.KiloByte(1).toKiloBits().assert(8)
+        BinaryBitSizes.KiloByte(2).toKiloBits().assert(16)
     }
 
     @Test
     fun binaryBitSizesByteToKiloBytes() {
-        //TODO make me.
-
+        BinaryBitSizes.Byte(0).toKiloBytes().assert(0)
+        BinaryBitSizes.Byte(1).toKiloBytes().assert(0)
+        BinaryBitSizes.Byte(1024).toKiloBytes().assert(1)
     }
 
     @Test
     fun binaryBitSizesByteToBits() {
-        //TODO make me.
-
+        BinaryBitSizes.Byte(0).toBits().assert(0)
+        BinaryBitSizes.Byte(1).toBits().assert(8)
+        BinaryBitSizes.Byte(2).toBits().assert(16)
     }
 
     @Test
@@ -305,7 +329,6 @@ class ByteSizesTest {
         BinaryBitSizes.Bit(1024).toKiloBits().assert(1)
         BinaryBitSizes.Bit(1025).toKiloBits().assert(1)
         BinaryBitSizes.Bit(2048).toKiloBits().assert(2)
-
     }
 
     @Test
@@ -315,7 +338,6 @@ class ByteSizesTest {
         BinaryBitSizes.Bit(8).toBytes().assert(1)
         BinaryBitSizes.Bit(9).toBytes().assert(1)
         BinaryBitSizes.Bit(16).toBytes().assert(2)
-
     }
 }
 

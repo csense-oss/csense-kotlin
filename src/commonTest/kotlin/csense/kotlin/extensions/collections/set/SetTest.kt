@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.set
 
+import csense.kotlin.extensions.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -188,4 +189,28 @@ class SetTest {
     }
 
 
+    class SetTForeachBackwards {
+        @Test
+        fun empty() {
+            setOf<String>().foreachBackwards { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() = assertCalled { shouldBeCalled ->
+            setOf("test").foreachBackwards {
+                it.assert("test")
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            var haveCalled = false
+            setOf("first", "last").foreachBackwards {
+                it.assert(haveCalled.map("first", "last"))
+                haveCalled = true
+                shouldBeCalled()
+            }
+        }
+    }
 }

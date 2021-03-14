@@ -22,12 +22,14 @@ public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Uni
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
+@Deprecated("will be removed")
 public inline fun <T> Array<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
+@Deprecated("will be removed")
 public inline fun <T> Array<T>.forEach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

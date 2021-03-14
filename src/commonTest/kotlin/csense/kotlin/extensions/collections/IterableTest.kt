@@ -44,98 +44,269 @@ class IterableTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function1<String, String>>({
+                it.assert("input")
+                shouldBeCalled()
+                ""
+            }).invokeEachWith("input")
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function1<String, String>>({
+                it.assert("input")
+                shouldBeCalled()
+                "R1"
+            }, {
+                it.assert("input")
+                shouldBeCalled()
+                "R2"
+            }).invokeEachWith("input")
         }
     }
 
     class IterableFunction2I1I2OInvokeEachWithFirstElement {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<Function2<String, String, String>>().invokeEachWith("", "")
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function2<String, String, String>>({ first, second ->
+                first.assert("f")
+                second.assert("s")
+                shouldBeCalled()
+                "R"
+            }).invokeEachWith("f", "s")
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function2<String, String, String>>({ first, second ->
+                first.assert("f")
+                second.assert("s")
+                shouldBeCalled()
+                "R1"
+            }, { first, second ->
+                first.assert("f")
+                second.assert("s")
+                shouldBeCalled()
+                "R2"
+            }).invokeEachWith("f", "s")
         }
     }
 
     class IterableFunction3I1I2I3OInvokeEachWithFirstElement {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<Function3<String, String, String, String>>()
+                .invokeEachWith("", "", "")
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function3<String, String, String, String>>({ first, second, third ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                shouldBeCalled()
+                "R"
+            }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t"
+            )
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function3<String, String, String, String>>({ first, second, third ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                shouldBeCalled()
+                "R1"
+            }, { first, second, third ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                shouldBeCalled()
+                "R2"
+            }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t"
+            )
         }
     }
 
     class IterableFunction4I1I2I3I4OInvokeEachWithFirstElement {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<Function4<String, String, String, String, String>>()
+                .invokeEachWith("", "", "", "")
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                fourth.assert("fo")
+                shouldBeCalled()
+                "R"
+            }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo"
+            )
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                fourth.assert("fo")
+                shouldBeCalled()
+                "R1"
+            }, { first, second, third, fourth ->
+                first.assert("f")
+                second.assert("s")
+                third.assert("t")
+                fourth.assert("fo")
+                shouldBeCalled()
+                "R2"
+            }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo"
+            )
         }
     }
 
     class IterableFunction5I1I2I3I4I5OInvokeEachWithFirstElement {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<Function5<String, String, String, String, String, String>>()
+                .invokeEachWith("", "", "", "", "")
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function5<String, String, String, String, String, String>>(
+                { first, second, third, fourth, fifth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    shouldBeCalled()
+                    "R"
+                }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo",
+                fifthElement = "fi"
+            )
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function5<String, String, String, String, String, String>>(
+                { first, second, third, fourth, fifth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    shouldBeCalled()
+                    "R1"
+                },
+                { first, second, third, fourth, fifth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    shouldBeCalled()
+                    "R2"
+                }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo",
+                fifthElement = "fi"
+            )
         }
     }
 
     class IterableFunction6I1I2I3I4I5I6OInvokeEachWithFirstElement {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<Function6<String, String, String, String, String, String, String>>()
+                .invokeEachWith("", "", "", "", "", "")
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function6<String, String, String, String, String, String, String>>(
+                { first, second, third, fourth, fifth, sixth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    sixth.assert("si")
+                    shouldBeCalled()
+                    "R"
+                }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo",
+                fifthElement = "fi",
+                sixthElement = "si"
+            )
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function6<String, String, String, String, String, String, String>>(
+                { first, second, third, fourth, fifth, sixth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    sixth.assert("si")
+                    shouldBeCalled()
+                    "R1"
+                },
+                { first, second, third, fourth, fifth, sixth ->
+                    first.assert("f")
+                    second.assert("s")
+                    third.assert("t")
+                    fourth.assert("fo")
+                    fifth.assert("fi")
+                    sixth.assert("si")
+                    shouldBeCalled()
+                    "R2"
+                }).invokeEachWith(
+                firstElement = "f",
+                secondElement = "s",
+                thirdElement = "t",
+                fourthElement = "fo",
+                fifthElement = "fi",
+                sixthElement = "si"
+            )
         }
     }
     //endregion
@@ -148,13 +319,25 @@ class IterableTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function1<String, String>>({ first ->
+                first.assert("first")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy { "first" }
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function1<String, String>>({ first ->
+                first.assert("first")
+                shouldBeCalled()
+                "result"
+            }, { first ->
+                first.assert("first")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy { "first" }
         }
     }
 
@@ -162,17 +345,31 @@ class IterableTest {
         @Test
         fun empty() {
             listOf<Function2<String, String, String>>().invokeEachWithLazy(::shouldNotBeCalled, ::shouldNotBeCalled)
-            //TODO test empty condition here.
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function2<String, String, String>>({ first, second ->
+                first.assert("first")
+                second.assert("second")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy({ "first" }, { "second" })
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function2<String, String, String>>({ first, second ->
+                first.assert("first")
+                second.assert("second")
+                shouldBeCalled()
+                "result1"
+            }, { first, second ->
+                first.assert("first")
+                second.assert("second")
+                shouldBeCalled()
+                "result2"
+            }).invokeEachWithLazy({ "first" }, { "second" })
         }
     }
 
@@ -182,17 +379,34 @@ class IterableTest {
             listOf<Function3<String, String, String, String>>().invokeEachWithLazy(
                 ::shouldNotBeCalled, ::shouldNotBeCalled, ::shouldNotBeCalled
             )
-            //TODO test empty condition here.
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function3<String, String, String, String>>({ first, second, third ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" })
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function3<String, String, String, String>>({ first, second, third ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                shouldBeCalled()
+                "result1"
+            }, { first, second, third ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                shouldBeCalled()
+                "result2"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" })
         }
     }
 
@@ -205,13 +419,34 @@ class IterableTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" })
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                shouldBeCalled()
+                "result1"
+            }, { first, second, third, fourth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                shouldBeCalled()
+                "result2"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" })
         }
     }
 
@@ -224,13 +459,37 @@ class IterableTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function5<String, String, String, String, String, String>>({ first, second, third, fourth, fifth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" }, { "fifth" })
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function5<String, String, String, String, String, String>>({ first, second, third, fourth, fifth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                shouldBeCalled()
+                "result1"
+            }, { first, second, third, fourth, fifth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                shouldBeCalled()
+                "result2"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" }, { "fifth" })
         }
     }
 
@@ -244,13 +503,40 @@ class IterableTest {
         }
 
         @Test
-        fun single() {
-            //TODO test single element condition here.
+        fun single() = assertCalled { shouldBeCalled ->
+            listOf<Function6<String, String, String, String, String, String, String>>({ first, second, third, fourth, fifth, sixth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                sixth.assert("sixth")
+                shouldBeCalled()
+                "result"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" }, { "fifth" }, { "sixth" })
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            listOf<Function6<String, String, String, String, String, String, String>>({ first, second, third, fourth, fifth, sixth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                sixth.assert("sixth")
+                shouldBeCalled()
+                "result1"
+            }, { first, second, third, fourth, fifth, sixth ->
+                first.assert("first")
+                second.assert("second")
+                third.assert("third")
+                fourth.assert("fourth")
+                fifth.assert("fifth")
+                sixth.assert("sixth")
+                shouldBeCalled()
+                "result2"
+            }).invokeEachWithLazy({ "first" }, { "second" }, { "third" }, { "fourth" }, { "fifth" }, { "sixth" })
         }
     }
     //endregion
@@ -446,7 +732,7 @@ class IterableTest {
         nullLst.isNullOrEmpty().assertTrue()
         listOf<String>().isNullOrEmpty().assertTrue()
         listOf("").isNullOrEmpty().assertFalse()
-        listOf("","test2").isNullOrEmpty().assertFalse()
+        listOf("", "test2").isNullOrEmpty().assertFalse()
     }
 
     @Test
@@ -455,7 +741,7 @@ class IterableTest {
         nullLst.isNotNullOrEmpty().assertFalse()
         listOf<String>().isNotNullOrEmpty().assertFalse()
         listOf("").isNotNullOrEmpty().assertTrue()
-        listOf("","test2").isNotNullOrEmpty().assertTrue()
+        listOf("", "test2").isNotNullOrEmpty().assertTrue()
     }
 
     @Test
@@ -464,6 +750,40 @@ class IterableTest {
         nullLst.nullOnEmpty().assertNull()
         listOf<String>().nullOnEmpty().assertNull()
         listOf("").nullOnEmpty().assertNotNull()
-        listOf("","test2").nullOnEmpty().assertNotNull()
+        listOf("", "test2").nullOnEmpty().assertNotNull()
+    }
+
+    class IterableTForEachBackwards {
+        @Test
+        fun empty() {
+            val empty: Iterable<String> = listOf()
+            empty.forEachBackwards {
+                shouldNotBeCalled()
+            }
+        }
+
+        @Test
+        fun single() = assertCalled(times = 1) { shouldBeCalled ->
+            val single: Iterable<String> = listOf("test")
+            single.forEachBackwards {
+                it.assert("test")
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            var haveSeenLast = false
+            val multiple: Iterable<String> = listOf("first", "last")
+            multiple.forEachBackwards {
+                if (haveSeenLast) {
+                    it.assert("first")
+                } else {
+                    it.assert("last")
+                }
+                haveSeenLast = true
+                shouldBeCalled()
+            }
+        }
     }
 }

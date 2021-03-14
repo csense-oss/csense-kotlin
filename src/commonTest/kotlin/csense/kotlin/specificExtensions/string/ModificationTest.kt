@@ -37,4 +37,14 @@ class ModificationTest {
         "\"".modifications.wrapInQuotes().assert("\"\"\"")
         "yzz x".modifications.wrapInQuotes().assert("\"yzz x\"")
     }
+
+    @Test
+    fun stringModifications() {
+        val empty = "".modifications
+        val single = "a".modifications
+        empty.string.assert("")
+        single.string.assert("a")
+        assertNotEquals(empty, single)
+
+    }
 }

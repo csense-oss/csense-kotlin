@@ -1,7 +1,6 @@
 package csense.kotlin.coroutines
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.test.*
 import java.util.concurrent.*
 import kotlin.coroutines.*
 

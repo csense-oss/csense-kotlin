@@ -17,12 +17,14 @@ public inline fun <U> FloatArray.forEachDiscard(receiver: Function1<Float, U>): 
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
+@Deprecated("will be removed")
 public inline fun FloatArray.forEach2Indexed(action: Function2IndexedUnit<Float, Float>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
+@Deprecated("will be removed")
 public inline fun FloatArray.forEach2(action: Function2Unit<Float, Float>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

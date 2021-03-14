@@ -1,6 +1,6 @@
 buildscript {
 
-    ext.coroutinesVersion = "1.4.2"
+    ext.coroutinesVersion = "1.4.3"
     ext.junit5Version = "5.7.0"
     ext.csenseTestsVersion = "0.0.45"
     ext.csenseAnnotationVersion = "0.0.40"
@@ -37,7 +37,6 @@ plugins {
 
 repositories {
     jcenter()
-    mavenCentral()
     maven { url "https://dl.bintray.com/csense-oss/maven" }
     maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
@@ -64,7 +63,7 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
-                implementation 'org.jetbrains.kotlinx:kotlinx.benchmark.runtime:0.2.0-hmpp-1.4.0'
+                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.0"
             }
         }
         jvmMain {

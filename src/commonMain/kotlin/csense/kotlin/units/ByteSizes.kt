@@ -77,7 +77,7 @@ public fun BinaryBitSizes.KiloByte.toMegaBytes(): BinaryBitSizes.MegaByte =
 
 
 //kilobits
-public fun BinaryBitSizes.KiloBit.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBitSizes.KiloByte(value / prefixFactor)
+public fun BinaryBitSizes.KiloBit.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBitSizes.KiloByte(value / bitByteFactor)
 
 public fun BinaryBitSizes.KiloBit.toBits(): BinaryBitSizes.Bit = BinaryBitSizes.Bit(value * prefixFactor)
 public fun BinaryBitSizes.KiloBit.toMegaBits(): BinaryBitSizes.MegaBit = BinaryBitSizes.MegaBit(value / prefixFactor)
