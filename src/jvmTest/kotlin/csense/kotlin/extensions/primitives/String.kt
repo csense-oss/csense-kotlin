@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE", "RedundantVisibilityModifier")
+@file:Suppress("NOTHING_TO_INLINE", "RedundantVisibilityModifier", "unused")
 
 package csense.kotlin.extensions.primitives
 

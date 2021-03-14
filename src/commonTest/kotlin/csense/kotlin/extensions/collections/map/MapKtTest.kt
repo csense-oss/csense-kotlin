@@ -4,10 +4,8 @@ package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.classes.*
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.map.foreachBackwards
-import csense.kotlin.extensions.collections.set.*
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 
 class MapKtTest {

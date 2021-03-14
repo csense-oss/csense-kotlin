@@ -45,18 +45,18 @@ class LExtensionsKtTest {
     @Test
     fun testLogDebug() {
         val counter = WrappedInt()
-        L.debugLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "test", 1, counter))
-        logClassDebug("test")
+        L.debugLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogDebug", 1, counter))
+        logClassDebug("testLogDebug")
         counter.value.assertNotNullAndEquals(1)
     }
 
     @Test
     fun testLogError() {
         val counter = WrappedInt()
-        L.errorLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "abc", 3, counter))
-        logClassError("abc", null)
-        logClassError("abc", null)
-        logClassError("abc", null)
+        L.errorLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogError", 3, counter))
+        logClassError("testLogError", null)
+        logClassError("testLogError", null)
+        logClassError("testLogError", null)
         counter.value.assertNotNullAndEquals(3)
 
     }
@@ -64,9 +64,9 @@ class LExtensionsKtTest {
     @Test
     fun testLogWarning() {
         val counter = WrappedInt()
-        L.warningLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "1234", 2, counter))
-        logClassWarning("1234", null)
-        logClassWarning("1234", null)
+        L.warningLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogWarning", 2, counter))
+        logClassWarning("testLogWarning", null)
+        logClassWarning("testLogWarning", null)
         counter.value.assertNotNullAndEquals(2)
 
     }
@@ -74,9 +74,9 @@ class LExtensionsKtTest {
     @Test
     fun testLogProduction() {
         val counter = WrappedInt()
-        L.productionLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "message", 2, counter))
-        logClassProduction("message", null)
-        logClassProduction("message", null)
+        L.productionLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogProduction", 2, counter))
+        logClassProduction("testLogProduction", null)
+        logClassProduction("testLogProduction", null)
         counter.value.assertNotNullAndEquals(2)
     }
 
@@ -88,10 +88,12 @@ class LExtensionsKtTest {
         counter: WrappedInt
     ): LoggingFunctionType<Unit> {
         return { tag: String, value: String, _: Throwable? ->
-            counter.value += 1
-            expectedTag.assert(tag)
-            expectedMessage.assert(value)
-            maxCounter.assertLargerOrEqualTo(counter.value)
+            if (value == expectedMessage) {
+                counter.value += 1
+                expectedTag.assert(tag)
+                expectedMessage.assert(value)
+                maxCounter.assertLargerOrEqualTo(counter.value)
+            }
         }
     }
 
@@ -101,10 +103,10 @@ class LExtensionsKtTest {
         L.isDebugLoggingAllowed = true
         assertCounterAndContentOfLog(
             L.debugLoggers, {
-                L.debug(this::class, "test")
+                L.debug(this::class, "testLDebug")
             },
             "LExtensionsKtTest",
-            "test",
+            "testLDebug",
             null
         )
 
@@ -116,10 +118,10 @@ class LExtensionsKtTest {
         L.isWarningLoggingAllowed = true
         assertCounterAndContentOfLog(
             L.warningLoggers, {
-                L.warning(this::class, "test2")
+                L.warning(this::class, "testLWarning")
             },
             "LExtensionsKtTest",
-            "test2",
+            "testLWarning",
             null
         )
 
@@ -131,10 +133,10 @@ class LExtensionsKtTest {
         L.isErrorLoggingAllowed = true
         assertCounterAndContentOfLog(
             L.errorLoggers, {
-                L.error(this::class, "test3")
+                L.error(this::class, "testLError")
             },
             "LExtensionsKtTest",
-            "test3",
+            "testLError",
             null
         )
     }
@@ -145,10 +147,10 @@ class LExtensionsKtTest {
         val runtimeException = RuntimeException()
         assertCounterAndContentOfLog(
             L.productionLoggers, {
-                L.logProd(this::class, "log", runtimeException)
+                L.logProd(this::class, "testLProd", runtimeException)
             },
             "LExtensionsKtTest",
-            "log",
+            "testLProd",
             runtimeException
         )
     }
@@ -163,11 +165,12 @@ class LExtensionsKtTest {
         var counter = 0
         loggers.clear()
         loggers.add { tag: String, message: String, throwable: Throwable? ->
-            tag.assert(expectedTag)
-            message.assert(expectedMessage)
-            (expectedThrowable == throwable).assertTrue()
-            counter += 1
-            @Suppress("RedundantUnitExpression") //idea thinks this can be removed, but compiler states otherwise
+            if (message == expectedMessage) {
+                tag.assert(expectedTag)
+                message.assert(expectedMessage)
+                (expectedThrowable == throwable).assertTrue()
+                counter += 1
+            }
             Unit
         }
         logAction()

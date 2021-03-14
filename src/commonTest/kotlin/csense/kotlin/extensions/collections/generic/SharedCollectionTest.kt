@@ -6,7 +6,7 @@ import kotlin.test.*
 class SharedCollectionTest {
 
 
-    class GenericCollectionExtensionsJoinEveryAction() {
+    class GenericCollectionExtensionsJoinEveryAction {
         @Test
         fun empty() = assertCalled { shouldBeCalled ->
             GenericCollectionExtensions.joinEveryAction<String, String>(
@@ -38,7 +38,7 @@ class SharedCollectionTest {
 
         @Test
         fun single() = assertCalled(times = 2) { shouldBeCalled ->
-            val result = GenericCollectionExtensions.joinEveryAction<String, String>(
+            val result = GenericCollectionExtensions.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = { shouldNotBeCalled() },
                 size = 1,
@@ -59,7 +59,7 @@ class SharedCollectionTest {
 
         @Test
         fun multipleWithJoin() = assertCalled(times = 4) { shouldBeCalled ->
-            val result = GenericCollectionExtensions.joinEveryAction<String, String>(
+            val result = GenericCollectionExtensions.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = {
                     shouldBeCalled()

@@ -6,7 +6,7 @@ import kotlin.coroutines.*
 
 //use test lib when available
 
-public fun CoroutineScope.assertDispatcher(otherDispatcher: CoroutineDispatcher) {
+fun CoroutineScope.assertDispatcher(otherDispatcher: CoroutineDispatcher) {
     getCurrentDispatcher().assertAs(otherDispatcher)
 }
 
