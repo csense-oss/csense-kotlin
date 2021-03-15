@@ -1,5 +1,6 @@
 package csense.kotlin.extensions
 
+import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
@@ -37,14 +38,14 @@ class ExceptionsTest {
     @Test
     fun testTryAndLog() {
 
-        val works = tryAndLog {
+        val works = tryAndLog(logger = LLogger()::error) {
             42
         }
         works.assertNotNullAndEquals(42)
 
-        @Suppress("UNREACHABLE_CODE")
-        val fails: String? = tryAndLog {
+        val fails: String? = tryAndLog(logger = LLogger()::error) {
             throw Exception("test")
+            @Suppress("UNREACHABLE_CODE")
             "123"
         }
         fails.assertNull()

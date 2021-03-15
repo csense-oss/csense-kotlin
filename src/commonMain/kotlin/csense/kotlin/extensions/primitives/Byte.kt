@@ -3,7 +3,7 @@
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.annotations.numbers.*
-import kotlin.experimental.*
+import csense.kotlin.extensions.primitives.number.*
 
 
 //region Zero, negative, positive
@@ -94,7 +94,8 @@ public inline val Byte.isOdd: Boolean
  * @param shift [Int] the amount to shl
  * @return [Byte] the resulting byte; overflow are discarded
  */
-
+@Suppress("MissingTestFunction")
+@Deprecated("use bitopertations instead", replaceWith = ReplaceWith(".bitOperterations.shl(shift)"))
 public inline infix fun Byte.shl(shift: Int): Byte =
     (this.toInt() shl shift).toByte()
 
@@ -104,7 +105,8 @@ public inline infix fun Byte.shl(shift: Int): Byte =
  * @param shift [Int] the amount to shr
  * @return [Byte] the resulting byte; overflow are discared
  */
-
+@Suppress("MissingTestFunction")
+@Deprecated("use bitOpertations instead", replaceWith = ReplaceWith(".bitOperterations.shl(shift)"))
 public inline infix fun Byte.shr(shift: Int): Byte =
     (this.toInt() shr shift).toByte()
 //endregion
@@ -118,8 +120,12 @@ public inline infix fun Byte.shr(shift: Int): Byte =
  */
 public fun <T> Byte.toChars(
     action: (upperChar: Char, lowerChar: Char) -> T
-): T = splitIntoComponents { upperByte, lowerByte ->
-    action(ByteExtensions.hexCharsAsString[upperByte.toInt()], ByteExtensions.hexCharsAsString[lowerByte.toInt()])
+): T {
+    val (upper: Byte, lower: Byte) = bitOperations.splitIntoNibbles()
+    return action(
+        ByteExtensions.hexCharsAsString[upper.toInt()],
+        ByteExtensions.hexCharsAsString[lower.toInt()]
+    )
 }
 
 /**
@@ -139,11 +145,12 @@ public inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerCh
  * @param action (upperByte: [Byte], lowerByte: [Byte]) -> T
  * @return T
  */
+@Deprecated("use bitOperations instead")
+@Suppress("MissingTestFunction")
 public inline fun <T> Byte.splitIntoComponents(
     action: (upperByte: Byte, lowerByte: Byte) -> T
 ): T {
-    val lower: Byte = this and 0x0f
-    val upper: Byte = (this shr 4) and 0x0F.toByte()
+    val (upper, lower) = this.bitOperations.splitIntoNibbles()
     return action(upper, lower)
 }
 
@@ -154,4 +161,16 @@ public inline class ByteExtensions(public val byte: Byte) {
     public companion object {
         public const val hexCharsAsString: String = "0123456789ABCDEF"
     }
+}
+
+/**
+ * Converts this [Byte]'s raw bits into an [Int]
+ * by pruning the top bits; Eg (-1) byte becomes 255 in the int.
+ * Normally [Byte.toInt] would preserve the -1 (which is a different bit representation)
+ * @return [Int]
+ */
+public fun Byte.toIntBitWise(): Int {
+    val unsafeInt = toInt()
+    //prune all except the lower 8 bits
+    return unsafeInt.and(0xFF)
 }

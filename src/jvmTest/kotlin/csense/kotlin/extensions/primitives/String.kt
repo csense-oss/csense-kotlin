@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE", "RedundantVisibilityModifier", "unused")
+
 package csense.kotlin.extensions.primitives
 
 import kotlinx.benchmark.*
@@ -16,7 +18,7 @@ public inline fun String.isNewLine1(): Boolean {
     return this == "\n" || this == "\r\n"
 }
 
-//This is somehow faster on almost all jvms, either by a lot or by a very tiny amount, but consistent(almost always)
+//This is somehow faster on almost all jvms, either by a lot or by a very tiny amount, but very consistent(almost always)
 public inline fun String.isNewLine2(): Boolean = when (this.length) {
     1 -> this == "\n"
     2 -> this == "\r\n"

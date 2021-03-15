@@ -4,8 +4,8 @@ package csense.kotlin.units
 
 import csense.kotlin.annotations.numbers.*
 
-//TODO use inline classes when stable
 /**
+ * Base 2 implementation of the math between bit  / byte and various sizes
  * A list of measurements of binary sizes.
  * 8 bits are 1 byte,
  * 1024 bytes are a kilobyte
@@ -13,7 +13,7 @@ import csense.kotlin.annotations.numbers.*
  * see for example
  * https://en.wikipedia.org/wiki/Binary_prefix
  *
- * this does not handle overflow; so all kinds of "downards" walk can result in overflow.
+ * this does not handle overflow; so all kinds of "downwards" walk can result in overflow.
  * eg if you go from MegaBytes to kilobytes.
  *
  * or if you go from byte to bit, there is a potential overflow as well
@@ -76,7 +76,7 @@ public fun BinaryBitSizes.KiloByte.toMegaBytes(): BinaryBitSizes.MegaByte =
 
 
 //kilobits
-public fun BinaryBitSizes.KiloBit.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBitSizes.KiloByte(value / prefixFactor)
+public fun BinaryBitSizes.KiloBit.toKiloBytes(): BinaryBitSizes.KiloByte = BinaryBitSizes.KiloByte(value / bitByteFactor)
 
 public fun BinaryBitSizes.KiloBit.toBits(): BinaryBitSizes.Bit = BinaryBitSizes.Bit(value * prefixFactor)
 public fun BinaryBitSizes.KiloBit.toMegaBits(): BinaryBitSizes.MegaBit = BinaryBitSizes.MegaBit(value / prefixFactor)

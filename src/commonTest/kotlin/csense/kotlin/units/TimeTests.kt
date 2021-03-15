@@ -2,8 +2,10 @@
 
 package csense.kotlin.units
 
-import csense.kotlin.tests.assertions.assert
+import csense.kotlin.coroutines.*
+import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
+import kotlin.time.*
 
 
 class TimeTests {
@@ -209,6 +211,16 @@ class TimeTests {
         TimeUnit.Days(1).toHours().assert(24)
         TimeUnit.Days(3).toHours().assert(72)
     }
+
+    @OptIn(ExperimentalTime::class)
+    @Test
+    fun timeUnitDelay() = runBlockingTest {
+        val time: Duration = measureTime {
+            TimeUnit.MilliSeconds(10).delay()
+        }
+        println("time = $time")
+        time.inMilliseconds.assertLargerOrEqualTo(10.0)
+    }
 }
 
 inline fun TimeUnit.assert(otherValue: Long, message: String = "") = value.assert(otherValue, message)
@@ -239,6 +251,231 @@ class NanoSecondsTest {
         (TimeUnit.NanoSeconds(0) - TimeUnit.NanoSeconds(1)).assert(-1)
         (TimeUnit.NanoSeconds(2) - TimeUnit.NanoSeconds(5)).assert(-3)
         (TimeUnit.NanoSeconds(5) - TimeUnit.NanoSeconds(2)).assert(3)
+
+    }
+
+    @Test
+    fun times() {
+        (TimeUnit.NanoSeconds(0) * TimeUnit.NanoSeconds(1)).assert(0)
+        (TimeUnit.NanoSeconds(1) * TimeUnit.NanoSeconds(10)).assert(10)
+        (TimeUnit.NanoSeconds(10) * TimeUnit.NanoSeconds(10)).assert(100)
+        (TimeUnit.NanoSeconds(-10) * TimeUnit.NanoSeconds(10)).assert(-100)
+        (TimeUnit.NanoSeconds(-10) * TimeUnit.NanoSeconds(-10)).assert(100)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.NanoSeconds(0).div(TimeUnit.NanoSeconds(1)).assert(0)
+        TimeUnit.NanoSeconds(1).div(TimeUnit.NanoSeconds(10)).assert(0)
+        TimeUnit.NanoSeconds(10).div(TimeUnit.NanoSeconds(10)).assert(1)
+        TimeUnit.NanoSeconds(-10).div(TimeUnit.NanoSeconds(10)).assert(-1)
+        TimeUnit.NanoSeconds(-10).div(TimeUnit.NanoSeconds(-10)).assert(1)
+    }
+}
+
+class MilliSecondsTest {
+
+    @Test
+    fun toMilliSeconds() {
+        TimeUnit.MilliSeconds(100).toMilliSeconds().assert(100)
+        TimeUnit.MilliSeconds(1).toMilliSeconds().assert(1)
+        TimeUnit.MilliSeconds(0).toMilliSeconds().assert(0)
+        TimeUnit.MilliSeconds(-1).toMilliSeconds().assert(-1)
+        TimeUnit.MilliSeconds(-500).toMilliSeconds().assert(-500)
+    }
+
+    @Test
+    fun plus() {
+        TimeUnit.MilliSeconds(50).plus(TimeUnit.MilliSeconds(60)).assert(110)
+        TimeUnit.MilliSeconds(0).plus(TimeUnit.MilliSeconds(60)).assert(60)
+        TimeUnit.MilliSeconds(50).plus(TimeUnit.MilliSeconds(-150)).assert(-100)
+    }
+
+    @Test
+    fun minus() {
+        TimeUnit.MilliSeconds(50).minus(TimeUnit.MilliSeconds(60)).assert(-10)
+        TimeUnit.MilliSeconds(0).minus(TimeUnit.MilliSeconds(60)).assert(-60)
+        TimeUnit.MilliSeconds(250).minus(TimeUnit.MilliSeconds(150)).assert(100)
+    }
+
+    @Test
+    fun times() {
+        TimeUnit.MilliSeconds(50).times(TimeUnit.MilliSeconds(2)).assert(100)
+        TimeUnit.MilliSeconds(0).times(TimeUnit.MilliSeconds(60)).assert(0)
+        TimeUnit.MilliSeconds(-1).times(TimeUnit.MilliSeconds(-150)).assert(150)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.MilliSeconds(10).div(TimeUnit.MilliSeconds(2)).assert(5)
+        TimeUnit.MilliSeconds(0).div(TimeUnit.MilliSeconds(60)).assert(0)
+        TimeUnit.MilliSeconds(150).div(TimeUnit.MilliSeconds(-50)).assert(-3)
+    }
+}
+
+class SecondsTest {
+    @Test
+    fun toMilliSeconds() {
+        TimeUnit.Seconds(100).toMilliSeconds().assert(100_000)
+        TimeUnit.Seconds(1).toMilliSeconds().assert(1_000)
+        TimeUnit.Seconds(0).toMilliSeconds().assert(0)
+        TimeUnit.Seconds(-1).toMilliSeconds().assert(-1_000)
+        TimeUnit.Seconds(-500).toMilliSeconds().assert(-500_000)
+    }
+
+    @Test
+    fun plus() {
+        TimeUnit.Seconds(50).plus(TimeUnit.Seconds(60)).assert(110)
+        TimeUnit.Seconds(0).plus(TimeUnit.Seconds(60)).assert(60)
+        TimeUnit.Seconds(50).plus(TimeUnit.Seconds(-150)).assert(-100)
+    }
+
+    @Test
+    fun minus() {
+        TimeUnit.Seconds(50).minus(TimeUnit.Seconds(60)).assert(-10)
+        TimeUnit.Seconds(0).minus(TimeUnit.Seconds(60)).assert(-60)
+        TimeUnit.Seconds(250).minus(TimeUnit.Seconds(150)).assert(100)
+    }
+
+    @Test
+    fun times() {
+        TimeUnit.Seconds(50).times(TimeUnit.Seconds(2)).assert(100)
+        TimeUnit.Seconds(0).times(TimeUnit.Seconds(60)).assert(0)
+        TimeUnit.Seconds(-1).times(TimeUnit.Seconds(-150)).assert(150)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.Seconds(10).div(TimeUnit.Seconds(2)).assert(5)
+        TimeUnit.Seconds(0).div(TimeUnit.Seconds(60)).assert(0)
+        TimeUnit.Seconds(150).div(TimeUnit.Seconds(-50)).assert(-3)
+    }
+}
+
+class MinutesTest {
+    @Test
+    fun toMilliSeconds() {
+        TimeUnit.Minutes(10).toMilliSeconds().assert(600_000)
+        TimeUnit.Minutes(1).toMilliSeconds().assert(60_000)
+        TimeUnit.Minutes(0).toMilliSeconds().assert(0)
+        TimeUnit.Minutes(-1).toMilliSeconds().assert(-60_000)
+        TimeUnit.Minutes(2).toMilliSeconds().assert(120_000)
+    }
+
+    @Test
+    fun plus() {
+        TimeUnit.Minutes(50).plus(TimeUnit.Minutes(60)).assert(110)
+        TimeUnit.Minutes(0).plus(TimeUnit.Minutes(60)).assert(60)
+        TimeUnit.Minutes(50).plus(TimeUnit.Minutes(-150)).assert(-100)
+    }
+
+    @Test
+    fun minus() {
+        TimeUnit.Minutes(50).minus(TimeUnit.Minutes(60)).assert(-10)
+        TimeUnit.Minutes(0).minus(TimeUnit.Minutes(60)).assert(-60)
+        TimeUnit.Minutes(250).minus(TimeUnit.Minutes(150)).assert(100)
+    }
+
+    @Test
+    fun times() {
+        TimeUnit.Minutes(50).times(TimeUnit.Minutes(2)).assert(100)
+        TimeUnit.Minutes(0).times(TimeUnit.Minutes(60)).assert(0)
+        TimeUnit.Minutes(-1).times(TimeUnit.Minutes(-150)).assert(150)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.Minutes(10).div(TimeUnit.Minutes(2)).assert(5)
+        TimeUnit.Minutes(0).div(TimeUnit.Minutes(60)).assert(0)
+        TimeUnit.Minutes(150).div(TimeUnit.Minutes(-50)).assert(-3)
+    }
+}
+
+class HoursTest {
+    @Test
+    fun toMilliSeconds() {
+        TimeUnit.Hours(100).toMilliSeconds().assert(360_000_000)
+        TimeUnit.Hours(1).toMilliSeconds().assert(3_600_000)
+        TimeUnit.Hours(0).toMilliSeconds().assert(0)
+        TimeUnit.Hours(-1).toMilliSeconds().assert(-3_600_000)
+    }
+
+    @Test
+    fun plus() {
+        TimeUnit.Hours(50).plus(TimeUnit.Hours(60)).assert(110)
+        TimeUnit.Hours(0).plus(TimeUnit.Hours(60)).assert(60)
+        TimeUnit.Hours(50).plus(TimeUnit.Hours(-150)).assert(-100)
+    }
+
+    @Test
+    fun minus() {
+        TimeUnit.Hours(50).minus(TimeUnit.Hours(60)).assert(-10)
+        TimeUnit.Hours(0).minus(TimeUnit.Hours(60)).assert(-60)
+        TimeUnit.Hours(250).minus(TimeUnit.Hours(150)).assert(100)
+    }
+
+    @Test
+    fun times() {
+        TimeUnit.Hours(50).times(TimeUnit.Hours(2)).assert(100)
+        TimeUnit.Hours(0).times(TimeUnit.Hours(60)).assert(0)
+        TimeUnit.Hours(-1).times(TimeUnit.Hours(-150)).assert(150)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.Hours(10).div(TimeUnit.Hours(2)).assert(5)
+        TimeUnit.Hours(0).div(TimeUnit.Hours(60)).assert(0)
+        TimeUnit.Hours(150).div(TimeUnit.Hours(-50)).assert(-3)
+    }
+}
+
+
+class DaysTest {
+    @Test
+    fun toMilliSeconds() {
+        TimeUnit.Days(1).toMilliSeconds().assert(86_400_000)
+        TimeUnit.Days(0).toMilliSeconds().assert(0)
+        TimeUnit.Days(-1).toMilliSeconds().assert(-86_400_000)
+    }
+
+    @Test
+    fun plus() {
+        TimeUnit.Days(50).plus(TimeUnit.Days(60)).assert(110)
+        TimeUnit.Days(0).plus(TimeUnit.Days(60)).assert(60)
+        TimeUnit.Days(50).plus(TimeUnit.Days(-150)).assert(-100)
+    }
+
+    @Test
+    fun minus() {
+        TimeUnit.Days(50).minus(TimeUnit.Days(60)).assert(-10)
+        TimeUnit.Days(0).minus(TimeUnit.Days(60)).assert(-60)
+        TimeUnit.Days(250).minus(TimeUnit.Days(150)).assert(100)
+    }
+
+    @Test
+    fun times() {
+        TimeUnit.Days(50).times(TimeUnit.Days(2)).assert(100)
+        TimeUnit.Days(0).times(TimeUnit.Days(60)).assert(0)
+        TimeUnit.Days(-1).times(TimeUnit.Days(-150)).assert(150)
+    }
+
+    @Test
+    fun div() {
+        TimeUnit.Days(10).div(TimeUnit.Days(2)).assert(5)
+        TimeUnit.Days(0).div(TimeUnit.Days(60)).assert(0)
+        TimeUnit.Days(150).div(TimeUnit.Days(-50)).assert(-3)
+    }
+}
+
+class TimeUnitTest {
+    @Test
+    fun testToString() {
+        TimeUnit.NanoSeconds(10).toString().assert("10 ns")
+        TimeUnit.MilliSeconds(10).toString().assert("10 ms")
+        TimeUnit.Seconds(10).toString().assert("10 s")
+        TimeUnit.Minutes(10).toString().assert("10 m")
+        TimeUnit.Hours(10).toString().assert("10 h")
+        TimeUnit.Days(10).toString().assert("10 d")
 
     }
 }

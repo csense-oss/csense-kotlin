@@ -22,12 +22,14 @@ public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Uni
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
+@Deprecated("will be removed")
 public inline fun <T> Array<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
+@Deprecated("will be removed")
 public inline fun <T> Array<T>.forEach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
@@ -57,6 +59,8 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
  * @receiver [Array]<T>? the nullable Array
  * @return [Boolean] true if the Array is null or empty
  */
+@Suppress("MissingTestFunction")
+@Deprecated(message = "use kotlin std lib instead", level = DeprecationLevel.ERROR)
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
     contract {
@@ -65,7 +69,7 @@ public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
 
-
+@IntLimit(from = 0)
 public inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean): Int? =
     indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 

@@ -11,8 +11,6 @@ import kotlinx.coroutines.*
  * Purpose:
  * To provide a way more safe, and simple version of TimeUnit (from java)
  *
- * TODO when kotlin is ready use inline classes such that the performance penalty is ~= 0
- * well with inline sealed classes.
  *
  * example of time units and the relation:
  * https://en.wikipedia.org/wiki/Unit_of_time#/media/File:Time_units.png

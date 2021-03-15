@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.logger
 
 import csense.kotlin.*
@@ -28,6 +30,7 @@ public inline fun LLogger.usePrintAsLoggers(
     productionLoggers.add(createLogger(LoggingLevel.Production))
 }
 
+@Suppress("MissingTestFunction")
 public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
     crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
         "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"

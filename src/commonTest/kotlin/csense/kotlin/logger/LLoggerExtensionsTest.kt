@@ -28,7 +28,6 @@ class LLoggerExtensionsTest {
             val loggers: MutableList<LoggingFunctionType<*>> = mutableListOf(
                 { _, _, _ ->
                     counter1 += 1
-                    Unit
                 })
             loggers.invokeEachWithLoggingLazy(
                 "tag",
@@ -49,11 +48,9 @@ class LLoggerExtensionsTest {
             val loggers: MutableList<LoggingFunctionType<*>> = mutableListOf(
                 { _, _, _ ->
                     counter1 += 1
-                    Unit
                 },
                 { _, _, _ ->
                     counter2 += 1
-                    Unit
                 }
             )
             loggers.invokeEachWithLoggingLazy(

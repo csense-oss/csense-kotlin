@@ -57,12 +57,14 @@ public inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>): Un
 /**
  * Performs traversal in pairs of 2  (with the first index as well)
  */
+@Deprecated("will be removed")
 public inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
 /**
  * Performs traversal in pairs of 2
  */
+@Deprecated("will be removed")
 public inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

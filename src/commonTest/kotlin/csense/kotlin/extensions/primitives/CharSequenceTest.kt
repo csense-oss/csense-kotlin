@@ -72,7 +72,17 @@ class CharSequenceTest {
 
     @Test
     fun charSequenceLastIndexOfOrNullString() {
-        //TODO make me.
+        "".lastIndexOfOrNull("0").assertNull()
+        "a".lastIndexOfOrNull("0").assertNull()
+        "0".lastIndexOfOrNull("0").assertNotNullAndEquals(0)
+        "A".lastIndexOfOrNull("a").assertNull()
+        "A".lastIndexOfOrNull("a", ignoreCase = false).assertNull()
+        "A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(0)
+        "0A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(1)
+        "0A0A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(3)
+        "0A0A".lastIndexOfOrNull("a", ignoreCase = true, startIndex = 1).assertNotNullAndEquals(1)
+        "0A0a".lastIndexOfOrNull("a", ignoreCase = false, startIndex = 1).assertNull()
+        "0A0a".lastIndexOfOrNull("A", ignoreCase = false, startIndex = 1).assertNotNullAndEquals(1)
 
     }
 }

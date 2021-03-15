@@ -1,10 +1,20 @@
 # Changelog
 
+
+
 ## 0.0.46
 - added ability for LLoggers to use ansi colored output
 - added sublist with single parameter ( length)
 - added mapToTypedArray 
-
+- added more missing extensions to iterable and added more contracts
+- added double & float extensions for decimal parts
+- stringFile extensions
+  - added withFileExtension
+  - deprecated "removeFileExtension" for the name "removeFileExtension"
+  - Spelling improved
+  
+- added more extensions for numbers
+  
 ## 0.0.45
 
 - added Double.isNotZero
@@ -84,7 +94,7 @@
 ## 0.0.32
 
 - forEachIsInstance<T> added as an "allocation free" alternative to filterIsInstance + foreach
-- indexOfOrNull to collections (why is this even missing from the standard library ?
+- indexOfOrNull to collections (why is this even missing from the standard library ?)
   - https://youtrack.jetbrains.com/issue/KT-37585)
 - minor collection extension(s)
 
@@ -139,7 +149,7 @@
 - lazy logging
 - split logging functions to method referencing works (since default arguments is not allowed for method refs).
 - massive amounts of tests added.
-    - and some bugs fixed eg. with ranges
+    - Some bugs fixed e.g. with ranges
 
 ## 0.0.21
 
@@ -213,8 +223,8 @@
 - added mapToSet
 - added setIfNotEmpty to map
 - added a bunch of string extensions
-- improved some of the string functions to use more of the standard library.
-- moved generic code from global namespace to generic array.
+- improved some string functions to use more of the standard library.
+- moved generic code from the global namespace to generic array.
 - fixed bug in StringBuilder.clear (by removing it as the extension is available from kotlin stdlib)
 - fixed functions depending on old StringBuilder.clear
 - gradle 5.2.1
@@ -229,8 +239,8 @@
 
 ## 0.0.12
 
-- JVM timing function naming (lowercase method name and millis in name). and made it usable in suspension
-- removed a lot of crossinline where they made no real sense (if the function would make sense with a return inside of
+- JVM timing function naming (lowercase method name and millis in name). Made it usable in suspension
+- removed a lot of crossinlines where they made no real sense (if the function would make sense with a return inside of
   it, and or allow it to be used in suspend functions )
 - removed supporting functions that were due to crossinlining.
 
@@ -291,7 +301,7 @@
 
 - migrated a lot from commonsenseAndroid version 0.0.15
 - more tests and documentation
-- kotlin 1.3 and coroutines in prod.
+- kotlin 1.3 and coroutines in production.
 
 ## 0.0.4
 

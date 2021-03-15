@@ -1,6 +1,7 @@
 package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.primitives.*
 
 public inline class StringMpp(public val string: String) {
 
@@ -35,6 +36,11 @@ public fun StringMpp.insertInto(vararg toInsert: StringMpp.StringInserts): Strin
     if (lastInsertIndex != null && lastInsertIndex > size) {
         return@with null
     }
+    val firstInsertIndex = toInsert.firstOrNull()?.atIndex
+    if (firstInsertIndex != null && firstInsertIndex.isNegative) {
+        return@with null
+    }
+
     //all indexes are guaranteed to be in this string. or either the test or sort does not work.
     var currentToIndex = 0
     var currentLastIndex: Int

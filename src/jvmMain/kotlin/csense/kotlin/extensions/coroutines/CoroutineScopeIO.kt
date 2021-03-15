@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused","DeferredIsResult")
 
 package csense.kotlin.extensions.coroutines
 

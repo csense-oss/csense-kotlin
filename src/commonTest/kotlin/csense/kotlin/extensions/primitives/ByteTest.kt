@@ -86,22 +86,6 @@ class ByteTest {
     }
 
     @Test
-    fun shl() {
-        0.toByte().shl(2).assert(0)
-        1.toByte().shl(1).assert(2 * 1)
-        2.toByte().shl(1).assert(2 * 2)
-        8.toByte().shl(2).assert(8 * 2 * 2)
-    }
-
-    @Test
-    fun shr() {
-        0.toByte().shr(2).assert(0)
-        1.toByte().shr(1).assert(0)
-        2.toByte().shr(1).assert(1)
-        8.toByte().shr(2).assert((8 / 2) / 2)
-    }
-
-    @Test
     fun toChars() {
         0.toByte().toChars { upperChar, lowerChar ->
             upperChar.toUpperCase().assert('0')
@@ -241,5 +225,14 @@ class ByteTest {
         1.toByte().positive.assert(1)
         80.toByte().positive.assert(80)
         (-82).toByte().positive.assert(82)
+    }
+
+    @Test
+    fun byteToIntBitWise() {
+        0.toByte().toIntBitWise().assert(0)
+        (-1).toByte().toIntBitWise().assert(0b11111111)
+        1.toByte().toIntBitWise().assert(1)
+        80.toByte().toIntBitWise().assert(80)
+        (-82).toByte().toIntBitWise().assert(0b10101110) //-82 in binary is 10101110
     }
 }

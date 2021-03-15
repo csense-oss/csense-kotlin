@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package csense.kotlin.specificExtensions.string
 
@@ -12,7 +12,7 @@ public inline class StringFile(public val string: String)
 
 
 /**
- *
+ * Access file extensions for strings
  */
 public inline val String.fileExtensions: StringFile
     inline get() = StringFile(this)
@@ -28,10 +28,28 @@ public inline fun StringFile.fileExtension(): String? {
     return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
 }
 
+/**
+ * Changes the current extension to the given [newExtension] (either replaced or added with a '.' in front)
+ * @receiver [StringFile] to change the file extension on
+ * @param newExtension [String] the new file extension
+ * @return [String]
+ */
+public inline fun StringFile.withFileExtension(newExtension: String): String {
+    return string.substringBeforeLast('.', string) + "." + newExtension
+}
 
 /**
  * Tries to remove any kind of file extensions.
  * @receiver [StringFile] the string to remove the file extension from (if any)
- * @return [String] the resulting string if there were any dot's or this string if not.
+ * @return [String] the resulting string without the ending extension (if any)
  */
-public inline fun StringFile.removeFileExtension(): String = string.substringBeforeLast(".")
+@Suppress("MissingTestFunction")
+@Deprecated("use withoutFileExtension instead", replaceWith = ReplaceWith("withoutFileExtension()"))
+public inline fun StringFile.removeFileExtension(): String = withoutFileExtension()
+
+/**
+ * Tries to remove any kind of file extensions.
+ * @receiver [StringFile] the string to remove the file extension from (if any)
+ * @return [String] the resulting string without the ending extension (if any)
+ */
+public inline fun StringFile.withoutFileExtension(): String = string.substringBeforeLast('.')

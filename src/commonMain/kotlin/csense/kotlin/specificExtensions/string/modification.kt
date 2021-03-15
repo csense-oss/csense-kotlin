@@ -11,7 +11,6 @@ public inline val String.modifications: StringModification
     inline get() = StringModification(this)
 
 
-//region Modification / computing
 /**
  * Limits this [String] to the given number of characters
  * @receiver [String] the [String] to limit
@@ -45,4 +44,3 @@ public inline fun StringModification.wrapIn(prefix: String, postFix: String): St
  */
 public inline fun StringModification.wrapInQuotes(): String = wrapIn("\"", "\"")
 
-//endregion

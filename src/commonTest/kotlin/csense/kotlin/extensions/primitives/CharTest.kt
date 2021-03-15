@@ -116,4 +116,13 @@ class CharTest {
         ''.isNotDigit().assertTrue()
         '\n'.isNotDigit().assertTrue()
     }
+
+    @Test
+    fun testHexCharsToValue() {
+        hexCharsToValue('A','A').assertNotNullAndEquals(0xAA)
+        hexCharsToValue('F','F').assertNotNullAndEquals(0xFF)
+        hexCharsToValue('Q','Q').assertNull()
+        hexCharsToValue('0','1').assertNotNullAndEquals(0x01)
+        hexCharsToValue('5','1').assertNotNullAndEquals(0x51)
+    }
 }

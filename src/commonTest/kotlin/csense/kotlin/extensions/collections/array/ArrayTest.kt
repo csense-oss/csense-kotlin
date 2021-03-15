@@ -1,8 +1,7 @@
 package csense.kotlin.extensions.collections.array
 
 import csense.kotlin.tests.assertions.*
-import kotlin.collections.isNullOrEmpty
-import kotlin.test.Test
+import kotlin.test.*
 
 class ArrayTest {
 
@@ -16,64 +15,108 @@ class ArrayTest {
         singleCol.isNotNullOrEmpty().assert(true)
     }
 
-    @Test
-    fun isNullOrEmpty() {
-        val nullCol: Array<String>? = null
-        nullCol.isNullOrEmpty().assert(true)
-        val emptyCol: Array<String> = arrayOf()
-        emptyCol.isNullOrEmpty().assert(true)
-        val singleCol: Array<String> = arrayOf("omg")
-        singleCol.isNullOrEmpty().assert(false)
-    }
-
     class ArrayTForEachBackwards {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            arrayOf<String>().forEachBackwards { shouldNotBeCalled() }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            assertCalled { shouldBeCalled ->
+                arrayOf("test").forEachBackwards { it.assert("test"); shouldBeCalled() }
+            }
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            assertCalled(times = 2) { shouldBeCalled ->
+                arrayOf("first", "last").forEachBackwards { shouldBeCalled() }
+            }
+            var haveSeenLast = false
+            arrayOf("first", "last").forEachBackwards {
+                if (haveSeenLast) {
+                    it.assert("first")
+                } else {
+                    it.assert("last")
+                }
+                haveSeenLast = true
+            }
         }
     }
 
     class ArrayTForEach2 {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            arrayOf<String>().forEach2 { _, _ -> shouldNotBeCalled() }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            arrayOf("test").forEach2 { _, _ -> shouldNotBeCalled() }
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multipleEven() {
+            arrayOf("1,2").forEach2 { first, second ->
+                first.assert("1")
+                second.assert("2")
+            }
+            assertCalled(times = 2) { shouldBeCalled ->
+                arrayOf("1", "2", "3", "4").forEach2 { _, _ ->
+                    shouldBeCalled()
+                }
+            }
+        }
+
+        @Test
+        fun multipleUneven() {
+            assertCalled(times = 0, message = "should not call on uneven") { shouldBeCalled ->
+                arrayOf("1", "2", "3").forEach2 { _, _ ->
+                    shouldBeCalled()
+                }
+            }
+
         }
     }
 
     class ArrayTForEach2Indexed {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            arrayOf<String>().forEach2Indexed { _, _, _ ->
+                shouldNotBeCalled()
+            }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            arrayOf("test").forEach2Indexed { _, _, _ ->
+                shouldNotBeCalled()
+            }
         }
 
         @Test
-        fun multiple() {
-            //TODO test multiple element condition here.
+        fun multipleEven() {
+            assertCalled { shouldBeCalled ->
+                arrayOf("first", "second").forEach2Indexed { indexOfFirst, first, second ->
+                    indexOfFirst.assert(0)
+                    first.assert("first")
+                    second.assert("second")
+                    shouldBeCalled()
+                }
+            }
+        }
+
+        @Test
+        fun multipleUneven() {
+            assertNotCalled { called ->
+                arrayOf("first", "second", "third").forEach2Indexed { indexOfFirst, first, second ->
+                    indexOfFirst.assert(0)
+                    first.assert("first")
+                    second.assert("second")
+                    called()
+                }
+            }
         }
     }
 
@@ -81,17 +124,35 @@ class ArrayTest {
 
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            arrayOf<String>().forEachDiscard { shouldNotBeCalled() }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            assertCalled { shouldBeCalled ->
+                arrayOf("test").forEachDiscard {
+                    it.assert("test")
+                    shouldBeCalled()
+                }
+            }
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            assertCalled(times = 2) { shouldBeCalled ->
+                arrayOf("test", "test2").forEachDiscard {
+                    shouldBeCalled()
+                }
+            }
+            var wasFirst = false
+            arrayOf("first", "second").forEachDiscard {
+                if (!wasFirst) {
+                    it.assert("first")
+                } else {
+                    it.assert("second")
+                }
+                wasFirst = true
+            }
         }
     }
 
@@ -174,20 +235,113 @@ class ArrayTest {
         }
     }
 
-    class ArrayTJoinEveryAtStepsToJoinAction {
+    class ArrayTJoinEvery {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            val lst = arrayOf<String>().joinEvery(1, "")
+            lst.assertEmpty()
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            val res = arrayOf("1").joinEvery(1, "test")
+            res.assertSize(1)
+            res.first().assert("1", message = "cannot join when only one element")
         }
 
         @Test
         fun multiple() {
-            //TODO test multiple element condition here.
+            val res = arrayOf("1", "3").joinEvery(1, "2")
+            res.assertSize(3)
+            res[0].assert("1")
+            res[1].assert("2")
+            res[2].assert("3")
+        }
+    }
+
+    class ArrayTJoinEveryAction {
+        @Test
+        fun empty() {
+            val lst = arrayOf<String>().joinEveryAction(1) {
+                "1"
+            }
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            val res = arrayOf("1").joinEveryAction(1) {
+                "test"
+            }
+            res.assertSize(1)
+            res.first().assert("1", message = "cannot join when only one element")
+        }
+
+        @Test
+        fun multiple() {
+            val res = arrayOf("1", "3").joinEveryAction(1) {
+                "2"
+            }
+            res.assertSize(3)
+            res[0].assert("1")
+            res[1].assert("2")
+            res[2].assert("3")
+        }
+    }
+
+    class ArrayoutTIndexOfFirstOrNull {
+        @Test
+        fun empty() {
+            arrayOf<String>().indexOfFirstOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun singleFound() {
+            arrayOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun singleNotFound() {
+            arrayOf("test").indexOfFirstOrNull { false }.assertNull()
+        }
+
+        @Test
+        fun multipleFound() {
+            arrayOf("test", "1234", "test").indexOfFirstOrNull { it == "test" }
+                .assertNotNullAndEquals(0, message = "should find the first matching item")
+        }
+
+        @Test
+        fun multipleNotFound() {
+            arrayOf("test", "1234").indexOfFirstOrNull { false }.assertNull()
+        }
+    }
+
+    class ArrayTIndexOfLastOrNull {
+        @Test
+        fun empty() {
+            arrayOf<String>().indexOfLastOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun singleFound() {
+            arrayOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun singleNotFound() {
+            arrayOf("test").indexOfLastOrNull { false }.assertNull()
+        }
+
+        @Test
+        fun multipleFound() {
+            arrayOf("test", "1234", "test").indexOfLastOrNull { it == "test" }
+                .assertNotNullAndEquals(2, message = "should find the last matching item")
+        }
+
+        @Test
+        fun multipleNotFound() {
+            arrayOf("test", "1234").indexOfLastOrNull { false }.assertNull()
         }
     }
 }

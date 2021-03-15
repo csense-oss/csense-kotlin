@@ -361,9 +361,16 @@ class ListListTCombine {
 
         @Test
         fun multipleNotSameLength() {
-            val a = listOf<List<String>>()
-            val b = listOf<List<String>>()
-            //TODO test multiple element condition here.
+            val a = listOf(listOf("a", "b"))
+            val b = listOf(listOf("1", "2", "3"))
+            val res = a.combine(b)
+            res.assertSize(1)
+            res.first().assertSize(5)
+            res.first().elementAt(0).assert("a")
+            res.first().elementAt(1).assert("b")
+            res.first().elementAt(2).assert("1")
+            res.first().elementAt(3).assert("2")
+            res.first().elementAt(4).assert("3")
         }
     }
 

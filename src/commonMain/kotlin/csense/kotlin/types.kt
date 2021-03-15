@@ -75,7 +75,9 @@ public typealias AsyncFunction6<I1, I2, I3, I4, I5, I6, O> = suspend (I1, I2, I3
 //endregion
 
 
+
 public typealias CoroutineScopeFunction = suspend CoroutineScope.() -> Unit
+
 public typealias CoroutineScopeFunction0<O> = suspend CoroutineScope.() -> O
 
 

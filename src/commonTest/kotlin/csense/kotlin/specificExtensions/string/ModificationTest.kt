@@ -3,7 +3,7 @@ package csense.kotlin.specificExtensions.string
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class modificationTest {
+class ModificationTest {
     @Test
     fun stringModificationLimitTo() {
         "".modifications.limitTo(0).assert("")
@@ -36,5 +36,15 @@ class modificationTest {
         "a".modifications.wrapInQuotes().assert("\"a\"")
         "\"".modifications.wrapInQuotes().assert("\"\"\"")
         "yzz x".modifications.wrapInQuotes().assert("\"yzz x\"")
+    }
+
+    @Test
+    fun stringModifications() {
+        val empty = "".modifications
+        val single = "a".modifications
+        empty.string.assert("")
+        single.string.assert("a")
+        assertNotEquals(empty, single)
+
     }
 }

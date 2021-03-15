@@ -54,6 +54,14 @@ public inline fun LLogger.warningLazy(
     warningLazy(cls.simpleName, message, throwable)
 }
 
+public inline fun LLogger.warningLazy(
+    klz: KClass<*>,
+    noinline message: Function0R<String>,
+    throwable: Throwable? = null
+) {
+    warningLazy(klz.java, message, throwable)
+}
+
 /**
  * Uses the simple class name for the tag, otherwise just as the regular debug method
  * see [L.warning]
