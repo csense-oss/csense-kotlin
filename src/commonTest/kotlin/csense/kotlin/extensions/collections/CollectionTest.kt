@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
@@ -729,4 +730,179 @@ class CollectionTest {
 
         }
     }
+
+    class CollectionAnyForEachWithType {
+        @Test
+        fun empty() {
+            val collection: Collection<String> = listOf()
+            collection.forEachWithType<Int> { shouldNotBeCalled() }
+            collection.forEachWithType<String> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            val collection: Collection<String> = listOf("1")
+            collection.forEachWithType<Int> { shouldNotBeCalled() }
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<String> {
+                    it.assert("1")
+                    shouldBeCalled()
+                }
+            }
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<CharSequence> {
+//                    it.assert("1")//todo use csense test next version
+                    shouldBeCalled()
+                }
+            }
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<Comparable<String>> {
+                    it.compareTo("1").assert(0, "expect it to be the same string as \"1\"")
+                    shouldBeCalled()
+                }
+            }
+        }
+
+        @Test
+        fun multiple() {
+            val collection: Collection<Any> = listOf("a", "b", 42)
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<Int> {
+                    it.assert(42)
+                    shouldBeCalled()
+                }
+            }
+            var isFirstCall = true
+            assertCalled(times = 2) { shouldBeCalled ->
+                collection.forEachWithType<String> {
+                    if (isFirstCall) {
+                        it.assert("a")
+                    } else {
+                        it.assert("b")
+                    }
+                    isFirstCall = false
+                    shouldBeCalled()
+                }
+            }
+            collection.forEachWithType<Char> { shouldNotBeCalled() }
+        }
+    }
+
+    class CollectionAnyFindWithType {
+        @Test
+        fun empty() {
+            val collection: Collection<String> = listOf()
+            collection.findWithType<Int> { shouldNotBeCalled() }
+            collection.findWithType<String> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            val collection: Collection<Any?> = listOf("test")
+            collection.findWithType<Int> { shouldNotBeCalled() }
+            collection.findWithType<String> {
+                it.assert("test")
+                false
+            }.assertNull()
+
+            collection.findWithType<String> {
+                it.assert("test")
+                true
+            }.assertNotNullAndEquals("test")
+        }
+
+        @Test
+        fun multiple() {
+            val collection: Collection<Any?> = listOf("test", "1234", 1234)
+            collection.findWithType<Char> { shouldNotBeCalled() }
+            collection.findWithType<Char> { shouldNotBeCalled() }
+            collection.findWithType<Number> {
+                true
+            }.assertNotNullAndEquals(1234)
+
+            assertCallbackCalledWith(listOf("test", "1234")) { assertCallback ->
+                collection.findWithType<String> {
+                    assertCallback(it)
+                    false
+                }.assertNull()
+            }
+
+            collection.findWithType<String> {
+                it.assert("test")
+                true
+            }.assertNotNullAndEquals("test")
+
+            collection.findWithType<String> {
+                it == "1234"
+            }.assertNotNullAndEquals("1234")
+        }
+
+    }
+
+    class CollectionTToMapKeyMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMap {  }
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+    class CollectionTToMutableMapKeyMapper {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+    class CollectionTToMapKeyMapperValueMapper {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+    class CollectionTToMutableMapKeyMapperValueMapper {
+        @Test
+        fun empty() {
+            //TODO test empty condition here.
+        }
+
+        @Test
+        fun single() {
+            //TODO test single element condition here.
+        }
+
+        @Test
+        fun multiple() {
+            //TODO test multiple element condition here.
+        }
+    }
+
+
 }

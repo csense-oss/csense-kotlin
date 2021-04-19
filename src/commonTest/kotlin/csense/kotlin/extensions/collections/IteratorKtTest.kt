@@ -1,7 +1,6 @@
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
+import csense.kotlin.tests.assertions.*
 import kotlin.test.Test
 
 class IteratorKtTest {
@@ -63,4 +62,123 @@ class IteratorKtTest {
 
 
     }
+
+
+    class IteratorTToMutableList {
+        @Test
+        fun empty() {
+            val list = listOf<String>()
+            val itt = list.iterator()
+            val result = itt.toMutableList()
+            result.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            val list = listOf("1")
+            val itt = list.iterator()
+            val result = itt.toMutableList()
+            result.assertSingle("1")
+        }
+
+        @Test
+        fun multipleStart() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            val result = itt.toMutableList()
+            result.assertSize(3)
+            result.assertContainsInOrder("1", "2", "3")
+        }
+
+        @Test
+        fun multipleMiddle() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            itt.next()
+            val result = itt.toMutableList()
+            result.assertSize(2, message = "should use the iterator and start at the current location")
+            result.assertContainsInOrder("2", "3")
+        }
+
+
+    }
+
+
+    class IteratorTToList {
+        @Test
+        fun empty() {
+            val list = listOf<String>()
+            val itt = list.iterator()
+            val result = itt.toList()
+            result.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            val list = listOf("1")
+            val itt = list.iterator()
+            val result = itt.toList()
+            result.assertSingle("1")
+        }
+
+        @Test
+        fun multipleStart() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            val result = itt.toList()
+            result.assertSize(3)
+            result.assertContainsInOrder("1", "2", "3")
+        }
+
+        @Test
+        fun multipleMiddle() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            itt.next()
+            val result = itt.toList()
+            result.assertSize(2, message = "should use the iterator and start at the current location")
+            result.assertContainsInOrder("2", "3")
+        }
+
+
+    }
+
+
+    class IteratorTMap {
+        @Test
+        fun empty() {
+            val list = listOf<String>()
+            val itt = list.iterator()
+            val result = itt.map { shouldNotBeCalled() }
+            result.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            val list = listOf("1")
+            val itt = list.iterator()
+            val result = itt.map { it.toInt() }
+            result.assertSingle(1)
+        }
+
+        @Test
+        fun multipleStart() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            val result = itt.map { it.toInt() }
+            result.assertSize(3)
+            result.assertContainsInOrder(1, 2, 3)
+        }
+
+        @Test
+        fun multipleMiddle() {
+            val list = listOf("1", "2", "3")
+            val itt = list.iterator()
+            itt.next()
+            val result = itt.map { it.toInt() }
+            result.assertSize(2, message = "should use the iterator and start at the current location")
+            result.assertContainsInOrder(2, 3)
+        }
+    }
 }
+

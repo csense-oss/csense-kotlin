@@ -102,3 +102,13 @@ public inline fun CharSequence.lastIndexOfOrNull(
 }
 
 //endregion
+
+
+public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean = false) {
+
+}
+
+//TODO consider for multiple things
+public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolean = false) {
+
+}

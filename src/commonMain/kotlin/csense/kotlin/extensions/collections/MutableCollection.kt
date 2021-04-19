@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections
 
@@ -10,7 +10,7 @@ package csense.kotlin.extensions.collections
  * @receiver [MutableCollection]<E>
  * @param collection [Collection]<E>
  */
-public inline fun <E> MutableCollection<E>.setAll(collection: Collection<E>) {
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(collection: Collection<E>) {
     clear()
     addAll(collection)
 }
@@ -20,7 +20,7 @@ public inline fun <E> MutableCollection<E>.setAll(collection: Collection<E>) {
  * @receiver [MutableCollection]<E>
  * @param items [Collection]<E>
  */
-public inline fun <E> MutableCollection<E>.setAll(vararg items: E) {
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(vararg items: E) {
     clear()
     addAll(items)
 }
@@ -30,7 +30,7 @@ public inline fun <E> MutableCollection<E>.setAll(vararg items: E) {
  * @receiver [MutableCollection]<E>
  * @param item E
  */
-public inline fun <E> MutableCollection<E>.set(item: E) {
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.set(item: E) {
     clear()
     add(item)
 }
@@ -42,6 +42,6 @@ public inline fun <E> MutableCollection<E>.set(item: E) {
  * @receiver [MutableCollection]<E>
  * @param items [Array]<out E>
  */
-public inline fun <E> MutableCollection<E>.addAll(vararg items: E) {
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addAll(vararg items: E) {
     addAll(items)
 }

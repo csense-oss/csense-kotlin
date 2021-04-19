@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections.set
 
@@ -11,7 +11,7 @@ package csense.kotlin.extensions.collections.set
  * @timecomplexity O(1)
  */
 
-public inline fun <T> MutableSet<T>.toggleExistence(item: T) {
+public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.toggleExistence(item: T) {
     setExistence(item, !contains(item))
 }
 
@@ -23,7 +23,7 @@ public inline fun <T> MutableSet<T>.toggleExistence(item: T) {
  * @param shouldExists [Boolean]
  * @timecomplexity O(1)
  */
-public inline fun <T> MutableSet<T>.setExistence(item: T, shouldExists: Boolean) {
+public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.setExistence(item: T, shouldExists: Boolean) {
     if (shouldExists) {
         add(item)
     } else {
