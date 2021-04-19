@@ -85,4 +85,93 @@ class CharSequenceTest {
         "0A0a".lastIndexOfOrNull("A", ignoreCase = false, startIndex = 1).assertNotNullAndEquals(1)
 
     }
+
+
+    class CharSequenceEquals {
+        @Test
+        fun empty() {
+            val first: CharSequence = ""
+            val second: CharSequence = ""
+            first.equals(second, false).assertTrue()
+            first.equals(second, true).assertTrue()
+        }
+
+        @Test
+        fun singleSameCase() {
+            val first: CharSequence = "a"
+            val second: CharSequence = "a"
+            first.equals(second, false).assertTrue()
+            first.equals(second, true).assertTrue()
+        }
+
+        @Test
+        fun singleDifferentCase() {
+            val first: CharSequence = "a"
+            val second: CharSequence = "A"
+            first.equals(second, false).assertFalse()
+            first.equals(second, true).assertTrue()
+        }
+
+        @Test
+        fun singleNumber() {
+            val first: CharSequence = "5"
+            val second: CharSequence = "5"
+            first.equals(second, false).assertTrue()
+            first.equals(second, true).assertTrue()
+        }
+
+        @Test
+        fun differentLength() {
+            val first: CharSequence = "50"
+            val second: CharSequence = "5"
+            first.equals(second, false).assertFalse()
+            first.equals(second, true).assertFalse()
+        }
+
+
+    }
+
+
+    class CharSequenceNotEquals {
+        @Test
+        fun empty() {
+            val first: CharSequence = ""
+            val second: CharSequence = ""
+            first.notEquals(second, false).assertFalse()
+            first.notEquals(second, true).assertFalse()
+        }
+
+        @Test
+        fun singleSameCase() {
+            val first: CharSequence = "a"
+            val second: CharSequence = "a"
+            first.notEquals(second, false).assertFalse()
+            first.notEquals(second, true).assertFalse()
+        }
+
+        @Test
+        fun singleDifferentCase() {
+            val first: CharSequence = "a"
+            val second: CharSequence = "A"
+            first.notEquals(second, false).assertTrue()
+            first.notEquals(second, true).assertFalse()
+        }
+
+        @Test
+        fun singleNumber() {
+            val first: CharSequence = "5"
+            val second: CharSequence = "5"
+            first.notEquals(second, false).assertFalse()
+            first.notEquals(second, true).assertFalse()
+        }
+
+        @Test
+        fun differentLength() {
+            val first: CharSequence = "50"
+            val second: CharSequence = "5"
+            first.notEquals(second, false).assertTrue()
+            first.notEquals(second, true).assertTrue()
+        }
+
+    }
 }

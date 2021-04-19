@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE", "unused")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.primitives
 
@@ -104,11 +104,20 @@ public inline fun CharSequence.lastIndexOfOrNull(
 //endregion
 
 
-public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean = false) {
-
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean = false): Boolean {
+    if (length != other.length) {
+        return false
+    }
+    forEachIndexed { index, char ->
+        val otherChar = other[index]
+        if (!otherChar.equals(char, ignoreCase)) {
+            return@equals false
+        }
+    }
+    return true
 }
 
-//TODO consider for multiple things
-public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolean = false) {
-
-}
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolean = false): Boolean =
+    !equals(other, ignoreCase)

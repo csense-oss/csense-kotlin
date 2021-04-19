@@ -2,6 +2,7 @@
 
 ## 0.0.47
 
+- annotated some functions with OnlyInputTypes (to avoid type misuse for extensions)
 - gradle 7
 - add Iterator extensions:
     - toList
@@ -10,6 +11,7 @@
 - added collection extensions:
     - toMap
     - toMutableMap
+- added CharSequence.equals & CharSequence.notEquals
 -
 
 ## 0.0.46
