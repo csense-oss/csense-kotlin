@@ -334,14 +334,26 @@ public inline fun <reified U> Collection<Any?>.findWithType(
     return null
 }
 
-
+/**
+ * Maps this [Collection] to a [Map] with the given [keyMapper]
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
 public inline fun <T, Key> Collection<T>.toMap(
     keyMapper: Function1<T, Key>
 ): Map<Key, T> = toMutableMap(keyMapper)
 
+/**
+ * Maps this [Collection] to a [MutableMap] with the given [keyMapper]
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
 public inline fun <T, Key> Collection<T>.toMutableMap(
     keyMapper: Function1<T, Key>
 ): MutableMap<Key, T> = toMutableMap(keyMapper, valueMapper = { it })
+
 
 public inline fun <T, Key, Value> Collection<T>.toMap(
     keyMapper: Function1<T, Key>,

@@ -11,7 +11,7 @@
 - added collection extensions:
     - toMap
     - toMutableMap
-- added CharSequence.equals & CharSequence.notEquals
+- added CharSequence.equals & CharSequence.notEquals 
 -
 
 ## 0.0.46
