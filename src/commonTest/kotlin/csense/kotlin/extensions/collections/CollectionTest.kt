@@ -751,7 +751,7 @@ class CollectionTest {
             }
             assertCalled { shouldBeCalled ->
                 collection.forEachWithType<CharSequence> {
-//                    it.assert("1")//todo use csense test next version
+                    it.assert("1")
                     shouldBeCalled()
                 }
             }
@@ -842,12 +842,18 @@ class CollectionTest {
     class CollectionTToMapKeyMapper {
         @Test
         fun empty() {
-            listOf<String>().toMap {  }
+            listOf<String>().toMap { shouldNotBeCalled() }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            listOf("1234").toMap {
+                it.assert("1234")
+                it.toInt()
+            }.assertSingle {
+                it.key.assert(1234)
+                it.value.assert("1234")
+            }
         }
 
         @Test
@@ -855,15 +861,22 @@ class CollectionTest {
             //TODO test multiple element condition here.
         }
     }
+
     class CollectionTToMutableMapKeyMapper {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<String>().toMutableMap { shouldNotBeCalled() }
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            listOf("1234").toMutableMap {
+                it.assert("1234")
+                it.toInt()
+            }.assertSingle {
+                it.key.assert(1234)
+                it.value.assert("1234")
+            }
         }
 
         @Test
@@ -871,15 +884,31 @@ class CollectionTest {
             //TODO test multiple element condition here.
         }
     }
+
     class CollectionTToMapKeyMapperValueMapper {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<String>().toMap(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() }
+            )
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            listOf("555").toMap(
+                keyMapper = {
+                    it.assert("555")
+                    "key"
+                },
+                valueMapper = {
+                    it.assert("555")
+                    "value"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
         }
 
         @Test
@@ -887,15 +916,31 @@ class CollectionTest {
             //TODO test multiple element condition here.
         }
     }
+
     class CollectionTToMutableMapKeyMapperValueMapper {
         @Test
         fun empty() {
-            //TODO test empty condition here.
+            listOf<String>().toMutableMap(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() }
+            )
         }
 
         @Test
         fun single() {
-            //TODO test single element condition here.
+            listOf("555").toMutableMap(
+                keyMapper = {
+                    it.assert("555")
+                    "key"
+                },
+                valueMapper = {
+                    it.assert("555")
+                    "value"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
         }
 
         @Test

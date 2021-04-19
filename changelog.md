@@ -7,6 +7,10 @@
     - toList
     - toMutableList
     - map
+- added collection extensions:
+    - toMap
+    - toMutableMap
+-
 
 ## 0.0.46
 
