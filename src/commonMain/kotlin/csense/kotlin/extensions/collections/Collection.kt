@@ -100,6 +100,7 @@ public inline fun <Element> Collection<Element>.categorizeInto(
  * @param allowItemInMultipleBuckets [Boolean] if true, will allow multiple filters to look at this element,
  * if false then it will stop once a filter accepts it.
  */
+@Suppress("MissingTestFunction")
 @Deprecated("will be unavilable in the next version", level = DeprecationLevel.WARNING)
 public inline fun <Element> Element.categorizeInto(
     result: ArrayList<MutableList<Element>>,

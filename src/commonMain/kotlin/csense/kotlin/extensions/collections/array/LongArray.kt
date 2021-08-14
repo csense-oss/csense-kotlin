@@ -18,6 +18,7 @@ public inline fun <U> LongArray.forEachDiscard(receiver: Function1<Long, U>): Un
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun LongArray.forEach2Indexed(action: Function2IndexedUnit<Long, Long>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -25,6 +26,7 @@ public inline fun LongArray.forEach2Indexed(action: Function2IndexedUnit<Long, L
  * Performs traversal in pairs of 2
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun LongArray.forEach2(action: Function2Unit<Long, Long>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

@@ -129,7 +129,7 @@ public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolea
  * @param [startIndex] [Int]
  * @return [String]? null if [startIndex] is invalid otherwise the substring
  */
-public inline fun CharSequence.substringFrom(startIndex: Int): String? {
+public inline fun CharSequence.substringFromOrNull(startIndex: Int): String? {
     if (startIndex >= length || startIndex.isNegative) {
         return null
     }

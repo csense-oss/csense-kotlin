@@ -14,6 +14,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @timecomplexity O(N)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(
         size,
@@ -28,6 +29,7 @@ public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>)
  * @timecomplexity O(N)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 

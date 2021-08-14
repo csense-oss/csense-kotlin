@@ -269,4 +269,33 @@ class CharSequenceTest {
         }
 
     }
+
+
+    class SubstringFromOrNull {
+        @Test
+        fun empty() {
+            "".substringFromOrNull(-1).assertNull()
+            "".substringFromOrNull(0).assertNull()
+            "".substringFromOrNull(1).assertNull()
+        }
+
+        @Test
+        fun single() {
+            "a".substringFromOrNull(-1).assertNull()
+            "a".substringFromOrNull(0).assertNotNullAndEquals("a")
+            "a".substringFromOrNull(1).assertNull()
+        }
+
+        @Test
+        fun multiple() {
+            "abc".substringFromOrNull(-1).assertNull()
+            "abc".substringFromOrNull(0).assertNotNullAndEquals("abc")
+            "abc".substringFromOrNull(1).assertNotNullAndEquals("bc")
+            "abc".substringFromOrNull(2).assertNotNullAndEquals("c")
+            "abc".substringFromOrNull(3).assertNull()
+
+        }
+
+
+    }
 }

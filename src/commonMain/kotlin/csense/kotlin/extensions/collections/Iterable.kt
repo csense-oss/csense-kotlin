@@ -391,6 +391,7 @@ public class CollectionPartition<out E>(
  * @param action [Function2IndexedUnit]<T, T>
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -400,6 +401,7 @@ public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T
  * @param action [Function2Unit]<T, T>
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
