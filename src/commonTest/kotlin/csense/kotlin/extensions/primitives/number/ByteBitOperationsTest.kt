@@ -9,9 +9,9 @@ class ByteBitOperationsTest {
     @Test
     fun byteBitOperationsShl() {
         0.toByte().bitOperations.shl(2).assert(0)
-        1.toByte().bitOperations.shl(1).assert(2 * 1)
-        2.toByte().bitOperations.shl(1).assert(2 * 2)
-        8.toByte().bitOperations.shl(2).assert(8 * 2 * 2)
+        1.toByte().bitOperations.shl(1).assert((2 * 1).toByte())
+        2.toByte().bitOperations.shl(1).assert((2 * 2).toByte())
+        8.toByte().bitOperations.shl(2).assert((8 * 2 * 2).toByte())
     }
 
     @Test
@@ -19,7 +19,7 @@ class ByteBitOperationsTest {
         0.toByte().bitOperations.shr(2).assert(0)
         1.toByte().bitOperations.shr(1).assert(0)
         2.toByte().bitOperations.shr(1).assert(1)
-        8.toByte().bitOperations.shr(2).assert((8 / 2) / 2)
+        8.toByte().bitOperations.shr(2).assert(((8 / 2) / 2).toByte())
     }
 
     class ByteBitOperationsUpdateLowerNibble {

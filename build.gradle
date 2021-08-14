@@ -1,13 +1,13 @@
 buildscript {
 
-    ext.coroutinesVersion = "1.4.3"
-    ext.junit5Version = "5.7.1"
+    ext.coroutinesVersion = "1.5.1"
+    ext.junit5Version = "5.7.2"
     ext.csenseTestsVersion = "0.0.49"
     ext.csenseAnnotationVersion = "0.0.41"
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
-    ext.csenseVersionName = "0.0.47"
+    ext.csenseVersionName = "0.0.50"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseLicense = "MIT"
@@ -26,11 +26,11 @@ buildscript {
 
 plugins {
     id "net.linguica.maven-settings" version "0.5"
-    id 'org.jetbrains.kotlin.multiplatform' version "1.4.32"
-    id("org.jetbrains.dokka") version "1.4.20"
+    id 'org.jetbrains.kotlin.multiplatform' version "1.5.30-RC"
+    id "org.jetbrains.dokka" version "1.5.0"
     id "maven-publish"
-    id 'org.jetbrains.kotlinx.benchmark' version '0.3.0'
-    id("org.owasp.dependencycheck") version "6.1.5"
+    id 'org.jetbrains.kotlinx.benchmark' version '0.3.1'
+    id "org.owasp.dependencycheck" version "6.2.2"
 }
 
 repositories {
@@ -44,7 +44,7 @@ repositories {
 kotlin {
     explicitApi = 'strict'
     jvm()
-    js(LEGACY) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
+    js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
         browser()
         nodejs()
     }
@@ -61,19 +61,19 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
-                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.0"
             }
         }
         jvmMain {
 
         }
+
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation "org.jetbrains.kotlin:kotlin-reflect"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.1"
             }
-
         }
 
         jsMain {
@@ -87,7 +87,7 @@ kotlin {
         all {
             languageSettings {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation('kotlin.RequiresOptIn')
+                optIn("kotlin.RequiresOptIn")
                 progressiveMode = true
             }
         }
@@ -111,28 +111,39 @@ jvmTest {
     }
 }
 
+dependencyCheck {
+    def allConfigsAsList = new ArrayList<>(configurations.getNames())
+    def nonTestConfigurations = allConfigsAsList.findAll {
+        !it.contains("Test") && (
+                it.startsWith("js") ||
+                        it.startsWith("jvm") ||
+                        it.startsWith("jvm") ||
+                        it.startsWith("common")
+        )
+    }
+
+    analyzers {
+        assemblyEnabled = false
+    }
+    scanConfigurations = nonTestConfigurations
+    skipTestGroups = true
+    failOnError = true
+}
+
 project.group = csenseGroupId
 project.version = csenseVersionName
 
-//pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
-//    kotlin.targets.matching { it.platformType.name == "jvm" }.all {
-//        compilations.all {
-//            kotlinOptions.useIR = true
-//        }
-//    }
-//
-//}
 
 apply from: "$rootDir/gradle/publish.gradle"
 
-task uploadProd(dependsOn: ["assemble", "allTests", "publish"])
+task uploadProd(dependsOn: ["assemble", "allTests", "dependencyCheckAggregate", "publish"])
 
 
 benchmark {
     targets {
         register("jvmTest") {
             //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
-            jmhVersion = "1.28" // available only for JVM compilations & Java source sets
+            jmhVersion = "1.33" // available only for JVM compilations & Java source sets
         }
     }
 }

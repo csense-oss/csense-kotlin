@@ -219,7 +219,7 @@ class TimeTests {
             TimeUnit.MilliSeconds(10).delay()
         }
         println("time = $time")
-        time.inMilliseconds.assertLargerOrEqualTo(10.0)
+        time.inWholeMilliseconds.assertLargerOrEqualTo(10)
     }
 }
 

@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.nio.charset.Charset
 import kotlin.test.Test
-
+//Some of these tests can be flaky. shared static state..
 class LExtensionsKtTest {
 
 
@@ -68,7 +68,6 @@ class LExtensionsKtTest {
         logClassWarning("testLogWarning", null)
         logClassWarning("testLogWarning", null)
         counter.value.assertNotNullAndEquals(2)
-
     }
 
     @Test

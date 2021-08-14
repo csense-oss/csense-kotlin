@@ -6,6 +6,7 @@ import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import kotlin.contracts.*
+import kotlin.jvm.*
 import kotlin.math.*
 
 /**
@@ -98,7 +99,8 @@ public inline fun Int.forEach(action: FunctionUnit<Int>) {
 //region indexOf extensions
 
 
-public inline class IndexOfExtensions(public val value: Int)
+@JvmInline
+public value class IndexOfExtensions(public val value: Int)
 
 public inline val Int.indexOfExtensions: IndexOfExtensions
     get() = IndexOfExtensions(this)

@@ -5,9 +5,11 @@ package csense.kotlin.extensions.primitives.number
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.experimental.*
+import kotlin.jvm.*
 
 
-public inline class ByteBitOperations(public val byte: Byte)
+@JvmInline
+public value class ByteBitOperations(public val byte: Byte)
 
 
 public inline val Byte.bitOperations: ByteBitOperations

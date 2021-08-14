@@ -4,6 +4,7 @@ package csense.kotlin.extensions.primitives
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.number.*
+import kotlin.jvm.*
 
 
 //region Zero, negative, positive
@@ -156,8 +157,8 @@ public inline fun <T> Byte.splitIntoComponents(
 
 //endregion
 
-
-public inline class ByteExtensions(public val byte: Byte) {
+@JvmInline
+public value class ByteExtensions(public val byte: Byte) {
     public companion object {
         public const val hexCharsAsString: String = "0123456789ABCDEF"
     }

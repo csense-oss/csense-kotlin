@@ -5,6 +5,7 @@ package csense.kotlin.extensions.primitives
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import kotlin.experimental.*
+import kotlin.jvm.*
 
 /**
  *changes the casing of this char to the given casing
@@ -13,8 +14,8 @@ import kotlin.experimental.*
  * @return [Char]
  */
 public inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
-    ifTrue = this::toUpperCase,
-    ifFalse = this::toLowerCase
+    ifTrue = this::uppercaseChar,
+    ifFalse = this::lowercaseChar
 )
 
 /**
@@ -24,7 +25,7 @@ public inline fun Char.toCase(upperCase: Boolean): Char = upperCase.mapLazy(
  */
 @ByteLimit(from = 0, to = 9)
 public inline fun Char.asDigit(): Byte? {
-    val diff = toByte() - CharExtensions.charZeroAsByte
+    val diff = code - CharExtensions.charZeroAsByte
     if (diff.isNegative || diff > CharExtensions.numberCharsCount) {
         return null
     }
@@ -44,7 +45,7 @@ public inline fun Char.asHexDigit(): Byte? {
         return asNumber
     }
     //then its either [A-F] or not a hex
-    val thisByte = toLowerCase().toByte() - CharExtensions.charAAsByte
+    val thisByte = lowercaseChar().code - CharExtensions.charAAsByte
     if (thisByte.isNegative || thisByte > CharExtensions.hexCharsCount) {
         return null
     }
@@ -101,12 +102,13 @@ public inline fun Char.isNotDigit(): Boolean =
     !isDigit()
 
 
-public inline class CharExtensions(public val char: Char) {
+@JvmInline
+public value class CharExtensions(public val char: Char) {
     public companion object {
 
-        public const val charZeroAsByte: Byte = '0'.toByte()
+        public const val charZeroAsByte: Int = '0'.code
 
-        public const val charAAsByte: Byte = 'a'.toByte()
+        public const val charAAsByte: Int = 'a'.code
 
         /**
          * The length (0 indexed) of numbers ( 0 until 9)

@@ -88,14 +88,14 @@ class ByteTest {
     @Test
     fun toChars() {
         0.toByte().toChars { upperChar, lowerChar ->
-            upperChar.toUpperCase().assert('0')
-            lowerChar.toUpperCase().assert('0')
+            upperChar.assert('0', ignoreCase = true)
+            lowerChar.assert('0', ignoreCase = true)
             42
         }.assert(42)
 
         0xFE.toByte().toChars { upperChar, lowerChar ->
-            upperChar.toUpperCase().assert('F')
-            lowerChar.toUpperCase().assert('E')
+            upperChar.assert('F', ignoreCase = true)
+            lowerChar.assert('E', ignoreCase = true)
         }
     }
 

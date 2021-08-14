@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.Function1
 import csense.kotlin.annotations.numbers.*
 
 /**
@@ -121,3 +122,54 @@ public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean =
 @kotlin.internal.LowPriorityInOverloadResolution
 public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolean = false): Boolean =
     !equals(other, ignoreCase)
+
+/**
+ * Returns the [substring] from the given [startIndex]
+ * @receiver [CharSequence]
+ * @param [startIndex] [Int]
+ * @return [String]? null if [startIndex] is invalid otherwise the substring
+ */
+public inline fun CharSequence.substringFrom(startIndex: Int): String? {
+    if (startIndex >= length || startIndex.isNegative) {
+        return null
+    }
+    return substring(startIndex, length)
+}
+
+/**
+ * Splits this [CharSequence] by the given Chars
+ * @receiver [CharSequence]
+ * @param delimiters [Set]<[Char]>
+ * @return [List]<[String]>
+ */
+public inline fun CharSequence.split(delimiters: Set<Char>): List<String> = splitBy {
+    it in delimiters
+}
+
+/**
+ * Splits this [CharSequence] by the given [shouldSplit]
+ * @receiver [CharSequence]
+ * @param shouldSplit [Function1]<[Char], [Boolean]>
+ * @return [List]<[String]>
+ */
+public inline fun CharSequence.splitBy(shouldSplit: Function1<Char, Boolean>): List<String> {
+    val isIndexNotAtEnd = { index: Int ->
+        index < length
+    }
+    val results = mutableListOf<String>()
+    var currentStartIndex = 0
+    forEachIndexed { index, char ->
+        if (shouldSplit(char)) {
+            val splitLength = index - currentStartIndex
+            if (splitLength > 0) {
+                results += substring(startIndex = currentStartIndex, endIndex = index)
+            }
+            currentStartIndex = index + 1 // +1 since we are "taking" the "char" that gets "split"
+        }
+    }
+    if (isIndexNotAtEnd(currentStartIndex)) {
+        results += substring(startIndex = currentStartIndex)
+    }
+
+    return results
+}

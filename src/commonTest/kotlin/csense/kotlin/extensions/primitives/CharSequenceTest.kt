@@ -174,4 +174,99 @@ class CharSequenceTest {
         }
 
     }
+
+    class CharSequenceSplitBy {
+        @Test
+        fun alwaysSplitEmpty() {
+            "".splitBy { true }.assertEmpty("nothing cannot be split")
+        }
+
+        @Test
+        fun alwaysSplitSingle() {
+            "a".splitBy { true }.apply {
+                assertSize(0, "since we do not include the split")
+            }
+        }
+
+        @Test
+        fun alwaysSplitMultiple() {
+            "ab".splitBy { true }.apply {
+                assertSize(0, "since we do not include the split")
+            }
+        }
+
+        @Test
+        fun splitMultipleDigits() {
+            "20/80 8000".splitBy { it.isNotDigit() }.apply {
+                assertSize(3)
+                this[0].assert("20")
+                this[1].assert("80")
+                this[2].assert("8000")
+            }
+        }
+
+        @Test
+        fun splitMultipleDigitsWeird() {
+            "20/80 abc 8000".splitBy { it.isNotDigit() }.apply {
+                assertSize(3)
+                this[0].assert("20")
+                this[1].assert("80")
+                this[2].assert("8000")
+            }
+        }
+
+    }
+
+
+    class CharSequenceSplitDelimiters() {
+        @Test
+        fun empty() {
+            val result = "abc".split(setOf())
+            result.assertSingle("abc")
+        }
+
+        @Test
+        fun singleTakesSplit() {
+            val result = "abc".split(setOf('a'))
+            result.first().assert("bc")
+            result.assertSize(1)
+        }
+
+        @Test
+        fun singleInMiddle() {
+            val result = "abc".split(setOf('b'))
+            result.assertSize(2)
+            result.first().assert("a")
+            result.last().assert("c")
+        }
+
+        @Test
+        fun multipleAtEnds() {
+            val result = "abc1234".split(setOf('a', '4'))
+            result.assertSize(1)
+            result[0].assert("bc123")
+        }
+
+        @Test
+        fun multipleAtMiddle() {
+            val result = "abc1234".split(setOf('b', '3'))
+            result.assertSize(3)
+            result[0].assert("a")
+            result[1].assert("c12")
+            result[2].assert("4")
+        }
+
+        @Test
+        fun shouldBehaveAsRegularSplit() {
+            val regular = "123a123".split('a')
+            val bySet = "123a123".split(setOf('a'))
+            regular.assertSize(bySet.size)
+            //todo csense tests -> assertContentAndOrder
+
+            regular.forEachIndexed { index, s ->
+                bySet[index].assert(s)
+            }
+        }
+
+    }
 }

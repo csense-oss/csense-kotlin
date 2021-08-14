@@ -83,7 +83,8 @@ class MappingTest {
     fun tMapIfInstanceOrThis() {
         val parent = Parent()
         parent.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(parent, "its not a FirstChild")
-        parent.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }.assertAs(parent, "its not a SecondChild")
+        parent.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }
+            .assertAs(parent, "its not a SecondChild")
 
         val firstChild: Parent = FirstChild()
         assertCalled { called ->
@@ -101,7 +102,42 @@ class MappingTest {
     class IterableTMapToTypedArray {
         @Test
         fun empty() {
-            listOf<String>().mapToTypedArray<String, Int> { shouldNotBeCalled() }.assertSize(0)
+            setOf<Int>().mapToTypedArray<Int, String> { shouldNotBeCalled() }.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            val col: Collection<Int> = setOf(42)
+            col.mapToTypedArray { "a" }.apply {
+                assertSize(1)
+                first().assert("a")
+            }
+            val secondCol: Collection<Int> = listOf(42)
+            secondCol.mapToTypedArray { "$it" }.apply {
+                assertSize(1)
+                first().assert("42")
+            }
+        }
+
+        @Test
+        fun multiple() {
+            assertCalled(times = 2) { shouldBeCalled ->
+                val col: Collection<Int> = setOf(42, 11)
+                col.mapToTypedArray { shouldBeCalled();"$it" }.apply {
+                    assertSize(2)
+                    first().assert("42")
+                    last().assert("11")
+                }
+            }
+        }
+    }
+
+    class ListTMapToTypedArrayMapper {
+        @Test
+        fun empty() {
+            listOf<String>().mapToTypedArray<String, Int> {
+                shouldNotBeCalled()
+            }.assertSize(0)
         }
 
         @Test
