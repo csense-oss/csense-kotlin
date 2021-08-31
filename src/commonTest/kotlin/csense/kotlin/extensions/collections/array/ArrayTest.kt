@@ -165,7 +165,6 @@ class ArrayTest {
             arrayOf<String>().joinEvery(1, "").assertSize(0)
         }
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun single() {
             arrayOf("a").joinEvery(-1, "b").apply {
@@ -182,7 +181,6 @@ class ArrayTest {
             }
         }
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun multiple() {
             arrayOf("a", "1").joinEvery(-1, "b").apply {
@@ -238,14 +236,12 @@ class ArrayTest {
     }
 
     class ArrayTJoinEvery {
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun empty() {
             val lst = arrayOf<String>().joinEvery(1, "")
             lst.assertEmpty()
         }
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun single() {
             val res = arrayOf("1").joinEvery(1, "test")
@@ -253,7 +249,6 @@ class ArrayTest {
             res.first().assert("1", message = "cannot join when only one element")
         }
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun multiple() {
             val res = arrayOf("1", "3").joinEvery(1, "2")
@@ -266,7 +261,6 @@ class ArrayTest {
 
     class ArrayTJoinEveryAction {
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun empty() {
             val lst = arrayOf<String>().joinEveryAction(1) {
@@ -276,7 +270,6 @@ class ArrayTest {
         }
 
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun single() {
             val res = arrayOf("1").joinEveryAction(1) {
@@ -286,7 +279,6 @@ class ArrayTest {
             res.first().assert("1", message = "cannot join when only one element")
         }
 
-        @Ignore// ignored due to compiler issue https://youtrack.jetbrains.com/issue/KT-46982
         @Test
         fun multiple() {
             val res = arrayOf("1", "3").joinEveryAction(1) {

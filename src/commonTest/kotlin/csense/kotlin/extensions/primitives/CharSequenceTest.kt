@@ -271,31 +271,122 @@ class CharSequenceTest {
     }
 
 
-    class SubstringFromOrNull {
+    class SubstringOrNullStartIndex {
         @Test
         fun empty() {
-            "".substringFromOrNull(-1).assertNull()
-            "".substringFromOrNull(0).assertNull()
-            "".substringFromOrNull(1).assertNull()
+            "".substringOrNull(-1).assertNull()
+            "".substringOrNull(0).assertNull()
+            "".substringOrNull(1).assertNull()
         }
 
         @Test
         fun single() {
-            "a".substringFromOrNull(-1).assertNull()
-            "a".substringFromOrNull(0).assertNotNullAndEquals("a")
-            "a".substringFromOrNull(1).assertNull()
+            "a".substringOrNull(-1).assertNull()
+            "a".substringOrNull(0).assertNotNullAndEquals("a")
+            "a".substringOrNull(1).assertNull()
         }
 
         @Test
         fun multiple() {
-            "abc".substringFromOrNull(-1).assertNull()
-            "abc".substringFromOrNull(0).assertNotNullAndEquals("abc")
-            "abc".substringFromOrNull(1).assertNotNullAndEquals("bc")
-            "abc".substringFromOrNull(2).assertNotNullAndEquals("c")
-            "abc".substringFromOrNull(3).assertNull()
+            "abc".substringOrNull(-1).assertNull()
+            "abc".substringOrNull(0).assertNotNullAndEquals("abc")
+            "abc".substringOrNull(1).assertNotNullAndEquals("bc")
+            "abc".substringOrNull(2).assertNotNullAndEquals("c")
+            "abc".substringOrNull(3).assertNull()
+        }
+    }
 
+    class SubstringOrNullStartIndexEndIndex {
+        @Test
+        fun empty() {
+            "".substringOrNull(startIndex = -1, endIndex = 0).assertNull()
+            "".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
+            "".substringOrNull(startIndex = 1, endIndex = 0).assertNull()
+
+            "".substringOrNull(startIndex = 0, endIndex = -1).assertNull()
+            "".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
+            "".substringOrNull(startIndex = 0, endIndex = 1).assertNull()
         }
 
+        @Test
+        fun single() {
+            "a".substringOrNull(startIndex = -1, endIndex = 0).assertNull()
+            "a".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
+            "a".substringOrNull(startIndex = 1, endIndex = 0).assertNull()
 
+            "a".substringOrNull(startIndex = 0, endIndex = -1).assertNull()
+            "a".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
+            "a".substringOrNull(startIndex = 0, endIndex = 1).assertNotNullAndEquals("a")
+            "a".substringOrNull(startIndex = 0, endIndex = 2).assertNull("is out of bounds")
+        }
+
+        @Test
+        fun multiple() {
+            "abc".substringOrNull(startIndex = -1, endIndex = 0).assertNull()
+
+            "abc".substringOrNull(startIndex = 0, endIndex = -1).assertNull()
+            "abc".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
+            "abc".substringOrNull(startIndex = 0, endIndex = 1).assertNotNullAndEquals("a")
+            "abc".substringOrNull(startIndex = 0, endIndex = 2).assertNotNullAndEquals("ab")
+            "abc".substringOrNull(startIndex = 0, endIndex = 3).assertNotNullAndEquals("abc")
+            "abc".substringOrNull(startIndex = 0, endIndex = 4).assertNull()
+
+            "abc".substringOrNull(startIndex = 1, endIndex = 1).assertNull()
+            "abc".substringOrNull(startIndex = 1, endIndex = 2).assertNotNullAndEquals("b")
+            "abc".substringOrNull(startIndex = 1, endIndex = 3).assertNotNullAndEquals("bc")
+            "abc".substringOrNull(startIndex = 1, endIndex = 4).assertNull()
+
+            "abc".substringOrNull(startIndex = 2, endIndex = 1).assertNull()
+            "abc".substringOrNull(startIndex = 2, endIndex = 2).assertNull()
+            "abc".substringOrNull(startIndex = 2, endIndex = 3).assertNotNullAndEquals("c")
+            "abc".substringOrNull(startIndex = 2, endIndex = 4).assertNull()
+        }
+    }
+
+    class SubstringOrNullRange {
+        @Test
+        fun empty() {
+            "".substringOrNull(IntRange(start = -1, endInclusive = 0)).assertNull()
+            "".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNull()
+            "".substringOrNull(IntRange(start = 1, endInclusive = 0)).assertNull()
+
+            "".substringOrNull(IntRange(start = 0, endInclusive = -1)).assertNull()
+            "".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNull()
+            "".substringOrNull(IntRange(start = 0, endInclusive = 1)).assertNull()
+        }
+
+        @Test
+        fun single() {
+            "a".substringOrNull(IntRange(start = -1, endInclusive = 0)).assertNull()
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
+            "a".substringOrNull(IntRange(start = 1, endInclusive = 0)).assertNull()
+
+            "a".substringOrNull(IntRange(start = 0, endInclusive = -1)).assertNull()
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 1)).assertNull("is out of bounds")
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 2)).assertNull("is out of bounds")
+        }
+
+        @Test
+        fun multiple() {
+            "abc".substringOrNull(IntRange(start = -1, endInclusive = 0)).assertNull()
+
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = -1)).assertNull()
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 1)).assertNotNullAndEquals("ab")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 2)).assertNotNullAndEquals("abc")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 3)).assertNull()
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 4)).assertNull()
+
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 1)).assertNotNullAndEquals("b")
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 2)).assertNotNullAndEquals("bc")
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 3)).assertNull()
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 4)).assertNull()
+
+            "abc".substringOrNull(IntRange(start = 2, endInclusive = 1)).assertNull()
+            "abc".substringOrNull(IntRange(start = 2, endInclusive = 2)).assertNotNullAndEquals("c")
+            "abc".substringOrNull(IntRange(start = 2, endInclusive = 3)).assertNull()
+            "abc".substringOrNull(IntRange(start = 2, endInclusive = 4)).assertNull()
+        }
     }
 }

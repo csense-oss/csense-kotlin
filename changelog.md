@@ -1,5 +1,7 @@
 # Changelog
+
 ## 0.5.0
+
 - kotlin 1.5.30
 - annotated some functions with OnlyInputTypes (to avoid type misuse for extensions)
 - gradle 7
@@ -10,11 +12,11 @@
 - added collection extensions:
     - toMap
     - toMutableMap
-- added CharSequence.equals & CharSequence.notEquals 
+- added CharSequence.equals & CharSequence.notEquals
 - added extensions to CharSequence
-  - substringFrom 
-  - split
-  - splitBy
+    - substringOrNull
+    - split
+    - splitBy
 - added List<T>.mapToTypedArray
 
 ## 0.0.46

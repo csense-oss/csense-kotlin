@@ -124,16 +124,42 @@ public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolea
     !equals(other, ignoreCase)
 
 /**
- * Returns the [substring] from the given [startIndex]
- * @receiver [CharSequence]
- * @param [startIndex] [Int]
- * @return [String]? null if [startIndex] is invalid otherwise the substring
+ * Returns a substring of chars from a range of this char sequence starting at the [startIndex]
+ * @param startIndex the start index (inclusive).
+ * @return [String]? null if [startIndex] is out of bounds otherwise the substring
  */
-public inline fun CharSequence.substringFromOrNull(startIndex: Int): String? {
-    if (startIndex >= length || startIndex.isNegative) {
+public inline fun CharSequence.substringOrNull(startIndex: Int): String? {
+    val isOutOfBounds = startIndex >= length || startIndex.isNegative
+    if (isOutOfBounds) {
         return null
     }
-    return substring(startIndex, length)
+    return substring(startIndex)
+}
+
+/**
+ * Returns a substring of chars from a range of this char sequence starting at the [startIndex] and ending right before the [endIndex].
+ * if out of bounds or [endIndex] is less than or equal to [startIndex] null is returned
+ * @param startIndex the start index (inclusive).
+ * @param endIndex the end index (exclusive). If not specified, the length of the char sequence is used.
+ * @return null if out of bounds or [endIndex] is before or equal to [startIndex] otherwise the substring
+ */
+public inline fun CharSequence.substringOrNull(startIndex: Int, endIndex: Int = length): String? {
+    val isOutOfBoundsStart = startIndex >= length || startIndex.isNegative
+    val isOutOfBoundsEnd = endIndex > length || endIndex.isNegative || endIndex <= startIndex
+    if (isOutOfBoundsStart || isOutOfBoundsEnd) {
+        return null
+    }
+    return substring(startIndex = startIndex, endIndex = endIndex)
+}
+
+/**
+ * Returns a substring of chars at indices from the specified [range] of this char sequence.
+ * if the range is out of bounds (or [IntRange.last] is before [IntRange.first] of [range] ) then null is returned
+ * @param range [IntRange]
+ * @return [String]? returns null if out of bounds or range is reversed, otherwise returns the substring given the [range]
+ */
+public inline fun CharSequence.substringOrNull(range: IntRange): String? {
+    return substringOrNull(range.first, range.last + 1)
 }
 
 /**

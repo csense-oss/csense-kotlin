@@ -94,7 +94,7 @@ public inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this
  *
  * @receiver T?
  * @param ifNotNull T.() -> Unit the action to perform iff this is not null
- * @param ifNull [EmptyFunction]  if the this is null this action will be performed
+ * @param ifNull [EmptyFunction]  if the receiver is null this action will be performed
  */
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> T?.useOr(
@@ -132,7 +132,7 @@ public inline fun <reified T> Any.isNot(): Boolean {
  *
  * @receiver T? the optional value to either use or the supplied
  * @param ifNull T the other value to use if this receiver is null
- * @return T the non null value
+ * @return T the non-null value
  */
 public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.or(ifNull: T): T = this ?: ifNull
 
@@ -142,7 +142,7 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.or(ifNull
  *
  * @receiver T? the optional value to either use or the supplied
  * @param ifNullAction [Function0R] the other value (to compute) if this receiver is null
- * @return T the non null value
+ * @return T the non-null value
  */
 @OptIn(ExperimentalContracts::class)
 public inline infix fun <reified T> T?.orLazy(ifNullAction: Function0R<T>): T {
