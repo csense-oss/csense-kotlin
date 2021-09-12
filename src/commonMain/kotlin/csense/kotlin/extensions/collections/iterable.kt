@@ -5,6 +5,7 @@ package csense.kotlin.extensions.collections
 import csense.kotlin.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 
 //region Invoke each Lazy
@@ -516,4 +517,21 @@ public inline fun <T, C : Iterable<T>> C?.isNullOrEmpty(): Boolean {
         returns(false) implies (this@isNullOrEmpty != null)
     }
     return this == null || this.isEmpty()
+}
+
+/**
+ * Returns a list containing first [count] elements.
+ * @returns null if [count] is negative.
+ * if count is 0 [emptyList] is returned.
+ * if it is above 0 then it will take the available items in this receiver (if any)
+ */
+public inline fun <T> Iterable<T>.takeOrNull(count: Int): List<T>? {
+    if (count.isNegative) {
+        return null
+    }
+    if (count.isZero) {
+        return emptyList()
+    }
+    return take(count)
+
 }

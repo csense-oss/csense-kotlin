@@ -134,7 +134,42 @@ public inline fun <reified T> Any.isNot(): Boolean {
  * @param ifNull T the other value to use if this receiver is null
  * @return T the non-null value
  */
-public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.or(ifNull: T): T = this ?: ifNull
+@Deprecated(
+    message = "use \"orIfNull\" instead. \"or\" conflicts with other function(s)",
+    replaceWith = ReplaceWith("orIfNull(ifNull)")
+)
+public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.or(ifNull: T): T = orIfNull(ifNull)
+
+/**
+ * this if it is not null, or the other if this is null
+ * the same as ?:
+ *
+ * @receiver T? the optional value to either use or the supplied
+ * @param ifNull T the other value to use if this receiver is null
+ * @return T the non-null value
+ */
+public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(ifNull: T): T = this ?: ifNull
+
+/**
+ * this if it is not null, or the other if this is null
+ * the same as ?:
+ *
+ * @receiver T? the optional value to either use or the supplied
+ * @param ifNullAction [Function0R] the other value (to compute) if this receiver is null
+ * @return T the non-null value
+ */
+@Suppress("MissingTestFunction")
+@Deprecated(
+    message = "use \"orIfNullLazy\" instead. \"or\" conflicts with other function(s)",
+    replaceWith = ReplaceWith("orIfNullLazy(ifNullAction)")
+)
+@OptIn(ExperimentalContracts::class)
+public inline infix fun <reified T> T?.orLazy(ifNullAction: Function0R<T>): T {
+    contract {
+        callsInPlace(ifNullAction, InvocationKind.AT_MOST_ONCE)
+    }
+    return orIfNullLazy(ifNullAction)
+}
 
 /**
  * this if it is not null, or the other if this is null
@@ -145,9 +180,24 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.or(ifNull
  * @return T the non-null value
  */
 @OptIn(ExperimentalContracts::class)
-public inline infix fun <reified T> T?.orLazy(ifNullAction: Function0R<T>): T {
+public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>): T {
     contract {
         callsInPlace(ifNullAction, InvocationKind.AT_MOST_ONCE)
     }
     return this ?: ifNullAction()
+}
+
+/**
+ * applies the given function iff the given [shouldApply] is true
+ * @receiver T
+ * @param shouldApply [Boolean] whenever the given  [transform] should be applied to the receiver
+ * @param transform [Function1]<T,T> the transformation function to execute if [shouldApply] is true
+ * @return the original value if [shouldApply] is false, otherwise the transformed value (via [transform]) if [shouldApply] is true.
+ */
+public inline fun <T> T.applyIf(shouldApply: Boolean, transform: Function1<T, T>): T {
+    return if (shouldApply) {
+        transform(this)
+    } else {
+        this
+    }
 }

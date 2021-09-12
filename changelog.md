@@ -11,6 +11,7 @@
     - map
 - added collection extensions:
     - toMap
+    - toMapFlat 
     - toMutableMap
 - added CharSequence.equals & CharSequence.notEquals
 - added extensions to CharSequence
@@ -18,6 +19,7 @@
     - split
     - splitBy
 - added List<T>.mapToTypedArray
+- added Iterator.atEnd
 
 ## 0.0.46
 

@@ -335,6 +335,56 @@ public inline fun <reified U> Collection<Any?>.findWithType(
     return null
 }
 
+//region toMapFlat
+/**
+ * Maps this [Collection] to a [Map] with the given [keyMapper]
+ * If multiple elements map to the same key, the last one "wins"
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMapFlat(
+    keyMapper: Function1<T, Key>
+): Map<Key, T> = toMutableMapFlat(keyMapper)
+
+/**
+ * Maps this [Collection] to a [MutableMap] with the given [keyMapper]
+ * If multiple elements map to the same key, the last one "wins"
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMutableMapFlat(
+    keyMapper: Function1<T, Key>
+): MutableMap<Key, T> = toMutableMapFlat(keyMapper, valueMapper = { it })
+
+
+/**
+ *
+ * If multiple elements map to the same key, the last one "wins"
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMapFlat(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): Map<Key, Value> = toMutableMapFlat(keyMapper, valueMapper)
+
+/**
+ *
+ * If multiple elements map to the same key, the last one "wins"
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMutableMapFlat(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): MutableMap<Key, Value> = LinkedHashMap<Key, Value>(size).also { result ->
+    forEach {
+        result[keyMapper(it)] = valueMapper(it)
+    }
+}
+//endregion
+
+//region toMap
 /**
  * Maps this [Collection] to a [Map] with the given [keyMapper]
  * @receiver Collection<T>
@@ -343,7 +393,7 @@ public inline fun <reified U> Collection<Any?>.findWithType(
  */
 public inline fun <T, Key> Collection<T>.toMap(
     keyMapper: Function1<T, Key>
-): Map<Key, T> = toMutableMap(keyMapper)
+): Map<Key, List<T>> = toMutableMap(keyMapper)
 
 /**
  * Maps this [Collection] to a [MutableMap] with the given [keyMapper]
@@ -353,19 +403,31 @@ public inline fun <T, Key> Collection<T>.toMap(
  */
 public inline fun <T, Key> Collection<T>.toMutableMap(
     keyMapper: Function1<T, Key>
-): MutableMap<Key, T> = toMutableMap(keyMapper, valueMapper = { it })
+): MutableMap<Key, MutableList<T>> = toMutableMap(keyMapper, valueMapper = { it })
 
 
+/**
+ *
+ *
+ */
 public inline fun <T, Key, Value> Collection<T>.toMap(
     keyMapper: Function1<T, Key>,
     valueMapper: Function1<T, Value>
-): Map<Key, Value> = toMutableMap(keyMapper, valueMapper)
+): Map<Key, List<Value>> = toMutableMap(keyMapper, valueMapper)
 
+/**
+ *
+ *
+ */
 public inline fun <T, Key, Value> Collection<T>.toMutableMap(
     keyMapper: Function1<T, Key>,
     valueMapper: Function1<T, Value>
-): MutableMap<Key, Value> = LinkedHashMap<Key, Value>(size).also { result ->
-    forEach {
-        result[keyMapper(it)] = valueMapper(it)
+): MutableMap<Key, MutableList<Value>> = LinkedHashMap<Key, MutableList<Value>>(size).also { result ->
+    forEach { collectionItem: T ->
+        val key: Key = keyMapper(collectionItem)
+        val value: Value = valueMapper(collectionItem)
+        result.getOrPut(key, ::mutableListOf).add(value)
     }
 }
+//endregion
+

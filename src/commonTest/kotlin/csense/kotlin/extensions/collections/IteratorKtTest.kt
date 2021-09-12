@@ -180,5 +180,30 @@ class IteratorKtTest {
             result.assertContainsInOrder(2, 3)
         }
     }
+
+    class IteratorTAtEnd {
+        @Test
+        fun empty() {
+            listOf<String>().iterator().atEnd().assertTrue()
+        }
+
+        @Test
+        fun single() {
+            val itt = listOf("a").iterator()
+            itt.atEnd().assertFalse()
+            itt.next()
+            itt.atEnd().assertTrue()
+        }
+
+        @Test
+        fun multiple() {
+            val itt = listOf("a", "1").iterator()
+            itt.atEnd().assertFalse()
+            itt.next()
+            itt.atEnd().assertFalse()
+            itt.next()
+            itt.atEnd().assertTrue()
+        }
+    }
 }
 
