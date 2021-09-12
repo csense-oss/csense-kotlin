@@ -1,7 +1,5 @@
 package csense.kotlin.extensions.collections.generic
 
-import csense.kotlin.Function1
-import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -64,27 +62,136 @@ class ForEachTest {
         }
     }
 
-    @Test
-    fun genericCollectionExtensionsMapEach2() {
-        
-        //TODO make me.
+    class GenericCollectionExtensionsMapEach2 {
+        @Test
+        fun empty() {
+            GenericCollectionExtensions.mapEach2(
+                length = 0,
+                getter = { shouldNotBeCalled() },
+                mapper = { _, _ -> shouldNotBeCalled() }
+            ).assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            GenericCollectionExtensions.mapEach2(
+                length = 1,
+                getter = { shouldNotBeCalled() },
+                mapper = { _, _ -> shouldNotBeCalled() }
+            ).assertEmpty("cannot map 2 at at time given 1 element")
+        }
+
+        @Test
+        fun factorOf2() {
+            val data = listOf(42, 11)
+            val indexes = listOf(0, 1)
+            assertCallbackCalledWith(indexes) { expectedValue ->
+                GenericCollectionExtensions.mapEach2(
+                    length = 2,
+                    getter = {
+                        expectedValue(it)
+                        data[it]
+                    },
+                    mapper = { first, second ->
+                        first.assert(42)
+                        second.assert(11)
+                        "wee"
+                    }
+                ).assertSingle("wee")
+            }
+        }
+    }
+
+
+    class GenericCollectionExtensionsForEach2Indexed {
+        @Test
+        fun empty() {
+            GenericCollectionExtensions.forEach2Indexed(
+                length = 0,
+                getter = { shouldNotBeCalled() },
+                action = { _, _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun single() {
+            GenericCollectionExtensions.forEach2Indexed(
+                length = 1,
+                getter = { shouldNotBeCalled() },
+                action = { _, _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun factorOf2() {
+            val data = listOf(99, 65)
+            val getterIndexes = listOf(0, 1)
+            assertCalled { shouldBeCalled ->
+                assertCallbackCalledWith(getterIndexes) { expectedIndex ->
+                    GenericCollectionExtensions.forEach2Indexed(
+                        length = 2,
+                        getter = {
+                            expectedIndex(it)
+                            data[it]
+                        },
+                        action = { indexOfFirst: Int, first: Int, second: Int ->
+                            indexOfFirst.assert(0)
+                            first.assert(99)
+                            second.assert(65)
+                            shouldBeCalled()
+                        }
+                    )
+                }
+            }
+        }
 
     }
 
-    @Test
-    fun genericCollectionExtensionsForEach2Indexed() {
-        //TODO make me.
+    class GenericCollectionExtensionsForEach2 {
+        @Test
+        fun empty() {
+            GenericCollectionExtensions.forEach2(
+                length = 0,
+                getter = { shouldNotBeCalled() },
+                action = { _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun single() {
+            GenericCollectionExtensions.forEach2(
+                length = 1,
+                getter = { shouldNotBeCalled() },
+                action = { _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun factorOf2() {
+            val data = listOf(99, 65)
+            val getterIndexes = listOf(0, 1)
+            assertCalled { shouldBeCalled ->
+                assertCallbackCalledWith(getterIndexes) { expectedIndex ->
+                    GenericCollectionExtensions.forEach2(
+                        length = 2,
+                        getter = {
+                            expectedIndex(it)
+                            data[it]
+                        },
+                        action = { first: Int, second: Int ->
+                            first.assert(99)
+                            second.assert(65)
+                            shouldBeCalled()
+                        }
+                    )
+                }
+            }
+        }
 
     }
 
-    @Test
-    fun genericCollectionExtensionsForEach2() {
-        //TODO make me.
 
-    }
-
-
-    class GenericCollectionExtensionsForEachBackwardsIndexed() {
+    class GenericCollectionExtensionsForEachBackwardsIndexed {
         @Test
         fun empty() {
             GenericCollectionExtensions.forEachBackwardsIndexed(
@@ -132,7 +239,7 @@ class ForEachTest {
     }
 
 
-    class GenericCollectionExtensionsForEachBackwards() {
+    class GenericCollectionExtensionsForEachBackwards {
         @Test
         fun empty() {
             GenericCollectionExtensions.forEachBackwards(
