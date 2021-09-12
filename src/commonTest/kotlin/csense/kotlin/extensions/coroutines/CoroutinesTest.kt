@@ -55,14 +55,13 @@ class CoroutinesTest {
         @Test
         fun multiple() = runBlockingTest {
             val items = listOf("input1", "input2")
-            assertCallbackCalledWith(items) { callback ->
-                val lst = items.mapAsyncAwait(this) {
-                    callback(it)
-                    it
-                }
-                lst.assertSize(2)
-                lst.assertContainsAll("input1", "input2")
+            val itt = items.iterator()
+            val lst = items.mapAsyncAwait(this) {
+                itt.next().assert(it)
+                it
             }
+            lst.assertSize(2)
+            lst.assertContainsAll("input1", "input2")
         }
     }
 

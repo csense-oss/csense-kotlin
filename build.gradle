@@ -1,6 +1,6 @@
 buildscript {
 
-    ext.coroutinesVersion = "1.5.1"
+    ext.coroutinesVersion = "1.5.2"
     ext.junit5Version = "5.7.2"
     ext.csenseTestsVersion = "0.0.49"
     ext.csenseAnnotationVersion = "0.0.41"
