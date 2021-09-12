@@ -31,7 +31,7 @@ steps:
       jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: false
-      tasks: '--build-cache build'
+      tasks: '--build-cache assemble'
     displayName: Assemble & Test
 
   - task: Gradle@2
