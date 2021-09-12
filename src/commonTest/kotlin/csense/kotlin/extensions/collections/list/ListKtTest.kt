@@ -49,7 +49,6 @@ class ListKtTest {
         collection.repeatToSize(50).apply {
             size.assert(50)
         }
-        //todo more cases here
     }
 
     class ListTSubListIntRange {

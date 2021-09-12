@@ -115,7 +115,7 @@ public inline fun <T, reified U> Iterable<T>.mapToTypedArray(mapper: Function1<T
         return mapToTypedArray(mapper)
     }
     val size = count()
-    val iterator = iterator()//todo improve test perf (might want to specialize impls)
+    val iterator = iterator()
     return Array(size) {
         mapper(iterator.next())
     }

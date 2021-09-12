@@ -261,13 +261,7 @@ class CharSequenceTest {
             val regular = "123a123".split('a')
             val bySet = "123a123".split(setOf('a'))
             regular.assertSize(bySet.size)
-            //todo csense tests -> assertContentAndOrder
-
-            regular.forEachIndexed { index, s ->
-                bySet[index].assert(s)
-            }
-        }
-
+            regular.assertContainsInOrder(regular)        }
     }
 
 
