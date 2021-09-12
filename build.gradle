@@ -45,7 +45,13 @@ kotlin {
     explicitApi = 'strict'
     jvm()
     js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
-        browser()
+        browser{
+            testTask {
+                useKarma{
+                    useFirefox()
+                }
+            }
+        }
         nodejs()
     }
 

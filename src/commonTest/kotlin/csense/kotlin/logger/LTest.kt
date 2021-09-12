@@ -171,7 +171,7 @@ class LLoggerTest {
 
 }
 
-private inline fun testLazyLoggingPassingThough(
+private fun testLazyLoggingPassingThough(
     setAllowed: (Boolean) -> Unit,
     loggers: MutableList<LoggingFunctionType<Any>>,
     log: (tag: String, function: () -> String) -> Unit
@@ -189,7 +189,7 @@ private inline fun testLazyLoggingPassingThough(
     logCount.assert(1)
 }
 
-private inline fun testLoggingPassThough(
+private fun testLoggingPassThough(
     controlLoggingMethod: FunctionUnit<Boolean>,
     setLoggerMethod: FunctionUnit<LoggingFunctionType<Unit>>,
     loggerMethod: LoggingFunctionType<Unit>,
