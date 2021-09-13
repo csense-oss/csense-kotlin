@@ -6,7 +6,7 @@ buildscript {
 
     //library settings
     ext.csenseUserOrg = "csense-oss"
-    ext.csenseVersionName = "0.0.50"
+    ext.csenseVersionName = "0.0.51"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseLicense = "MIT"

@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.5.0
+## 0.0.51
+
+## 0.0.50
 
 - kotlin 1.5.30
 - annotated some functions with OnlyInputTypes (to avoid type misuse for extensions)
