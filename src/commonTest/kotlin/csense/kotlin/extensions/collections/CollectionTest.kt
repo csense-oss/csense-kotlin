@@ -331,8 +331,10 @@ class CollectionTest {
             listOf("test", "1234").categorizeByString { "constantKey" }.apply {
                 assertSize(1)
                 keys.first().assert("constantKey")
-                values.first().assertSize(2)
-                values.assertContainsAll(listOf("test", "1234"))
+                values.assertSingle {
+                    it.assertSize(2)
+                    it.assertContainsAll(listOf("test", "1234"))
+                }
             }
             listOf("test", "1234").categorizeByString { it }.apply {
                 assertSize(2)

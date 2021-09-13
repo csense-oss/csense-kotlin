@@ -9,7 +9,7 @@ class GeneralTest {
     class Unexpected {
         @Test
         fun noReason() = assertThrows<UnexpectedException>(
-            action = {
+            testCode = {
                 unexpected("message")
             },
             validateThrows = {
@@ -22,7 +22,7 @@ class GeneralTest {
         fun reason() {
             val relatedCause = Exception("myReason")
             assertThrows<UnexpectedException>(
-                action = {
+                testCode = {
                     unexpected("message2", relatedCause)
                 },
                 validateThrows = {
@@ -44,15 +44,16 @@ class GeneralTest {
                 ex.assertIs<UnexpectedException>()
                 shouldBeCalled()
             }
-            assertThrows<UnexpectedException>(action = {
-                unexpectedWithLogging(
-                    message = "our message",
-                    logger = loggerMethod
-                )
-            }, validateThrows = {
-                it.message.assertNotNullAndEquals("our message")
-                it.cause.assertNull()
-            })
+            assertThrows<UnexpectedException>(
+                testCode = {
+                    unexpectedWithLogging(
+                        message = "our message",
+                        logger = loggerMethod
+                    )
+                }, validateThrows = {
+                    it.message.assertNotNullAndEquals("our message")
+                    it.cause.assertNull()
+                })
         }
 
         @Test
@@ -65,16 +66,17 @@ class GeneralTest {
                 ex.assertIs<UnexpectedException>()
                 shouldBeCalled()
             }
-            assertThrows<UnexpectedException>(action = {
-                unexpectedWithLogging(
-                    message = "our message",
-                    logger = loggerMethod,
-                    relatedCause = relatedCause
-                )
-            }, validateThrows = {
-                it.message.assertNotNullAndEquals("our message")
-                it.cause.assertNotNullAndEquals(relatedCause)
-            })
+            assertThrows<UnexpectedException>(
+                testCode = {
+                    unexpectedWithLogging(
+                        message = "our message",
+                        logger = loggerMethod,
+                        relatedCause = relatedCause
+                    )
+                }, validateThrows = {
+                    it.message.assertNotNullAndEquals("our message")
+                    it.cause.assertNotNullAndEquals(relatedCause)
+                })
         }
     }
 
@@ -89,16 +91,17 @@ class GeneralTest {
                 ex.assertIs<UnexpectedException>()
                 shouldBeCalled()
             }
-            assertThrows<UnexpectedException>(action = {
-                unexpectedWithLogging(
-                    tag = "Tag",
-                    message = "our message",
-                    logger = loggerMethod
-                )
-            }, validateThrows = {
-                it.message.assertNotNullAndEquals("our message")
-                it.cause.assertNull()
-            })
+            assertThrows<UnexpectedException>(
+                testCode = {
+                    unexpectedWithLogging(
+                        tag = "Tag",
+                        message = "our message",
+                        logger = loggerMethod
+                    )
+                }, validateThrows = {
+                    it.message.assertNotNullAndEquals("our message")
+                    it.cause.assertNull()
+                })
         }
 
         @Test
@@ -111,17 +114,18 @@ class GeneralTest {
                 ex.assertIs<UnexpectedException>()
                 shouldBeCalled()
             }
-            assertThrows<UnexpectedException>(action = {
-                unexpectedWithLogging(
-                    tag = "Our tag",
-                    message = "our message",
-                    logger = loggerMethod,
-                    relatedCause = relatedCause
-                )
-            }, validateThrows = {
-                it.message.assertNotNullAndEquals("our message")
-                it.cause.assertNotNullAndEquals(relatedCause)
-            })
+            assertThrows<UnexpectedException>(
+                testCode = {
+                    unexpectedWithLogging(
+                        tag = "Our tag",
+                        message = "our message",
+                        logger = loggerMethod,
+                        relatedCause = relatedCause
+                    )
+                }, validateThrows = {
+                    it.message.assertNotNullAndEquals("our message")
+                    it.cause.assertNotNullAndEquals(relatedCause)
+                })
         }
     }
 }
