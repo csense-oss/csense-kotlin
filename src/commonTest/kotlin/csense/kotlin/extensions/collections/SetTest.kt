@@ -1,11 +1,8 @@
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.extensions.collections.set.setExistence
-import csense.kotlin.extensions.collections.set.toggleExistence
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertEmpty
-import csense.kotlin.tests.assertions.assertSize
-import kotlin.test.Test
+import csense.kotlin.extensions.collections.set.*
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class SetTest {
 

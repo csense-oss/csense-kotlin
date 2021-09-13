@@ -1,9 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 
 class EnumKtTest {

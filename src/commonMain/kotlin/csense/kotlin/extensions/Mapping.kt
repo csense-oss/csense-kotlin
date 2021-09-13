@@ -3,7 +3,6 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import csense.kotlin.extensions.collections.*
 import kotlin.contracts.*
 
 /**

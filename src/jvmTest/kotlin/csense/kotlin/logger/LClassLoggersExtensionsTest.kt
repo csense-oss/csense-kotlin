@@ -1,7 +1,7 @@
 package csense.kotlin.logger
 
 import csense.kotlin.tests.assertions.*
-import org.junit.Test
+import org.junit.*
 
 class LClassLoggersExtensionsTest {
 

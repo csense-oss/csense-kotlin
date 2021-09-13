@@ -1,9 +1,8 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.tests.assertions.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
+import kotlinx.coroutines.*
+import org.junit.jupiter.api.*
 
 internal class TimingExtensionsKtTest {
 

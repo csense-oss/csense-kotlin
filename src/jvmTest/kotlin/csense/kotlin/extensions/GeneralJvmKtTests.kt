@@ -1,7 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.tests.assert
-import org.junit.jupiter.api.Test
+import csense.kotlin.tests.*
+import org.junit.jupiter.api.*
 
 class GeneralJvmKtTests {
 

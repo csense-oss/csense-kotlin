@@ -2,8 +2,7 @@
 
 package csense.kotlin.extensions.generic
 
-import csense.kotlin.Function0
-import csense.kotlin.Function1
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 
 public object Generic

@@ -2,9 +2,8 @@
 
 package csense.kotlin.extensions.collections.typed
 
-import csense.kotlin.tests.assertions.assertFalse
-import csense.kotlin.tests.assertions.assertTrue
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class StringIterableTest {
     class IterableStringContains {

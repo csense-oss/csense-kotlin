@@ -1,10 +1,8 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function3
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertCalled
-import org.junit.Test
+import csense.kotlin.*
+import csense.kotlin.tests.assertions.*
+import org.junit.*
 
 
 class JvmExceptionsTests {

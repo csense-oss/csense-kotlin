@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.Function1
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 
 /**

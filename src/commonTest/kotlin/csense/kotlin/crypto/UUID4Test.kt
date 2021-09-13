@@ -1,10 +1,10 @@
 package csense.kotlin.crypto
 
-import csense.kotlin.extensions.primitives.asHexDigit
+import csense.kotlin.extensions.primitives.*
 import csense.kotlin.tests.assertions.*
-import kotlin.experimental.and
-import kotlin.random.Random
-import kotlin.test.Test
+import kotlin.experimental.*
+import kotlin.random.*
+import kotlin.test.*
 
 class UUID4Test {
 

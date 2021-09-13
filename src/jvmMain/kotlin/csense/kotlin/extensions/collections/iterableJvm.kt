@@ -8,7 +8,6 @@ package csense.kotlin.extensions.collections
  * If the collection could be huge, you can specify a non-negative value of [limit], in which case only the first [limit]
  * elements will be appended, followed by the [truncated] string (which defaults to "...").
  *
- * @sample samples.collections.Collections.Transformations.joinToString
  */
 public inline fun <T> Iterable<T>.joinToStringNewLine(
     prefix: CharSequence = "",

@@ -3,7 +3,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class MappingTest {
 

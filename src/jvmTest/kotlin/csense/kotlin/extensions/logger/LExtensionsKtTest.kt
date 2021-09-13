@@ -1,13 +1,13 @@
 package csense.kotlin.extensions.logger
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.extensions.collections.set
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
-import java.nio.charset.Charset
-import kotlin.test.Test
+import java.io.*
+import java.nio.charset.*
+import kotlin.test.*
+
 //Some of these tests can be flaky. shared static state..
 class LExtensionsKtTest {
 

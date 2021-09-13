@@ -1,8 +1,6 @@
 @file:Suppress("unused")
 package csense.kotlin.exceptions
 
-import kotlin.Exception
-
 /**
  * An exception without any stacktrace thus its a lot cheaper to create than regular exceptions
  */

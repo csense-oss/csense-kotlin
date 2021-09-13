@@ -2,13 +2,10 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.FunctionUnit
-import csense.kotlin.extensions.collections.set
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
-import csense.kotlin.tests.assertions.failTest
-import kotlin.test.Test
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class LLoggerTest {
 

@@ -4,7 +4,7 @@ package csense.kotlin.units
 
 import csense.kotlin.coroutines.*
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 import kotlin.time.*
 
 
