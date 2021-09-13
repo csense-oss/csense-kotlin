@@ -49,7 +49,7 @@ public actual inline fun Char.isUpperCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }
-    return toUpperCase().equals(this, false)
+    return uppercaseChar().equals(this, false)
 }
 
 /**
@@ -62,5 +62,5 @@ public actual inline fun Char.isLowerCaseLetter(): Boolean {
     if (isNotLetter()) {
         return false
     }
-    return toLowerCase().equals(this, false)
+    return lowercaseChar().equals(this, false)
 }

@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections.list
 
@@ -35,7 +35,7 @@ public inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Fu
  * @param item T
  * @param position [Int]
  */
-public inline fun <T> MutableList<T>.replace(
+public inline fun <@kotlin.internal.OnlyInputTypes T> MutableList<T>.replace(
     item: T,
     @IntLimit(from = 0) position: Int
 ) {
@@ -51,7 +51,7 @@ public inline fun <T> MutableList<T>.replace(
  * @param toReplace T
  * @param withItem T
  */
-public inline fun <T> MutableList<T>.replace(toReplace: T, withItem: T): Unit =
+public inline fun <@kotlin.internal.OnlyInputTypes T> MutableList<T>.replace(toReplace: T, withItem: T): Unit =
     replace(withItem, indexOf(toReplace))
 
 
@@ -142,7 +142,7 @@ public inline fun <T> MutableList<T>.addAll(
  * @param replaceWith T what to replace the given element with (at the same place)
  * @return [Boolean] true if there was anything matching the [predicate]  or false if none did
  */
-public inline fun <reified T> MutableList<T>.replaceFirst(
+public inline fun <@kotlin.internal.OnlyInputTypes reified T> MutableList<T>.replaceFirst(
     replaceWith: T,
     predicate: Function1<T, Boolean>
 ): Boolean {

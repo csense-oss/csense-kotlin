@@ -2,13 +2,10 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.FunctionUnit
-import csense.kotlin.extensions.collections.set
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
-import csense.kotlin.tests.assertions.failTest
-import kotlin.test.Test
+import csense.kotlin.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class LLoggerTest {
 
@@ -171,7 +168,7 @@ class LLoggerTest {
 
 }
 
-private inline fun testLazyLoggingPassingThough(
+private fun testLazyLoggingPassingThough(
     setAllowed: (Boolean) -> Unit,
     loggers: MutableList<LoggingFunctionType<Any>>,
     log: (tag: String, function: () -> String) -> Unit
@@ -189,7 +186,7 @@ private inline fun testLazyLoggingPassingThough(
     logCount.assert(1)
 }
 
-private inline fun testLoggingPassThough(
+private fun testLoggingPassThough(
     controlLoggingMethod: FunctionUnit<Boolean>,
     setLoggerMethod: FunctionUnit<LoggingFunctionType<Unit>>,
     loggerMethod: LoggingFunctionType<Unit>,

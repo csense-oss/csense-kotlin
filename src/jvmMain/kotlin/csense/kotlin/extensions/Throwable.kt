@@ -2,8 +2,7 @@
 
 package csense.kotlin.extensions
 
-import java.io.PrintWriter
-import java.io.StringWriter
+import java.io.*
 
 /**
  * Converts a throwable to a string with the stacktrace

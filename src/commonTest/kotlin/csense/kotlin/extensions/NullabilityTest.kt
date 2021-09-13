@@ -1,10 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.tests.assertions.assertCalled
-import csense.kotlin.tests.assertions.assertFalse
-import csense.kotlin.tests.assertions.assertNotCalled
-import csense.kotlin.tests.assertions.assertTrue
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 
 class NullabilityTest {

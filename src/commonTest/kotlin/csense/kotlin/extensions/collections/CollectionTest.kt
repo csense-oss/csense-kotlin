@@ -331,8 +331,10 @@ class CollectionTest {
             listOf("test", "1234").categorizeByString { "constantKey" }.apply {
                 assertSize(1)
                 keys.first().assert("constantKey")
-                values.first().assertSize(2)
-                values.assertContainsAll(listOf("test", "1234"))
+                values.assertSingle {
+                    it.assertSize(2)
+                    it.assertContainsAll(listOf("test", "1234"))
+                }
             }
             listOf("test", "1234").categorizeByString { it }.apply {
                 assertSize(2)
@@ -484,7 +486,7 @@ class CollectionTest {
 
         @Test
         fun multipleFound() {
-            listOf("test", "asdf").selectFirstOrNull {
+            listOf("test", "asd").selectFirstOrNull {
                 it.firstOrNull()
             }.assertNotNullAndEquals('t', "test is first")
 
@@ -499,7 +501,7 @@ class CollectionTest {
 
         @Test
         fun multipleNotFound() {
-            listOf("test", "asdf", "1234").selectFirstOrNull {
+            listOf("test", "asd", "1234").selectFirstOrNull {
                 (it.length > 10).map(this, null)
             }.assertNull("no string is larger than 10 chars.")
         }
@@ -623,7 +625,8 @@ class CollectionTest {
 
         @Test
         fun multiple() {
-            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "1" }.assertNotNullAndEquals(0, "should search from the start")
+            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "1" }
+                .assertNotNullAndEquals(0, "should search from the start")
             listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "3" }.assertNotNullAndEquals(2)
             listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "4" }.assertNull()
         }
@@ -644,7 +647,8 @@ class CollectionTest {
 
         @Test
         fun multiple() {
-            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "1" }.assertNotNullAndEquals(3, "should search from the end towards the start")
+            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "1" }
+                .assertNotNullAndEquals(3, "should search from the end towards the start")
             listOf("1", "2", "3", "1").indexOfLastOrNull { it == "3" }.assertNotNullAndEquals(2)
             listOf("1", "2", "3", "1").indexOfLastOrNull { it == "4" }.assertNull()
         }
@@ -705,28 +709,670 @@ class CollectionTest {
 
         @Test
         fun mixed() {
-            listOf("test", "abc").categorizeInto({ true }, { false }, { true }, allowItemInMultipleBuckets = false).apply {
-                assertSize(3)
-                this[0].apply {
-                    assertSize(2)
-                    assertContainsInOrder("test", "abc")
+            listOf("test", "abc").categorizeInto({ true }, { false }, { true }, allowItemInMultipleBuckets = false)
+                .apply {
+                    assertSize(3)
+                    this[0].apply {
+                        assertSize(2)
+                        assertContainsInOrder("test", "abc")
+                    }
+                    this[1].assertEmpty("")
+                    this[2].assertEmpty("\"allowItemInMultipleBuckets\" = false")
                 }
-                this[1].assertEmpty("")
-                this[2].assertEmpty("\"allowItemInMultipleBuckets\" = false")
+            listOf("test", "123").categorizeInto({ true }, { false }, { true }, allowItemInMultipleBuckets = true)
+                .apply {
+                    assertSize(3)
+                    this[0].apply {
+                        assertSize(2)
+                        assertContainsInOrder("test", "123")
+                    }
+                    this[1].assertEmpty()
+                    this[2].apply {
+                        assertSize(2)
+                        assertContainsInOrder("test", "123")
+                    }
+                }
+
+        }
+    }
+
+    class CollectionAnyForEachWithType {
+        @Test
+        fun empty() {
+            val collection: Collection<String> = listOf()
+            collection.forEachWithType<Int> { shouldNotBeCalled() }
+            collection.forEachWithType<String> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            val collection: Collection<String> = listOf("1")
+            collection.forEachWithType<Int> { shouldNotBeCalled() }
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<String> {
+                    it.assert("1")
+                    shouldBeCalled()
+                }
             }
-            listOf("test", "123").categorizeInto({ true }, { false }, { true }, allowItemInMultipleBuckets = true).apply {
-                assertSize(3)
-                this[0].apply {
-                    assertSize(2)
-                    assertContainsInOrder("test", "123")
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<CharSequence> {
+                    it.assert("1")
+                    shouldBeCalled()
                 }
-                this[1].assertEmpty()
-                this[2].apply {
-                    assertSize(2)
-                    assertContainsInOrder("test", "123")
+            }
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<Comparable<String>> {
+                    it.compareTo("1").assert(0, "expect it to be the same string as \"1\"")
+                    shouldBeCalled()
                 }
+            }
+        }
+
+        @Test
+        fun multiple() {
+            val collection: Collection<Any> = listOf("a", "b", 42)
+            assertCalled { shouldBeCalled ->
+                collection.forEachWithType<Int> {
+                    it.assert(42)
+                    shouldBeCalled()
+                }
+            }
+            var isFirstCall = true
+            assertCalled(times = 2) { shouldBeCalled ->
+                collection.forEachWithType<String> {
+                    if (isFirstCall) {
+                        it.assert("a")
+                    } else {
+                        it.assert("b")
+                    }
+                    isFirstCall = false
+                    shouldBeCalled()
+                }
+            }
+            collection.forEachWithType<Char> { shouldNotBeCalled() }
+        }
+    }
+
+    class CollectionAnyFindWithType {
+        @Test
+        fun empty() {
+            val collection: Collection<String> = listOf()
+            collection.findWithType<Int> { shouldNotBeCalled() }
+            collection.findWithType<String> { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            val collection: Collection<Any?> = listOf("test")
+            collection.findWithType<Int> { shouldNotBeCalled() }
+            collection.findWithType<String> {
+                it.assert("test")
+                false
+            }.assertNull()
+
+            collection.findWithType<String> {
+                it.assert("test")
+                true
+            }.assertNotNullAndEquals("test")
+        }
+
+        @Test
+        fun multiple() {
+            val collection: Collection<Any?> = listOf("test", "1234", 1234)
+            collection.findWithType<Char> { shouldNotBeCalled() }
+            collection.findWithType<Char> { shouldNotBeCalled() }
+            collection.findWithType<Number> {
+                true
+            }.assertNotNullAndEquals(1234)
+
+            assertCallbackCalledWith(listOf("test", "1234")) { assertCallback ->
+                collection.findWithType<String> {
+                    assertCallback(it)
+                    false
+                }.assertNull()
+            }
+
+            collection.findWithType<String> {
+                it.assert("test")
+                true
+            }.assertNotNullAndEquals("test")
+
+            collection.findWithType<String> {
+                it == "1234"
+            }.assertNotNullAndEquals("1234")
+        }
+
+    }
+
+    //region toMapFlat
+    class CollectionTToMapFlatKeyMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMapFlat { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            listOf("1234").toMapFlat {
+                it.assert("1234")
+                it.toInt()
+            }.assertSingle {
+                it.key.assert(1234)
+                it.value.assert("1234")
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("123", "abc")
+            assertCallbackCalledWith(data) { assertIsExpected ->
+                data.toMapFlat {
+                    assertIsExpected(it)
+                    "$it-"
+                }.apply {
+                    assertSize(2)
+                    assertContains(
+                        Pair("123-", "123")
+                    )
+                    assertContains(
+                        Pair("abc-", "abc")
+                    )
+                }
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("123", "abc")
+            assertCallbackCalledWith(data) { assertIsExpected ->
+                data.toMapFlat {
+                    assertIsExpected(it)
+                    "test"
+                }.assertSingle {
+                    it.key.assert("test")
+                    it.value.assert("abc", message = "123 gets overwritten by abc")
+                }
+            }
+        }
+    }
+
+    class CollectionTToMutableMapFlatKeyMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMutableMapFlat { shouldNotBeCalled() }
+        }
+
+        @Test
+        fun single() {
+            listOf("1234").toMutableMapFlat {
+                it.assert("1234")
+                it.toInt()
+            }.assertSingle {
+                it.key.assert(1234)
+                it.value.assert("1234")
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                data.toMutableMapFlat {
+                    expectedValue(it)
+                    "test"
+                }.assertSingle {
+                    it.value.assert("abc", message = "abc overwrites 1234")
+                }
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMutableMapFlat {
+                    expectedValue(it)
+                    it
+                }
+                result.assertSize(2)
+                result.assertContains(
+                    Pair(
+                        "1234", "1234"
+                    )
+                )
+                result.assertContains(
+                    Pair(
+                        "abc", "abc"
+                    )
+                )
+            }
+        }
+    }
+
+    class CollectionTToMapKeyMapperFlatValueMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMapFlat(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun single() {
+            listOf("555").toMapFlat(
+                keyMapper = {
+                    it.assert("555")
+                    "key"
+                },
+                valueMapper = {
+                    it.assert("555")
+                    "value"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMapFlat(keyMapper = {
+                    expectedValue(it)
+                    it
+                }, valueMapper = {
+                    it.length
+                })
+                result.assertSize(2)
+                result.assertContains(
+                    Pair(
+                        "1234", 4
+                    )
+                )
+                result.assertContains(
+                    Pair(
+                        "abc", 3
+                    )
+                )
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMapFlat(keyMapper = {
+                    expectedValue(it)
+                    "qwerty"
+                }, valueMapper = {
+                    it.length
+                })
+                result.assertSingle {
+                    it.key.assert("qwerty")
+                    it.value.assert(3, message = "length of abc")
+                }
+            }
+        }
+    }
+
+    class CollectionTToMutableMapFlatKeyMapperValueMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMutableMapFlat(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() }
+            )
+        }
+
+        @Test
+        fun single() {
+            listOf("555").toMutableMapFlat(
+                keyMapper = {
+                    it.assert("555")
+                    "key"
+                },
+                valueMapper = {
+                    it.assert("555")
+                    "value"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("123", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMutableMapFlat(
+                    keyMapper = {
+                        expectedValue(it)
+                        "key"
+                    },
+                    valueMapper = {
+                        it.length
+                    }
+                )
+                result.assertSingle {
+                    it.key.assert("key")
+                    it.value.assert(3, "length of abc")
+                }
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("123", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMutableMapFlat(
+                    keyMapper = {
+                        expectedValue(it)
+                        it
+                    },
+                    valueMapper = {
+                        it
+                    }
+                )
+                result.assertSize(2)
+                result.assertContains(
+                    Pair(
+                        "123", "123"
+                    )
+                )
+                result.assertContains(
+                    Pair(
+                        "abc", "abc"
+                    )
+                )
             }
 
         }
     }
+    //endregion
+
+    //region toMap
+    class CollectionTToMapKeyMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMap {
+                shouldNotBeCalled()
+            }.assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            listOf("abc").toMap {
+                "key"
+            }.assertSingle {
+                it.key.assert("key")
+                it.value.assertSingle("abc")
+            }
+        }
+
+        @Test
+        fun multipleDifferentKeys() {
+            val data = listOf("1234", "456")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val size = data.toMap {
+                    expectedValue(it)
+                    it
+                }
+                size.assertSize(2)
+                size.assertContains(
+                    Pair(
+                        "1234",
+                        listOf("1234")
+                    )
+                )
+                size.assertContains(
+                    Pair(
+                        "456",
+                        listOf("456")
+                    )
+                )
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "456")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val size = data.toMap {
+                    expectedValue(it)
+                    "key"
+                }
+                size.assertSingle {
+                    it.key.assert("key")
+                    it.value.assertSize(2)
+                    it.value.assertContainsInOrder("1234", "456")
+                }
+            }
+        }
+    }
+
+    class CollectionTToMapKeyMapperValueMapper {
+        @Test
+        fun empty() {
+            listOf<String>().toMap(
+                keyMapper = {
+
+                }, valueMapper = {
+
+                }
+            ).assertEmpty()
+        }
+
+        @Test
+        fun single() {
+            listOf("1234").toMap(
+                keyMapper = {
+                    it.assert("1234")
+                    "key"
+                }, valueMapper = {
+                    it.assert("1234")
+                    "value"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assertSingle("value")
+            }
+        }
+
+        @Test
+        fun multipleDifferentKeys() {
+            val data = listOf("1234", "456")
+            assertCallbackCalledWith(data) { expectedKey ->
+                assertCallbackCalledWith(data) { expectedValue ->
+                    val size = data.toMap(
+                        keyMapper = {
+                            expectedKey(it)
+                            it
+                        }, valueMapper = {
+                            expectedValue(it)
+                            it
+                        }
+                    )
+                    size.assertSize(2)
+                    size.assertContains(
+                        Pair(
+                            "1234",
+                            listOf("1234")
+                        )
+                    )
+                    size.assertContains(
+                        Pair(
+                            "456",
+                            listOf("456")
+                        )
+                    )
+                }
+            }
+        }
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "456")
+            assertCallbackCalledWith(data) { expectedKey ->
+                assertCallbackCalledWith(data) { expectedValue ->
+                    val size = data.toMap(
+                        keyMapper = {
+                            expectedKey(it)
+                            "key"
+                        }, valueMapper = {
+                            expectedValue(it)
+                            it
+                        }
+                    )
+                    size.assertSingle {
+                        it.key.assert("key")
+                        it.value.assertSize(2)
+                        it.value.assertContainsInOrder("1234", "456")
+                    }
+                }
+            }
+        }
+    }
+
+    class CollectionTToMutableMapKeyMapper {
+
+        @Test
+        fun empty() {
+            listOf<String>().toMutableMap {
+                shouldNotBeCalled()
+            }.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            listOf("1234").toMutableMap {
+                it.assert("1234")
+                it
+            }.assertSingle {
+                it.key.assert("1234")
+                it.value.assertSingle("1234")
+            }
+        }
+
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                data.toMutableMap {
+                    expectedValue(it)
+                    "key"
+                }.assertSingle {
+                    it.key.assert("key")
+                    it.value.assertSize(2)
+                    it.value.assertContainsInOrder("1234", "abc")
+                }
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMutableMap {
+                    expectedValue(it)
+                    it
+                }
+                result.assertSize(2)
+                result.assertContains(
+                    Pair(
+                        "1234", listOf("1234")
+                    )
+                )
+                result.assertContains(
+                    Pair(
+                        "abc", listOf("abc")
+                    )
+                )
+
+            }
+        }
+
+    }
+
+    class CollectionTToMutableMapKeyMapperValueMapper {
+
+        @Test
+        fun empty() {
+            listOf<String>().toMutableMap(
+                keyMapper = {
+                    shouldNotBeCalled()
+                },
+                valueMapper = {
+                    shouldNotBeCalled()
+                }
+            ).assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            listOf("1234").toMutableMap(keyMapper = {
+                it.assert("1234")
+                "key"
+            }, valueMapper = {
+                it.assert("1234")
+                "value"
+            }).assertSingle {
+                it.key.assert("key")
+                it.value.assertSingle("value")
+            }
+        }
+
+
+        @Test
+        fun multipleSameKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                data.toMutableMap(keyMapper = {
+                    expectedValue(it)
+                    "key"
+                }, valueMapper = {
+                    "$it+"
+                }).assertSingle {
+                    it.key.assert("key")
+                    it.value.assertSize(2)
+                    it.value.assertContainsInOrder("1234+", "abc+")
+                }
+            }
+        }
+
+        @Test
+        fun multipleDifferentKey() {
+            val data = listOf("1234", "abc")
+            assertCallbackCalledWith(data) { expectedValue ->
+                val result = data.toMutableMap(keyMapper = {
+                    expectedValue(it)
+                    it
+                }, valueMapper = {
+                    "$it+"
+                })
+                result.assertSize(2)
+                result.assertContains(
+                    Pair(
+                        "1234", listOf("1234+")
+                    )
+                )
+                result.assertContains(
+                    Pair(
+                        "abc", listOf("abc+")
+                    )
+                )
+
+            }
+        }
+
+    }
+
+
+    //endregion
+
 }

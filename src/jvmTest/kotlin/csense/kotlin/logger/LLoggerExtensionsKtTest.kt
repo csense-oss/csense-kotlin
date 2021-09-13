@@ -1,11 +1,8 @@
 package csense.kotlin.logger
 
-import csense.kotlin.tests.assertions.assertContainsInOrder
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
+import csense.kotlin.tests.assertions.*
+import org.junit.*
+import java.io.*
 
 
 class LLoggerExtensionsKtTest {

@@ -3,7 +3,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import java.lang.ref.WeakReference
+import java.lang.ref.*
 import java.util.*
 
 

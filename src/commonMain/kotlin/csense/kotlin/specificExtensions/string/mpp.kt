@@ -2,8 +2,10 @@ package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.jvm.*
 
-public inline class StringMpp(public val string: String) {
+@JvmInline
+public value class StringMpp(public val string: String) {
 
     /**
      * A class representing an insert to be made into a string

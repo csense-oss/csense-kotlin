@@ -2,8 +2,8 @@
 
 package csense.kotlin.units
 
-import csense.kotlin.tests.assertions.assert
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class ByteSizesTest {
 

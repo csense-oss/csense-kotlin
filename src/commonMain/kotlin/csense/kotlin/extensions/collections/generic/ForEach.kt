@@ -61,7 +61,7 @@ public inline fun <T> GenericCollectionExtensions.forEach2(
     getter: GenericGetterIndexMethod<T>,
     action: Function2Unit<T, T>
 ) {
-    if (canNOTForeach2(length)) {
+    if (canNotForeach2(length)) {
         return
     }
     for (i in (0 until length step 2)) {
@@ -83,7 +83,7 @@ public inline fun <T> GenericCollectionExtensions.forEach2Indexed(
     getter: GenericGetterIndexMethod<T>,
     action: Function2IndexedUnit<T, T>
 ) {
-    if (canNOTForeach2(length)) {
+    if (canNotForeach2(length)) {
         return
     }
     for (i in (0 until length step 2)) {
@@ -109,7 +109,7 @@ public inline fun <T, U> GenericCollectionExtensions.mapEach2(
     getter: GenericGetterIndexMethod<T>,
     mapper: Function2<T, T, U>
 ): List<U> {
-    if (canNOTForeach2(2)) {
+    if (canNotForeach2(2)) {
         return emptyList()
     }
     return List(length / 2) { counter: Int ->
@@ -133,7 +133,7 @@ public inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
     getter: GenericGetterIndexMethod<T>,
     mapper: Function3<Int, T, T, U>
 ): List<U> {
-    if (canNOTForeach2(2)) {
+    if (canNotForeach2(2)) {
         return emptyList()
     }
     return List(length / 2) { counter: Int ->
@@ -152,7 +152,7 @@ public inline fun <T, U> GenericCollectionExtensions.mapEach2Indexed(
  * @param length [Int]
  * @return [Boolean]
  */
-public inline fun GenericCollectionExtensions.canNOTForeach2(length: Int): Boolean {
+public inline fun GenericCollectionExtensions.canNotForeach2(length: Int): Boolean {
     return (length <= 0 || length.isOdd)
 }
 //endregion

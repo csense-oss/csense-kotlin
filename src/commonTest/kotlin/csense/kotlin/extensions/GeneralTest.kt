@@ -80,25 +80,30 @@ class GeneralTest {
     }
 
     @Test
-    fun tOr() {
+    fun tOrIfNull() {
         val optString: String? = null
-        optString.or("test").assert("test")
-        optString.or("1234").assert("1234")
+        optString.orIfNull("test").assert("test")
+        optString.orIfNull("1234").assert("1234")
 
         @Suppress("RedundantNullableReturnType")
         val str: String? = "test"
-        str.or("1234").assert("test")
+        str.orIfNull("1234").assert("test")
 
+        @Suppress("RedundantNullableReturnType")
+        val number: Int? = 42
+        number.orIfNull(11).assert(42)
+        val nullNumber: Int? = null
+        nullNumber.orIfNull(11).assert(11)
     }
 
     @Test
-    fun tOrLazy() {
+    fun tOrIfNullLazy() {
         val optInt: Int? = null
-        optInt.orLazy { 99 }.assert(99)
+        optInt.orIfNullLazy { 99 }.assert(99)
 
         @Suppress("RedundantNullableReturnType")
         val optInt2: Int? = 42
-        optInt2.orLazy { 111 }.assert(42)
+        optInt2.orIfNullLazy { 111 }.assert(42)
     }
 
     @Test
@@ -106,5 +111,23 @@ class GeneralTest {
         "".castMap<String, Int> { 32 }.assertNotNullAndEquals(32)
         "".castMap<Int, Int> { 32 }.assertNull()
         80.castMap<Number, Int> { this.toInt() }.assertNotNullAndEquals(80)
+    }
+
+    class TApplyIf {
+        @Test
+        fun shouldNotApply() {
+            "value".applyIf(false) {
+                shouldNotBeCalled()
+            }.assert("value")
+        }
+
+        @Test
+        fun shouldApply() = assertCalled { shouldBeCalled ->
+            "test".applyIf(true) {
+                shouldBeCalled()
+                it.assert("test")
+                "1234"
+            }.assert("1234")
+        }
     }
 }

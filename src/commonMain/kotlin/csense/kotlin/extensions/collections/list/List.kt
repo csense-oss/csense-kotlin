@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections.list
 
@@ -152,5 +152,5 @@ public inline fun <T> List<List<T>>.combine(
  * @param element T the element to search for
  * @return [Boolean] true if the element was not found, false if it was found.
  */
-public inline fun <T> List<T>.doesNotContain(element: T): Boolean =
+public inline fun <@kotlin.internal.OnlyInputTypes T> List<T>.doesNotContain(element: T): Boolean =
     !contains(element)

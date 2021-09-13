@@ -260,6 +260,7 @@ class ArrayTest {
     }
 
     class ArrayTJoinEveryAction {
+
         @Test
         fun empty() {
             val lst = arrayOf<String>().joinEveryAction(1) {
@@ -267,6 +268,7 @@ class ArrayTest {
             }
             lst.assertEmpty()
         }
+
 
         @Test
         fun single() {

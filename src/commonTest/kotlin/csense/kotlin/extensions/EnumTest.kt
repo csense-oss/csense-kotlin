@@ -1,9 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertNotNullAndEquals
-import csense.kotlin.tests.assertions.assertNull
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 
 class EnumKtTest {
@@ -38,18 +36,18 @@ class EnumKtTest {
 
     @Test
     fun enumFromOrNullIfNotFound() {
-        enumFromOrNull<EnumKtTestEnum>(null, { false }).assertNull()
-        enumFromOrNull(EnumKtTestEnum.B, { false }).assertNotNullAndEquals(EnumKtTestEnum.B)
-        enumFromOrNull<EnumKtTestEnum>(null, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOrNull(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOrNull<EnumKtTestEnum>(null, { it == EnumKtTestEnum.C }).assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull<EnumKtTestEnum>(null) { false }.assertNull()
+        enumFromOrNull(EnumKtTestEnum.B) { false }.assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>(null) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull(EnumKtTestEnum.C) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>(null) { it == EnumKtTestEnum.C }.assertNotNullAndEquals(EnumKtTestEnum.C)
     }
 
     @Test
     fun enumFromOrIfNotFound() {
-        enumFromOr(EnumKtTestEnum.B, { false }).assert(EnumKtTestEnum.B)
-        enumFromOr(EnumKtTestEnum.B, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOr(EnumKtTestEnum.C, { true }).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.B) { false }.assert(EnumKtTestEnum.B)
+        enumFromOr(EnumKtTestEnum.B) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.C) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
     }
 
     //endregion

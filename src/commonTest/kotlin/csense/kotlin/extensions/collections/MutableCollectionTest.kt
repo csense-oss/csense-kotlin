@@ -2,10 +2,8 @@
 
 package csense.kotlin.extensions.collections
 
-import csense.kotlin.tests.assertions.assertContains
-import csense.kotlin.tests.assertions.assertContainsAll
-import csense.kotlin.tests.assertions.assertSize
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class MutableCollectionTest {
 

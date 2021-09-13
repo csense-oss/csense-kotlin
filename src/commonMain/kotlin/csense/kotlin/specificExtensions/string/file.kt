@@ -3,12 +3,14 @@
 package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.extensions.*
+import kotlin.jvm.*
 
 /**
  * Namespace / scoped extensions for string related to "file" operations.
  * @property string [String]
  */
-public inline class StringFile(public val string: String)
+@JvmInline
+public value class StringFile(public val string: String)
 
 
 /**

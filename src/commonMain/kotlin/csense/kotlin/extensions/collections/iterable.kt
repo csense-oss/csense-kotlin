@@ -1,10 +1,11 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "MemberVisibilityCanBePrivate")
 
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 
 //region Invoke each Lazy
@@ -196,7 +197,7 @@ public inline fun <O> Iterable<Function0R<O>>.invokeEach(): Unit =
  * @param element I1
  */
 
-public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
+public inline fun <@kotlin.internal.OnlyInputTypes I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
     element: I1
 ): Unit =
     forEach { it(element) }
@@ -209,7 +210,10 @@ public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWith(
  */
 
 
-public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
+public inline fun <
+        @kotlin.internal.OnlyInputTypes I1,
+        @kotlin.internal.OnlyInputTypes I2,
+        O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
     firstElement: I1,
     secondElement: I2
 ): Unit =
@@ -223,7 +227,11 @@ public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWith(
  * @param thirdElement I3
  */
 
-public inline fun <I1, I2, I3, O>
+public inline fun <
+        @kotlin.internal.OnlyInputTypes I1,
+        @kotlin.internal.OnlyInputTypes I2,
+        @kotlin.internal.OnlyInputTypes I3,
+        O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWith(
     firstElement: I1,
     secondElement: I2,
@@ -246,7 +254,12 @@ public inline fun <I1, I2, I3, O>
  * @param fourthElement I4
  */
 
-public inline fun <I1, I2, I3, I4, O>
+public inline fun <
+        @kotlin.internal.OnlyInputTypes I1,
+        @kotlin.internal.OnlyInputTypes I2,
+        @kotlin.internal.OnlyInputTypes I3,
+        @kotlin.internal.OnlyInputTypes I4,
+        O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWith(
     firstElement: I1,
     secondElement: I2,
@@ -272,7 +285,13 @@ public inline fun <I1, I2, I3, I4, O>
  * @param fifthElement I5
  */
 
-public inline fun <I1, I2, I3, I4, I5, O>
+public inline fun <
+        @kotlin.internal.OnlyInputTypes I1,
+        @kotlin.internal.OnlyInputTypes I2,
+        @kotlin.internal.OnlyInputTypes I3,
+        @kotlin.internal.OnlyInputTypes I4,
+        @kotlin.internal.OnlyInputTypes I5,
+        O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWith(
     firstElement: I1,
     secondElement: I2,
@@ -301,7 +320,14 @@ public inline fun <I1, I2, I3, I4, I5, O>
  * @param sixthElement I6
  */
 
-public inline fun <I1, I2, I3, I4, I5, I6, O>
+public inline fun <
+        @kotlin.internal.OnlyInputTypes I1,
+        @kotlin.internal.OnlyInputTypes I2,
+        @kotlin.internal.OnlyInputTypes I3,
+        @kotlin.internal.OnlyInputTypes I4,
+        @kotlin.internal.OnlyInputTypes I5,
+        @kotlin.internal.OnlyInputTypes I6,
+        O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWith(
     firstElement: I1,
     secondElement: I2,
@@ -366,6 +392,7 @@ public class CollectionPartition<out E>(
  * @param action [Function2IndexedUnit]<T, T>
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -375,6 +402,7 @@ public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T
  * @param action [Function2Unit]<T, T>
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 
@@ -489,4 +517,21 @@ public inline fun <T, C : Iterable<T>> C?.isNullOrEmpty(): Boolean {
         returns(false) implies (this@isNullOrEmpty != null)
     }
     return this == null || this.isEmpty()
+}
+
+/**
+ * Returns a list containing first [count] elements.
+ * @returns null if [count] is negative.
+ * if count is 0 [emptyList] is returned.
+ * if it is above 0 then it will take the available items in this receiver (if any)
+ */
+public inline fun <T> Iterable<T>.takeOrNull(count: Int): List<T>? {
+    if (count.isNegative) {
+        return null
+    }
+    if (count.isZero) {
+        return emptyList()
+    }
+    return take(count)
+
 }

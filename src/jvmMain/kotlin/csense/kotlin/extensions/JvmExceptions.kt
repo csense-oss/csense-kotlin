@@ -1,9 +1,8 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
-import csense.kotlin.logger.L
-import csense.kotlin.logger.LoggingFunctionType
-import kotlin.reflect.KClass
+import csense.kotlin.*
+import csense.kotlin.logger.*
+import kotlin.reflect.*
 
 /**
  * Tries the given operation, and if fails then it logs it and returns null

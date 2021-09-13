@@ -20,6 +20,7 @@ public inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>): 
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun ShortArray.forEach2Indexed(action: Function2IndexedUnit<Short, Short>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -27,6 +28,7 @@ public inline fun ShortArray.forEach2Indexed(action: Function2IndexedUnit<Short,
  * Performs traversal in pairs of 2
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun ShortArray.forEach2(action: Function2Unit<Short, Short>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

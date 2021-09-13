@@ -1,9 +1,7 @@
 package csense.kotlin.extensions.collections.map
 
-import csense.kotlin.tests.assertions.assertEmpty
-import csense.kotlin.tests.assertions.assertNotNullApply
-import csense.kotlin.tests.assertions.assertSize
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 
 class MutableMapKtTest {

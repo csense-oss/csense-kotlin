@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions
 
@@ -44,11 +44,11 @@ public inline fun <U, T> T?.mapLazyOptional(
 }
 
 /**
- * Maps a boolean into a value.
+ * Maps a boolean into a value .
  * @receiver [Boolean]
- * @param ifTrue T
- * @param ifFalse T
- * @return T
+ * @param ifTrue [T] if the [Boolean] is true this will be returned
+ * @param ifFalse [T] if the [Boolean] is false this will be returned
+ * @return [T]
  */
 
 public inline fun <T> Boolean.map(
@@ -110,9 +110,18 @@ public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Func
 }
 
 public inline fun <T, reified U> Iterable<T>.mapToTypedArray(mapper: Function1<T, U>): Array<U> {
+    if (this is List<T>) {
+        return mapToTypedArray(mapper)
+    }
     val size = count()
-    val iterator = iterator()//todo improve test perf (might want to specialize impls)
+    val iterator = iterator()
     return Array(size) {
         mapper(iterator.next())
+    }
+}
+
+public inline fun <T, reified U> List<T>.mapToTypedArray(mapper: Function1<T, U>): Array<U> {
+    return Array(size) {
+        mapper(this[it])
     }
 }

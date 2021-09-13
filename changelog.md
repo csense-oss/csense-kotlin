@@ -1,20 +1,40 @@
 # Changelog
 
+## 0.5.0
 
+- kotlin 1.5.30
+- annotated some functions with OnlyInputTypes (to avoid type misuse for extensions)
+- gradle 7
+- add Iterator extensions:
+    - toList
+    - toMutableList
+    - map
+- added collection extensions:
+    - toMap
+    - toMapFlat 
+    - toMutableMap
+- added CharSequence.equals & CharSequence.notEquals
+- added extensions to CharSequence
+    - substringOrNull
+    - split
+    - splitBy
+- added List<T>.mapToTypedArray
+- added Iterator.atEnd
 
 ## 0.0.46
+
 - added ability for LLoggers to use ansi colored output
 - added sublist with single parameter ( length)
-- added mapToTypedArray 
+- added mapToTypedArray
 - added more missing extensions to iterable and added more contracts
 - added double & float extensions for decimal parts
 - stringFile extensions
-  - added withFileExtension
-  - deprecated "removeFileExtension" for the name "removeFileExtension"
-  - Spelling improved
-  
+    - added withFileExtension
+    - deprecated "removeFileExtension" for the name "removeFileExtension"
+    - Spelling improved
+
 - added more extensions for numbers
-  
+
 ## 0.0.45
 
 - added Double.isNotZero
@@ -95,7 +115,7 @@
 
 - forEachIsInstance<T> added as an "allocation free" alternative to filterIsInstance + foreach
 - indexOfOrNull to collections (why is this even missing from the standard library ?)
-  - https://youtrack.jetbrains.com/issue/KT-37585)
+    - https://youtrack.jetbrains.com/issue/KT-37585)
 - minor collection extension(s)
 
 ## 0.0.31

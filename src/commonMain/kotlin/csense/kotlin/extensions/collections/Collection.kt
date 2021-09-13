@@ -1,9 +1,10 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
@@ -99,6 +100,7 @@ public inline fun <Element> Collection<Element>.categorizeInto(
  * @param allowItemInMultipleBuckets [Boolean] if true, will allow multiple filters to look at this element,
  * if false then it will stop once a filter accepts it.
  */
+@Suppress("MissingTestFunction")
 @Deprecated("will be unavilable in the next version", level = DeprecationLevel.WARNING)
 public inline fun <Element> Element.categorizeInto(
     result: ArrayList<MutableList<Element>>,
@@ -209,7 +211,7 @@ public inline fun <T> Collection<T>.secondLastOrNull(): T? =
  * @return [Int]?
  */
 @IntLimit(from = 0)
-public inline fun <T> Collection<T>.indexOfOrNull(element: T): Int? =
+public inline fun <@kotlin.internal.OnlyInputTypes T> Collection<T>.indexOfOrNull(element: T): Int? =
     indexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
@@ -242,7 +244,7 @@ public inline fun <T> Collection<T>.indexOfLastOrNull(predicate: Function1<T, Bo
  * @return [Int]? null if not found, or the last index of it
  */
 @IntLimit(from = 0)
-public inline fun <T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
+public inline fun <@kotlin.internal.OnlyInputTypes T> Collection<T>.lastIndexOfOrNull(element: T): Int? =
     this.lastIndexOf(element).indexOfExtensions.unwrapUnsafeIndexOf()
 
 /**
@@ -272,7 +274,7 @@ public inline fun <T, U> Collection<T>.selectFirstOrNull(
  * @param toJoin [T] what to join in between the items
  * @return [List]<T>
  */
-public inline fun <reified T> Collection<T>.joinEvery(
+public inline fun <T> Collection<T>.joinEvery(
     @IntLimit(from = 1) itemsBetweenJoin: Int,
     toJoin: T
 ): List<T> = joinEveryAction(
@@ -288,7 +290,7 @@ public inline fun <reified T> Collection<T>.joinEvery(
  * @param toJoinAction [T] the action producing what to join in between the items
  * @return [List]<T>
  */
-public inline fun <reified T> Collection<T>.joinEveryAction(
+public inline fun <T> Collection<T>.joinEveryAction(
     @IntLimit(from = 1) itemsBetweenJoin: Int,
     crossinline toJoinAction: () -> T
 ): List<T> {
@@ -304,3 +306,128 @@ public inline fun <reified T> Collection<T>.joinEveryAction(
     )
 }
 //endregion
+
+/**
+ *
+ * @receiver [Collection]<[Any]?>
+ * @param function [Function1]<[U], [Unit]>
+ */
+public inline fun <reified U> Collection<Any?>.forEachWithType(function: Function0<U>) {
+    forEach {
+        it?.cast<U>()?.let(function)
+    }
+}
+
+/**
+ *
+ * @receiver [Collection]<[Any]?>
+ * @param findAction [Function1]<[U], [Boolean]>
+ * @return [U]?
+ */
+public inline fun <reified U> Collection<Any?>.findWithType(
+    findAction: Function1<U, Boolean>
+): U? {
+    forEachWithType<U> {
+        findAction(it).ifTrue {
+            return@findWithType it
+        }
+    }
+    return null
+}
+
+//region toMapFlat
+/**
+ * Maps this [Collection] to a [Map] with the given [keyMapper]
+ * If multiple elements map to the same key, the last one "wins"
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMapFlat(
+    keyMapper: Function1<T, Key>
+): Map<Key, T> = toMutableMapFlat(keyMapper)
+
+/**
+ * Maps this [Collection] to a [MutableMap] with the given [keyMapper]
+ * If multiple elements map to the same key, the last one "wins"
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMutableMapFlat(
+    keyMapper: Function1<T, Key>
+): MutableMap<Key, T> = toMutableMapFlat(keyMapper, valueMapper = { it })
+
+
+/**
+ *
+ * If multiple elements map to the same key, the last one "wins"
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMapFlat(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): Map<Key, Value> = toMutableMapFlat(keyMapper, valueMapper)
+
+/**
+ *
+ * If multiple elements map to the same key, the last one "wins"
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMutableMapFlat(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): MutableMap<Key, Value> = LinkedHashMap<Key, Value>(size).also { result ->
+    forEach {
+        result[keyMapper(it)] = valueMapper(it)
+    }
+}
+//endregion
+
+//region toMap
+/**
+ * Maps this [Collection] to a [Map] with the given [keyMapper]
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMap(
+    keyMapper: Function1<T, Key>
+): Map<Key, List<T>> = toMutableMap(keyMapper)
+
+/**
+ * Maps this [Collection] to a [MutableMap] with the given [keyMapper]
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key> extracts a key from a given entry
+ * @return Map<Key, T>
+ */
+public inline fun <T, Key> Collection<T>.toMutableMap(
+    keyMapper: Function1<T, Key>
+): MutableMap<Key, MutableList<T>> = toMutableMap(keyMapper, valueMapper = { it })
+
+
+/**
+ *
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): Map<Key, List<Value>> = toMutableMap(keyMapper, valueMapper)
+
+/**
+ *
+ *
+ */
+public inline fun <T, Key, Value> Collection<T>.toMutableMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>
+): MutableMap<Key, MutableList<Value>> = LinkedHashMap<Key, MutableList<Value>>(size).also { result ->
+    forEach { collectionItem: T ->
+        val key: Key = keyMapper(collectionItem)
+        val value: Value = valueMapper(collectionItem)
+        result.getOrPut(key, ::mutableListOf).add(value)
+    }
+}
+//endregion
+

@@ -19,6 +19,7 @@ public inline fun <U> DoubleArray.forEachDiscard(receiver: Function1<Double, U>)
  * Performs traversal in pairs of 2  (with the first index as well)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun DoubleArray.forEach2Indexed(action: Function2IndexedUnit<Double, Double>): Unit =
     GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
 
@@ -26,6 +27,7 @@ public inline fun DoubleArray.forEach2Indexed(action: Function2IndexedUnit<Doubl
  * Performs traversal in pairs of 2
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun DoubleArray.forEach2(action: Function2Unit<Double, Double>): Unit =
     GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
 

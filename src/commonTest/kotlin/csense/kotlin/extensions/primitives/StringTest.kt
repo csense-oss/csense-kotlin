@@ -482,48 +482,6 @@ class StringTest {
     }
 
 
-    class StringSplitWhen {
-        @Test
-        fun alwaysSplitEmpty() {
-            "".splitWhen { true }.assertEmpty("nothing cannot be split")
-        }
-
-        @Test
-        fun alwaysSplitSingle() {
-            "a".splitWhen { true }.apply {
-                assertSize(0, "since we do not include the split")
-            }
-        }
-
-        @Test
-        fun alwaysSplitMultiple() {
-            "ab".splitWhen { true }.apply {
-                assertSize(0, "since we do not include the split")
-            }
-        }
-
-        @Test
-        fun splitMultipleDigits() {
-            "20/80 8000".splitWhen { it.isNotDigit() }.apply {
-                assertSize(3)
-                this[0].assert("20")
-                this[1].assert("80")
-                this[2].assert("8000")
-            }
-        }
-
-        @Test
-        fun splitMultipleDigitsWeird() {
-            "20/80 abc 8000".splitWhen { it.isNotDigit() }.apply {
-                assertSize(3)
-                this[0].assert("20")
-                this[1].assert("80")
-                this[2].assert("8000")
-            }
-        }
-
-    }
-
     @Test
     fun stringIsNewLine() {
         "".isNewLine().assertFalse()

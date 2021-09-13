@@ -46,32 +46,22 @@ class CoroutinesTest {
 
         @Test
         fun single() = runBlockingTest {
-            assertCalled { shouldBeCalled ->
-                listOf("input").mapAsyncAwait(this) {
-                    it.assert("input")
-                    shouldBeCalled()
-                    "test"
-                }.assertSingle("test")
-            }
+            listOf("input").mapAsyncAwait(this) {
+                it.assert("input")
+                "test"
+            }.assertSingle("test")
         }
 
         @Test
         fun multiple() = runBlockingTest {
-            var isFirstCall = true
-            assertCalled(times = 2) { shouldBeCalled ->
-                val lst = listOf("input1", "input2").mapAsyncAwait(this) {
-                    if (isFirstCall) {
-                        it.assert("input1")
-                    } else {
-                        it.assert("input2")
-                    }
-                    isFirstCall = false
-                    shouldBeCalled()
-                    it
-                }
-                lst.assertSize(2)
-                lst.assertContainsAll("input1", "input2")
+            val items = listOf("input1", "input2")
+            val itt = items.iterator()
+            val lst = items.mapAsyncAwait(this) {
+                itt.next().assert(it)
+                it
             }
+            lst.assertSize(2)
+            lst.assertContainsAll("input1", "input2")
         }
     }
 

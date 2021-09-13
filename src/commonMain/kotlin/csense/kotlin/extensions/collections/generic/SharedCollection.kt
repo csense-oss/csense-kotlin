@@ -16,7 +16,7 @@ import csense.kotlin.extensions.primitives.*
  * @return [List]<T> the resulting list by joining the starting items with the [toJoinAction]
  */
 @Suppress("unused")
-public inline fun <reified T, reified U> GenericCollectionExtensions.joinEveryAction(
+public inline fun <T, U> GenericCollectionExtensions.joinEveryAction(
     @IntLimit(from = 1) itemsBetweenJoins: Int,
     crossinline toJoinAction: Function0R<T>,
     @IntLimit(from = 1) size: Int,

@@ -2,13 +2,10 @@
 
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunctionResult
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
-import csense.kotlin.logger.L
-import csense.kotlin.logger.LoggingFunctionType
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import csense.kotlin.logger.*
+import kotlin.contracts.*
 
 /**
  * Measure the execution time the given action, and returns the time and the result of the method invocation.

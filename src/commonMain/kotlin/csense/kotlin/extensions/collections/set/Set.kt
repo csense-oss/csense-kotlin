@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE", "unused")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.collections.set
 
@@ -14,6 +14,7 @@ import csense.kotlin.extensions.collections.generic.*
  * @timecomplexity O(N)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
     GenericCollectionExtensions.forEach2Indexed(
         size,
@@ -28,6 +29,7 @@ public inline fun <T> Set<T>.foreach2Indexed(action: Function2IndexedUnit<T, T>)
  * @timecomplexity O(N)
  */
 @Deprecated("will be removed")
+@Suppress("MissingTestFunction")
 public inline fun <T> Set<T>.foreach2(action: Function2Unit<T, T>): Unit =
     GenericCollectionExtensions.forEach2(size, ::elementAt, action)
 
@@ -54,7 +56,7 @@ public inline fun <T> Set<T>.foreachBackwards(action: FunctionUnit<T>): Unit =
  * The time complexity should be around "O(N)" Where N is the largest size of the sets.
  * @timecomplexity O(N)
  */
-public inline fun <T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDifferenceResult<T> {
+public inline fun <@kotlin.internal.OnlyInputTypes T> Set<T>.symmetricDifference(otherSet: Set<T>): SymmetricDifferenceResult<T> {
     val aDif = toMutableSet()
     val bDif = mutableSetOf<T>()
     otherSet.forEach {
@@ -84,7 +86,7 @@ public class SymmetricDifferenceResult<T>(
  * @param value T the value to test existence of
  * @return [Boolean] true if the value is not found / contained
  */
-public inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
+public inline fun <@kotlin.internal.OnlyInputTypes T> Set<T>.doesNotContain(value: T): Boolean =
     !contains(value)
 
 
@@ -97,7 +99,7 @@ public inline fun <T> Set<T>.doesNotContain(value: T): Boolean =
  * @return [Boolean] true if at least one element from other is in this set.
  * @timecomplexity worst case o(n * lg(n))
  */
-public inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
+public inline fun <@kotlin.internal.OnlyInputTypes E> Set<E>.containsAny(other: Iterable<E>): Boolean {
     return if (other is Set) {
         //if we have 2 sets, then the optimization is to iterate over the smallest
         // set and call contains on the larger (linear is slower than logarithm)
@@ -126,7 +128,7 @@ public inline fun <E> Set<E>.containsAny(other: Iterable<E>): Boolean {
  * @return [Boolean] true if there are no disjoint elements
  * @timecomplexity worst case o(n * lg(n))
  */
-public inline fun <E> Set<E>.doesNotContainAny(other: Iterable<E>): Boolean {
+public inline fun <@kotlin.internal.OnlyInputTypes E> Set<E>.doesNotContainAny(other: Iterable<E>): Boolean {
     return if (other is Set) {
         //if we have 2 sets, then the optimization is to iterate over the smallest
         // set and call contains on the larger (linear is slower than logarithm)

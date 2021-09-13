@@ -3,7 +3,7 @@
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 
 class ListKtTest {
@@ -49,7 +49,6 @@ class ListKtTest {
         collection.repeatToSize(50).apply {
             size.assert(50)
         }
-        //todo more cases here
     }
 
     class ListTSubListIntRange {

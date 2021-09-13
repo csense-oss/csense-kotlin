@@ -1,7 +1,8 @@
-@file:Suppress("NOTHING_TO_INLINE", "unused")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 
 /**
@@ -102,3 +103,99 @@ public inline fun CharSequence.lastIndexOfOrNull(
 }
 
 //endregion
+
+
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean = false): Boolean {
+    if (length != other.length) {
+        return false
+    }
+    forEachIndexed { index, char ->
+        val otherChar = other[index]
+        if (!otherChar.equals(char, ignoreCase)) {
+            return@equals false
+        }
+    }
+    return true
+}
+
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolean = false): Boolean =
+    !equals(other, ignoreCase)
+
+/**
+ * Returns a substring of chars from a range of this char sequence starting at the [startIndex]
+ * @param startIndex the start index (inclusive).
+ * @return [String]? null if [startIndex] is out of bounds otherwise the substring
+ */
+public inline fun CharSequence.substringOrNull(startIndex: Int): String? {
+    val isOutOfBounds = startIndex >= length || startIndex.isNegative
+    if (isOutOfBounds) {
+        return null
+    }
+    return substring(startIndex)
+}
+
+/**
+ * Returns a substring of chars from a range of this char sequence starting at the [startIndex] and ending right before the [endIndex].
+ * if out of bounds or [endIndex] is less than or equal to [startIndex] null is returned
+ * @param startIndex the start index (inclusive).
+ * @param endIndex the end index (exclusive). If not specified, the length of the char sequence is used.
+ * @return null if out of bounds or [endIndex] is before or equal to [startIndex] otherwise the substring
+ */
+public inline fun CharSequence.substringOrNull(startIndex: Int, endIndex: Int = length): String? {
+    val isOutOfBoundsStart = startIndex >= length || startIndex.isNegative
+    val isOutOfBoundsEnd = endIndex > length || endIndex.isNegative || endIndex <= startIndex
+    if (isOutOfBoundsStart || isOutOfBoundsEnd) {
+        return null
+    }
+    return substring(startIndex = startIndex, endIndex = endIndex)
+}
+
+/**
+ * Returns a substring of chars at indices from the specified [range] of this char sequence.
+ * if the range is out of bounds (or [IntRange.last] is before [IntRange.first] of [range] ) then null is returned
+ * @param range [IntRange]
+ * @return [String]? returns null if out of bounds or range is reversed, otherwise returns the substring given the [range]
+ */
+public inline fun CharSequence.substringOrNull(range: IntRange): String? {
+    return substringOrNull(range.first, range.last + 1)
+}
+
+/**
+ * Splits this [CharSequence] by the given Chars
+ * @receiver [CharSequence]
+ * @param delimiters [Set]<[Char]>
+ * @return [List]<[String]>
+ */
+public inline fun CharSequence.split(delimiters: Set<Char>): List<String> = splitBy {
+    it in delimiters
+}
+
+/**
+ * Splits this [CharSequence] by the given [shouldSplit]
+ * @receiver [CharSequence]
+ * @param shouldSplit [Function1]<[Char], [Boolean]>
+ * @return [List]<[String]>
+ */
+public inline fun CharSequence.splitBy(shouldSplit: Function1<Char, Boolean>): List<String> {
+    val isIndexNotAtEnd = { index: Int ->
+        index < length
+    }
+    val results = mutableListOf<String>()
+    var currentStartIndex = 0
+    forEachIndexed { index, char ->
+        if (shouldSplit(char)) {
+            val splitLength = index - currentStartIndex
+            if (splitLength > 0) {
+                results += substring(startIndex = currentStartIndex, endIndex = index)
+            }
+            currentStartIndex = index + 1 // +1 since we are "taking" the "char" that gets "split"
+        }
+    }
+    if (isIndexNotAtEnd(currentStartIndex)) {
+        results += substring(startIndex = currentStartIndex)
+    }
+
+    return results
+}

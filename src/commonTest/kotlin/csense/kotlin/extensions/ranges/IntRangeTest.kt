@@ -1,7 +1,7 @@
 package csense.kotlin.extensions.ranges
 
-import csense.kotlin.tests.assertions.assert
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class IntRangeTest {
 

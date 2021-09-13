@@ -1,17 +1,15 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.EmptyFunction
-import csense.kotlin.Function3
-import csense.kotlin.tests.assertions.assert
-import csense.kotlin.tests.assertions.assertCalled
-import org.junit.Test
+import csense.kotlin.*
+import csense.kotlin.tests.assertions.*
+import org.junit.*
 
 
 class JvmExceptionsTests {
 
     @Test
     fun tryAndLogKClazz() = assertCalled {
-        tryAndLog(
+        tryAndLog<Nothing>(
             this::class, "",
             logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
         ) {
@@ -22,7 +20,7 @@ class JvmExceptionsTests {
 
     @Test
     fun tryAndLogClazz() = assertCalled {
-        tryAndLog(
+        tryAndLog<Nothing>(
             this::class.java, "",
             logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
         ) {

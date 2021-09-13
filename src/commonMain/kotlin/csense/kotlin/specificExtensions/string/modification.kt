@@ -4,8 +4,10 @@ package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.jvm.*
 
-public inline class StringModification(public val string: String)
+@JvmInline
+public value class StringModification(public val string: String)
 
 public inline val String.modifications: StringModification
     inline get() = StringModification(this)

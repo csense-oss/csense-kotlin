@@ -3,8 +3,8 @@
 
 package csense.kotlin.logger
 
-import csense.kotlin.Function0R
-import kotlin.reflect.KClass
+import csense.kotlin.*
+import kotlin.reflect.*
 
 
 //region Debug

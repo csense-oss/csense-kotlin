@@ -450,29 +450,6 @@ public inline fun String.forEachBackwardsIndexed(
     GenericCollectionExtensions.forEachBackwardsIndexed(count(), this::elementAt, action)
 
 /**
- *
- * @receiver String
- * @param splitFun Function1<Char, Boolean>
- * @return List<String>
- */
-public inline fun String.splitWhen(splitFun: Function1<Char, Boolean>): List<String> {
-    val results = mutableListOf<String>()
-    var currentStart = 0
-    forEachIndexed { index, item ->
-        if (index < length - 1 && splitFun(item)) {
-            if (index - currentStart > 0) {
-                results.add(substring(currentStart, index))
-            }
-            currentStart = index + 1
-        }
-    }
-    if (currentStart < length - 1) {
-        results.add(substring(currentStart, length))
-    }
-    return results
-}
-
-/**
  * Tells if this is a new line (either windows or unix)
  * @receiver [String] the string to test
  * @return [Boolean] true if this string is exactly a newline, false otherwise

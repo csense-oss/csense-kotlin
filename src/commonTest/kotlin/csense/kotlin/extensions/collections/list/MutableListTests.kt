@@ -2,10 +2,9 @@
 
 package csense.kotlin.extensions.collections.list
 
-import csense.kotlin.extensions.collections.set
-import csense.kotlin.extensions.collections.setAll
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.tests.assertions.*
-import kotlin.test.Test
+import kotlin.test.*
 
 class MutableExtensionsTest {
 
