@@ -461,3 +461,11 @@ public inline fun String.isNewLine(): Boolean = when (this.length) {
     2 -> this == "\r\n" // windows
     else -> false
 }
+
+/**
+ * Returns null if this string is empty
+ * @return [String] null if this string is empty. Otherwise, the string
+ */
+public inline fun String.nullOnEmpty(): String? = ifEmpty {
+    null
+}

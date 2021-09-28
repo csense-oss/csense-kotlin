@@ -6,6 +6,8 @@
   - InputStream
     - readToEnd
     - readOrNullOnEnd
+  - String
+    - nullOnEmpty
 
 ## 0.0.50
 

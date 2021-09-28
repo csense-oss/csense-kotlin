@@ -2,7 +2,7 @@
 
 package csense.kotlin.specificExtensions.string
 
-import csense.kotlin.extensions.*
+import csense.kotlin.extensions.primitives.*
 import kotlin.jvm.*
 
 /**
@@ -27,7 +27,7 @@ public inline val String.fileExtensions: StringFile
  */
 public inline fun StringFile.fileExtension(): String? {
     val fileExtension = string.substringAfterLast(".", "")
-    return fileExtension.isEmpty().map(null, fileExtension) //map empty to null
+    return fileExtension.nullOnEmpty()
 }
 
 /**
@@ -37,7 +37,7 @@ public inline fun StringFile.fileExtension(): String? {
  * @return [String]
  */
 public inline fun StringFile.withFileExtension(newExtension: String): String {
-    return string.substringBeforeLast('.', string) + "." + newExtension
+    return string.substringBeforeLast('.', string) + ".$newExtension"
 }
 
 /**
