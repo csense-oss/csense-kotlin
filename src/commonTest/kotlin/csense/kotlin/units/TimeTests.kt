@@ -218,7 +218,6 @@ class TimeTests {
         val time: Duration = measureTime {
             TimeUnit.MilliSeconds(10).delay()
         }
-        println("time = $time")
         time.inWholeMilliseconds.assertLargerOrEqualTo(10)
     }
 }

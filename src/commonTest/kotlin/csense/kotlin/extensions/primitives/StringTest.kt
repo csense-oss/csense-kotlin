@@ -491,7 +491,6 @@ class StringTest {
         "1234".isNewLine().assertFalse()
         "Other region 한".isNewLine().assertFalse()
         "Hi ☺".isNewLine().assertFalse()
-        "�".isNewLine().assertFalse()
         "\n".isNewLine().assertTrue()
         "...()[]".isNewLine().assertFalse()
     }
@@ -751,4 +750,17 @@ class StringTest {
         "a".nullOnEmpty().assertNotNullAndEquals("a")
         "abc".nullOnEmpty().assertNotNullAndEquals("abc")
     }
+
+    @Test
+    fun titleCaseFirstWord() {
+        "".titleCaseFirstWord().assert("")
+        " ".titleCaseFirstWord().assert(" ")
+        "a".titleCaseFirstWord().assert("A")
+        "abc".titleCaseFirstWord().assert("Abc")
+        "1234".titleCaseFirstWord().assert("1234")
+        "Hi ☺".titleCaseFirstWord().assert("Hi ☺")
+        "Ǆ".titleCaseFirstWord().assert("ǅ")
+        "ǆ".titleCaseFirstWord().assert("ǅ")
+    }
 }
+
