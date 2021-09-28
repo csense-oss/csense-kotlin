@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.0.51
+## 0.5.1
+- kotlin 1.5.31
+- added
+  - InputStream
+    - readToEnd
+    - readOrNullOnEnd
 
 ## 0.0.50
 
