@@ -25,7 +25,6 @@ buildscript {
 
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version "1.5.31"
-    id "org.jetbrains.dokka" version "1.5.30"
     id "maven-publish"
     id 'org.jetbrains.kotlinx.benchmark' version '0.3.1'
     id "org.owasp.dependencycheck" version "6.3.1"
@@ -43,9 +42,9 @@ kotlin {
     explicitApi = 'strict'
     jvm()
     js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
-        browser{
+        browser {
             testTask {
-                useKarma{
+                useKarma {
                     useFirefox()
                 }
             }
@@ -62,9 +61,9 @@ kotlin {
         }
         commonTest {
             dependencies {
+                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
             }
         }
         jvmMain {
@@ -73,7 +72,7 @@ kotlin {
 
         jvmTest {
             dependencies {
-                implementation "org.jetbrains.kotlin:kotlin-reflect"
+                //see https://github.com/Kotlin/kotlinx.coroutines/issues/1996
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
                 implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.1"
             }
@@ -84,8 +83,7 @@ kotlin {
         }
 
         jsTest {
-            dependencies {
-            }
+
         }
         all {
             languageSettings {
