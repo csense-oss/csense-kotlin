@@ -1,10 +1,19 @@
 buildscript {
 
+    //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.5.2"
+    //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.51"
+    //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.41"
 
-    //library settings
+    //https://github.com/JetBrains/kotlin
+    ext.kotlin_version = "1.5.31"
+
+    //https://github.com/Kotlin/kotlinx-benchmark
+    ext.kotlinx_benchmark_version = "0.3.1"
+
+    //library settings - https://github.com/csense-oss/csense-kotlin
     ext.csenseUserOrg = "csense-oss"
     ext.csenseVersionName = "0.0.51"
     ext.csenseGroupId = "csense.kotlin"
@@ -24,10 +33,13 @@ buildscript {
 
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version "1.5.31"
+    //https://github.com/JetBrains/kotlin
+    id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     id "maven-publish"
-    id 'org.jetbrains.kotlinx.benchmark' version '0.3.1'
-    id "org.owasp.dependencycheck" version "6.3.1"
+    //https://github.com/Kotlin/kotlinx-benchmark
+    id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
+    //https://github.com/jeremylong/DependencyCheck
+    id "org.owasp.dependencycheck" version "6.3.2"
 }
 
 repositories {
@@ -74,7 +86,7 @@ kotlin {
             dependencies {
                 //see https://github.com/Kotlin/kotlinx.coroutines/issues/1996
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.1"
+                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:$kotlinx_benchmark_version"
             }
         }
 

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections.set
 
 import csense.kotlin.extensions.*
@@ -6,44 +8,9 @@ import kotlin.test.*
 
 class SetTest {
 
-    //to make IDEA work
-    @Suppress("MissingTestCode")
-    @Test
-    fun emptyTest() {
-    }
-
-    class SetTDoesNotContain {
-        @Test
-        fun empty() {
-            val map = setOf<String>()
-            map.doesNotContain("1").assertTrue()
-        }
-
-        @Test
-        fun single() {
-            val map = setOf("1234")
-            map.doesNotContain("1").assertTrue()
-            map.doesNotContain("1234").assertFalse()
-            map.doesNotContain("12345").assertTrue()
-        }
-
-
-        @Test
-        fun multiple() {
-            val map = setOf(123, 444)
-            map.doesNotContain(1).assertTrue()
-            map.doesNotContain(2).assertTrue()
-            map.doesNotContain(123).assertFalse()
-            map.doesNotContain(444).assertFalse()
-            map.doesNotContain(555).assertTrue()
-        }
-    }
-
     class SetTSymmetricDifference {
-        //region lhs / receiver
         @Test
         fun emptyFirst() {
-            //empty to empty
             val empty = setOf<String>().symmetricDifference(setOf())
             empty.uniqueInFirst.assertEmpty()
             empty.uniqueInSecond.assertEmpty()
@@ -105,7 +72,61 @@ class SetTest {
             multipleWithNoCollision.uniqueInSecond.assertContainsAll("1", "a", "c")
 
         }
-        //endregion
+
+        @Test
+        fun nullableShouldStillWork() {
+            val lhsNull = setOf<String?>(null).symmetricDifference(setOf("a"))
+            lhsNull.uniqueInFirst.assertSingle(null)
+            lhsNull.uniqueInSecond.assertSingle("a")
+
+            val rhsNull = setOf<String?>("a").symmetricDifference(setOf(null))
+            rhsNull.uniqueInFirst.assertSingle("a")
+            rhsNull.uniqueInSecond.assertSingle(null)
+
+            val nullOnlyInBoth = setOf<String?>(null).symmetricDifference(setOf(null))
+            nullOnlyInBoth.uniqueInFirst.assertEmpty()
+            nullOnlyInBoth.uniqueInSecond.assertEmpty()
+
+            val nullInBoth: SymmetricDifferenceResult<String?> = setOf(null, "a").symmetricDifference(setOf(null, "b"))
+            nullInBoth.uniqueInFirst.assertSingle("a")
+            nullInBoth.uniqueInSecond.assertSingle("b")
+        }
+
+    }
+
+    class SetTDoesNotContain {
+        @Test
+        fun empty() {
+            val map = setOf<String>()
+            map.doesNotContain("1").assertTrue()
+        }
+
+        @Test
+        fun single() {
+            val map = setOf("1234")
+            map.doesNotContain("1").assertTrue()
+            map.doesNotContain("1234").assertFalse()
+            map.doesNotContain("12345").assertTrue()
+        }
+
+
+        @Test
+        fun multiple() {
+            val map = setOf(123, 444)
+            map.doesNotContain(1).assertTrue()
+            map.doesNotContain(2).assertTrue()
+            map.doesNotContain(123).assertFalse()
+            map.doesNotContain(444).assertFalse()
+            map.doesNotContain(555).assertTrue()
+        }
+
+        @Test
+        fun nullableShouldStillWork() {
+            val map = setOf<Int?>(null)
+            map.doesNotContain(null).assertFalse("contains null")
+            map.doesNotContain(42).assertTrue()
+
+        }
     }
 
     class SetEContainsAny {
@@ -143,7 +164,6 @@ class SetTest {
             setOf("3", "9").containsAny(listOf("2", "1", "3")).assertTrue()
         }
 
-        // since sets are optimized we want to assert that it still works (performance is for benchmark tests)
         @Test
         fun sampleForSets() {
             setOf<String>().containsAny(setOf()).assertFalse()
@@ -160,6 +180,13 @@ class SetTest {
             setOf("2", "3").containsAny(setOf("3")).assertTrue()
             setOf("2", "3").containsAny(setOf("4")).assertFalse()
             setOf("2", "3").containsAny(setOf("4", "2")).assertTrue()
+        }
+
+        @Test
+        fun nullableShouldWork() {
+            setOf<String?>(null).containsAny(listOf()).assertFalse("null is not nothing")
+            setOf<String?>(null).containsAny(listOf(null)).assertTrue("null is null")
+            setOf<String?>(null).containsAny(listOf("a", null)).assertTrue("null is still contained")
         }
     }
 
@@ -183,8 +210,16 @@ class SetTest {
             setOf("test", "1234").doesNotContainAny(listOf("test")).assertFalse("nothing does not contain something")
             setOf("test", "1234").doesNotContainAny(listOf("1234")).assertFalse("nothing does not contain something")
             setOf("test", "1234").doesNotContainAny(listOf("a", "b")).assertTrue("nothing does not contain something")
-            setOf("test", "1234").doesNotContainAny(listOf("a", "b", "test")).assertFalse("nothing does not contain something")
+            setOf("test", "1234").doesNotContainAny(listOf("a", "b", "test"))
+                .assertFalse("nothing does not contain something")
             setOf("test2", "1234").doesNotContainAny(listOf("test")).assertTrue("nothing does not contain something")
+        }
+
+        @Test
+        fun nullableShouldWork() {
+            setOf<String?>(null).doesNotContainAny(listOf()).assertTrue("null is not nothing")
+            setOf<String?>(null).doesNotContainAny(listOf(null)).assertFalse("null is null")
+            setOf<String?>(null).doesNotContainAny(listOf("a", null)).assertFalse("null is still contained")
         }
     }
 

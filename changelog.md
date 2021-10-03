@@ -1,13 +1,22 @@
 # Changelog
 
 ## 0.5.1
+
 - kotlin 1.5.31
 - added
-  - InputStream
-    - readToEnd
-    - readOrNullOnEnd
-  - String
-    - nullOnEmpty
+    - InputStream
+        - readToEnd
+        - readOrNullOnEnd
+    - String
+        - nullOnEmpty
+    - map
+        - hasSameKeys
+        - hasSameContent
+        - hasSameContentBy
+    
+
+- Fixed some other tests that were mistakenly copied and pasted
+- Added nullable keys for map & set tests
 
 ## 0.0.50
 
@@ -20,7 +29,7 @@
     - map
 - added collection extensions:
     - toMap
-    - toMapFlat 
+    - toMapFlat
     - toMutableMap
 - added CharSequence.equals & CharSequence.notEquals
 - added extensions to CharSequence
