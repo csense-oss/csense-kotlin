@@ -38,8 +38,8 @@ plugins {
     id "maven-publish"
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
-    //https://github.com/jeremylong/DependencyCheck
-    id "org.owasp.dependencycheck" version "6.5.0"
+    //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+    id "org.owasp.dependencycheck" version "6.5.0.1"
 }
 
 repositories {
