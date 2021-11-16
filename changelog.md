@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2
+- kotlin 1.6.0
+- added 
+  - MutableSet
+    - addIfMissingAnd 
+
 ## 0.5.1
 
 - kotlin 1.5.31

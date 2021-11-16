@@ -51,4 +51,52 @@ class MutableSetTest {
         col.assertSize(1)
         col.assertContains("asd1")
     }
+
+    class MutableSetTAddIfMissingAnd {
+
+        @Test
+        fun empty() = assertCalled { shouldBeCalled ->
+            val set = mutableSetOf<String>()
+            val didAdd = set.addIfMissingAnd("item") { shouldBeCalled() }
+            didAdd.assertTrue()
+            set.assertSingle("item")
+        }
+
+
+        @Test
+        fun singleMissing() = assertCalled { shouldBeCalled ->
+            val set = mutableSetOf("test")
+            val didAdd = set.addIfMissingAnd("item") { shouldBeCalled() }
+            didAdd.assertTrue()
+            set.assertSize(2)
+            set.assertContainsAll("test", "item")
+        }
+
+        @Test
+        fun singleAlreadyThere() {
+            val set = mutableSetOf("test")
+            val didAdd = set.addIfMissingAnd("test") { shouldNotBeCalled() }
+            didAdd.assertFalse("already presented")
+            set.assertSingle("test")
+        }
+
+
+        @Test
+        fun multipleAlreadyThere() {
+            val set = mutableSetOf("1", "2")
+            val didAdd = set.addIfMissingAnd("1") { shouldNotBeCalled() }
+            didAdd.assertFalse("already presented")
+            set.assertSize(2)
+            set.assertContainsAll("1", "2")
+        }
+
+        @Test
+        fun multipleMissing() = assertCalled { shouldBeCalled ->
+            val set = mutableSetOf("1", "2")
+            val didAdd = set.addIfMissingAnd("3") { shouldBeCalled() }
+            didAdd.assertTrue()
+            set.assertSize(3)
+            set.assertContainsAll("1", "2", "3")
+        }
+    }
 }
