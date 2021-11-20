@@ -1,10 +1,16 @@
 # Changelog
 
 ## 0.5.2
+
 - kotlin 1.6.0
-- added 
-  - MutableSet
-    - addIfMissingAnd 
+- added
+    - MutableSet
+        - addIfMissingAnd
+    - General
+        - UnexpectedException + unexpected function(s)
+            - unexpected, unexpectedWithLogging, logUnexpected
+
+- updated annotations to 0.0.50
 
 ## 0.5.1
 
@@ -19,7 +25,7 @@
         - hasSameKeys
         - hasSameContent
         - hasSameContentBy
-    
+
 
 - Fixed some other tests that were mistakenly copied and pasted
 - Added nullable keys for map & set tests

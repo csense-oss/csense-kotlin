@@ -5,7 +5,7 @@ buildscript {
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.52"
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.0.41"
+    ext.csenseAnnotationVersion = "0.0.50"
 
     //https://github.com/JetBrains/kotlin/releases
     ext.kotlin_version = "1.6.0"

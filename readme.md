@@ -197,19 +197,3 @@ free (still waiting for inline classes to be promoted for this)
 ### Computer sizes
 
 There are classes related to binary / computer sizes, from bits to terabytes.
-
-#### Expected
-
-This pattern is quite useful, the one in Coroutines (Result) is not meant for General purpose usage; however the current
-state of this pattern is very poor and will be improved / changed drastically in the future, especially depending on the
-improvements to contracts.
-
-The Expected pattern is a simply put, a dual way of handling exceptions and bad results. The point is, instead of
-forcing throwing exceptions, on behalf of the caller, the caller gets to decide how he/she will handle the result of a
-function; this means that if checking the result via "isValid", is more appropriate, then no exceptions will be thrown,
-but if that is the intended way one can simply access the value, which in the case of errors will throw, just like a
-regular throwing method would. This means that its up to the caller rather than the calle, to decide how the program
-handles "expected" results
-(bad / good results)
-
- 
