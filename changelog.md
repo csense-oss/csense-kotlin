@@ -6,9 +6,8 @@
 - added
     - MutableSet
         - addIfMissingAnd
-    - General
-        - UnexpectedException + unexpected function(s)
-            - unexpected, unexpectedWithLogging, logUnexpected
+    - UnexpectedException + unexpected function(s)
+        - unexpected, unexpectedWithLogging, logUnexpected
 
 - updated annotations to 0.0.50
 
