@@ -3,19 +3,22 @@ buildscript {
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.5.2"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.51"
+    ext.csenseTestsVersion = "0.0.52"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.41"
 
-    //https://github.com/JetBrains/kotlin
+    //https://github.com/JetBrains/kotlin/releases
     ext.kotlin_version = "1.6.0"
 
     //https://github.com/Kotlin/kotlinx-benchmark
     ext.kotlinx_benchmark_version = "0.3.1"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
+
+    //This library version
+    ext.csenseVersionName = "0.0.52"
+
     ext.csenseUserOrg = "csense-oss"
-    ext.csenseVersionName = "0.0.51"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseLicense = "MIT"
@@ -27,7 +30,7 @@ buildscript {
 
     ext.csenseWebsite = "https://github.com/csense-oss/csense-kotlin"
     ext.csenseGit = "https://github.com/csense-oss/csense-kotlin.git"
-    ext.csenseArtifactDescription = ""
+    ext.csenseArtifactDescription = "aim of this project is to add futher extensions, features to the std lib as well as more \"very common\" operations."
     //end library settings
 }
 
@@ -145,7 +148,6 @@ dependencyCheck {
 
 project.group = csenseGroupId
 project.version = csenseVersionName
-
 
 apply from: "$rootDir/gradle/publish.gradle"
 
