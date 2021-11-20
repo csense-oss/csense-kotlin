@@ -14,7 +14,6 @@ import kotlin.contracts.*
  * @param item T
  * @timecomplexity O(1)
  */
-
 public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.toggleExistence(item: T) {
     setExistence(item, !contains(item))
 }
