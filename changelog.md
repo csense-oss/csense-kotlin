@@ -1,6 +1,35 @@
 # Changelog
 
-## 0.5.0
+## 0.5.2
+
+- kotlin 1.6.0
+- added
+    - MutableSet
+        - addIfMissingAnd
+    - UnexpectedException + unexpected function(s)
+        - unexpected, unexpectedWithLogging, logUnexpected
+
+- updated annotations to 0.0.50
+
+## 0.5.1
+
+- kotlin 1.5.31
+- added
+    - InputStream
+        - readToEnd
+        - readOrNullOnEnd
+    - String
+        - nullOnEmpty
+    - map
+        - hasSameKeys
+        - hasSameContent
+        - hasSameContentBy
+
+
+- Fixed some other tests that were mistakenly copied and pasted
+- Added nullable keys for map & set tests
+
+## 0.0.50
 
 - kotlin 1.5.30
 - annotated some functions with OnlyInputTypes (to avoid type misuse for extensions)
@@ -11,7 +40,7 @@
     - map
 - added collection extensions:
     - toMap
-    - toMapFlat 
+    - toMapFlat
     - toMutableMap
 - added CharSequence.equals & CharSequence.notEquals
 - added extensions to CharSequence

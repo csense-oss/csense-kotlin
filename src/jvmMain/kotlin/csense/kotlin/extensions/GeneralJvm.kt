@@ -7,4 +7,3 @@ package csense.kotlin.extensions
  * @return [Class]<T>
  */
 public inline fun <reified T : Any> type(): Class<T> = T::class.java
-

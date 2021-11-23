@@ -491,7 +491,6 @@ class StringTest {
         "1234".isNewLine().assertFalse()
         "Other region 한".isNewLine().assertFalse()
         "Hi ☺".isNewLine().assertFalse()
-        "�".isNewLine().assertFalse()
         "\n".isNewLine().assertTrue()
         "...()[]".isNewLine().assertFalse()
     }
@@ -646,24 +645,43 @@ class StringTest {
     class StringReplaceIfOrStrings {
         @Test
         fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("")
+            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("")
+            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("")
         }
 
         @Test
         fun notFound() {
-            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("abc")
-            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("abc")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false").assert("TEST")
+            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("abc")
+            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("abc")
+            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("TEST")
         }
 
         @Test
         fun found() {
-            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false").assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false").assert("true")
-            "TEST".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false", ignoreCase = true)
+            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
                 .assert("false")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false", ignoreCase = true)
+            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("true")
+            "TEST".replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false",
+                ignoreCase = true
+            )
+                .assert("false")
+            "TEST".replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false",
+                ignoreCase = true
+            )
                 .assert("true")
         }
 
@@ -672,26 +690,77 @@ class StringTest {
     class StringReplaceIfOrCondition {
         @Test
         fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("")
+            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("")
+            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("")
         }
 
         @Test
         fun notFound() {
-            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("abc")
-            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("abc")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("TEST")
+            "abc".replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("abc")
+            "abc".replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("abc")
+            "TEST".replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("TEST")
         }
 
         @Test
         fun found() {
-            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" }).assert("true")
-            "TEST".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }, ignoreCase = true)
+            "abc".replaceIfOr(
+                condition = false,
+                toReplace = "abc",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("false")
+            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("true")
+            "TEST".replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" },
+                ignoreCase = true
+            )
                 .assert("false")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" }, ignoreCase = true)
+            "TEST".replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" },
+                ignoreCase = true
+            )
                 .assert("true")
         }
     }
 
+    @Test
+    fun nullOnEmpty() {
+        "".nullOnEmpty().assertNull()
+        " ".nullOnEmpty().assertNotNullAndEquals(" ")
+        "a".nullOnEmpty().assertNotNullAndEquals("a")
+        "abc".nullOnEmpty().assertNotNullAndEquals("abc")
+    }
+
+    @Test
+    fun titleCaseFirstWord() {
+        "".titleCaseFirstWord().assert("")
+        " ".titleCaseFirstWord().assert(" ")
+        "a".titleCaseFirstWord().assert("A")
+        "abc".titleCaseFirstWord().assert("Abc")
+        "1234".titleCaseFirstWord().assert("1234")
+        "Hi ☺".titleCaseFirstWord().assert("Hi ☺")
+        "Ǆ".titleCaseFirstWord().assert("ǅ")
+        "ǆ".titleCaseFirstWord().assert("ǅ")
+    }
 }
+

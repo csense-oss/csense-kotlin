@@ -1,12 +1,24 @@
 buildscript {
 
+    //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.5.2"
-    ext.csenseTestsVersion = "0.0.51"
-    ext.csenseAnnotationVersion = "0.0.41"
+    //https://github.com/csense-oss/csense-kotlin-test
+    ext.csenseTestsVersion = "0.0.52"
+    //https://github.com/csense-oss/csense-kotlin-annotations
+    ext.csenseAnnotationVersion = "0.0.50"
 
-    //library settings
+    //https://github.com/JetBrains/kotlin/releases
+    ext.kotlin_version = "1.6.0"
+
+    //https://github.com/Kotlin/kotlinx-benchmark
+    ext.kotlinx_benchmark_version = "0.3.1"
+
+    //library settings - https://github.com/csense-oss/csense-kotlin
+
+    //This library version
+    ext.csenseVersionName = "0.0.52"
+
     ext.csenseUserOrg = "csense-oss"
-    ext.csenseVersionName = "0.0.50"
     ext.csenseGroupId = "csense.kotlin"
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseLicense = "MIT"
@@ -18,18 +30,19 @@ buildscript {
 
     ext.csenseWebsite = "https://github.com/csense-oss/csense-kotlin"
     ext.csenseGit = "https://github.com/csense-oss/csense-kotlin.git"
-    ext.csenseArtifactDescription = ""
+    ext.csenseArtifactDescription = "aim of this project is to add futher extensions, features to the std lib as well as more \"very common\" operations."
     //end library settings
 }
 
 
 plugins {
-    id "net.linguica.maven-settings" version "0.5"
-    id 'org.jetbrains.kotlin.multiplatform' version "1.5.30"
-    id "org.jetbrains.dokka" version "1.5.0"
+    //https://github.com/JetBrains/kotlin
+    id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     id "maven-publish"
-    id 'org.jetbrains.kotlinx.benchmark' version '0.3.1'
-    id "org.owasp.dependencycheck" version "6.3.1"
+    //https://github.com/Kotlin/kotlinx-benchmark
+    id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
+    //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+    id "org.owasp.dependencycheck" version "6.5.0.1"
 }
 
 repositories {
@@ -44,9 +57,9 @@ kotlin {
     explicitApi = 'strict'
     jvm()
     js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
-        browser{
+        browser {
             testTask {
-                useKarma{
+                useKarma {
                     useFirefox()
                 }
             }
@@ -63,9 +76,9 @@ kotlin {
         }
         commonTest {
             dependencies {
+                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
-                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
             }
         }
         jvmMain {
@@ -74,9 +87,9 @@ kotlin {
 
         jvmTest {
             dependencies {
-                implementation "org.jetbrains.kotlin:kotlin-reflect"
+                //see https://github.com/Kotlin/kotlinx.coroutines/issues/1996
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.3.1"
+                implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:$kotlinx_benchmark_version"
             }
         }
 
@@ -85,8 +98,7 @@ kotlin {
         }
 
         jsTest {
-            dependencies {
-            }
+
         }
         all {
             languageSettings {
@@ -136,7 +148,6 @@ dependencyCheck {
 
 project.group = csenseGroupId
 project.version = csenseVersionName
-
 
 apply from: "$rootDir/gradle/publish.gradle"
 

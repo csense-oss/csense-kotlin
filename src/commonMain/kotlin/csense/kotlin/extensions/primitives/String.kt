@@ -461,3 +461,24 @@ public inline fun String.isNewLine(): Boolean = when (this.length) {
     2 -> this == "\r\n" // windows
     else -> false
 }
+
+/**
+ * Returns null if this string is empty
+ * @return [String] null if this string is empty. Otherwise, the string
+ */
+public inline fun String.nullOnEmpty(): String? = ifEmpty {
+    null
+}
+
+/**
+ * Title-cases this string's first word if it is not already title cased.
+ * @return this string if empty, or the first char is title-cased.
+ * otherwise, title-cases the first char and returns that string
+ */
+public inline fun String.titleCaseFirstWord(): String {
+    ifEmpty { return@titleCaseFirstWord this }
+    if (first().isTitleCase()) {
+        return this
+    }
+    return replaceFirstChar(Char::titlecaseChar)
+}
