@@ -61,10 +61,12 @@ publishing {
     }
     repositories {
         maven {
-
             final Properties properties = new Properties()
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            try {
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            } catch (Exception) {
 
+            }
             url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
             name 'csense-oss'
             credentials {
