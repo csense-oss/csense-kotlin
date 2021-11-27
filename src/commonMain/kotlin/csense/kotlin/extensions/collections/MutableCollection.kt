@@ -2,6 +2,10 @@
 
 package csense.kotlin.extensions.collections
 
+import csense.kotlin.annotations.sideEffect.*
+import csense.kotlin.extensions.*
+import kotlin.contracts.*
+
 
 //region set & setAll
 
@@ -10,9 +14,12 @@ package csense.kotlin.extensions.collections
  * @receiver [MutableCollection]<E>
  * @param collection [Collection]<E>
  */
-public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(collection: Collection<E>) {
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(
+    collection: Collection<E>
+): Boolean {
     clear()
-    addAll(collection)
+    return addAll(collection)
 }
 
 /**
@@ -20,9 +27,12 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAl
  * @receiver [MutableCollection]<E>
  * @param items [Collection]<E>
  */
-public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(vararg items: E) {
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAll(
+    vararg items: E
+): Boolean {
     clear()
-    addAll(items)
+    return addAll(items)
 }
 
 /**
@@ -30,9 +40,12 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.setAl
  * @receiver [MutableCollection]<E>
  * @param item E
  */
-public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.set(item: E) {
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.set(
+    item: E
+): Boolean {
     clear()
-    add(item)
+    return add(item)
 }
 //endregion
 
@@ -42,6 +55,51 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.set(i
  * @receiver [MutableCollection]<E>
  * @param items [Array]<out E>
  */
-public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addAll(vararg items: E) {
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addAll(
+    vararg items: E
+): Boolean =
     addAll(items)
+
+
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addIf(
+    condition: Boolean,
+    item: E
+): Boolean = condition.mapLazy(
+    ifTrue = { add(item) },
+    ifFalse = { false }
+)
+
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.removeIf(
+    condition: Boolean,
+    item: E
+): Boolean = condition.mapLazy(
+    ifTrue = { remove(item) },
+    ifFalse = { false }
+)
+
+@DiscardableResult
+@OptIn(ExperimentalContracts::class)
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addIfNotNull(
+    item: E?
+): Boolean {
+    contract {
+        returns(true) implies (item != null)
+    }
+    return item?.let(::add) ?: false
 }
+
+
+@DiscardableResult
+@OptIn(ExperimentalContracts::class)
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.removeIfNotNull(
+    item: E?
+): Boolean {
+    contract {
+        returns(true) implies (item != null)
+    }
+    return item?.let(::remove) ?: false
+}
+

@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.5.2
+## 0.0.53
+
+- added
+    - MutableCollection
+        - addIf
+        - addIfNotNull
+        - removeIf
+        - removeIfNotNull
+        - 
+
+## 0.0.52
 
 - kotlin 1.6.0
 - added
@@ -11,7 +21,7 @@
 
 - updated annotations to 0.0.50
 
-## 0.5.1
+## 0.0.51
 
 - kotlin 1.5.31
 - added
