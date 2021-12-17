@@ -31,3 +31,4 @@ local.properties
 csense-kotlin-js/out/
 *.js
 *.kjsm
+kotlin-js-store/yarn.lock
