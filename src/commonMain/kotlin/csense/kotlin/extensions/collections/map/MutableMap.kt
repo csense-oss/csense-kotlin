@@ -42,3 +42,20 @@ public inline fun <K, V : Iterable<*>> MutableMap<K, V>.setIfNotEmpty(key: K, va
 public inline fun <K, V> MutableMap<K, MutableList<V>>.putSubList(key: K, value: V) {
     getOrPut(key, ::mutableListOf).add(value)
 }
+
+public inline fun <K, V> MutableMap<K, V>.putIfMissing(key: K, value: V) {
+    if (doesNotContainKey(key)) {
+        put(key, value)
+    }
+}
+
+public inline fun <K, V> MutableMap<K, V>.putIfMissingAnd(
+    key: K,
+    value: V,
+    action: MutableMap<K, V>.(key: K, value: V) -> Unit
+) {
+    if (doesNotContainKey(key)) {
+        put(key, value)
+        action(key, value)
+    }
+}
