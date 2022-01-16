@@ -91,7 +91,6 @@ class CharTest {
         'Q'.isLowerCaseLetter().assertFalse()
         '1'.isLowerCaseLetter().assertFalse()
         '?'.isLowerCaseLetter().assertFalse()
-        ''.isLowerCaseLetter().assertFalse()
         '\n'.isLowerCaseLetter().assertFalse()
     }
 
@@ -102,7 +101,6 @@ class CharTest {
         'Q'.isUpperCaseLetter().assertTrue()
         '1'.isUpperCaseLetter().assertFalse()
         '?'.isUpperCaseLetter().assertFalse()
-        ''.isUpperCaseLetter().assertFalse()
         '\n'.isUpperCaseLetter().assertFalse()
     }
 
@@ -113,16 +111,43 @@ class CharTest {
         'Q'.isNotDigit().assertTrue()
         '1'.isNotDigit().assertFalse()
         '?'.isNotDigit().assertTrue()
-        ''.isNotDigit().assertTrue()
         '\n'.isNotDigit().assertTrue()
     }
 
     @Test
     fun testHexCharsToValue() {
-        hexCharsToValue('A','A').assertNotNullAndEquals(0xAA)
-        hexCharsToValue('F','F').assertNotNullAndEquals(0xFF)
-        hexCharsToValue('Q','Q').assertNull()
-        hexCharsToValue('0','1').assertNotNullAndEquals(0x01)
-        hexCharsToValue('5','1').assertNotNullAndEquals(0x51)
+        hexCharsToValue('A', 'A').assertNotNullAndEquals(0xAA)
+        hexCharsToValue('F', 'F').assertNotNullAndEquals(0xFF)
+        hexCharsToValue('Q', 'Q').assertNull()
+        hexCharsToValue('0', '1').assertNotNullAndEquals(0x01)
+        hexCharsToValue('5', '1').assertNotNullAndEquals(0x51)
+    }
+
+    @Test
+    fun isNotWhitespace() {
+        ' '.isNotWhitespace().assertFalse()
+        'a'.isNotWhitespace().assertTrue()
+        'Q'.isNotWhitespace().assertTrue()
+        '1'.isNotWhitespace().assertTrue()
+        '?'.isNotWhitespace().assertTrue()
+        '\n'.isNotWhitespace().assertFalse()
+    }
+
+    class CharIsNotEqual {
+
+        @Test
+        fun test() {
+            ' '.isNotEqual('a', ignoreCase = false).assertTrue()
+            'a'.isNotEqual('a', ignoreCase = false).assertFalse()
+            'Q'.isNotEqual('q', ignoreCase = false).assertTrue()
+        }
+
+        @Test
+        fun ignoreCase() {
+            'a'.isNotEqual('a', ignoreCase = true).assertFalse()
+            'a'.isNotEqual('A', ignoreCase = true).assertFalse()
+            'a'.isNotEqual('B', ignoreCase = true).assertTrue()
+        }
+
     }
 }
