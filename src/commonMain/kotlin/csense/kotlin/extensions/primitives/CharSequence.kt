@@ -4,6 +4,8 @@ package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.generic.*
 
 /**
  * is this NOT null or blank, akk its not null nor a "blank" [CharSequence]
@@ -110,13 +112,10 @@ public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean =
     if (length != other.length) {
         return false
     }
-    forEachIndexed { index, char ->
-        val otherChar = other[index]
-        if (!otherChar.equals(char, ignoreCase)) {
-            return@equals false
-        }
-    }
-    return true
+
+    return indexOfFirstIndexedOrNull { index, char ->
+        other[index].isNotEqual(char, ignoreCase)
+    }.mapOptional(ifNotNull = false, ifNull = true)
 }
 
 @kotlin.internal.LowPriorityInOverloadResolution
@@ -129,8 +128,7 @@ public inline fun CharSequence.notEquals(other: CharSequence, ignoreCase: Boolea
  * @return [String]? null if [startIndex] is out of bounds otherwise the substring
  */
 public inline fun CharSequence.substringOrNull(startIndex: Int): String? {
-    val isOutOfBounds = startIndex >= length || startIndex.isNegative
-    if (isOutOfBounds) {
+    if (isIndex.outOfBounds(startIndex, isEndOutOfBonds = true)) {
         return null
     }
     return substring(startIndex)
@@ -144,8 +142,8 @@ public inline fun CharSequence.substringOrNull(startIndex: Int): String? {
  * @return null if out of bounds or [endIndex] is before or equal to [startIndex] otherwise the substring
  */
 public inline fun CharSequence.substringOrNull(startIndex: Int, endIndex: Int = length): String? {
-    val isOutOfBoundsStart = startIndex >= length || startIndex.isNegative
-    val isOutOfBoundsEnd = endIndex > length || endIndex.isNegative || endIndex <= startIndex
+    val isOutOfBoundsStart = isIndex.outOfBounds(startIndex, isEndOutOfBonds = true)
+    val isOutOfBoundsEnd = isIndex.outOfBounds(endIndex, isEndOutOfBonds = false) || endIndex <= startIndex
     if (isOutOfBoundsStart || isOutOfBoundsEnd) {
         return null
     }
@@ -179,9 +177,6 @@ public inline fun CharSequence.split(delimiters: Set<Char>): List<String> = spli
  * @return [List]<[String]>
  */
 public inline fun CharSequence.splitBy(shouldSplit: Function1<Char, Boolean>): List<String> {
-    val isIndexNotAtEnd = { index: Int ->
-        index < length
-    }
     val results = mutableListOf<String>()
     var currentStartIndex = 0
     forEachIndexed { index, char ->
@@ -193,9 +188,25 @@ public inline fun CharSequence.splitBy(shouldSplit: Function1<Char, Boolean>): L
             currentStartIndex = index + 1 // +1 since we are "taking" the "char" that gets "split"
         }
     }
-    if (isIndexNotAtEnd(currentStartIndex)) {
+
+    if (isIndex.inBounds(currentStartIndex, isEndInBounds = false)) {
         results += substring(startIndex = currentStartIndex)
     }
 
     return results
+}
+
+public inline fun CharSequence.indexOfFirstOrNull(
+    predicate: Function1<Char, Boolean>
+): Int? = indexOfFirstIndexedOrNull { _, char ->
+    predicate(char)
+}
+
+public inline fun CharSequence.indexOfFirstIndexedOrNull(predicate: Function2<Int, Char, Boolean>): Int? {
+    forEachIndexed { index, char ->
+        if (predicate(index, char)) {
+            return@indexOfFirstIndexedOrNull index
+        }
+    }
+    return null
 }
