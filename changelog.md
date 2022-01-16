@@ -19,11 +19,13 @@
     - String
         - convince constructor (codePoints) for JVM
         - replaceCharAt
+        - replaceCharAtOrNull
+        - splitAtOrNull
 
     - Char
         - isNotWhitespace
         - isNotEqual
-
+    
     - isIndex on collection & array & map types. this is meant to assist in bounds testing but in a more readable manner
         - it contains the following functions
             - inBoundsEndNotInBounds
