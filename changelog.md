@@ -8,7 +8,33 @@
         - addIfNotNull
         - removeIf
         - removeIfNotNull
-        - 
+    - MutableMap
+        - putIfMissing
+        - putIfMissingAnd
+
+    - CharSequence
+        - indexOfFirstOrNull
+        - indexOfFirstIndexedOrNull
+
+    - String
+        - convince constructor (codePoints) for JVM
+        - replaceCharAt
+
+    - Char
+        - isNotWhitespace
+        - isNotEqual
+
+    - isIndex on collection & array & map types. this is meant to assist in bounds testing but in a more readable manner
+        - it contains the following functions
+            - inBoundsEndNotInBounds
+            - inBoundsEndInBounds
+            - outOfBoundsEndOutOfBounds
+            - outOfBoundsEndInBounds
+            - inBounds
+            - outOfBounds
+
+- Improved String.titleCaseFirstWord to actually handle if there are starting whitespace chars
+    - and added a JVM version taking a locale
 
 ## 0.0.52
 
