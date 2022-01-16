@@ -1,9 +1,12 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.collections.generic
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.jvm.*
 
 
 /**
@@ -15,7 +18,7 @@ import csense.kotlin.extensions.primitives.*
  * @param builderType
  * @return [List]<T> the resulting list by joining the starting items with the [toJoinAction]
  */
-@Suppress("unused")
+
 public inline fun <T, U> GenericCollectionExtensions.joinEveryAction(
     @IntLimit(from = 1) itemsBetweenJoins: Int,
     crossinline toJoinAction: Function0R<T>,

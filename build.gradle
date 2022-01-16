@@ -1,9 +1,9 @@
 buildscript {
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.6.0-RC2"
+    ext.coroutinesVersion = "1.6.0"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.52"
+    ext.csenseTestsVersion = "0.0.53"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.50"
 
@@ -11,12 +11,12 @@ buildscript {
     ext.kotlin_version = "1.6.10"
 
     //https://github.com/Kotlin/kotlinx-benchmark
-    ext.kotlinx_benchmark_version = "0.4.0"
+    ext.kotlinx_benchmark_version = "0.4.1"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
 
     //This library version
-    ext.csenseVersionName = "0.0.52"
+    ext.csenseVersionName = "0.0.53"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"
@@ -42,7 +42,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "6.5.0.1"
+    id "org.owasp.dependencycheck" version "6.5.2.1"
 }
 
 repositories {
@@ -76,6 +76,7 @@ kotlin {
         }
         commonTest {
             dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
                 implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
@@ -87,8 +88,6 @@ kotlin {
 
         jvmTest {
             dependencies {
-                //see https://github.com/Kotlin/kotlinx.coroutines/issues/1996
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
                 implementation "org.jetbrains.kotlinx:kotlinx-benchmark-runtime:$kotlinx_benchmark_version"
             }
         }
@@ -158,7 +157,7 @@ benchmark {
     targets {
         register("jvmTest") {
             //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
-            jmhVersion = "1.33" // available only for JVM compilations & Java source sets
+            jmhVersion = "1.34" // available only for JVM compilations & Java source sets
         }
     }
 }

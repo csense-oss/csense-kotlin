@@ -237,7 +237,7 @@ private fun LLogger.assertLoggingAllowedStates(
 class LoggingLevelTest {
 
     @Test
-    fun testToString() {
+    fun toStringTest() {
         LoggingLevel.Debug.toString().assert(LoggingLevel.Debug.stringValue)
         LoggingLevel.Production.toString().assert(LoggingLevel.Production.stringValue)
         LoggingLevel.Warning.toString().assert(LoggingLevel.Warning.stringValue)

@@ -11,7 +11,6 @@ class CharJsTest {
         'Q'.isSymbol().assertFalse()
         '1'.isSymbol().assertFalse()
         '?'.isSymbol().assertTrue()
-        ''.isSymbol().assertTrue()
         '\n'.isSymbol().assertTrue()
     }
 
@@ -22,7 +21,6 @@ class CharJsTest {
         'Q'.isLetter().assertTrue()
         '1'.isLetter().assertFalse()
         '?'.isLetter().assertFalse()
-        ''.isLetter().assertFalse()
         '\n'.isLetter().assertFalse()
     }
 
@@ -33,7 +31,6 @@ class CharJsTest {
         'Q'.isNotLetter().assertFalse()
         '1'.isNotLetter().assertTrue()
         '?'.isNotLetter().assertTrue()
-        ''.isNotLetter().assertTrue()
         '\n'.isNotLetter().assertTrue()
     }
 
@@ -44,7 +41,6 @@ class CharJsTest {
         'Q'.isUpperCaseLetter().assertTrue()
         '1'.isUpperCaseLetter().assertFalse()
         '?'.isUpperCaseLetter().assertFalse()
-        ''.isUpperCaseLetter().assertFalse()
         '\n'.isUpperCaseLetter().assertFalse()
     }
 
@@ -55,7 +51,6 @@ class CharJsTest {
         'Q'.isLowerCaseLetter().assertFalse()
         '1'.isLowerCaseLetter().assertFalse()
         '?'.isLowerCaseLetter().assertFalse()
-        ''.isLowerCaseLetter().assertFalse()
         '\n'.isLowerCaseLetter().assertFalse()
     }
 }
