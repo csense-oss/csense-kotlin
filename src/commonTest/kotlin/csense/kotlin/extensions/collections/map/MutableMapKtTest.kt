@@ -203,4 +203,39 @@ class MutableMapKtTest {
             map.assertContains("key2" to "value2")
         }
     }
+
+    class Reverse {
+
+        @Test
+        fun empty() {
+            val empty = mutableMapOf<String, Int>().reverse()
+            empty.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            val single = mutableMapOf("abc" to 42).reverse()
+            single.assertIs<MutableMap<Int, String>>()
+            single.assertSingle {
+                it.key.assert(42)
+                it.value.assert("abc")
+            }
+        }
+
+
+        @Test
+        fun multiple() {
+            val multiple = mutableMapOf("abc" to 42, "1234" to 500).reverse()
+            multiple.assertIs<MutableMap<Int, String>>()
+            multiple.assertSize(2)
+            multiple.assertContainsKeyAnd(42) {
+                it.assert("abc")
+            }
+            multiple.assertContainsKeyAnd(500) {
+                it.assert("1234")
+            }
+        }
+
+    }
 }

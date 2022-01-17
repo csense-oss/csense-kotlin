@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.54
+
+- added
+    - Map & MutableMap reverse (reverses the relation, so from key -> value it is value -> key)
+
 ## 0.0.53
 
 - added
@@ -8,7 +13,7 @@
         - addIfNotNull
         - removeIf
         - removeIfNotNull
-      
+
     - MutableMap
         - putIfMissing
         - putIfMissingAnd
@@ -26,7 +31,7 @@
     - Char
         - isNotWhitespace
         - isNotEqual
-    
+
     - isIndex on collection & array & map types. this is meant to assist in bounds testing but in a more readable manner
         - it contains the following functions
             - inBoundsEndNotInBounds
@@ -39,7 +44,6 @@
 - Changed
     - MutableCollection.setAll now returns the result from "addAll"
     - MutableCollection.set now returns the result from add
-
 
 
 - Improved String.titleCaseFirstWord to actually handle if there are starting whitespace chars

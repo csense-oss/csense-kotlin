@@ -159,3 +159,15 @@ public inline fun <Key, Value> Map<Key, Value>.hasSameContentBy(
         compareValue(it.value, other.getValue(it.key))
     }
 }
+
+/**
+ * Creates a reversed map where value -> key
+ * @return the reversed map
+ */
+public inline fun <Key, Value> Map<Key, Value>.reverse(): Map<Value, Key> {
+    val result = LinkedHashMap<Value, Key>(size)
+    entries.forEach {
+        result[it.value] = it.key
+    }
+    return result
+}
