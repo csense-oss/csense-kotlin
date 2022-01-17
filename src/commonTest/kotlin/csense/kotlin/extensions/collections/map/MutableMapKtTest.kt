@@ -74,4 +74,133 @@ class MutableMapKtTest {
         map["b"].assertNotNullApply { assertSize(1) }
 
     }
+
+    class MutableMapKVPutIfMissing {
+        @Test
+        fun empty() {
+            mutableMapOf<String, String>().apply {
+                putIfMissing("key", "value")
+                assertSingle("key" to "value")
+            }
+        }
+
+
+        @Test
+        fun singleNotThere() {
+            mutableMapOf<String, String>("key" to "val").apply {
+                putIfMissing("key2", "value")
+                assertSize(2)
+                assertContains("key" to "val")
+                assertContains("key2" to "value")
+            }
+        }
+
+
+        @Test
+        fun singleThere() {
+            mutableMapOf<String, String>(
+                "key" to "value"
+            ).apply {
+                putIfMissing("key", "value2")
+                assertSingle("key" to "value")
+            }
+        }
+
+
+        @Test
+        fun multipleNotThere() {
+            mutableMapOf<String, String>(
+                "key" to "value",
+                "x" to "y"
+            ).apply {
+                putIfMissing("z", "1")
+                assertSize(3)
+                assertContains("key" to "value")
+                assertContains("x" to "y")
+                assertContains("z" to "1")
+            }
+        }
+
+        @Test
+        fun multipleThere() {
+            mutableMapOf<String, String>(
+                "key" to "value",
+                "x" to "y"
+            ).apply {
+                putIfMissing("x", "1")
+                assertSize(2)
+                assertContains("key" to "value")
+                assertContains("x" to "y")
+            }
+        }
+    }
+
+    class MutableMapKVPutIfMissingAnd {
+        @Test
+        fun empty() = assertCalled { shouldBeCalled ->
+            val map = mutableMapOf<String, String>()
+            map.putIfMissingAnd("key", "value") { key, value ->
+                this.assertAs(map)
+                key.assert("key")
+                value.assert("value")
+                shouldBeCalled()
+            }
+            map.assertSingle("key" to "value")
+        }
+
+
+        @Test
+        fun singleNotThere() = assertCalled { shouldBeCalled ->
+            val map = mutableMapOf<String, String>("key" to "value")
+            map.putIfMissingAnd("key2", "value2") { key, value ->
+                key.assert("key2")
+                value.assert("value2")
+                shouldBeCalled()
+            }
+            map.assertSize(2)
+            map.assertContains("key" to "value")
+            map.assertContains("key2" to "value2")
+        }
+
+        @Test
+        fun singleThere() {
+            val map = mutableMapOf<String, String>("key" to "value")
+            map.putIfMissingAnd("key", "value2") { _, _ ->
+                shouldNotBeCalled()
+            }
+            map.assertSingle("key" to "value")
+        }
+
+
+        @Test
+        fun multipleNotThere() = assertCalled { shouldBeCalled ->
+            val map = mutableMapOf<String, String>(
+                "key" to "value",
+                "key2" to "value2"
+            )
+            map.putIfMissingAnd("key3", "value3") { key, value ->
+                key.assert("key3")
+                value.assert("value3")
+                shouldBeCalled()
+            }
+            map.assertSize(3)
+            map.assertContains("key" to "value")
+            map.assertContains("key2" to "value2")
+            map.assertContains("key3" to "value3")
+        }
+
+        @Test
+        fun multipleThere() {
+            val map = mutableMapOf<String, String>(
+                "key" to "value",
+                "key2" to "value2"
+            )
+            map.putIfMissingAnd("key2", "value3") { _, _ ->
+                shouldNotBeCalled()
+            }
+            map.assertSize(2)
+            map.assertContains("key" to "value")
+            map.assertContains("key2" to "value2")
+        }
+    }
 }

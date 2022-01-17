@@ -761,6 +761,116 @@ class StringTest {
         "Hi ☺".titleCaseFirstWord().assert("Hi ☺")
         "Ǆ".titleCaseFirstWord().assert("ǅ")
         "ǆ".titleCaseFirstWord().assert("ǅ")
+        "hej med".titleCaseFirstWord().assert("Hej med")
+    }
+
+
+    class StringReplaceCharAtOrNull {
+
+        @Test
+        fun empty() {
+            "".replaceCharAtOrNull(index = 0, withChar = 'a').assertNull()
+            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
+            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
+        }
+
+        @Test
+        fun single() {
+            " ".replaceCharAtOrNull(index = 0, withChar = 'a').assertNotNullAndEquals("a")
+            "a".replaceCharAtOrNull(index = 0, withChar = '1').assertNotNullAndEquals("1")
+            "b".replaceCharAtOrNull(index = 1, withChar = 'a').assertNull()
+        }
+
+        @Test
+        fun multiple() {
+            "abc".replaceCharAtOrNull(index = -1, withChar = 'q').assertNull()
+            "abc".replaceCharAtOrNull(index = 0, withChar = 'q').assertNotNullAndEquals("qbc")
+            "abc".replaceCharAtOrNull(index = 1, withChar = 'q').assertNotNullAndEquals("aqc")
+            "abc".replaceCharAtOrNull(index = 2, withChar = 'q').assertNotNullAndEquals("abq")
+            "abc".replaceCharAtOrNull(index = 3, withChar = 'q').assertNull()
+
+        }
+
+    }
+
+    class StringSplitAtOrNull {
+        @Test
+        fun empty() {
+            "".splitAtOrNull(-1).assertNull()
+            "".splitAtOrNull(0).assertNull()
+            "".splitAtOrNull(1).assertNull()
+        }
+
+        @Test
+        fun single() {
+            "a".splitAtOrNull(-1).assertNull()
+            "a".splitAtOrNull(0).assertNotNullApply {
+                beforeIndex.assertEmpty()
+                afterIndex.assertEmpty()
+            }
+            "a".splitAtOrNull(1).assertNull()
+        }
+
+        @Test
+        fun multiple() {
+            "abc".splitAtOrNull(-1).assertNull()
+            "abc".splitAtOrNull(0).assertNotNullApply {
+                beforeIndex.assertEmpty()
+                afterIndex.assert("bc")
+            }
+            "abc".splitAtOrNull(1).assertNotNullApply {
+                beforeIndex.assert("a")
+                afterIndex.assert("c")
+            }
+            "abc".splitAtOrNull(2).assertNotNullApply {
+                beforeIndex.assert("ab")
+                afterIndex.assertEmpty()
+            }
+            "abc".splitAtOrNull(3).assertNull()
+
+        }
+    }
+
+    class StringReplaceCharAt {
+
+        @Test
+        fun empty() = assertThrows<IndexOutOfBoundsException> {
+            "".replaceCharAt(0, 'a')
+        }
+
+
+        @Test
+        fun singleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
+            "a".replaceCharAt(index = -1, withChar = 'a')
+        }
+
+        @Test
+        fun singleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
+            "a".replaceCharAt(index = 1, withChar = 'a')
+        }
+
+        @Test
+        fun singleValidIndex() {
+            "a".replaceCharAt(index = 0, withChar = 'Q').assert("Q")
+        }
+
+        @Test
+        fun multipleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
+            "abc".replaceCharAt(index = -1, withChar = 'a')
+        }
+
+        @Test
+        fun multipleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
+            "abc".replaceCharAt(index = 3, withChar = 'a')
+        }
+
+        @Test
+        fun multipleReplaceRespectsInBounds() {
+            "abc".replaceCharAt(index = 0, withChar = 'q').assertNotNullAndEquals("qbc")
+            "abc".replaceCharAt(index = 2, withChar = 'q').assertNotNullAndEquals("abq")
+        }
+
+
     }
 }
 

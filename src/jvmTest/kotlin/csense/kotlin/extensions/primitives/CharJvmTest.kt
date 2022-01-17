@@ -11,7 +11,6 @@ class CharJvmTest {
         'Q'.isUpperCaseLetter().assertTrue()
         '1'.isUpperCaseLetter().assertFalse()
         '?'.isUpperCaseLetter().assertFalse()
-        ''.isUpperCaseLetter().assertFalse()
         '\n'.isUpperCaseLetter().assertFalse()
     }
 
@@ -22,7 +21,6 @@ class CharJvmTest {
         'Q'.isLowerCaseLetter().assertFalse()
         '1'.isLowerCaseLetter().assertFalse()
         '?'.isLowerCaseLetter().assertFalse()
-        ''.isLowerCaseLetter().assertFalse()
         '\n'.isLowerCaseLetter().assertFalse()
     }
 }

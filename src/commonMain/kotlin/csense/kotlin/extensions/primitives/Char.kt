@@ -122,3 +122,14 @@ public value class CharExtensions(public val char: Char) {
     }
 }
 //validate whenever "digit" in other text systems are more than "0-9" (eg say Chinese)
+
+/**
+ * Tells if this Char is different from a whitespace
+ * @receiver Char the Char to test
+ * @return Boolean True if the char is different from whitespace, false if it is whitespace
+ */
+public inline fun Char.isNotWhitespace(): Boolean = !isWhitespace()
+
+public inline fun Char.isNotEqual(other: Char, ignoreCase: Boolean = false): Boolean {
+    return !equals(other, ignoreCase)
+}

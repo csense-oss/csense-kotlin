@@ -469,7 +469,7 @@ class DaysTest {
 
 class TimeUnitTest {
     @Test
-    fun testToString() {
+    fun toStringTest() {
         TimeUnit.NanoSeconds(10L).toString().assert("10 ns")
         TimeUnit.MilliSeconds(10L).toString().assert("10 ms")
         TimeUnit.Seconds(10L).toString().assert("10 s")

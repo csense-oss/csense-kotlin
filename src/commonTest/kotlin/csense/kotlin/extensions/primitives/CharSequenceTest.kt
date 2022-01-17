@@ -184,14 +184,14 @@ class CharSequenceTest {
         @Test
         fun alwaysSplitSingle() {
             "a".splitBy { true }.apply {
-                assertSize(0, "since we do not include the split")
+                assertEmpty("since we do not include the split")
             }
         }
 
         @Test
         fun alwaysSplitMultiple() {
             "ab".splitBy { true }.apply {
-                assertSize(0, "since we do not include the split")
+                assertEmpty("since we do not include the split")
             }
         }
 
@@ -261,7 +261,8 @@ class CharSequenceTest {
             val regular = "123a123".split('a')
             val bySet = "123a123".split(setOf('a'))
             regular.assertSize(bySet.size)
-            regular.assertContainsInOrder(regular)        }
+            regular.assertContainsInOrder(regular)
+        }
     }
 
 
@@ -382,5 +383,114 @@ class CharSequenceTest {
             "abc".substringOrNull(IntRange(start = 2, endInclusive = 3)).assertNull()
             "abc".substringOrNull(IntRange(start = 2, endInclusive = 4)).assertNull()
         }
+    }
+
+    class CharSequenceIndexOfFirstIndexedOrNull {
+        @Test
+        fun empty() {
+            "".indexOfFirstIndexedOrNull { i, c -> shouldNotBeCalled() }.assertNull()
+        }
+
+        @Test
+        fun singleNotFound() = assertCalled { shouldBeCalled ->
+            "a".indexOfFirstIndexedOrNull { i, c ->
+                i.assert(0)
+                c.assert('a')
+                shouldBeCalled()
+                false
+            }.assertNull()
+        }
+
+        @Test
+        fun singleFound() = assertCalled { shouldBeCalled ->
+            "a".indexOfFirstIndexedOrNull { i, c ->
+                i.assert(0)
+                c.assert('a')
+                shouldBeCalled()
+                true
+            }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun multipleNotFound() = assertCalled(times = 2) { shouldBeCalled ->
+            val testData = listOf(0 to 'a', 1 to 'b')
+            "ab".indexOfFirstIndexedOrNull { i, c ->
+                testData[i].first.assert(i)
+                testData[i].second.assert(c)
+                shouldBeCalled()
+                false
+            }.assertNull()
+        }
+
+        @Test
+        fun multipleFirstFound() = assertCalled { shouldBeCalled ->
+            val testData = listOf(0 to 'a', 1 to 'b')
+            "ab".indexOfFirstIndexedOrNull { i, c ->
+                testData[i].first.assert(i)
+                testData[i].second.assert(c)
+                shouldBeCalled()
+                true
+            }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun multipleLastFound() = assertCalled(times = 2) { shouldBeCalled ->
+            val testData = listOf(0 to 'a', 1 to 'b')
+            "ab".indexOfFirstIndexedOrNull { i, c ->
+                testData[i].first.assert(i)
+                testData[i].second.assert(c)
+                shouldBeCalled()
+                i == 1
+            }.assertNotNullAndEquals(1)
+        }
+
+    }
+
+    class CharSequenceIndexOfFirstOrNull {
+
+        @Test
+        fun empty() {
+            "".indexOfFirstOrNull { shouldNotBeCalled() }.assertNull()
+        }
+
+
+        @Test
+        fun singleNotFound() = assertCalled { shouldBeCalled ->
+            "a".indexOfFirstOrNull {
+                it.assert('a')
+                shouldBeCalled()
+                false
+            }.assertNull()
+        }
+
+        @Test
+        fun singleFound() = assertCalled { shouldBeCalled ->
+            "a".indexOfFirstOrNull {
+                it.assert('a')
+                shouldBeCalled()
+                true
+            }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun multipleFirstFound() = assertCalled { shouldBeCalled ->
+            "abc".indexOfFirstOrNull {
+                shouldBeCalled()
+                it.assert('a')
+                true
+            }.assertNotNullAndEquals(0)
+        }
+
+        @Test
+        fun multipleLastFound() = assertCalled(times = 3) { shouldBeCalled ->
+            assertCallbackCalledWith(listOf('a', 'b', 'c')) { assertChar ->
+                "abc".indexOfFirstOrNull {
+                    assertChar(it)
+                    shouldBeCalled()
+                    it == 'c'
+                }.assertNotNullAndEquals(2)
+            }
+        }
+
     }
 }

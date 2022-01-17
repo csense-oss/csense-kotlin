@@ -210,4 +210,122 @@ class MutableCollectionTest {
     }
 
 
+    class MutableCollectionEAddIfNotNull {
+
+        @Test
+        fun onNull() {
+            val lst = mutableListOf<String>()
+            lst.addIfNotNull(null).assertFalse("should not be added to list")
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun onNotNull() {
+            val lst = mutableListOf<String>()
+            lst.addIfNotNull("item").assertTrue("should be added")
+            lst.assertSingle("item")
+        }
+
+    }
+
+    class MutableCollectionEAddIf {
+
+        @Test
+        fun ifFalse() {
+            val lst = mutableListOf<String>()
+            lst.addIf(condition = false, "").assertFalse()
+            lst.assertEmpty()
+        }
+
+
+        @Test
+        fun ifTrue() {
+            val lst = mutableListOf<String>()
+            lst.addIf(condition = true, "testItem").assertTrue()
+            lst.assertSingle("testItem")
+        }
+    }
+
+    class MutableCollectionERemoveIf {
+
+        @Test
+        fun ifFalseNotThere() {
+            val lst = mutableListOf<String>()
+            lst.removeIf(condition = false, "item").assertFalse()
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun ifFalseThere() {
+            val lst = mutableListOf<String>("item")
+            lst.removeIf(condition = false, "item").assertFalse()
+            lst.assertSingle("item")
+        }
+
+
+        @Test
+        fun ifTrueNotThere() {
+            val lst = mutableListOf<String>("item")
+            lst.removeIf(condition = true, "testItem").assertFalse()
+            lst.assertSingle("item")
+        }
+
+        @Test
+        fun ifTrueThere() {
+            val lst = mutableListOf<String>("item")
+            lst.removeIf(condition = true, "item").assertTrue()
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun ifTrueThereMultipleTimes() {
+            val lst = mutableListOf<String>("item", "item")
+            lst.removeIf(condition = true, "item").assertTrue()
+            lst.assertSingle("item")
+            lst.removeIf(condition = true, "item").assertTrue()
+            lst.assertEmpty()
+        }
+
+    }
+
+    class MutableCollectionERemoveIfNotNull {
+
+        @Test
+        fun notThereAndNullEmpty() {
+            val lst = mutableListOf<String>()
+            lst.removeIfNotNull(null).assertFalse()
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun notThereAndNullSingle() {
+            val lst = mutableListOf<String>("lst")
+            lst.removeIfNotNull(null).assertFalse()
+            lst.assertSingle("lst")
+        }
+
+        @Test
+        fun notThere() {
+            val lst = mutableListOf<String>("lst")
+            lst.removeIfNotNull("item").assertFalse()
+            lst.assertSingle("lst")
+        }
+
+        @Test
+        fun thereSingle() {
+            val lst = mutableListOf<String>("lst")
+            lst.removeIfNotNull("lst").assertTrue()
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun thereMultiple() {
+            val lst = mutableListOf<String>("lst", "lst")
+            lst.removeIfNotNull("lst").assertTrue()
+            lst.assertSingle("lst")
+            lst.removeIfNotNull("lst").assertTrue()
+            lst.assertEmpty()
+        }
+
+    }
 }

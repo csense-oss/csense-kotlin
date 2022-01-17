@@ -5,6 +5,7 @@ package csense.kotlin.extensions.collections.list
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 
 /**
@@ -56,7 +57,10 @@ public inline fun <T> List<T>.subListSafe(
     @IntLimit(from = 0) fromIndex: Int,
     @IntLimit(from = 0) toIndex: Int
 ): List<T> {
-    return if (fromIndex >= 0 && toIndex <= size && fromIndex <= toIndex) {
+    val isAllInBounds = isIndex.inBounds(fromIndex, isEndInBounds = false) &&
+            isIndex.inBounds(toIndex, isEndInBounds = true) &&
+            fromIndex <= toIndex
+    return if (isAllInBounds) {
         subList(fromIndex, toIndex)
     } else {
         emptyList()

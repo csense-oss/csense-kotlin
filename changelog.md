@@ -1,6 +1,51 @@
 # Changelog
 
-## 0.5.2
+## 0.0.53
+
+- added
+    - MutableCollection
+        - addIf
+        - addIfNotNull
+        - removeIf
+        - removeIfNotNull
+      
+    - MutableMap
+        - putIfMissing
+        - putIfMissingAnd
+
+    - CharSequence
+        - indexOfFirstOrNull
+        - indexOfFirstIndexedOrNull
+
+    - String
+        - convince constructor (codePoints) for JVM
+        - replaceCharAt
+        - replaceCharAtOrNull
+        - splitAtOrNull
+
+    - Char
+        - isNotWhitespace
+        - isNotEqual
+    
+    - isIndex on collection & array & map types. this is meant to assist in bounds testing but in a more readable manner
+        - it contains the following functions
+            - inBoundsEndNotInBounds
+            - inBoundsEndInBounds
+            - outOfBoundsEndOutOfBounds
+            - outOfBoundsEndInBounds
+            - inBounds
+            - outOfBounds
+
+- Changed
+    - MutableCollection.setAll now returns the result from "addAll"
+    - MutableCollection.set now returns the result from add
+
+
+
+- Improved String.titleCaseFirstWord to actually handle if there are starting whitespace chars
+    - and added a JVM version taking a locale
+
+## 0.0.52
 
 - kotlin 1.6.0
 - added
@@ -11,7 +56,7 @@
 
 - updated annotations to 0.0.50
 
-## 0.5.1
+## 0.0.51
 
 - kotlin 1.5.31
 - added

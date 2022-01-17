@@ -476,9 +476,54 @@ public inline fun String.nullOnEmpty(): String? = ifEmpty {
  * otherwise, title-cases the first char and returns that string
  */
 public inline fun String.titleCaseFirstWord(): String {
-    ifEmpty { return@titleCaseFirstWord this }
-    if (first().isTitleCase()) {
+    val firstCharIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return this
+    val firstChar = this[firstCharIndex]
+    if (firstChar.isTitleCase()) {
         return this
     }
-    return replaceFirstChar(Char::titlecaseChar)
+    return replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
 }
+
+/**
+ *
+ * @receiver String
+ * @param index Int
+ * @param withChar Char
+ * @return String
+ * @throws Exception
+ */
+@Throws(IndexOutOfBoundsException::class)
+public inline fun String.replaceCharAt(index: Int, withChar: Char): String {
+    return replaceCharAtOrNull(index = index, withChar = withChar)
+        ?: throw IndexOutOfBoundsException("Index out of bounds. Index: $index, length: $length")
+}
+
+/**
+ *
+ * @receiver String
+ * @param index Int
+ * @param withChar Char
+ * @return String?
+ */
+public inline fun String.replaceCharAtOrNull(index: Int, withChar: Char): String? {
+    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
+        return null
+    }
+    val split = splitAtOrNull(index) ?: return null
+    return split.beforeIndex + withChar + split.afterIndex
+}
+
+public inline fun String.splitAtOrNull(index: Int): StringSplitAt? {
+    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
+        return null
+    }
+    val before = substringOrNull(0, index) ?: ""
+    val after = substringOrNull(index + 1, length) ?: ""
+    return StringSplitAt(before, after)
+}
+
+public data class StringSplitAt(
+    public val beforeIndex: String,
+    public val afterIndex: String
+)
+
