@@ -8,6 +8,7 @@
         - addIfNotNull
         - removeIf
         - removeIfNotNull
+      
     - MutableMap
         - putIfMissing
         - putIfMissingAnd
@@ -34,6 +35,12 @@
             - outOfBoundsEndInBounds
             - inBounds
             - outOfBounds
+
+- Changed
+    - MutableCollection.setAll now returns the result from "addAll"
+    - MutableCollection.set now returns the result from add
+
+
 
 - Improved String.titleCaseFirstWord to actually handle if there are starting whitespace chars
     - and added a JVM version taking a locale
