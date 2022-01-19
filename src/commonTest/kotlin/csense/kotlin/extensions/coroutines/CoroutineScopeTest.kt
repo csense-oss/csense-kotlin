@@ -5,7 +5,6 @@ package csense.kotlin.extensions.coroutines
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import kotlin.jvm.*
 import kotlin.test.*
 
 class CoroutineScopeTest {
@@ -38,35 +37,5 @@ class CoroutineScopeTest {
             }.join()
         }
     }
-//
-//    @Test
-//    fun coroutineScopeWithContextMain() = runTest {
-//        withContextMain {
-//            assertDispatcher(Dispatchers.Main)
-//            "result"
-//        }.assert("result")
-//        mainThreadSurrogate.scheduler.runCurrent()
-//    }
-//
-//    @Test
-//    fun coroutineScopeLaunchMain() = runTest {
-//        assertCalled { shouldBeCalled ->
-//            launchMain {
-//                assertDispatcher(Dispatchers.Main)
-//                shouldBeCalled()
-//            }.join()
-//        }
-//        mainThreadSurrogate.scheduler.runCurrent()
-//    }
-//
-//    @Test
-//    fun coroutineScopeAsyncMain() = runTest {
-//        val async = asyncMain {
-//            assertDispatcher(Dispatchers.Main)
-//            "result"
-//        }
-//        async.await().assert("result")
-//        mainThreadSurrogate.scheduler.runCurrent()
-//    }
 
 }
