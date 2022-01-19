@@ -10,6 +10,8 @@
         - reverse (reverses the relation, so from key -> value it is value -> key)
         - remove (key?) convince remove function
       
+    - awaitAll (global functions) for awaiting multiple coroutines
+  
     - @ExperimentalCsenseApi for marking things that are really experimental and might be removed or changed without
       notice
 

@@ -14,7 +14,7 @@ public sealed interface CollectionBounds {
     public fun inBoundsEndInBounds(index: Int): Boolean
 
     public companion object {
-        @Suppress("MissingTestFunction")
+        @Suppress("MissingTestFunction") //plugin bug
         public fun from(collectionLength: Int): CollectionBounds = when {
             collectionLength.isNegative -> CollectionBoundsAlwaysOutOfBounds
             collectionLength.isZero -> CollectionBoundsZeroBoundsChecker
