@@ -16,7 +16,7 @@ buildscript {
     //library settings - https://github.com/csense-oss/csense-kotlin
 
     //This library version
-    ext.csenseVersionName = "0.0.53"
+    ext.csenseVersionName = "0.0.54"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"

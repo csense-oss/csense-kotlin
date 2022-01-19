@@ -16,22 +16,6 @@ public inline fun <U> CharArray.forEachDiscard(receiver: Function1<Char, U>): Un
 
 //region Generic collection extensions
 /**
- * Performs traversal in pairs of 2  (with the first index as well)
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun CharArray.forEach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
-
-/**
- * Performs traversal in pairs of 2
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun CharArray.forEach2(action: Function2Unit<Char, Char>): Unit =
-    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
-
-/**
  * Performs backwards traversal on this [CharArray].
  */
 public inline fun CharArray.forEachBackwards(action: FunctionUnit<Char>): Unit =

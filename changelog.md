@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.0.54
+
+- added
+    - Map
+        - reverse (reverses the relation, so from key -> value it is value -> key)
+      
+    - MutableMap
+        - reverse (reverses the relation, so from key -> value it is value -> key)
+        - remove (key?) convince remove function
+      
+    - awaitAll (global functions) for awaiting multiple coroutines
+  
+    - @ExperimentalCsenseApi for marking things that are really experimental and might be removed or changed without
+      notice
+
+- Removed
+    - deprecated things (most had a deprecation cycle of 4+ releases)
+        - if using the foreach2 extensions the general function is still available at GenericCollectionExtensions.{name}
+  
+    - Workaround for coroutines tests (runTest)
+
+    
+
 ## 0.0.53
 
 - added
@@ -8,7 +31,7 @@
         - addIfNotNull
         - removeIf
         - removeIfNotNull
-      
+
     - MutableMap
         - putIfMissing
         - putIfMissingAnd
@@ -26,7 +49,7 @@
     - Char
         - isNotWhitespace
         - isNotEqual
-    
+
     - isIndex on collection & array & map types. this is meant to assist in bounds testing but in a more readable manner
         - it contains the following functions
             - inBoundsEndNotInBounds
@@ -39,7 +62,6 @@
 - Changed
     - MutableCollection.setAll now returns the result from "addAll"
     - MutableCollection.set now returns the result from add
-
 
 
 - Improved String.titleCaseFirstWord to actually handle if there are starting whitespace chars

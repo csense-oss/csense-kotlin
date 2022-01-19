@@ -88,30 +88,6 @@ public inline val Byte.isOdd: Boolean
     get() = !isEven
 //endregion
 
-//region bit wise operations
-/**
- * Shifts the bits to the left the given amount of times
- * @receiver [Byte] the value to SHL
- * @param shift [Int] the amount to shl
- * @return [Byte] the resulting byte; overflow are discarded
- */
-@Suppress("MissingTestFunction")
-@Deprecated("use bitopertations instead", replaceWith = ReplaceWith(".bitOperterations.shl(shift)"))
-public inline infix fun Byte.shl(shift: Int): Byte =
-    (this.toInt() shl shift).toByte()
-
-/**
- * Shifts the bits to the right the given amount of times
- * @receiver [Byte] the value to SHR
- * @param shift [Int] the amount to shr
- * @return [Byte] the resulting byte; overflow are discared
- */
-@Suppress("MissingTestFunction")
-@Deprecated("use bitOpertations instead", replaceWith = ReplaceWith(".bitOperterations.shl(shift)"))
-public inline infix fun Byte.shr(shift: Int): Byte =
-    (this.toInt() shr shift).toByte()
-//endregion
-
 //region hex converting
 /**
  * Converts a given byte to a pair of chars, and then returns the resulting
@@ -137,22 +113,6 @@ public fun <T> Byte.toChars(
 
 public inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
     charArrayOf(upperChar, lowerChar).concatToString()
-}
-
-
-/**
- * Splits a [Byte] of 0x2f into "0x02" and into "0x0f"
- * @receiver [Byte]
- * @param action (upperByte: [Byte], lowerByte: [Byte]) -> T
- * @return T
- */
-@Deprecated("use bitOperations instead")
-@Suppress("MissingTestFunction")
-public inline fun <T> Byte.splitIntoComponents(
-    action: (upperByte: Byte, lowerByte: Byte) -> T
-): T {
-    val (upper, lower) = this.bitOperations.splitIntoNibbles()
-    return action(upper, lower)
 }
 
 //endregion

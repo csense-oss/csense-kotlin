@@ -388,7 +388,7 @@ class CharSequenceTest {
     class CharSequenceIndexOfFirstIndexedOrNull {
         @Test
         fun empty() {
-            "".indexOfFirstIndexedOrNull { i, c -> shouldNotBeCalled() }.assertNull()
+            "".indexOfFirstIndexedOrNull { _, _ -> shouldNotBeCalled() }.assertNull()
         }
 
         @Test

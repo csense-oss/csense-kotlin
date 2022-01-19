@@ -25,26 +25,6 @@ public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int)
 
 //region Generic collection extensions
 /**
- * Performs traversal in pairs of 2  (with the first index as well)
- * @receiver [List]<T>
- * @param action [Function2IndexedUnit]<T, T>
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun <K, V> Map<K, V>.foreach2Indexed(action: Function2IndexedUnit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(size, this.entries::elementAt, action)
-
-/**
- * Performs traversal in pairs of 2
- * @receiver [List]<T>
- * @param action [Function2Unit]<T, T>
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun <K, V> Map<K, V>.foreach2(action: Function2Unit<Map.Entry<K, V>, Map.Entry<K, V>>): Unit =
-    GenericCollectionExtensions.forEach2(size, this.entries::elementAt, action)
-
-/**
  * Performs backwards traversal on this
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>
@@ -158,4 +138,16 @@ public inline fun <Key, Value> Map<Key, Value>.hasSameContentBy(
     return hasSameKeys(other) && all {
         compareValue(it.value, other.getValue(it.key))
     }
+}
+
+/**
+ * Creates a reversed map where value -> key
+ * @return the reversed map
+ */
+public inline fun <Key, Value> Map<Key, Value>.reverse(): Map<Value, Key> {
+    val result = LinkedHashMap<Value, Key>(size)
+    entries.forEach {
+        result[it.value] = it.key
+    }
+    return result
 }

@@ -1,22 +1,24 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.coroutines.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.sync.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class CoroutinesTest {
 
     class ArrayoutJobJoinAll {
         @Test
-        fun empty() = runBlockingTest {
+        fun empty() = runTest {
             arrayOf<Job>().joinAll()
         }
 
         @Test
-        fun single() = runBlockingTest {
+        fun single() = runTest {
             assertCalled { shouldBeCalled ->
                 val jobs: Array<Job> = arrayOf(launch { shouldBeCalled() })
                 jobs.joinAll()
@@ -24,7 +26,7 @@ class CoroutinesTest {
         }
 
         @Test
-        fun multiple() = runBlockingTest {
+        fun multiple() = runTest {
             assertCalled(times = 2) { shouldBeCalled ->
                 val jobs: Array<Job> = arrayOf(
                     launch { shouldBeCalled() },
@@ -38,14 +40,14 @@ class CoroutinesTest {
 
     class IterableTMapAsyncAwait {
         @Test
-        fun empty() = runBlockingTest {
+        fun empty() = runTest {
             listOf<String>().mapAsyncAwait(this) {
                 shouldNotBeCalled()
             }.assertEmpty()
         }
 
         @Test
-        fun single() = runBlockingTest {
+        fun single() = runTest {
             listOf("input").mapAsyncAwait(this) {
                 it.assert("input")
                 "test"
@@ -53,7 +55,7 @@ class CoroutinesTest {
         }
 
         @Test
-        fun multiple() = runBlockingTest {
+        fun multiple() = runTest {
             val items = listOf("input1", "input2")
             val itt = items.iterator()
             val lst = items.mapAsyncAwait(this) {
@@ -67,14 +69,14 @@ class CoroutinesTest {
 
     class IterableTMapAsync {
         @Test
-        fun empty() = runBlockingTest {
+        fun empty() = runTest {
             listOf<String>().mapAsync(this) {
                 shouldNotBeCalled()
             }.awaitAll().assertEmpty()
         }
 
         @Test
-        fun single() = runBlockingTest {
+        fun single() = runTest {
             assertCalled { shouldBeCalled ->
                 listOf("input").mapAsync(this) {
                     shouldBeCalled()
@@ -85,7 +87,7 @@ class CoroutinesTest {
         }
 
         @Test
-        fun multiple() = runBlockingTest {
+        fun multiple() = runTest {
             assertCalled(times = 2) { shouldBeCalled ->
                 listOf("input1", "input2").mapAsync(this) {
                     shouldBeCalled()
@@ -102,7 +104,7 @@ class CoroutinesTest {
 
     class ChannelEForEach {
         @Test
-        fun empty() = runBlockingTest {
+        fun empty() = runTest {
             var didCallForeach = false
             val channel = Channel<String>()
             val job = launchDefault {
@@ -114,7 +116,7 @@ class CoroutinesTest {
         }
 
         @Test
-        fun single() = runBlockingTest {
+        fun single() = runTest {
             val mutex = Mutex(true)
             val channel = Channel<String>()
             val job = launchDefault {
@@ -130,7 +132,7 @@ class CoroutinesTest {
         }
 
         @Test
-        fun multiple() = runBlockingTest {
+        fun multiple() = runTest {
             val sem = Semaphore(2, 2)
             val channel = Channel<String>()
             val job = launchDefault {

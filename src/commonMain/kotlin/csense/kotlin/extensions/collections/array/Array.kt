@@ -20,20 +20,6 @@ public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Uni
 
 //region Generic collection extensions
 /**
- * Performs traversal in pairs of 2  (with the first index as well)
- */
-@Deprecated("will be removed")
-public inline fun <T> Array<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
-
-/**
- * Performs traversal in pairs of 2
- */
-@Deprecated("will be removed")
-public inline fun <T> Array<T>.forEach2(action: Function2Unit<T, T>): Unit =
-    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
-
-/**
  * Performs backwards traversal on this list.
  */
 public inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
@@ -52,21 +38,6 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
         returns(true) implies (this@isNotNullOrEmpty != null)
     }
     return this != null && this.isNotEmpty()
-}
-
-/**
- * Tells if this [Array] is null or empty (size = 0)
- * @receiver [Array]<T>? the nullable Array
- * @return [Boolean] true if the Array is null or empty
- */
-@Suppress("MissingTestFunction")
-@Deprecated(message = "use kotlin std lib instead", level = DeprecationLevel.ERROR)
-@OptIn(ExperimentalContracts::class)
-public inline fun <T> Array<T>?.isNullOrEmpty(): Boolean {
-    contract {
-        returns(false) implies (this@isNullOrEmpty != null)
-    }
-    return this == null || this.isEmpty()
 }
 
 @IntLimit(from = 0)

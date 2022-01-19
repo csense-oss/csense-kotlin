@@ -1,16 +1,16 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.coroutines.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
-//see https://github.com/Kotlin/kotlinx.coroutines/issues/1996 for Main issue(s)
 class CoroutineScopeTest {
 
-
     @Test
-    fun coroutineScopeAsyncDefault() = runBlockingTest {
+    fun coroutineScopeAsyncDefault() = runTest {
         val async = asyncDefault {
             assertDispatcher(Dispatchers.Default)
             "result"
@@ -20,7 +20,7 @@ class CoroutineScopeTest {
 
 
     @Test
-    fun coroutineScopeWithContextDefault() = runBlockingTest {
+    fun coroutineScopeWithContextDefault() = runTest {
         withContextDefault {
             assertDispatcher(Dispatchers.Default)
             "result"
@@ -29,28 +29,13 @@ class CoroutineScopeTest {
 
 
     @Test
-    fun coroutineScopeLaunchDefault() = runBlockingTest {
+    fun coroutineScopeLaunchDefault() = runTest {
         assertCalled { shouldBeCalled ->
             launchDefault {
                 assertDispatcher(Dispatchers.Default)
                 shouldBeCalled()
             }.join()
         }
-    }
-
-    @Test
-    fun coroutineScopeWithContextMain() {
-        @Suppress("UNUSED_VARIABLE") val x = 0 //Due to platform dependent tests
-    }
-
-    @Test
-    fun coroutineScopeLaunchMain() = runBlockingTest {
-        @Suppress("UNUSED_VARIABLE") val x = 0 //Due to platform dependent tests
-    }
-
-    @Test
-    fun coroutineScopeAsyncMain() = runBlockingTest {
-        @Suppress("UNUSED_VARIABLE") val x = 0 //Due to platform dependent tests
     }
 
 }

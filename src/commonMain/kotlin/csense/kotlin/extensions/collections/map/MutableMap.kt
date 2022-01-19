@@ -59,3 +59,20 @@ public inline fun <K, V> MutableMap<K, V>.putIfMissingAnd(
         action(key, value)
     }
 }
+
+/**
+ * Creates a reversed map where value -> key
+ * @return the reversed map
+ */
+public inline fun <Key, Value> MutableMap<Key, Value>.reverse(): MutableMap<Value, Key> {
+    val result = LinkedHashMap<Value, Key>(size)
+    entries.forEach {
+        result[it.value] = it.key
+    }
+    return result
+}
+
+
+public inline fun <Key, Value> MutableMap<Key, Value>.remove(key: Key?): Value? {
+    return key?.let(::remove)
+}

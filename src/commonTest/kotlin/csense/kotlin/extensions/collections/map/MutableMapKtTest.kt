@@ -203,4 +203,122 @@ class MutableMapKtTest {
             map.assertContains("key2" to "value2")
         }
     }
+
+    class Reverse {
+
+        @Test
+        fun empty() {
+            val empty = mutableMapOf<String, Int>().reverse()
+            empty.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            val single = mutableMapOf("abc" to 42).reverse()
+            single.assertIs<MutableMap<Int, String>>()
+            single.assertSingle {
+                it.key.assert(42)
+                it.value.assert("abc")
+            }
+        }
+
+
+        @Test
+        fun multiple() {
+            val multiple = mutableMapOf("abc" to 42, "1234" to 500).reverse()
+            multiple.assertIs<MutableMap<Int, String>>()
+            multiple.assertSize(2)
+            multiple.assertContainsKeyAnd(42) {
+                it.assert("abc")
+            }
+            multiple.assertContainsKeyAnd(500) {
+                it.assert("1234")
+            }
+        }
+
+    }
+
+    class MutableMapKeyValueRemove {
+        class MutableMapKeyValueRemove {
+
+            @Test
+            fun emptyNull() {
+                mutableMapOf<String, String>().apply {
+                    remove(null).assertNull()
+                    assertSize(0)
+                }
+            }
+
+            @Test
+            fun emptyValue() {
+                mutableMapOf<String, String>().apply {
+                    remove("abc").assertNull()
+                    assertSize(0)
+                }
+            }
+
+
+            @Test
+            fun singleNull() {
+                mutableMapOf("a" to "1").apply {
+                    remove(null).assertNull()
+                    assertSize(1)
+                    assertContains("a" to "1")
+                }
+            }
+
+            @Test
+            fun singleNotFound() {
+                mutableMapOf("a" to "1").apply {
+                    remove("abc").assertNull()
+                    assertSize(1)
+                    assertContains("a" to "1")
+                }
+            }
+
+
+            @Test
+            fun singleFound() {
+                mutableMapOf("a" to "1").apply {
+                    remove("a").assertNotNullAndEquals("1")
+                    assertEmpty()
+                }
+            }
+
+
+            @Test
+            fun multipleNull() {
+                mutableMapOf("a" to "1", "b" to "2").apply {
+                    remove(null).assertNull()
+                    assertSize(2)
+                    assertContains("a" to "1")
+                    assertContains("b" to "2")
+                }
+            }
+
+            @Test
+            fun multipleNotFound() {
+                mutableMapOf("a" to "1", "b" to "2").apply {
+                    remove("q").assertNull()
+                    assertSize(2)
+                    assertContains("a" to "1")
+                    assertContains("b" to "2")
+                }
+            }
+
+            @Test
+            fun multipleFound() {
+                mutableMapOf("a" to "1", "b" to "2").apply {
+                    remove("b").assertNotNullAndEquals("2")
+                    assertSingle {
+                        it.key.assert("a")
+                        it.value.assert("1")
+                    }
+                }
+            }
+
+        }
+
+    }
 }
