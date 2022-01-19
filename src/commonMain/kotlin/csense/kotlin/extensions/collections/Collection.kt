@@ -80,7 +80,7 @@ public inline fun <T> Collection<T>.categorizeIntoSingle(vararg filters: Functio
  * @param allowItemInMultipleBuckets [Boolean]
  * @return [List]<[List]<Element>>
  */
-public inline fun <Element> Collection<Element>.categorizeInto(
+public fun <Element> Collection<Element>.categorizeInto(
     vararg filters: Function1<Element, Boolean>,
     allowItemInMultipleBuckets: Boolean = true
 ): List<List<Element>> {
@@ -101,8 +101,7 @@ public inline fun <Element> Collection<Element>.categorizeInto(
  * if false then it will stop once a filter accepts it.
  */
 @Suppress("MissingTestFunction")
-@Deprecated("will be unavilable in the next version", level = DeprecationLevel.WARNING)
-public inline fun <Element> Element.categorizeInto(
+private inline fun <Element> Element.categorizeInto(
     result: ArrayList<MutableList<Element>>,
     filters: Array<out Function1<Element, Boolean>>,
     allowItemInMultipleBuckets: Boolean = true

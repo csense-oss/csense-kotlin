@@ -387,26 +387,6 @@ public class CollectionPartition<out E>(
 
 //region Generic collection extensions
 /**
- * Performs traversal in pairs of 2  (with the first index as well)
- * @receiver [List]<T>
- * @param action [Function2IndexedUnit]<T, T>
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun <T> Iterable<T>.forEach2Indexed(action: Function2IndexedUnit<T, T>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
-
-/**
- * Performs traversal in pairs of 2
- * @receiver [List]<T>
- * @param action [Function2Unit]<T, T>
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun <T> Iterable<T>.foreach2(action: Function2Unit<T, T>): Unit =
-    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
-
-/**
  * Performs backwards traversal on this list.
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>

@@ -106,29 +106,6 @@ class ByteTest {
         0xFE.toByte().toHexString().assert("FE")
     }
 
-    @Test
-    fun splitIntoComponents() {
-        0x00.toByte().splitIntoComponents { upper, lower ->
-            upper.assert(0x0)
-            lower.assert(0x0)
-        }
-        0x08.toByte().splitIntoComponents { upper, lower ->
-            upper.assert(0x0)
-            lower.assert(0x8)
-        }
-        0x11.toByte().splitIntoComponents { upper, lower ->
-            upper.assert(0x1)
-            lower.assert(0x1)
-        }
-        0xFF.toByte().splitIntoComponents { upper, lower ->
-            upper.assert(0xF)
-            lower.assert(0xF)
-        }
-        0x80.toByte().splitIntoComponents { upper, lower ->
-            upper.assert(0x8)
-            lower.assert(0x0)
-        }
-    }
 
     @Test
     fun byteCompanionZero() {

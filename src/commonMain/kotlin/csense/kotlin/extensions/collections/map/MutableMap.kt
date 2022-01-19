@@ -71,3 +71,8 @@ public inline fun <Key, Value> MutableMap<Key, Value>.reverse(): MutableMap<Valu
     }
     return result
 }
+
+
+public inline fun <Key, Value> MutableMap<Key, Value>.remove(key: Key?): Value? {
+    return key?.let(::remove)
+}

@@ -405,27 +405,6 @@ class StringTest {
         "a10bc".skipStartsWith("a10").assert("bc")
     }
 
-    @Test
-    fun stringForeach2() {
-        "".foreach2 { _, _ -> shouldNotBeCalled() }
-        "a".foreach2 { _, _ -> shouldNotBeCalled() }
-        assertCalled(times = 1) {
-            "ab".foreach2 { first, second ->
-                first.assert('a')
-                second.assert('b')
-                it()
-            }
-        }
-        assertCalled(times = 3) {
-            "ababab".foreach2 { first, second ->
-                first.assert('a')
-                second.assert('b')
-                it()
-            }
-        }
-        //odd length
-        "abababc".foreach2 { _, _ -> shouldNotBeCalled() }
-    }
 
     @Test
     fun stringDoesNotEndsWithSequence() {
@@ -607,41 +586,7 @@ class StringTest {
         }
     }
 
-    @Test
-    fun stringForeach2Indexed() {
-        "".foreach2Indexed { _, _, _ ->
-            shouldNotBeCalled()
-        }
-        "a".foreach2Indexed { _, _, _ ->
-            shouldNotBeCalled()
-        }
-        assertCalled { shouldBeCalled ->
-            "ab".foreach2Indexed { indexOfFirst, first, second ->
-                shouldBeCalled()
-                indexOfFirst.assert(0)
-                first.assert('a')
-                second.assert('b')
-            }
-        }
-
-        assertCalled(times = 2) { shouldBeCalled ->
-            var indexCounter = 0
-            "ab12".foreach2Indexed { indexOfFirst, first, second ->
-                indexOfFirst.assert(indexCounter)
-                if (indexCounter == 0) {
-                    first.assert('a')
-                    second.assert('b')
-                } else {
-                    first.assert('1')
-                    second.assert('2')
-                }
-                shouldBeCalled()
-                indexCounter += 2
-            }
-        }
-    }
-
-
+ 
     class StringReplaceIfOrStrings {
         @Test
         fun empty() {

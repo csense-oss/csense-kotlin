@@ -1,9 +1,11 @@
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalCoroutinesApi::class)
 
 package csense.kotlin.units
 
-import csense.kotlin.coroutines.*
 import csense.kotlin.tests.assertions.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 import kotlin.time.*
 
@@ -214,12 +216,9 @@ class TimeTests {
 
     @OptIn(ExperimentalTime::class)
     @Test
-    fun timeUnitDelay() = runBlockingTest {
-        val time: Duration = measureTime {
-            TimeUnit.MilliSeconds(10).delay()
-        }
-        //might be flacky?
-        time.inWholeMilliseconds.assertLargerOrEqualTo(10)
+    fun timeUnitDelay() = runTest {
+        TimeUnit.MilliSeconds(10).delay()
+        currentTime.assertLargerOrEqualTo(10)
     }
 }
 

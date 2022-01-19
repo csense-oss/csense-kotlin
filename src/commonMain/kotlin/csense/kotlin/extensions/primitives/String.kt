@@ -230,26 +230,6 @@ public inline fun String.skipStartsWith(
 }
 //endregion
 
-//region foreach generic(s)
-/**
- * Iterates over 2 characters at ones; only get executed iff the length is a factor of 2
- * @receiver [String]
- * @param action (first: [Char], second: [Char]) -> Unit
- */
-@Deprecated("will be removed")
-public inline fun String.foreach2(action: Function2Unit<Char, Char>): Unit =
-    GenericCollectionExtensions.forEach2(length, this::get, action)
-
-/**
- * Iterates over 2 characters at ones with the index(first) as well; only get executed iff the length is a factor of 2
- * @receiver [String]
- * @param action (first: [Char], second: [Char]) -> Unit
- */
-@Deprecated("will be removed")
-public inline fun String.foreach2Indexed(action: Function2IndexedUnit<Char, Char>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(length, this::get, action)
-//endregion
-
 //region Hex converting
 /**
  * The opposite of [csense.kotlin.extensions.collections.array.toHexString] , so takes a hex string (eg "0x20") and converts it to a byte array of that
@@ -265,7 +245,7 @@ public inline fun String.fromHexStringToByteArray(): ShortArray? {
     //we have the hex prefix iff it starts with "0x". strip that iff necessary
     val string = skipStartsWith("0x", true)
     val result = ShortArray(string.length / 2)
-    string.foreach2Indexed { index: Int, first: Char, second: Char ->
+    GenericCollectionExtensions.forEach2Indexed(string.length, string::get) { index: Int, first: Char, second: Char ->
         val shortValue = hexCharsToValue(first, second) ?: return@fromHexStringToByteArray null
         result[index / 2] = shortValue
     }

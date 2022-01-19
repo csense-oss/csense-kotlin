@@ -1,6 +1,5 @@
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.coroutines.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
@@ -25,12 +24,10 @@ class CoroutineScopeTestJvm {
             Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
             mainThreadSurrogate.close()
         }
-
     }
 
-
     @Test
-    fun coroutineScopeWithContextMain() = runBlockingTest {
+    fun coroutineScopeWithContextMain() = runTest {
         withContextMain {
             assertDispatcher(Dispatchers.Main)
             "result"
@@ -38,7 +35,7 @@ class CoroutineScopeTestJvm {
     }
 
     @Test
-    fun coroutineScopeLaunchMain() = runBlockingTest {
+    fun coroutineScopeLaunchMain() = runTest {
         assertCalled { shouldBeCalled ->
             launchMain {
                 assertDispatcher(Dispatchers.Main)
@@ -48,7 +45,7 @@ class CoroutineScopeTestJvm {
     }
 
     @Test
-    fun coroutineScopeAsyncMain() = runBlockingTest {
+    fun coroutineScopeAsyncMain() = runTest {
         val async = asyncMain {
             assertDispatcher(Dispatchers.Main)
             "result"

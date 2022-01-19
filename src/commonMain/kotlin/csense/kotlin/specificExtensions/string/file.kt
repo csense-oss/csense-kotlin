@@ -45,13 +45,4 @@ public inline fun StringFile.withFileExtension(newExtension: String): String {
  * @receiver [StringFile] the string to remove the file extension from (if any)
  * @return [String] the resulting string without the ending extension (if any)
  */
-@Suppress("MissingTestFunction")
-@Deprecated("use withoutFileExtension instead", replaceWith = ReplaceWith("withoutFileExtension()"))
-public inline fun StringFile.removeFileExtension(): String = withoutFileExtension()
-
-/**
- * Tries to remove any kind of file extensions.
- * @receiver [StringFile] the string to remove the file extension from (if any)
- * @return [String] the resulting string without the ending extension (if any)
- */
 public inline fun StringFile.withoutFileExtension(): String = string.substringBeforeLast('.')

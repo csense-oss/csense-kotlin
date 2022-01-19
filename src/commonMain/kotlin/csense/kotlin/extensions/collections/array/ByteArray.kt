@@ -8,6 +8,7 @@ import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.number.*
 
 /**
  *
@@ -34,13 +35,12 @@ public inline fun ByteArray.toHexString(
     }
 
     forEachIndexed { index: @IntLimit(from = 0) Int, it: Byte ->
-        it.splitIntoComponents { upperByte: Byte, lowerByte: Byte ->
-            val currentIndex = (index * 2) + prefixSize
-            val upper = ByteExtensions.hexCharsAsString[upperByte.toInt()]
-            val lower = ByteExtensions.hexCharsAsString[lowerByte.toInt()]
-            hexChars[currentIndex] = upper.toCase(shouldBeUppercase)
-            hexChars[currentIndex + 1] = lower.toCase(shouldBeUppercase)
-        }
+        val pair = it.bitOperations.splitIntoNibbles()
+        val currentIndex = (index * 2) + prefixSize
+        val upper = ByteExtensions.hexCharsAsString[pair.upperNibble.toInt()]
+        val lower = ByteExtensions.hexCharsAsString[pair.lowerNibble.toInt()]
+        hexChars[currentIndex] = upper.toCase(shouldBeUppercase)
+        hexChars[currentIndex + 1] = lower.toCase(shouldBeUppercase)
     }
     return hexChars.concatToString()
 }
@@ -54,22 +54,6 @@ public inline fun <U> ByteArray.forEachDiscard(receiver: Function1<Byte, U>): Un
     GenericArray.foreachDiscardResult(count(), this::get, receiver)
 
 //region Generic collection extensions
-/**
- * Performs traversal in pairs of 2  (with the first index as well)
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun ByteArray.forEach2Indexed(action: Function2IndexedUnit<Byte, Byte>): Unit =
-    GenericCollectionExtensions.forEach2Indexed(count(), ::elementAt, action)
-
-/**
- * Performs traversal in pairs of 2
- */
-@Deprecated("will be removed")
-@Suppress("MissingTestFunction")
-public inline fun ByteArray.forEach2(action: Function2Unit<Byte, Byte>): Unit =
-    GenericCollectionExtensions.forEach2(count(), ::elementAt, action)
-
 /**
  * Performs backwards traversal on this [ByteArray].
  */
