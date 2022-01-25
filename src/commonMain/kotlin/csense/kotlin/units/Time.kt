@@ -6,6 +6,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.units.TimeUnit.*
 import kotlinx.coroutines.*
 
+@Deprecated("Use kotlin Duration api instead")
 /**
  * Created by Kasper Tvede
  * Purpose:

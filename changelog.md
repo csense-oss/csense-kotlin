@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.55
+- added
+  - duration.delay
+
+- deprecated
+  - Time unit, use instead the Duration api. they are quite the same. 
+
 ## 0.0.54
 
 - added
