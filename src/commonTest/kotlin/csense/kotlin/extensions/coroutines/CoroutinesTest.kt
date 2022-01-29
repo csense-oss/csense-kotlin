@@ -56,10 +56,7 @@ class CoroutinesTest {
 
         @Test
         fun multiple() = runTest {
-            val items = listOf("input1", "input2")
-            val itt = items.iterator()
-            val lst = items.mapAsyncAwait(this) {
-                itt.next().assert(it)
+            val lst = listOf("input1", "input2").mapAsyncAwait(this) {
                 it
             }
             lst.assertSize(2)
