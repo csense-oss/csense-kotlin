@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.map
 
+import csense.kotlin.classes.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -320,5 +321,72 @@ class MutableMapKtTest {
 
         }
 
+    }
+
+    class MutableMapKeyValuePut {
+        @Test
+        fun empty() {
+            val map = mutableMapOf<String, String>()
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
+        }
+
+
+        @Test
+        fun singleNonColliding() {
+            val map = mutableMapOf<String, String>(
+                "k1" to "v1"
+            )
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSize(2)
+            map.assertContains("k1" to "v1")
+            map.assertContains("key" to "value")
+        }
+
+
+        @Test
+        fun singleColliding() {
+            val map = mutableMapOf<String, String>(
+                "key" to "v1"
+            )
+            map.put(MapEntry("key", "v2")).assertNotNullAndEquals("v1")
+            map.assertSingle {
+                it.key.assert("key")
+                it.value.assert("v2")
+            }
+        }
+
+
+        @Test
+        fun multipleNoColliding() {
+            val map = mutableMapOf<String, String>(
+                "k1" to "v1",
+                "k2" to "v2"
+            )
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSize(3)
+            map.assertContains("k1" to "v1")
+            map.assertContains("k2" to "v2")
+            map.assertContains("key" to "value")
+        }
+
+        @Test
+        fun multipleSomeColliding() {
+            val map = mutableMapOf<String, String>(
+                "key" to "v1",
+                "1234" to "abc",
+                "zxc" to "qwerty"
+            )
+            map.put(MapEntry("key", "v2")).assertNotNullAndEquals("v1")
+            map.put(MapEntry("zxc", "wuub")).assertNotNullAndEquals("qwerty")
+            map.assertSize(3)
+            map.assertContains("key" to "v2")
+            map.assertContains("1234" to "abc")
+            map.assertContains("zxc" to "wuub")
+
+        }
     }
 }

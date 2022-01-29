@@ -429,3 +429,28 @@ public inline fun <T, Key, Value> Collection<T>.toMutableMap(
 }
 //endregion
 
+public inline fun <T, Key, Value> Collection<T>.toUniqueMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>,
+    noinline onKeyCollision: ((first: Value, second: Value) -> Value)? = null
+): Map<Key, Value> = toUniqueMutableMap(keyMapper, valueMapper, onKeyCollision)
+
+public inline fun <T, Key, Value> Collection<T>.toUniqueMutableMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>,
+    noinline onKeyCollision: ((first: Value, second: Value) -> Value)? = null
+): MutableMap<Key, Value> = LinkedHashMap<Key, Value>(size).also { result ->
+    forEach { collectionItem: T ->
+        val key: Key = keyMapper(collectionItem)
+        val value: Value = valueMapper(collectionItem)
+        val existingKey = result[key]
+        val valueToWrite = if (onKeyCollision != null && existingKey != null) {
+            onKeyCollision(existingKey, value)
+        } else {
+            value
+        }
+        result[key] = valueToWrite
+    }
+}
+
+

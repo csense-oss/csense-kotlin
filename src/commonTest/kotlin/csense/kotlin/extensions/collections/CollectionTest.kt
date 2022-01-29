@@ -1375,4 +1375,90 @@ class CollectionTest {
 
     //endregion
 
+    class CollectionTToUniqueMutableMap {
+
+        @Test
+        fun empty() {
+            listOf<String>().toUniqueMutableMap(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() },
+                onKeyCollision = { _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+
+        @Test
+        fun single() {
+            listOf("0").toUniqueMutableMap(
+                keyMapper = { "key" },
+                valueMapper = { "-$it-" },
+                onKeyCollision = { _, _ -> shouldNotBeCalled() }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("-0-")
+            }
+        }
+
+
+        @Test
+        fun multipleCollision() {
+            listOf("0", "0").toUniqueMutableMap(
+                keyMapper = { "key" },
+                valueMapper = { "-$it-" },
+                onKeyCollision = { first, second ->
+                    first.assert("-0-")
+                    second.assert("-0-")
+                    "test"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("test")
+            }
+        }
+    }
+
+    class CollectionTToUniqueMap {
+        @Test
+        fun empty() {
+            val map = listOf<String>().toUniqueMap(
+                { shouldNotBeCalled() },
+                { shouldNotBeCalled() },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+
+        @Test
+        fun multipleNonColliding() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+        @Test
+        fun multipleWithColliding() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+    }
 }

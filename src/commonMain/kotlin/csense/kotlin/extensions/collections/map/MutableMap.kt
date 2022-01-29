@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
+import kotlinx.coroutines.*
 import kotlin.collections.set
 
 
@@ -75,4 +76,8 @@ public inline fun <Key, Value> MutableMap<Key, Value>.reverse(): MutableMap<Valu
 
 public inline fun <Key, Value> MutableMap<Key, Value>.remove(key: Key?): Value? {
     return key?.let(::remove)
+}
+
+public inline fun <Key, Value> MutableMap<Key, Value>.put(entry: Map.Entry<Key, Value>): Value? {
+    return put(entry.key, entry.value)
 }

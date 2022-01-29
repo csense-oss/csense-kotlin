@@ -3,9 +3,11 @@
 ## 0.0.55
 - added
   - duration.delay
-
+  - collection.toMapUnique
+  - MutableMap.put to a Map.Entry 
+  
 - deprecated
-  - Time unit, use instead the Duration api. they are quite the same. 
+  - Time unit, use instead the Duration api from kotlin.Time instead
 
 ## 0.0.54
 
