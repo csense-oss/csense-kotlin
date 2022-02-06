@@ -41,7 +41,7 @@ class ExceptionsTest {
         val works = tryAndLog(logger = LLogger()::error) {
             42
         }
-        works.assertNotNullAndEquals(42)
+        works.assert(42)
 
         val fails: String? = tryAndLog(logger = LLogger()::error) {
             throw Exception("test")
@@ -70,7 +70,7 @@ class ExceptionsTest {
             tag.assert("title")
             message.assert("message")
             throwable.assertNotNull()
-            throwable.assertNotNullAndEquals(exception)
+            throwable.assert(exception)
         }) {
             throw exception
             "123"

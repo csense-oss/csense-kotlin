@@ -214,7 +214,7 @@ private fun testLoggingPassThough(
     loggerMethod(tagToUse, messageToUse, exceptionToUse)
     outerTag.assert(tagToUse, "supplied tag should get passed")
     outerMessage.assert(messageToUse, "supplied message should get passed")
-    outerThrowable.assertNotNullAndEquals(exceptionToUse, "supplied exception should get passed")
+    outerThrowable.assert(exceptionToUse, "supplied exception should get passed")
 
 }
 

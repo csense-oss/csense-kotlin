@@ -691,9 +691,9 @@ class StringTest {
     @Test
     fun nullOnEmpty() {
         "".nullOnEmpty().assertNull()
-        " ".nullOnEmpty().assertNotNullAndEquals(" ")
-        "a".nullOnEmpty().assertNotNullAndEquals("a")
-        "abc".nullOnEmpty().assertNotNullAndEquals("abc")
+        " ".nullOnEmpty().assert(" ")
+        "a".nullOnEmpty().assert("a")
+        "abc".nullOnEmpty().assert("abc")
     }
 
     @Test
@@ -721,17 +721,17 @@ class StringTest {
 
         @Test
         fun single() {
-            " ".replaceCharAtOrNull(index = 0, withChar = 'a').assertNotNullAndEquals("a")
-            "a".replaceCharAtOrNull(index = 0, withChar = '1').assertNotNullAndEquals("1")
+            " ".replaceCharAtOrNull(index = 0, withChar = 'a').assert("a")
+            "a".replaceCharAtOrNull(index = 0, withChar = '1').assert("1")
             "b".replaceCharAtOrNull(index = 1, withChar = 'a').assertNull()
         }
 
         @Test
         fun multiple() {
             "abc".replaceCharAtOrNull(index = -1, withChar = 'q').assertNull()
-            "abc".replaceCharAtOrNull(index = 0, withChar = 'q').assertNotNullAndEquals("qbc")
-            "abc".replaceCharAtOrNull(index = 1, withChar = 'q').assertNotNullAndEquals("aqc")
-            "abc".replaceCharAtOrNull(index = 2, withChar = 'q').assertNotNullAndEquals("abq")
+            "abc".replaceCharAtOrNull(index = 0, withChar = 'q').assert("qbc")
+            "abc".replaceCharAtOrNull(index = 1, withChar = 'q').assert("aqc")
+            "abc".replaceCharAtOrNull(index = 2, withChar = 'q').assert("abq")
             "abc".replaceCharAtOrNull(index = 3, withChar = 'q').assertNull()
 
         }
@@ -811,8 +811,8 @@ class StringTest {
 
         @Test
         fun multipleReplaceRespectsInBounds() {
-            "abc".replaceCharAt(index = 0, withChar = 'q').assertNotNullAndEquals("qbc")
-            "abc".replaceCharAt(index = 2, withChar = 'q').assertNotNullAndEquals("abq")
+            "abc".replaceCharAt(index = 0, withChar = 'q').assert("qbc")
+            "abc".replaceCharAt(index = 2, withChar = 'q').assert("abq")
         }
 
 

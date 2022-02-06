@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
-import kotlinx.coroutines.*
 import kotlin.collections.set
 
 

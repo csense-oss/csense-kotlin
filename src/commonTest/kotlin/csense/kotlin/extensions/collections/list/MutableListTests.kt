@@ -38,6 +38,8 @@ class MutableExtensionsTest {
 
     class MutableListTRemoveAll {
 
+
+        @Suppress("EmptyRange")
         @Test
         fun testOutOfBoundsEmpty() {
             val lst = mutableListOf<String>()
@@ -47,6 +49,7 @@ class MutableExtensionsTest {
             lst.removeAll(5 until 2).assertFalse("should not remove anything")
         }
 
+        @Suppress("EmptyRange")
         @Test
         fun testOutOfBoundsContent() {
             val lst = mutableListOf("a", "b", "c")
@@ -146,9 +149,9 @@ class MutableExtensionsTest {
     @Test
     fun removeAtOr() {
         val list = mutableListOf("ab", "ba")
-        list.removeAtOr(0, "").assertNotNullAndEquals("ab")
+        list.removeAtOr(0, "").assert("ab")
         list.assertSize(1)
-        list.removeAtOr(10, "qwe").assertNotNullAndEquals("qwe")
+        list.removeAtOr(10, "qwe").assert("qwe")
         list.assertSize(1)
     }
 
@@ -207,7 +210,7 @@ class MutableListTest {
             fun single() {
                 val lst = mutableListOf("test")
                 val last = lst.removeLast()
-                last.assertNotNullAndEquals("test")
+                last.assert("test")
                 lst.assertSize(0, "there should be no elements left")
             }
 
@@ -215,7 +218,7 @@ class MutableListTest {
             fun multiple() {
                 val lst = mutableListOf("test", "1234", "abc")
                 val last = lst.removeLast()
-                last.assertNotNullAndEquals("abc")
+                last.assert("abc")
                 lst.assertSize(2, "there should still be 2 elements left")
                 lst.assertContains("test")
                 lst.assertContains("1234")
@@ -238,7 +241,7 @@ class MutableListTest {
             fun single() {
                 val lst = mutableListOf("test")
                 val last = lst.removeFirst()
-                last.assertNotNullAndEquals("test")
+                last.assert("test")
                 lst.assertSize(0, "there should be no elements left")
             }
 
@@ -246,7 +249,7 @@ class MutableListTest {
             fun multiple() {
                 val lst = mutableListOf("test", "1234", "abc")
                 val last = lst.removeFirst()
-                last.assertNotNullAndEquals("test")
+                last.assert("test")
                 lst.assertSize(2, "there should still be 2 elements left")
                 lst.assertContains("abc")
                 lst.assertContains("1234")

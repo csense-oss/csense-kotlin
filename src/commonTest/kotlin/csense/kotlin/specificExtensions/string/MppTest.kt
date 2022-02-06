@@ -7,7 +7,7 @@ class MppTest {
     class StringMppInsertInto {
         @Test
         fun empty() {
-            "".mpp.insertInto().assertNotNullAndEquals("")
+            "".mpp.insertInto().assert("")
         }
 
         @Test
@@ -16,7 +16,7 @@ class MppTest {
                 StringMpp.StringInserts(
                     "b", 1
                 )
-            ).assertNotNullAndEquals("ab")
+            ).assert("ab")
         }
 
         @Test
@@ -25,7 +25,7 @@ class MppTest {
                 StringMpp.StringInserts(
                     "b", 0
                 )
-            ).assertNotNullAndEquals("ba")
+            ).assert("ba")
         }
 
         @Test

@@ -6,6 +6,7 @@ import kotlin.test.*
 class IntRangeTest {
 
 
+    @Suppress("EmptyRange")
     @Test
     fun intRangeLength() {
         val range = 0 until 20
@@ -19,6 +20,7 @@ class IntRangeTest {
 
     }
 
+    @Suppress("EmptyRange")
     @Test
     fun intRangeLargest() {
         val range = 0 until 20
@@ -32,6 +34,7 @@ class IntRangeTest {
 
     }
 
+    @Suppress("EmptyRange")
     @Test
     fun intRangeEndExclusive() {
         val range1 = 0 until 20

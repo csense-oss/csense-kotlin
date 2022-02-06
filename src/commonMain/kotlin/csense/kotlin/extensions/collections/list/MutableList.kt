@@ -25,6 +25,7 @@ public inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Func
  */
 public inline fun <T> MutableList<T>.findAndRemoveAll(crossinline findAction: Function1<T, Boolean>): List<T> {
     val collection = this.filter(findAction)
+    @Suppress("ConvertArgumentToSet")
     removeAll(collection)
     return collection
 }

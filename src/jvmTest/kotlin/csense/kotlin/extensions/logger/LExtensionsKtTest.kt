@@ -47,7 +47,7 @@ class LExtensionsKtTest {
         val counter = WrappedInt()
         L.debugLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogDebug", 1, counter))
         logClassDebug("testLogDebug")
-        counter.value.assertNotNullAndEquals(1)
+        counter.value.assert(1)
     }
 
     @Test
@@ -57,7 +57,7 @@ class LExtensionsKtTest {
         logClassError("testLogError", null)
         logClassError("testLogError", null)
         logClassError("testLogError", null)
-        counter.value.assertNotNullAndEquals(3)
+        counter.value.assert(3)
 
     }
 
@@ -67,7 +67,7 @@ class LExtensionsKtTest {
         L.warningLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogWarning", 2, counter))
         logClassWarning("testLogWarning", null)
         logClassWarning("testLogWarning", null)
-        counter.value.assertNotNullAndEquals(2)
+        counter.value.assert(2)
     }
 
     @Test
@@ -76,7 +76,7 @@ class LExtensionsKtTest {
         L.productionLoggers.set(createSingleLoggerAssertion("LExtensionsKtTest", "testLogProduction", 2, counter))
         logClassProduction("testLogProduction", null)
         logClassProduction("testLogProduction", null)
-        counter.value.assertNotNullAndEquals(2)
+        counter.value.assert(2)
     }
 
 

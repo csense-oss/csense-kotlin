@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @OptIn(ObsoleteCoroutinesApi::class, ExperimentalCoroutinesApi::class)
+@DelicateCoroutinesApi
 class CoroutineScopeTestJvm {
 
     companion object {

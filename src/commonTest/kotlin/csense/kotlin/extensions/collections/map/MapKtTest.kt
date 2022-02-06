@@ -184,8 +184,8 @@ class MapKtTest {
             mapped.containsKey("a").assertTrue()
             mapped.containsKey("b").assertTrue()
 
-            mapped["a"].assertNotNullAndEquals(11)
-            mapped["b"].assertNotNullAndEquals(12)
+            mapped["a"].assert(11)
+            mapped["b"].assert(12)
         }
     }
 
@@ -215,8 +215,8 @@ class MapKtTest {
             mapped.containsKey("a").assertTrue()
             mapped.containsKey("b").assertTrue()
 
-            mapped["a"].assertNotNullAndEquals(21)
-            mapped["b"].assertNotNullAndEquals(22)
+            mapped["a"].assert(21)
+            mapped["b"].assert(22)
         }
     }
 

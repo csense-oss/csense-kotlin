@@ -27,31 +27,31 @@ class CharSequenceTest {
     fun charSequenceIndexOfOrNullChar() {
         "".indexOfOrNull('0').assertNull()
         "a".indexOfOrNull('0').assertNull()
-        "0".indexOfOrNull('0').assertNotNullAndEquals(0)
+        "0".indexOfOrNull('0').assert(0)
         "A".indexOfOrNull('a').assertNull()
         "A".indexOfOrNull('a', ignoreCase = false).assertNull()
-        "A".indexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(0)
-        "0A".indexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(1)
-        "0A0A".indexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(1)
-        "0A0A".indexOfOrNull('a', ignoreCase = true, startIndex = 2).assertNotNullAndEquals(3)
+        "A".indexOfOrNull('a', ignoreCase = true).assert(0)
+        "0A".indexOfOrNull('a', ignoreCase = true).assert(1)
+        "0A0A".indexOfOrNull('a', ignoreCase = true).assert(1)
+        "0A0A".indexOfOrNull('a', ignoreCase = true, startIndex = 2).assert(3)
         "0a0A".indexOfOrNull('a', ignoreCase = false, startIndex = 2).assertNull()
-        "0a0A".indexOfOrNull('A', ignoreCase = false, startIndex = 2).assertNotNullAndEquals(3)
+        "0a0A".indexOfOrNull('A', ignoreCase = false, startIndex = 2).assert(3)
     }
 
     @Test
     fun charSequenceIndexOfOrNullString() {
-        "".indexOfOrNull("").assertNotNullAndEquals(0)
+        "".indexOfOrNull("").assert(0)
         "".indexOfOrNull("a").assertNull()
         "0".indexOfOrNull("a").assertNull()
-        "0".indexOfOrNull("0").assertNotNullAndEquals(0)
-        "a".indexOfOrNull("a").assertNotNullAndEquals(0)
+        "0".indexOfOrNull("0").assert(0)
+        "a".indexOfOrNull("a").assert(0)
         "a".indexOfOrNull("A").assertNull()
-        "a".indexOfOrNull("A", ignoreCase = true).assertNotNullAndEquals(0)
-        "abC".indexOfOrNull("Abc", ignoreCase = true).assertNotNullAndEquals(0)
+        "a".indexOfOrNull("A", ignoreCase = true).assert(0)
+        "abC".indexOfOrNull("Abc", ignoreCase = true).assert(0)
         "abc".indexOfOrNull("ABC", ignoreCase = false).assertNull()
-        "0abC".indexOfOrNull("Abc", ignoreCase = true).assertNotNullAndEquals(1)
-        "aABC".indexOfOrNull("ABC", ignoreCase = false).assertNotNullAndEquals(1)
-        "abCABC".indexOfOrNull("ABC", ignoreCase = false).assertNotNullAndEquals(3)
+        "0abC".indexOfOrNull("Abc", ignoreCase = true).assert(1)
+        "aABC".indexOfOrNull("ABC", ignoreCase = false).assert(1)
+        "abCABC".indexOfOrNull("ABC", ignoreCase = false).assert(3)
 
     }
 
@@ -59,30 +59,30 @@ class CharSequenceTest {
     fun charSequenceLastIndexOfOrNullChar() {
         "".lastIndexOfOrNull('0').assertNull()
         "a".lastIndexOfOrNull('0').assertNull()
-        "0".lastIndexOfOrNull('0').assertNotNullAndEquals(0)
+        "0".lastIndexOfOrNull('0').assert(0)
         "A".lastIndexOfOrNull('a').assertNull()
         "A".lastIndexOfOrNull('a', ignoreCase = false).assertNull()
-        "A".lastIndexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(0)
-        "0A".lastIndexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(1)
-        "0A0A".lastIndexOfOrNull('a', ignoreCase = true).assertNotNullAndEquals(3)
-        "0A0A".lastIndexOfOrNull('a', ignoreCase = true, startIndex = 1).assertNotNullAndEquals(1)
+        "A".lastIndexOfOrNull('a', ignoreCase = true).assert(0)
+        "0A".lastIndexOfOrNull('a', ignoreCase = true).assert(1)
+        "0A0A".lastIndexOfOrNull('a', ignoreCase = true).assert(3)
+        "0A0A".lastIndexOfOrNull('a', ignoreCase = true, startIndex = 1).assert(1)
         "0A0a".lastIndexOfOrNull('a', ignoreCase = false, startIndex = 1).assertNull()
-        "0A0a".lastIndexOfOrNull('A', ignoreCase = false, startIndex = 1).assertNotNullAndEquals(1)
+        "0A0a".lastIndexOfOrNull('A', ignoreCase = false, startIndex = 1).assert(1)
     }
 
     @Test
     fun charSequenceLastIndexOfOrNullString() {
         "".lastIndexOfOrNull("0").assertNull()
         "a".lastIndexOfOrNull("0").assertNull()
-        "0".lastIndexOfOrNull("0").assertNotNullAndEquals(0)
+        "0".lastIndexOfOrNull("0").assert(0)
         "A".lastIndexOfOrNull("a").assertNull()
         "A".lastIndexOfOrNull("a", ignoreCase = false).assertNull()
-        "A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(0)
-        "0A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(1)
-        "0A0A".lastIndexOfOrNull("a", ignoreCase = true).assertNotNullAndEquals(3)
-        "0A0A".lastIndexOfOrNull("a", ignoreCase = true, startIndex = 1).assertNotNullAndEquals(1)
+        "A".lastIndexOfOrNull("a", ignoreCase = true).assert(0)
+        "0A".lastIndexOfOrNull("a", ignoreCase = true).assert(1)
+        "0A0A".lastIndexOfOrNull("a", ignoreCase = true).assert(3)
+        "0A0A".lastIndexOfOrNull("a", ignoreCase = true, startIndex = 1).assert(1)
         "0A0a".lastIndexOfOrNull("a", ignoreCase = false, startIndex = 1).assertNull()
-        "0A0a".lastIndexOfOrNull("A", ignoreCase = false, startIndex = 1).assertNotNullAndEquals(1)
+        "0A0a".lastIndexOfOrNull("A", ignoreCase = false, startIndex = 1).assert(1)
 
     }
 
@@ -218,7 +218,7 @@ class CharSequenceTest {
     }
 
 
-    class CharSequenceSplitDelimiters() {
+    class CharSequenceSplitDelimiters {
         @Test
         fun empty() {
             val result = "abc".split(setOf())
@@ -277,16 +277,16 @@ class CharSequenceTest {
         @Test
         fun single() {
             "a".substringOrNull(-1).assertNull()
-            "a".substringOrNull(0).assertNotNullAndEquals("a")
+            "a".substringOrNull(0).assert("a")
             "a".substringOrNull(1).assertNull()
         }
 
         @Test
         fun multiple() {
             "abc".substringOrNull(-1).assertNull()
-            "abc".substringOrNull(0).assertNotNullAndEquals("abc")
-            "abc".substringOrNull(1).assertNotNullAndEquals("bc")
-            "abc".substringOrNull(2).assertNotNullAndEquals("c")
+            "abc".substringOrNull(0).assert("abc")
+            "abc".substringOrNull(1).assert("bc")
+            "abc".substringOrNull(2).assert("c")
             "abc".substringOrNull(3).assertNull()
         }
     }
@@ -311,7 +311,7 @@ class CharSequenceTest {
 
             "a".substringOrNull(startIndex = 0, endIndex = -1).assertNull()
             "a".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
-            "a".substringOrNull(startIndex = 0, endIndex = 1).assertNotNullAndEquals("a")
+            "a".substringOrNull(startIndex = 0, endIndex = 1).assert("a")
             "a".substringOrNull(startIndex = 0, endIndex = 2).assertNull("is out of bounds")
         }
 
@@ -321,19 +321,19 @@ class CharSequenceTest {
 
             "abc".substringOrNull(startIndex = 0, endIndex = -1).assertNull()
             "abc".substringOrNull(startIndex = 0, endIndex = 0).assertNull()
-            "abc".substringOrNull(startIndex = 0, endIndex = 1).assertNotNullAndEquals("a")
-            "abc".substringOrNull(startIndex = 0, endIndex = 2).assertNotNullAndEquals("ab")
-            "abc".substringOrNull(startIndex = 0, endIndex = 3).assertNotNullAndEquals("abc")
+            "abc".substringOrNull(startIndex = 0, endIndex = 1).assert("a")
+            "abc".substringOrNull(startIndex = 0, endIndex = 2).assert("ab")
+            "abc".substringOrNull(startIndex = 0, endIndex = 3).assert("abc")
             "abc".substringOrNull(startIndex = 0, endIndex = 4).assertNull()
 
             "abc".substringOrNull(startIndex = 1, endIndex = 1).assertNull()
-            "abc".substringOrNull(startIndex = 1, endIndex = 2).assertNotNullAndEquals("b")
-            "abc".substringOrNull(startIndex = 1, endIndex = 3).assertNotNullAndEquals("bc")
+            "abc".substringOrNull(startIndex = 1, endIndex = 2).assert("b")
+            "abc".substringOrNull(startIndex = 1, endIndex = 3).assert("bc")
             "abc".substringOrNull(startIndex = 1, endIndex = 4).assertNull()
 
             "abc".substringOrNull(startIndex = 2, endIndex = 1).assertNull()
             "abc".substringOrNull(startIndex = 2, endIndex = 2).assertNull()
-            "abc".substringOrNull(startIndex = 2, endIndex = 3).assertNotNullAndEquals("c")
+            "abc".substringOrNull(startIndex = 2, endIndex = 3).assert("c")
             "abc".substringOrNull(startIndex = 2, endIndex = 4).assertNull()
         }
     }
@@ -353,11 +353,11 @@ class CharSequenceTest {
         @Test
         fun single() {
             "a".substringOrNull(IntRange(start = -1, endInclusive = 0)).assertNull()
-            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assert("a")
             "a".substringOrNull(IntRange(start = 1, endInclusive = 0)).assertNull()
 
             "a".substringOrNull(IntRange(start = 0, endInclusive = -1)).assertNull()
-            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
+            "a".substringOrNull(IntRange(start = 0, endInclusive = 0)).assert("a")
             "a".substringOrNull(IntRange(start = 0, endInclusive = 1)).assertNull("is out of bounds")
             "a".substringOrNull(IntRange(start = 0, endInclusive = 2)).assertNull("is out of bounds")
         }
@@ -367,19 +367,19 @@ class CharSequenceTest {
             "abc".substringOrNull(IntRange(start = -1, endInclusive = 0)).assertNull()
 
             "abc".substringOrNull(IntRange(start = 0, endInclusive = -1)).assertNull()
-            "abc".substringOrNull(IntRange(start = 0, endInclusive = 0)).assertNotNullAndEquals("a")
-            "abc".substringOrNull(IntRange(start = 0, endInclusive = 1)).assertNotNullAndEquals("ab")
-            "abc".substringOrNull(IntRange(start = 0, endInclusive = 2)).assertNotNullAndEquals("abc")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 0)).assert("a")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 1)).assert("ab")
+            "abc".substringOrNull(IntRange(start = 0, endInclusive = 2)).assert("abc")
             "abc".substringOrNull(IntRange(start = 0, endInclusive = 3)).assertNull()
             "abc".substringOrNull(IntRange(start = 0, endInclusive = 4)).assertNull()
 
-            "abc".substringOrNull(IntRange(start = 1, endInclusive = 1)).assertNotNullAndEquals("b")
-            "abc".substringOrNull(IntRange(start = 1, endInclusive = 2)).assertNotNullAndEquals("bc")
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 1)).assert("b")
+            "abc".substringOrNull(IntRange(start = 1, endInclusive = 2)).assert("bc")
             "abc".substringOrNull(IntRange(start = 1, endInclusive = 3)).assertNull()
             "abc".substringOrNull(IntRange(start = 1, endInclusive = 4)).assertNull()
 
             "abc".substringOrNull(IntRange(start = 2, endInclusive = 1)).assertNull()
-            "abc".substringOrNull(IntRange(start = 2, endInclusive = 2)).assertNotNullAndEquals("c")
+            "abc".substringOrNull(IntRange(start = 2, endInclusive = 2)).assert("c")
             "abc".substringOrNull(IntRange(start = 2, endInclusive = 3)).assertNull()
             "abc".substringOrNull(IntRange(start = 2, endInclusive = 4)).assertNull()
         }
@@ -408,7 +408,7 @@ class CharSequenceTest {
                 c.assert('a')
                 shouldBeCalled()
                 true
-            }.assertNotNullAndEquals(0)
+            }.assert(0)
         }
 
         @Test
@@ -430,7 +430,7 @@ class CharSequenceTest {
                 testData[i].second.assert(c)
                 shouldBeCalled()
                 true
-            }.assertNotNullAndEquals(0)
+            }.assert(0)
         }
 
         @Test
@@ -441,7 +441,7 @@ class CharSequenceTest {
                 testData[i].second.assert(c)
                 shouldBeCalled()
                 i == 1
-            }.assertNotNullAndEquals(1)
+            }.assert(1)
         }
 
     }
@@ -469,7 +469,7 @@ class CharSequenceTest {
                 it.assert('a')
                 shouldBeCalled()
                 true
-            }.assertNotNullAndEquals(0)
+            }.assert(0)
         }
 
         @Test
@@ -478,7 +478,7 @@ class CharSequenceTest {
                 shouldBeCalled()
                 it.assert('a')
                 true
-            }.assertNotNullAndEquals(0)
+            }.assert(0)
         }
 
         @Test
@@ -488,7 +488,7 @@ class CharSequenceTest {
                     assertChar(it)
                     shouldBeCalled()
                     it == 'c'
-                }.assertNotNullAndEquals(2)
+                }.assert(2)
             }
         }
 

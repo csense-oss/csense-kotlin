@@ -11,7 +11,7 @@ class ReflectionTest {
 
         val field = TestClz::class.java.getField(TestClz::field.name)
 
-        field.getAs<String>(clz).assertNotNullAndEquals("field")
+        field.getAs<String>(clz).assert("field")
 
         field.getAs<Int>(clz).assertNull()
     }

@@ -20,7 +20,7 @@ class IteratorKtTest {
 
         single.iterator()
             .findFirst { it == "test2" }
-            .assertNotNullAndEquals("test2", "should find value searching for when there")
+            .assert("test2", "should find value searching for when there")
 
 
         val multiple = listOf("test1", "test2")
@@ -31,16 +31,16 @@ class IteratorKtTest {
 
         multiple.iterator()
             .findFirst { it == "test2" }
-            .assertNotNullAndEquals("test2")
+            .assert("test2")
 
         multiple.iterator()
             .findFirst { it == "test1" }
-            .assertNotNullAndEquals("test1")
+            .assert("test1")
 
 
         multiple.iterator()
             .findFirst { true }
-            .assertNotNullAndEquals("test1")
+            .assert("test1")
 
         var counterA = 0
 
@@ -49,7 +49,7 @@ class IteratorKtTest {
                 counterA += 1
                 counterA == 2
             }
-            .assertNotNullAndEquals("test2")
+            .assert("test2")
 
 
         var counterB = 0

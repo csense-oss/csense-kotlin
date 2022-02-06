@@ -75,7 +75,7 @@ class GeneralTest {
     @Test
     fun anyInvokeIsInstanceAction() {
         "test".invokeIsInstance<Int, Int> { it }.assertNull("string and int are not same type")
-        "test".invokeIsInstance<String, String> { it }.assertNotNullAndEquals("test")
+        "test".invokeIsInstance<String, String> { it }.assert("test")
         42.invokeIsInstance<String, Int> { 42 }.assertNull()
     }
 
@@ -108,9 +108,9 @@ class GeneralTest {
 
     @Test
     fun anyCastMap() {
-        "".castMap<String, Int> { 32 }.assertNotNullAndEquals(32)
+        "".castMap<String, Int> { 32 }.assert(32)
         "".castMap<Int, Int> { 32 }.assertNull()
-        80.castMap<Number, Int> { this.toInt() }.assertNotNullAndEquals(80)
+        80.castMap<Number, Int> { this.toInt() }.assert(80)
     }
 
     class TApplyIf {

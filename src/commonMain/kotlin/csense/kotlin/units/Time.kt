@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate", "DEPRECATION")
 
 package csense.kotlin.units
 

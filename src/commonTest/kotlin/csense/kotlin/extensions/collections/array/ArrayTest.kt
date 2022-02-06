@@ -224,7 +224,7 @@ class ArrayTest {
 
         @Test
         fun singleFound() {
-            arrayOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(0)
+            arrayOf("test").indexOfFirstOrNull { it == "test" }.assert(0)
         }
 
         @Test
@@ -235,7 +235,7 @@ class ArrayTest {
         @Test
         fun multipleFound() {
             arrayOf("test", "1234", "test").indexOfFirstOrNull { it == "test" }
-                .assertNotNullAndEquals(0, message = "should find the first matching item")
+                .assert(0, message = "should find the first matching item")
         }
 
         @Test
@@ -252,7 +252,7 @@ class ArrayTest {
 
         @Test
         fun singleFound() {
-            arrayOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(0)
+            arrayOf("test").indexOfLastOrNull { it == "test" }.assert(0)
         }
 
         @Test
@@ -263,7 +263,7 @@ class ArrayTest {
         @Test
         fun multipleFound() {
             arrayOf("test", "1234", "test").indexOfLastOrNull { it == "test" }
-                .assertNotNullAndEquals(2, message = "should find the last matching item")
+                .assert(2, message = "should find the last matching item")
         }
 
         @Test

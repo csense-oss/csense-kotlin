@@ -138,11 +138,11 @@ class IntTest {
     fun indexOfExtensionsUnwrapUnsafeIndexOf() {
         (-59).indexOfExtensions.unwrapUnsafeIndexOf().assertNull()
         (-1).indexOfExtensions.unwrapUnsafeIndexOf().assertNull()
-        (-0).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(0)
-        (0).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(0)
-        (1).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(1)
-        (20).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(20)
-        (8000).indexOfExtensions.unwrapUnsafeIndexOf().assertNotNullAndEquals(8000)
+        (-0).indexOfExtensions.unwrapUnsafeIndexOf().assert(0)
+        (0).indexOfExtensions.unwrapUnsafeIndexOf().assert(0)
+        (1).indexOfExtensions.unwrapUnsafeIndexOf().assert(1)
+        (20).indexOfExtensions.unwrapUnsafeIndexOf().assert(20)
+        (8000).indexOfExtensions.unwrapUnsafeIndexOf().assert(8000)
     }
 
     @Test

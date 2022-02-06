@@ -282,7 +282,7 @@ class MutableMapKtTest {
             @Test
             fun singleFound() {
                 mutableMapOf("a" to "1").apply {
-                    remove("a").assertNotNullAndEquals("1")
+                    remove("a").assert("1")
                     assertEmpty()
                 }
             }
@@ -311,7 +311,7 @@ class MutableMapKtTest {
             @Test
             fun multipleFound() {
                 mutableMapOf("a" to "1", "b" to "2").apply {
-                    remove("b").assertNotNullAndEquals("2")
+                    remove("b").assert("2")
                     assertSingle {
                         it.key.assert("a")
                         it.value.assert("1")
@@ -352,7 +352,7 @@ class MutableMapKtTest {
             val map = mutableMapOf<String, String>(
                 "key" to "v1"
             )
-            map.put(MapEntry("key", "v2")).assertNotNullAndEquals("v1")
+            map.put(MapEntry("key", "v2")).assert("v1")
             map.assertSingle {
                 it.key.assert("key")
                 it.value.assert("v2")
@@ -380,8 +380,8 @@ class MutableMapKtTest {
                 "1234" to "abc",
                 "zxc" to "qwerty"
             )
-            map.put(MapEntry("key", "v2")).assertNotNullAndEquals("v1")
-            map.put(MapEntry("zxc", "wuub")).assertNotNullAndEquals("qwerty")
+            map.put(MapEntry("key", "v2")).assert("v1")
+            map.put(MapEntry("zxc", "wuub")).assert("qwerty")
             map.assertSize(3)
             map.assertContains("key" to "v2")
             map.assertContains("1234" to "abc")

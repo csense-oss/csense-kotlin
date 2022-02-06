@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalContracts::class)
+@file:Suppress("Annotator")
 
 package csense.kotlin
 
