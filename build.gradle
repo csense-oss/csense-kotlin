@@ -3,7 +3,7 @@ buildscript {
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.0"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.53"
+    ext.csenseTestsVersion = "0.0.55"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.50"
 
@@ -11,12 +11,12 @@ buildscript {
     ext.kotlin_version = "1.6.10"
 
     //https://github.com/Kotlin/kotlinx-benchmark
-    ext.kotlinx_benchmark_version = "0.4.1"
+    ext.kotlinx_benchmark_version = "0.4.2"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
 
     //This library version
-    ext.csenseVersionName = "0.0.54"
+    ext.csenseVersionName = "0.0.55"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"

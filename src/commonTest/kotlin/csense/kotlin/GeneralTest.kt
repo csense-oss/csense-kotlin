@@ -14,7 +14,7 @@ class GeneralTest {
             },
             validateThrows = {
                 it.cause.assertNull()
-                it.message.assertNotNullAndEquals("message")
+                it.message.assert("message")
             }
         )
 
@@ -26,8 +26,8 @@ class GeneralTest {
                     unexpected("message2", relatedCause)
                 },
                 validateThrows = {
-                    it.message.assertNotNullAndEquals("message2")
-                    it.cause.assertNotNullAndEquals(relatedCause)
+                    it.message.assert("message2")
+                    it.cause.assert(relatedCause)
                 }
             )
         }
@@ -50,7 +50,7 @@ class GeneralTest {
                         logger = loggerMethod
                     )
                 }, validateThrows = {
-                    it.message.assertNotNullAndEquals("our message")
+                    it.message.assert("our message")
                     it.cause.assertNull()
                 })
         }
@@ -72,8 +72,8 @@ class GeneralTest {
                         relatedCause = relatedCause
                     )
                 }, validateThrows = {
-                    it.message.assertNotNullAndEquals("our message")
-                    it.cause.assertNotNullAndEquals(relatedCause)
+                    it.message.assert("our message")
+                    it.cause.assert(relatedCause)
                 })
         }
     }
@@ -96,7 +96,7 @@ class GeneralTest {
                         logger = loggerMethod
                     )
                 }, validateThrows = {
-                    it.message.assertNotNullAndEquals("our message")
+                    it.message.assert("our message")
                     it.cause.assertNull()
                 })
         }
@@ -119,8 +119,8 @@ class GeneralTest {
                         relatedCause = relatedCause
                     )
                 }, validateThrows = {
-                    it.message.assertNotNullAndEquals("our message")
-                    it.cause.assertNotNullAndEquals(relatedCause)
+                    it.message.assert("our message")
+                    it.cause.assert(relatedCause)
                 })
         }
 
@@ -139,7 +139,7 @@ class GeneralTest {
                     logger = loggerMethod
                 )
             }, validateThrows = {
-                it.message.assertNotNullAndEquals("our message")
+                it.message.assert("our message")
             })
     }
 
@@ -211,7 +211,7 @@ class GeneralTest {
             assertNotNull()
             assertIs<UnexpectedException>()
             if (relatedCause != null) {
-                cause.assertNotNullAndEquals(relatedCause)
+                cause.assert(relatedCause)
             } else {
                 cause.assertNull()
             }

@@ -16,16 +16,16 @@ class InputStreamTest {
         @Test
         fun single() {
             val byteInput = ByteArrayInputStream(byteArrayOf(42))
-            byteInput.readOrNullOnEnd().assertNotNullAndEquals(42)
+            byteInput.readOrNullOnEnd().assert(42)
             byteInput.readOrNullOnEnd().assertNull("end should have been reached now")
         }
 
         @Test
         fun multiple() {
             val byteInput = ByteArrayInputStream(byteArrayOf(42, 11, 99))
-            byteInput.readOrNullOnEnd().assertNotNullAndEquals(42)
-            byteInput.readOrNullOnEnd().assertNotNullAndEquals(11)
-            byteInput.readOrNullOnEnd().assertNotNullAndEquals(99)
+            byteInput.readOrNullOnEnd().assert(42)
+            byteInput.readOrNullOnEnd().assert(11)
+            byteInput.readOrNullOnEnd().assert(99)
             byteInput.readOrNullOnEnd().assertNull("end should have been reached now")
         }
 

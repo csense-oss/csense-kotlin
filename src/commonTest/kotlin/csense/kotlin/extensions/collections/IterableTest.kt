@@ -716,13 +716,13 @@ class IterableTest {
                 .largest {
                     it.assert("test")
                     it.length
-                }.assertNotNullAndEquals("test")
+                }.assert("test")
         }
 
         @Test
         fun multiple() {
-            listOf(42, 100, 1, 102).largest { it }.assertNotNullAndEquals(102)
-            listOf(42, 100, 1, 102).largest { 0 - it }.assertNotNullAndEquals(1)
+            listOf(42, 100, 1, 102).largest { it }.assert(102)
+            listOf(42, 100, 1, 102).largest { 0 - it }.assert(1)
         }
     }
 
@@ -791,15 +791,15 @@ class IterableTest {
         @Test
         fun empty() {
             val lst: Iterable<String> = listOf()
-            lst.takeOrNull(0).assertNotNullAndEquals(emptyList())
-            lst.takeOrNull(1).assertNotNullAndEquals(emptyList())
+            lst.takeOrNull(0).assertNotNullApply { assertEmpty() }
+            lst.takeOrNull(1).assertNotNullApply { assertEmpty() }
             lst.takeOrNull(-1).assertNull()
         }
 
         @Test
         fun single() {
             val lst: Iterable<String> = listOf("abc")
-            lst.takeOrNull(0).assertNotNullAndEquals(emptyList())
+            lst.takeOrNull(0).assertNotNullApply { assertEmpty() }
             lst.takeOrNull(1).assertNotNullApply {
                 assertSingle("abc")
             }
@@ -810,7 +810,7 @@ class IterableTest {
         fun multiple() {
             val lst: Iterable<String> = listOf("abc", "123")
             lst.takeOrNull(-1).assertNull()
-            lst.takeOrNull(0).assertNotNullAndEquals(emptyList())
+            lst.takeOrNull(0).assertNotNullApply { assertEmpty() }
             lst.takeOrNull(1).assertNotNullApply {
                 assertSingle("abc")
             }

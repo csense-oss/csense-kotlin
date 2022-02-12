@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.map
 
+import csense.kotlin.classes.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -281,7 +282,7 @@ class MutableMapKtTest {
             @Test
             fun singleFound() {
                 mutableMapOf("a" to "1").apply {
-                    remove("a").assertNotNullAndEquals("1")
+                    remove("a").assert("1")
                     assertEmpty()
                 }
             }
@@ -310,7 +311,7 @@ class MutableMapKtTest {
             @Test
             fun multipleFound() {
                 mutableMapOf("a" to "1", "b" to "2").apply {
-                    remove("b").assertNotNullAndEquals("2")
+                    remove("b").assert("2")
                     assertSingle {
                         it.key.assert("a")
                         it.value.assert("1")
@@ -320,5 +321,72 @@ class MutableMapKtTest {
 
         }
 
+    }
+
+    class MutableMapKeyValuePut {
+        @Test
+        fun empty() {
+            val map = mutableMapOf<String, String>()
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSingle {
+                it.key.assert("key")
+                it.value.assert("value")
+            }
+        }
+
+
+        @Test
+        fun singleNonColliding() {
+            val map = mutableMapOf<String, String>(
+                "k1" to "v1"
+            )
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSize(2)
+            map.assertContains("k1" to "v1")
+            map.assertContains("key" to "value")
+        }
+
+
+        @Test
+        fun singleColliding() {
+            val map = mutableMapOf<String, String>(
+                "key" to "v1"
+            )
+            map.put(MapEntry("key", "v2")).assert("v1")
+            map.assertSingle {
+                it.key.assert("key")
+                it.value.assert("v2")
+            }
+        }
+
+
+        @Test
+        fun multipleNoColliding() {
+            val map = mutableMapOf<String, String>(
+                "k1" to "v1",
+                "k2" to "v2"
+            )
+            map.put(MapEntry("key", "value")).assertNull()
+            map.assertSize(3)
+            map.assertContains("k1" to "v1")
+            map.assertContains("k2" to "v2")
+            map.assertContains("key" to "value")
+        }
+
+        @Test
+        fun multipleSomeColliding() {
+            val map = mutableMapOf<String, String>(
+                "key" to "v1",
+                "1234" to "abc",
+                "zxc" to "qwerty"
+            )
+            map.put(MapEntry("key", "v2")).assert("v1")
+            map.put(MapEntry("zxc", "wuub")).assert("qwerty")
+            map.assertSize(3)
+            map.assertContains("key" to "v2")
+            map.assertContains("1234" to "abc")
+            map.assertContains("zxc" to "wuub")
+
+        }
     }
 }

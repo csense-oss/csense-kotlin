@@ -37,8 +37,8 @@ class LClassLoggersExtensionsTest {
         }
         L.errorLoggers.add(logger)
         logClassError(message = "tLogClassError", exception = exception)
-        resultTag.assertNotNullAndEquals(LClassLoggersExtensionsTest::class.java.simpleName)
-        resultThrowable.assertNotNullAndEquals(exception)
+        resultTag.assert(LClassLoggersExtensionsTest::class.java.simpleName)
+        resultThrowable.assert(exception)
         L.errorLoggers.remove(logger)
     }
 
@@ -55,8 +55,8 @@ class LClassLoggersExtensionsTest {
         }
         L.warningLoggers.add(logger)
         logClassWarning(message = "tLogClassWarning", exception = exception)
-        resultTag.assertNotNullAndEquals(LClassLoggersExtensionsTest::class.java.simpleName)
-        resultThrowable.assertNotNullAndEquals(exception)
+        resultTag.assert(LClassLoggersExtensionsTest::class.java.simpleName)
+        resultThrowable.assert(exception)
         L.warningLoggers.remove(logger)
 
     }
@@ -74,8 +74,8 @@ class LClassLoggersExtensionsTest {
         }
         L.debugLoggers.add(logger)
         logClassDebug(message = "tLogClassDebug", exception = exception)
-        resultTag.assertNotNullAndEquals(LClassLoggersExtensionsTest::class.java.simpleName)
-        resultThrowable.assertNotNullAndEquals(exception)
+        resultTag.assert(LClassLoggersExtensionsTest::class.java.simpleName)
+        resultThrowable.assert(exception)
         L.debugLoggers.remove(logger)
 
     }
@@ -93,8 +93,8 @@ class LClassLoggersExtensionsTest {
         }
         L.productionLoggers.add(logger)
         logClassProduction(message = "tLogClassProduction", exception = exception)
-        resultTag.assertNotNullAndEquals(LClassLoggersExtensionsTest::class.java.simpleName)
-        resultThrowable.assertNotNullAndEquals(exception)
+        resultTag.assert(LClassLoggersExtensionsTest::class.java.simpleName)
+        resultThrowable.assert(exception)
         L.productionLoggers.remove(logger)
     }
 

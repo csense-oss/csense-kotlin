@@ -5,7 +5,7 @@ import kotlin.test.*
 
 class CollectionBoundsTest {
     @Test
-    fun CollectionBounds() {
+    fun collectionBounds() {
         CollectionBounds(collectionLength = -1).assertIs<CollectionBoundsAlwaysOutOfBounds>()
         CollectionBounds(collectionLength = 0).assertIs<CollectionBoundsZeroBoundsChecker>()
         CollectionBounds(collectionLength = 1).assertIs<CollectionBoundsChecker>()

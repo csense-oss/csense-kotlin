@@ -55,7 +55,7 @@ class CollectionTest {
             val collection: MutableCollection<String> = mutableListOf()
             collection.add("test")
             collection.getOrNull(-1).assertNull()
-            collection.getOrNull(0).assertNotNullAndEquals("test")
+            collection.getOrNull(0).assert("test")
             collection.getOrNull(1).assertNull()
         }
 
@@ -66,14 +66,15 @@ class CollectionTest {
             collection.add("1")
             collection.add("2")
             collection.add("3")
-            collection.getOrNull(3).assertNotNullAndEquals("3")
+            collection.getOrNull(3).assert("3")
             collection.getOrNull(4).assertNull()
-            collection.getOrNull(2).assertNotNullAndEquals("2")
-            collection.getOrNull(1).assertNotNullAndEquals("1")
+            collection.getOrNull(2).assert("2")
+            collection.getOrNull(1).assert("1")
         }
 
     }
 
+    @Suppress("EmptyRange")
     @Test
     fun isRangeValid() {
         val collection: MutableCollection<String> = mutableListOf()
@@ -189,7 +190,9 @@ class CollectionTest {
         val single = listOf("test")
         single.categorize { it }.apply {
             assertSize(1)
-            this["test"].assertNotNullAndEquals(listOf("test"))
+            this["test"].assertNotNullApply {
+                assertSingle("test")
+            }
         }
 
 
@@ -294,9 +297,9 @@ class CollectionTest {
         val singleData: Collection<String> = listOf("a")
         singleData.secondLastOrNull().assertNull()
         val two: Collection<String> = listOf("a", "b")
-        two.secondLastOrNull().assertNotNullAndEquals("a")
+        two.secondLastOrNull().assert("a")
         val aLot = listOf("a", "1", "2", "b")
-        aLot.secondLastOrNull().assertNotNullAndEquals("2")
+        aLot.secondLastOrNull().assert("2")
     }
 
 
@@ -356,7 +359,7 @@ class CollectionTest {
         @Test
         fun single() {
             val lst = listOf("a")
-            lst.indexOfOrNull("a").assertNotNullAndEquals(0)
+            lst.indexOfOrNull("a").assert(0)
             lst.indexOfOrNull("").assertNull()
             lst.indexOfOrNull("b").assertNull()
         }
@@ -367,8 +370,8 @@ class CollectionTest {
             lst.indexOfOrNull("a").assertNull()
             lst.indexOfOrNull("").assertNull()
             lst.indexOfOrNull("b").assertNull()
-            lst.indexOfOrNull("c").assertNotNullAndEquals(1)
-            lst.indexOfOrNull("d").assertNotNullAndEquals(0)
+            lst.indexOfOrNull("c").assert(1)
+            lst.indexOfOrNull("d").assert(0)
             lst.indexOfOrNull("dc").assertNull()
         }
 
@@ -377,8 +380,8 @@ class CollectionTest {
             val lst = listOf("d", "c", "d", "c")
             lst.indexOfOrNull("a").assertNull()
             lst.indexOfOrNull("").assertNull()
-            lst.indexOfOrNull("c").assertNotNullAndEquals(1)
-            lst.indexOfOrNull("d").assertNotNullAndEquals(0)
+            lst.indexOfOrNull("c").assert(1)
+            lst.indexOfOrNull("d").assert(0)
         }
     }
 
@@ -394,7 +397,7 @@ class CollectionTest {
         @Test
         fun single() {
             val lst = listOf("a")
-            lst.lastIndexOfOrNull("a").assertNotNullAndEquals(0)
+            lst.lastIndexOfOrNull("a").assert(0)
             lst.lastIndexOfOrNull("").assertNull()
             lst.lastIndexOfOrNull("b").assertNull()
         }
@@ -405,8 +408,8 @@ class CollectionTest {
             lst.lastIndexOfOrNull("a").assertNull()
             lst.lastIndexOfOrNull("").assertNull()
             lst.lastIndexOfOrNull("b").assertNull()
-            lst.lastIndexOfOrNull("c").assertNotNullAndEquals(1)
-            lst.lastIndexOfOrNull("d").assertNotNullAndEquals(0)
+            lst.lastIndexOfOrNull("c").assert(1)
+            lst.lastIndexOfOrNull("d").assert(0)
             lst.lastIndexOfOrNull("dc").assertNull()
         }
 
@@ -415,8 +418,8 @@ class CollectionTest {
             val lst = listOf("d", "c", "d", "c")
             lst.lastIndexOfOrNull("a").assertNull()
             lst.lastIndexOfOrNull("").assertNull()
-            lst.lastIndexOfOrNull("c").assertNotNullAndEquals(3)
-            lst.lastIndexOfOrNull("d").assertNotNullAndEquals(2)
+            lst.lastIndexOfOrNull("c").assert(3)
+            lst.lastIndexOfOrNull("d").assert(2)
         }
     }
 
@@ -471,7 +474,7 @@ class CollectionTest {
         fun singleSelect() {
             listOf("test").selectFirstOrNull {
                 it.length
-            }.assertNotNullAndEquals(
+            }.assert(
                 4,
                 "length of test is 4 , and there is a single element in the collection"
             )
@@ -488,7 +491,7 @@ class CollectionTest {
         fun multipleFound() {
             listOf("test", "asd").selectFirstOrNull {
                 it.firstOrNull()
-            }.assertNotNullAndEquals('t', "test is first")
+            }.assert('t', "test is first")
 
             listOf("test", "2").selectFirstOrNull {
                 if (it.length == 1) {
@@ -496,7 +499,7 @@ class CollectionTest {
                 } else {
                     null
                 }
-            }.assertNotNullAndEquals('2', "since we only return the char when the string has a length of 1")
+            }.assert('2', "since we only return the char when the string has a length of 1")
         }
 
         @Test
@@ -619,15 +622,15 @@ class CollectionTest {
         @Test
         fun single() {
             listOf("test").indexOfFirstOrNull { false }.assertNull()
-            listOf("test").indexOfFirstOrNull { true }.assertNotNullAndEquals(0)
-            listOf("test").indexOfFirstOrNull { it == "test" }.assertNotNullAndEquals(0)
+            listOf("test").indexOfFirstOrNull { true }.assert(0)
+            listOf("test").indexOfFirstOrNull { it == "test" }.assert(0)
         }
 
         @Test
         fun multiple() {
             listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "1" }
-                .assertNotNullAndEquals(0, "should search from the start")
-            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "3" }.assertNotNullAndEquals(2)
+                .assert(0, "should search from the start")
+            listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "3" }.assert(2)
             listOf("1", "2", "3", "1").indexOfFirstOrNull { it == "4" }.assertNull()
         }
     }
@@ -641,15 +644,15 @@ class CollectionTest {
         @Test
         fun single() {
             listOf("test").indexOfLastOrNull { false }.assertNull()
-            listOf("test").indexOfLastOrNull { true }.assertNotNullAndEquals(0)
-            listOf("test").indexOfLastOrNull { it == "test" }.assertNotNullAndEquals(0)
+            listOf("test").indexOfLastOrNull { true }.assert(0)
+            listOf("test").indexOfLastOrNull { it == "test" }.assert(0)
         }
 
         @Test
         fun multiple() {
             listOf("1", "2", "3", "1").indexOfLastOrNull { it == "1" }
-                .assertNotNullAndEquals(3, "should search from the end towards the start")
-            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "3" }.assertNotNullAndEquals(2)
+                .assert(3, "should search from the end towards the start")
+            listOf("1", "2", "3", "1").indexOfLastOrNull { it == "3" }.assert(2)
             listOf("1", "2", "3", "1").indexOfLastOrNull { it == "4" }.assertNull()
         }
     }
@@ -813,7 +816,7 @@ class CollectionTest {
             collection.findWithType<String> {
                 it.assert("test")
                 true
-            }.assertNotNullAndEquals("test")
+            }.assert("test")
         }
 
         @Test
@@ -823,7 +826,8 @@ class CollectionTest {
             collection.findWithType<Char> { shouldNotBeCalled() }
             collection.findWithType<Number> {
                 true
-            }.assertNotNullAndEquals(1234)
+            }?.assert(1234)
+
 
             assertCallbackCalledWith(listOf("test", "1234")) { assertCallback ->
                 collection.findWithType<String> {
@@ -835,11 +839,11 @@ class CollectionTest {
             collection.findWithType<String> {
                 it.assert("test")
                 true
-            }.assertNotNullAndEquals("test")
+            }.assert("test")
 
             collection.findWithType<String> {
                 it == "1234"
-            }.assertNotNullAndEquals("1234")
+            }.assert("1234")
         }
 
     }
@@ -1375,4 +1379,90 @@ class CollectionTest {
 
     //endregion
 
+    class CollectionTToUniqueMutableMap {
+
+        @Test
+        fun empty() {
+            listOf<String>().toUniqueMutableMap(
+                keyMapper = { shouldNotBeCalled() },
+                valueMapper = { shouldNotBeCalled() },
+                onKeyCollision = { _, _ -> shouldNotBeCalled() }
+            )
+        }
+
+
+        @Test
+        fun single() {
+            listOf("0").toUniqueMutableMap(
+                keyMapper = { "key" },
+                valueMapper = { "-$it-" },
+                onKeyCollision = { _, _ -> shouldNotBeCalled() }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("-0-")
+            }
+        }
+
+
+        @Test
+        fun multipleCollision() {
+            listOf("0", "0").toUniqueMutableMap(
+                keyMapper = { "key" },
+                valueMapper = { "-$it-" },
+                onKeyCollision = { first, second ->
+                    first.assert("-0-")
+                    second.assert("-0-")
+                    "test"
+                }
+            ).assertSingle {
+                it.key.assert("key")
+                it.value.assert("test")
+            }
+        }
+    }
+
+    class CollectionTToUniqueMap {
+        @Test
+        fun empty() {
+            val map = listOf<String>().toUniqueMap(
+                { shouldNotBeCalled() },
+                { shouldNotBeCalled() },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+
+        @Test
+        fun multipleNonColliding() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+        @Test
+        fun multipleWithColliding() {
+            val map = listOf(Pair("a", "b")).toUniqueMap(
+                { it.first },
+                { it.second },
+                { _, _ -> shouldNotBeCalled() }
+            )
+            map.assertSingle("a" to "b")
+        }
+
+    }
 }

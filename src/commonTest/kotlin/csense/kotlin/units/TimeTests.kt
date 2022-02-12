@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "DEPRECATION")
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
 package csense.kotlin.units

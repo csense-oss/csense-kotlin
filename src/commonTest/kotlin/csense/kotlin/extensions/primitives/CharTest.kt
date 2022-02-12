@@ -19,16 +19,16 @@ class CharTest {
 
     @Test
     fun asDigit() {
-        '0'.asDigit().assertNotNullAndEquals(0)
-        '1'.asDigit().assertNotNullAndEquals(1)
-        '2'.asDigit().assertNotNullAndEquals(2)
-        '3'.asDigit().assertNotNullAndEquals(3)
-        '4'.asDigit().assertNotNullAndEquals(4)
-        '5'.asDigit().assertNotNullAndEquals(5)
-        '6'.asDigit().assertNotNullAndEquals(6)
-        '7'.asDigit().assertNotNullAndEquals(7)
-        '8'.asDigit().assertNotNullAndEquals(8)
-        '9'.asDigit().assertNotNullAndEquals(9)
+        '0'.asDigit().assert(0)
+        '1'.asDigit().assert(1)
+        '2'.asDigit().assert(2)
+        '3'.asDigit().assert(3)
+        '4'.asDigit().assert(4)
+        '5'.asDigit().assert(5)
+        '6'.asDigit().assert(6)
+        '7'.asDigit().assert(7)
+        '8'.asDigit().assert(8)
+        '9'.asDigit().assert(9)
         'a'.asDigit().assertNull()
         'A'.asDigit().assertNull()
         '.'.asDigit().assertNull()
@@ -41,26 +41,26 @@ class CharTest {
 
     @Test
     fun asHexDigit() {
-        '0'.asHexDigit().assertNotNullAndEquals(0)
-        '1'.asHexDigit().assertNotNullAndEquals(1)
-        '2'.asHexDigit().assertNotNullAndEquals(2)
-        '3'.asHexDigit().assertNotNullAndEquals(3)
-        '4'.asHexDigit().assertNotNullAndEquals(4)
-        '5'.asHexDigit().assertNotNullAndEquals(5)
-        '6'.asHexDigit().assertNotNullAndEquals(6)
-        '7'.asHexDigit().assertNotNullAndEquals(7)
-        '8'.asHexDigit().assertNotNullAndEquals(8)
-        '9'.asHexDigit().assertNotNullAndEquals(9)
-        'a'.asHexDigit().assertNotNullAndEquals(0x0a)
-        'c'.asHexDigit().assertNotNullAndEquals(0x0C)
+        '0'.asHexDigit().assert(0)
+        '1'.asHexDigit().assert(1)
+        '2'.asHexDigit().assert(2)
+        '3'.asHexDigit().assert(3)
+        '4'.asHexDigit().assert(4)
+        '5'.asHexDigit().assert(5)
+        '6'.asHexDigit().assert(6)
+        '7'.asHexDigit().assert(7)
+        '8'.asHexDigit().assert(8)
+        '9'.asHexDigit().assert(9)
+        'a'.asHexDigit().assert(0x0a)
+        'c'.asHexDigit().assert(0x0C)
         '.'.asHexDigit().assertNull()
         '_'.asHexDigit().assertNull()
         ' '.asHexDigit().assertNull()
-        'a'.asHexDigit().assertNotNullAndEquals(0x0A)
-        'A'.asHexDigit().assertNotNullAndEquals(0x0a)
-        'b'.asHexDigit().assertNotNullAndEquals(0x0b)
-        'f'.asHexDigit().assertNotNullAndEquals(0x0f)
-        'F'.asHexDigit().assertNotNullAndEquals(0x0F)
+        'a'.asHexDigit().assert(0x0A)
+        'A'.asHexDigit().assert(0x0a)
+        'b'.asHexDigit().assert(0x0b)
+        'f'.asHexDigit().assert(0x0f)
+        'F'.asHexDigit().assert(0x0F)
         'g'.asHexDigit().assertNull()
     }
 
@@ -116,11 +116,11 @@ class CharTest {
 
     @Test
     fun testHexCharsToValue() {
-        hexCharsToValue('A', 'A').assertNotNullAndEquals(0xAA)
-        hexCharsToValue('F', 'F').assertNotNullAndEquals(0xFF)
+        hexCharsToValue('A', 'A').assert(0xAA)
+        hexCharsToValue('F', 'F').assert(0xFF)
         hexCharsToValue('Q', 'Q').assertNull()
-        hexCharsToValue('0', '1').assertNotNullAndEquals(0x01)
-        hexCharsToValue('5', '1').assertNotNullAndEquals(0x51)
+        hexCharsToValue('0', '1').assert(0x01)
+        hexCharsToValue('5', '1').assert(0x51)
     }
 
     @Test

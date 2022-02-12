@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate", "DEPRECATION")
 
 package csense.kotlin.units
 
@@ -6,6 +6,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.units.TimeUnit.*
 import kotlinx.coroutines.*
 
+@Deprecated("Use kotlin Duration api instead")
 /**
  * Created by Kasper Tvede
  * Purpose:

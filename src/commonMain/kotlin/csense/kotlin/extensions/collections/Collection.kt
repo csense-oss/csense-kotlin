@@ -403,10 +403,13 @@ public inline fun <T, Key> Collection<T>.toMutableMap(
     keyMapper: Function1<T, Key>
 ): MutableMap<Key, MutableList<T>> = toMutableMap(keyMapper, valueMapper = { it })
 
-
 /**
- *
- *
+ * Converts this collection to a [Map] via the given mapper functions
+ * supports multiple values for a given key (hench the result is key -> list<Value>)
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key>
+ * @param valueMapper Function1<T, Value>
+ * @return Map<Key, List<Value>>
  */
 public inline fun <T, Key, Value> Collection<T>.toMap(
     keyMapper: Function1<T, Key>,
@@ -414,8 +417,12 @@ public inline fun <T, Key, Value> Collection<T>.toMap(
 ): Map<Key, List<Value>> = toMutableMap(keyMapper, valueMapper)
 
 /**
- *
- *
+ * Converts this collection to a [MutableMap] via the given mapper functions
+ * supports multiple values for a given key (hench the result is key -> list<Value>)
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key>
+ * @param valueMapper Function1<T, Value>
+ * @return Map<Key, MutableList<Value>>
  */
 public inline fun <T, Key, Value> Collection<T>.toMutableMap(
     keyMapper: Function1<T, Key>,
@@ -428,4 +435,45 @@ public inline fun <T, Key, Value> Collection<T>.toMutableMap(
     }
 }
 //endregion
+
+/**
+ * Converts this collection to a [Map] via the given mapper functions
+ * does NOT support 1 to many relations (if it happens the [onKeyCollision] will be called to determine the result)
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key>
+ * @param valueMapper Function1<T, Value>
+ * @return Map<Key, List<Value>>
+ */
+public inline fun <T, Key, Value> Collection<T>.toUniqueMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>,
+    noinline onKeyCollision: ((first: Value, second: Value) -> Value)? = null
+): Map<Key, Value> = toUniqueMutableMap(keyMapper, valueMapper, onKeyCollision)
+
+/**
+ * Converts this collection to a [MutableMap] via the given mapper functions
+ * does NOT support 1 to many relations (if it happens the [onKeyCollision] will be called to determine the result)
+ * @receiver Collection<T>
+ * @param keyMapper Function1<T, Key>
+ * @param valueMapper Function1<T, Value>
+ * @return Map<Key, List<Value>>
+ */
+public inline fun <T, Key, Value> Collection<T>.toUniqueMutableMap(
+    keyMapper: Function1<T, Key>,
+    valueMapper: Function1<T, Value>,
+    noinline onKeyCollision: ((first: Value, second: Value) -> Value)? = null
+): MutableMap<Key, Value> = LinkedHashMap<Key, Value>(size).also { result ->
+    forEach { collectionItem: T ->
+        val key: Key = keyMapper(collectionItem)
+        val value: Value = valueMapper(collectionItem)
+        val existingKey = result[key]
+        val valueToWrite = if (onKeyCollision != null && existingKey != null) {
+            onKeyCollision(existingKey, value)
+        } else {
+            value
+        }
+        result[key] = valueToWrite
+    }
+}
+
 

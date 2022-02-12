@@ -11,11 +11,11 @@ class EnumKtTest {
 
     @Test
     fun enumFromOrNullName() {
-        enumFromOrNull<EnumKtTestEnum>("A").assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>("A").assert(EnumKtTestEnum.A)
         enumFromOrNull<EnumKtTestEnum>("AAAA").assertNull()
-        enumFromOrNull<EnumKtTestEnum>("B").assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>("B").assert(EnumKtTestEnum.B)
         enumFromOrNull<EnumKtTestEnum>("b").assertNull()
-        enumFromOrNull<EnumKtTestEnum>("C").assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull<EnumKtTestEnum>("C").assert(EnumKtTestEnum.C)
         enumFromOrNull<EnumKtTestEnum>("Q").assertNull()
     }
 
@@ -37,17 +37,17 @@ class EnumKtTest {
     @Test
     fun enumFromOrNullIfNotFound() {
         enumFromOrNull<EnumKtTestEnum>(null) { false }.assertNull()
-        enumFromOrNull(EnumKtTestEnum.B) { false }.assertNotNullAndEquals(EnumKtTestEnum.B)
-        enumFromOrNull<EnumKtTestEnum>(null) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOrNull(EnumKtTestEnum.C) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOrNull<EnumKtTestEnum>(null) { it == EnumKtTestEnum.C }.assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull(EnumKtTestEnum.B) { false }.assert(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>(null) { true }.assert(EnumKtTestEnum.A)
+        enumFromOrNull(EnumKtTestEnum.C) { true }.assert(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>(null) { it == EnumKtTestEnum.C }.assert(EnumKtTestEnum.C)
     }
 
     @Test
     fun enumFromOrIfNotFound() {
         enumFromOr(EnumKtTestEnum.B) { false }.assert(EnumKtTestEnum.B)
-        enumFromOr(EnumKtTestEnum.B) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
-        enumFromOr(EnumKtTestEnum.C) { true }.assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.B) { true }.assert(EnumKtTestEnum.A)
+        enumFromOr(EnumKtTestEnum.C) { true }.assert(EnumKtTestEnum.A)
     }
 
     //endregion
@@ -67,11 +67,11 @@ class EnumKtTest {
 
     @Test
     fun enumFromOrNullValue() {
-        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.A.ordinal).assertNotNullAndEquals(EnumKtTestEnum.A)
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.A.ordinal).assert(EnumKtTestEnum.A)
         enumFromOrNull<EnumKtTestEnum>(-999).assertNull()
-        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.B.ordinal).assertNotNullAndEquals(EnumKtTestEnum.B)
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.B.ordinal).assert(EnumKtTestEnum.B)
         enumFromOrNull<EnumKtTestEnum>("b").assertNull()
-        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.C.ordinal).assertNotNullAndEquals(EnumKtTestEnum.C)
+        enumFromOrNull<EnumKtTestEnum>(EnumKtTestEnum.C.ordinal).assert(EnumKtTestEnum.C)
         enumFromOrNull<EnumKtTestEnum>("Q").assertNull()
     }
     //endregion

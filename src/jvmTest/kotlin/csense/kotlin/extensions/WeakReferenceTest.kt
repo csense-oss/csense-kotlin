@@ -11,7 +11,7 @@ class WeakReferenceTest {
     fun weakReference() {
         val str = "test"
         str.weakReference().assertNotNullApply {
-            this.get().assertNotNullAndEquals("test")
+            this.get().assert("test")
         }
 
     }
