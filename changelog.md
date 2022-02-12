@@ -1,36 +1,36 @@
 # Changelog
 
 ## 0.0.55
+
 - added
-  - duration.delay
-  - collection.toMapUnique
-  - MutableMap.put to a Map.Entry 
-  
+    - duration.delay
+    - collection.toMapUnique
+    - MutableMap.put to a Map.Entry
+    - LazyArgument (see [LazyArgument.md](documentation/LazyArgument.md))
+
 - deprecated
-  - Time unit, use instead the Duration api from kotlin.Time instead
+    - Time unit, use instead the Duration api from kotlin.Time instead
 
 ## 0.0.54
 
 - added
     - Map
         - reverse (reverses the relation, so from key -> value it is value -> key)
-      
+
     - MutableMap
         - reverse (reverses the relation, so from key -> value it is value -> key)
         - remove (key?) convince remove function
-      
+
     - awaitAll (global functions) for awaiting multiple coroutines
-  
+
     - @ExperimentalCsenseApi for marking things that are really experimental and might be removed or changed without
       notice
 
 - Removed
     - deprecated things (most had a deprecation cycle of 4+ releases)
         - if using the foreach2 extensions the general function is still available at GenericCollectionExtensions.{name}
-  
-    - Workaround for coroutines tests (runTest)
 
-    
+    - Workaround for coroutines tests (runTest)
 
 ## 0.0.53
 
