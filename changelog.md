@@ -4,7 +4,7 @@
 
 - added
     - duration.delay
-    - collection.toMapUnique
+    - collection.toUniqueMap
     - MutableMap.put to a Map.Entry
     - LazyArgument (see [LazyArgument.md](documentation/LazyArgument.md))
 
