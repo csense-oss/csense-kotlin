@@ -22,6 +22,7 @@ public inline fun <T> CoroutineScope.asyncDefault(
  * @param action suspend [CoroutineScope].() -> T
  * @return [Deferred]<T>
  */
+@Suppress("MissingTestFunction") //mpp and main test is still bad
 public inline fun <T> CoroutineScope.asyncMain(
     @InUi noinline action: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.Main, block = action)
@@ -42,6 +43,7 @@ public inline fun CoroutineScope.launchDefault(
  * @param action suspend [CoroutineScope].() -> [Unit]
  * @return [Job]
  */
+@Suppress("MissingTestFunction") //mpp and main test is still bad
 public inline fun CoroutineScope.launchMain(
     @InUi noinline action: CoroutineScopeFunction
 ): Job = launch(Dispatchers.Main, block = action)
@@ -62,6 +64,7 @@ public suspend fun <T> CoroutineScope.withContextDefault(
  * @param action suspend [CoroutineScope].() -> T
  * @return T
  */
+@Suppress("MissingTestFunction") //mpp and main test is still bad
 public suspend fun <T> CoroutineScope.withContextMain(
     @InUi action: CoroutineScopeFunction0<T>
 ): T = withContext(Dispatchers.Main, action)

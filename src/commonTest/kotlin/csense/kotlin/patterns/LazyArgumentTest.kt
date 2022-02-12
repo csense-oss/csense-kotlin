@@ -16,7 +16,7 @@ class LazyArgumentTest {
     }
 
     @Test
-    fun getOrCreate() {
+    fun getValue() {
         var ctorCalls = 0
         val arg = LazyArgument<String>()
         arg.getValue { ctorCalls += 1; "value" }.assert("value")
