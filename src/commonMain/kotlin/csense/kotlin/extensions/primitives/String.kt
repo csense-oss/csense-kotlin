@@ -33,7 +33,7 @@ public inline fun String.findAllOf(
  * @param mapper [Function1]<[Int], U> Maps the given index to a given value
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
-public inline fun <U> String.mapEachMatching(
+public fun <U> String.mapEachMatching(
     subString: String,
     searchByWord: Boolean,
     ignoreCase: Boolean = false,
@@ -507,3 +507,90 @@ public data class StringSplitAt(
     public val afterIndex: String
 )
 
+public inline fun String.startsWith(
+    prefix: String,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean
+): Boolean {
+    return if (!ignoreWhitespace) {
+        startsWith(prefix = prefix, ignoreCase = ignoreCase)
+    } else {
+        val firstNonWhitespaceIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return false
+        return containsStringAt(startIndex = firstNonWhitespaceIndex, other = prefix, ignoreCase = ignoreCase)
+    }
+}
+
+public inline fun String.endsWith(
+    suffix: String,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean
+): Boolean {
+    return if (!ignoreWhitespace) {
+        endsWith(suffix = suffix, ignoreCase = ignoreCase)
+    } else {
+        val lastNonWhitespaceIndexInclusive = indexOfLastOrNull { it.isNotWhitespace() } ?: return false
+        return containsStringEndingAt(
+            endIndex = lastNonWhitespaceIndexInclusive,
+            other = suffix,
+            ignoreCase = ignoreCase
+        )
+    }
+}
+
+/**
+ * Tells if [other] ends (inclusively) at [endIndex]
+ * if [endIndex] is out of bounds it will return false
+ * if [other] is empty it will return true
+ * @param endIndex [Int] inclusive index where the string should end
+ * @param other [String]
+ * @param ignoreCase [Boolean]
+ * @return [Boolean] returns true if [other] ends (inclusive) at [endIndex], false otherwise.
+ */
+public inline fun String.containsStringEndingAt(
+    @IntLimit(from = 0) endIndex: Int,
+    other: String,
+    ignoreCase: Boolean = false
+): Boolean {
+    //+1 is to make the end index "inclusive"
+    val startIndex = (endIndex + 1) - other.length
+    return containsStringAt(
+        startIndex = startIndex,
+        other = other,
+        ignoreCase = ignoreCase
+    )
+}
+
+/**
+ * Tests whenever [other] is in this string at [startIndex]
+ * if the [startIndex] is out of bounds false is returned
+ * if [other] is empty ([String.isEmpty]) then true is returned
+ * @param startIndex [Int] where in [this] string to start the test
+ * @param other [String] the string to test for
+ * @param ignoreCase [Boolean] whenever casing should be ignored
+ * @return [Boolean] true if other was found starting at [startIndex], false if not
+ */
+public inline fun String.containsStringAt(
+    @IntLimit(from = 0) startIndex: Int,
+    other: String,
+    ignoreCase: Boolean = false
+): Boolean {
+    if (isIndex.outOfBounds(index = startIndex, isEndOutOfBonds = true)) {
+        return false
+    }
+    if (other.isEmpty()) {
+        return true
+    }
+    val remainingLength = length - startIndex
+    val canNotContainOtherString = remainingLength < other.length
+    if (canNotContainOtherString) {
+        return false
+    }
+    other.forEachIndexed { indexInOtherString, otherCharAtIndex ->
+        val indexInThis = indexInOtherString + startIndex
+        val areEqual = this.getOrNull(indexInThis)?.equals(other = otherCharAtIndex, ignoreCase = ignoreCase)
+        if (areEqual.isNullOrFalse()) {
+            return@containsStringAt false
+        }
+    }
+    return true
+}

@@ -493,4 +493,21 @@ class CharSequenceTest {
         }
 
     }
+
+    class CharSequenceIndexOfLastOrNull {
+
+        @Test
+        fun CharSequenceIndexOfLastOrNull() {
+            TODO()
+        }
+    }
+
+    class CharSequenceIndexOfLastIndexedOrNull {
+
+        @Test
+        fun Predicate() {
+            TODO()
+        }
+
+    }
 }

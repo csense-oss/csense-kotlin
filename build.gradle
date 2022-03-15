@@ -55,7 +55,15 @@ repositories {
 
 kotlin {
     explicitApi = 'strict'
-    jvm()
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = '1.8'
+        }
+        withJava()
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
     js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
         browser {
             testTask {
@@ -101,28 +109,9 @@ kotlin {
         }
         all {
             languageSettings {
-                enableLanguageFeature("InlineClasses")
                 optIn("kotlin.RequiresOptIn")
-                progressiveMode = true
             }
         }
-    }
-}
-
-jvmTest {
-
-    testLogging {
-        showStandardStreams = true
-        events "skipped", "failed", "standardOut", "standardError"
-        exceptionFormat "full"
-        showCauses true
-        showExceptions true
-        showStackTraces true
-    }
-    useJUnitPlatform()
-    reports {
-        junitXml.enabled = true
-        html.enabled = true
     }
 }
 

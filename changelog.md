@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.0.56
+
+- added
+    - string.endsWith taking a "ignoreWhitespace" parameter
+    - string.startsWith taking a "ignoreWhitespace" parameter
+    - expected pattern (see [ExpectedPattern.md](documentation/ExpectedPattern.md))
+    - CharSequence.indexOfLastOrNull
+    - CharSequence.indexOfLastIndexedOrNull
+    - String.containsStringEndingAt
+    - String.containsStringAt
+  
 ## 0.0.55
 
 - added

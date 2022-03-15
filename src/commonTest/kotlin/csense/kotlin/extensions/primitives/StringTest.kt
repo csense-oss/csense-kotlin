@@ -586,51 +586,51 @@ class StringTest {
         }
     }
 
- 
-    class StringReplaceIfOrStrings {
-        @Test
-        fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-        }
 
-        @Test
-        fun notFound() {
-            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("TEST")
-        }
-
-        @Test
-        fun found() {
-            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("true")
-            "TEST".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("false")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("true")
-        }
-
-    }
+//    class StringReplaceIfOrStrings {
+//        @Test
+//        fun empty() {
+//            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("")
+//            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("")
+//        }
+//
+//        @Test
+//        fun notFound() {
+//            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("abc")
+//            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("abc")
+//            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("TEST")
+//        }
+//
+//        @Test
+//        fun found() {
+//            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("false")
+//            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+//                .assert("true")
+//            "TEST".replaceIfOr(
+//                condition = false,
+//                toReplace = "test",
+//                ifTrueValue = "true",
+//                ifFalseValue = "false",
+//                ignoreCase = true
+//            )
+//                .assert("false")
+//            "TEST".replaceIfOr(
+//                condition = true,
+//                toReplace = "test",
+//                ifTrueValue = "true",
+//                ifFalseValue = "false",
+//                ignoreCase = true
+//            )
+//                .assert("true")
+//        }
+//
+//    }
 
     class StringReplaceIfOrCondition {
         @Test
@@ -815,6 +815,130 @@ class StringTest {
             "abc".replaceCharAt(index = 2, withChar = 'q').assert("abq")
         }
 
+
+    }
+
+    class StringStartsWith {
+        @Test
+        fun prefix() {
+            "".startsWith(prefix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "".startsWith(prefix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+
+            "a".startsWith(prefix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue("a")
+            "a".startsWith(prefix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse("b")
+            "a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertTrue("c")
+            "hello".startsWith(prefix = "hel", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".startsWith(prefix = "helll", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+        }
+
+
+        @Test
+        fun ignoreCase() {
+            "a".startsWith(prefix = "A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "A".startsWith(prefix = "A", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+
+            "A".startsWith(prefix = "a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "A".startsWith(prefix = "A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+        }
+
+
+        @Test
+        fun ignoreWhitespace() {
+            " a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse("a")
+
+            " a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("b")
+            "   a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("c")
+            "\ta".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("d")
+            "\na".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("e")
+        }
+
+    }
+
+    class StringEndsWith {
+
+
+        @Test
+        fun suffix() {
+            "".endsWith(suffix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "".endsWith(suffix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+
+            "a".endsWith(suffix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a".endsWith(suffix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".endsWith(suffix = "llo", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".endsWith(suffix = "lllo", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+        }
+
+
+        @Test
+        fun ignoreCase() {
+            "a".endsWith(suffix = "A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "A".endsWith(suffix = "A", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+
+            "A".endsWith(suffix = "a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "A".endsWith(suffix = "A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+        }
+
+
+        @Test
+        fun ignoreWhitespace() {
+            "a ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            "a ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a   ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a\t".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a\n".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+        }
+    }
+
+    class StringContainsStringAt {
+
+        @Test
+        fun shouldBeFalseWhenOutOfBounds() {
+            //sanity test
+            "a".containsStringAt(0, "a", false).assertTrue()
+
+            "abc".containsStringAt((-1), "a", false).assertFalse("out of bounds")
+            "a".containsStringAt(1, "a", false).assertFalse("out of bounds")
+            "".containsStringAt(42, "", false).assertFalse("out of bounds should be before other is empty check")
+        }
+
+
+        @Test
+        fun other() {
+            "".containsStringAt(0, "", false).assertFalse("everything is out of bounds")
+            "a".containsStringAt(0, "a", false).assertTrue()
+
+            "b".containsStringAt(0, "a", false).assertFalse()
+            "a".containsStringAt(0, "b", false).assertFalse()
+
+            "abc".containsStringAt(startIndex = 0, "a", ignoreCase = false).assertTrue()
+            "abc".containsStringAt(startIndex = 1, "b", ignoreCase = false).assertTrue()
+            "abc".containsStringAt(startIndex = 2, "c", ignoreCase = false).assertTrue()
+
+            "abc".containsStringAt(startIndex = 0, "A", ignoreCase = false).assertFalse()
+            "abc".containsStringAt(startIndex = 1, "B", ignoreCase = false).assertFalse()
+            "abc".containsStringAt(startIndex = 2, "C", ignoreCase = false).assertFalse()
+
+            "abc".containsStringAt(startIndex = 0, "A", ignoreCase = true).assertTrue()
+            "abc".containsStringAt(startIndex = 1, "B", ignoreCase = true).assertTrue()
+            "abc".containsStringAt(startIndex = 2, "C", ignoreCase = true).assertTrue()
+
+        }
+
+    }
+
+    class StringContainsStringEndingAt {
+
+
+        @Test
+        fun IgnoreCase() {
+            TODO()
+        }
 
     }
 }

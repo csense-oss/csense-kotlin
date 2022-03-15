@@ -212,10 +212,10 @@ private object TestMe {
         if (42 == 42) {
             return@expected YError.Yaa().asFailed()
         }
-        if("a".isEmpty()){
+        if ("a".isEmpty()) {
             return@expected YError.Weee.asFailed()
         }
-        if(78 + 2 > 0){
+        if (78 + 2 > 0) {
             return@expected YError.Noo().asFailed()
         }
 

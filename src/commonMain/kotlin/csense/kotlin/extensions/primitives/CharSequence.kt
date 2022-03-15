@@ -210,3 +210,18 @@ public inline fun CharSequence.indexOfFirstIndexedOrNull(predicate: Function2<In
     }
     return null
 }
+
+public inline fun CharSequence.indexOfLastOrNull(
+    predicate: Function1<Char, Boolean>
+): Int? = indexOfLastIndexedOrNull { _, char ->
+    predicate(char)
+}
+
+public inline fun CharSequence.indexOfLastIndexedOrNull(predicate: Function2<Int, Char, Boolean>): Int? {
+    GenericCollectionExtensions.forEachBackwardsIndexed(length = length, getter = this::get) { index, char ->
+        if (predicate(index, char)) {
+            return@indexOfLastIndexedOrNull index
+        }
+    }
+    return null
+}
