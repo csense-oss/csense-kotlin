@@ -122,6 +122,7 @@ public inline fun <T> T?.useOr(
 public inline fun <reified T> Any.isNot(): Boolean {
     contract {
         returns(false) implies (this@isNot is T)
+        returns(true) implies (this@isNot !is T)
     }
     return (this !is T)
 }

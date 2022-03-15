@@ -10,7 +10,9 @@
     - CharSequence.indexOfLastIndexedOrNull
     - String.containsStringEndingAt
     - String.containsStringAt
-  
+    - T?.isNull() (function that supports contracts) 
+    - T?.isNotNull() (function that supports contracts) 
+
 ## 0.0.55
 
 - added

@@ -8,26 +8,31 @@ import kotlin.contracts.*
 
 
 public sealed interface Expected<out Error, out Value> {
-    public fun isSuccess(): Boolean
-    public fun isFailed(): Boolean
-
     public companion object
 }
 
+public fun <Error, Value> Expected<Error, Value>.isSuccess(): Boolean {
+    contract {
+        returns(true) implies (this@isSuccess is ExpectedSuccess<Value>)
+        returns(false) implies (this@isSuccess is ExpectedFailed<Error>)
+    }
+    return this is ExpectedSuccess<Value>
+}
+
+public fun <Error, Value> Expected<Error, Value>.isFailed(): Boolean {
+    contract {
+        returns(true) implies (this@isFailed is ExpectedFailed<Error>)
+        returns(false) implies (this@isFailed is ExpectedSuccess<Value>)
+
+    }
+    return this is ExpectedFailed<Error>
+}
+
 public interface ExpectedFailed<out Error> : Expected<Error, Nothing> {
-    override fun isSuccess(): Boolean = false
-
-    override fun isFailed(): Boolean = true
-
     public val error: Error
-
 }
 
 public interface ExpectedSuccess<out Value> : Expected<Nothing, Value> {
-    override fun isSuccess(): Boolean = true
-
-    override fun isFailed(): Boolean = false
-
     public val value: Value
 }
 
@@ -246,6 +251,12 @@ private object TestMe {
         val xValue = x.valueOrOnFailed {
             return@use
         }
+        if (y.isFailed()) {
+            y.error
+        } else {
+            y.value
+        }
+
         when (y) {
             is ExpectedFailed -> when (y.error) {
                 is YError.Yaa -> TODO()
@@ -254,8 +265,15 @@ private object TestMe {
             }
             is ExpectedSuccess -> return
         }
+
+
     }
 
+}
+
+public enum class ServiceError {
+    NotFound,
+    NotAuthorized
 }
 
 public sealed class YError {

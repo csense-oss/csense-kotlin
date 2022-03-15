@@ -37,14 +37,34 @@ public inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
  * returns true if this is null
  */
 public inline val <T> T?.isNull: Boolean
-    get() {
-        return this == null
-    }
+    get() = this == null
 
 /**
  * returns true if this is not null.
  */
 public inline val <T> T?.isNotNull: Boolean
-    get() {
-        return this != null
+    get() = this != null
+
+/**
+ * returns true if this is null.
+ */
+@OptIn(ExperimentalContracts::class)
+public inline fun <T> T?.isNull(): Boolean {
+    contract {
+        returns(true) implies (this@isNull != null)
+        returns(false) implies (this@isNull == null)
     }
+    return this == null
+}
+
+/**
+ * returns true if this is not null.
+ */
+@OptIn(ExperimentalContracts::class)
+public inline fun <T> T?.isNotNull(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNull != null)
+        returns(false) implies (this@isNotNull == null)
+    }
+    return this != null
+}
