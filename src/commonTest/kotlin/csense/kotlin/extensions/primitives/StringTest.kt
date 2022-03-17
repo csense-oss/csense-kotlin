@@ -797,37 +797,84 @@ class StringTest {
     }
 
     class StringEquals {
+
         @Test
-        fun Other() {
-            TODO()
-//            "".equals(null, false, false)
-//            "".equals("", false, false)
-//            "".equals("", false, false)
-//            "".equals(" ", false, false)
-//            "".equals("a", false, false)
-//            "".equals("abc", false, false)
-//            "".equals("1234", false, false)
-//            "".equals("Other region 한", false, false)
-//            "".equals("Hi ☺", false, false)
-//            "".equals("�", false, false)
-//            "".equals("\n", false, false)
-//            "".equals("...()[]", false, false)
+        fun simpleIgnoreAll() {
+            "".equals("", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            " ".equals("", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".equals(" ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "Test".equals("Test", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "Test".equals("Test ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
-
         @Test
-        fun IgnoreCase() {
-            TODO()
-//            "".equals(null, false, false)
-//            "".equals(null, true, false)
+        fun ignoreCaseFalse() {
+            "a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a".equals("A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "aBc".equals("abc", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
+        @Test
+        fun ignoreCaseTrue() {
+            "a".equals("a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "a".equals("A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "aBc".equals("abc", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "aBc1234".equals("abc123X", ignoreCase = true, ignoreWhitespace = false).assertFalse()
+        }
 
         @Test
-        fun IgnoreWhitespace() {
-            TODO()
-//            "".equals(null, false, false)
-//            "".equals(null, false, true)
+        fun ignoreWhitespaceFalseAllCombinations() {
+            "a".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            " a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            " a".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            "a ".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a ".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a ".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a ".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            " a ".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+        }
+
+        @Test
+        fun ignoreWhitespaceTrueAllCombinations() {
+            "a".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " a".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            "a ".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " a ".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+        }
+
+        @Test
+        fun mixedCombinations() {
+            " Im a test".equals("Im a test ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " Im a test".equals("Im a test ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = false).assertFalse()
+            " Im a test".equals("im a test ", ignoreCase = false, ignoreWhitespace = true).assertFalse()
+            " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = true).assertTrue()
         }
 
     }
