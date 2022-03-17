@@ -32,21 +32,47 @@ class NullabilityTest {
         }
     }
 
-    @Test
-    fun tIsNull() {
-        val onNull: String? = null
-        onNull.isNull.assertTrue()
-        @Suppress("RedundantNullableReturnType")
-        val onNotNull: String? = ""
-        onNotNull.isNull.assertFalse()
+    class TIsNull{
+        
+        @Test
+        fun property(){
+            val onNull: String? = null
+            onNull.isNull.assertTrue()
+            @Suppress("RedundantNullableReturnType")
+            val onNotNull: String? = ""
+            onNotNull.isNull.assertFalse()
+        }
+        
+        @Test
+        fun method(){
+            val onNull: String? = null
+            onNull.isNull().assertTrue()
+            @Suppress("RedundantNullableReturnType")
+            val onNotNull: String? = ""
+            onNotNull.isNull().assertFalse()
+        }
     }
-
-    @Test
-    fun tIsNotNull() {
-        val onNull: String? = null
-        onNull.isNotNull.assertFalse()
-        @Suppress("RedundantNullableReturnType")
-        val onNotNull: String? = ""
-        onNotNull.isNotNull.assertTrue()
+    
+    class TIsNotNull{
+        
+        @Test
+        fun property(){
+            val onNull: String? = null
+            onNull.isNotNull.assertFalse()
+            @Suppress("RedundantNullableReturnType")
+            val onNotNull: String? = ""
+            onNotNull.isNotNull.assertTrue()
+        }
+        
+        @Test
+        fun method(){
+            val onNull: String? = null
+            onNull.isNotNull().assertFalse()
+            @Suppress("RedundantNullableReturnType")
+            val onNotNull: String? = ""
+            onNotNull.isNotNull().assertTrue()
+        }
     }
+    
+    
 }

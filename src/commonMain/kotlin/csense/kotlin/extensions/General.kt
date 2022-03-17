@@ -167,3 +167,181 @@ public inline fun <T> T.applyIf(shouldApply: Boolean, transform: Function1<T, T>
         this
     }
 }
+
+
+//region isAnyNull
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null)
+        returns(false) implies (first != null)
+    }
+    return first == null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?,
+    second: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null || second == null)
+        returns(false) implies (first != null && second != null)
+    }
+    return first == null || second == null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?,
+    second: Any?,
+    third: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null || second == null || third == null)
+        returns(false) implies (first != null && second != null && third != null)
+    }
+    return first == null || second == null || third == null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null || second == null || third == null || fourth == null)
+        returns(false) implies (first != null && second != null && third != null && fourth != null)
+    }
+    return first == null || second == null || third == null || fourth == null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?,
+    fifth: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null || second == null || third == null || fourth == null || fifth == null)
+        returns(false) implies (first != null && second != null && third != null && fourth != null && fifth != null)
+    }
+    return first == null || second == null || third == null || fourth == null || fifth == null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?,
+    fifth: Any?,
+    sixth: Any?
+): Boolean {
+    contract {
+        returns(true) implies (first == null || second == null || third == null || fourth == null || fifth == null || sixth == null)
+        returns(false) implies (first != null && second != null && third != null && fourth != null && fifth != null && sixth != null)
+    }
+    return first == null || second == null || third == null || fourth == null || fifth == null || sixth == null
+}
+//endregion
+
+//region isAnyNotNull
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null)
+        returns(true) implies (first != null)
+    }
+    return first != null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?,
+    second: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null || second == null)
+        returns(true) implies (first != null && second != null)
+    }
+    return first != null && second != null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?,
+    second: Any?,
+    third: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null || second == null || third == null)
+        returns(true) implies (first != null && second != null && third != null)
+    }
+    return first != null && second != null && third != null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null || second == null || third == null || fourth == null)
+        returns(true) implies (first != null && second != null && third != null && fourth != null)
+    }
+    return first != null && second != null && third != null && fourth != null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?,
+    fifth: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null || second == null || third == null || fourth == null || fifth == null)
+        returns(true) implies (first != null && second != null && third != null && fourth != null && fifth != null)
+    }
+    return first != null && second != null && third != null && fourth != null && fifth != null
+}
+
+@OptIn(ExperimentalContracts::class)
+public inline fun isAnyNotNull(
+    first: Any?,
+    second: Any?,
+    third: Any?,
+    fourth: Any?,
+    fifth: Any?,
+    sixth: Any?
+): Boolean {
+    contract {
+        returns(false) implies (first == null || second == null || third == null || fourth == null || fifth == null || sixth == null)
+        returns(true) implies (first != null && second != null && third != null && fourth != null && fifth != null && sixth != null)
+    }
+    return first != null && second != null && third != null && fourth != null && fifth != null && sixth != null
+}
+//endregion
+
+//
+////TODO consider
+//fun isAllNull(){
+//    
+//}
+//
+////TODO consider
+//fun isAllNotNull(){
+//    
+//}

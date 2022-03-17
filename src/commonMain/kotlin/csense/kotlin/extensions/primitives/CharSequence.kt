@@ -112,10 +112,13 @@ public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean =
     if (length != other.length) {
         return false
     }
+    forEachIndexed { index, char ->
+        if (other[index].isNotEqual(char, ignoreCase)) {
+            return@equals false
+        }
+    }
+    return true
 
-    return indexOfFirstIndexedOrNull { index, char ->
-        other[index].isNotEqual(char, ignoreCase)
-    }.mapOptional(ifNotNull = false, ifNull = true)
 }
 
 @kotlin.internal.LowPriorityInOverloadResolution

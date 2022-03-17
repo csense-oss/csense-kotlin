@@ -1,11 +1,14 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.specificExtensions.string.*
+import kotlin.contracts.*
 
 //region Searching / find
 /**
@@ -23,7 +26,7 @@ public inline fun String.findAllOf(
 ): Set<@IntLimit(from = 0) Int> {
     return mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
-//TODO consider moving..
+
 /**
  * Maps each matching occurrence of a substring
  * @receiver [String] the string to search in
@@ -33,6 +36,7 @@ public inline fun String.findAllOf(
  * @param mapper [Function1]<[Int], U> Maps the given index to a given value
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
+//TODO specific extension ?
 public fun <U> String.mapEachMatching(
     subString: String,
     searchByWord: Boolean,
@@ -66,6 +70,7 @@ public fun <U> String.mapEachMatching(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
+//TODO specific extension ?
 public inline fun String.replaceIf(
     condition: Boolean,
     toReplace: String,
@@ -90,6 +95,7 @@ public inline fun String.replaceIf(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
+//TODO specific extension ?
 public inline fun String.replaceIfOr(
     condition: Boolean,
     toReplace: String,
@@ -112,6 +118,7 @@ public inline fun String.replaceIfOr(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
+//TODO specific extension ?
 public inline fun String.replaceIfOr(
     condition: Boolean,
     toReplace: String,
@@ -237,6 +244,7 @@ public inline fun String.skipStartsWith(
  * @receiver [String]
  * @return [ShortArray]? since [UByte]s are still experimental, [Short]s are used to make sure the size "is ok"
  */
+//TODO specific extension
 public inline fun String.fromHexStringToByteArray(): ShortArray? {
     //strip prefix iff asked to
     if (length.isOdd || isEmpty()) {
@@ -461,75 +469,45 @@ public inline fun String.titleCaseFirstWord(): String {
     if (firstChar.isTitleCase()) {
         return this
     }
-    return replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
+    return modifications.replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
 }
 
-/**
- *
- * @receiver String
- * @param index Int
- * @param withChar Char
- * @return String
- * @throws Exception
- */
-@Throws(IndexOutOfBoundsException::class)
-public inline fun String.replaceCharAt(index: Int, withChar: Char): String {
-    return replaceCharAtOrNull(index = index, withChar = withChar)
-        ?: throw IndexOutOfBoundsException("Index out of bounds. Index: $index, length: $length")
-}
-
-/**
- *
- * @receiver String
- * @param index Int
- * @param withChar Char
- * @return String?
- */
-public inline fun String.replaceCharAtOrNull(index: Int, withChar: Char): String? {
-    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
-        return null
-    }
-    val split = splitAtOrNull(index) ?: return null
-    return split.beforeIndex + withChar + split.afterIndex
-}
-
-public inline fun String.splitAtOrNull(index: Int): StringSplitAt? {
-    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
-        return null
-    }
-    val before = substringOrNull(0, index) ?: ""
-    val after = substringOrNull(index + 1, length) ?: ""
-    return StringSplitAt(before, after)
-}
-
-public data class StringSplitAt(
-    public val beforeIndex: String,
-    public val afterIndex: String
-)
-
+@kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.startsWith(
     prefix: String,
     ignoreCase: Boolean = false,
-    ignoreWhitespace: Boolean
+    ignoreWhitespace: Boolean = false
 ): Boolean {
+    if (this === prefix) {
+        return true
+    }
+
     return if (!ignoreWhitespace) {
         startsWith(prefix = prefix, ignoreCase = ignoreCase)
     } else {
         val firstNonWhitespaceIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return false
-        return containsStringAt(startIndex = firstNonWhitespaceIndex, other = prefix, ignoreCase = ignoreCase)
+        return comparison.containsStringAt(
+            startIndex = firstNonWhitespaceIndex,
+            other = prefix,
+            ignoreCase = ignoreCase
+        )
     }
 }
 
+@kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.endsWith(
     suffix: String,
     ignoreCase: Boolean = false,
-    ignoreWhitespace: Boolean
+    ignoreWhitespace: Boolean = false
 ): Boolean {
+    if (this === suffix) {
+        return true
+    }
     return if (!ignoreWhitespace) {
         endsWith(suffix = suffix, ignoreCase = ignoreCase)
     } else {
         val lastNonWhitespaceIndexInclusive = indexOfLastOrNull { it.isNotWhitespace() } ?: return false
-        return containsStringEndingAt(
+        return comparison.containsStringEndingAt(
             endIndex = lastNonWhitespaceIndexInclusive,
             other = suffix,
             ignoreCase = ignoreCase
@@ -537,60 +515,43 @@ public inline fun String.endsWith(
     }
 }
 
-/**
- * Tells if [other] ends (inclusively) at [endIndex]
- * if [endIndex] is out of bounds it will return false
- * if [other] is empty it will return true
- * @param endIndex [Int] inclusive index where the string should end
- * @param other [String]
- * @param ignoreCase [Boolean]
- * @return [Boolean] returns true if [other] ends (inclusive) at [endIndex], false otherwise.
- */
-public inline fun String.containsStringEndingAt(
-    @IntLimit(from = 0) endIndex: Int,
-    other: String,
-    ignoreCase: Boolean = false
-): Boolean {
-    //+1 is to make the end index "inclusive"
-    val startIndex = (endIndex + 1) - other.length
-    return containsStringAt(
-        startIndex = startIndex,
-        other = other,
-        ignoreCase = ignoreCase
-    )
-}
 
-/**
- * Tests whenever [other] is in this string at [startIndex]
- * if the [startIndex] is out of bounds false is returned
- * if [other] is empty ([String.isEmpty]) then true is returned
- * @param startIndex [Int] where in [this] string to start the test
- * @param other [String] the string to test for
- * @param ignoreCase [Boolean] whenever casing should be ignored
- * @return [Boolean] true if other was found starting at [startIndex], false if not
- */
-public inline fun String.containsStringAt(
-    @IntLimit(from = 0) startIndex: Int,
-    other: String,
-    ignoreCase: Boolean = false
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun String.equals(
+    other: String?,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean = false
 ): Boolean {
-    if (isIndex.outOfBounds(index = startIndex, isEndOutOfBonds = true)) {
-        return false
-    }
-    if (other.isEmpty()) {
+    if (this === other) {
         return true
     }
-    val remainingLength = length - startIndex
-    val canNotContainOtherString = remainingLength < other.length
-    if (canNotContainOtherString) {
+    if (!ignoreWhitespace) {
+        return equals(other = other, ignoreCase = ignoreCase)
+    }
+    //will be null if empty or all is whitespace
+    val firstNonWhitespaceInThis = this.indexOfFirstOrNull { it.isNotWhitespace() }
+    val firstNonWhitespaceInOther = other?.indexOfFirstOrNull { it.isNotWhitespace() }
+    if (isAnyNull(firstNonWhitespaceInThis, firstNonWhitespaceInOther)) {
+        return firstNonWhitespaceInThis == firstNonWhitespaceInOther
+    }
+    val lastNonWhitespaceInThis = this.indexOfLastOrNull { it.isNotWhitespace() }
+    val lastNonWhitespaceInOther = other.indexOfLastOrNull { it.isNotWhitespace() }
+    if (isAnyNull(lastNonWhitespaceInThis, lastNonWhitespaceInOther)) {
+        return false //should not happen...
+    }
+
+    val nonWhitespaceLengthOfThis = lastNonWhitespaceInThis - firstNonWhitespaceInThis
+    val nonWhitespaceLengthOfOther = lastNonWhitespaceInOther - firstNonWhitespaceInOther
+    if (nonWhitespaceLengthOfThis != nonWhitespaceLengthOfOther) {
         return false
     }
-    other.forEachIndexed { indexInOtherString, otherCharAtIndex ->
-        val indexInThis = indexInOtherString + startIndex
-        val areEqual = this.getOrNull(indexInThis)?.equals(other = otherCharAtIndex, ignoreCase = ignoreCase)
-        if (areEqual.isNullOrFalse()) {
-            return@containsStringAt false
-        }
-    }
-    return true
+    // at this point we have 2 ranges, 1 in this and one in other, that are the same length, so just compare them
+    return comparison.compareTo(
+        startingIndexInThisString = firstNonWhitespaceInThis,
+        other,
+        startIndexInOtherString = firstNonWhitespaceInOther,
+        length = nonWhitespaceLengthOfThis,
+        ignoreCase = ignoreCase
+    )
+
 }

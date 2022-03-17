@@ -5,6 +5,7 @@ package csense.kotlin.extensions
 import csense.kotlin.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
+import kotlin.jvm.*
 
 
 /**
@@ -17,7 +18,9 @@ public inline fun <T> T?.ifNull(action: EmptyFunction) {
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
-    this.isNull.ifTrue(action)
+    if(this == null){
+        action()
+    }
 }
 
 /**
@@ -36,13 +39,17 @@ public inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
 /**
  * returns true if this is null
  */
+
+
 public inline val <T> T?.isNull: Boolean
+    @JvmName("_isNull")
     get() = this == null
 
 /**
  * returns true if this is not null.
  */
 public inline val <T> T?.isNotNull: Boolean
+    @JvmName("_isNotNull")
     get() = this != null
 
 /**

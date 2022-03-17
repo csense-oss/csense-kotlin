@@ -710,114 +710,6 @@ class StringTest {
     }
 
 
-    class StringReplaceCharAtOrNull {
-
-        @Test
-        fun empty() {
-            "".replaceCharAtOrNull(index = 0, withChar = 'a').assertNull()
-            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
-            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
-        }
-
-        @Test
-        fun single() {
-            " ".replaceCharAtOrNull(index = 0, withChar = 'a').assert("a")
-            "a".replaceCharAtOrNull(index = 0, withChar = '1').assert("1")
-            "b".replaceCharAtOrNull(index = 1, withChar = 'a').assertNull()
-        }
-
-        @Test
-        fun multiple() {
-            "abc".replaceCharAtOrNull(index = -1, withChar = 'q').assertNull()
-            "abc".replaceCharAtOrNull(index = 0, withChar = 'q').assert("qbc")
-            "abc".replaceCharAtOrNull(index = 1, withChar = 'q').assert("aqc")
-            "abc".replaceCharAtOrNull(index = 2, withChar = 'q').assert("abq")
-            "abc".replaceCharAtOrNull(index = 3, withChar = 'q').assertNull()
-
-        }
-
-    }
-
-    class StringSplitAtOrNull {
-        @Test
-        fun empty() {
-            "".splitAtOrNull(-1).assertNull()
-            "".splitAtOrNull(0).assertNull()
-            "".splitAtOrNull(1).assertNull()
-        }
-
-        @Test
-        fun single() {
-            "a".splitAtOrNull(-1).assertNull()
-            "a".splitAtOrNull(0).assertNotNullApply {
-                beforeIndex.assertEmpty()
-                afterIndex.assertEmpty()
-            }
-            "a".splitAtOrNull(1).assertNull()
-        }
-
-        @Test
-        fun multiple() {
-            "abc".splitAtOrNull(-1).assertNull()
-            "abc".splitAtOrNull(0).assertNotNullApply {
-                beforeIndex.assertEmpty()
-                afterIndex.assert("bc")
-            }
-            "abc".splitAtOrNull(1).assertNotNullApply {
-                beforeIndex.assert("a")
-                afterIndex.assert("c")
-            }
-            "abc".splitAtOrNull(2).assertNotNullApply {
-                beforeIndex.assert("ab")
-                afterIndex.assertEmpty()
-            }
-            "abc".splitAtOrNull(3).assertNull()
-
-        }
-    }
-
-    class StringReplaceCharAt {
-
-        @Test
-        fun empty() = assertThrows<IndexOutOfBoundsException> {
-            "".replaceCharAt(0, 'a')
-        }
-
-
-        @Test
-        fun singleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
-            "a".replaceCharAt(index = -1, withChar = 'a')
-        }
-
-        @Test
-        fun singleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
-            "a".replaceCharAt(index = 1, withChar = 'a')
-        }
-
-        @Test
-        fun singleValidIndex() {
-            "a".replaceCharAt(index = 0, withChar = 'Q').assert("Q")
-        }
-
-        @Test
-        fun multipleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
-            "abc".replaceCharAt(index = -1, withChar = 'a')
-        }
-
-        @Test
-        fun multipleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
-            "abc".replaceCharAt(index = 3, withChar = 'a')
-        }
-
-        @Test
-        fun multipleReplaceRespectsInBounds() {
-            "abc".replaceCharAt(index = 0, withChar = 'q').assert("qbc")
-            "abc".replaceCharAt(index = 2, withChar = 'q').assert("abq")
-        }
-
-
-    }
-
     class StringStartsWith {
         @Test
         fun prefix() {
@@ -895,49 +787,47 @@ class StringTest {
         }
     }
 
-    class StringContainsStringAt {
+    class StringContainsStringEndingAt {
 
         @Test
-        fun shouldBeFalseWhenOutOfBounds() {
-            //sanity test
-            "a".containsStringAt(0, "a", false).assertTrue()
-
-            "abc".containsStringAt((-1), "a", false).assertFalse("out of bounds")
-            "a".containsStringAt(1, "a", false).assertFalse("out of bounds")
-            "".containsStringAt(42, "", false).assertFalse("out of bounds should be before other is empty check")
-        }
-
-
-        @Test
-        fun other() {
-            "".containsStringAt(0, "", false).assertFalse("everything is out of bounds")
-            "a".containsStringAt(0, "a", false).assertTrue()
-
-            "b".containsStringAt(0, "a", false).assertFalse()
-            "a".containsStringAt(0, "b", false).assertFalse()
-
-            "abc".containsStringAt(startIndex = 0, "a", ignoreCase = false).assertTrue()
-            "abc".containsStringAt(startIndex = 1, "b", ignoreCase = false).assertTrue()
-            "abc".containsStringAt(startIndex = 2, "c", ignoreCase = false).assertTrue()
-
-            "abc".containsStringAt(startIndex = 0, "A", ignoreCase = false).assertFalse()
-            "abc".containsStringAt(startIndex = 1, "B", ignoreCase = false).assertFalse()
-            "abc".containsStringAt(startIndex = 2, "C", ignoreCase = false).assertFalse()
-
-            "abc".containsStringAt(startIndex = 0, "A", ignoreCase = true).assertTrue()
-            "abc".containsStringAt(startIndex = 1, "B", ignoreCase = true).assertTrue()
-            "abc".containsStringAt(startIndex = 2, "C", ignoreCase = true).assertTrue()
-
+        fun IgnoreCase() {
+            TODO()
         }
 
     }
 
-    class StringContainsStringEndingAt {
+    class StringEquals {
+        @Test
+        fun Other() {
+            TODO()
+//            "".equals(null, false, false)
+//            "".equals("", false, false)
+//            "".equals("", false, false)
+//            "".equals(" ", false, false)
+//            "".equals("a", false, false)
+//            "".equals("abc", false, false)
+//            "".equals("1234", false, false)
+//            "".equals("Other region 한", false, false)
+//            "".equals("Hi ☺", false, false)
+//            "".equals("�", false, false)
+//            "".equals("\n", false, false)
+//            "".equals("...()[]", false, false)
+        }
 
 
         @Test
         fun IgnoreCase() {
             TODO()
+//            "".equals(null, false, false)
+//            "".equals(null, true, false)
+        }
+
+
+        @Test
+        fun IgnoreWhitespace() {
+            TODO()
+//            "".equals(null, false, false)
+//            "".equals(null, false, true)
         }
 
     }
