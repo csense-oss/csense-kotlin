@@ -7,7 +7,8 @@ class StringConversionTest {
     
     @Test
     fun stringConversion() {
-        ("".conversion == "".conversion).assertFalse("should not be same instances.")
+        ("".conversion == "a".conversion).assertFalse("should not be same instances.")
+        ("a".conversion == "".conversion).assertFalse("should not be same instances.")
     }
 
 

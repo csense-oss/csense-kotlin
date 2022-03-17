@@ -497,17 +497,123 @@ class CharSequenceTest {
     class CharSequenceIndexOfLastOrNull {
 
         @Test
-        fun CharSequenceIndexOfLastOrNull() {
-            TODO()
+        fun nonFound() {
+            "abc".indexOfLastOrNull { false }.assertNull()
+            assertCalled {
+                "a".indexOfLastOrNull { it.assert('a');it(); false }.assertNull()
+            }
+            "abc".indexOfLastOrNull { it == '1' }.assertNull()
+        }
+
+        @Test
+        fun singleFoundAtStart() {
+            assertCalled { shouldBeCalled ->
+                "a".indexOfLastOrNull {
+                    it.assert('a')
+                    shouldBeCalled()
+                    true
+                }.assert(0)
+            }
+        }
+
+
+        @Test
+        fun singleFoundAtEnd() {
+            assertCalled { shouldBeCalled ->
+                "abc".indexOfLastOrNull {
+                    it.assert('c')
+                    shouldBeCalled()
+                    true
+                }.assert(2)
+            }
+        }
+
+
+        @Test
+        fun multipleShouldSelectLatest() {
+            assertCalled { shouldBeCalled ->
+                "cabc".indexOfLastOrNull {
+                    it.assert('c')
+                    shouldBeCalled()
+                    true
+                }.assert(3, message = "should be at end")
+            }
+
+            assertCalled(times = 2) { shouldBeCalled ->
+                "bcbabc".indexOfLastOrNull {
+                    shouldBeCalled()
+                    it == 'b'
+                }.assert(4)
+            }
         }
     }
 
     class CharSequenceIndexOfLastIndexedOrNull {
 
         @Test
-        fun Predicate() {
-            TODO()
+        fun nonFound() {
+            "abc".indexOfLastIndexedOrNull { index, it ->
+                false
+            }.assertNull()
+            assertCalled { shouldBeCalled ->
+                "a".indexOfLastIndexedOrNull { index, it ->
+                    it.assert('a')
+                    index.assert(0)
+                    shouldBeCalled()
+                    false
+                }.assertNull()
+            }
+            assertCalled(times = 3) { shouldBeCalled ->
+                "abc".indexOfLastIndexedOrNull { index, it ->
+                    shouldBeCalled()
+                    it == '1'
+                }.assertNull()
+            }
         }
 
+        @Test
+        fun singleFoundAtStart() {
+            assertCalled { shouldBeCalled ->
+                "a".indexOfLastIndexedOrNull { index, char ->
+                    char.assert('a')
+                    index.assert(0)
+                    shouldBeCalled()
+                    true
+                }.assert(0)
+            }
+        }
+
+
+        @Test
+        fun singleFoundAtEnd() {
+            assertCalled { shouldBeCalled ->
+                "abc".indexOfLastIndexedOrNull { index, char ->
+                    char.assert('c')
+                    index.assert(2)
+                    shouldBeCalled()
+                    true
+                }.assert(2)
+            }
+        }
+
+
+        @Test
+        fun multipleShouldSelectLatest() {
+            assertCalled { shouldBeCalled ->
+                "cabc".indexOfLastIndexedOrNull { index, char ->
+                    char.assert('c')
+                    index.assert(3)
+                    shouldBeCalled()
+                    true
+                }.assert(3, message = "should be at end")
+            }
+
+            assertCalled(times = 2) { shouldBeCalled ->
+                "bcbabc".indexOfLastIndexedOrNull { index, char ->
+                    shouldBeCalled()
+                    char == 'b'
+                }.assert(4)
+            }
+        }
     }
 }

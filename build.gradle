@@ -110,6 +110,7 @@ kotlin {
         all {
             languageSettings {
                 optIn("kotlin.RequiresOptIn")
+                progressiveMode = true
             }
         }
     }
