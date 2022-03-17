@@ -24,7 +24,8 @@
     - replaceCharAtOrNull
     - splitAtOrNull 
     - StringSplitAt (class) into StringModifications
-  - these string extensions to Strin 
+  - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
+  - 
 ## 0.0.55
 
 - added

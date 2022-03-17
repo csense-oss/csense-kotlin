@@ -576,15 +576,7 @@ class StringTest {
     }
 
 
-    @Test
-    fun stringFromHexStringToByteArray() {
-        "".fromHexStringToByteArray().assertNull("not hex")
-        " ".fromHexStringToByteArray().assertNull("not hex")
-        "0xFF".fromHexStringToByteArray().assertNotNullApply {
-            assertSize(1)
-            first().assert(0xFF)
-        }
-    }
+    
 
 
     class StringReplaceIfOrStrings {
@@ -785,15 +777,6 @@ class StringTest {
             "a\t".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
             "a\n".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
         }
-    }
-
-    class StringContainsStringEndingAt {
-
-        @Test
-        fun IgnoreCase() {
-            TODO()
-        }
-
     }
 
     class StringEquals {
