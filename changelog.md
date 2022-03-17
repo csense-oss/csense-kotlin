@@ -25,7 +25,10 @@
     - splitAtOrNull 
     - StringSplitAt (class) into StringModifications
   - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
-  - 
+
+
+- renamed
+  - string.findAllOf to allIndicesOf
 ## 0.0.55
 
 - added

@@ -8,75 +8,8 @@ import kotlin.test.*
 
 class StringTest {
 
-    class StringMapEachMatching {
-
-        @Test
-        fun bad() {
-            "".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("nothing in nothing should be nothing")
-            "".mapEachMatching("0", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding something in nothing happens never")
-
-            "0".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding nothing in something happens never")
-
-            "0".mapEachMatching("", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-            "".mapEachMatching("0", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-        }
-
-        @Test
-        fun good() {
-
-            val textString = "-abc-aa-bb-cc-"
-            val indexes = textString.mapEachMatching(
-                "a",
-                searchByWord = false,
-                ignoreCase = false
-            ) { it }
-            indexes.assertSize(3, "there are 3 a's in the text")
-
-            indexes[0].assert(1, "first is at second index of string")
-
-            indexes[1].assert(5, "second is past 5 chars")
-
-            indexes[2].assert(6, "third is past 6 chars")
-
-            textString.mapEachMatching("A", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("should search case sensitive when asked")
-
-            textString.mapEachMatching("A", searchByWord = false, ignoreCase = true) { it }
-                .assertSize(3, "should find all case insensitive")
-
-
-            val funnyString = "ababab"
-            funnyString.mapEachMatching(
-                "abab",
-                searchByWord = false,
-                ignoreCase = false
-            ) { it }
-                .assertSize(
-                    2, "since searching by chars, we will encounter an overlap , which then " +
-                            "will give us 2 results since we are only advancing by 1 chars"
-                )
-
-
-            funnyString.mapEachMatching(
-                "abab",
-                searchByWord = true,
-                ignoreCase = false
-            ) { it }
-                .assertSize(
-                    1, "since searching by word, we will NOT encounter an overlap , so " +
-                            "we will only see [abab] followed by the last part (ab), so not 2 matches"
-                )
-
-        }
-    }
-
     @Test
-    fun findAllOf() {
+    fun allIndicesOf() {
         "".allIndicesOf("", searchByWord = false, ignoreCase = false)
             .assertEmpty("nothing in nothing is nothing")
         val textString = "\"a very funny qoute\""
@@ -106,14 +39,6 @@ class StringTest {
     }
 
 
-    @Test
-    fun replaceIf() {
-        "abc".replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
-        "abc".replaceIf(false, "abc", "1234", true).assert("abc", "should not replace")
-        "abc".replaceIf(true, "abc", "1234", false).assert("1234")
-        "abc".replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
-        "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
-    }
 
     class ContainsAnyCollection {
 
@@ -577,108 +502,6 @@ class StringTest {
 
 
     
-
-
-    class StringReplaceIfOrStrings {
-        @Test
-        fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-        }
-
-        @Test
-        fun notFound() {
-            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("TEST")
-        }
-
-        @Test
-        fun found() {
-            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("true")
-            "TEST".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("false")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("true")
-        }
-
-    }
-
-    class StringReplaceIfOrCondition {
-        @Test
-        fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("")
-        }
-
-        @Test
-        fun notFound() {
-            "abc".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
-            "abc".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("TEST")
-        }
-
-        @Test
-        fun found() {
-            "abc".replaceIfOr(
-                condition = false,
-                toReplace = "abc",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("true")
-            "TEST".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" },
-                ignoreCase = true
-            )
-                .assert("false")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" },
-                ignoreCase = true
-            )
-                .assert("true")
-        }
-    }
 
     @Test
     fun nullOnEmpty() {

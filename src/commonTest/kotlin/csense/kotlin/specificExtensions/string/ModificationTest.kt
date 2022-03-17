@@ -157,4 +157,185 @@ class ModificationTest {
 
     }
 
+    class StringModificationMapEachMatching {
+
+        @Test
+        fun bad() {
+            "".modifications.mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+                .assertEmpty("nothing in nothing should be nothing")
+            "".modifications.mapEachMatching("0", searchByWord = false, ignoreCase = false) { it }
+                .assertEmpty("finding something in nothing happens never")
+
+            "0".modifications.mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+                .assertEmpty("finding nothing in something happens never")
+
+            "0".modifications.mapEachMatching("", searchByWord = true, ignoreCase = true) { it }
+                .assertEmpty("no parameter changes that behavior")
+            "".modifications.mapEachMatching("0", searchByWord = true, ignoreCase = true) { it }
+                .assertEmpty("no parameter changes that behavior")
+        }
+
+        @Test
+        fun good() {
+
+            val textString = "-abc-aa-bb-cc-"
+            val indexes = textString.modifications.mapEachMatching(
+                "a",
+                searchByWord = false,
+                ignoreCase = false
+            ) { it }
+            indexes.assertSize(3, "there are 3 a's in the text")
+
+            indexes[0].assert(1, "first is at second index of string")
+
+            indexes[1].assert(5, "second is past 5 chars")
+
+            indexes[2].assert(6, "third is past 6 chars")
+
+            textString.modifications.mapEachMatching("A", searchByWord = false, ignoreCase = false) { it }
+                .assertEmpty("should search case sensitive when asked")
+
+            textString.modifications.mapEachMatching("A", searchByWord = false, ignoreCase = true) { it }
+                .assertSize(3, "should find all case insensitive")
+
+
+            val funnyString = "ababab"
+            funnyString.modifications.mapEachMatching(
+                "abab",
+                searchByWord = false,
+                ignoreCase = false
+            ) { it }
+                .assertSize(
+                    2, "since searching by chars, we will encounter an overlap , which then " +
+                            "will give us 2 results since we are only advancing by 1 chars"
+                )
+
+
+            funnyString.modifications.mapEachMatching(
+                "abab",
+                searchByWord = true,
+                ignoreCase = false
+            ) { it }
+                .assertSize(
+                    1, "since searching by word, we will NOT encounter an overlap , so " +
+                            "we will only see [abab] followed by the last part (ab), so not 2 matches"
+                )
+
+        }
+    }
+
+
+    @Test
+    fun replaceIf() {
+        "abc".modifications.replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
+        "abc".modifications.replaceIf(false, "abc", "1234", true).assert("abc", "should not replace")
+        "abc".modifications.replaceIf(true, "abc", "1234", false).assert("1234")
+        "abc".modifications.replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
+        "abc".modifications.replaceIf(true, "ABC", "1234", true).assert("1234")
+    }
+
+
+
+
+    class StringModificationReplaceIfOrStrings {
+        @Test
+        fun empty() {
+            "".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("")
+            "".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("")
+        }
+
+        @Test
+        fun notFound() {
+            "abc".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("abc")
+            "abc".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("abc")
+            "TEST".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("TEST")
+        }
+
+        @Test
+        fun found() {
+            "abc".modifications.replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("false")
+            "abc".modifications.replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+                .assert("true")
+            "TEST".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false",
+                ignoreCase = true
+            )
+                .assert("false")
+            "TEST".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false",
+                ignoreCase = true
+            )
+                .assert("true")
+        }
+
+    }
+
+    class StringModificationReplaceIfOrCondition {
+        @Test
+        fun empty() {
+            "".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("")
+            "".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("")
+        }
+
+        @Test
+        fun notFound() {
+            "abc".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("abc")
+            "abc".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("abc")
+            "TEST".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("TEST")
+        }
+
+        @Test
+        fun found() {
+            "abc".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "abc",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" }).assert("false")
+            "abc".modifications.replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+                .assert("true")
+            "TEST".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" },
+                ignoreCase = true
+            )
+                .assert("false")
+            "TEST".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" },
+                ignoreCase = true
+            )
+                .assert("true")
+        }
+    }
+
 }
