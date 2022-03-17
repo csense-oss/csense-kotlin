@@ -273,7 +273,7 @@ public inline fun isAnyNotNull(
         returns(false) implies (first == null || second == null)
         returns(true) implies (first != null && second != null)
     }
-    return first != null && second != null
+    return first != null || second != null
 }
 
 @OptIn(ExperimentalContracts::class)
@@ -284,9 +284,9 @@ public inline fun isAnyNotNull(
 ): Boolean {
     contract {
         returns(false) implies (first == null || second == null || third == null)
-        returns(true) implies (first != null && second != null && third != null)
+        returns(true) implies (first != null || second != null || third != null)
     }
-    return first != null && second != null && third != null
+    return first != null || second != null || third != null
 }
 
 @OptIn(ExperimentalContracts::class)
@@ -298,9 +298,9 @@ public inline fun isAnyNotNull(
 ): Boolean {
     contract {
         returns(false) implies (first == null || second == null || third == null || fourth == null)
-        returns(true) implies (first != null && second != null && third != null && fourth != null)
+        returns(true) implies (first != null || second != null || third != null || fourth != null)
     }
-    return first != null && second != null && third != null && fourth != null
+    return first != null || second != null || third != null || fourth != null
 }
 
 @OptIn(ExperimentalContracts::class)
@@ -313,9 +313,9 @@ public inline fun isAnyNotNull(
 ): Boolean {
     contract {
         returns(false) implies (first == null || second == null || third == null || fourth == null || fifth == null)
-        returns(true) implies (first != null && second != null && third != null && fourth != null && fifth != null)
+        returns(true) implies (first != null || second != null || third != null || fourth != null || fifth != null)
     }
-    return first != null && second != null && third != null && fourth != null && fifth != null
+    return first != null || second != null || third != null || fourth != null || fifth != null
 }
 
 @OptIn(ExperimentalContracts::class)
@@ -329,9 +329,9 @@ public inline fun isAnyNotNull(
 ): Boolean {
     contract {
         returns(false) implies (first == null || second == null || third == null || fourth == null || fifth == null || sixth == null)
-        returns(true) implies (first != null && second != null && third != null && fourth != null && fifth != null && sixth != null)
+        returns(true) implies (first != null || second != null || third != null || fourth != null || fifth != null || sixth != null)
     }
-    return first != null && second != null && third != null && fourth != null && fifth != null && sixth != null
+    return first != null || second != null || third != null || fourth != null || fifth != null || sixth != null
 }
 //endregion
 
