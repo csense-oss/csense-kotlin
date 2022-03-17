@@ -24,7 +24,11 @@
     - replaceCharAtOrNull
     - splitAtOrNull 
     - StringSplitAt (class) into StringModifications
+    - replaceIfOr
+    - replaceIf
+    - mapEachMatching
   - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
+  
 
 
 - renamed

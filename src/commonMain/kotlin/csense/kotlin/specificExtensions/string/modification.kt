@@ -95,7 +95,6 @@ public inline fun StringModification.splitAtOrNull(index: Int): StringModificati
  * @param mapper [Function1]<[Int], U> Maps the given index to a given value
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
-//TODO specific extension ?
 public fun <U> StringModification.mapEachMatching(
     subString: String,
     searchByWord: Boolean,
@@ -116,9 +115,7 @@ public fun <U> StringModification.mapEachMatching(
     }
     return@with result
 }
-//endregion
 
-//region Replacing
 /**
  * Replaces a value given a criteria. if the condition is true, the replace is called with the value
  * otherwise this string is returned as is.
@@ -129,7 +126,6 @@ public fun <U> StringModification.mapEachMatching(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
-//TODO specific extension ?
 public inline fun StringModification.replaceIf(
     condition: Boolean,
     toReplace: String,
@@ -154,7 +150,6 @@ public inline fun StringModification.replaceIf(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
-//TODO specific extension ?
 public inline fun StringModification.replaceIfOr(
     condition: Boolean,
     toReplace: String,
@@ -177,7 +172,6 @@ public inline fun StringModification.replaceIfOr(
  * @param ignoreCase [Boolean]
  * @return [String]
  */
-//TODO specific extension ?
 public inline fun StringModification.replaceIfOr(
     condition: Boolean,
     toReplace: String,
@@ -188,4 +182,3 @@ public inline fun StringModification.replaceIfOr(
     val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
     return@with this.replace(toReplace, replacement, ignoreCase)
 }
-//endregion
