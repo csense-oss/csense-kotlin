@@ -5,10 +5,8 @@ package csense.kotlin.extensions.primitives
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.specificExtensions.string.*
-import kotlin.contracts.*
 
 //region Searching / find
 /**
@@ -19,117 +17,14 @@ import kotlin.contracts.*
  * @param ignoreCase [Boolean] if we should ignore casing
  * @return [Set]<[Int]> a set of indices
  */
-public inline fun String.findAllOf(
+public inline fun String.allIndicesOf(
     subString: String,
     searchByWord: Boolean,
     ignoreCase: Boolean = false
 ): Set<@IntLimit(from = 0) Int> {
-    return mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
+    return modifications.mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
 
-/**
- * Maps each matching occurrence of a substring
- * @receiver [String] the string to search in
- * @param subString [String] the string we are searching for
- * @param searchByWord [Boolean]
- * @param ignoreCase [Boolean] whenever we should ignore casing
- * @param mapper [Function1]<[Int], U> Maps the given index to a given value
- * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
- */
-//TODO specific extension ?
-public fun <U> String.mapEachMatching(
-    subString: String,
-    searchByWord: Boolean,
-    ignoreCase: Boolean = false,
-    mapper: (index: Int) -> U
-): List<U> {
-    if (subString.isEmpty() || this.isEmpty()) {
-        return emptyList()
-    }
-    var currentIndex = 0
-    val appendLength = searchByWord.map(subString.length, 1)
-    var next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
-    val result = mutableListOf<U>()
-    while (next != null) {
-        result.add(mapper(next))
-        currentIndex = next + appendLength
-        next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
-    }
-    return result
-}
-//endregion
-
-//region Replacing
-/**
- * Replaces a value given a criteria. if the condition is true, the replace is called with the value
- * otherwise this string is returned as is.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param newValue [String]
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-//TODO specific extension ?
-public inline fun String.replaceIf(
-    condition: Boolean,
-    toReplace: String,
-    newValue: String,
-    ignoreCase: Boolean = false
-): String {
-    return if (condition) {
-        this.replace(toReplace, newValue, ignoreCase)
-    } else {
-        this
-    }
-}
-
-/**
- * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
- * if the condition is false, the ifFalseValue is used.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param ifTrueValue [String]
- * @param ifFalseValue [String]
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-//TODO specific extension ?
-public inline fun String.replaceIfOr(
-    condition: Boolean,
-    toReplace: String,
-    ifTrueValue: String,
-    ifFalseValue: String,
-    ignoreCase: Boolean = false
-): String {
-    val replacement = condition.map(ifTrueValue, ifFalseValue)
-    return this.replace(toReplace, replacement, ignoreCase)
-}
-
-/**
- * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
- * if the condition is false, the ifFalseValue is used. lazily evaluates the values.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param ifTrueValue [EmptyFunctionResult]<[String]>
- * @param ifFalseValue [EmptyFunctionResult]<[String]>
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-//TODO specific extension ?
-public inline fun String.replaceIfOr(
-    condition: Boolean,
-    toReplace: String,
-    crossinline ifTrueValue: EmptyFunctionResult<String>,
-    crossinline ifFalseValue: EmptyFunctionResult<String>,
-    ignoreCase: Boolean = false
-): String {
-    val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
-    return this.replace(toReplace, replacement, ignoreCase)
-}
-//endregion
 
 //region contains / startWith queries
 /**
