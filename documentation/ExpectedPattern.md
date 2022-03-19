@@ -18,55 +18,70 @@ This implementation provides the user(you) with a simple solution that allows fo
 convenience as possible.
 
 **Exceptions**
-If the name contains "*catching*" then exception would be caught (if any) otherwise they would just be "thrown" normally.
+If the name contains "*catching*" then exception would be caught (if any) otherwise they would just be "thrown"
+normally.
 
-## How to 
+## How to
 
 ### Create an Expected
+
 ```kotlin
 private fun callService(): Expected<String, Boolean> = expected {
     //success type
     "".asSuccess()
     //failed type
-    false.asFailed()    
+    false.asFailed()
 }
+
+// or just out of the blue
+Expected.success(42)
+Expected.failed(42)
 ```
 
 ### How to use an Expected
+
 The following short code will be "used" in the following paragraphs
+
 ```kotlin
-enum class ServiceError{
-    BadInput, 
-    BadToken, 
+enum class ServiceError {
+    BadInput,
+    BadToken,
     Unknown
 }
+
 fun getServiceResult(): Expected<String, ServiceError> = expected {
     //whatever you like.
 }
 ```
 
 ### Fail fast
+
 Regular way to "bail" out.
+
 ```kotlin
-fun failFast(){
+fun failFast() {
     val successValue: String = getServiceResult().valueOrOnFailed { it: ServiceError ->
         return@failFast
-    }    
+    }
 }
 ```
-If you want the ExpectedFailed 
+
+If you want the ExpectedFailed
+
 ```kotlin
-fun failFast(){
+fun failFast() {
     val successValue: String = getServiceResult().valueOrExpectedFailed { //this: ExpectedFailed<ServiceError>
         return@failFast
-    }    
+    }
 }
 ```
 
 ### Map
+
 Converts a success, or passes the error along.
+
 ```kotlin
-fun map(){
+fun map() {
     val result: Expected<Int, ServiceError> = getServiceResult().map {
         it.length
     }
@@ -74,18 +89,19 @@ fun map(){
 ```
 
 ### Recover
-Converts an Error to a success 
+
+Converts an Error to a success
+
 ```kotlin
-fun recover(){
+fun recover() {
     val success: ExpectedSuccess<String> = getServiceResult().recover {
         "its a really nice error: $it"
     }
 }
 ```
 
-
-
 ### Create / use an "always" successful expected
+
 ```kotlin
 val always42 = expected { 42.asSuccess() }
 // since the error is nothing it can ONLY be a success, thus the value is directly exposed.
@@ -93,12 +109,12 @@ always42.value
 ```
 
 ### Create / use an "always" failed expected
+
 ```kotlin
 val always42 = expected { 42.asFailed() }
 // since the Value is nothing it can ONLY be a failed, thus the error is directly exposed.
 always42.error
 ```
-
 
 ## Examples
 
