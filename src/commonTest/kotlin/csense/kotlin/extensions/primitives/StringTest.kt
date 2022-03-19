@@ -460,6 +460,7 @@ class StringTest {
             }
         }
 
+        
         @Test
         fun startsFromTheBack() {
             "abc".forEachBackwards { char ->
@@ -685,4 +686,3 @@ class StringTest {
 
     }
 }
-

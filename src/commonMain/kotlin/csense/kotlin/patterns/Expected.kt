@@ -7,11 +7,11 @@ import csense.kotlin.logger.*
 import kotlin.contracts.*
 
 
-public sealed interface Expected<out Error, out Value> {
+public sealed interface Expected<out Value, out Error> {
     public companion object
 }
 
-public fun <Error, Value> Expected<Error, Value>.isSuccess(): Boolean {
+public fun <Value, Error> Expected<Value, Error>.isSuccess(): Boolean {
     contract {
         returns(true) implies (this@isSuccess is ExpectedSuccess<Value>)
         returns(false) implies (this@isSuccess is ExpectedFailed<Error>)
@@ -19,7 +19,7 @@ public fun <Error, Value> Expected<Error, Value>.isSuccess(): Boolean {
     return this is ExpectedSuccess<Value>
 }
 
-public fun <Error, Value> Expected<Error, Value>.isFailed(): Boolean {
+public fun <Value, Error> Expected<Value, Error>.isFailed(): Boolean {
     contract {
         returns(true) implies (this@isFailed is ExpectedFailed<Error>)
         returns(false) implies (this@isFailed is ExpectedSuccess<Value>)
@@ -28,11 +28,11 @@ public fun <Error, Value> Expected<Error, Value>.isFailed(): Boolean {
     return this is ExpectedFailed<Error>
 }
 
-public interface ExpectedFailed<out Error> : Expected<Error, Nothing> {
+public interface ExpectedFailed<out Error> : Expected<Nothing, Error> {
     public val error: Error
 }
 
-public interface ExpectedSuccess<out Value> : Expected<Nothing, Value> {
+public interface ExpectedSuccess<out Value> : Expected<Value, Nothing> {
     public val value: Value
 }
 
@@ -44,32 +44,32 @@ public data class ExpectedFailedImpl<out Error>(
     override val error: Error
 ) : ExpectedFailed<Error>
 
-public inline fun <Error, Data> Expected<Error, Data>.valueOrOnFailed(
+public inline fun <Value, Error> Expected<Value, Error>.valueOrOnFailed(
     onFailed: (error: Error) -> Nothing
-): Data {
+): Value {
     return when (this) {
         is ExpectedSuccess -> value
         is ExpectedFailed -> onFailed(error)
     }
 }
 
-public inline fun <Error, Data> Expected<Error, Data>.valueOrExpectedFailed(
+public inline fun <Value, Error> Expected<Value, Error>.valueOrExpectedFailed(
     onFailed: ExpectedFailed<Error>.() -> Nothing
-): Data {
+): Value {
     return when (this) {
         is ExpectedSuccess -> value
         is ExpectedFailed -> onFailed(this)
     }
 }
 
-public inline fun <Data> Expected<Throwable, Data>.valueOrDefault(default: Data): Data {
+public inline fun <Data> Expected<Data, Throwable>.valueOrDefault(default: Data): Data {
     return when (this) {
         is ExpectedSuccess -> value
         is ExpectedFailed -> default
     }
 }
 
-public inline fun <Data> Expected<Throwable, Data>.valueOrDefault(default: () -> Data): Data {
+public inline fun <Data> Expected<Data, Throwable>.valueOrDefault(default: () -> Data): Data {
     return when (this) {
         is ExpectedSuccess -> value
         is ExpectedFailed -> default()
@@ -78,8 +78,8 @@ public inline fun <Data> Expected<Throwable, Data>.valueOrDefault(default: () ->
 
 public inline fun <Data> expectedCatching(
     noinline logger: LoggingFunctionType<*>? = null,
-    action: ExpectedContext.() -> Expected<Throwable, Data>
-): Expected<Throwable, Data> {
+    action: ExpectedContext.() -> Expected<Data, Throwable>
+): Expected<Data, Throwable> {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
@@ -91,11 +91,11 @@ public inline fun <Data> expectedCatching(
 }
 
 
-public inline fun <Error, Data> expected(
+public inline fun <Value, Error> expected(
     noinline logger: LoggingFunctionType<*>? = null,
-    action: ExpectedContext.() -> Expected<Error, Data>,
+    action: ExpectedContext.() -> Expected<Value, Error>,
     onException: (Throwable) -> Error
-): Expected<Error, Data> {
+): Expected<Value, Error> {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
@@ -109,12 +109,12 @@ public inline fun <Error, Data> expected(
     }
 
 }
-
+//TODO improve with annotations & exceptions plugin to only "throw" iff the action can throw.
 @Throws
-public inline fun <Error, Data> expected(
+public inline fun <Value, Error> expected(
     noinline logExceptionWith: LoggingFunctionType<*>? = null,
-    action: ExpectedContext.() -> Expected<Error, Data>
-): Expected<Error, Data> {
+    action: ExpectedContext.() -> Expected<Value, Error>
+): Expected<Value, Error> {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
@@ -136,17 +136,17 @@ public class ExpectedContext private constructor() {
 }
 
 @Throws
-public inline fun <reified Error, Data> Expected<Throwable, Data>.withErrorType(
-): Expected<Error, Data> {
+public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
+): Expected<Value, Error> {
     return when (this) {
         is ExpectedSuccess -> this
         is ExpectedFailed -> asErrorTypeOrNull() ?: throw error
     }
 }
 
-public inline fun <reified Error, Data> Expected<Throwable, Data>.withErrorType(
+public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
     onWrongErrorType: (Throwable) -> Error
-): Expected<Error, Data> {
+): Expected<Value, Error> {
     return when (this) {
         is ExpectedSuccess -> this
         is ExpectedFailed -> asErrorTypeOrNull() ?: Expected.failed(onWrongErrorType(error))
@@ -174,118 +174,51 @@ public fun <Error> Expected.Companion.failed(error: Error): ExpectedFailed<Error
 
 
 //TODO map catching?
-public inline fun <reified Error, InputData, OutputData> Expected<Error, InputData>.map(
-    transform: (InputData) -> OutputData
-): Expected<Error, OutputData> {
+public inline fun <InputValue, OutputValue, reified Error> Expected<InputValue, Error>.map(
+    transform: (InputValue) -> OutputValue
+): Expected<OutputValue, Error> {
     val value = valueOrExpectedFailed { return@map this }
     return Expected.asSuccess(transform(value))
 }
 
 //TODO recover catching?
-public inline fun <reified Error, Data> Expected<Error, Data>.recover(
-    transform: (Error) -> Data
-): ExpectedSuccess<Data> {
+public inline fun <Value, reified Error> Expected<Value, Error>.recover(
+    transform: (Error) -> Value
+): ExpectedSuccess<Value> {
     return when (this) {
         is ExpectedSuccess -> this
         is ExpectedFailed -> Expected.asSuccess(transform(this.error))
     }
 }
 
-
-//STOPSHIP example / usage testing
-@Suppress("unused")
-private object TestMe {
-
-    val qwe = 123
-
-    fun computeFailableResult() = expectedCatching {
-        if (42 == 42) {
-            throw IllegalArgumentException()
-        }
-        "".asSuccess()
-    }
-
-    fun neverFails() = expected {
-        "".asSuccess()
-    }
-
-    fun alwaysFails() = expected {
-        "".asFailed()
-    }
-
-    fun computeFailableResultWithNoThrowing() = expected {
-        if (42 == 42) {
-            return@expected YError.Yaa().asFailed()
-        }
-        if ("a".isEmpty()) {
-            return@expected YError.Weee.asFailed()
-        }
-        if (78 + 2 > 0) {
-            return@expected YError.Noo().asFailed()
-        }
-
-        "".asSuccess()
-    }
-
-    fun computeWee() = expected(action = {
-        if (true) {
-            throw RuntimeException()
-        }
-        return@expected "".asSuccess()
-    }, onException = {
-        YError.Weee
-    })
-
-    fun autoComplete() = expected<Throwable, String>(logExceptionWith = L::error) {
-        "".asSuccess()
-    }
-
-    fun use() {
-        val x = computeFailableResult()
-        val y: Expected<YError, String> = computeFailableResultWithNoThrowing()
-        val hmm = neverFails()
-        hmm.value
-        val qqq = alwaysFails()
-        qqq.error
-        val value = x.map { it.toInt() }.recover { 42 }.value
-        val xValue = x.valueOrOnFailed {
-            return@use
-        }
-        if (y.isFailed()) {
-            y.error
-        } else {
-            y.value
-        }
-
-        when (y) {
-            is ExpectedFailed -> when (y.error) {
-                is YError.Yaa -> TODO()
-                is YError.Noo -> TODO()
-                YError.Weee -> TODO()
-            }
-            is ExpectedSuccess -> return
-        }
-
-
-    }
-
-}
-
-public enum class ServiceError {
-    NotFound,
-    NotAuthorized
-}
-
-public sealed class YError {
-    public class Yaa : YError()
-    public class Noo : YError()
-    public object Weee : YError()
-}
-
 //Nothing as error type means it can never happen..
-public inline val <Data> Expected<Nothing, Data>.value: Data
-    get() = (this as ExpectedSuccess<Data>).value
+public inline val <Value> Expected<Value, Nothing>.value: Value
+    get() = (this as ExpectedSuccess<Value>).value
 
 //Nothing as value type means it can never happen..
-public inline val <Error> Expected<Error, Nothing>.error: Error
+public inline val <Error> Expected<Nothing, Error>.error: Error
     get() = (this as ExpectedFailed<Error>).error
+
+
+public enum class ServiceError{
+    BadInput,
+    BadToken,
+    Unknown
+}
+public fun getServiceResult(): Expected<String, ServiceError> = expected {
+    //whatever you like.
+}
+
+
+fun failFast(){
+    val successValue: String = getServiceResult().valueOrOnFailed { it: ServiceError ->
+        
+    }
+}
+
+
+fun map(){
+    val result: Expected<Int, ServiceError> = getServiceResult().map { 
+        it.length
+    }
+}

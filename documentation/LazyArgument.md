@@ -45,7 +45,7 @@ class MyThing(val str: String) {
         private val shared = LazyArgument<MyThing>()
 
         fun getInstance(someCtorArg: String): MyThing =
-            shared.getOrCreate { MyThing(someCtorArg) }
+            shared.getValue { MyThing(someCtorArg) }
 
     }
 }
