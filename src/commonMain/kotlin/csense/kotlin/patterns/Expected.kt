@@ -1,10 +1,11 @@
-@file:OptIn(ExperimentalContracts::class)
-@file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class, ExperimentalTypeInference::class)
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.patterns
 
 import csense.kotlin.logger.*
 import kotlin.contracts.*
+import kotlin.experimental.*
 
 
 public sealed interface Expected<out Value, out Error> {
@@ -94,20 +95,6 @@ public inline fun <Data, Error> Expected<Data, Error>.valueOrDefault(default: ()
     }
 }
 
-public inline fun <Data> expectedCatching(
-    noinline logger: LoggingFunctionType<*>? = null,
-    action: Expected.Companion.ExpectedContext.() -> Expected<Data, Throwable>
-): Expected<Data, Throwable> {
-    contract {
-        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-    }
-    return expected(logger, action = {
-        action()
-    }, onException = {
-        it
-    })
-}
-
 
 public inline fun <Value, Error> expected(
     noinline logger: LoggingFunctionType<*>? = null,
@@ -138,6 +125,21 @@ public inline fun <Value, Error> expected(
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
     return expected(logger = logExceptionWith, action = action, onException = { throw it })
+}
+
+
+public inline fun <Data> expectedCatching(
+    noinline logger: LoggingFunctionType<*>? = null,
+    action: Expected.Companion.ExpectedContext.() -> Expected<Data, Throwable>
+): Expected<Data, Throwable> {
+    contract {
+        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
+    }
+    return expected(logger, action = {
+        action()
+    }, onException = {
+        it
+    })
 }
 
 
@@ -178,22 +180,25 @@ public fun <Error> Expected.Companion.failed(error: Error): ExpectedFailed<Error
     return Expected.Companion.ExpectedFailedImpl(error)
 }
 
-
-public inline fun <InputValue, OutputValue, reified Error> Expected<InputValue, Error>.map(
+public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.map(
     transform: (InputValue) -> OutputValue
 ): Expected<OutputValue, Error> {
     val value = valueOrExpectedFailed { return@map this }
     return Expected.success(transform(value))
 }
 
-public inline fun <InputValue, OutputValue, reified Error> Expected<InputValue, Error>.tryMap(
-    transform: (InputValue) -> Expected<OutputValue, Error>
+
+public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.tryMap(
+    transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
-    val value = valueOrExpectedFailed { return@tryMap this }
-    return transform(value)
+    return if (this.isSuccess()) {
+        tryMap(transform)
+    } else {
+        this
+    }
 }
 
-public inline fun <InputValue, OutputValue, reified Error> Expected<InputValue, Error>.mapCatching(
+public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.mapCatching(
     transform: (InputValue) -> OutputValue
 ): Expected<OutputValue, ExpectedMapCatchingError<Error>> {
     val value = valueOrOnFailed {
@@ -207,7 +212,7 @@ public inline fun <InputValue, OutputValue, reified Error> Expected<InputValue, 
 }
 
 
-public inline fun <Value, reified Error> Expected<Value, Error>.recover(
+public inline fun <Value, Error> Expected<Value, Error>.recover(
     transform: (Error) -> Value
 ): ExpectedSuccess<Value> {
     return when (this) {
@@ -216,16 +221,18 @@ public inline fun <Value, reified Error> Expected<Value, Error>.recover(
     }
 }
 
-public inline fun <Value, reified Error> Expected<Value, Error>.tryRecover(
-    transform: (Error) -> Expected<Value, Error>
+public inline fun <Value, Error> Expected<Value, Error>.tryRecover(
+    transform: Expected.Companion.ExpectedContext.(Error) -> Expected<Value, Error>
 ): Expected<Value, Error> {
     return when (this) {
         is ExpectedSuccess -> this
-        is ExpectedFailed -> transform(this.error)
+        is ExpectedFailed -> with(Expected.Companion.ExpectedContext.instance) {
+            transform(error)
+        }
     }
 }
 
-public inline fun <Value, reified Error> Expected<Value, Error>.recoverCatching(
+public inline fun <Value, Error> Expected<Value, Error>.recoverCatching(
     transform: (Error) -> Value
 ): Expected<Value, ExpectedExceptionFailed<Error>> {
     return when (this) {
@@ -241,11 +248,17 @@ public inline fun <Value, reified Error> Expected<Value, Error>.recoverCatching(
 
 //Nothing as error type means it can never happen.
 public inline val <Value> Expected<Value, Nothing>.value: Value
-    get() = (this as ExpectedSuccess<Value>).value
+    get() = asSuccess.value
 
 //Nothing as value type means it can never happen.
 public inline val <Error> Expected<Nothing, Error>.error: Error
-    get() = (this as ExpectedFailed<Error>).error
+    get() = asFailed.error
+
+public inline val <Error> Expected<Nothing, Error>.asFailed: ExpectedFailed<Error>
+    get() = this as ExpectedFailed<Error>
+
+public inline val <Value> Expected<Value, Nothing>.asSuccess: ExpectedSuccess<Value>
+    get() = this as ExpectedSuccess<Value>
 
 
 public class ExpectedExceptionFailed<Error>(
@@ -273,3 +286,134 @@ public inline fun <Error> ExpectedMapCatchingError<Error>.isException(): Boolean
     }
     return this is ExpectedMapCatchingError.Exception
 }
+
+
+//region Errors & warnings for transformation function usage(s)
+
+//region map
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> ExpectedFailed<Error>.map(
+    uselessTransform: (Nothing) -> Unit = {}
+): ExpectedFailed<Error> = throw NotImplementedError()
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> Expected<Nothing, Error>.map(
+    uselessTransform: (Nothing) -> Unit = {}
+): ExpectedFailed<Error> = throw NotImplementedError()
+
+public inline fun <Input, Output> ExpectedSuccess<Input>.map(
+    transform: (Input) -> Output
+): ExpectedSuccess<Output> {
+    return Expected.success(transform(value))
+}
+//endregion
+
+//region tryMap
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> ExpectedFailed<Error>.tryMap(
+    uselessTransform: Expected.Companion.ExpectedContext.(Nothing) -> ExpectedFailed<Error>
+): ExpectedFailed<Error> = throw NotImplementedError()
+
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> Expected<Nothing, Error>.tryMap(
+    uselessTransform: Expected.Companion.ExpectedContext.(Nothing) -> ExpectedFailed<Error>
+): ExpectedFailed<Error> = throw NotImplementedError()
+
+public inline fun <InputValue, OutputValue, Error> ExpectedSuccess<InputValue>.tryMap(
+    transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
+): Expected<OutputValue, Error> {
+    val value = valueOrExpectedFailed { return@tryMap this }
+    return with(Expected.Companion.ExpectedContext.instance) { transform(value) }
+}
+//endregion
+
+//region mapCatching
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> ExpectedFailed<Error>.mapCatching(
+    transform: (Nothing) -> Nothing
+): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = throw NotImplementedError()
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Error> Expected<Nothing, Error>.mapCatching(
+    transform: (Nothing) -> Nothing
+): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = throw NotImplementedError()
+//endregion
+
+//region recover
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Value> Expected<Value, Nothing>.recover(
+    uselessTransform: (Nothing) -> Unit
+): ExpectedSuccess<Value> = throw NotImplementedError()
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Value> ExpectedSuccess<Value>.recover(
+    uselessTransform: (Nothing) -> Unit
+): ExpectedSuccess<Value> = throw NotImplementedError()
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
+    replaceWith = ReplaceWith("this")
+)
+//endregion
+
+//region tryRecover
+public inline fun <Value> ExpectedSuccess<Value>.tryRecover(
+    transform: Expected.Companion.ExpectedContext.(Nothing) -> Expected<Nothing, Nothing>
+): ExpectedSuccess<Value> = throw NotImplementedError()
+
+@Suppress("UNUSED_PARAMETER") // in short this is a dev error
+@Deprecated(
+    level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <Value> Expected<Value, Nothing>.tryRecover(
+    transform: Expected.Companion.ExpectedContext.(Nothing) -> Expected<Nothing, Nothing>
+): ExpectedSuccess<Value> = throw NotImplementedError()
+
+
+public inline fun <Value, Error, Result : Expected<Value, Error>> Expected<Nothing, Error>.tryRecover(
+    transform: Expected.Companion.ExpectedContext.(Error) -> Result
+): Result {
+    return with(Expected.Companion.ExpectedContext.instance) {
+        transform(error)
+    }
+}
+
+
+//endregion
+

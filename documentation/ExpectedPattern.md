@@ -76,7 +76,8 @@ fun failFast() {
 }
 ```
 
-### Map
+
+### Map a success value 
 
 Converts a success, or passes the error along.
 
