@@ -6,6 +6,7 @@ package csense.kotlin.patterns
 import csense.kotlin.logger.*
 import kotlin.contracts.*
 import kotlin.experimental.*
+import kotlin.jvm.*
 
 
 public sealed interface Expected<out Value, out Error> {
@@ -371,6 +372,8 @@ public inline fun <Error> Expected<Nothing, Error>.mapCatching(
     level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
     replaceWith = ReplaceWith("this")
 )
+@JvmName("recoverAlwaysSuccess")
+@JvmSynthetic
 public inline fun <Value> Expected<Value, Nothing>.recover(
     uselessTransform: (Nothing) -> Unit
 ): ExpectedSuccess<Value> = throw NotImplementedError()
@@ -406,6 +409,8 @@ public inline fun <Value> Expected<Value, Nothing>.tryRecover(
 ): ExpectedSuccess<Value> = throw NotImplementedError()
 
 
+@JvmName("tryRecoverFailed")
+@JvmSynthetic
 public inline fun <Value, Error, Result : Expected<Value, Error>> Expected<Nothing, Error>.tryRecover(
     transform: Expected.Companion.ExpectedContext.(Error) -> Result
 ): Result {

@@ -145,3 +145,9 @@ class UsageSite {
 }
 
 ```
+
+
+## Other goodies
+There are also some cases that are plainly "bad" to do; 
+Say you try to recover a  "ExpectedSuccess" (or an Expected<Value, Nothing>) then it would obviously never do anything.
+Thus, there are certain overloads that will error out at compile time to avoid some of these scenarios.
