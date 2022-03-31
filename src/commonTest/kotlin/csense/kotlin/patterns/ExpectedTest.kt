@@ -164,7 +164,10 @@ class ExpectedTest {
     @Test
     fun withErrorType() {
         val success: Expected<Int, RuntimeException> = Expected.success(42)
-        success.withErrorType<Int, NotImplementedError>().assertByEquals(success)
+        success.withErrorType<Int, NotImplementedError>().apply {
+            assertIs<Expected<Int, RuntimeException>>()
+            assertByEquals(success)
+        }
 
         val failed: Expected<Int, RuntimeException> = Expected.failed(RuntimeException())
         assertThrows<RuntimeException> {
@@ -178,7 +181,10 @@ class ExpectedTest {
     @Test
     fun withErrorTypeOnWrongErrorType() {
         val success: Expected<Int, RuntimeException> = Expected.success(42)
-        success.withErrorType<Int, NotImplementedError> { shouldNotBeCalled() }.assertByEquals(success)
+        success.withErrorType<Int, NotImplementedError> { shouldNotBeCalled() }.apply {
+            assertIs<Expected<Int, RuntimeException>>()
+            assertByEquals(success)
+        }
 
         val failed: Expected<Int, RuntimeException> = Expected.failed(RuntimeException())
         assertCalled { shouldBeCalled ->
@@ -186,8 +192,7 @@ class ExpectedTest {
             failed.withErrorType {
                 shouldBeCalled()
                 fallbackError
-            }.assertIsApply<ExpectedFailed<Exception>> {
-                error.assertIs<ErrorTypeException>()
+            }.assertIsApply<ExpectedFailed<ErrorTypeException>> {
                 error.assertByEquals(fallbackError)
             }
         }
