@@ -17,7 +17,7 @@ public inline fun <U> Any?.mapOptional(
     ifNull: U
 ): U {
 
-    return this.isNotNull.map(ifNotNull, ifNull)
+    return this.isNotNull().map(ifNotNull, ifNull)
 }
 
 /**

@@ -6,7 +6,7 @@ import kotlin.contracts.*
 
 
 /**
- * returns true if this is null or equal to the given argument.
+ * returns true if this is null or equal to the given argument. (using equals)
  * does not return true if we are not null but the argument is null.
  * @receiver T?
  * @param other T? the value to compare to

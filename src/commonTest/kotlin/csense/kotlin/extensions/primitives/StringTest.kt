@@ -8,85 +8,18 @@ import kotlin.test.*
 
 class StringTest {
 
-    class StringMapEachMatching {
-
-        @Test
-        fun bad() {
-            "".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("nothing in nothing should be nothing")
-            "".mapEachMatching("0", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding something in nothing happens never")
-
-            "0".mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("finding nothing in something happens never")
-
-            "0".mapEachMatching("", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-            "".mapEachMatching("0", searchByWord = true, ignoreCase = true) { it }
-                .assertEmpty("no parameter changes that behavior")
-        }
-
-        @Test
-        fun good() {
-
-            val textString = "-abc-aa-bb-cc-"
-            val indexes = textString.mapEachMatching(
-                "a",
-                searchByWord = false,
-                ignoreCase = false
-            ) { it }
-            indexes.assertSize(3, "there are 3 a's in the text")
-
-            indexes[0].assert(1, "first is at second index of string")
-
-            indexes[1].assert(5, "second is past 5 chars")
-
-            indexes[2].assert(6, "third is past 6 chars")
-
-            textString.mapEachMatching("A", searchByWord = false, ignoreCase = false) { it }
-                .assertEmpty("should search case sensitive when asked")
-
-            textString.mapEachMatching("A", searchByWord = false, ignoreCase = true) { it }
-                .assertSize(3, "should find all case insensitive")
-
-
-            val funnyString = "ababab"
-            funnyString.mapEachMatching(
-                "abab",
-                searchByWord = false,
-                ignoreCase = false
-            ) { it }
-                .assertSize(
-                    2, "since searching by chars, we will encounter an overlap , which then " +
-                            "will give us 2 results since we are only advancing by 1 chars"
-                )
-
-
-            funnyString.mapEachMatching(
-                "abab",
-                searchByWord = true,
-                ignoreCase = false
-            ) { it }
-                .assertSize(
-                    1, "since searching by word, we will NOT encounter an overlap , so " +
-                            "we will only see [abab] followed by the last part (ab), so not 2 matches"
-                )
-
-        }
-    }
-
     @Test
-    fun findAllOf() {
-        "".findAllOf("", searchByWord = false, ignoreCase = false)
+    fun allIndicesOf() {
+        "".allIndicesOf("", searchByWord = false, ignoreCase = false)
             .assertEmpty("nothing in nothing is nothing")
         val textString = "\"a very funny qoute\""
-        textString.findAllOf("\"", searchByWord = false, ignoreCase = false).apply {
+        textString.allIndicesOf("\"", searchByWord = false, ignoreCase = false).apply {
             assertSize(2, "since there are 2 \" in the text")
             first().assert(0, "since the first \" is at the first location")
             last().assert(textString.length - 1, "since the last \" is at the end")
         }
 
-        textString.findAllOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
+        textString.allIndicesOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
     }
 
     @Test
@@ -106,14 +39,6 @@ class StringTest {
     }
 
 
-    @Test
-    fun replaceIf() {
-        "abc".replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
-        "abc".replaceIf(false, "abc", "1234", true).assert("abc", "should not replace")
-        "abc".replaceIf(true, "abc", "1234", false).assert("1234")
-        "abc".replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
-        "abc".replaceIf(true, "ABC", "1234", true).assert("1234")
-    }
 
     class ContainsAnyCollection {
 
@@ -535,6 +460,7 @@ class StringTest {
             }
         }
 
+        
         @Test
         fun startsFromTheBack() {
             "abc".forEachBackwards { char ->
@@ -576,117 +502,7 @@ class StringTest {
     }
 
 
-    @Test
-    fun stringFromHexStringToByteArray() {
-        "".fromHexStringToByteArray().assertNull("not hex")
-        " ".fromHexStringToByteArray().assertNull("not hex")
-        "0xFF".fromHexStringToByteArray().assertNotNullApply {
-            assertSize(1)
-            first().assert(0xFF)
-        }
-    }
-
- 
-    class StringReplaceIfOrStrings {
-        @Test
-        fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("")
-        }
-
-        @Test
-        fun notFound() {
-            "abc".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "abc".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("abc")
-            "TEST".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("TEST")
-        }
-
-        @Test
-        fun found() {
-            "abc".replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
-                .assert("true")
-            "TEST".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("false")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = "true",
-                ifFalseValue = "false",
-                ignoreCase = true
-            )
-                .assert("true")
-        }
-
-    }
-
-    class StringReplaceIfOrCondition {
-        @Test
-        fun empty() {
-            "".replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("")
-            "".replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("")
-        }
-
-        @Test
-        fun notFound() {
-            "abc".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
-            "abc".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("TEST")
-        }
-
-        @Test
-        fun found() {
-            "abc".replaceIfOr(
-                condition = false,
-                toReplace = "abc",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("false")
-            "abc".replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" })
-                .assert("true")
-            "TEST".replaceIfOr(
-                condition = false,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" },
-                ignoreCase = true
-            )
-                .assert("false")
-            "TEST".replaceIfOr(
-                condition = true,
-                toReplace = "test",
-                ifTrueValue = { "true" },
-                ifFalseValue = { "false" },
-                ignoreCase = true
-            )
-                .assert("true")
-        }
-    }
+    
 
     @Test
     fun nullOnEmpty() {
@@ -710,112 +526,163 @@ class StringTest {
     }
 
 
-    class StringReplaceCharAtOrNull {
-
+    class StringStartsWith {
         @Test
-        fun empty() {
-            "".replaceCharAtOrNull(index = 0, withChar = 'a').assertNull()
-            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
-            "".replaceCharAtOrNull(index = -1, withChar = 'a').assertNull()
+        fun prefix() {
+            "".startsWith(prefix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "".startsWith(prefix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+
+            "a".startsWith(prefix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue("a")
+            "a".startsWith(prefix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse("b")
+            "a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertTrue("c")
+            "hello".startsWith(prefix = "hel", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".startsWith(prefix = "helll", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
+
         @Test
-        fun single() {
-            " ".replaceCharAtOrNull(index = 0, withChar = 'a').assert("a")
-            "a".replaceCharAtOrNull(index = 0, withChar = '1').assert("1")
-            "b".replaceCharAtOrNull(index = 1, withChar = 'a').assertNull()
+        fun ignoreCase() {
+            "a".startsWith(prefix = "A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "A".startsWith(prefix = "A", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+
+            "A".startsWith(prefix = "a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "A".startsWith(prefix = "A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
         }
 
-        @Test
-        fun multiple() {
-            "abc".replaceCharAtOrNull(index = -1, withChar = 'q').assertNull()
-            "abc".replaceCharAtOrNull(index = 0, withChar = 'q').assert("qbc")
-            "abc".replaceCharAtOrNull(index = 1, withChar = 'q').assert("aqc")
-            "abc".replaceCharAtOrNull(index = 2, withChar = 'q').assert("abq")
-            "abc".replaceCharAtOrNull(index = 3, withChar = 'q').assertNull()
 
+        @Test
+        fun ignoreWhitespace() {
+            " a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse("a")
+
+            " a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("b")
+            "   a".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("c")
+            "\ta".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("d")
+            "\na".startsWith(prefix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue("e")
         }
 
     }
 
-    class StringSplitAtOrNull {
+    class StringEndsWith {
+
+
         @Test
-        fun empty() {
-            "".splitAtOrNull(-1).assertNull()
-            "".splitAtOrNull(0).assertNull()
-            "".splitAtOrNull(1).assertNull()
+        fun suffix() {
+            "".endsWith(suffix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "".endsWith(suffix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+
+            "a".endsWith(suffix = "", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a".endsWith(suffix = " ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".endsWith(suffix = "llo", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "hello".endsWith(suffix = "lllo", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
+
         @Test
-        fun single() {
-            "a".splitAtOrNull(-1).assertNull()
-            "a".splitAtOrNull(0).assertNotNullApply {
-                beforeIndex.assertEmpty()
-                afterIndex.assertEmpty()
-            }
-            "a".splitAtOrNull(1).assertNull()
+        fun ignoreCase() {
+            "a".endsWith(suffix = "A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "A".endsWith(suffix = "A", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+
+            "A".endsWith(suffix = "a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "A".endsWith(suffix = "A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
         }
 
-        @Test
-        fun multiple() {
-            "abc".splitAtOrNull(-1).assertNull()
-            "abc".splitAtOrNull(0).assertNotNullApply {
-                beforeIndex.assertEmpty()
-                afterIndex.assert("bc")
-            }
-            "abc".splitAtOrNull(1).assertNotNullApply {
-                beforeIndex.assert("a")
-                afterIndex.assert("c")
-            }
-            "abc".splitAtOrNull(2).assertNotNullApply {
-                beforeIndex.assert("ab")
-                afterIndex.assertEmpty()
-            }
-            "abc".splitAtOrNull(3).assertNull()
 
+        @Test
+        fun ignoreWhitespace() {
+            "a ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            "a ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a   ".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a\t".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a\n".endsWith(suffix = "a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
         }
     }
 
-    class StringReplaceCharAt {
+    class StringEquals {
 
         @Test
-        fun empty() = assertThrows<IndexOutOfBoundsException> {
-            "".replaceCharAt(0, 'a')
-        }
-
-
-        @Test
-        fun singleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
-            "a".replaceCharAt(index = -1, withChar = 'a')
-        }
-
-        @Test
-        fun singleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
-            "a".replaceCharAt(index = 1, withChar = 'a')
+        fun simpleIgnoreAll() {
+            "".equals("", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            " ".equals("", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "".equals(" ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "Test".equals("Test", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "Test".equals("Test ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
         @Test
-        fun singleValidIndex() {
-            "a".replaceCharAt(index = 0, withChar = 'Q').assert("Q")
+        fun ignoreCaseFalse() {
+            "a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a".equals("A", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "aBc".equals("abc", ignoreCase = false, ignoreWhitespace = false).assertFalse()
         }
 
         @Test
-        fun multipleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
-            "abc".replaceCharAt(index = -1, withChar = 'a')
+        fun ignoreCaseTrue() {
+            "a".equals("a", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "a".equals("A", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "aBc".equals("abc", ignoreCase = true, ignoreWhitespace = false).assertTrue()
+            "aBc1234".equals("abc123X", ignoreCase = true, ignoreWhitespace = false).assertFalse()
         }
 
         @Test
-        fun multipleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
-            "abc".replaceCharAt(index = 3, withChar = 'a')
+        fun ignoreWhitespaceFalseAllCombinations() {
+            "a".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            " a".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            " a".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            "a ".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a ".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            "a ".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertTrue()
+            "a ".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+
+            " a ".equals("a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals(" a", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals("a ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " a ".equals(" a ", ignoreCase = false, ignoreWhitespace = false).assertTrue()
         }
 
         @Test
-        fun multipleReplaceRespectsInBounds() {
-            "abc".replaceCharAt(index = 0, withChar = 'q').assert("qbc")
-            "abc".replaceCharAt(index = 2, withChar = 'q').assert("abq")
+        fun ignoreWhitespaceTrueAllCombinations() {
+            "a".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " a".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            "a ".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            "a ".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " a ".equals("a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals(" a", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals("a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+            " a ".equals(" a ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
         }
 
+        @Test
+        fun mixedCombinations() {
+            " Im a test".equals("Im a test ", ignoreCase = false, ignoreWhitespace = false).assertFalse()
+            " Im a test".equals("Im a test ", ignoreCase = false, ignoreWhitespace = true).assertTrue()
+
+            " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = false).assertFalse()
+            " Im a test".equals("im a test ", ignoreCase = false, ignoreWhitespace = true).assertFalse()
+            " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = true).assertTrue()
+        }
 
     }
 }
-

@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.0.56
+
+- added
+    - StringComparison (namespacing some string extensions)
+    - string.endsWith taking a "ignoreWhitespace" parameter
+    - string.startsWith taking a "ignoreWhitespace" parameter
+    - string.equals taking a "ignoreWhitespace" parameter
+    - CharSequence.indexOfLastOrNull
+    - CharSequence.indexOfLastIndexedOrNull
+    - StringComparison.containsStringEndingAt
+    - StringComparison.containsStringAt
+    - StringComparison.compareTo
+    - T?.isNull() (function that supports contracts)
+    - T?.isNotNull() (function that supports contracts)
+    - isAnyNull (up to 6 args) (works with contacts)
+    - isAnyNotNull (up to 6 args)  (works with contacts)
+    - expected pattern (see [ExpectedPattern.md](documentation/ExpectedPattern.md))
+
+- moved
+    - these string extensions to StringModifications; "modifications" in code
+        - replaceCharAt
+        - replaceCharAtOrNull
+        - splitAtOrNull
+        - StringSplitAt (class) into StringModifications
+        - replaceIfOr
+        - replaceIf
+        - mapEachMatching
+    - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
+
+- renamed
+    - string.findAllOf to allIndicesOf
+
 ## 0.0.55
 
 - added

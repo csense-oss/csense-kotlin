@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.specificExtensions.string.*
 import java.util.*
 
 
@@ -27,7 +28,7 @@ public inline fun String.titleCaseFirstWord(locale: Locale): String {
     if (firstCharString == firstAsTitleCase) {
         return this
     }
-    val split = splitAtOrNull(firstCharIndex)
+    val split = modifications.splitAtOrNull(firstCharIndex)
         ?: throw IndexOutOfBoundsException("index $firstCharIndex >= $length")
     return split.beforeIndex + firstAsTitleCase + split.afterIndex
 }

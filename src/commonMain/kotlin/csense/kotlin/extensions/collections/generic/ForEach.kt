@@ -40,7 +40,7 @@ public inline fun <T> GenericCollectionExtensions.forEachBackwards(
 public inline fun <T> GenericCollectionExtensions.forEachBackwardsIndexed(
     @IntLimit(from = 0) length: Int,
     getter: GenericGetterIndexMethod<T>,
-    action: Function2Unit<@IntLimit(from = 0) Int, T>
+    action: (index: @IntLimit(from = 0) Int, element: T) -> Unit
 ) {
     for (i in (length - 1) downTo 0) {
         action(i, getter(i))

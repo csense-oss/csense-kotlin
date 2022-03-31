@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions.primitives
 
@@ -6,6 +6,7 @@ import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.specificExtensions.string.*
 
 //region Searching / find
 /**
@@ -16,113 +17,14 @@ import csense.kotlin.extensions.collections.generic.*
  * @param ignoreCase [Boolean] if we should ignore casing
  * @return [Set]<[Int]> a set of indices
  */
-public inline fun String.findAllOf(
+public inline fun String.allIndicesOf(
     subString: String,
     searchByWord: Boolean,
     ignoreCase: Boolean = false
 ): Set<@IntLimit(from = 0) Int> {
-    return mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
-}
-//TODO consider moving..
-/**
- * Maps each matching occurrence of a substring
- * @receiver [String] the string to search in
- * @param subString [String] the string we are searching for
- * @param searchByWord [Boolean]
- * @param ignoreCase [Boolean] whenever we should ignore casing
- * @param mapper [Function1]<[Int], U> Maps the given index to a given value
- * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
- */
-public inline fun <U> String.mapEachMatching(
-    subString: String,
-    searchByWord: Boolean,
-    ignoreCase: Boolean = false,
-    mapper: (index: Int) -> U
-): List<U> {
-    if (subString.isEmpty() || this.isEmpty()) {
-        return emptyList()
-    }
-    var currentIndex = 0
-    val appendLength = searchByWord.map(subString.length, 1)
-    var next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
-    val result = mutableListOf<U>()
-    while (next != null) {
-        result.add(mapper(next))
-        currentIndex = next + appendLength
-        next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
-    }
-    return result
-}
-//endregion
-
-//region Replacing
-/**
- * Replaces a value given a criteria. if the condition is true, the replace is called with the value
- * otherwise this string is returned as is.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param newValue [String]
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-public inline fun String.replaceIf(
-    condition: Boolean,
-    toReplace: String,
-    newValue: String,
-    ignoreCase: Boolean = false
-): String {
-    return if (condition) {
-        this.replace(toReplace, newValue, ignoreCase)
-    } else {
-        this
-    }
+    return modifications.mapEachMatching(subString, searchByWord, ignoreCase) { start -> start }.toSet()
 }
 
-/**
- * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
- * if the condition is false, the ifFalseValue is used.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param ifTrueValue [String]
- * @param ifFalseValue [String]
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-public inline fun String.replaceIfOr(
-    condition: Boolean,
-    toReplace: String,
-    ifTrueValue: String,
-    ifFalseValue: String,
-    ignoreCase: Boolean = false
-): String {
-    val replacement = condition.map(ifTrueValue, ifFalseValue)
-    return this.replace(toReplace, replacement, ignoreCase)
-}
-
-/**
- * Replaces a value given a criteria. if the condition is true, the ifTrueValue is used for the replacement
- * if the condition is false, the ifFalseValue is used. lazily evaluates the values.
- * @receiver [String]
- * @param condition [Boolean]
- * @param toReplace [String]
- * @param ifTrueValue [EmptyFunctionResult]<[String]>
- * @param ifFalseValue [EmptyFunctionResult]<[String]>
- * @param ignoreCase [Boolean]
- * @return [String]
- */
-public inline fun String.replaceIfOr(
-    condition: Boolean,
-    toReplace: String,
-    crossinline ifTrueValue: EmptyFunctionResult<String>,
-    crossinline ifFalseValue: EmptyFunctionResult<String>,
-    ignoreCase: Boolean = false
-): String {
-    val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
-    return this.replace(toReplace, replacement, ignoreCase)
-}
-//endregion
 
 //region contains / startWith queries
 /**
@@ -227,29 +129,6 @@ public inline fun String.skipStartsWith(
     return startsWith.mapLazy(
         ifTrue = { substring(prefix.length) },
         ifFalse = { this })
-}
-//endregion
-
-//region Hex converting
-/**
- * The opposite of [csense.kotlin.extensions.collections.array.toHexString] , so takes a hex string (eg "0x20") and converts it to a byte array of that
- * if any error is found during the "deserialization, null will be returned.
- * @receiver [String]
- * @return [ShortArray]? since [UByte]s are still experimental, [Short]s are used to make sure the size "is ok"
- */
-public inline fun String.fromHexStringToByteArray(): ShortArray? {
-    //strip prefix iff asked to
-    if (length.isOdd || isEmpty()) {
-        return null
-    }
-    //we have the hex prefix iff it starts with "0x". strip that iff necessary
-    val string = skipStartsWith("0x", true)
-    val result = ShortArray(string.length / 2)
-    GenericCollectionExtensions.forEach2Indexed(string.length, string::get) { index: Int, first: Char, second: Char ->
-        val shortValue = hexCharsToValue(first, second) ?: return@fromHexStringToByteArray null
-        result[index / 2] = shortValue
-    }
-    return result
 }
 //endregion
 
@@ -461,49 +340,89 @@ public inline fun String.titleCaseFirstWord(): String {
     if (firstChar.isTitleCase()) {
         return this
     }
-    return replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
+    return modifications.replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
 }
 
-/**
- *
- * @receiver String
- * @param index Int
- * @param withChar Char
- * @return String
- * @throws Exception
- */
-@Throws(IndexOutOfBoundsException::class)
-public inline fun String.replaceCharAt(index: Int, withChar: Char): String {
-    return replaceCharAtOrNull(index = index, withChar = withChar)
-        ?: throw IndexOutOfBoundsException("Index out of bounds. Index: $index, length: $length")
-}
-
-/**
- *
- * @receiver String
- * @param index Int
- * @param withChar Char
- * @return String?
- */
-public inline fun String.replaceCharAtOrNull(index: Int, withChar: Char): String? {
-    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
-        return null
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun String.startsWith(
+    prefix: String,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean = false
+): Boolean {
+    if (this === prefix) {
+        return true
     }
-    val split = splitAtOrNull(index) ?: return null
-    return split.beforeIndex + withChar + split.afterIndex
-}
 
-public inline fun String.splitAtOrNull(index: Int): StringSplitAt? {
-    if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
-        return null
+    return if (!ignoreWhitespace) {
+        startsWith(prefix = prefix, ignoreCase = ignoreCase)
+    } else {
+        val firstNonWhitespaceIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return false
+        return comparison.containsStringAt(
+            startIndex = firstNonWhitespaceIndex,
+            other = prefix,
+            ignoreCase = ignoreCase
+        )
     }
-    val before = substringOrNull(0, index) ?: ""
-    val after = substringOrNull(index + 1, length) ?: ""
-    return StringSplitAt(before, after)
 }
 
-public data class StringSplitAt(
-    public val beforeIndex: String,
-    public val afterIndex: String
-)
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun String.endsWith(
+    suffix: String,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean = false
+): Boolean {
+    if (this === suffix) {
+        return true
+    }
+    return if (!ignoreWhitespace) {
+        endsWith(suffix = suffix, ignoreCase = ignoreCase)
+    } else {
+        val lastNonWhitespaceIndexInclusive = indexOfLastOrNull { it.isNotWhitespace() } ?: return false
+        return comparison.containsStringEndingAt(
+            endIndex = lastNonWhitespaceIndexInclusive,
+            other = suffix,
+            ignoreCase = ignoreCase
+        )
+    }
+}
 
+
+@kotlin.internal.LowPriorityInOverloadResolution
+public inline fun String.equals(
+    other: String?,
+    ignoreCase: Boolean = false,
+    ignoreWhitespace: Boolean = false
+): Boolean {
+    if (this === other) {
+        return true
+    }
+    if (!ignoreWhitespace) {
+        return equals(other = other, ignoreCase = ignoreCase)
+    }
+    //will be null if empty or all is whitespace
+    val firstNonWhitespaceInThis = this.indexOfFirstOrNull { it.isNotWhitespace() }
+    val firstNonWhitespaceInOther = other?.indexOfFirstOrNull { it.isNotWhitespace() }
+    if (isAnyNull(firstNonWhitespaceInThis, firstNonWhitespaceInOther)) {
+        return firstNonWhitespaceInThis == firstNonWhitespaceInOther
+    }
+    val lastNonWhitespaceInThis = this.indexOfLastOrNull { it.isNotWhitespace() }
+    val lastNonWhitespaceInOther = other.indexOfLastOrNull { it.isNotWhitespace() }
+    if (isAnyNull(lastNonWhitespaceInThis, lastNonWhitespaceInOther)) {
+        return false //should not happen...
+    }
+
+    val nonWhitespaceLengthOfThis = lastNonWhitespaceInThis - firstNonWhitespaceInThis
+    val nonWhitespaceLengthOfOther = lastNonWhitespaceInOther - firstNonWhitespaceInOther
+    if (nonWhitespaceLengthOfThis != nonWhitespaceLengthOfOther) {
+        return false
+    }
+    // at this point we have 2 ranges, 1 in this and one in other, that are the same length, so just compare them
+    return comparison.compareTo(
+        startingIndexInThisString = firstNonWhitespaceInThis,
+        other,
+        startIndexInOtherString = firstNonWhitespaceInOther,
+        length = nonWhitespaceLengthOfThis,
+        ignoreCase = ignoreCase
+    )
+
+}

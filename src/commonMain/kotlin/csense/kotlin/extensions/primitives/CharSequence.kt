@@ -112,10 +112,13 @@ public inline fun CharSequence.equals(other: CharSequence, ignoreCase: Boolean =
     if (length != other.length) {
         return false
     }
+    forEachIndexed { index, char ->
+        if (other[index].isNotEqual(char, ignoreCase)) {
+            return@equals false
+        }
+    }
+    return true
 
-    return indexOfFirstIndexedOrNull { index, char ->
-        other[index].isNotEqual(char, ignoreCase)
-    }.mapOptional(ifNotNull = false, ifNull = true)
 }
 
 @kotlin.internal.LowPriorityInOverloadResolution
@@ -206,6 +209,21 @@ public inline fun CharSequence.indexOfFirstIndexedOrNull(predicate: Function2<In
     forEachIndexed { index, char ->
         if (predicate(index, char)) {
             return@indexOfFirstIndexedOrNull index
+        }
+    }
+    return null
+}
+
+public inline fun CharSequence.indexOfLastOrNull(
+    predicate: Function1<Char, Boolean>
+): Int? = indexOfLastIndexedOrNull { _, char ->
+    predicate(char)
+}
+
+public inline fun CharSequence.indexOfLastIndexedOrNull(predicate: Function2<Int, Char, Boolean>): Int? {
+    GenericCollectionExtensions.forEachBackwardsIndexed(length = length, getter = this::get) { index, char ->
+        if (predicate(index, char)) {
+            return@indexOfLastIndexedOrNull index
         }
     }
     return null
