@@ -250,7 +250,9 @@ class ExpectedTest {
             res.assertIs<ExpectedSuccess<Long>>()
             res.value.assert(42L)
 
-            val nothingIsAllowed = Expected.success(42).tryMap { it.toLong().asSuccess() }
+            val exp2: Expected<Int, Exception> = Expected.success(42)
+            val nothingIsAllowed = exp2.tryMap { it.toLong().asSuccess() }
+            nothingIsAllowed.assertIs<ExpectedSuccess<Int>>()
             nothingIsAllowed.value.assert(42L)
         }
 
@@ -284,7 +286,9 @@ class ExpectedTest {
             res.assertIs<ExpectedSuccess<Long>>()
             res.value.assert(42L)
 
-            val nothingIsAllowed = Expected.success(42).tryMap { it.toLong().asSuccess() }
+            val exp2: Expected<Int, Exception> = Expected.success(42)
+            val nothingIsAllowed = exp2.tryMap { it.toLong().asSuccess() }
+            nothingIsAllowed.assertIs<ExpectedSuccess<Long>>()
             nothingIsAllowed.value.assert(42L)
         }
 
@@ -358,11 +362,7 @@ class ExpectedTest {
             val exp: Expected<String, Int> = Expected.failed(89)
             exp.tryRecover { it.asSuccess() }.assertIsApply<ExpectedSuccess<Int>> { value.assert(89) }
             val complex: Expected<String, Int> = exp.tryRecover {
-                if (true) {
-                    "1234".asSuccess()
-                } else {
-                    42.asFailed()
-                }
+                "1234".asSuccess()
             }
             complex.assertIs<ExpectedSuccess<String>>()
             complex.value.assert("1234")
@@ -372,22 +372,216 @@ class ExpectedTest {
         @Test
         fun failedToFailed() {
             val exp: Expected<String, Int> = Expected.failed(89)
+            exp.tryRecover { it.asFailed() }.assertIsApply<ExpectedFailed<Int>> {
+                error.assert(89)
+            }
+        }
+
+    }
+
+
+    @Test
+    fun expectedNothingErrorAsFailed() {
+        val x: Expected<Nothing, Int> = Expected.failed(42)
+        x.asFailed.error.assert(42)
+    }
+
+    @Test
+    fun expectedValueNothingAsSuccess() {
+        val x: Expected<Int, Nothing> = Expected.success(42)
+        x.asSuccess.value.assert(42)
+    }
+
+    class ExpectedActionOnException {
+
+        @Test
+        fun actionWithNoExceptionSuccess() {
+            val result: Expected<Int, Nothing> = expected(action = {
+                42.asSuccess()
+            }, onException = {
+                shouldNotBeCalled()
+            })
+            result.value.assert(42)
+        }
+
+        @Test
+        fun actionWithNoExceptionFailed() {
+            val result: Expected<Nothing, Int> = expected(action = {
+                42.asFailed()
+            }, onException = {
+                shouldNotBeCalled()
+            })
+            result.error.assert(42)
+        }
+
+        @Suppress("UNREACHABLE_CODE") //intellij cannot figure this out?
+        @Test
+        fun actionThatThrows() = assertCalled { shouldBeCalled ->
+            val exception = RuntimeException("Wee")
+            val result: Expected<String, String> = expected(action = {
+                throw exception
+            }, onException = {
+                shouldBeCalled()
+                it.assert(exception)
+                "error"
+            })
+            result.assertIs<ExpectedFailed<String>>()
+            result.error.assert("error")
+        }
+
+    }
+
+    @Test
+    fun expectedAction() {
+
+        @Test
+        fun actionThatReturnsFailed() {
+            val failed = expected<String, String>(action = {
+                "failed".asFailed()
+            })
+            failed.assertIs<ExpectedFailed<String>>()
+            failed.error.assert("success")
+        }
+
+        @Test
+        fun actionThatReturnsSuccess() {
+            val success = expected<String, String>(action = {
+                "success".asSuccess()
+            })
+            success.assertIs<ExpectedSuccess<String>>()
+            success.value.assert("success")
+        }
+
+        @Test
+        fun actionThatThrows() = assertThrows<RuntimeException> {
+            expected<String, String>(action = {
+                throw RuntimeException()
+            })
         }
 
     }
 
     class ExpectedValueErrorRecoverCatching {
+
         @Test
         fun success() {
-
+            val exp: Expected<Int, String> = Expected.success(42)
+            val result = exp.recoverCatching {
+                shouldNotBeCalled()
+            }
+            result.assertIs<ExpectedSuccess<Int>>()
+            result.value.assert(42)
         }
-
 
         @Test
         fun failed() {
-
+            val exp: Expected<Int, String> = Expected.failed("42")
+            val result = exp.recoverCatching {
+                42
+            }
+            result.assertIs<ExpectedSuccess<Int>>()
+            result.value.assert(42)
         }
 
+        @Test
+        fun throws() {
+            val exp: Expected<Int, String> = Expected.failed("42")
+            val exception = RuntimeException("message")
+            val result = exp.recoverCatching {
+                throw exception
+            }
+            result.assertIs<ExpectedFailed<ExpectedExceptionFailed<String>>>()
+            result.error.failed.error.assert("42")
+            result.error.exception.assert(exception)
+        }
+    }
+
+    class ExpectedNothingErrorTryRecoverTransform {
+        @Test
+        fun failedToFailed() {
+            val exp = Expected.failed(42)
+            val result = exp.tryRecover {
+                it.asFailed()
+            }
+            result.assertIs<ExpectedFailed<Int>>()
+            result.error.assert(42)
+        }
+
+        @Test
+        fun failedToSuccess() {
+            val exp = Expected.failed(42)
+            val result = exp.tryRecover {
+                it.asSuccess()
+            }
+            result.assertIs<ExpectedSuccess<Int>>()
+            result.value.assert(42)
+        }
+    }
+
+    class ExpectedInputValueNothingTryMapTransform {
+
+        @Test
+        fun toSuccess() {
+            val exp: Expected<Int, Nothing> = Expected.success(42)
+            val result = exp.tryMap {
+                "value".asSuccess()
+            }
+            result.assertIs<ExpectedSuccess<String>>()
+            result.value.assert("value")
+        }
+
+        @Test
+        fun toFailed() {
+            val exp: Expected<Int, Nothing> = Expected.success(42)
+            val result = exp.tryMap {
+                "error".asFailed()
+            }
+            result.assertIs<ExpectedFailed<String>>()
+            result.error.assert("error")
+        }
+
+    }
+
+    class ExpectedSuccessInputMapTransform {
+
+        @Test
+        fun success() {
+            Expected.success("test").map { 42 }.assertIsApply<ExpectedSuccess<Int>> {
+                value.assert(42)
+            }
+        }
+
+    }
+
+
+    class ExpectedCatching {
+        @Test
+        fun success() {
+            val exp = expectedCatching {
+                "test".asSuccess()
+            }
+            exp.assertIs<ExpectedSuccess<String>>()
+            exp.value.assert("test")
+        }
+
+        @Test
+        fun failed() {
+            val exp = expectedCatching {
+                RuntimeException().asFailed()
+            }
+            exp.assertIs<ExpectedFailed<Throwable>>()
+            exp.error.assertIs<RuntimeException>()
+        }
+
+        @Suppress("UNREACHABLE_CODE") //kotlin compiler / idea does not know calls in place != exceptions will be passed though
+        @Test
+        fun throwing() {
+            val exp: Expected<Nothing, Throwable> = expectedCatching {
+                throw RuntimeException()
+            }
+            exp.assertIs<ExpectedFailed<Throwable>>()
+            exp.error.assertIs<RuntimeException>()
+        }
     }
 }
 
