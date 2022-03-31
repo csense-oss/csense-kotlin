@@ -334,14 +334,3 @@ public inline fun isAnyNotNull(
     return first != null || second != null || third != null || fourth != null || fifth != null || sixth != null
 }
 //endregion
-
-//
-////TODO consider
-//fun isAllNull(){
-//    
-//}
-//
-////TODO consider
-//fun isAllNotNull(){
-//    
-//}
