@@ -19,20 +19,19 @@
     - expected pattern (see [ExpectedPattern.md](documentation/ExpectedPattern.md))
 
 - moved
-  - these string extensions to StringModifications; "modifications" in code
-    - replaceCharAt
-    - replaceCharAtOrNull
-    - splitAtOrNull 
-    - StringSplitAt (class) into StringModifications
-    - replaceIfOr
-    - replaceIf
-    - mapEachMatching
-  - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
-  
-
+    - these string extensions to StringModifications; "modifications" in code
+        - replaceCharAt
+        - replaceCharAtOrNull
+        - splitAtOrNull
+        - StringSplitAt (class) into StringModifications
+        - replaceIfOr
+        - replaceIf
+        - mapEachMatching
+    - string.fromHexStringToByteArray to StringConversion(via "conversion" on string).fromHexStringToByteArray
 
 - renamed
-  - string.findAllOf to allIndicesOf
+    - string.findAllOf to allIndicesOf
+
 ## 0.0.55
 
 - added
