@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.collections
 
@@ -81,7 +82,6 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.remov
 )
 
 @DiscardableResult
-@OptIn(ExperimentalContracts::class)
 public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addIfNotNull(
     item: E?
 ): Boolean {
@@ -93,7 +93,6 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addIf
 
 
 @DiscardableResult
-@OptIn(ExperimentalContracts::class)
 public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.removeIfNotNull(
     item: E?
 ): Boolean {
@@ -103,3 +102,19 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.remov
     return item?.let(::remove) ?: false
 }
 
+/**
+ * Adds all the given [items] (if not null) to this [MutableCollection]
+ * @receiver [MutableCollection]<E> the collection to append the given [items] to
+ * @param items [Iterable]<E>? the items to add. if null then nothing happens
+ * @return [Boolean] true if all got added. false otherwise
+ */
+@DiscardableResult
+public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addAll(
+    items: Iterable<E>?
+): Boolean {
+    var result = true
+    items?.forEach {
+        result = result && add(it)
+    }
+    return result
+}

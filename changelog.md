@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.58
+
+- added
+  - MutableCollection.addAll(Iterable<E>?)
+
+## 0.0.57
+
+- fixed package for MPP projects (changed flags + reupload of 0.0.56)
+
 ## 0.0.56
 
 - added
