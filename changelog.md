@@ -11,6 +11,7 @@
     - contracts to
         - string.ifNotEmpty
         - string.ifNotBlank
+        - StringModification.replaceIfOr
         - GenericCollectionExtensions.joinEveryAction
         - Any.invokeIsInstance
         - Map<K, V>.useValueOr
@@ -29,6 +30,8 @@
     - renamed CoroutineScope.launchMain's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextDefault's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextMain's action to block (to match coroutines naming)
+    - renamed String.ifNotEmpty's action to ifNotEmpty 
+    - renamed String.ifNotBlank's action to ifNotBlank 
 
 ## 0.0.57
 
