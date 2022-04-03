@@ -1,10 +1,12 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
 import csense.kotlin.classes.*
 import csense.kotlin.extensions.collections.generic.*
+import kotlin.contracts.*
 import kotlin.experimental.*
 
 
@@ -54,6 +56,10 @@ public inline fun <K, V> Map<K, V>.useValueOr(
     onKeyFound: FunctionUnit<V>,
     onKeyNotFound: EmptyFunction
 ) {
+    contract {
+        callsInPlace(onKeyFound, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(onKeyNotFound, InvocationKind.AT_MOST_ONCE)
+    }
     val value = this[key]
     if (value != null) {
         onKeyFound(value)
@@ -77,7 +83,7 @@ public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
  * @param mapEntry [Function1]<[Map.Entry]<OrgKey, OrgValue>, [MapEntry]<NewKey, NewValue>>
  * @return [Map]<NewKey, NewValue>
  */
-@OptIn(ExperimentalStdlibApi::class, ExperimentalTypeInference::class)
+@OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaMapEntry(
     mapEntry: Function1<Map.Entry<OrgKey, OrgValue>, MapEntry<NewKey, NewValue>>
@@ -97,7 +103,7 @@ public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toM
  * @param mapEntryToPair [Function1]<[Map.Entry]<OrgKey, OrgValue>, [Pair]<NewKey, NewValue>>
  * @return [Map]<NewKey, NewValue>
  */
-@OptIn(ExperimentalStdlibApi::class, ExperimentalTypeInference::class)
+@OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaKeyValuePair(
     mapEntryToPair: Function1<Map.Entry<OrgKey, OrgValue>, Pair<NewKey, NewValue>>

@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.collections.set
 
@@ -43,7 +44,6 @@ public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.setExistence
  * @return [Boolean] true iff added, false if not added (either contained already or could not add)
  * @timecomplexity O(1)
  */
-@OptIn(ExperimentalContracts::class)
 public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.addIfMissingAnd(
     item: T,
     action: Function0<T>

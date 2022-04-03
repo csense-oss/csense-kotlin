@@ -328,4 +328,75 @@ class MutableCollectionTest {
         }
 
     }
+
+    class MutableCollectionEAddAllItems {
+
+        @Test
+        fun nullLst() {
+            val lst = mutableListOf<String>()
+            lst.addAll(items = null).assertTrue()
+            lst.assertEmpty()
+        }
+
+        @Test
+        fun empty() {
+            val lst = mutableListOf<String>()
+            lst.addAll(items = listOf()).assertTrue()
+            lst.assertEmpty()
+        }
+
+
+        @Test
+        fun singleOnEmpty() {
+            val lst = mutableListOf<String>()
+            lst.addAll(items = listOf("asd")).assertTrue()
+            lst.assertSingle("asd")
+        }
+
+        @Test
+        fun singleStarting() {
+            val startLst = mutableListOf("123")
+            startLst.addAll(items = null).assertTrue()
+            startLst.assertSingle("123")
+
+            startLst.addAll(items = listOf()).assertTrue()
+            startLst.assertSingle("123")
+
+            startLst.addAll(items = listOf("test")).assertTrue()
+            startLst.assertSize(2)
+            startLst.assertContainsInOrder("123", "test")
+        }
+
+
+        @Test
+        fun multipleOnEmpty() {
+            val startLst = mutableListOf<String>()
+            startLst.addAll(items = listOf("1234", "abc")).assertTrue()
+            startLst.assertSize(2)
+            startLst.assertContainsInOrder("1234", "abc")
+        }
+
+        @Test
+        fun multipleStarting() {
+            val startLst = mutableListOf("1234", "abc")
+
+            startLst.addAll(items = null).assertTrue()
+            startLst.assertSize(2)
+            startLst.assertContainsInOrder("1234", "abc")
+
+            startLst.addAll(items = listOf()).assertTrue()
+            startLst.assertSize(2)
+            startLst.assertContainsInOrder("1234", "abc")
+
+
+            startLst.addAll(items = listOf("1")).assertTrue()
+            startLst.assertSize(3)
+            startLst.assertContainsInOrder("1234", "abc", "1")
+
+            startLst.addAll(items = listOf("2", "3")).assertTrue()
+            startLst.assertSize(5)
+            startLst.assertContainsInOrder("1234", "abc", "1", "2", "3")
+
+        }
+    }
 }

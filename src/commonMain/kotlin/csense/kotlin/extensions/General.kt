@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions
 
@@ -11,7 +12,6 @@ import kotlin.contracts.*
  * @receiver Any the value to cast
  * @return T? the potential cast, if it is unable, null will be returned
  */
-@OptIn(ExperimentalContracts::class)
 public inline fun <reified T> Any.cast(): T? {
     contract {
         returnsNotNull() implies (this@cast is T)
@@ -20,7 +20,6 @@ public inline fun <reified T> Any.cast(): T? {
 }
 
 
-@OptIn(ExperimentalContracts::class)
 public inline fun <reified T, U> Any.castMap(
     mapper: ReceiverFunction0<T, U>
 ): U? {
@@ -37,7 +36,6 @@ public inline fun <reified T, U> Any.castMap(
  * @receiver Any
  * @param action [Function1]<T, [Unit]>
  */
-@OptIn(ExperimentalContracts::class)
 public inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
@@ -53,7 +51,7 @@ public inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
  * @param action [Function1]<T, R> the action to call if this is actually a T
  * @return R? the return result
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
@@ -96,7 +94,6 @@ public inline fun <T> Function1<T, *>.toUnitFunction(): FunctionUnit<T> = { this
  * @param ifNotNull T.() -> Unit the action to perform iff this is not null
  * @param ifNull [EmptyFunction]  if the receiver is null this action will be performed
  */
-@OptIn(ExperimentalContracts::class)
 public inline fun <T> T?.useOr(
     ifNotNull: ReceiverFunctionUnit<T>,
     ifNull: EmptyFunction
@@ -118,7 +115,7 @@ public inline fun <T> T?.useOr(
  * @receiver [Any]
  * @return [Boolean] true if this is not the given type, false if this is
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <reified T> Any.isNot(): Boolean {
     contract {
         returns(false) implies (this@isNot is T)
@@ -145,7 +142,7 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
  * @param ifNullAction [Function0R] the other value (to compute) if this receiver is null
  * @return T the non-null value
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>): T {
     contract {
         callsInPlace(ifNullAction, InvocationKind.AT_MOST_ONCE)
@@ -170,7 +167,7 @@ public inline fun <T> T.applyIf(shouldApply: Boolean, transform: Function1<T, T>
 
 
 //region isAnyNull
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?
 ): Boolean {
@@ -181,7 +178,7 @@ public inline fun isAnyNull(
     return first == null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?,
     second: Any?
@@ -193,7 +190,7 @@ public inline fun isAnyNull(
     return first == null || second == null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?,
     second: Any?,
@@ -206,7 +203,7 @@ public inline fun isAnyNull(
     return first == null || second == null || third == null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?,
     second: Any?,
@@ -220,7 +217,7 @@ public inline fun isAnyNull(
     return first == null || second == null || third == null || fourth == null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?,
     second: Any?,
@@ -235,7 +232,7 @@ public inline fun isAnyNull(
     return first == null || second == null || third == null || fourth == null || fifth == null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNull(
     first: Any?,
     second: Any?,
@@ -253,7 +250,7 @@ public inline fun isAnyNull(
 //endregion
 
 //region isAnyNotNull
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?
 ): Boolean {
@@ -264,7 +261,7 @@ public inline fun isAnyNotNull(
     return first != null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?,
     second: Any?
@@ -276,7 +273,7 @@ public inline fun isAnyNotNull(
     return first != null || second != null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?,
     second: Any?,
@@ -289,7 +286,7 @@ public inline fun isAnyNotNull(
     return first != null || second != null || third != null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?,
     second: Any?,
@@ -303,7 +300,7 @@ public inline fun isAnyNotNull(
     return first != null || second != null || third != null || fourth != null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?,
     second: Any?,
@@ -318,7 +315,7 @@ public inline fun isAnyNotNull(
     return first != null || second != null || third != null || fourth != null || fifth != null
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun isAnyNotNull(
     first: Any?,
     second: Any?,

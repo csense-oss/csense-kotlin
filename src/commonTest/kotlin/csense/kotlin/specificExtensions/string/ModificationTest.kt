@@ -235,32 +235,65 @@ class ModificationTest {
     }
 
 
-
-
     class StringModificationReplaceIfOrStrings {
         @Test
         fun empty() {
-            "".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+            "".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("")
-            "".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+            "".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("")
         }
 
         @Test
         fun notFound() {
-            "abc".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+            "abc".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("abc")
-            "abc".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+            "abc".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("abc")
-            "TEST".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = "true", ifFalseValue = "false")
+            "TEST".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("TEST")
         }
 
         @Test
         fun found() {
-            "abc".modifications.replaceIfOr(condition = false, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+            "abc".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "abc",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("false")
-            "abc".modifications.replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = "true", ifFalseValue = "false")
+            "abc".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "abc",
+                ifTrueValue = "true",
+                ifFalseValue = "false"
+            )
                 .assert("true")
             "TEST".modifications.replaceIfOr(
                 condition = false,
@@ -285,9 +318,17 @@ class ModificationTest {
     class StringModificationReplaceIfOrCondition {
         @Test
         fun empty() {
-            "".modifications.replaceIfOr(condition = false, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+            "".modifications.replaceIfOr(
+                condition = false,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" })
                 .assert("")
-            "".modifications.replaceIfOr(condition = true, toReplace = "test", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+            "".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "test",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" })
                 .assert("")
         }
 
@@ -317,7 +358,11 @@ class ModificationTest {
                 toReplace = "abc",
                 ifTrueValue = { "true" },
                 ifFalseValue = { "false" }).assert("false")
-            "abc".modifications.replaceIfOr(condition = true, toReplace = "abc", ifTrueValue = { "true" }, ifFalseValue = { "false" })
+            "abc".modifications.replaceIfOr(
+                condition = true,
+                toReplace = "abc",
+                ifTrueValue = { "true" },
+                ifFalseValue = { "false" })
                 .assert("true")
             "TEST".modifications.replaceIfOr(
                 condition = false,
@@ -338,4 +383,74 @@ class ModificationTest {
         }
     }
 
+    class StringModificationReplaceLazy {
+
+        @Test
+        fun empty() {
+            "".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("")
+        }
+
+        @Test
+        fun singleNotFound() {
+            "a".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("a")
+            "A".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("A")
+
+            "a".modifications.replaceLazy(" ", { shouldNotBeCalled() }).assert("a")
+        }
+
+        @Test
+        fun singleFound() {
+            assertCalled { shouldBeCalled ->
+                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }).assert("-")
+            }
+        }
+
+        @Test
+        fun singleIgnoreCaseFalse() {
+            assertCalled { shouldBeCalled ->
+                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = false).assert("-")
+            }
+
+            "A".modifications.replaceLazy("a", { shouldNotBeCalled() }, ignoreCase = false).assert("A")
+            "a".modifications.replaceLazy("A", { shouldNotBeCalled() }, ignoreCase = false).assert("a")
+
+            assertCalled { shouldBeCalled ->
+                "A".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = false).assert("-")
+            }
+        }
+
+        @Test
+        fun singleIgnoreCaseTrue() {
+            assertCalled { shouldBeCalled ->
+                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+            }
+            assertCalled { shouldBeCalled ->
+                "A".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+            }
+            assertCalled { shouldBeCalled ->
+                "a".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+            }
+            assertCalled { shouldBeCalled ->
+                "A".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+            }
+        }
+
+        @Test
+        fun multipleNoMatches() {
+            "test 1234 test".modifications.replaceLazy("qwerty", ::shouldNotBeCalled).assert("test 1234 test")
+        }
+
+        @Test
+        fun multipleMatchesString() = assertCalled { shouldBeCalled ->
+            "test 1234 test".modifications.replaceLazy("test", { shouldBeCalled(); "-" }).assert("- 1234 -")
+        }
+
+
+        @Test
+        fun multipleMatchesSingleLetter() = assertCalled { shouldBeCalled ->
+            "test 1234 test".modifications.replaceLazy("t", { shouldBeCalled(); "-*-" })
+                .assert("-*-es-*- 1234 -*-es-*-")
+        }
+
+    }
 }

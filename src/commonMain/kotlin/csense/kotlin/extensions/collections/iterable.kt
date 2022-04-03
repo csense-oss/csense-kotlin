@@ -397,10 +397,11 @@ public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Uni
 //endregion
 
 /**
- *
+ * 
  * @receiver [Iterable]<T>
  * @param function [Function0]<[Unit]>
  */
+//TODO consider name...
 @OptIn(ExperimentalContracts::class)
 public inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     contract {

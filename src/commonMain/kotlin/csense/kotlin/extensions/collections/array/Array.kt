@@ -84,10 +84,7 @@ public inline fun <reified T> Array<T>.joinEveryAction(
         toJoinAction,
         size,
         this::get,
-        builderType = { size, builder ->
-            Array(size, builder)
-        }
-        //TODO when kotlin 1.5.31 is released  use ::Array
+        builderType = ::Array
     )
 }
 

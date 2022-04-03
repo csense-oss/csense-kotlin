@@ -1,71 +1,73 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "DeferredIsResult")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.*
 import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
+import kotlin.contracts.*
 
 /**
  * Same as [async] ([Dispatchers.Default])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> T
+ * @param block suspend [CoroutineScope].() -> T
  * @return [Deferred]<T>
  */
 public inline fun <T> CoroutineScope.asyncDefault(
-    @InBackground noinline action: CoroutineScopeFunction0<T>
-): Deferred<T> = async(Dispatchers.Default, block = action)
+    @InBackground noinline block: CoroutineScopeFunction0<T>
+): Deferred<T> = async(Dispatchers.Default, block = block)
 
 /**
  * same as [async] ([Dispatchers.Main])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> T
+ * @param block suspend [CoroutineScope].() -> T
  * @return [Deferred]<T>
  */
 @Suppress("MissingTestFunction") //mpp and main test is still bad
 public inline fun <T> CoroutineScope.asyncMain(
-    @InUi noinline action: CoroutineScopeFunction0<T>
-): Deferred<T> = async(Dispatchers.Main, block = action)
+    @InUi noinline block: CoroutineScopeFunction0<T>
+): Deferred<T> = async(Dispatchers.Main, block = block)
 
 /**
  * same as [launch] ([Dispatchers.Default])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> [Unit]
+ * @param block suspend [CoroutineScope].() -> [Unit]
  * @return [Job]
  */
 public inline fun CoroutineScope.launchDefault(
-    @InBackground noinline action: CoroutineScopeFunction
-): Job = launch(Dispatchers.Default, block = action)
+    @InBackground noinline block: CoroutineScopeFunction
+): Job = launch(Dispatchers.Default, block = block)
 
 /**
  * same as [launch] ([Dispatchers.Main])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> [Unit]
+ * @param block suspend [CoroutineScope].() -> [Unit]
  * @return [Job]
  */
 @Suppress("MissingTestFunction") //mpp and main test is still bad
 public inline fun CoroutineScope.launchMain(
-    @InUi noinline action: CoroutineScopeFunction
-): Job = launch(Dispatchers.Main, block = action)
+    @InUi noinline block: CoroutineScopeFunction
+): Job = launch(Dispatchers.Main, block = block)
 
 /**
  * same as [withContext] ([Dispatchers.Default])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> T
+ * @param block suspend [CoroutineScope].() -> T
  * @return T
  */
 public suspend fun <T> CoroutineScope.withContextDefault(
-    @InBackground action: CoroutineScopeFunction0<T>
-): T = withContext(Dispatchers.Default, action)
+    @InBackground block: CoroutineScopeFunction0<T>
+): T = withContext(Dispatchers.Default, block)
 
 /**
  * same as [withContext] ([Dispatchers.Main])
  * @receiver [CoroutineScope]
- * @param action suspend [CoroutineScope].() -> T
+ * @param block suspend [CoroutineScope].() -> T
  * @return T
  */
 @Suppress("MissingTestFunction") //mpp and main test is still bad
 public suspend fun <T> CoroutineScope.withContextMain(
-    @InUi action: CoroutineScopeFunction0<T>
-): T = withContext(Dispatchers.Main, action)
+    @InUi block: CoroutineScopeFunction0<T>
+): T = withContext(Dispatchers.Main, block)
 

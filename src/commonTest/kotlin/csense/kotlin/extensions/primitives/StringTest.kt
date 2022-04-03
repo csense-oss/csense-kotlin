@@ -39,7 +39,6 @@ class StringTest {
     }
 
 
-
     class ContainsAnyCollection {
 
         @Test
@@ -460,7 +459,7 @@ class StringTest {
             }
         }
 
-        
+
         @Test
         fun startsFromTheBack() {
             "abc".forEachBackwards { char ->
@@ -501,8 +500,6 @@ class StringTest {
         }
     }
 
-
-    
 
     @Test
     fun nullOnEmpty() {
@@ -682,6 +679,51 @@ class StringTest {
             " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = false).assertFalse()
             " Im a test".equals("im a test ", ignoreCase = false, ignoreWhitespace = true).assertFalse()
             " Im a test".equals("im a test ", ignoreCase = true, ignoreWhitespace = true).assertTrue()
+        }
+
+    }
+
+
+    @Test
+    fun lowerCaseFirstWord() {
+        "".lowerCaseFirstWord().assert("")
+        " ".lowerCaseFirstWord().assert(" ")
+        "a".lowerCaseFirstWord().assert("a")
+        "abc".lowerCaseFirstWord().assert("abc")
+        "1234".lowerCaseFirstWord().assert("1234")
+        "Hi ☺".lowerCaseFirstWord().assert("hi ☺")
+        "Ǆ".lowerCaseFirstWord().assert("ǆ")
+        "ǆ".lowerCaseFirstWord().assert("ǆ")
+        "hej Med".lowerCaseFirstWord().assert("hej Med")
+    }
+
+    class StringCaseFirstWord {
+
+        @Test
+        fun titlecaseFirstWord() {
+            "".caseFirstWord(shouldBeTitleCase = true).assert("")
+            " ".caseFirstWord(shouldBeTitleCase = true).assert(" ")
+            "a".caseFirstWord(shouldBeTitleCase = true).assert("A")
+            "abc".caseFirstWord(shouldBeTitleCase = true).assert("Abc")
+            "1234".caseFirstWord(shouldBeTitleCase = true).assert("1234")
+            "Hi ☺".caseFirstWord(shouldBeTitleCase = true).assert("Hi ☺")
+            "Ǆ".caseFirstWord(shouldBeTitleCase = true).assert("ǅ")
+            "ǆ".caseFirstWord(shouldBeTitleCase = true).assert("ǅ")
+            "hej Med".caseFirstWord(shouldBeTitleCase = true).assert("Hej Med")
+        }
+
+        @Test
+        fun lowercaseFirstWord() {
+            "".caseFirstWord(shouldBeTitleCase = false).assert("")
+            " ".caseFirstWord(shouldBeTitleCase = false).assert(" ")
+            "a".caseFirstWord(shouldBeTitleCase = false).assert("a")
+            "abc".caseFirstWord(shouldBeTitleCase = false).assert("abc")
+            "1234".caseFirstWord(shouldBeTitleCase = false).assert("1234")
+            "Hi ☺".caseFirstWord(shouldBeTitleCase = false).assert("hi ☺")
+            "Ǆ".caseFirstWord(shouldBeTitleCase = false).assert("ǆ")
+            "ǆ".caseFirstWord(shouldBeTitleCase = false).assert("ǆ")
+            "hej Med".caseFirstWord(shouldBeTitleCase = false).assert("hej Med")
+
         }
 
     }
