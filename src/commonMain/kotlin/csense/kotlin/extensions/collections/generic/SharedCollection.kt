@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.collections.generic
 
@@ -6,6 +7,7 @@ import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.contracts.*
 
 
 /**
@@ -25,6 +27,9 @@ public inline fun <T, U> GenericCollectionExtensions.joinEveryAction(
     crossinline getter: GenericGetterIndexMethod<T>,
     crossinline builderType: Function2<Int, Function1<@IntLimit(from = 1) Int, T>, U>
 ): U {
+    contract {
+        callsInPlace(builderType, InvocationKind.EXACTLY_ONCE)
+    }
     if (itemsBetweenJoins.isNegativeOrZero) {
         return builderType(size) { getter(it) }
     }

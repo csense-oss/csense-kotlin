@@ -1,9 +1,11 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.primitives
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.number.*
+import kotlin.contracts.*
 import kotlin.jvm.*
 
 
@@ -98,6 +100,9 @@ public inline val Byte.isOdd: Boolean
 public fun <T> Byte.toChars(
     action: (upperChar: Char, lowerChar: Char) -> T
 ): T {
+    contract {
+        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
+    }
     val (upper: Byte, lower: Byte) = bitOperations.splitIntoNibbles()
     return action(
         ByteExtensions.hexCharsAsString[upper.toInt()],

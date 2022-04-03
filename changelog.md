@@ -3,11 +3,36 @@
 ## 0.0.58
 
 - added
-  - MutableCollection.addAll(Iterable<E>?)
+    - MutableCollection.addAll(Iterable<E>?)
+    - String.caseFirstWord
+    - String.lowerCaseFirstWord
+    - StringModification.replaceLazy
+    - CoroutineScope.withContextIO
+    - contracts to
+        - string.ifNotEmpty
+        - string.ifNotBlank
+        - GenericCollectionExtensions.joinEveryAction
+        - Any.invokeIsInstance
+        - Map<K, V>.useValueOr
+        - Boolean.onFalse
+        - Boolean.onTrue
+        - Boolean.ifTrue
+        - Boolean.ifFalse
+        - Byte.toChars
+
+- updated
+    - renamed CoroutineScope.asyncIO's action to block (to match coroutines naming)
+    - renamed CoroutineScope.launchIO's action to block (to match coroutines naming)
+    - renamed CoroutineScope.asyncDefault's action to block (to match coroutines naming)
+    - renamed CoroutineScope.asyncMain's action to block (to match coroutines naming)
+    - renamed CoroutineScope.launchDefault's action to block (to match coroutines naming)
+    - renamed CoroutineScope.launchMain's action to block (to match coroutines naming)
+    - renamed CoroutineScope.withContextDefault's action to block (to match coroutines naming)
+    - renamed CoroutineScope.withContextMain's action to block (to match coroutines naming)
 
 ## 0.0.57
 
-- fixed package for MPP projects (changed flags + reupload of 0.0.56)
+- fixed package for MPP projects (changed flags + re-upload of 0.0.56)
 
 ## 0.0.56
 

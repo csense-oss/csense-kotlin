@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.primitives
 
@@ -13,6 +14,9 @@ import kotlin.contracts.*
  * @return [Boolean]
  */
 public inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
     if (!this) {
         action()
     }
@@ -26,6 +30,9 @@ public inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
  * @return [Boolean]
  */
 public inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
     if (this) {
         action()
     }
@@ -39,7 +46,12 @@ public inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action)
+public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    return onTrue(action)
+}
 
 
 /**
@@ -48,8 +60,12 @@ public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean = onTrue(action
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean =
-    onFalse(action)
+public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    return onFalse(action)
+}
 
 
 @OptIn(ExperimentalContracts::class)

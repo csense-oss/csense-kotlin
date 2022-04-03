@@ -1,4 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions.primitives
 
@@ -7,6 +8,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.specificExtensions.string.*
+import kotlin.contracts.*
 
 //region Searching / find
 /**
@@ -88,13 +90,18 @@ public inline fun String.startsWithAny(
  * if this [String] is not empty , executes the method and returns that
  * if it is empty, then it returns "this".
  * @receiver C
- * @param action [Function1]<C, C>
+ * @param ifNotEmpty [Function1]<C, C>
  * @return C
  */
-public inline fun String.ifNotEmpty(action: Function1<String, String>): String = if (isEmpty()) {
-    this
-} else {
-    action(this)
+public inline fun String.ifNotEmpty(ifNotEmpty: Function1<String, String>): String {
+    contract {
+        callsInPlace(ifNotEmpty, InvocationKind.AT_MOST_ONCE)
+    }
+    return if (isEmpty()) {
+        this
+    } else {
+        ifNotEmpty(this)
+    }
 }
 
 /**
@@ -102,13 +109,18 @@ public inline fun String.ifNotEmpty(action: Function1<String, String>): String =
  * if this string is not blank, executes the method and returns that
  * if it is blank, then it returns this.
  * @receiver C
- * @param action [Function1]<C, C>
+ * @param ifNotBlank [Function1]<C, C>
  * @return C
  */
-public inline fun String.ifNotBlank(action: Function1<String, String>): String = if (isBlank()) {
-    this
-} else {
-    action(this)
+public inline fun String.ifNotBlank(ifNotBlank: Function1<String, String>): String {
+    contract {
+        callsInPlace(ifNotBlank, InvocationKind.AT_MOST_ONCE)
+    }
+    return if (isBlank()) {
+        this
+    } else {
+        ifNotBlank(this)
+    }
 }
 //endregion
 
@@ -331,17 +343,36 @@ public inline fun String.nullOnEmpty(): String? = ifEmpty {
 
 /**
  * Title-cases this string's first word if it is not already title cased.
- * @return this string if empty, or the first char is title-cased.
- * otherwise, title-cases the first char and returns that string
+ * @return this string if empty or if the first char is title-cased.
+ * otherwise, title-cases the first char
  */
-public inline fun String.titleCaseFirstWord(): String {
+public inline fun String.titleCaseFirstWord(): String = caseFirstWord(shouldBeTitleCase = true)
+
+/**
+ * lower-cases this string's first word if it is not already lower cased.
+ * @return this string if empty or if the first char is lowercase.
+ * otherwise, lowercase the first char
+ */
+public inline fun String.lowerCaseFirstWord(): String = caseFirstWord(shouldBeTitleCase = false)
+
+/**
+ * apply either a Title case or a lowercase to this string's first word
+ * @param shouldBeTitleCase [Boolean] true means to title case, false means to lowercase
+ * @return this string if empty or if already the given casing;  otherwise applies the given casing.
+ */
+public inline fun String.caseFirstWord(shouldBeTitleCase: Boolean): String {
     val firstCharIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return this
     val firstChar = this[firstCharIndex]
     if (firstChar.isTitleCase()) {
         return this
     }
-    return modifications.replaceCharAt(index = firstCharIndex, withChar = firstChar.titlecaseChar())
+    val withChar = shouldBeTitleCase.mapLazy(
+        ifTrue = firstChar::titlecaseChar,
+        ifFalse = firstChar::lowercaseChar
+    )
+    return modifications.replaceCharAt(index = firstCharIndex, withChar = withChar)
 }
+
 
 @kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.startsWith(

@@ -1,4 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.specificExtensions.string
 
@@ -7,6 +8,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
+import kotlin.contracts.*
 import kotlin.jvm.*
 
 @JvmInline
@@ -178,7 +180,51 @@ public inline fun StringModification.replaceIfOr(
     crossinline ifTrueValue: EmptyFunctionResult<String>,
     crossinline ifFalseValue: EmptyFunctionResult<String>,
     ignoreCase: Boolean = false
-): String = with(string) {
-    val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
-    return@with this.replace(toReplace, replacement, ignoreCase)
+): String {
+    contract {
+        callsInPlace(ifTrueValue, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(ifFalseValue, InvocationKind.AT_MOST_ONCE)
+    }
+    return with(string) {
+        val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
+        return@with this.replace(toReplace, replacement, ignoreCase)
+    }
+}
+
+/**
+ * Replaces [searchingFor] with the value of [replaceWith] (only iff there are any [searchingFor])
+ *
+ * @receiver StringModification
+ * @param searchingFor String
+ * @param replaceWith Function0<String> will only be called once if there are [searchingFor] occurrences in [StringModification.string]
+ * @param ignoreCase Boolean
+ * @return String
+ */
+public fun StringModification.replaceLazy(
+    searchingFor: String,
+    replaceWith: () -> String,
+    ignoreCase: Boolean = false
+): String {
+    contract {
+        callsInPlace(replaceWith, InvocationKind.AT_MOST_ONCE)
+    }
+    return with(string) {
+
+        if (searchingFor.isEmpty()) {
+            return@with this
+        }
+        var index: Int? = indexOfOrNull(searchingFor, startIndex = 0, ignoreCase = ignoreCase) ?: return@with this
+        val builder = StringBuilder()
+        val replace = replaceWith()
+        var fromIndex = 0
+        while (index != null) {
+            builder.append(substring(fromIndex, index))
+            builder.append(replace)
+            fromIndex = index + searchingFor.length
+            index = indexOfOrNull(searchingFor, startIndex = index + 1, ignoreCase = ignoreCase)
+        }
+        builder.append(substring(fromIndex))
+        return@with builder.toString()
+
+    }
 }
