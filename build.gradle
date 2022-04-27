@@ -1,14 +1,14 @@
 buildscript {
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.6.0"
+    ext.coroutinesVersion = "1.6.1"
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.56"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.50"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.6.20"
+    ext.kotlin_version = "1.6.21"
 
     //https://github.com/Kotlin/kotlinx-benchmark
     ext.kotlinx_benchmark_version = "0.4.2"
@@ -30,7 +30,7 @@ buildscript {
 
     ext.csenseWebsite = "https://github.com/csense-oss/csense-kotlin"
     ext.csenseGit = "https://github.com/csense-oss/csense-kotlin.git"
-    ext.csenseArtifactDescription = "aim of this project is to add futher extensions, features to the std lib as well as more \"very common\" operations."
+    ext.csenseArtifactDescription = "aim of this project is to add further extensions, features to the std lib and \"very common\" operations."
     //end library settings
 }
 
@@ -42,7 +42,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "7.0.3"
+    id "org.owasp.dependencycheck" version "7.1.0.1"
 }
 
 repositories {

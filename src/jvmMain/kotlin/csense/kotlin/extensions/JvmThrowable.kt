@@ -5,7 +5,7 @@ package csense.kotlin.extensions
 import java.io.*
 
 /**
- * Converts a throwable to a string with the stacktrace
+ * Converts a throwable to a string with the stacktrace and message
  * @receiver [Throwable]
  * @return [String]
  */
