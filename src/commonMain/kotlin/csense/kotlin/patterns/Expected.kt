@@ -99,7 +99,7 @@ public inline fun <Value, Error> expected(
 ): Expected<Value, Error> {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-        //callsInPlace(onException, InvocationKind.AT_MOST_ONCE) // see https://youtrack.jetbrains.com/issue/KT-51791
+        callsInPlace(onException, InvocationKind.AT_MOST_ONCE) 
     }
     return with(Expected.Companion.ExpectedContext.instance) {
         try {

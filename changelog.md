@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.0.59
+- added
+  - contracts to 
+    - expected (callsInPlace)
+  - string.nullOnBlank
+  - Boolean.mappings (BooleanMappings)
+    - on JVM: mappings.toNewlineOrEmpty()
+  - Throwable.toPrettyStackTrace for JVM
+- bumped kotlin std lib to 1.6.20
+- renamed Throwable.toPrettyString to Throwable.messagesToPrettyString 
+- 
+
 ## 0.0.58
 
 - added

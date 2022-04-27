@@ -34,7 +34,7 @@ public inline fun <T> tryAndLog(
  * @param lineSeparator [String]
  * @param indentation [String]
  */
-public inline fun Throwable.toPrettyString(
+public inline fun Throwable.messagesToPrettyString(
     lineSeparator: String = "\n",
     indentation: String = "\t"
 ): String {

@@ -16,7 +16,7 @@ import csense.kotlin.extensions.collections.*
  */
 public inline fun LLogger.usePrintAsLoggers(
     crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
+        "$level - [$tag] $message ${exception?.messagesToPrettyString() ?: ""}"
     }
 ) {
     val createLogger: (LoggingLevel) -> LoggingFunctionType<Any> = { level: LoggingLevel ->
@@ -33,7 +33,7 @@ public inline fun LLogger.usePrintAsLoggers(
 @Suppress("MissingTestFunction")
 public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
     crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
+        "$level - [$tag] $message ${exception?.messagesToPrettyString() ?: ""}"
     },
     debugColor: String = "\u001B[35m", // purple
     warningColor: String = "\u001B[33m", // yellow

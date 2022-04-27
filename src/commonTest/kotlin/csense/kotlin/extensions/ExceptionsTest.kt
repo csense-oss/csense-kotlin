@@ -7,16 +7,16 @@ import kotlin.test.*
 class ExceptionsTest {
 
     @Test
-    fun toPrettyString() {
+    fun messagesToPrettyString() {
         val empty = Throwable(null, null)
-        empty.toPrettyString().assertStartsWith("No message")
+        empty.messagesToPrettyString().assertStartsWith("No message")
 
 
         val customMessage = Exception("some message")
-        customMessage.toPrettyString().assertStartsWith("some message")
+        customMessage.messagesToPrettyString().assertStartsWith("some message")
         val cause1 = Throwable("some inner reason")
         val messageCause = Exception("SomeMessage", cause1)
-        val withCauseMessage = messageCause.toPrettyString()
+        val withCauseMessage = messageCause.messagesToPrettyString()
         withCauseMessage.assertStartsWith("SomeMessage")
         withCauseMessage.assertContains("\n\tsome inner reason")
 
@@ -26,7 +26,7 @@ class ExceptionsTest {
         val inner2 = Throwable("inner2", inner3)
         val main = Throwable("main", inner2)
 
-        val longChain = main.toPrettyString()
+        val longChain = main.messagesToPrettyString()
         longChain.assertStartsWith("main")
         longChain.assertContains("\n\tinner2")
         longChain.assertContains("\n\tinner3")
