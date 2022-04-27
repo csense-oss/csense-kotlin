@@ -1,9 +1,12 @@
 package csense.kotlin.debugging
 
+import csense.kotlin.annotations.*
 import csense.kotlin.tests.assertions.*
 import org.junit.*
 
+@OptIn(ExperimentalCsenseApi::class)
 class JvmDebuggingTest {
+
     @Test
     fun getCurrentMethodName() {
         val name = this::getCurrentMethodName.name
