@@ -278,6 +278,24 @@ public open class LLogger {
 }
 
 
+
+/**
+ * Invokes each listener of a logging type function with a lazily computed message.
+ * Skips the message if there are no loggers.
+ * @receiver [Iterable]<T>
+ * @param tag [String]
+ * @param messageFnc [Function0R]<String>
+ * @param exception [Throwable]?
+ */
+public inline fun <T : LoggingFunctionType<*>> Iterable<T>.invokeEachWithLoggingLazy(
+    tag: String,
+    messageFnc: Function0R<String>,
+    exception: Throwable?
+): Unit = skipIfEmptyOr {
+    invokeEachWith(tag, messageFnc(), exception)
+}
+
+
 /**
  * Container for all shared logging.
  * Shared single instance.
