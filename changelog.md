@@ -7,8 +7,8 @@
   - string.nullOnBlank
   - Boolean.mappings (BooleanMappings)
     - on JVM: mappings.toNewlineOrEmpty()
-  - Throwable.toPrettyStackTrace for JVM
-- bumped kotlin std lib to 1.6.20
+  - notImplemented function (akin to a TODO that is intentional)
+- bumped kotlin std lib to 1.6.21
 - renamed Throwable.toPrettyString to Throwable.messagesToPrettyString 
 - 
 
