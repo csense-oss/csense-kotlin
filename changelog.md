@@ -1,16 +1,25 @@
 # Changelog
 
 ## 0.0.59
+
 - added
-  - contracts to 
-    - expected (callsInPlace)
-  - string.nullOnBlank
-  - Boolean.mappings (BooleanMappings)
-    - on JVM: mappings.toNewlineOrEmpty()
-  - notImplemented function (akin to a TODO that is intentional)
+    - contracts to
+        - expected (callsInPlace)
+    - string.nullOnBlank
+    - Boolean.mappings (BooleanMappings)
+        - on JVM: mappings.toNewlineOrEmpty()
+    - notImplemented function (akin to a TODO that is intentional)
 - bumped kotlin std lib to 1.6.21
-- renamed Throwable.toPrettyString to Throwable.messagesToPrettyString 
-- 
+- renamed Throwable.toPrettyString to Throwable.messagesToPrettyString
+- added [documentation/Logging.md](documentation/Logging.md)
+- renamed LLogger.isLoggingAllowed parameter **value** to **enable**
+- renamed LLogger.warning parameter **throwable** to **exception**
+- renamed LLogger.warningLazy parameter **throwable** to **exception**
+- renamed FunctionLoggerFormatter parameter **error** to **exception**
+- renamed LoggingFunctionType parameter **throwable** to **exception**
+- added AnsiConsoleEscapeCodes & LLoggerExtensions to simply code wrt printLoggers
+- print loggers now print the whole stacktrace and not just the message.
+- removed extraneous method LL.logger.warning with the signature of lazy (taking message as a function)
 
 ## 0.0.58
 
@@ -42,8 +51,8 @@
     - renamed CoroutineScope.launchMain's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextDefault's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextMain's action to block (to match coroutines naming)
-    - renamed String.ifNotEmpty's action to ifNotEmpty 
-    - renamed String.ifNotBlank's action to ifNotBlank 
+    - renamed String.ifNotEmpty's action to ifNotEmpty
+    - renamed String.ifNotBlank's action to ifNotBlank
 
 ## 0.0.57
 

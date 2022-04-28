@@ -66,6 +66,9 @@ There is also lazy logging, in case the message is expensive to compute (since k
 They take the form of a lambda instead of a message.
 
 ```kotlin
+L.logProdLazy("Tag", { "MyVeryExpensiveMessage" })
+L.errorLazy(tag = "tag", message = { "message" }, exception = Exception())
+L.warningLazy("tag", message = { "message" })
 L.debugLazy("tag") { "expensive message" }
 ```
 
@@ -93,6 +96,17 @@ To modify the loggers, (clearing them and or appending listeners), just access i
 ````kotlin
 L.warningLoggers
 ````
+
+## Stacktrace logging (JVM)
+
+Feature for logging the stacktrace.
+
+```kotlin
+logCurrentStackTraceProd(tag = "Unexpected call")
+logCurrentStackTraceError(tag = "Bug")
+logCurrentStackTraceWarning()
+logCurrentStackTraceDebug(tag = "Debug", limit = 100)
+```
 
 ## Convenience
 

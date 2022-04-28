@@ -30,12 +30,12 @@ public enum class LoggingLevel(public val stringValue: String) {
 /**
  * The Basis logging function.
  */
-public typealias LoggingFunctionType<T> = (tag: String, message: String, throwable: Throwable?) -> T
+public typealias LoggingFunctionType<T> = (tag: String, message: String, exception: Throwable?) -> T
 
 /**
  * The definition of a logging formatter.
  */
-public typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, error: Throwable?) -> String
+public typealias FunctionLoggerFormatter = (level: LoggingLevel, tag: String, message: String, exception: Throwable?) -> String
 
 /**
  * The L logger, capable of being instantiated, and inherited.
@@ -98,11 +98,11 @@ public open class LLogger {
      * INCLUDING productionLogging (so if you want to turn off all logs, except production logging
      * the advice is to set isAllowedLogging(false); and then explicit enable productionLogging.
      */
-    public fun isLoggingAllowed(value: Boolean) {
-        isProductionLoggingAllowed = value
-        isErrorLoggingAllowed = value
-        isWarningLoggingAllowed = value
-        isDebugLoggingAllowed = value
+    public fun isLoggingAllowed(enable: Boolean) {
+        isProductionLoggingAllowed = enable
+        isErrorLoggingAllowed = enable
+        isWarningLoggingAllowed = enable
+        isDebugLoggingAllowed = enable
     }
 
     //region log prod
