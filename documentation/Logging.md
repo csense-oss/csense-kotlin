@@ -10,6 +10,18 @@ There are 4 levels of logging:
 - warning
 - debug
 
+**Production**
+is intended for, production use. that is, if something is unexpected, or not an error but requires logging.
+
+**Error**
+is intended for, errors, bugs, and or other unexpected issues.
+
+**Warning**
+is intended for things that might be of interest (say slow network calls etc.) but are not an error per se.
+
+**Debug**
+is intended for debugging purpose.
+
 ## Setup
 
 Can be as follows:
@@ -30,15 +42,15 @@ L.debugLoggers += { tag, message, error -> Log.d(tag, message, error) }
 
 Or you could save data to a file / database etc.
 
-
 ## Ways to log
 
 The general logging is as follows:
 
 ````kotlin
-L.error("tag", "message", someException)
-L.warning("tag", "message")
-L.debugLazy("Tag") { "expensive computation" }
+L.logProd("Transaction", "Successful for id 1234")
+L.error("Exception", "bad network?", someException)
+L.warning("Network", "slow")
+L.debug("info", "shotgun debugging")
 ````
 
 ### JVM
@@ -50,7 +62,12 @@ L.debug(X::class, "message")
 L.debug(X::class.java, "message")
 ````
 
+There is also lazy logging, in case the message is expensive to compute (since kotlin is eagerly evaluating parameters).
+They take the form of a lambda instead of a message.
 
+```kotlin
+L.debugLazy("tag") { "expensive message" }
+```
 
 ## Enabling / disabling
 
@@ -70,6 +87,7 @@ L.isLoggingAllowed(true)
 ```
 
 ## Controlling loggers
+
 To modify the loggers, (clearing them and or appending listeners), just access it like so
 
 ````kotlin
@@ -77,10 +95,11 @@ L.warningLoggers
 ````
 
 ## Convenience
+
 since its disabled and unconfigured by default there are some helper methods to setup the logging to console
+
 ```kotlin
 L.usePrintAsLoggers()
-//or for fancy 
+//or for fancy prints
 L.usePrintAsLoggersWithAnsiColor()
-
 ```

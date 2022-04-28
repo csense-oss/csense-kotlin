@@ -220,7 +220,7 @@ class LLoggerTest {
 
 
     }
-    
+
 }
 
 private fun testLazyLoggingPassingThough(

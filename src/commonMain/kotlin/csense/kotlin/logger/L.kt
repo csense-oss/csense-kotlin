@@ -123,8 +123,8 @@ public open class LLogger {
         logProd(tag, message, null)
 
     /**
-     * Lazy logging where, computing the message is non "trivial" or you do not wanna pay for creating / computing
-     *  it if its not going to get logged.
+     * Lazy logging where, computing the message is non "trivial" or you do not want to pay for creating / computing
+     *  it if it's not going to get logged.
      * @param tag [String]
      * @param messageFnc [Function0R]<[String]>
      * @param exception [Throwable]?
@@ -155,9 +155,7 @@ public open class LLogger {
         errorLoggers.invokeEachWith(tag, message, exception)
     }
 
-    /**
-     *
-     */
+    
     public fun error(tag: String, message: String): Unit =
         error(tag, message, null)
 
