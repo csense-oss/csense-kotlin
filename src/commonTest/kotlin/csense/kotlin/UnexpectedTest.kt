@@ -4,7 +4,7 @@ import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class GeneralTest {
+class UnexpectedTest {
 
     class Unexpected {
         @Test
