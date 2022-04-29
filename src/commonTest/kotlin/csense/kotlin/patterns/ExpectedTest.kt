@@ -128,7 +128,7 @@ class ExpectedTest {
     class ExpectedValueErrorValueOrExpectedFailed {
 
         @Test
-        fun ExpectedValueErrorValueOrExpectedFailed() {
+        fun expectedValueErrorValueOrExpectedFailed() {
             val failed = Expected.failed(42)
             assertThrows<Exception> {
                 failed.valueOrExpectedFailed {
