@@ -826,7 +826,7 @@ class CollectionTest {
             collection.findWithType<Char> { shouldNotBeCalled() }
             collection.findWithType<Number> {
                 true
-            }?.assert(1234)
+            }?.assertByEquals(1234)
 
 
             assertCallbackCalledWith(listOf("test", "1234")) { assertCallback ->

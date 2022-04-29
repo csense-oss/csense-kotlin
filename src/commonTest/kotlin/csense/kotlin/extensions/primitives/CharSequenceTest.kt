@@ -552,7 +552,7 @@ class CharSequenceTest {
 
         @Test
         fun nonFound() {
-            "abc".indexOfLastIndexedOrNull { index, it ->
+            "abc".indexOfLastIndexedOrNull { _, _ ->
                 false
             }.assertNull()
             assertCalled { shouldBeCalled ->
@@ -564,7 +564,7 @@ class CharSequenceTest {
                 }.assertNull()
             }
             assertCalled(times = 3) { shouldBeCalled ->
-                "abc".indexOfLastIndexedOrNull { index, it ->
+                "abc".indexOfLastIndexedOrNull { _, it ->
                     shouldBeCalled()
                     it == '1'
                 }.assertNull()
@@ -609,7 +609,7 @@ class CharSequenceTest {
             }
 
             assertCalled(times = 2) { shouldBeCalled ->
-                "bcbabc".indexOfLastIndexedOrNull { index, char ->
+                "bcbabc".indexOfLastIndexedOrNull { _, char ->
                     shouldBeCalled()
                     char == 'b'
                 }.assert(4)

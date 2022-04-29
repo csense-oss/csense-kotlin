@@ -9,4 +9,5 @@ import kotlin.contracts.*
  * akin to a todo 
  * but intentional
  */
+@Throws(NotImplementedError::class)
 public fun notImplemented(): Nothing = throw NotImplementedError()
