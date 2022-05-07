@@ -53,7 +53,7 @@ class EnumKtTest {
     //endregion
 
 
-    //region Ordinal search for enum
+    //region Ordinal searches for enum
     @Test
     fun enumFromOrValue() {
         enumFromOr(EnumKtTestEnum.A.ordinal, EnumKtTestEnum.C).assert(EnumKtTestEnum.A)

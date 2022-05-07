@@ -56,7 +56,6 @@ public inline fun <T> Array<T>.indexOfLastOrNull(predicate: Function1<T, Boolean
     indexOfLast(predicate).indexOfExtensions.unwrapUnsafeIndexOf()
 
 
-//region joinEvery
 public inline fun <reified T> Array<T>.joinEvery(
     @IntLimit(from = 0) itemsBetweenJoins: Int,
     toJoin: T
@@ -80,12 +79,26 @@ public inline fun <reified T> Array<T>.joinEveryAction(
         return this
     }
     return GenericCollectionExtensions.joinEveryAction(
-        itemsBetweenJoins,
-        toJoinAction,
-        size,
-        this::get,
+        itemsBetweenJoins = itemsBetweenJoins,
+        toJoinAction = toJoinAction,
+        size = size,
+        getter = this::get,
         builderType = ::Array
     )
 }
 
-//endregion
+public inline fun <Item, Result> Array<Item>.mapToMutable(
+    transform: (Item) -> Result
+): MutableList<Result> = forEachWith(ArrayList(size)) {
+    this += transform(it)
+}
+
+public inline fun <Item, Result> Array<Item>.forEachWith(
+    result: Result,
+    append: Result.(Item) -> Unit
+): Result {
+    forEach {
+        result.append(it)
+    }
+    return result
+}

@@ -23,7 +23,7 @@ public inline fun <U> Any?.mapOptional(
 /**
  * Maps an optional value into another value
  * @receiver [Any]?
- * @param ifNotNull [Function1]<[U>] the value if 'this' is not null (with the non null value)
+ * @param ifNotNull [Function1]<[U>] the value if 'this' is not null (with the non-null value)
  * @param ifNull [EmptyFunctionResult]<[U]> the value if 'this' is null
  * @return [U] the value depending on 'this' value
  */

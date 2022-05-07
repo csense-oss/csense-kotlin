@@ -41,7 +41,7 @@ class CollectionTest {
     }
 
 
-    class CollectionTGetOrNull {
+    class CollectionItemGetOrNull {
         @Test
         fun getOrNullEmpty() {
             val collection: MutableCollection<String> = mutableListOf()
@@ -291,7 +291,7 @@ class CollectionTest {
 
 
     @Test
-    fun collectionTSecondLastOrNull() {
+    fun collectionItemSecondLastOrNull() {
         val emptyData: Collection<String> = listOf()
         emptyData.secondLastOrNull().assertNull()
         val singleData: Collection<String> = listOf("a")
@@ -303,7 +303,7 @@ class CollectionTest {
     }
 
 
-    class CollectionTCategorizeByString {
+    class CollectionItemCategorizeByString {
 
         @Test
         fun empty() {
@@ -347,7 +347,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTIndexOfOrNull {
+    class CollectionItemIndexOfOrNull {
         @Test
         fun empty() {
             val lst = listOf<String>()
@@ -385,7 +385,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTLastIndexOfOrNull {
+    class CollectionItemLastIndexOfOrNull {
         @Test
         fun empty() {
             val lst = listOf<String>()
@@ -424,7 +424,7 @@ class CollectionTest {
     }
 
 
-    class CollectionTNullOnEmpty {
+    class CollectionItemNullOnEmpty {
         @Test
         fun empty() {
             listOf<String>()
@@ -455,7 +455,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTSelectFirstOrNull {
+    class CollectionItemSelectFirstOrNull {
         @Test
         fun emptySelect() {
             listOf<String>().selectFirstOrNull {
@@ -511,7 +511,7 @@ class CollectionTest {
     }
 
     //TODO when test plugin understands it,use "toJoin" as the end name
-    class CollectionTJoinEveryItemsBetweenJoin {
+    class CollectionItemJoinEveryItemsBetweenJoin {
         @Test
         fun empty() {
             listOf<String>().joinEvery(-1, "").assertSize(0)
@@ -562,7 +562,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTJoinEveryAction {
+    class CollectionItemJoinEveryAction {
         @Test
         fun empty() {
             listOf<String>().joinEveryAction(-1) { failTest() }.assertSize(0)
@@ -613,7 +613,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTIndexOfFirstOrNull {
+    class CollectionItemIndexOfFirstOrNull {
         @Test
         fun empty() {
             listOf<String>().indexOfFirstOrNull { shouldNotBeCalled() }.assertNull()
@@ -635,7 +635,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTIndexOfLastOrNull {
+    class CollectionItemIndexOfLastOrNull {
         @Test
         fun empty() {
             listOf<String>().indexOfLastOrNull { shouldNotBeCalled() }.assertNull()
@@ -657,7 +657,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionElementCategorizeIntoFilters {
+    class CollectionItemCategorizeIntoFilters {
         @Test
         fun emptyInputEmptyFilters() {
             listOf<String>().categorizeInto().assertEmpty()
@@ -849,7 +849,7 @@ class CollectionTest {
     }
 
     //region toMapFlat
-    class CollectionTToMapFlatKeyMapper {
+    class CollectionItemToMapFlatKeyMapper {
         @Test
         fun empty() {
             listOf<String>().toMapFlat { shouldNotBeCalled() }
@@ -900,7 +900,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToMutableMapFlatKeyMapper {
+    class CollectionItemToMutableMapFlatKeyMapper {
         @Test
         fun empty() {
             listOf<String>().toMutableMapFlat { shouldNotBeCalled() }
@@ -953,7 +953,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToMapKeyMapperFlatValueMapper {
+    class CollectionItemToMapKeyMapperFlatValueMapper {
         @Test
         fun empty() {
             listOf<String>().toMapFlat(
@@ -1021,7 +1021,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToMutableMapFlatKeyMapperValueMapper {
+    class CollectionItemToMutableMapFlatKeyMapperValueMapper {
         @Test
         fun empty() {
             listOf<String>().toMutableMapFlat(
@@ -1098,7 +1098,7 @@ class CollectionTest {
     //endregion
 
     //region toMap
-    class CollectionTToMapKeyMapper {
+    class CollectionItemToMapKeyMapper {
         @Test
         fun empty() {
             listOf<String>().toMap {
@@ -1157,7 +1157,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToMapKeyMapperValueMapper {
+    class CollectionItemToMapKeyMapperValueMapper {
         @Test
         fun empty() {
             listOf<String>().toMap(
@@ -1240,7 +1240,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToMutableMapKeyMapper {
+    class CollectionItemToMutableMapKeyMapper {
 
         @Test
         fun empty() {
@@ -1302,7 +1302,7 @@ class CollectionTest {
 
     }
 
-    class CollectionTToMutableMapKeyMapperValueMapper {
+    class CollectionItemToMutableMapKeyMapperValueMapper {
 
         @Test
         fun empty() {
@@ -1379,7 +1379,7 @@ class CollectionTest {
 
     //endregion
 
-    class CollectionTToUniqueMutableMap {
+    class CollectionItemToUniqueMutableMap {
 
         @Test
         fun empty() {
@@ -1421,7 +1421,7 @@ class CollectionTest {
         }
     }
 
-    class CollectionTToUniqueMap {
+    class CollectionItemToUniqueMap {
         @Test
         fun empty() {
             val map = listOf<String>().toUniqueMap(
@@ -1465,4 +1465,41 @@ class CollectionTest {
         }
 
     }
+
+    class CollectionItemMapToMutable {
+        @Test
+        fun empty() {
+            val input = listOf<String>().mapToMutable { shouldNotBeCalled() }
+            input.assertEmpty()
+        }
+
+
+        @Test
+        fun single() = assertCalled { shouldBeCalled ->
+            val input = listOf(
+                "test"
+            ).mapToMutable {
+                it.assert("test")
+                shouldBeCalled()
+                42
+            }
+            input.assertSingle(42)
+        }
+
+
+        @Test
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            val input = listOf(
+                "1",
+                "_2"
+            ).mapToMutable {
+                shouldBeCalled()
+                it.length
+            }
+            input.assertSize(2)
+            input.assertContainsInOrder(1, 2)
+        }
+
+    }
+
 }

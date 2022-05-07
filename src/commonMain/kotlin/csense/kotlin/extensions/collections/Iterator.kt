@@ -20,7 +20,7 @@ public inline fun <T> Iterator<T>.findFirst(predicate: Function1<T, Boolean>): T
 }
 
 /**
- * Converts the current iterator to a list by iterating all of the "remaining" elements
+ * Converts the current iterator to a list by iterating all the "remaining" elements
  * @receiver Iterator<T>
  * @return List<T> a list of all the items (remaining)
  */
@@ -42,7 +42,7 @@ public inline fun <T, R> Iterator<T>.map(
 }
 
 /**
- * Converts the current iterator to a list by iterating all of the "remaining" elements
+ * Converts the current iterator to a list by iterating all the "remaining" elements
  * @receiver Iterator<T>
  * @return MutableList<T> a mutable list of all the items (remaining)
  */

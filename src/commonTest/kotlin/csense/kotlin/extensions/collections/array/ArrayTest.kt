@@ -271,4 +271,46 @@ class ArrayTest {
             arrayOf("test", "1234").indexOfLastOrNull { false }.assertNull()
         }
     }
+
+    class ArrayItemMapToMutable {
+        @Test
+        fun empty() {
+            val input = arrayOf<String>().mapToMutable { shouldNotBeCalled() }
+            input.assertEmpty()
+        }
+
+
+        @Test
+        fun single() {
+            TODO()
+        }
+
+
+        @Test
+        fun multiple() {
+            TODO()
+        }
+
+    }
+
+    class ArrayItemForEachWith {
+        @Test
+        fun empty() {
+            val result = arrayOf<String>().forEachWith(42) { shouldNotBeCalled() }
+            result.assert(42)
+        }
+
+
+        @Test
+        fun single() {
+            TODO()
+        }
+
+
+        @Test
+        fun multiple() {
+            TODO()
+        }
+
+    }
 }

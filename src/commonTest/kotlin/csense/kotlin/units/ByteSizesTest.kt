@@ -23,7 +23,7 @@ class ByteSizesTest {
         assertBitToByte(_128bits, _128bits.toBytes())
     }
 
-    //bytes to kilo bytes
+    //bytes to kilobytes
     @Test
     fun toKiloBits() {
         BinaryBitSizes.Bit(0).toKiloBits().assert(0)
@@ -43,7 +43,7 @@ class ByteSizesTest {
         assertByteToBit(_16, _16.toBits())
     }
 
-    //bytes to kilo bytes
+    //bytes to kilobytes
     @Test
     fun toKiloBytes() {
         BinaryBitSizes.Byte(0).toKiloBytes().assert(0)

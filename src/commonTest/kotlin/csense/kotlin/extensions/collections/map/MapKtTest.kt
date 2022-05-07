@@ -688,5 +688,26 @@ class MapKtTest {
         }
 
     }
+
+    class MapKeyValueMapEachEntryWith {
+        @Test
+        fun empty() {
+            //mapOf<>().mapEachEntryWith()
+            TODO()
+        }
+
+
+        @Test
+        fun single() {
+            TODO()
+        }
+
+
+        @Test
+        fun multiple() {
+            TODO()
+        }
+
+    }
 }
 

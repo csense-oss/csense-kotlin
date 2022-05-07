@@ -47,7 +47,7 @@ class StringIterableTest {
             //there
             listOf("a", "b", "c").contains("C", true).assertTrue()
 
-            //and some more for sanity sake.
+            //and some more for sanity’s sake.
             listOf("1234", "12345").contains("12345", true).assertTrue()
             listOf("1234", "12345").contains("12345", false).assertTrue()
 

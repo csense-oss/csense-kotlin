@@ -1,6 +1,4 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "DeferredIsResult")
-@file:OptIn(ExperimentalContracts::class)
-
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.*

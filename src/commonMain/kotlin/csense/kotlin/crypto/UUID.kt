@@ -28,7 +28,7 @@ public object UUID4 {
         shouldBeUppercase: Boolean = true,
         shouldHaveDashes: Boolean = true
     ): String {
-        //create 16 bit random
+        //create 16-bit random
         val randomData = random.nextBytes(16)
         //then manipulate it as follows in RFC 4122 section 4.4
         /*
@@ -40,13 +40,11 @@ public object UUID4 {
             randomData[clk_seq_hi_resIndex]
                 .and(0b0111_1111)
                 .or(0b1000_0000.toByte())
-        //AND => removes all the unwanted 1's (akk at the second last location
+        //AND => removes all the unwanted 1's (akk at the second last location)
         //OR => adds the 1 to the last bit. => 0b10xxxxxx
         //akk set upper part to 0b10xx
         /* version 4 bit pattern
-            0     1     0     0   The randomly or pseudo-
-                                 randomly generated version
-                                 specified in this document.
+            0     1     0     0   The randomly or pseudo-randomly generated version specified in this document.
          */
         randomData[time_hi_and_versionIndex] =
             randomData[time_hi_and_versionIndex].bitOperations.updateUpperNibble(0b0100)

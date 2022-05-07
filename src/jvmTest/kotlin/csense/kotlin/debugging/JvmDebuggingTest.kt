@@ -59,4 +59,26 @@ class JvmDebuggingTest {
     private fun guessFileNameFromClassName(className: String): String {
         return "$className.kt"
     }
+
+    @Test
+    fun debugging() {
+        val first = debugging
+        val second = debugging
+        (first != second).assertTrue("Should have different references")
+        (second != first).assertTrue("Should have different references")
+    }
+}
+
+class DebuggingTest {
+
+    class Companion {
+        @OptIn(ExperimentalCsenseApi::class)
+        @Test
+        fun fromCallingMethod() {
+            val testMethod = Debugging.fromCallingMethod()
+            testMethod.getCurrentMethodName().assert(::fromCallingMethod.name)
+            testMethod.getCurrentMethodInformation().assertStartsWith(DebuggingTest::class.qualifiedName!!)
+        }
+    }
+
 }

@@ -198,7 +198,7 @@ class GenericTest {
                 length = 0,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 0,
-                filterFunction = { shouldNotBeCalled() }
+                predicate = { shouldNotBeCalled() }
             )
         }
 
@@ -208,7 +208,7 @@ class GenericTest {
                 length = 1,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 42,
-                filterFunction = { shouldNotBeCalled() }
+                predicate = { shouldNotBeCalled() }
             ).assertEmpty()
         }
 
@@ -222,7 +222,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     it.assert("output")
                     shouldBeCalled()
                     false
@@ -240,7 +240,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     it.assert("output")
                     shouldBeCalled()
                     true
@@ -260,7 +260,7 @@ class GenericTest {
                     "$it"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     val currentRealIndex = retrieverIndex - 1
                     it.assert("$currentRealIndex")
                     shouldBeCalled()
@@ -281,7 +281,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 2,
-                filterFunction = {
+                predicate = {
                     shouldBeCalled()
                     false
                 })
@@ -290,4 +290,12 @@ class GenericTest {
     }
 
 
+    class GenericForEachWith {
+
+        @Test
+        fun genericForEachWith() {
+            TODO()
+        }
+
+    }
 }

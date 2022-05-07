@@ -119,7 +119,7 @@ public fun <U> StringModification.mapEachMatching(
 }
 
 /**
- * Replaces a value given a criteria. if the condition is true, the replace is called with the value
+ * Replaces a value given a criteria. if the condition is true, [replace] is called with the value
  * otherwise this string is returned as is.
  * @receiver [String]
  * @param condition [Boolean]

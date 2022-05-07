@@ -3,7 +3,6 @@
 package csense.kotlin.logger
 
 import csense.kotlin.*
-import csense.kotlin.extensions.*
 import csense.kotlin.logger.LLoggerExtensions.createPrintLoggerFor
 import csense.kotlin.logger.LLoggerExtensions.createPrintLoggerForAnsiCodes
 import csense.kotlin.logger.LLoggerExtensions.formatMessage

@@ -96,7 +96,7 @@ public open class LLogger {
      * Controls whenever logging is allowed.
      * This turns on all the other logging features
      * INCLUDING productionLogging (so if you want to turn off all logs, except production logging
-     * the advice is to set isAllowedLogging(false); and then explicit enable productionLogging.
+     * the advice is to set isAllowedLogging(false); and then explicit enable productionLogging.)
      */
     public fun isLoggingAllowed(enable: Boolean) {
         isProductionLoggingAllowed = enable
@@ -143,7 +143,7 @@ public open class LLogger {
      * An error logging channel
      * this logs messages as the level "Error", meant for "bad things", eg application / library errors,
      * logging important messages (due to issues / bugs), or alike.
-     * @param tag [String] a categorization of the log, should be 20 characters or less
+     * @param tag [String] a categorization of the log, should be 20 characters or fewer
      * @param message [String] the message to be logged can be as long as needed, and contain control characters
      *  (newlines, tabs ect)
      * @param exception [Throwable] a stacktrace of some sort of error / exception.

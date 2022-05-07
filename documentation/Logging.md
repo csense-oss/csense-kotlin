@@ -66,7 +66,7 @@ There is also lazy logging, in case the message is expensive to compute (since k
 They take the form of a lambda instead of a message.
 
 ```kotlin
-L.logProdLazy("Tag", { "MyVeryExpensiveMessage" })
+L.logProdLazy("Tag") { "MyVeryExpensiveMessage" }
 L.errorLazy(tag = "tag", message = { "message" }, exception = Exception())
 L.warningLazy("tag", message = { "message" })
 L.debugLazy("tag") { "expensive message" }
@@ -110,7 +110,7 @@ logCurrentStackTraceDebug(tag = "Debug", limit = 100)
 
 ## Convenience
 
-since its disabled and unconfigured by default there are some helper methods to setup the logging to console
+since its disabled and unconfigured by default there are some helper methods to set up the logging to console
 
 ```kotlin
 L.usePrintAsLoggers()
