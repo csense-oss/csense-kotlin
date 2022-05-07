@@ -28,7 +28,7 @@ public inline fun <Key, Value, Result> MapMappings<Key, Value>.forEachEntryWith(
     return result
 }
 
-public inline fun <Key, Value> MapMappings<Key, Value>.reverse(
+public inline fun <Key, Value> MapMappings<Key, Value>.reverseKeyValue(
 
 ): MutableMap<Value, Key> = forEachEntryWith(LinkedHashMap(map.size)) { entry ->
     this[entry.value] = entry.key

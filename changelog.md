@@ -17,7 +17,7 @@
       - CollectionMappings.forEachItemWith
     - Map.mappings (MapMappings)
       - MapMappings.forEachEntryWith
-      - MapMappings.reverse
+      - MapMappings.reverseKeyValue
       
 - bumped kotlin std lib to 1.6.21
 - renamed Throwable.toPrettyString to Throwable.messagesToPrettyString
@@ -33,7 +33,8 @@
 - renamed Type parameter "T" on Collection extension to Item
 - renamed Generic.filter's "filterFunction" to "predicate"
 - renamed CoroutineScope.asyncIO's "action" to "block"
-
+- renamed Map.reverse to Map.reverseKeyValue to clearly indicate that it is not the order but the content that changes
+- renamed MutableMap.reverse to MutableMap.reverseKeyValue to clearly indicate that it is not the order but the content that changes
 
 ## 0.0.58
 

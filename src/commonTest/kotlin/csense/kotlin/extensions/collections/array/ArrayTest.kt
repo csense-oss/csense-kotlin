@@ -282,7 +282,13 @@ class ArrayTest {
 
         @Test
         fun single() {
-            TODO()
+            val input = arrayOf(
+                "a"
+            ).mapToMutable {
+                it.assert("a")
+                42
+            }
+            input.assertSingle(42)
         }
 
 
@@ -302,8 +308,11 @@ class ArrayTest {
 
 
         @Test
-        fun single() {
-            TODO()
+        fun single() = assertCalled { shouldBeCalled ->
+            val result = arrayOf("abc").forEachWith("test") {
+                shouldBeCalled()
+            }
+            result.assert("test")
         }
 
 

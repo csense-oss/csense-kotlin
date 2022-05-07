@@ -140,4 +140,4 @@ public inline fun <Key, Value> Map<Key, Value>.hasSameContentBy(
  * Creates a reversed map where value -> key
  * @return the reversed map
  */
-public inline fun <Key, Value> Map<Key, Value>.reverse(): Map<Value, Key> = mappings.reverse()
+public inline fun <Key, Value> Map<Key, Value>.reverseKeyValue(): Map<Value, Key> = mappings.reverseKeyValue()
