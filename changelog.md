@@ -5,19 +5,34 @@
 - added
     - contracts to
         - expected (callsInPlace)
+   
     - string.nullOnBlank
+   
     - Boolean.mappings (BooleanMappings)
-        - on JVM: mappings.toNewlineOrEmpty()
+        - mappings.toNewlineOrEmpty() (JVM)
+   
     - notImplemented function (akin to a TODO that is intentional)
+   
     - Array.mapToMutable
     - Array.mapEachWith
+   
     - Generic.mapEachWith
+   
     - Collection.mapToMutable
     - Collection.mappings (CollectionMappings)
       - CollectionMappings.mapEachItemWith
+   
     - Map.mappings (MapMappings)
       - MapMappings.mapEachEntryWith
       - MapMappings.reverseKeyValue
+   
+    - Debugging (JVM) : convenience for working with reflective information about execution
+      - getCurrentMethodName
+      - getCurrentMethodLineNumber
+      - getCurrentMethodFileName
+      - getCurrentMethodFileNameAndLineNumber
+      - getCurrentMethodCanonicalName
+      - getCurrentMethodInformation
       
 - bumped kotlin std lib to 1.6.21
 - renamed Throwable.toPrettyString to Throwable.messagesToPrettyString
@@ -35,7 +50,7 @@
 - renamed CoroutineScope.asyncIO's "action" to "block"
 - renamed Map.reverse to Map.reverseKeyValue to clearly indicate that it is not the order but the content that changes
 - renamed MutableMap.reverse to MutableMap.reverseKeyValue to clearly indicate that it is not the order but the content that changes
-
+- deprecated Collection<T>.reversedIf
 
 ## 0.0.58
 
