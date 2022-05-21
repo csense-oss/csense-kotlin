@@ -10,13 +10,13 @@
         - on JVM: mappings.toNewlineOrEmpty()
     - notImplemented function (akin to a TODO that is intentional)
     - Array.mapToMutable
-    - Array.forEachWith
-    - Generic.forEachWith
+    - Array.mapEachWith
+    - Generic.mapEachWith
     - Collection.mapToMutable
     - Collection.mappings (CollectionMappings)
-      - CollectionMappings.forEachItemWith
+      - CollectionMappings.mapEachItemWith
     - Map.mappings (MapMappings)
-      - MapMappings.forEachEntryWith
+      - MapMappings.mapEachEntryWith
       - MapMappings.reverseKeyValue
       
 - bumped kotlin std lib to 1.6.21
@@ -35,6 +35,7 @@
 - renamed CoroutineScope.asyncIO's "action" to "block"
 - renamed Map.reverse to Map.reverseKeyValue to clearly indicate that it is not the order but the content that changes
 - renamed MutableMap.reverse to MutableMap.reverseKeyValue to clearly indicate that it is not the order but the content that changes
+
 
 ## 0.0.58
 
