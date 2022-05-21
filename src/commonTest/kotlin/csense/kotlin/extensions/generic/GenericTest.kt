@@ -293,8 +293,82 @@ class GenericTest {
     class GenericForEachWith {
 
         @Test
-        fun genericForEachWith() {
-            TODO()
+        fun empty() {
+            Generic.forEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
+                shouldNotBeCalled()
+            }).assert("Result")
+
+            Generic.forEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
+                shouldNotBeCalled()
+            }).assert("Result")
+
+            Generic.forEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
+                shouldNotBeCalled()
+            }).assert("Result")
+        }
+
+        @Test
+        fun single() = assertCalled(times = 2) { shouldBeCalled ->
+            val startIndex = 0
+            val length = startIndex + 1
+
+            Generic.forEachWith(
+                result = "Result",
+                length = length,
+                retriever = {
+                    it.assert(startIndex)
+                    shouldBeCalled()
+                    42
+                },
+                startIndex = startIndex,
+                append = {
+                    this.assert("Result")
+                    it.assert(42)
+                    shouldBeCalled()
+                }).assert("Result")
+        }
+
+        @Test
+        fun singleWithStartIndex() = assertCalled(times = 2) { shouldBeCalled ->
+            val startIndex = 1
+            val length = startIndex + 1
+
+            Generic.forEachWith(
+                result = "Result",
+                length = length,
+                retriever = {
+                    it.assert(startIndex)
+                    shouldBeCalled()
+                    42
+                },
+                startIndex = startIndex,
+                append = {
+                    this.assert("Result")
+                    it.assert(42)
+                    shouldBeCalled()
+                }).assert("Result")
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 4) { shouldBeCalled ->
+            val startIndex = 0
+            val length = startIndex + 2
+
+            val indexesCalled = Generic.forEachWith(
+                result = mutableListOf<Int>(),
+                length = length,
+                retriever = {
+                    shouldBeCalled()
+                    it
+                },
+                startIndex = startIndex,
+                append = {
+                    shouldBeCalled()
+                    add(it)
+                })
+
+            indexesCalled.assertSize(2)
+            indexesCalled.assertContainsInOrder(0, 1)
         }
 
     }

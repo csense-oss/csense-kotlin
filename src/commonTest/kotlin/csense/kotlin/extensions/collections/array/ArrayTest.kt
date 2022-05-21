@@ -294,7 +294,14 @@ class ArrayTest {
 
         @Test
         fun multiple() {
-            TODO()
+            val input = arrayOf(
+                "1",
+                "2"
+            ).mapToMutable {
+                it.toInt()
+            }
+            input.assertSize(2)
+            input.assertContainsInOrder(1, 2)
         }
 
     }
@@ -311,14 +318,21 @@ class ArrayTest {
         fun single() = assertCalled { shouldBeCalled ->
             val result = arrayOf("abc").forEachWith("test") {
                 shouldBeCalled()
+                this.assert("test")
+                it.assert("abc")
             }
             result.assert("test")
         }
 
 
         @Test
-        fun multiple() {
-            TODO()
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+            val calledWithValues = arrayOf("abc", "1234").forEachWith(mutableListOf<String>()) {
+                shouldBeCalled()
+                add(it)
+            }
+            calledWithValues.assertSize(2)
+            calledWithValues.assertContainsInOrder("abc", "1234")
         }
 
     }
