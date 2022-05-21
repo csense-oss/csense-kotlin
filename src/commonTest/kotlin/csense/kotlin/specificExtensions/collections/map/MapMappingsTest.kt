@@ -12,18 +12,18 @@ class MapMappingsTest {
         (first != second).assertTrue("should not be the same instance of mappings")
     }
 
-    class MapMappingsKeyValueForEachEntryWith {
+    class MapMappingsKeyValueMapEachEntryWith {
         @Test
         fun empty() {
             val empty = mapOf<String, String>().mappings
-            val result = empty.forEachEntryWith(42) { shouldNotBeCalled() }
+            val result = empty.mapEachEntryWith(42) { shouldNotBeCalled() }
             result.assert(42)
         }
 
         @Test
         fun single() = assertCalled { shouldBeCalled ->
             val empty = mapOf("test" to 1).mappings
-            val result = empty.forEachEntryWith("result") {
+            val result = empty.mapEachEntryWith("result") {
                 it.assert("test", 1)
                 shouldBeCalled()
             }
@@ -33,7 +33,7 @@ class MapMappingsTest {
         @Test
         fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
             val empty = mapOf("test" to 1, "1234" to 2).mappings
-            val result = empty.forEachEntryWith(mutableListOf<Map.Entry<String, Int>>()) {
+            val result = empty.mapEachEntryWith(mutableListOf<Map.Entry<String, Int>>()) {
                 shouldBeCalled()
                 this += it
             }

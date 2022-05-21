@@ -306,17 +306,17 @@ class ArrayTest {
 
     }
 
-    class ArrayItemForEachWith {
+    class ArrayItemMapEachWith {
         @Test
         fun empty() {
-            val result = arrayOf<String>().forEachWith(42) { shouldNotBeCalled() }
+            val result = arrayOf<String>().mapEachWith(42) { shouldNotBeCalled() }
             result.assert(42)
         }
 
 
         @Test
         fun single() = assertCalled { shouldBeCalled ->
-            val result = arrayOf("abc").forEachWith("test") {
+            val result = arrayOf("abc").mapEachWith("test") {
                 shouldBeCalled()
                 this.assert("test")
                 it.assert("abc")
@@ -327,13 +327,13 @@ class ArrayTest {
 
         @Test
         fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
-            val calledWithValues = arrayOf("abc", "1234").forEachWith(mutableListOf<String>()) {
+            val calledWithValues = arrayOf("abc", "1234").mapEachWith(mutableListOf<String>()) {
                 shouldBeCalled()
                 add(it)
             }
             calledWithValues.assertSize(2)
             calledWithValues.assertContainsInOrder("abc", "1234")
         }
-
     }
+
 }

@@ -10,13 +10,18 @@ public value class CollectionMappings<Item>(public val collection: Collection<It
 public inline val <Item> Collection<Item>.mappings: CollectionMappings<Item>
     get() = CollectionMappings(this)
 
-
-public inline fun <Item, Result> CollectionMappings<Item>.forEachItemWith(
+/**
+ * Apply [map] on each item [with] the given [result]
+ * @param result Result the result to apply each [map] to
+ * @param map Function2<Result, Item, Unit>  the processing of the given item on the [result]
+ * @return Result
+ */
+public inline fun <Item, Result> CollectionMappings<Item>.mapEachItemWith(
     result: Result,
-    append: Result.(Item) -> Unit
+    map: Result.(Item) -> Unit
 ): Result {
     collection.forEach {
-        result.append(it)
+        result.map(it)
     }
     return result
 }

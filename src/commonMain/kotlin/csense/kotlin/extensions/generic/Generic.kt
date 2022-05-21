@@ -7,8 +7,17 @@ import csense.kotlin.annotations.numbers.*
 
 public object Generic
 
-//TODO "buildWith" ish???
-public inline fun <Element, Result> Generic.forEachWith(
+/**
+ * A very generic "mapEachWith" where access is delegated (via [retriever])
+ * @receiver Generic
+ * @param result Result
+ * @param length Int
+ * @param retriever Function1<Int, Element>
+ * @param startIndex Int
+ * @param append Function2<Result, Element, Unit>
+ * @return Result
+ */
+public inline fun <Element, Result> Generic.mapEachWith(
     result: Result,
     @IntLimit(from = 0) length: Int,
     retriever: Function1<@IntLimit(from = 0) Int, Element>,
@@ -22,7 +31,7 @@ public inline fun <Element, Result> Generic.forEachWith(
 }
 
 /**
- * A very generic foreach, should work with any kind of design.
+ * A very generic foreach where the access of items is delegated (via [retriever].
  * @receiver [Generic]
  * @param onEach [Function0]<[Element]>
  * @param length [Int]
@@ -34,7 +43,7 @@ public inline fun <Element> Generic.forEach(
     retriever: Function1<@IntLimit(from = 0) Int, Element>,
     @IntLimit(from = 0) startIndex: Int = 0,
     onEach: Function0<Element>
-): Unit = forEachWith(Unit, length, retriever, startIndex) {
+): Unit = mapEachWith(Unit, length, retriever, startIndex) {
     onEach(it)
 }
 
@@ -43,7 +52,7 @@ public inline fun <ElementIn, ElementOut> Generic.map(
     retriever: Function1<@IntLimit(from = 0) Int, ElementIn>,
     @IntLimit(from = 0) startIndex: Int = 0,
     mapper: Function1<ElementIn, ElementOut>
-): List<ElementOut> = forEachWith(ArrayList(length), length, retriever, startIndex) {
+): List<ElementOut> = mapEachWith(ArrayList(length), length, retriever, startIndex) {
     this += mapper(it)
 }
 
@@ -53,7 +62,7 @@ public inline fun <Element> Generic.filter(
     retriever: Function1<@IntLimit(from = 0) Int, Element>,
     @IntLimit(from = 0) startIndex: Int = 0,
     predicate: Function1<Element, Boolean>
-): List<Element> = forEachWith(ArrayList(length), length, retriever, startIndex) {
+): List<Element> = mapEachWith(ArrayList(length), length, retriever, startIndex) {
     if (predicate(it)) {
         this += it
     }

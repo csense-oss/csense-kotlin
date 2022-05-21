@@ -89,7 +89,7 @@ public fun <Item> Collection<Item>.categorizeInto(
     allowItemInMultipleBuckets: Boolean = true
 ): List<List<Item>> {
     val result = filters.mapToMutable { mutableListOf<Item>() }
-    return mappings.forEachItemWith(result) {
+    return mappings.mapEachItemWith(result) {
         it.categorizeInto(result, filters, allowItemInMultipleBuckets)
     }
 }
@@ -142,7 +142,7 @@ public inline fun <T, K> Collection<T>.categorize(
     categorizer: Function1<T, K>
 ): Map<K, List<T>> {
     val categories = mutableMapOf<K, MutableList<T>>()
-    return mappings.forEachItemWith(categories) {
+    return mappings.mapEachItemWith(categories) {
         val key = categorizer(it)
         getOrPut(key, ::mutableListOf).add(it)
     }
@@ -377,7 +377,7 @@ public inline fun <Item, Key, Value> Collection<Item>.toMapFlat(
 public inline fun <Item, Key, Value> Collection<Item>.toMutableMapFlat(
     keyMapper: Function1<Item, Key>,
     valueMapper: Function1<Item, Value>
-): MutableMap<Key, Value> = mappings.forEachItemWith(LinkedHashMap(size)) {
+): MutableMap<Key, Value> = mappings.mapEachItemWith(LinkedHashMap(size)) {
     this[keyMapper(it)] = valueMapper(it)
 }
 //endregion
@@ -427,7 +427,7 @@ public inline fun <Item, Key, Value> Collection<Item>.toMap(
 public inline fun <Item, Key, Value> Collection<Item>.toMutableMap(
     keyMapper: Function1<Item, Key>,
     valueMapper: Function1<Item, Value>
-): MutableMap<Key, MutableList<Value>> = mappings.forEachItemWith(LinkedHashMap(size)) { item ->
+): MutableMap<Key, MutableList<Value>> = mappings.mapEachItemWith(LinkedHashMap(size)) { item ->
     val key: Key = keyMapper(item)
     val value: Value = valueMapper(item)
     getOrPut(key, ::mutableListOf).add(value)
@@ -460,7 +460,7 @@ public inline fun <Item, Key, Value> Collection<Item>.toUniqueMutableMap(
     keyMapper: Function1<Item, Key>,
     valueMapper: Function1<Item, Value>,
     noinline onKeyCollision: ((first: Value, second: Value) -> Value)? = null
-): MutableMap<Key, Value> = mappings.forEachItemWith(LinkedHashMap(size)) {
+): MutableMap<Key, Value> = mappings.mapEachItemWith(LinkedHashMap(size)) {
     val key: Key = keyMapper(it)
     val value: Value = valueMapper(it)
     val existingKey = this[key]
@@ -480,6 +480,6 @@ public inline fun <Item, Key, Value> Collection<Item>.toUniqueMutableMap(
  */
 public inline fun <Item, Result> Collection<Item>.mapToMutable(
     transform: (Item) -> Result
-): MutableList<Result> = mappings.forEachItemWith(ArrayList(size)) {
+): MutableList<Result> = mappings.mapEachItemWith(ArrayList(size)) {
     this += transform(it)
 }

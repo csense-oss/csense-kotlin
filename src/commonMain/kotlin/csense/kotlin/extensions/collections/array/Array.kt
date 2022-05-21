@@ -87,18 +87,30 @@ public inline fun <reified T> Array<T>.joinEveryAction(
     )
 }
 
+/**
+ * Maps each element via [transform] into a [MutableList]
+ * @receiver Array<Item>
+ * @param transform Function1<Item, Result>
+ * @return MutableList<Result>
+ */
 public inline fun <Item, Result> Array<Item>.mapToMutable(
     transform: (Item) -> Result
-): MutableList<Result> = forEachWith(ArrayList(size)) {
+): MutableList<Result> = mapEachWith(ArrayList(size)) {
     this += transform(it)
 }
 
-public inline fun <Item, Result> Array<Item>.forEachWith(
+/**
+ * Apply [map] on each item [with] the given [result]
+ * @param result Result the result to apply each [map] to
+ * @param map Function2<Result, Item, Unit> the processing of the given item on the [result]
+ * @return Result
+ */
+public inline fun <Item, Result> Array<Item>.mapEachWith(
     result: Result,
-    append: Result.(Item) -> Unit
+    map: Result.(Item) -> Unit
 ): Result {
     forEach {
-        result.append(it)
+        result.map(it)
     }
     return result
 }

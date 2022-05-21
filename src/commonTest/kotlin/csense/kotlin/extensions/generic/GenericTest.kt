@@ -290,19 +290,19 @@ class GenericTest {
     }
 
 
-    class GenericForEachWith {
+    class GenericMapEachWith {
 
         @Test
         fun empty() {
-            Generic.forEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
+            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
                 shouldNotBeCalled()
             }).assert("Result")
 
-            Generic.forEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
+            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
                 shouldNotBeCalled()
             }).assert("Result")
 
-            Generic.forEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
+            Generic.mapEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
                 shouldNotBeCalled()
             }).assert("Result")
         }
@@ -312,7 +312,7 @@ class GenericTest {
             val startIndex = 0
             val length = startIndex + 1
 
-            Generic.forEachWith(
+            Generic.mapEachWith(
                 result = "Result",
                 length = length,
                 retriever = {
@@ -333,7 +333,7 @@ class GenericTest {
             val startIndex = 1
             val length = startIndex + 1
 
-            Generic.forEachWith(
+            Generic.mapEachWith(
                 result = "Result",
                 length = length,
                 retriever = {
@@ -354,7 +354,7 @@ class GenericTest {
             val startIndex = 0
             val length = startIndex + 2
 
-            val indexesCalled = Generic.forEachWith(
+            val indexesCalled = Generic.mapEachWith(
                 result = mutableListOf<Int>(),
                 length = length,
                 retriever = {

@@ -85,7 +85,7 @@ public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaMapEntry(
     mapEntry: Function1<Map.Entry<OrgKey, OrgValue>, MapEntry<NewKey, NewValue>>
-): Map<NewKey, NewValue> = mappings.forEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
+): Map<NewKey, NewValue> = mappings.mapEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
     this += mapEntry(entry)
 }
 
@@ -100,7 +100,7 @@ public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toM
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaKeyValuePair(
     mapEntryToPair: Function1<Map.Entry<OrgKey, OrgValue>, Pair<NewKey, NewValue>>
-): Map<NewKey, NewValue> = mappings.forEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
+): Map<NewKey, NewValue> = mappings.mapEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
     this += mapEntryToPair(entry)
 }
 

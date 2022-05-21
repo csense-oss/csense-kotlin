@@ -11,19 +11,19 @@ class CollectionMappingsTest {
         (first != second).assertTrue(message = "should have different mapping(s)")
     }
 
-    class CollectionMappingsItemForEachItemWith {
+    class CollectionMappingsItemMapEachItemWith {
 
         @Test
         fun empty() {
             val empty: CollectionMappings<String> = listOf<String>().mappings
-            val result = empty.forEachItemWith(42) { shouldNotBeCalled() }
+            val result = empty.mapEachItemWith(42) { shouldNotBeCalled() }
             result.assert(42)
         }
 
         @Test
         fun single() = assertCalled { shouldBeCalled ->
             val empty: CollectionMappings<String> = listOf("test").mappings
-            val result = empty.forEachItemWith("result") {
+            val result = empty.mapEachItemWith("result") {
                 it.assert("test")
                 shouldBeCalled()
             }
@@ -33,7 +33,7 @@ class CollectionMappingsTest {
         @Test
         fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
             val empty: CollectionMappings<String> = listOf("test", "1234").mappings
-            val result = empty.forEachItemWith(mutableListOf<String>()) {
+            val result = empty.mapEachItemWith(mutableListOf<String>()) {
                 shouldBeCalled()
                 this += it
             }
