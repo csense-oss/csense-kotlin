@@ -97,6 +97,7 @@ public inline fun StringModification.splitAtOrNull(index: Int): StringModificati
  * @param mapper [Function1]<[Int], U> Maps the given index to a given value
  * @return [List]<U> the resulting list by mapping all the found occurrences of [subString]
  */
+//TODO what the hell does searchByWord implies?!
 public fun <U> StringModification.mapEachMatching(
     subString: String,
     searchByWord: Boolean,
@@ -227,4 +228,31 @@ public fun StringModification.replaceLazy(
         return@with builder.toString()
 
     }
+}
+
+public inline fun StringModification.replaceEachOccurence(
+    searchingFor: String,
+    ignoreCase: Boolean = false,
+    replaceWith: () -> String
+): String {
+    val result = StringBuilder(string)
+    var currentIndex = result.indexOfOrNull(searchingFor, ignoreCase = ignoreCase)
+    while (currentIndex != null) {
+        val replacement = replaceWith()
+
+        result.replaceRange(
+            startIndex = currentIndex,
+            endIndex = currentIndex + searchingFor.length,
+            replacement = replacement
+        )
+
+        val newStartIndex = currentIndex + replacement.length
+
+        currentIndex = result.indexOfOrNull(
+            searchingFor,
+            startIndex = newStartIndex,
+            ignoreCase = ignoreCase
+        )
+    }
+    return result.toString()
 }

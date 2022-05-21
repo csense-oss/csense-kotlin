@@ -90,10 +90,13 @@ public object LLoggerExtensions {
  * eg see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
  */
 public object AnsiConsoleEscapeCodes {
-    public const val purpleTextColor: String = "\u001B[35m"
+    public const val redTextColor: String = "\u001B[31m"
+    public const val greenTextColor: String = "\u001B[32m"
     public const val yellowTextColor: String = "\u001B[33m"
-    public const val redTextColor: String = "\u001B[33m"
+    public const val blueTextColor: String = "\u001B[34m"
+    public const val purpleTextColor: String = "\u001B[35m"
     public const val cyanTextColor: String = "\u001B[36m"
+    public const val whiteTextColor: String = "\u001B[36m"
     public const val resetCode: String = "\u001B[0m"
 
 }

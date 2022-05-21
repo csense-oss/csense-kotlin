@@ -114,3 +114,14 @@ public inline fun <Item, Result> Array<Item>.mapEachWith(
     }
     return result
 }
+
+/**
+ * Gets the value at [index] or returns [defaultValue] if out of bounds.
+ * @receiver Array<Item>
+ * @param index Int
+ * @param defaultValue Item
+ * @return Item
+ */
+public inline fun <Item> Array<out Item>.getOr(index: Int, defaultValue: Item): Item {
+    return getOrNull(index) ?: defaultValue
+}

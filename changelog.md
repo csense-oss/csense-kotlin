@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.60
+- deprecated LLogger
+- added CsenseLogger
+
 ## 0.0.59
 
 - added
