@@ -40,4 +40,44 @@ class StringBuilderTest {
         builder.toString().assert("ab12")
     }
 
+    class StringBuilderAppendLineIfNotEmpty {
+        @Test
+        fun onEmpty() {
+            val sb = StringBuilder()
+            sb.appendLineIfNotEmpty("")
+            sb.assert("") //  message:"Should not have content"
+        }
+
+        @Test
+        fun onContent() {
+            val sb = StringBuilder()
+            sb.appendLineIfNotEmpty("test")
+            sb.assert("test\n") //  message:"Should not have content"
+        }
+
+    }
+
+    class StringBuilderAppendLineIfNotBlank {
+        @Test
+        fun onEmpty() {
+            val sb = StringBuilder()
+            sb.appendLineIfNotBlank("")
+            sb.assert("") //  message:"Should not have content"
+        }
+
+        @Test
+        fun onBlank() {
+            val sb = StringBuilder()
+            sb.appendLineIfNotBlank(" \t")
+            sb.assert("") //  message:"Should not have content"
+        }
+
+        @Test
+        fun onContent() {
+            val sb = StringBuilder()
+            sb.appendLineIfNotBlank("test")
+            sb.assert("test\n") //  message:"Should not have content"
+        }
+
+    }
 }

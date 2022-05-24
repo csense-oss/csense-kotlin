@@ -4,12 +4,14 @@ import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 
 
-public object CLogger {
+public class CsenseLogger(
+    maxStoredLogMessages: Int = 100
+) {
 
     private var mayLogSensitive = false
 
     private val logs = MutableSharedFlow<LogMessage>(
-        extraBufferCapacity = 10,
+        extraBufferCapacity = maxStoredLogMessages,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
@@ -67,3 +69,6 @@ public object CLogger {
 
 }
 
+public val CLogger: CsenseLogger by lazy {
+    CsenseLogger(maxStoredLogMessages = 100)
+}

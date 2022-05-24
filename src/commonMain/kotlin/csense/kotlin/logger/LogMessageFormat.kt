@@ -2,7 +2,6 @@ package csense.kotlin.logger
 
 import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.specificExtensions.string.*
-import logger.*
 
 public sealed class LogMessageFormat {
     public abstract val message: String
@@ -43,9 +42,9 @@ public sealed class LogMessageFormat {
 
 
     public companion object {
-        public const val placeholderValue = "{}"
-        public const val sensitiveValue = "***"
-        public const val missingPublicValue = "<Missing>"
+        public const val placeholderValue: String = "{}"
+        public const val sensitiveValue: String = "***"
+        public const val missingPublicValue: String = "<Missing>"
 
     }
 

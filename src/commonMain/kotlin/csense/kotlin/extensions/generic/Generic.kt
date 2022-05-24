@@ -67,3 +67,45 @@ public inline fun <Element> Generic.filter(
         this += it
     }
 }
+
+/**
+ * Traverse a given hierarchy while the [getNextLevel] gives the next/parent level (depending on traversal direction)
+ * @param start Element Where to start
+ * @param processCurrentLevel Function1<Element, Unit> What to do for each level in the hierarchy
+ * @param getNextLevel Function1<Element, Element?> how to progress in the hierarchy
+ */
+public inline fun <Element> Generic.traverseWhileNotNull(
+    start: Element,
+    processCurrentLevel: (Element) -> Unit,
+    getNextLevel: (Element) -> Element?,
+) {
+    var current: Element = start
+    while (true) {
+        processCurrentLevel(current)
+        current = getNextLevel(current) ?: break
+    }
+}
+
+/**
+ * Traverse a given hierarchy while the [getNextLevel] gives the next level /parent and while the element is unique via hashcode & equals.
+ * @param start Element
+ * @param processCurrentLevel Function1<Element, Unit>  What to do for each level in the hierarchy
+ * @param getNextLevel Function1<Element, Element?>how to progress in the hierarchy
+ */
+public inline fun <Element> Generic.traverseWhileNotNullAndNoCycles(
+    start: Element,
+    processCurrentLevel: (Element) -> Unit,
+    getNextLevel: (Element) -> Element?
+) {
+    val seenElements = mutableSetOf<Element>()
+    traverseWhileNotNull(
+        start = start,
+        processCurrentLevel = { element: Element ->
+            val isElementNew = seenElements.add(element)
+            if (!isElementNew) {
+                return@traverseWhileNotNullAndNoCycles
+            }
+            processCurrentLevel(element)
+        }, getNextLevel = getNextLevel
+    )
+}

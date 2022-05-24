@@ -1,6 +1,4 @@
-package logger
-
-import csense.kotlin.logger.*
+package csense.kotlin.logger
 
 
 public fun LogMessage.containsSensitiveInformation(): Boolean {

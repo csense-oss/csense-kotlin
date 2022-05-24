@@ -300,6 +300,16 @@ public inline fun String.isOnlyLowerCaseLetters(
 
 /**
  *
+ * @receiver String
+ * @return Boolean
+ */
+public inline fun String.isOnlyDigits(): Boolean = when {
+    isEmpty() -> false
+    else -> all(Char::isDigit)
+}
+
+/**
+ *
  * @receiver [String]
  * @param action [Function1]<[Char]>
  * @timecomplexity O(n)

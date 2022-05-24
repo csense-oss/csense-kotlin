@@ -738,4 +738,20 @@ class StringTest {
         }
 
     }
+
+    @Test
+    fun isOnlyDigits() {
+        "".isOnlyDigits().assertFalse("Nothing is nothing")
+        " ".isOnlyDigits().assertFalse("Whitespace is not digits")
+        "\t".isOnlyDigits().assertFalse("Whitespace is not digits")
+        "a".isOnlyDigits().assertFalse("letters are not digits")
+        "abc".isOnlyDigits().assertFalse()
+        "한".isOnlyDigits().assertFalse()
+
+        "-800".isOnlyDigits().assertFalse("dash is not a digit")
+
+        "1".isOnlyDigits().assertTrue()
+        "12".isOnlyDigits().assertTrue()
+        "127894564564564".isOnlyDigits().assertTrue()
+    }
 }

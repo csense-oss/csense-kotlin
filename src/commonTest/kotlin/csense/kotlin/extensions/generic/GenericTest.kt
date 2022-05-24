@@ -372,4 +372,128 @@ class GenericTest {
         }
 
     }
+
+    class GenericTraverseWhileNotNull {
+
+        @Test
+        fun singleLevel() = assertCalled { shouldBeCalled ->
+            val start = GenericTestTreeStructure("id", parent = null)
+            Generic.traverseWhileNotNull(
+                start = start,
+                processCurrentLevel = {
+                    it.id.assert("id")
+                    shouldBeCalled()
+                },
+                getNextLevel = { it.parent }
+            )
+        }
+
+
+        @Test
+        fun multipleLevels() = assertCalled(times = 2) { shouldBeCalled ->
+            val idCallOrder = mutableListOf<String>()
+            val start = GenericTestTreeStructure(
+                id = "child",
+                parent = GenericTestTreeStructure(
+                    id = "parent",
+                    parent = null
+                )
+            )
+            Generic.traverseWhileNotNull(
+                start = start,
+                processCurrentLevel = {
+                    idCallOrder += it.id
+                    shouldBeCalled()
+                },
+                getNextLevel = { it.parent }
+            )
+            idCallOrder.assertSize(2)
+            idCallOrder.assertContainsInOrder("child", "parent")
+        }
+
+    }
+
+    class GenericTraverseWhileNotNullAndNoCycles {
+
+        @Test
+        fun singleLevel() = assertCalled { shouldBeCalled ->
+            val start = GenericTestTreeStructure("id", parent = null)
+            Generic.traverseWhileNotNullAndNoCycles(
+                start = start,
+                processCurrentLevel = {
+                    it.id.assert("id")
+                    shouldBeCalled()
+                },
+                getNextLevel = { it.parent }
+            )
+        }
+
+
+        @Test
+        fun multipleLevels() = assertCalled(times = 2) { shouldBeCalled ->
+            val idCallOrder = mutableListOf<String>()
+            val start = GenericTestTreeStructure(
+                id = "child",
+                parent = GenericTestTreeStructure(
+                    id = "parent",
+                    parent = null
+                )
+            )
+            Generic.traverseWhileNotNullAndNoCycles(
+                start = start,
+                processCurrentLevel = {
+                    idCallOrder += it.id
+                    shouldBeCalled()
+                },
+                getNextLevel = { it.parent }
+            )
+            idCallOrder.assertSize(2)
+            idCallOrder.assertContainsInOrder("child", "parent")
+        }
+
+        @Test
+        fun shouldStopAtCycle() = assertCalled(times = 2) { shouldBeCalled ->
+            val root = GenericTestTreeStructure(
+                id = "root",
+                parent = null
+            )
+            root.parent = root
+            val start = GenericTestTreeStructure(
+                id = "child",
+                parent = root
+            )
+
+            val idCallOrder = mutableListOf<String>()
+            Generic.traverseWhileNotNullAndNoCycles(
+                start = start,
+                processCurrentLevel = {
+                    idCallOrder += it.id
+                    shouldBeCalled()
+                },
+                getNextLevel = { it.parent }
+            )
+            idCallOrder.assertSize(2)
+            idCallOrder.assertContainsInOrder("child", "root")
+        }
+    }
+}
+
+class GenericTestTreeStructure(
+    var id: String,
+    var parent: GenericTestTreeStructure?
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as GenericTestTreeStructure
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
 }
