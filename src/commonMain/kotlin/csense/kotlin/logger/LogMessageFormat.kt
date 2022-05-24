@@ -13,11 +13,7 @@ public sealed class LogMessageFormat {
         public val expectedSensitivity: LogSensitivity
     ) : LogMessageFormat() {
         override fun toString(): String {
-            val prefix = if (containsSensitiveInformation()) {
-                "(Contains sensitive data)\t"
-            } else {
-                ""
-            }
+            val prefix = containsSensitiveInformationMessageOrEmpty()
             return prefix + replacePlaceholdersIndexed { index -> placeholders.getOr(index, missingPublicValue) }
         }
     }
@@ -30,23 +26,16 @@ public sealed class LogMessageFormat {
         }
     }
 
-    public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String {
-        var count = 0
-        return message.modifications.replaceEachOccurence(placeholderValue) {
-            val placeholder = onPlaceholder(count)
-            count += 1
-            placeholder
+    public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
+        message.modifications.replaceEachOccurrenceIndexed(placeholderValue) { index ->
+            onPlaceholder(index)
         }
-
-    }
 
 
     public companion object {
         public const val placeholderValue: String = "{}"
         public const val sensitiveValue: String = "***"
         public const val missingPublicValue: String = "<Missing>"
-
     }
-
 
 }

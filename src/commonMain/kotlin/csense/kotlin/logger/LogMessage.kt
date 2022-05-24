@@ -29,6 +29,7 @@ public sealed class LogMessage {
     }
 
     public fun toFullLogString(): String {
+        //TODO sensitive stacktrace here...
         val exception = throwable?.stackTraceToString() ?: ""
         return "[$tag] - $message $exception"
     }

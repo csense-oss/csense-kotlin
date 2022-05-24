@@ -11,3 +11,11 @@ public fun LogMessageFormat.containsSensitiveInformation(): Boolean {
         is LogMessageFormat.SensitiveValues -> true
     }
 }
+
+public fun LogMessage.doesNotContainSensitiveInformation(): Boolean {
+    return !containsSensitiveInformation()
+}
+
+public fun LogMessageFormat.doesNotContainSensitiveInformation(): Boolean {
+    return !containsSensitiveInformation()
+}

@@ -7,13 +7,16 @@
 - added CsenseLogger
     - made all "logging" related function(s) use this
 - added
-    - Throwable.formatToString()
-    - Throwable.toSensitiveString()
     - String.isOnlyDigits()
+    - StringModification.replaceEachOccurrenceIndexed
+    - StringModification.replaceEachOccurrence
     - StringBuilder.appendLineIfNotEmpty
     - StringBuilder.appendLineIfNotBlank
     - Generic.traverseWhileNotNull
     - Generic.traverseWhileNotNullAndNoCycles
+    - Throwable (JVM)
+      - toSensitiveStackTraceString
+      - formatToString
 
 ## 0.0.59
 

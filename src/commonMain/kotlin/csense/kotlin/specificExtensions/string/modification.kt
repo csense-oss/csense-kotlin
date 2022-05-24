@@ -230,7 +230,20 @@ public fun StringModification.replaceLazy(
     }
 }
 
-public inline fun StringModification.replaceEachOccurence(
+public inline fun StringModification.replaceEachOccurrenceIndexed(
+    searchingFor: String,
+    ignoreCase: Boolean = false,
+    replaceWith: (index: Int) -> String
+): String {
+    var index = 0
+    return replaceEachOccurrence(searchingFor, ignoreCase, replaceWith = {
+        val replacement = replaceWith(index)
+        index += 1
+        replacement
+    })
+}
+
+public inline fun StringModification.replaceEachOccurrence(
     searchingFor: String,
     ignoreCase: Boolean = false,
     replaceWith: () -> String

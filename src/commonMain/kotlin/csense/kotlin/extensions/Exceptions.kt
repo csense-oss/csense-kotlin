@@ -3,6 +3,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
+import csense.kotlin.extensions.generic.*
 import csense.kotlin.logger.*
 
 

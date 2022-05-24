@@ -10,18 +10,18 @@ public class CsenseLogger(
 
     private var mayLogSensitive = false
 
-    private val logs = MutableSharedFlow<LogMessage>(
+    private val _loggers = MutableSharedFlow<LogMessage>(
         extraBufferCapacity = maxStoredLogMessages,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    public val allLogs: Flow<LogMessage> = logs
+    public val allLoggers: Flow<LogMessage> = _loggers
 
-    public val debugLogs: Flow<LogMessage.Debug> = logs.filterIsInstance()
+    public val debugLoggers: Flow<LogMessage.Debug> = _loggers.filterIsInstance()
 
-    public val warningLogs: Flow<LogMessage.Warning> = logs.filterIsInstance()
+    public val warningLoggers: Flow<LogMessage.Warning> = _loggers.filterIsInstance()
 
-    public val errorLogs: Flow<LogMessage.Error> = logs.filterIsInstance()
+    public val errorLoggers: Flow<LogMessage.Error> = _loggers.filterIsInstance()
 
 
     public fun logDebug(
@@ -29,12 +29,10 @@ public class CsenseLogger(
         message: String,
         vararg placeholders: String,
         throwable: Throwable? = null,
-        privacy: LogSensitivity = LogSensitivity.Sensitive
+        sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = privacy.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        logs.tryEmit(
-            LogMessage.Debug(tag, messageFormat, throwable = throwable)
-        )
+        val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
+        log(LogMessage.Debug(tag, messageFormat, throwable = throwable))
     }
 
     public fun logWarning(
@@ -42,12 +40,10 @@ public class CsenseLogger(
         message: String,
         vararg placeholders: String,
         throwable: Throwable? = null,
-        privacy: LogSensitivity = LogSensitivity.Sensitive
+        sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = privacy.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        logs.tryEmit(
-            LogMessage.Warning(tag, messageFormat, throwable = throwable)
-        )
+        val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
+        log(LogMessage.Warning(tag, messageFormat, throwable = throwable))
     }
 
     public fun logError(
@@ -55,13 +51,16 @@ public class CsenseLogger(
         message: String,
         vararg placeholders: String,
         throwable: Throwable? = null,
-        privacy: LogSensitivity = LogSensitivity.Sensitive
+        sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = privacy.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        logs.tryEmit(
-            LogMessage.Error(tag, messageFormat, throwable = throwable)
-        )
+        val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
+        log(LogMessage.Error(tag, messageFormat, throwable = throwable))
     }
+
+    public fun log(message: LogMessage) {
+        _loggers.tryEmit(message)
+    }
+
 
     public fun enableSensitiveLogging() {
         mayLogSensitive = true
@@ -69,6 +68,6 @@ public class CsenseLogger(
 
 }
 
-public val CLogger: CsenseLogger by lazy {
+public val CL: CsenseLogger by lazy {
     CsenseLogger(maxStoredLogMessages = 100)
 }

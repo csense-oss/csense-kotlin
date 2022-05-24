@@ -85,6 +85,7 @@ public object LLoggerExtensions {
 
 }
 
+//TODO consider moving to logger namespace.
 /**
  * A simple container for ANSI escape codes + some colors (not a complete list)
  * eg see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
