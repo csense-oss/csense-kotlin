@@ -3,15 +3,11 @@
 By default, this is DISABLED and there are nothing that handles the logging. Csense does use this logger by default in
 functions that does log.
 
-There are 4 levels of logging:
+There are 3 levels of logging:
 
-- production
 - error
 - warning
 - debug
-
-**Production**
-is intended for, production use. that is, if something is unexpected, or not an error but requires logging.
 
 **Error**
 is intended for, errors, bugs, and or other unexpected issues.
@@ -24,96 +20,88 @@ is intended for debugging purpose.
 
 ## Setup
 
-Can be as follows:
+For just printing (to the console) there are
 
 ```kotlin
-L.isLoggingAllowed(true)
-L.usePrintAsLoggers()  
+CL.printLogsToConsole()
+//or if the console supports ansi escape codes / colors
+CL.printLogsToConsoleAnsiColored()
 ```
 
-On Android you could instead hook into the various levels and direct to `Log.x`
+If using android then you can do this
+(NB Logcat does not support ansi colors unfortunately :/)
 
 ```kotlin
-L.productionLoggers += { tag, message, error -> Log.e(tag, message, error) }
-L.errorLoggers += { tag, message, error -> Log.e(tag, message, error) }
-L.warningLoggers += { tag, message, error -> Log.w(tag, message, error) }
-L.debugLoggers += { tag, message, error -> Log.d(tag, message, error) }
+//Use of globalscope here is "okay", as this is a more "daemon" thread style and is bound by application lifecycle (unless you cancel the job..)
+GlobalScope.launch(Dispatchers.Main) {
+    CL.debugLoggers.collect {
+        Log.d(it.tag, it.message.toString(), it.throwable)
+    }
+}
+GlobalScope.launch(Dispatchers.Main) {
+    CL.warningLoggers.collect {
+        Log.w(it.tag, it.message.toString(), it.throwable)
+    }
+}
+GlobalScope.launch(Dispatchers.Main) {
+    CL.errorLoggers.collect {
+        Log.e(it.tag, it.message.toString(), it.throwable)
+    }
+}
 ```
 
-Or you could save data to a file / database etc.
+## Logs
 
-## Ways to log
-
-The general logging is as follows:
-
-````kotlin
-L.logProd("Transaction", "Successful for id 1234")
-L.error("Exception", "bad network?", someException)
-L.warning("Network", "slow")
-L.debug("info", "shotgun debugging")
-````
-
-### JVM
-
-````kotlin
-logClassError("Message")
-logClassWarning("warning")
-L.debug(X::class, "message")
-L.debug(X::class.java, "message")
-````
-
-There is also lazy logging, in case the message is expensive to compute (since kotlin is eagerly evaluating parameters).
-They take the form of a lambda instead of a message.
+All logs are by default considered sensitive.
+There is a tag, a message with potential placeholders and potentially an exception.
+The placeholder is simply written as "{}" and is based on the order.
 
 ```kotlin
-L.logProdLazy("Tag") { "MyVeryExpensiveMessage" }
-L.errorLazy(tag = "tag", message = { "message" }, exception = Exception())
-L.warningLazy("tag", message = { "message" })
-L.debugLazy("tag") { "expensive message" }
+CL.logDebug("tag", "parameter 1: {}, parameter 2: {}", "first", "second")
 ```
 
-## Enabling / disabling
+To simplify usage there is a single instance of an already configured logger called
+CL (short for CsenseLogger).
 
-Controlling each level
+### Log methods
+
+The shortest form is
 
 ```kotlin
-L.isProductionLoggingAllowed = true
-L.isErrorLoggingAllowed = true
-L.isWarningLoggingAllowed = true
-L.isDebugLoggingAllowed = true
+CL.logDebug("tag", "message")
 ```
 
-To control all logging
+### Sensitive logs
+
+All logs are by default considered sensitive, thus all parameters will not be printed / displayed unless sensitive
+logging is enabled.
+(and even then it will be stored along side the LogMessage whenever the message still contains sensitive information)
+
+To enable sensitive logging do
 
 ```kotlin
-L.isLoggingAllowed(true)
+CL.enableSensitiveLogging()
 ```
 
-## Controlling loggers
-
-To modify the loggers, (clearing them and or appending listeners), just access it like so
-
-````kotlin
-L.warningLoggers
-````
-
-## Stacktrace logging (JVM)
-
-Feature for logging the stacktrace.
+Eg for android add this in the main application class:
 
 ```kotlin
-logCurrentStackTraceProd(tag = "Unexpected call")
-logCurrentStackTraceError(tag = "Bug")
-logCurrentStackTraceWarning()
-logCurrentStackTraceDebug(tag = "Debug", limit = 100)
+if (BuildConfig.DEBUG) {
+    CL.enableSensitiveLogging()
+}
 ```
 
-## Convenience
+### Logging helpers
 
-since its disabled and unconfigured by default there are some helper methods to set up the logging to console
+There are some helpers to improve developer experience
 
 ```kotlin
-L.usePrintAsLoggers()
-//or for fancy prints
-L.usePrintAsLoggersWithAnsiColor()
+logClassDebug("message")
+logClassWarning("message")
+logClassError("message")
 ```
+
+### Configuring multiple loggers
+
+Since CL is just an instace of a CsenseLogger you can easily create other instances and then use those to your hearts
+desire.

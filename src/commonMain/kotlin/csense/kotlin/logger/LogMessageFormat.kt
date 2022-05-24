@@ -4,7 +4,15 @@ import csense.kotlin.extensions.collections.array.*
 import csense.kotlin.specificExtensions.string.*
 
 public sealed class LogMessageFormat {
+
     public abstract val message: String
+
+    abstract override fun toString(): String
+
+    public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
+        message.modifications.replaceEachOccurrenceIndexed(placeholderValue) { index ->
+            onPlaceholder(index)
+        }
 
 
     public class InsensitiveValues(
@@ -26,16 +34,9 @@ public sealed class LogMessageFormat {
         }
     }
 
-    public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
-        message.modifications.replaceEachOccurrenceIndexed(placeholderValue) { index ->
-            onPlaceholder(index)
-        }
-
-
     public companion object {
         public const val placeholderValue: String = "{}"
         public const val sensitiveValue: String = "***"
         public const val missingPublicValue: String = "<Missing>"
     }
-
 }

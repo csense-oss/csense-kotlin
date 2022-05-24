@@ -1,28 +1,22 @@
 package csense.kotlin.logger
 
 
-public sealed class LogMessage {
-    public abstract val tag: String
-    public abstract val message: LogMessageFormat
-    public abstract val throwable: Throwable?
-
+public sealed class LogMessage(
+    public val tag: String,
+    public val message: LogMessageFormat,
+    public val throwable: Throwable?
+) {
     public class Debug(
-        override val tag: String,
-        override val message: LogMessageFormat,
-        override val throwable: Throwable? = null
-    ) : LogMessage()
+        tag: String, message: LogMessageFormat, throwable: Throwable?
+    ) : LogMessage(tag, message, throwable)
 
     public class Warning(
-        override val tag: String,
-        override val message: LogMessageFormat,
-        override val throwable: Throwable? = null
-    ) : LogMessage()
+        tag: String, message: LogMessageFormat, throwable: Throwable?
+    ) : LogMessage(tag, message, throwable)
 
     public class Error(
-        override val tag: String,
-        override val message: LogMessageFormat,
-        override val throwable: Throwable? = null
-    ) : LogMessage()
+        tag: String, message: LogMessageFormat, throwable: Throwable?
+    ) : LogMessage(tag, message, throwable)
 
     override fun toString(): String {
         return toFullLogString()
