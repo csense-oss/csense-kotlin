@@ -1,4 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalCsenseApi::class)
 
 package csense.kotlin.debugging
 
@@ -51,32 +52,26 @@ public value class Debugging(
 public inline val debugging: Debugging
     get() = Debugging.fromCallingMethod()
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodName(): String {
     return caller.methodName
 }
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodLineNumber(): Int {
     return caller.lineNumber
 }
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodFileName(): String {
     return caller.fileName ?: ""
 }
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodFileNameAndLineNumber(): String {
     return "${caller.fileName ?: "-"}:${caller.lineNumber}"
 }
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodCanonicalName(): String {
     return caller.className + "." + caller.methodName
 }
 
-@OptIn(ExperimentalCsenseApi::class)
 public inline fun Debugging.getCurrentMethodInformation(): String {
     return caller.toString()
 }

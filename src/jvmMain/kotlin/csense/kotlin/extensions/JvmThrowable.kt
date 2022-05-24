@@ -9,6 +9,7 @@ import java.io.*
  * @receiver [Throwable]
  * @return [String]
  */
+@Deprecated(message = "use kotlin builtin instead. Will be removed soon")
 public inline fun Throwable.stackTraceToString(): String {
     val writer = StringWriter()
     writer.use {

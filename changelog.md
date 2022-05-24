@@ -2,7 +2,12 @@
 
 ## 0.0.60
 - deprecated LLogger
-- added CsenseLogger
+- deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
+- added CsenseLogger 
+  - made all "logging" related function(s) use this
+- added
+  - Throwable.formatToString()
+  - Throwable.toSensitiveString()
 
 ## 0.0.59
 
