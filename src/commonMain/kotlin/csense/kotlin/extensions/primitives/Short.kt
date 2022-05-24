@@ -87,7 +87,7 @@ public inline val Short.isNegative: Boolean
     get() = this < 0
 
 /**
- * A value is positive iff its greater than neutral (0)
+ * A value is positive iff it's greater than neutral (0)
  * returns true if this [Short] is positive
  */
 public inline val Short.isPositive: Boolean

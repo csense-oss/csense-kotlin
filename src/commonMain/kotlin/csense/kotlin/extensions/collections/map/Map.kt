@@ -6,17 +6,18 @@ package csense.kotlin.extensions.collections.map
 import csense.kotlin.*
 import csense.kotlin.classes.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.specificExtensions.collections.map.*
 import kotlin.contracts.*
 import kotlin.experimental.*
 
 
 /**
- * Iterates all entries in the this map, given the current index.
+ * Iterates over all entries in the map, with the current index.
  * Missing from the standard library
  * @receiver [Map]<K, V>
  * @param action ([Map.Entry]<K, V>, [Int]) -> [Unit]
  */
-public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int) -> Unit) {
+public inline fun <K, V> Map<K, V>.forEachIndexed(action: (entry: Map.Entry<K, V>, index: Int) -> Unit) {
     var i = 0
     forEach {
         action(it, i)
@@ -24,16 +25,13 @@ public inline fun <K, V> Map<K, V>.forEachIndexed(action: (Map.Entry<K, V>, Int)
     }
 }
 
-
-//region Generic collection extensions
 /**
- * Performs backwards traversal on this
+ * Performs backwards traversal on each entry
  * @receiver [List]<T>
  * @param action [FunctionUnit]<T>
  */
 public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>): Unit =
     GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
-//endregion
 
 /**
  * Filters by the given predicate and maps out the key
@@ -87,13 +85,8 @@ public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaMapEntry(
     mapEntry: Function1<Map.Entry<OrgKey, OrgValue>, MapEntry<NewKey, NewValue>>
-): Map<NewKey, NewValue> {
-    val entriesToMap = entries
-    return buildMap(capacity = entriesToMap.size) {
-        entriesToMap.forEach {
-            this += mapEntry(it)
-        }
-    }
+): Map<NewKey, NewValue> = mappings.mapEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
+    this += mapEntry(entry)
 }
 
 /**
@@ -107,13 +100,8 @@ public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toM
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaKeyValuePair(
     mapEntryToPair: Function1<Map.Entry<OrgKey, OrgValue>, Pair<NewKey, NewValue>>
-): Map<NewKey, NewValue> {
-    val entriesToMap = entries
-    return buildMap(capacity = entriesToMap.size) {
-        entriesToMap.forEach {
-            this += mapEntryToPair(it)
-        }
-    }
+): Map<NewKey, NewValue> = mappings.mapEachEntryWith(LinkedHashMap(size)) { entry: Map.Entry<OrgKey, OrgValue> ->
+    this += mapEntryToPair(entry)
 }
 
 /**
@@ -122,7 +110,9 @@ public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toM
  * @param other [Map]<Key, Value> the other [Map] to inspect
  * @return [Boolean] true if they have the same keys (and size) false otherwise
  */
-public inline fun <Key, Value> Map<Key, Value>.hasSameKeys(other: Map<Key, Value>): Boolean {
+public inline fun <Key, Value> Map<Key, Value>.hasSameKeys(
+    other: Map<Key, Value>
+): Boolean {
     return this.size == other.size && all {
         other.containsKey(it.key)
     }
@@ -150,10 +140,4 @@ public inline fun <Key, Value> Map<Key, Value>.hasSameContentBy(
  * Creates a reversed map where value -> key
  * @return the reversed map
  */
-public inline fun <Key, Value> Map<Key, Value>.reverse(): Map<Value, Key> {
-    val result = LinkedHashMap<Value, Key>(size)
-    entries.forEach {
-        result[it.value] = it.key
-    }
-    return result
-}
+public inline fun <Key, Value> Map<Key, Value>.reverseKeyValue(): Map<Value, Key> = mappings.reverseKeyValue()

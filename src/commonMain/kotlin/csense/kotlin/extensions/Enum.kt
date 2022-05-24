@@ -10,7 +10,7 @@ import csense.kotlin.*
  * @param name [String] the enum's name to find, or null will be returned
  * @return T either the found or null if not found.
  * @timeComplexity O(n * m) where n is the size of the enum, and m is the "length" of names in "average" (since we are looking at names,
- *  which in the regular simple case is char by char comparison and not a anything fancier).
+ *  which in the regular simple case is char by char comparison and not anything fancier).
  *  so if you ask for an enum extremely many times consider making a map or some other form available to optimize it.
  */
 public inline fun <reified T : Enum<T>> enumFromOrNull(name: String?): T? {
@@ -23,7 +23,7 @@ public inline fun <reified T : Enum<T>> enumFromOrNull(name: String?): T? {
  * @param orElse T
  * @return T either the found or orElse if the name was not found.
  * @timeComplexity O(n * m) where n is the size of the enum, and m is the "length" of names in "average" (since we are looking at names,
- *  which in the regular simple case is char by char comparison and not a anything fancier).
+ *  which in the regular simple case is char by char comparison and not anything fancier).
  *  so if you ask for an enum extremely many times consider making a map or some other form available to optimize it.
  */
 public inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T {
@@ -33,7 +33,7 @@ public inline fun <reified T : Enum<T>> enumFromOr(name: String?, orElse: T): T 
 
 //region Generalized search for enum
 /**
- * A Generalized search for an enum using a find criteria. it will basically go though each enum value and if the find action
+ * A Generalized search for an enum using a find criteria. it will basically go through each enum value and if the find action
  * returns true then that value is returned. This allows null.
  * @param findAction [Function1]<T, Boolean> the search function
  * @param ifNotFound T? if the find action never returned true this will be returned
@@ -49,7 +49,7 @@ public inline fun <reified T : Enum<T>> enumFromOrNull(
 
 
 /**
- * A Generalized search for an enum using a find criteria. it will basically go though each enum value and if the find action
+ * A Generalized search for an enum using a find criteria. it will basically go through each enum value and if the find action
  * returns true then that value is returned. this does not allow null
  * @param findAction [Function1]<T, Boolean> the search function
  * @param ifNotFound T if the find action never returned true this will be returned
@@ -64,7 +64,7 @@ public inline fun <reified T : Enum<T>> enumFromOr(
 }
 //endregion
 
-//region Ordinal search for enum
+//region Ordinal searches for enum
 /**
  * using the given value as the ordinal from the enum to try and resolve it ,via looking at each value.
  * @param value [Int] the enum ordinal to find, or null will be returned

@@ -20,7 +20,7 @@ public suspend inline fun <E> Channel<E>.forEach(function: FunctionUnit<E>) {
 
 /**
  *
- * Be cautious when using this, it requires some hefty timing in the mapper to make sense.. as it might take some time to start all the coroutines
+ * Be cautious when using this, it requires some hefty timing in the mapper to make sense. as it might take some time to start all the coroutines
  * and the overhead of coroutines can easily add up
  * @receiver [Iterable]<T>
  * @param coroutineScope [CoroutineScope]

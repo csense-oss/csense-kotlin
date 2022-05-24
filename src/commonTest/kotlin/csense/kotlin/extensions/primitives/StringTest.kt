@@ -505,8 +505,19 @@ class StringTest {
     fun nullOnEmpty() {
         "".nullOnEmpty().assertNull()
         " ".nullOnEmpty().assert(" ")
+        "\n".nullOnEmpty().assert("\n")
         "a".nullOnEmpty().assert("a")
         "abc".nullOnEmpty().assert("abc")
+    }
+
+    @Test
+    fun nullOnBlank() {
+        "".nullOnBlank().assertNull()
+        " ".nullOnBlank().assertNull(" ")
+        "\n".nullOnBlank().assertNull(" ")
+        "\t".nullOnBlank().assertNull(" ")
+        "a".nullOnBlank().assert("a")
+        "abc".nullOnBlank().assert("abc")
     }
 
     @Test

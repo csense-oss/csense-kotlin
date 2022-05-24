@@ -214,7 +214,6 @@ class TimeTests {
         TimeUnit.Days(3L).toHours().assert(72L)
     }
 
-    @OptIn(ExperimentalTime::class)
     @Test
     fun timeUnitDelay() = runTest {
         TimeUnit.MilliSeconds(10).delay()

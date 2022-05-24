@@ -23,7 +23,7 @@ public sealed class TimeUnit(@LongLimit(from = 0) public val value: Long) {
     /**
      * a "value unit" [String]
      * computed lazy to avoid "expensive" strings in memory and iff used very frequently then the penalty goes towards
-     *  0 for "re"computing this string.
+     *  0 for recomputing this string.
      */
     private val internalString: String by lazy {
         "$value $prefix"

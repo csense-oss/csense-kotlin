@@ -116,7 +116,7 @@ public inline fun Float.withoutDecimalPart(): Float {
 
 /**
  * The decimal part (2.4 becomes 0.4)
- * Imprecise (thus 2.4 can become 0.39999 etc)
+ * Imprecise (thus 2.4 can become 0.39999 etc.)
  */
 public inline fun Float.decimalPart(): Float =
     this - withoutDecimalPart()

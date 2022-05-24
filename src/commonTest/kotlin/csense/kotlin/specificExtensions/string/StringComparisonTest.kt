@@ -45,13 +45,13 @@ class StringComparisonTest {
     class StringComparisonCompareTo {
 
         @Test
-        fun StringComparisonCompareTo() {
+        fun stringComparisonCompareTo() {
             StringComparison("").compareTo(0, "", 0, 0, false)
         }
 
 
         @Test
-        fun StartingIndexInThisString() {
+        fun startingIndexInThisString() {
             StringComparison("").compareTo((-1), "", 0, 0, false)
             StringComparison("").compareTo(0, "", 0, 0, false)
             StringComparison("").compareTo(1, "", 0, 0, false)
@@ -61,7 +61,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun Other() {
+        fun other() {
             StringComparison("").compareTo(0, "", 0, 0, false)
             StringComparison("").compareTo(0, " ", 0, 0, false)
             StringComparison("").compareTo(0, "a", 0, 0, false)
@@ -69,7 +69,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun StartIndexInOtherString() {
+        fun startIndexInOtherString() {
             StringComparison("").compareTo(0, "", (-1), 0, false)
             StringComparison("").compareTo(0, "", 0, 0, false)
             StringComparison("").compareTo(0, "", 1, 0, false)
@@ -79,7 +79,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun Length() {
+        fun length() {
             StringComparison("").compareTo(0, "", 0, (-1), false)
             StringComparison("").compareTo(0, "", 0, 0, false)
             StringComparison("").compareTo(0, "", 0, 1, false)
@@ -89,7 +89,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun IgnoreCase() {
+        fun ignoreCase() {
             StringComparison("").compareTo(0, "", 0, 0, false)
             StringComparison("").compareTo(0, "", 0, 0, true)
         }
@@ -99,13 +99,13 @@ class StringComparisonTest {
     class StringComparisonContainsStringEndingAt {
 
         @Test
-        fun StringComparisonContainsStringEndingAt() {
+        fun stringComparisonContainsStringEndingAt() {
             StringComparison("").containsStringEndingAt(0, "", false)
         }
 
 
         @Test
-        fun EndIndex() {
+        fun endIndex() {
             StringComparison("").containsStringEndingAt((-1), "", false)
             StringComparison("").containsStringEndingAt(0, "", false)
             StringComparison("").containsStringEndingAt(1, "", false)
@@ -115,7 +115,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun Other() {
+        fun other() {
             StringComparison("").containsStringEndingAt(0, "", false)
             StringComparison("").containsStringEndingAt(0, " ", false)
             StringComparison("").containsStringEndingAt(0, "a", false)
@@ -123,7 +123,7 @@ class StringComparisonTest {
 
 
         @Test
-        fun IgnoreCase() {
+        fun ignoreCase() {
             StringComparison("").containsStringEndingAt(0, "", false)
             StringComparison("").containsStringEndingAt(0, "", true)
         }

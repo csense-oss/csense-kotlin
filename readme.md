@@ -25,7 +25,7 @@ Then add the dependency
 
 ```groovy
 dependencies {
-    implementation 'csense.kotlin:csense-kotlin:0.0.58'
+    implementation 'csense.kotlin:csense-kotlin:0.0.59'
 }
 ```
 
@@ -58,54 +58,18 @@ along the ability to change, hook into, and generally do what you want with how 
 
 There are also controls to set whenever a channel should "produce" anything, akk you could have a logger printing to the
 console, but a channel, say debug, is set to not print anything. For example disabling error logging:
-
-```kotlin
-L.isErrorLoggingAllowed = false
-```
-
-To control all logging the following function is available
-
-```kotlin
-L.isLoggingAllowed(true)
-```
-
-The general form to log is:
+See [documentation/loggging.md](documentation/Logging.md) for a detailed guide In short here are some examples:
 
 ````kotlin
-//the fully fledged 
-L.error("tag", "message", someException)
-//a more regular log
-L.warning("tag", "message")
-````
-
-To modify the loggers, (clearing them and or appending listeners), just access it like so
-
-````kotlin
-L.warningLoggers
-````
-
-When in the JVM, there are quite a lot of further help for logging; some examples hereof:
-
-````kotlin
-
 class X {
     fun doWork() {
         logClassError("some message") //will use the classname as the tag
-
         logCurrentStackTraceDebug() //will log the current stack to debug (the tag will be "stack") but can be changed
-
-
     }
 }
+L.logProd("title", "message") 
 L.debug(x::class, "message") // uses the name of X via the KClass 
 ````
-
-To set up logging to use the console there are the following function
-
-```kotlin
-L.usePrintAsLoggers() //potentially taking a formatter function to format the logs.
-
-```
 
 ### Extensions
 

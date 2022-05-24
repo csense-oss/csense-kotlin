@@ -654,18 +654,18 @@ class MapKtTest {
 
     }
 
-    class Reverse {
+    class ReverseKeyValue {
 
         @Test
         fun empty() {
-            val empty = mapOf<String, Int>().reverse()
+            val empty = mapOf<String, Int>().reverseKeyValue()
             empty.assertEmpty()
         }
 
 
         @Test
         fun single() {
-            val single = mapOf("abc" to 42).reverse()
+            val single = mapOf("abc" to 42).reverseKeyValue()
             single.assertIs<Map<Int, String>>()
             single.assertSingle {
                 it.key.assert(42)
@@ -675,8 +675,8 @@ class MapKtTest {
 
 
         @Test
-        fun multiple() {
-            val multiple = mapOf("abc" to 42, "1234" to 500).reverse()
+        fun multipleNoCollisions() {
+            val multiple = mapOf("abc" to 42, "1234" to 500).reverseKeyValue()
             multiple.assertIs<Map<Int, String>>()
             multiple.assertSize(2)
             multiple.assertContainsKeyAnd(42) {
@@ -687,6 +687,17 @@ class MapKtTest {
             }
         }
 
+        @Test
+        fun collisions() {
+            val multiple = mapOf("abc" to 500, "1234" to 500).reverseKeyValue()
+            multiple.assertIs<Map<Int, String>>()
+            multiple.assertSize(1)
+            multiple.assertContainsKeyAnd(500) {
+                it.assert("1234", message = "last entry wins")
+            }
+        }
+
     }
+
 }
 

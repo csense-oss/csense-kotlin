@@ -48,7 +48,7 @@ public inline fun String.endsWithAny(
  * @param strings [Array]<out C> the strings we want to tell if this ends with
  * @param ignoreCase [Boolean]
  * @return [Boolean]
- * @timecomplexity o(n*m) where n is this strings length and m is the size of all the any strings
+ * @timecomplexity o(n*m) where n is this strings length and m is the size of all any strings
  */
 public inline fun String.endsWithAny(
     vararg strings: String,
@@ -129,7 +129,7 @@ public inline fun String.ifNotBlank(ifNotBlank: Function1<String, String>): Stri
 /**
  * Skips the given part if it starts with it.
  * @receiver [String]
- * @param prefix [String] the prefix we are looking for (and the part that will be skipped iff there.
+ * @param prefix [String] the prefix we are looking for (and the part that will be skipped iff there.)
  * @param ignoreCase [Boolean] how we should compare prefix with this string
  * @return [String] the resulting string, either the original or substring by the prefix length
  */
@@ -176,7 +176,7 @@ public inline fun String.doesNotStartsWith(
 
 
 /**
- * Tells if this string starts with something different than the given or not
+ * Tells if this string starts with something different from the given or not
  * @receiver [String] the string to test
  * @param subStrings [Array]<out [String]> the items to test if the receiver starts with or not
  * @param ignoreCase [Boolean] whenever we should ignore casing
@@ -189,7 +189,7 @@ public inline fun String.doesNotStartsWithAny(
     !startsWithAny(*subStrings, ignoreCase = ignoreCase)
 
 /**
- * Tells if this string starts with something different than the given or not
+ * Tells if this string starts with something different from the given or not
  * @receiver [String] the string to test
  * @param items [Collection]<[String]> the items to test if the receiver starts with or not
  * @param ignoreCase [Boolean] whenever we should ignore casing
@@ -207,7 +207,7 @@ public inline fun String.doesNotStartsWithAny(
 
 //region does not ends with
 /**
- * Tells if this string ends with something different than the given [sequence] or not
+ * Tells if this string ends with something different from the given [sequence] or not
  * @receiver [String]
  * @param sequence [String]
  * @param ignoreCase [Boolean]
@@ -334,10 +334,18 @@ public inline fun String.isNewLine(): Boolean = when (this.length) {
 }
 
 /**
- * Returns null if this string is empty
- * @return [String] null if this string is empty. Otherwise, the string
+ * Returns null if this string [isEmpty]
+ * @return [String] null if this string [isEmpty]. Otherwise, the string
  */
 public inline fun String.nullOnEmpty(): String? = ifEmpty {
+    null
+}
+
+/**
+ * Returns null if this string [isBlank]
+ * @return [String] null if this string [isBlank]. Otherwise, the string
+ */
+public inline fun String.nullOnBlank(): String? = ifBlank {
     null
 }
 

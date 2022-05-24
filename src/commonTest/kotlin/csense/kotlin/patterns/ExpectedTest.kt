@@ -128,7 +128,7 @@ class ExpectedTest {
     class ExpectedValueErrorValueOrExpectedFailed {
 
         @Test
-        fun ExpectedValueErrorValueOrExpectedFailed() {
+        fun expectedValueErrorValueOrExpectedFailed() {
             val failed = Expected.failed(42)
             assertThrows<Exception> {
                 failed.valueOrExpectedFailed {
@@ -257,7 +257,7 @@ class ExpectedTest {
 
             val exp2: Expected<Int, Exception> = Expected.success(42)
             val nothingIsAllowed = exp2.tryMap { it.toLong().asSuccess() }
-            nothingIsAllowed.assertIs<ExpectedSuccess<Int>>()
+            nothingIsAllowed.assertIs<ExpectedSuccess<Long>>()
             nothingIsAllowed.value.assert(42L)
         }
 
@@ -326,6 +326,7 @@ class ExpectedTest {
             val exp: Expected<String, Int> = Expected.success("42")
             exp.recover { shouldNotBeCalled() }.value.assert("42")
 
+            @Suppress("UNUSED_VARIABLE")
             val nothingError: Expected<String, Nothing> = Expected.success("test")
             //should cause a compiler error
 //            nothingError.recover {  }
@@ -419,7 +420,11 @@ class ExpectedTest {
             result.error.assert(42)
         }
 
-        @Suppress("UNREACHABLE_CODE") //intellij cannot figure this out?
+        @Suppress(
+            "UNREACHABLE_CODE",
+            "UNUSED_VARIABLE",
+            "UNUSED_ANONYMOUS_PARAMETER"
+        ) //intellij cannot figure this out?
         @Test
         fun actionThatThrows() = assertCalled { shouldBeCalled ->
             val exception = RuntimeException("Wee")
@@ -578,7 +583,10 @@ class ExpectedTest {
             exp.error.assertIs<RuntimeException>()
         }
 
-        @Suppress("UNREACHABLE_CODE") //kotlin compiler / idea does not know calls in place != exceptions will be passed though
+        @Suppress(
+            "UNREACHABLE_CODE",
+            "UNUSED_VARIABLE"
+        ) //kotlin compiler / idea does not know calls in place != exceptions will be passed though
         @Test
         fun throwing() {
             val exp: Expected<Nothing, Throwable> = expectedCatching {

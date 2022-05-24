@@ -198,7 +198,7 @@ class GenericTest {
                 length = 0,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 0,
-                filterFunction = { shouldNotBeCalled() }
+                predicate = { shouldNotBeCalled() }
             )
         }
 
@@ -208,7 +208,7 @@ class GenericTest {
                 length = 1,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 42,
-                filterFunction = { shouldNotBeCalled() }
+                predicate = { shouldNotBeCalled() }
             ).assertEmpty()
         }
 
@@ -222,7 +222,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     it.assert("output")
                     shouldBeCalled()
                     false
@@ -240,7 +240,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     it.assert("output")
                     shouldBeCalled()
                     true
@@ -260,7 +260,7 @@ class GenericTest {
                     "$it"
                 },
                 startIndex = 0,
-                filterFunction = {
+                predicate = {
                     val currentRealIndex = retrieverIndex - 1
                     it.assert("$currentRealIndex")
                     shouldBeCalled()
@@ -281,7 +281,7 @@ class GenericTest {
                     "output"
                 },
                 startIndex = 2,
-                filterFunction = {
+                predicate = {
                     shouldBeCalled()
                     false
                 })
@@ -290,4 +290,86 @@ class GenericTest {
     }
 
 
+    class GenericMapEachWith {
+
+        @Test
+        fun empty() {
+            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
+                shouldNotBeCalled()
+            }).assert("Result")
+
+            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
+                shouldNotBeCalled()
+            }).assert("Result")
+
+            Generic.mapEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
+                shouldNotBeCalled()
+            }).assert("Result")
+        }
+
+        @Test
+        fun single() = assertCalled(times = 2) { shouldBeCalled ->
+            val startIndex = 0
+            val length = startIndex + 1
+
+            Generic.mapEachWith(
+                result = "Result",
+                length = length,
+                retriever = {
+                    it.assert(startIndex)
+                    shouldBeCalled()
+                    42
+                },
+                startIndex = startIndex,
+                append = {
+                    this.assert("Result")
+                    it.assert(42)
+                    shouldBeCalled()
+                }).assert("Result")
+        }
+
+        @Test
+        fun singleWithStartIndex() = assertCalled(times = 2) { shouldBeCalled ->
+            val startIndex = 1
+            val length = startIndex + 1
+
+            Generic.mapEachWith(
+                result = "Result",
+                length = length,
+                retriever = {
+                    it.assert(startIndex)
+                    shouldBeCalled()
+                    42
+                },
+                startIndex = startIndex,
+                append = {
+                    this.assert("Result")
+                    it.assert(42)
+                    shouldBeCalled()
+                }).assert("Result")
+        }
+
+        @Test
+        fun multiple() = assertCalled(times = 4) { shouldBeCalled ->
+            val startIndex = 0
+            val length = startIndex + 2
+
+            val indexesCalled = Generic.mapEachWith(
+                result = mutableListOf<Int>(),
+                length = length,
+                retriever = {
+                    shouldBeCalled()
+                    it
+                },
+                startIndex = startIndex,
+                append = {
+                    shouldBeCalled()
+                    add(it)
+                })
+
+            indexesCalled.assertSize(2)
+            indexesCalled.assertContainsInOrder(0, 1)
+        }
+
+    }
 }

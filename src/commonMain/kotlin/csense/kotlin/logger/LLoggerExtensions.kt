@@ -3,69 +3,97 @@
 package csense.kotlin.logger
 
 import csense.kotlin.*
-import csense.kotlin.extensions.*
-import csense.kotlin.extensions.collections.*
+import csense.kotlin.logger.LLoggerExtensions.createPrintLoggerFor
+import csense.kotlin.logger.LLoggerExtensions.createPrintLoggerForAnsiCodes
+import csense.kotlin.logger.LLoggerExtensions.formatMessage
+import csense.kotlin.specificExtensions.string.*
 
-@Suppress("MissingTestFunction")
-// this requires us to take over STD out which is platform agnostic.
-// This should be fixed in test plugin (csense kotlin test)
+public typealias PrintFunc = (String) -> Unit
+
 /**
  * This will add a logger to each category using the stdout (console).
  * @receiver LLogger the logger to add the formatter(s) to
  * @param formatter [Function4]<[LoggingLevel], [String], [String], [Throwable]?, [String]> formatter function
  */
+@Suppress("MissingTestFunction") //is tested in the JVM (so we can capture the standard out) see LLoggerExtensionsKtTest.kt
 public inline fun LLogger.usePrintAsLoggers(
-    crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
-    }
+    crossinline formatter: FunctionLoggerFormatter = ::formatMessage,
+    crossinline printFunc: PrintFunc = ::println
 ) {
-    val createLogger: (LoggingLevel) -> LoggingFunctionType<Any> = { level: LoggingLevel ->
-        { tag: String, message: String, exception: Throwable? ->
-            println(formatter(level, tag, message, exception))
-        }
-    }
-    debugLoggers.add(createLogger(LoggingLevel.Debug))
-    warningLoggers.add(createLogger(LoggingLevel.Warning))
-    errorLoggers.add(createLogger(LoggingLevel.Error))
-    productionLoggers.add(createLogger(LoggingLevel.Production))
+    productionLoggers.add(createPrintLoggerFor(formatter, LoggingLevel.Production, printFunc))
+    errorLoggers.add(createPrintLoggerFor(formatter, LoggingLevel.Error, printFunc))
+    warningLoggers.add(createPrintLoggerFor(formatter, LoggingLevel.Warning, printFunc))
+    debugLoggers.add(createPrintLoggerFor(formatter, LoggingLevel.Debug, printFunc))
 }
 
-@Suppress("MissingTestFunction")
+@Suppress("MissingTestFunction") //is tested in the JVM (so we can capture the standard out) see LLoggerExtensionsKtTest.kt
 public inline fun LLogger.usePrintAsLoggersWithAnsiColor(
-    crossinline formatter: FunctionLoggerFormatter = { level: LoggingLevel, tag: String, message: String, exception: Throwable? ->
-        "$level - [$tag] $message ${exception?.toPrettyString() ?: ""}"
-    },
-    debugColor: String = "\u001B[35m", // purple
-    warningColor: String = "\u001B[33m", // yellow
-    ErrorColor: String = "\u001B[31m",  // red
-    ProductionColor: String = "\u001B[36m" //cyan
+    crossinline formatter: FunctionLoggerFormatter = ::formatMessage,
+    debugColor: String = AnsiConsoleEscapeCodes.purpleTextColor,
+    warningColor: String = AnsiConsoleEscapeCodes.yellowTextColor,
+    ErrorColor: String = AnsiConsoleEscapeCodes.redTextColor,
+    ProductionColor: String = AnsiConsoleEscapeCodes.cyanTextColor,
+    crossinline printFunc: PrintFunc = ::println
 ) {
-    val reset = "\u001B[0m"
+    productionLoggers.add(
+        createPrintLoggerForAnsiCodes(
+            formatter,
+            LoggingLevel.Production,
+            ProductionColor,
+            printFunc = printFunc
+        )
+    )
+    errorLoggers.add(createPrintLoggerForAnsiCodes(formatter, LoggingLevel.Error, ErrorColor, printFunc = printFunc))
+    warningLoggers.add(
+        createPrintLoggerForAnsiCodes(
+            formatter,
+            LoggingLevel.Warning,
+            warningColor,
+            printFunc = printFunc
+        )
+    )
+    debugLoggers.add(createPrintLoggerForAnsiCodes(formatter, LoggingLevel.Debug, debugColor, printFunc = printFunc))
+}
 
-    val createLogger: (level: LoggingLevel, color: String) -> LoggingFunctionType<Any> =
-        { level: LoggingLevel, color: String ->
-            { tag: String, message: String, exception: Throwable? ->
-                println(color + formatter(level, tag, message, exception) + reset)
-            }
+
+public object LLoggerExtensions {
+    public fun formatMessage(level: LoggingLevel, tag: String, message: String, exception: Throwable?): String {
+        return "$level - [$tag] $message ${exception?.stackTraceToString() ?: ""}"
+    }
+
+    public inline fun createPrintLoggerFor(
+        crossinline formatter: FunctionLoggerFormatter,
+        level: LoggingLevel,
+        crossinline printFunc: PrintFunc
+    ): LoggingFunctionType<Any> {
+        return { tag: String, message: String, exception: Throwable? ->
+            printFunc(formatter(level, tag, message, exception))
         }
-    debugLoggers.add(createLogger(LoggingLevel.Debug, debugColor))
-    warningLoggers.add(createLogger(LoggingLevel.Warning, warningColor))
-    errorLoggers.add(createLogger(LoggingLevel.Error, ErrorColor))
-    productionLoggers.add(createLogger(LoggingLevel.Production, ProductionColor))
+    }
+
+    public inline fun createPrintLoggerForAnsiCodes(
+        crossinline formatter: FunctionLoggerFormatter,
+        level: LoggingLevel,
+        startCode: String,
+        endCode: String = AnsiConsoleEscapeCodes.resetCode,
+        crossinline printFunc: PrintFunc
+    ): LoggingFunctionType<Any> {
+        return { tag: String, message: String, exception: Throwable? ->
+            printFunc(formatter(level, tag, message, exception).modifications.wrapIn(startCode, endCode))
+        }
+    }
+
 }
 
 /**
- * Invokes each listener of a logging type function with a lazily computed message.
- * Skips the message if there are no loggers.
- * @receiver [Iterable]<T>
- * @param tag [String]
- * @param messageFnc [Function0R]<String>
- * @param exception [Throwable]?
+ * A simple container for ANSI escape codes + some colors (not a complete list)
+ * eg see https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
  */
-public inline fun <T : LoggingFunctionType<*>> Iterable<T>.invokeEachWithLoggingLazy(
-    tag: String,
-    messageFnc: Function0R<String>,
-    exception: Throwable?
-): Unit = skipIfEmptyOr {
-    invokeEachWith(tag, messageFnc(), exception)
+public object AnsiConsoleEscapeCodes {
+    public const val purpleTextColor: String = "\u001B[35m"
+    public const val yellowTextColor: String = "\u001B[33m"
+    public const val redTextColor: String = "\u001B[33m"
+    public const val cyanTextColor: String = "\u001B[36m"
+    public const val resetCode: String = "\u001B[0m"
+
 }

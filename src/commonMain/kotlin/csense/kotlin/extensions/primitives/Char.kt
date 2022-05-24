@@ -44,7 +44,7 @@ public inline fun Char.asHexDigit(): Byte? {
     if (asNumber != null) {
         return asNumber
     }
-    //then its either [A-F] or not a hex
+    //then It's either [A-F] or not a hex
     val thisByte = lowercaseChar().code - CharExtensions.charAAsByte
     if (thisByte.isNegative || thisByte > CharExtensions.hexCharsCount) {
         return null

@@ -1,5 +1,57 @@
 # Changelog
 
+## 0.0.59
+
+- added
+    - contracts to
+        - expected (callsInPlace)
+   
+    - string.nullOnBlank
+   
+    - Boolean.mappings (BooleanMappings)
+        - mappings.toNewlineOrEmpty() (JVM)
+   
+    - notImplemented function (akin to a TODO that is intentional)
+   
+    - Array.mapToMutable
+    - Array.mapEachWith
+   
+    - Generic.mapEachWith
+   
+    - Collection.mapToMutable
+    - Collection.mappings (CollectionMappings)
+      - CollectionMappings.mapEachItemWith
+   
+    - Map.mappings (MapMappings)
+      - MapMappings.mapEachEntryWith
+      - MapMappings.reverseKeyValue
+   
+    - Debugging (JVM) : convenience for working with reflective information about execution
+      - getCurrentMethodName
+      - getCurrentMethodLineNumber
+      - getCurrentMethodFileName
+      - getCurrentMethodFileNameAndLineNumber
+      - getCurrentMethodCanonicalName
+      - getCurrentMethodInformation
+      
+- bumped kotlin std lib to 1.6.21
+- renamed Throwable.toPrettyString to Throwable.messagesToPrettyString
+- added [documentation/Logging.md](documentation/Logging.md)
+- renamed LLogger.isLoggingAllowed parameter **value** to **enable**
+- renamed LLogger.warning parameter **throwable** to **exception**
+- renamed LLogger.warningLazy parameter **throwable** to **exception**
+- renamed FunctionLoggerFormatter parameter **error** to **exception**
+- renamed LoggingFunctionType parameter **throwable** to **exception**
+- added AnsiConsoleEscapeCodes & LLoggerExtensions to simply code w.r.t printLoggers
+- print loggers now print the whole stacktrace and not just the message.
+- removed extraneous method LL.logger.warning with the signature of lazy (taking message as a function)
+- renamed Type parameter "T" on Collection extension to Item
+- renamed Generic.filter's "filterFunction" to "predicate"
+- renamed CoroutineScope.asyncIO's "action" to "block"
+- renamed Map.reverse to Map.reverseKeyValue to clearly indicate that it is not the order but the content that changes
+- renamed MutableMap.reverse to MutableMap.reverseKeyValue to clearly indicate that it is not the order but the content that changes
+- deprecated Collection<T>.reversedIf
+
 ## 0.0.58
 
 - added
@@ -30,8 +82,8 @@
     - renamed CoroutineScope.launchMain's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextDefault's action to block (to match coroutines naming)
     - renamed CoroutineScope.withContextMain's action to block (to match coroutines naming)
-    - renamed String.ifNotEmpty's action to ifNotEmpty 
-    - renamed String.ifNotBlank's action to ifNotBlank 
+    - renamed String.ifNotEmpty's action to ifNotEmpty
+    - renamed String.ifNotBlank's action to ifNotBlank
 
 ## 0.0.57
 
@@ -405,7 +457,7 @@
 - Comparing is now "ItemComparing", since its between "items"
 - uniformed extensions on numbers (float, double, int, long, short, byte, now have +- the same extensions regarding
   positive, negative ect)
-- extracted the L logging part into a class, such that it can be used in various ways, while still having a L object (
+- extracted the L logging part into a class, such that it can be used in various ways, while still having an L object (
   also improves tests).
     - also updated extensions.
 - gradle 5.3-rc-1
@@ -434,7 +486,7 @@
 ## 0.0.12
 
 - JVM timing function naming (lowercase method name and millis in name). Made it usable in suspension
-- removed a lot of crossinlines where they made no real sense (if the function would make sense with a return inside of
+- removed a lot of cross inlines where they made no real sense (if the function would make sense with a return inside
   it, and or allow it to be used in suspend functions )
 - removed supporting functions that were due to crossinlining.
 

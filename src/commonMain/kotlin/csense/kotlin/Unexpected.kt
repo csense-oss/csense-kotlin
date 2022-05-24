@@ -6,6 +6,7 @@ import csense.kotlin.annotations.sideEffect.*
 import csense.kotlin.logger.*
 import kotlin.contracts.*
 
+
 /**
  * Indicates that something was unexpected (say an enum case, etc.)
  *
@@ -118,3 +119,4 @@ public class UnexpectedException(
         public const val unexpectedDefaultMessage: String = "Unexpected"
     }
 }
+

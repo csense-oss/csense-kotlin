@@ -51,4 +51,4 @@ class MyThing(val str: String) {
 }
 ````
 
-Note, there are no "also"/apply (etc) there is no vars nor nulls in the after code.
+Note, there are no "also"/apply (etc.) there is no vars nor nulls in the after code.

@@ -9,7 +9,7 @@ class JvmExceptionsTests {
 
     @Test
     fun tryAndLogKClazz() = assertCalled {
-        tryAndLog<Nothing>(
+        tryAndLog(
             this::class, "",
             logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
         ) {
@@ -20,7 +20,7 @@ class JvmExceptionsTests {
 
     @Test
     fun tryAndLogClazz() = assertCalled {
-        tryAndLog<Nothing>(
+        tryAndLog(
             this::class.java, "",
             logger = getLoggerForNameAssertion(this::class.java.simpleName, it)
         ) {

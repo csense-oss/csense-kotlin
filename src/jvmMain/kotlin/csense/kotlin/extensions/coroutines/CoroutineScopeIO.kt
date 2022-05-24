@@ -3,9 +3,7 @@
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.*
-import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
-import kotlin.contracts.*
 
 /**
  * Wrapper for [async] ([Dispatchers.IO])
@@ -14,8 +12,8 @@ import kotlin.contracts.*
  * @return [Deferred]<T>
  */
 public fun <T> CoroutineScope.asyncIO(
-    action: CoroutineScopeFunction0<T>
-): Deferred<T> = async(Dispatchers.IO, block = action)
+    block: CoroutineScopeFunction0<T>
+): Deferred<T> = async(Dispatchers.IO, block = block)
 
 /**
  * Wrapper for [launch] ([Dispatchers.IO])

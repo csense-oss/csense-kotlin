@@ -29,7 +29,7 @@ class GeneralTest {
         @Suppress("UNUSED_VARIABLE")
         val data: Unit =
             fnc1("") //this would case a complie time error, and thus validating that the function does what
-        //its supposed to type wise.
+        //It's supposed to type wise.
         counter.assert(1, "should still execute function even though we discard the result")
     }
 

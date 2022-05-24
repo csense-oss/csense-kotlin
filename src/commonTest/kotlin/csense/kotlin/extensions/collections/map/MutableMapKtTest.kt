@@ -205,18 +205,18 @@ class MutableMapKtTest {
         }
     }
 
-    class Reverse {
+    class ReverseKeyValue {
 
         @Test
         fun empty() {
-            val empty = mutableMapOf<String, Int>().reverse()
+            val empty = mutableMapOf<String, Int>().reverseKeyValue()
             empty.assertEmpty()
         }
 
 
         @Test
         fun single() {
-            val single = mutableMapOf("abc" to 42).reverse()
+            val single = mutableMapOf("abc" to 42).reverseKeyValue()
             single.assertIs<MutableMap<Int, String>>()
             single.assertSingle {
                 it.key.assert(42)
@@ -227,7 +227,7 @@ class MutableMapKtTest {
 
         @Test
         fun multiple() {
-            val multiple = mutableMapOf("abc" to 42, "1234" to 500).reverse()
+            val multiple = mutableMapOf("abc" to 42, "1234" to 500).reverseKeyValue()
             multiple.assertIs<MutableMap<Int, String>>()
             multiple.assertSize(2)
             multiple.assertContainsKeyAnd(42) {

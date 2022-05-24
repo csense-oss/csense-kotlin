@@ -71,7 +71,7 @@ public inline val Byte.isNegative: Boolean
     get() = this < 0
 
 /**
- * If this [Byte] is positive, meaning iff its greater than neutral (0)
+ * If this [Byte] is positive, meaning iff it's greater than neutral (0)
  */
 public inline val Byte.isPositive: Boolean
     get() = this > 0

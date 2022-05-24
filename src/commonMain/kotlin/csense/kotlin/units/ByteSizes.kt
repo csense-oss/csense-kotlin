@@ -14,7 +14,7 @@ import csense.kotlin.annotations.numbers.*
  * https://en.wikipedia.org/wiki/Binary_prefix
  *
  * this does not handle overflow; so all kinds of "downwards" walk can result in overflow.
- * eg if you go from MegaBytes to kilobytes.
+ * e.g. if you go from MegaBytes to kilobytes.
  *
  * or if you go from byte to bit, there is a potential overflow as well
  *

@@ -49,7 +49,7 @@ public inline fun <reified T> Any.invokeIsInstance(action: FunctionUnit<T>) {
  * not the specific type
  * @receiver [Any] the unknown type
  * @param action [Function1]<T, R> the action to call if this is actually a T
- * @return R? the return result
+ * @return R? the result
  */
 
 public inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): R? {
