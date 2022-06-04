@@ -34,18 +34,20 @@ If using android then you can do this
 ```kotlin
 //Use of globalscope here is "okay", as this is a more "daemon" thread style and is bound by application lifecycle (unless you cancel the job..)
 GlobalScope.launch(Dispatchers.Main) {
-    CL.debugLoggers.collect {
-        Log.d(it.tag, it.message.toString(), it.throwable)
+    launch {
+        CL.debugLoggers.collect {
+            Log.d(it.tag, it.message.toString(), it.throwable)
+        }
     }
-}
-GlobalScope.launch(Dispatchers.Main) {
-    CL.warningLoggers.collect {
-        Log.w(it.tag, it.message.toString(), it.throwable)
+    launch {
+        CL.warningLoggers.collect {
+            Log.w(it.tag, it.message.toString(), it.throwable)
+        }
     }
-}
-GlobalScope.launch(Dispatchers.Main) {
-    CL.errorLoggers.collect {
-        Log.e(it.tag, it.message.toString(), it.throwable)
+    launch {
+        CL.errorLoggers.collect {
+            Log.e(it.tag, it.message.toString(), it.throwable)
+        }
     }
 }
 ```

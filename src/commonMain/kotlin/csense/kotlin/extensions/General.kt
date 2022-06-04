@@ -1,11 +1,9 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-@file:OptIn(ExperimentalContracts::class)
 
 package csense.kotlin.extensions
 
 import csense.kotlin.*
 import kotlin.contracts.*
-
 
 /**
  * Creates a simpler cast than regular due to the reified type T.
@@ -132,7 +130,9 @@ public inline fun <reified T> Any.isNot(): Boolean {
  * @param ifNull T the other value to use if this receiver is null
  * @return T the non-null value
  */
-public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(ifNull: T): T = this ?: ifNull
+public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
+    ifNull: T & Any
+): T & Any = this ?: ifNull
 
 /**
  * this if it is not null, or the other if this is null

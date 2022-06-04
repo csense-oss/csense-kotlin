@@ -9,7 +9,7 @@ import kotlin.contracts.*
  * @param block [EmptyFunction]
  * @return T
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> T.also(block: EmptyFunction): T {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)

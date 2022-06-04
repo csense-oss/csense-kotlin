@@ -16,7 +16,6 @@ public inline fun <U> Any?.mapOptional(
     ifNotNull: U,
     ifNull: U
 ): U {
-
     return this.isNotNull().map(ifNotNull, ifNull)
 }
 
@@ -27,7 +26,7 @@ public inline fun <U> Any?.mapOptional(
  * @param ifNull [EmptyFunctionResult]<[U]> the value if 'this' is null
  * @return [U] the value depending on 'this' value
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <U, T> T?.mapLazyOptional(
     ifNotNull: Function1<T, U>,
     ifNull: EmptyFunctionResult<U>
@@ -71,7 +70,7 @@ public inline fun <T> Boolean.map(
  * @param ifFalse [EmptyFunctionResult]<T>
  * @return T
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Boolean.mapLazy(
     ifTrue: EmptyFunctionResult<T>,
     ifFalse: EmptyFunctionResult<T>
@@ -97,7 +96,7 @@ public inline fun <T, U> Iterable<T>.mapToSet(
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)

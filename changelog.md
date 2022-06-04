@@ -15,8 +15,9 @@
     - Generic.traverseWhileNotNull
     - Generic.traverseWhileNotNullAndNoCycles
     - Throwable (JVM)
-      - toSensitiveStackTraceString
-      - formatToString
+        - toSensitiveStackTraceString
+        - formatToString
+    - nullable deprecated methods for avoid "misuse" of nullable functions
 
 ## 0.0.59
 

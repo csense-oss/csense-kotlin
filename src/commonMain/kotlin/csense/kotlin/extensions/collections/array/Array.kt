@@ -32,7 +32,7 @@ public inline fun <T> Array<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
  * @receiver [Array]<T>? the nullable Array
  * @return [Boolean] true if the Array is NOT null AND NOT empty
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrEmpty != null)
@@ -122,6 +122,6 @@ public inline fun <Item, Result> Array<Item>.mapEachWith(
  * @param defaultValue Item
  * @return Item
  */
-public inline fun <Item> Array<out Item>.getOr(index: Int, defaultValue: Item): Item {
+public inline fun <Item> Array<out Item>.getOr(index: Int, defaultValue: Item & Any): Item & Any {
     return getOrNull(index) ?: defaultValue
 }

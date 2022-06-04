@@ -1,5 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
-@file:OptIn(ExperimentalContracts::class)
+
 
 package csense.kotlin.extensions.collections.map
 

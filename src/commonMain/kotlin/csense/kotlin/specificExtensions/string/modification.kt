@@ -1,5 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
-@file:OptIn(ExperimentalContracts::class)
+
 
 package csense.kotlin.specificExtensions.string
 

@@ -83,7 +83,7 @@ public inline val Long.isOdd: Boolean
  * @receiver [Long]? the optional number to test
  * @return [Boolean] false if this is null or zero, true otherwise
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Long?.isNotNullOrZero(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrZero != null)
@@ -96,7 +96,7 @@ public inline fun Long?.isNotNullOrZero(): Boolean {
  * @receiver [Long]? the optional number to test
  * @return [Boolean] true if this is null or zero, false otherwise
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Long?.isNullOrZero(): Boolean {
     contract {
         returns(false) implies (this@isNullOrZero != null)

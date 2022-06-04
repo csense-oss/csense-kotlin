@@ -337,38 +337,33 @@ class ArrayTest {
     }
 
     class ArrayOutItemGetOr {
-        class ArrayItemGetOr {
-
-            @Test
-            fun empty() {
-                val array = arrayOf<String>()
-                array.getOr(0, "default").assert("default")
-                array.getOr(-1, "default").assert("default")
-                array.getOr(1, "default").assert("default")
-            }
-
-
-            @Test
-            fun single() {
-                val array = arrayOf("a")
-                array.getOr(0, "default").assert("a")
-                array.getOr(-1, "default").assert("default")
-                array.getOr(1, "default").assert("default")
-            }
-
-
-            @Test
-            fun multiple() {
-                val array = arrayOf("a", "1")
-                array.getOr(0, "default").assert("a")
-                array.getOr(-1, "default").assert("default")
-                array.getOr(-2, "default").assert("default")
-                array.getOr(1, "default").assert("1")
-                array.getOr(2, "default").assert("default")
-            }
-
+        @Test
+        fun empty() {
+            val array = arrayOf<String>()
+            array.getOr(0, "default").assert("default")
+            array.getOr(-1, "default").assert("default")
+            array.getOr(1, "default").assert("default")
         }
 
+
+        @Test
+        fun single() {
+            val array = arrayOf("a")
+            array.getOr(0, "default").assert("a")
+            array.getOr(-1, "default").assert("default")
+            array.getOr(1, "default").assert("default")
+        }
+
+
+        @Test
+        fun multiple() {
+            val array = arrayOf("a", "1")
+            array.getOr(0, "default").assert("a")
+            array.getOr(-1, "default").assert("default")
+            array.getOr(-2, "default").assert("default")
+            array.getOr(1, "default").assert("1")
+            array.getOr(2, "default").assert("default")
+        }
 
     }
 }

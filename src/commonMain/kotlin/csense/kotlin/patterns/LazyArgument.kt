@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalContracts::class)
+
 
 package csense.kotlin.patterns
 

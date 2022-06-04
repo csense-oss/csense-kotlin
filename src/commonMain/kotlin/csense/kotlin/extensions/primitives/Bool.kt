@@ -1,5 +1,5 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE")
-@file:OptIn(ExperimentalContracts::class)
+
 
 package csense.kotlin.extensions.primitives
 
@@ -68,7 +68,7 @@ public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean {
 }
 
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Boolean?.isNullOrFalse(): Boolean {
     contract {
         returns(false) implies (this@isNullOrFalse != null)
@@ -76,7 +76,7 @@ public inline fun Boolean?.isNullOrFalse(): Boolean {
     return this == null || !this
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Boolean?.isNullOrTrue(): Boolean {
     contract {
         returns(false) implies (this@isNullOrTrue != null)
@@ -84,7 +84,7 @@ public inline fun Boolean?.isNullOrTrue(): Boolean {
     return this == null || this
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrTrue != null)
@@ -92,7 +92,7 @@ public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     return this != null && !this
 }
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Boolean?.isNotNullOrFalse(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrFalse != null)

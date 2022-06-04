@@ -14,7 +14,7 @@ import kotlin.contracts.*
  * @receiver [Iterable]<[Function1]<I1, O>>
  * @param element [Function0R]<I1>
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
     element: Function0R<I1>
 ) {
@@ -33,7 +33,7 @@ public inline fun <I1, O> Iterable<Function1<I1, O>>.invokeEachWithLazy(
  * @param secondElement I2
  */
 
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
     firstElement: Function0R<I1>,
     secondElement: Function0R<I2>
@@ -55,7 +55,7 @@ public inline fun <I1, I2, O> Iterable<Function2<I1, I2, O>>.invokeEachWithLazy(
  * @param secondElement I2
  * @param thirdElement I3
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, I2, I3, O>
         Iterable<Function3<I1, I2, I3, O>>.invokeEachWithLazy(
     firstElement: Function0R<I1>,
@@ -80,7 +80,7 @@ public inline fun <I1, I2, I3, O>
  * @param thirdElement I3
  * @param fourthElement I4
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, I2, I3, I4, O>
         Iterable<Function4<I1, I2, I3, I4, O>>.invokeEachWithLazy(
     firstElement: Function0R<I1>,
@@ -113,7 +113,7 @@ public inline fun <I1, I2, I3, I4, O>
  * @param fourthElement I4
  * @param fifthElement I5
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, I2, I3, I4, I5, O>
         Iterable<Function5<I1, I2, I3, I4, I5, O>>.invokeEachWithLazy(
     firstElement: Function0R<I1>,
@@ -150,7 +150,7 @@ public inline fun <I1, I2, I3, I4, I5, O>
  * @param fifthElement I5
  * @param sixthElement I6
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <I1, I2, I3, I4, I5, I6, O>
         Iterable<Function6<I1, I2, I3, I4, I5, I6, O>>.invokeEachWithLazy(
     firstElement: Function0R<I1>,
@@ -402,7 +402,7 @@ public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Uni
  * @param function [Function0]<[Unit]>
  */
 //TODO consider name...
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Iterable<T>.skipIfEmptyOr(function: () -> Unit) {
     contract {
         callsInPlace(function, InvocationKind.AT_MOST_ONCE)
@@ -466,7 +466,7 @@ public inline fun <E, V : Comparable<V>> Iterable<E>.largest(
  * @receiver [C]?
  * @return [C]?
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
     contract {
         returnsNotNull() implies (this@nullOnEmpty != null)
@@ -479,7 +479,7 @@ public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
  * @receiver [C]? the optional type
  * @return [Boolean] true if this has content (is not null or empty) false if it is null or empty
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T, C : Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrEmpty != null)
@@ -492,7 +492,7 @@ public inline fun <T, C : Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
  * @receiver [Iterable]<T>? the nullable iteration
  * @return [Boolean] true if the iteration is null or empty
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T, C : Iterable<T>> C?.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)

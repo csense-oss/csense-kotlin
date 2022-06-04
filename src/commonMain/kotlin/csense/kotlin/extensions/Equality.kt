@@ -12,7 +12,7 @@ import kotlin.contracts.*
  * @param other T? the value to compare to
  * @return [Boolean] true this is null or is equal to the other object (equals)
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> T?.isNullOrEqualTo(other: T?): Boolean {
     contract {
         returns(false) implies (this@isNullOrEqualTo != null)

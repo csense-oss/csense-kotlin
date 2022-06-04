@@ -119,7 +119,7 @@ public inline fun IndexOfExtensions.unwrapUnsafeIndexOf(): Int? = value.isNegati
  * @receiver [Int]? the optional number to test
  * @return [Boolean] false if this is null or zero, true otherwise
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Int?.isNotNullOrZero(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrZero != null)
@@ -133,7 +133,7 @@ public inline fun Int?.isNotNullOrZero(): Boolean {
  * @receiver [Int]? the optional number to test
  * @return [Boolean] true if this is null or zero, false otherwise
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun Int?.isNullOrZero(): Boolean {
     contract {
         returns(false) implies (this@isNullOrZero != null)

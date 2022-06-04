@@ -173,7 +173,7 @@ public inline fun Collection<Boolean>.isAllTrue(): Boolean = all { it }
  * @receiver [Collection]<T>? the nullable collection
  * @return [Boolean] true if the collection is NOT null AND NOT empty
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrEmpty != null)
@@ -186,7 +186,7 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
  * @receiver [Collection]<T>? the nullable collection
  * @return [Boolean] true if the collection is null or empty
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)

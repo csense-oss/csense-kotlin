@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalContracts::class)
-
 package csense.kotlin
 
 import csense.kotlin.annotations.sideEffect.*
