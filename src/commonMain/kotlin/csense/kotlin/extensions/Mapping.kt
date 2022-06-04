@@ -19,6 +19,16 @@ public inline fun <U> Any?.mapOptional(
     return this.isNotNull().map(ifNotNull, ifNull)
 }
 
+@Deprecated(
+    "Using \"mapOptional\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+public inline fun <U> Any.mapOptional(
+    ifNotNull: U,
+    ifNull: U
+): Nothing = unexpected()
+
 /**
  * Maps an optional value into another value
  * @receiver [Any]?
@@ -41,6 +51,16 @@ public inline fun <U, T> T?.mapLazyOptional(
         ifNull()
     }
 }
+
+@Deprecated(
+    "Using \"mapLazyOptional\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+public inline fun <U, T> Any.mapLazyOptional(
+    ifNotNull: Function1<T, U>,
+    ifNull: EmptyFunctionResult<U>
+): Nothing = unexpected()
 
 /**
  * Maps a boolean into a value .
@@ -94,7 +114,6 @@ public inline fun <T> Boolean.mapLazy(
 public inline fun <T, U> Iterable<T>.mapToSet(
     mapper: Function1<T, U>
 ): Set<U> = mapTo(mutableSetOf(), mapper)
-
 
 
 public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {

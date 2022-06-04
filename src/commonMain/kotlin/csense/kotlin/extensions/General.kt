@@ -107,6 +107,16 @@ public inline fun <T> T?.useOr(
     }
 }
 
+@Deprecated(
+    "Using \"useOr\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+public inline fun <T> Any.useOr(
+    ifNotNull: ReceiverFunctionUnit<T>,
+    ifNull: EmptyFunction
+): Nothing = unexpected()
+
 /**
  * Another way of writing "!is" with is not "inverse" logic (not is), this "is not"
  * NB TYPE ERASURE STILL APPLIES SO LIST<STRING> IS == LIST<OBJECT> (because they become LIST<*>)
@@ -134,6 +144,16 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
     ifNull: T & Any
 ): T & Any = this ?: ifNull
 
+@Deprecated(
+    "Using \"orIfNull\" on compile time known not null is always this",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <T> Any.orIfNull(
+    ifNull: T & Any
+): Nothing = unexpected()
+
+
 /**
  * this if it is not null, or the other if this is null
  * the same as ?:
@@ -149,6 +169,18 @@ public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>)
     }
     return this ?: ifNullAction()
 }
+
+
+@Deprecated(
+    "Using \"orIfNullLazy\" on compile time known not null is always this",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("this")
+)
+public inline fun <T> Any.orIfNullLazy(
+    ifNullAction: Function0R<T>
+): Nothing = unexpected()
+
+
 
 /**
  * applies the given function iff the given [shouldApply] is true
