@@ -1,34 +1,42 @@
-
+@file:Suppress("NOTHING_TO_INLINE")
 
 package csense.kotlin.patterns
 
-import csense.kotlin.*
-import kotlin.contracts.*
+import csense.kotlin.Function1
 
-
-public class LazyArgument<T> {
-    private var instance: T? = null
+/**
+ * A "lazy" alike construction that allows a value to be used for the "lazy" computation
+ *
+ * @param ValueType the resulting value (to be lazy created)
+ * @param FirstArgumentType the argument type to create the [ValueType]
+ * @property constructor [Function1]<FirstArgumentType, ValueType>
+ */
+public class LazyArgument<FirstArgumentType, ValueType>(
+    private val constructor: (first: FirstArgumentType) -> ValueType
+) {
+    private var instance: ValueType? = null
 
     /**
-     * gets the current instance or creates it (via [constructor]) and store the result for subsequent
-     * usage
-     * @param constructor [Function0]<T> the constructor function to invoke iff the instance is null
-     * @return T
+     * Retrieves the instance if any or creates a new with the given argument
+     * @return ValueType
      */
-    public fun getValue(constructor: Function0R<T>): T {
-        contract {
-            callsInPlace(constructor, InvocationKind.AT_MOST_ONCE)
-        }
-        return instance ?: constructor().apply { instance = this }
+    public fun getValue(first: FirstArgumentType): ValueType {
+        return instance ?: constructor(first).apply { instance = this }
     }
 
     /**
-     * Convenience function for [getValue]
-     * gets the current instance or creates it (via [constructor]) and store the result for subsequent
-     * usage
-     * @param constructor [Function0]<T> the constructor function to invoke iff the instance is null
-     * @return T
-     */
-    public operator fun invoke(constructor: Function0R<T>): T = getValue(constructor)
+     * Retrieves the instance if any or creates a new with the given argument
 
+     * @return ValueType
+     */
+    public inline operator fun invoke(
+        first: FirstArgumentType
+    ): ValueType = getValue(first)
+}
+
+
+public inline fun <FirstArgumentType, ValueType> lazyArgument(
+    noinline constructor: (first: FirstArgumentType) -> ValueType
+): LazyArgument<FirstArgumentType, ValueType> {
+    return LazyArgument(constructor)
 }

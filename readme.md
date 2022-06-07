@@ -25,20 +25,13 @@ Then add the dependency
 
 ```groovy
 dependencies {
-    implementation 'csense.kotlin:csense-kotlin:0.0.59'
+    implementation 'csense.kotlin:csense-kotlin:0.0.60'
 }
 ```
 
 ## Changelog
 
 can be found in [changelog.md](changelog.md)
-
-## Roadmap
-
-- more extensions
-- general algorithms that would be needed across multiple platforms
-- general functionality that is very common to share (e.g. multiple subprojects; for example preferences for an
-  application ect)
 
 ## High level explanations
 
@@ -52,12 +45,12 @@ and of course some other concepts as well.
 
 ### Logging
 
-The logging is an all-purpose general simple logging framework, that exposes a few levels (including a special channel
-meant for production)
+The logging is an all-purpose general simple logging framework, that exposes a few levels with a focus on sensitivity.
+
 along the ability to change, hook into, and generally do what you want with how it does it and whereto;
 
 There are also controls to set whenever a channel should "produce" anything, akk you could have a logger printing to the
-console, but a channel, say debug, is set to not print anything. For example disabling error logging:
+console, but a channel, say debug, is set to not print anything.
 See [documentation/loggging.md](documentation/Logging.md) for a detailed guide In short here are some examples:
 
 ````kotlin
@@ -67,22 +60,49 @@ class X {
         logCurrentStackTraceDebug() //will log the current stack to debug (the tag will be "stack") but can be changed
     }
 }
-L.logProd("title", "message") 
+L.logProd("title", "message")
 L.debug(x::class, "message") // uses the name of X via the KClass 
 ````
 
 ### Extensions
 
-Check out the type of extensions you are curious about; they are arranged in terms of their type;
+Check out the type of extensions you are curious about; they are arranged in terms of their type in the package
+extensions.
 
 ### Patterns
+
+- [documentation/expectedPattern.md](documentation/ExpectedPattern.md)
+- [documentation/LazyArgument.md](documentation/LazyArgument.md)
 
 ### Very general helpers
 
 There are some very convenient methods / properties; a few examples / mentions:
 
-typeK() is basically a function that gives you the required type(class) of an object. The java equivalent  (which gives
-a java class ) is called "type", and is only in the JVM before:
+#### type()
+
+is a JVM specific extension giving the expected class type.
+*Before:*
+
+````kotlin
+class AClassWithALongName
+
+fun usesType(type: Class<AClassWithALongName>) {}
+usesType(AClassWithALongName::class)
+````
+
+*After:*
+
+````kotlin
+class AClassWithALongName
+
+fun usesType(type: Class<AClassWithALongName>) {}
+usesType(type())
+````
+
+#### typeK()
+
+Is basically a function that gives you the required kotlin type(class) of an object:
+*Before:*
 
 ````kotlin
 class AClassWithALongName
@@ -91,19 +111,20 @@ fun usesType(type: KClass<AClassWithALongName>) {}
 usesType(AClassWithALongName::class)
 ````
 
-csense:
+*After:*
 
 ````kotlin
 class AClassWithALongName
 
 fun usesType(type: KClass<AClassWithALongName>) {}
-usesType(typeK()) //extension
-//there is also type(), which is only for java (java Class)   
+usesType(typeK())
 ````
 
-toUnit() is a simple extension to make the receiver return Unit.
+#### toUnit()
 
-before:
+Simple extension to make the receiver return Unit.
+
+*before:*
 
 ````kotlin
 
@@ -115,7 +136,7 @@ fun some() {
 
 ````
 
-csense:
+*after:*
 
 ````kotlin
 fun some(): Unit = coroutineScope.launch {
@@ -123,8 +144,10 @@ fun some(): Unit = coroutineScope.launch {
 }.toUnit()
 ````
 
-map() convert a boolean to a value; In regular terms you can convert a bool to a value in a very boilerplate way;
-before:
+#### map()
+
+convert a boolean to a value; In regular terms you can convert a bool to a value in a very verbose way;
+*before:*
 
 ````kotlin
 val myValue = if (someBool) {
@@ -135,7 +158,7 @@ val myValue = if (someBool) {
 
 ````
 
-csense:
+*after:*
 
 ````kotlin
 val myValue = someBool.map(42, 40)
@@ -152,11 +175,6 @@ val myValue = someBool.map(ifTrue = 42, ifFalse = 40)
 Since the introduction of Random in kotlin MPP standard library, it is now possible to share some more cryptographically
 things, and one of such is UUID version 4 (the random one)
 which is implemented in UUID.
-
-### Time
-
-There is also a time unit in the project, which should allow a seamless conversion between time units, and be allocation
-free (still waiting for inline classes to be promoted for this)
 
 ### Computer sizes
 

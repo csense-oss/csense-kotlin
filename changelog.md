@@ -19,6 +19,12 @@
         - formatToString
     - nullable deprecated methods for avoid "misuse" of nullable functions
 
+- breaking lazyArgument (by splitting it into 2 things)
+    - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
+      possible (since property delegation is impossible with arguments)
+    - LazyArgumentConstructor  the old version (taking a constructor function in the getter)
+
+
 ## 0.0.59
 
 - added
