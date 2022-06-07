@@ -1,8 +1,8 @@
-
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.patterns
 
+import csense.kotlin.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 
@@ -99,7 +99,7 @@ public inline fun <Value, Error> expected(
 ): Expected<Value, Error> {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-        callsInPlace(onException, InvocationKind.AT_MOST_ONCE) 
+        callsInPlace(onException, InvocationKind.AT_MOST_ONCE)
     }
     return with(Expected.Companion.ExpectedContext.instance) {
         try {
@@ -112,7 +112,6 @@ public inline fun <Value, Error> expected(
 }
 
 //TODO improve with annotations & exceptions plugin to only "throw" iff the action can throw.
-@Suppress("MissingTestFunction")
 @Throws
 public inline fun <Value, Error> expected(
     action: Expected.Companion.ExpectedContext.() -> Expected<Value, Error>
@@ -308,113 +307,116 @@ public inline fun <Error> ExpectedMapCatchingError<Error>.isException(): Boolean
 //region Errors & warnings for transformation function usage(s)
 
 //region map
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> ExpectedFailed<Error>.map(
     uselessTransform: (Nothing) -> Unit = {}
-): ExpectedFailed<Error> = throw NotImplementedError()
+): ExpectedFailed<Error> = unexpected()
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
+
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> Expected<Nothing, Error>.map(
     uselessTransform: (Nothing) -> Unit = {}
-): ExpectedFailed<Error> = throw NotImplementedError()
+): ExpectedFailed<Error> = unexpected()
 
 
 //endregion
 
 //region tryMap
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> ExpectedFailed<Error>.tryMap(
     uselessTransform: Expected.Companion.ExpectedContext.(Nothing) -> ExpectedFailed<Error>
-): ExpectedFailed<Error> = throw NotImplementedError()
+): ExpectedFailed<Error> = unexpected()
 
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> Expected<Nothing, Error>.tryMap(
     uselessTransform: Expected.Companion.ExpectedContext.(Nothing) -> ExpectedFailed<Error>
-): ExpectedFailed<Error> = throw NotImplementedError()
+): ExpectedFailed<Error> = unexpected()
 
 
 //endregion
 
 //region mapCatching
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> ExpectedFailed<Error>.mapCatching(
     transform: (Nothing) -> Nothing
-): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = throw NotImplementedError()
+): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = unexpected()
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
+
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Error> Expected<Nothing, Error>.mapCatching(
     transform: (Nothing) -> Nothing
-): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = throw NotImplementedError()
+): ExpectedFailed<ExpectedMapCatchingError.Failed<Error>> = unexpected()
 //endregion
 
 //region recover
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
+
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 @JvmName("recoverAlwaysSuccess")
 @JvmSynthetic
 public inline fun <Value> Expected<Value, Nothing>.recover(
     uselessTransform: (Nothing) -> Unit
-): ExpectedSuccess<Value> = throw NotImplementedError()
+): ExpectedSuccess<Value> = unexpected()
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Value> ExpectedSuccess<Value>.recover(
     uselessTransform: (Nothing) -> Unit
-): ExpectedSuccess<Value> = throw NotImplementedError()
+): ExpectedSuccess<Value> = unexpected()
 
 
 //endregion
 
 //region tryRecover
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Value> ExpectedSuccess<Value>.tryRecover(
     transform: Expected.Companion.ExpectedContext.(Nothing) -> Expected<Nothing, Nothing>
-): ExpectedSuccess<Value> = throw NotImplementedError()
+): ExpectedSuccess<Value> = unexpected()
 
-@Suppress("UNUSED_PARAMETER", "MissingTestFunction") // in short this is a dev error
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a success result you should not recover it.",
     replaceWith = ReplaceWith("this")
 )
+@Suppress("UNUSED_PARAMETER", "MissingTestFunction", "UnusedReceiverParameter")
 public inline fun <Value> Expected<Value, Nothing>.tryRecover(
     transform: Expected.Companion.ExpectedContext.(Nothing) -> Expected<Nothing, Nothing>
-): ExpectedSuccess<Value> = throw NotImplementedError()
+): ExpectedSuccess<Value> = unexpected()
 
 
 //endregion

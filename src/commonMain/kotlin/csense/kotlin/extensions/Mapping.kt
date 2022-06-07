@@ -24,6 +24,7 @@ public inline fun <U> Any?.mapOptional(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("ifNotNull")
 )
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
 public inline fun <U> Any.mapOptional(
     ifNotNull: U,
     ifNull: U
@@ -57,6 +58,7 @@ public inline fun <U, T> T?.mapLazyOptional(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("ifNotNull")
 )
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
 public inline fun <U, T> Any.mapLazyOptional(
     ifNotNull: Function1<T, U>,
     ifNull: EmptyFunctionResult<U>
