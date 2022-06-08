@@ -28,7 +28,7 @@ public inline fun <T> T?.ifNull(action: EmptyFunction) {
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
 public inline fun Any.ifNull(action: EmptyFunction): Nothing = unexpected()
 
 
@@ -50,8 +50,8 @@ public inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("action()")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
-public inline fun <T> Any.ifNotNull(action: FunctionUnit<T>):Nothing = unexpected()
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
+public inline fun <T> Any.ifNotNull(action: FunctionUnit<T>): Nothing = unexpected()
 
 /**
  * returns true if this is null
@@ -68,8 +68,8 @@ public inline val <T> T?.isNull: Boolean
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("false")
 )
-@Suppress("UnusedReceiverParameter", "Unused","MissingTestProperty")
-public inline val Any.isNull:Nothing
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestProperty")
+public inline val Any.isNull: Nothing
     @JvmName("__isNull")
     get() = unexpected()
 
@@ -85,8 +85,8 @@ public inline val <T> T?.isNotNull: Boolean
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("true")
 )
-@Suppress("UnusedReceiverParameter", "Unused","MissingTestProperty")
-public inline val Any.isNotNull:Nothing
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestProperty")
+public inline val Any.isNotNull: Nothing
     @JvmName("__isNotNull")
     get() = unexpected()
 
@@ -110,7 +110,7 @@ public inline fun <T> T?.isNull(): Boolean {
     replaceWith = ReplaceWith("false")
 )
 @Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
-public inline fun Any.isNull():Nothing = unexpected()
+public inline fun Any.isNull(): Nothing = unexpected()
 
 
 /**
@@ -131,4 +131,4 @@ public inline fun <T> T?.isNotNull(): Boolean {
     replaceWith = ReplaceWith("false")
 )
 @Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
-public inline fun Any.isNotNull():Nothing = unexpected()
+public inline fun Any.isNotNull(): Nothing = unexpected()

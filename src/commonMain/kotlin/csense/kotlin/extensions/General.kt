@@ -112,7 +112,7 @@ public inline fun <T> T?.useOr(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("ifNotNull")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
 public inline fun <T> Any.useOr(
     ifNotNull: ReceiverFunctionUnit<T>,
     ifNull: EmptyFunction
@@ -150,7 +150,7 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("this")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
 public inline fun <T> Any.orIfNull(
     ifNull: T & Any
 ): Nothing = unexpected()
@@ -178,7 +178,7 @@ public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>)
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("this")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
 public inline fun <T> Any.orIfNullLazy(
     ifNullAction: Function0R<T>
 ): Nothing = unexpected()
