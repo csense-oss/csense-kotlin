@@ -271,30 +271,5 @@ public inline fun StringModification.replaceEachOccurrence(
     }
 
     return result.toString()
-//
-//    val result = StringBuilder()
-//
-//    var previousIndex = 0
-//    var currentIndex: Int? //result.indexOfOrNull(searchingFor, ignoreCase = ignoreCase)
-//
-//    do {
-//        currentIndex = string.indexOfOrNull(
-//            searchingFor,
-//            startIndex = previousIndex,
-//            ignoreCase = ignoreCase
-//        )
-//
-//        if (currentIndex == null) {
-//            if (previousIndex < string.length) {
-//                result.append(string.substring(previousIndex))
-//            }
-//        } else {
-//            result.append(string.substring(previousIndex, currentIndex))
-//            result.append(replaceWith())
-//            previousIndex += currentIndex + searchingFor.length
-//        }
-//    } while (currentIndex != null)
-//
-//    return result.toString()
 }
 
