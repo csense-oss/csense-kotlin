@@ -453,4 +453,14 @@ class ModificationTest {
         }
 
     }
+
+    class StringModificationReplaceEachOccurrence {
+
+        @Test
+        fun StringModificationReplaceEachOccurrence() {
+            StringModification("some message {}").replaceEachOccurrence("{}", false){
+                "myMessage"
+            }.assert("some message myMessage")
+        }
+    }
 }

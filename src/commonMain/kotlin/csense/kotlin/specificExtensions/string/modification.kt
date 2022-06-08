@@ -7,6 +7,7 @@ import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.generic.*
 import csense.kotlin.extensions.primitives.*
 import kotlin.contracts.*
 import kotlin.jvm.*
@@ -248,24 +249,52 @@ public inline fun StringModification.replaceEachOccurrence(
     ignoreCase: Boolean = false,
     replaceWith: () -> String
 ): String {
-    val result = StringBuilder(string)
-    var currentIndex = result.indexOfOrNull(searchingFor, ignoreCase = ignoreCase)
-    while (currentIndex != null) {
-        val replacement = replaceWith()
+    val result = StringBuilder()
 
-        result.replaceRange(
-            startIndex = currentIndex,
-            endIndex = currentIndex + searchingFor.length,
-            replacement = replacement
-        )
-
-        val newStartIndex = currentIndex + replacement.length
-
-        currentIndex = result.indexOfOrNull(
-            searchingFor,
-            startIndex = newStartIndex,
-            ignoreCase = ignoreCase
-        )
+    val lastFoundIndexOrStart = Generic.traverseWithPreviousWhileNotNull(
+        start = 0,
+        processCurrentLevel = { previousIndex, currentIndex ->
+            result.append(string, previousIndex, currentIndex)
+            result.append(replaceWith())
+            currentIndex + searchingFor.length
+        },
+        getNextLevel = { index ->
+            string.indexOfOrNull(
+                string = searchingFor,
+                startIndex = index,
+                ignoreCase = ignoreCase
+            )
+        }
+    )
+    if (lastFoundIndexOrStart < string.length) {
+        result.append(string, lastFoundIndexOrStart, string.length)
     }
+
     return result.toString()
+//
+//    val result = StringBuilder()
+//
+//    var previousIndex = 0
+//    var currentIndex: Int? //result.indexOfOrNull(searchingFor, ignoreCase = ignoreCase)
+//
+//    do {
+//        currentIndex = string.indexOfOrNull(
+//            searchingFor,
+//            startIndex = previousIndex,
+//            ignoreCase = ignoreCase
+//        )
+//
+//        if (currentIndex == null) {
+//            if (previousIndex < string.length) {
+//                result.append(string.substring(previousIndex))
+//            }
+//        } else {
+//            result.append(string.substring(previousIndex, currentIndex))
+//            result.append(replaceWith())
+//            previousIndex += currentIndex + searchingFor.length
+//        }
+//    } while (currentIndex != null)
+//
+//    return result.toString()
 }
+

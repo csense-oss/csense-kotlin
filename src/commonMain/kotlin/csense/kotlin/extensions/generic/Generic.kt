@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "UnusedReceiverParameter")
 
 package csense.kotlin.extensions.generic
 
@@ -31,7 +31,7 @@ public inline fun <Element, Result> Generic.mapEachWith(
 }
 
 /**
- * A very generic foreach where the access of items is delegated (via [retriever].
+ * A very generic foreach where the access of items is delegated (via [retriever]).
  * @receiver [Generic]
  * @param onEach [Function0]<[Element]>
  * @param length [Int]
@@ -84,6 +84,23 @@ public inline fun <Element> Generic.traverseWhileNotNull(
         processCurrentLevel(current)
         current = getNextLevel(current) ?: break
     }
+}
+
+
+//TODO hm!?
+public inline fun <Element> Generic.traverseWithPreviousWhileNotNull(
+    start: Element,
+    processCurrentLevel: (previous: Element, current: Element) -> Element,
+    getNextLevel: (processResult: Element) -> Element?
+): Element {
+    var current: Element = start
+    var previous: Element = start
+    while (true) {
+        current = getNextLevel(current) ?: break
+        current = processCurrentLevel(previous, current)
+        previous = current
+    }
+    return previous //or current?? would they not be the same here? .. hmm
 }
 
 /**

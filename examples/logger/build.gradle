@@ -1,0 +1,40 @@
+buildscript {
+    //https://github.com/JetBrains/kotlin
+    ext.kotlin_version = '1.7.0-RC2'
+
+    //https://github.com/Kotlin/kotlinx.coroutines/releases
+    ext.coroutinesVersion = "1.6.2"
+
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+
+}
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
+        name 'csense-oss'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "csense.kotlin:csense-kotlin:0.0.60-snapshot"
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        languageVersion = "1.7"
+        apiVersion = "1.7"
+   }
+}
