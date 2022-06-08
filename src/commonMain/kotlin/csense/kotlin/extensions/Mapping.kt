@@ -16,9 +16,19 @@ public inline fun <U> Any?.mapOptional(
     ifNotNull: U,
     ifNull: U
 ): U {
-
     return this.isNotNull().map(ifNotNull, ifNull)
 }
+
+@Deprecated(
+    "Using \"mapOptional\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+public inline fun <U> Any.mapOptional(
+    ifNotNull: U,
+    ifNull: U
+): Nothing = unexpected()
 
 /**
  * Maps an optional value into another value
@@ -27,7 +37,6 @@ public inline fun <U> Any?.mapOptional(
  * @param ifNull [EmptyFunctionResult]<[U]> the value if 'this' is null
  * @return [U] the value depending on 'this' value
  */
-@OptIn(ExperimentalContracts::class)
 public inline fun <U, T> T?.mapLazyOptional(
     ifNotNull: Function1<T, U>,
     ifNull: EmptyFunctionResult<U>
@@ -42,6 +51,17 @@ public inline fun <U, T> T?.mapLazyOptional(
         ifNull()
     }
 }
+
+@Deprecated(
+    "Using \"mapLazyOptional\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+public inline fun <U, T> Any.mapLazyOptional(
+    ifNotNull: Function1<T, U>,
+    ifNull: EmptyFunctionResult<U>
+): Nothing = unexpected()
 
 /**
  * Maps a boolean into a value .
@@ -71,7 +91,7 @@ public inline fun <T> Boolean.map(
  * @param ifFalse [EmptyFunctionResult]<T>
  * @return T
  */
-@OptIn(ExperimentalContracts::class)
+
 public inline fun <T> Boolean.mapLazy(
     ifTrue: EmptyFunctionResult<T>,
     ifFalse: EmptyFunctionResult<T>
@@ -97,7 +117,6 @@ public inline fun <T, U> Iterable<T>.mapToSet(
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 
 
-@OptIn(ExperimentalContracts::class)
 public inline fun <reified T, reified TT : T> T.mapIfInstanceOrThis(action: Function1<TT, T>): T {
     contract {
         callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)

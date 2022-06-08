@@ -6,7 +6,6 @@ package csense.kotlin.extensions
 import csense.kotlin.*
 import kotlin.contracts.*
 
-
 /**
  * Creates a simpler cast than regular due to the reified type T.
  * @receiver Any the value to cast
@@ -109,6 +108,17 @@ public inline fun <T> T?.useOr(
     }
 }
 
+@Deprecated(
+    "Using \"useOr\" on compile time known not null is always ifNotNull",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("ifNotNull")
+)
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+public inline fun <T> Any.useOr(
+    ifNotNull: ReceiverFunctionUnit<T>,
+    ifNull: EmptyFunction
+): Nothing = unexpected()
+
 /**
  * Another way of writing "!is" with is not "inverse" logic (not is), this "is not"
  * NB TYPE ERASURE STILL APPLIES SO LIST<STRING> IS == LIST<OBJECT> (because they become LIST<*>)
@@ -132,7 +142,20 @@ public inline fun <reified T> Any.isNot(): Boolean {
  * @param ifNull T the other value to use if this receiver is null
  * @return T the non-null value
  */
-public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(ifNull: T): T = this ?: ifNull
+public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
+    ifNull: T & Any
+): T & Any = this ?: ifNull
+
+@Deprecated(
+    "Using \"orIfNull\" on compile time known not null is always this",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("this")
+)
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+public inline fun <T> Any.orIfNull(
+    ifNull: T & Any
+): Nothing = unexpected()
+
 
 /**
  * this if it is not null, or the other if this is null
@@ -149,6 +172,18 @@ public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>)
     }
     return this ?: ifNullAction()
 }
+
+
+@Deprecated(
+    "Using \"orIfNullLazy\" on compile time known not null is always this",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("this")
+)
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+public inline fun <T> Any.orIfNullLazy(
+    ifNullAction: Function0R<T>
+): Nothing = unexpected()
+
 
 /**
  * applies the given function iff the given [shouldApply] is true
