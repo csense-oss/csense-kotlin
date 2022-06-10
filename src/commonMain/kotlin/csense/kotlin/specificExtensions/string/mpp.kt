@@ -49,13 +49,11 @@ public fun StringMpp.insertInto(vararg toInsert: StringMpp.StringInserts): Strin
     toInsert.forEach {
         currentLastIndex = currentToIndex
         currentToIndex = it.atIndex
-        sb.append(
-            this.subSequence(currentLastIndex, currentToIndex),
-            it.toInsert
-        )
+        sb.append(this, currentLastIndex, currentToIndex)
+        sb.append(it.toInsert)
     }
     if (currentToIndex < size) {
-        sb.append(this.substring(currentToIndex))
+        sb.append(string, currentToIndex, this.length)
     }
     return@with sb.toString()
 }

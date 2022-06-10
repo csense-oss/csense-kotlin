@@ -220,12 +220,12 @@ public fun StringModification.replaceLazy(
         val replace = replaceWith()
         var fromIndex = 0
         while (index != null) {
-            builder.append(substring(fromIndex, index))
+            builder.append(this, fromIndex, index)
             builder.append(replace)
             fromIndex = index + searchingFor.length
             index = indexOfOrNull(searchingFor, startIndex = index + 1, ignoreCase = ignoreCase)
         }
-        builder.append(substring(fromIndex))
+        builder.append(this, fromIndex, this.length)
         return@with builder.toString()
 
     }

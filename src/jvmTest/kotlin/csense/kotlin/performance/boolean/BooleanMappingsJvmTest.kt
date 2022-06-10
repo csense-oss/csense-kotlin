@@ -1,5 +1,6 @@
-package csense.kotlin.specificExtensions.boolean
+package csense.kotlin.performance.boolean
 
+import csense.kotlin.specificExtensions.boolean.*
 import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 
