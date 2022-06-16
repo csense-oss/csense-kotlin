@@ -1,3 +1,5 @@
+package csense.kotlin.examples.logger
+
 import csense.kotlin.logger.*
 import kotlinx.coroutines.*
 

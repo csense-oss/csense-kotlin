@@ -111,7 +111,6 @@ kotlin {
         all {
             languageSettings {
                 languageVersion = "1.7"
-                enableLanguageFeature("DefinitelyNonNullableTypes")
                 optIn("kotlin.contracts.ExperimentalContracts")
                 progressiveMode = true
             }

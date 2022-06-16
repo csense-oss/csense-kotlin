@@ -1,6 +1,6 @@
 buildscript {
     //https://github.com/JetBrains/kotlin
-    ext.kotlin_version = '1.7.0-RC2'
+    ext.kotlin_version = '1.7.0'
 
     //https://github.com/Kotlin/kotlinx.coroutines/releases
     ext.coroutinesVersion = "1.6.2"
@@ -36,6 +36,5 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
         jvmTarget = "1.8"
         languageVersion = "1.7"
         apiVersion = "1.7"
-        freeCompilerArgs += "-Xskip-prerelease-check"
     }
 }
