@@ -40,6 +40,13 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Array<Any>.isNotNullOrEmpty(): Nothing = unexpected()
+
+
 @IntLimit(from = 0)
 public inline fun <T> Array<out T>.indexOfFirstOrNull(predicate: (T) -> Boolean): Int? =
     indexOfFirst(predicate).indexOfExtensions.unwrapUnsafeIndexOf()

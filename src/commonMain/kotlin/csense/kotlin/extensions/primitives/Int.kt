@@ -127,6 +127,13 @@ public inline fun Int?.isNotNullOrZero(): Boolean {
     return this != null && this.isNotZero
 }
 
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotZero instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Int.isNotNullOrZero(): Nothing = unexpected()
+
+
 
 /**
  * Tells if this [Int] is either null or zero
@@ -140,3 +147,10 @@ public inline fun Int?.isNullOrZero(): Boolean {
     }
     return this == null || this.isZero
 }
+
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNull will always be false. Use isZero instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Int.isNullOrZero(): Nothing = unexpected()

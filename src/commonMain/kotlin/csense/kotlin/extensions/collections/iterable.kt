@@ -474,6 +474,7 @@ public inline fun <T, C : Iterable<T>> C?.nullOnEmpty(): C? {
     return isNotNullOrEmpty().map(ifTrue = this, ifFalse = null)
 }
 
+
 /**
  * Tells if this iterable has content (meaning it is not null nor is it empty)
  * @receiver [C]? the optional type
@@ -487,6 +488,13 @@ public inline fun <T, C : Iterable<T>> C?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun <C : Iterable<Any>> C.isNotNullOrEmpty(): Nothing = unexpected()
+
 /**
  * Tells if this iteration is null or empty (size = 0)
  * @receiver [Iterable]<T>? the nullable iteration
@@ -499,6 +507,15 @@ public inline fun <T, C : Iterable<T>> C?.isNullOrEmpty(): Boolean {
     }
     return this == null || this.isEmpty()
 }
+
+
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNull will always fail. Use isEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun <C : Iterable<Any>> C.isNullOrEmpty(): Nothing = unexpected()
+
 
 /**
  * Returns a list containing first [count] elements.

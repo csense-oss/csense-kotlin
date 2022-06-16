@@ -7,7 +7,7 @@ import kotlin.test.*
 class EqualityTest {
 
     @Test
-    fun isNullOrEqualTo() {
+    fun tIsNullOrEqualToOther() {
         val opt: String? = null
         opt.isNullOrEqualTo("test").assert(true, "is null")
         @Suppress("RedundantNullableReturnType")
@@ -16,4 +16,5 @@ class EqualityTest {
         nonOpt.isNullOrEqualTo("test2").assert(false, "is not equal to test2")
         opt.isNullOrEqualTo("test2").assert(true, "is still null")
     }
+
 }
