@@ -3,7 +3,7 @@ buildscript {
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.1"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.56"
+    ext.csenseTestsVersion = "0.0.57"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.50"
 
