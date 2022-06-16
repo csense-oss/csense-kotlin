@@ -19,8 +19,9 @@ import kotlin.contracts.*
  * @return [Boolean]
  */
 
+@Deprecated("use isIndex... instead")
 public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
-    index >= 0 && index < count()
+        index >= 0 && index < count()
 
 /**
  * Validates the given index for the given collection, accounting for inserting in the end (so 0 until (including) length)
@@ -28,7 +29,7 @@ public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
  * @param index [Int]
  * @return [Boolean]
  */
-
+@Deprecated("use isIndex... instead")
 public inline fun Collection<*>.isIndexValidForInsert(index: Int): Boolean =
     index >= 0 && index <= count()
 
@@ -181,6 +182,15 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Collection<Any>.isNotNullOrEmpty(): Nothing = unexpected()
+
+
 /**
  * Tells if this collection is null or empty (size = 0)
  * @receiver [Collection]<T>? the nullable collection
@@ -193,6 +203,15 @@ public inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     }
     return this == null || this.isEmpty()
 }
+
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNull will always fail. Use isEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Collection<Any>.isNullOrEmpty(): Nothing = unexpected()
+
+
 
 //TODO arrays ect ?s
 /**

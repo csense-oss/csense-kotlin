@@ -68,13 +68,18 @@ public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean {
 }
 
 
-
 public inline fun Boolean?.isNullOrFalse(): Boolean {
     contract {
         returns(false) implies (this@isNullOrFalse != null)
     }
     return this == null || !this
 }
+
+@Deprecated(
+    message = "receiver known at compile time to not be null, thus isNull is always false. Use == false instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Boolean.isNullOrFalse(): Nothing = unexpected()
 
 
 public inline fun Boolean?.isNullOrTrue(): Boolean {
@@ -84,6 +89,14 @@ public inline fun Boolean?.isNullOrTrue(): Boolean {
     return this == null || this
 }
 
+@Deprecated(
+    message = "receiver known at compile time to not be null, thus isNull is always false. Use == true instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Boolean.isNullOrTrue(): Nothing = unexpected()
+
+
+
 
 public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     contract {
@@ -92,6 +105,14 @@ public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     return this != null && !this
 }
 
+@Deprecated(
+    message = "receiver known at compile time to not be null, thus isNotNull is always true. Use == true instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Boolean.isNotNullOrTrue(): Nothing = unexpected()
+
+
+
 
 public inline fun Boolean?.isNotNullOrFalse(): Boolean {
     contract {
@@ -99,3 +120,9 @@ public inline fun Boolean?.isNotNullOrFalse(): Boolean {
     }
     return this != null && this
 }
+
+@Deprecated(
+    message = "receiver known at compile time to not be null, thus isNotNull is always true. Use == false instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Boolean.isNotNullOrFalse(): Nothing = unexpected()

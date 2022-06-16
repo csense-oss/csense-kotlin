@@ -68,6 +68,7 @@ public inline val <T> T?.isNull: Boolean
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("false")
 )
+
 @Suppress("UnusedReceiverParameter", "Unused", "MissingTestProperty")
 public inline val Any.isNull: Nothing
     @JvmName("__isNull")
