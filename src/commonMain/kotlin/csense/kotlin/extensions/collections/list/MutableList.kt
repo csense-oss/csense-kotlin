@@ -5,6 +5,7 @@ package csense.kotlin.extensions.collections.list
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 
 /**
@@ -14,7 +15,7 @@ import csense.kotlin.extensions.primitives.*
  */
 public inline fun <T> MutableList<T>.findAndRemove(crossinline foundAction: Function1<T, Boolean>) {
     val index = this.indexOfFirst(foundAction)
-    isIndexValid(index).onTrue { removeAt(index) }
+    isIndex.inBoundsEndNotInBounds(index).onTrue { removeAt(index) }
 }
 
 /**
@@ -40,7 +41,7 @@ public inline fun <@kotlin.internal.OnlyInputTypes T> MutableList<T>.replace(
     item: T,
     @IntLimit(from = 0) position: Int
 ) {
-    if (isIndexValid(position)) {
+    if (isIndex.inBoundsEndNotInBounds(position)) {
         add(position, item)
         removeAt(position + 1) //the +1 : we just moved all content before the original position.
     }
@@ -89,7 +90,8 @@ public inline fun <T> MutableList<T>.removeAtOr(
     @IntLimit(from = 0) index: Int,
     default: T?
 ): T? {
-    return if (isIndexValid(index)) {
+    
+    return if (isIndex.inBoundsEndNotInBounds(index)) {
         removeAt(index)
     } else {
         default
@@ -127,7 +129,7 @@ public inline fun <T> MutableList<T>.addAll(
     @IntLimit(from = 0) index: Int,
     elements: Iterable<T>
 ): Boolean {
-    if (!isIndexValidForInsert(index)) {
+    if (isIndex.outOfBoundsEndInBounds(index)) {
         return false
     }
     elements.forEachIndexed { counter: Int, element: T ->

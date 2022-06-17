@@ -235,9 +235,9 @@ class CollectionTest {
     fun isNotNullOrEmpty() {
         val nullCol: Collection<String>? = null
         nullCol.isNotNullOrEmpty().assert(false)
-        val emptyCol: Collection<String> = listOf()
+        val emptyCol: Collection<String>? = listOf()
         emptyCol.isNotNullOrEmpty().assert(false)
-        val singleCol: Collection<String> = listOf("omg")
+        val singleCol: Collection<String>? = listOf("omg")
         singleCol.isNotNullOrEmpty().assert(true)
     }
 
@@ -245,9 +245,9 @@ class CollectionTest {
     fun isNullOrEmpty() {
         val nullCol: Collection<String>? = null
         nullCol.isNullOrEmpty().assert(true)
-        val emptyCol: Collection<String> = listOf()
+        val emptyCol: Collection<String>? = listOf()
         emptyCol.isNullOrEmpty().assert(true)
-        val singleCol: Collection<String> = listOf("omg")
+        val singleCol: Collection<String>? = listOf("omg")
         singleCol.isNullOrEmpty().assert(false)
     }
 
