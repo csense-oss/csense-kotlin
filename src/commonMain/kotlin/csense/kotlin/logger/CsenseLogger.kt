@@ -3,6 +3,13 @@ package csense.kotlin.logger
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 
+public typealias CLLogFunction = (
+    tag: String,
+    message: String,
+    placeholders: Array<out String>,
+    exception: Throwable?,
+    sensitivity: LogSensitivity
+) -> Unit
 
 public class CsenseLogger(
     maxStoredLogMessages: Int = 100
@@ -28,33 +35,33 @@ public class CsenseLogger(
         tag: String,
         message: String,
         vararg placeholders: String,
-        throwable: Throwable? = null,
+        exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
         val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        log(LogMessage.Debug(tag, messageFormat, throwable = throwable))
+        log(LogMessage.Debug(tag, messageFormat, throwable = exception))
     }
 
     public fun logWarning(
         tag: String,
         message: String,
         vararg placeholders: String,
-        throwable: Throwable? = null,
+        exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
         val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        log(LogMessage.Warning(tag, messageFormat, throwable = throwable))
+        log(LogMessage.Warning(tag, messageFormat, throwable = exception))
     }
 
     public fun logError(
         tag: String,
         message: String,
         vararg placeholders: String,
-        throwable: Throwable? = null,
+        exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
         val messageFormat = sensitivity.toLogMessageFormat(message, placeholders, mayLogSensitive = mayLogSensitive)
-        log(LogMessage.Error(tag, messageFormat, throwable = throwable))
+        log(LogMessage.Error(tag, messageFormat, throwable = exception))
     }
 
     public fun log(message: LogMessage) {

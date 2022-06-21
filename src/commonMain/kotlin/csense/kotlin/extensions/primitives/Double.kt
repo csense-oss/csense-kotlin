@@ -52,7 +52,7 @@ public inline val Double.isPositiveOrZero: Boolean
  * If you need more margin, see [Double.equalsWithin]
  */
 public inline val Double.isZero: Boolean
-    get() = this.equalsWithin(0.0, 0.1)
+    get() = this.equalsWithin(value = 0.0, margin = 0.1)
 
 
 /**
@@ -90,7 +90,7 @@ public inline fun Double.withoutDecimalPart(): Double {
  * Imprecise (thus 2.4 can become 0.39999 etc.)
  */
 public inline fun Double.decimalPart(): Double =
-    this - withoutDecimalPart()
+    this % 1
 
 /**
  * Adds the given decimal part from the given part to this

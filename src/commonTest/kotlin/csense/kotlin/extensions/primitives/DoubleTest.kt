@@ -53,7 +53,6 @@ class DoubleTest {
         (1.0).isNegative.assertFalse()
         (600.0).isNegative.assertFalse()
 
-        Double.MIN_VALUE.isNegative.assertFalse("min_value is least positive value, not negative.")
         Double.MAX_VALUE.isNegative.assertFalse()
 
         Double.NEGATIVE_INFINITY.isNegative.assertTrue()
@@ -69,7 +68,7 @@ class DoubleTest {
         (0.0).isPositive.assertFalse("0 is not counted towards positive, as its the \"neutral element\" in mathmatics")
         (1.0).isPositive.assertTrue()
         (-1.0).isPositive.assertFalse()
-        Double.MIN_VALUE.isPositive.assertTrue()
+
         Double.MAX_VALUE.isPositive.assertTrue()
 
 
@@ -90,7 +89,7 @@ class DoubleTest {
         (-1.0).isZero.assertFalse()
 
         Double.MAX_VALUE.isZero.assertFalse()
-        Double.MIN_VALUE.isZero.assertFalse()
+        Double.MIN_VALUE.isZero.assertTrue("since MIN_VALUE is the smallest (positive) value it will be very small")
 
         Double.NEGATIVE_INFINITY.isZero.assertFalse()
         Double.POSITIVE_INFINITY.isZero.assertFalse()
@@ -111,7 +110,8 @@ class DoubleTest {
 
 
         Double.MAX_VALUE.isNotZero.assertTrue()
-        Double.MIN_VALUE.isNotZero.assertTrue()
+        Double.MIN_VALUE.isNotZero.assertFalse("since MIN_VALUE is the smallest (positive) value it will be very small")
+
 
         Double.NEGATIVE_INFINITY.isNotZero.assertTrue()
         Double.POSITIVE_INFINITY.isNotZero.assertTrue()
@@ -130,7 +130,7 @@ class DoubleTest {
 
 
         Double.MAX_VALUE.isNegativeOrZero.assertFalse()
-        Double.MIN_VALUE.isNegativeOrZero.assertTrue()
+        Double.MIN_VALUE.isNegativeOrZero.assertTrue("since MIN_VALUE is the smallest (positive) value it will be very small")
 
         Double.NEGATIVE_INFINITY.isNegativeOrZero.assertTrue()
         Double.POSITIVE_INFINITY.isNegativeOrZero.assertFalse()
@@ -149,7 +149,7 @@ class DoubleTest {
 
 
         Double.MAX_VALUE.isPositiveOrZero.assertTrue()
-        Double.MIN_VALUE.isPositiveOrZero.assertFalse()
+        Double.MIN_VALUE.isPositiveOrZero.assertTrue("since MIN_VALUE is the smallest (positive) value it will be very small")
 
         Double.NEGATIVE_INFINITY.isPositiveOrZero.assertFalse()
         Double.POSITIVE_INFINITY.isPositiveOrZero.assertTrue()
@@ -221,7 +221,6 @@ class DoubleTest {
         90.0579.withDecimalPart(0.01234).assert(value = 90.01234, delta = 0.00001)
 
 
-        TODO()
         Double.MAX_VALUE.withoutDecimalPart().assert(Double.MAX_VALUE)
         Double.MIN_VALUE.withoutDecimalPart().assert(Double.MIN_VALUE)
 
@@ -241,17 +240,25 @@ class DoubleTest {
         100.0005.decimalPart().assert(value = 0.0005, delta = 0.0001)
 
 
-        Double.MAX_VALUE.decimalPart().assert(0.0)
-        Double.MIN_VALUE.decimalPart().assert(0.0)
+        Double.MAX_VALUE.decimalPart().assert(0.0, delta = 0.1)
+        Double.MIN_VALUE.decimalPart().assert(0.0, delta = 0.1)
 
-        Double.NEGATIVE_INFINITY.decimalPart().assert(0.0)
-        Double.POSITIVE_INFINITY.decimalPart().assert(0.0)
+        Double.NEGATIVE_INFINITY.decimalPart().assert(0.0, delta = 0.1)
+        Double.POSITIVE_INFINITY.decimalPart().assert(0.0, delta = 0.1)
 
         Double.NaN.decimalPart().assert(Double.NaN)
     }
 
     @Test
     fun isNotNaN() {
-        TODO()
+        0.0.isNotNaN().assertTrue()
+        (-1.0).isNotNaN().assertTrue()
+        100000.5.isNotNaN().assertTrue()
+        Double.POSITIVE_INFINITY.isNotNaN().assertTrue()
+        Double.NEGATIVE_INFINITY.isNotNaN().assertTrue()
+        Double.MAX_VALUE.isNotNaN().assertTrue()
+        Double.MIN_VALUE.isNotNaN().assertTrue()
+
+        Double.NaN.isNotNaN().assertFalse()
     }
 }

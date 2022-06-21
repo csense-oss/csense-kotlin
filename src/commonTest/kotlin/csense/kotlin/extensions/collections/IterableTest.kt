@@ -730,18 +730,18 @@ class IterableTest {
     fun cIsNullOrEmpty() {
         val nullLst: List<String>? = null
         nullLst.isNullOrEmpty().assertTrue()
-        listOf<String>().isNullOrEmpty().assertTrue()
-        listOf("").isNullOrEmpty().assertFalse()
-        listOf("", "test2").isNullOrEmpty().assertFalse()
+        listOf<String>().nullable().isNullOrEmpty().assertTrue()
+        listOf("").nullable().isNullOrEmpty().assertFalse()
+        listOf("", "test2").nullable().isNullOrEmpty().assertFalse()
     }
 
     @Test
     fun cIsNotNullOrEmpty() {
         val nullLst: List<String>? = null
         nullLst.isNotNullOrEmpty().assertFalse()
-        listOf<String>().isNotNullOrEmpty().assertFalse()
-        listOf("").isNotNullOrEmpty().assertTrue()
-        listOf("", "test2").isNotNullOrEmpty().assertTrue()
+        listOf<String>().nullable().isNotNullOrEmpty().assertFalse()
+        listOf("").nullable().isNotNullOrEmpty().assertTrue()
+        listOf("", "test2").nullable().isNotNullOrEmpty().assertTrue()
     }
 
     @Test

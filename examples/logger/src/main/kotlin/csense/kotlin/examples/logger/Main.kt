@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 fun main(): Unit = runBlocking {
 
     if (true) {
-        CL.enableSensitiveLogging()
+//        CL.enableSensitiveLogging()
     }
 
 //    CL.printLogsToConsole()
@@ -54,7 +54,12 @@ fun main(): Unit = runBlocking {
 //    logClassDebug("Message {}", "someMessage")
     async {
         while (true) {
-            logClassDebug("Message {} {}", "someMessage", throwable = RuntimeException("sensitive information potentially"))
+            logClassDebug(
+                "Message {} {}",
+                "someMessage", "mis",
+                throwable = RuntimeException("sensitive information potentially"),
+                sensitivity = LogSensitivity.Sensitive
+            )
 //            CLogger.logDebug(
 //                "FavoriteFood",
 //                "NonPersonal info: meal type={}",

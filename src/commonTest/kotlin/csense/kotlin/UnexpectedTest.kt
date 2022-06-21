@@ -37,20 +37,23 @@ class UnexpectedTest {
     class UnexpectedWithLoggingMessage {
         @Test
         fun loggerNoRelatedCause() = assertCalled { shouldBeCalled ->
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val messageToUse = "our message"
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
-                message.assert("our message")
+                message.assert(messageToUse)
+                placeholders.assertEmpty()
                 ex.assertExceptionIsUnexpected()
+                sensitivity.assert(LogSensitivity.Sensitive)
                 shouldBeCalled()
             }
             assertThrows<UnexpectedException>(
                 testCode = {
                     unexpectedWithLogging(
-                        message = "our message",
+                        message = messageToUse,
                         logger = loggerMethod
                     )
                 }, validateThrows = {
-                    it.message.assert("our message")
+                    it.message.assert(messageToUse)
                     it.cause.assertNull()
                 })
         }
@@ -58,7 +61,7 @@ class UnexpectedTest {
         @Test
         fun loggerWithRelatedCause() = assertCalled { shouldBeCalled ->
             val relatedCause = IllegalArgumentException("wee")
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected(relatedCause)
@@ -82,7 +85,7 @@ class UnexpectedTest {
     class UnexpectedWithLoggingTag {
         @Test
         fun loggerNoRelatedCause() = assertCalled { shouldBeCalled ->
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert("Tag")
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected()
@@ -104,7 +107,7 @@ class UnexpectedTest {
         @Test
         fun loggerWithRelatedCause() = assertCalled { shouldBeCalled ->
             val relatedCause = IllegalArgumentException("wee")
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert("Our tag")
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected(relatedCause)
@@ -128,7 +131,7 @@ class UnexpectedTest {
 
     @Test
     fun overloadResolutionShouldChooseMessageOverTagVariant() = assertCalled { shouldBeCalled ->
-        val loggerMethod: LoggingFunctionType<*> = { _, message, _ ->
+        val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
             message.assert("our message")
             shouldBeCalled()
         }
@@ -147,7 +150,7 @@ class UnexpectedTest {
 
         @Test
         fun defaultMessage() = assertCalled { shouldBeCalled ->
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert(UnexpectedException.unexpectedDefaultMessage)
                 ex.assertExceptionIsUnexpected()
@@ -158,25 +161,25 @@ class UnexpectedTest {
 
         @Test
         fun noRelatedCause() = assertCalled { shouldBeCalled ->
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected()
                 shouldBeCalled()
             }
-            logUnexpected(message = "our message", loggerMethod)
+            logUnexpected(message = "our message", logger = loggerMethod)
         }
 
         @Test
         fun withRelatedCause() = assertCalled { shouldBeCalled ->
             val relatedCause = IllegalArgumentException("wee")
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected(relatedCause)
                 shouldBeCalled()
             }
-            logUnexpected(message = "our message", loggerMethod, relatedCause)
+            logUnexpected(message = "our message", relatedCause = relatedCause, logger = loggerMethod)
         }
     }
 
@@ -184,25 +187,25 @@ class UnexpectedTest {
 
         @Test
         fun noRelatedCause() = assertCalled { shouldBeCalled ->
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert("Our tag")
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected()
                 shouldBeCalled()
             }
-            logUnexpected("Our tag", "our message", loggerMethod)
+            logUnexpected("Our tag", "our message", logger = loggerMethod)
         }
 
         @Test
         fun withRelatedCause() = assertCalled { shouldBeCalled ->
             val relatedCause = IllegalArgumentException("wee")
-            val loggerMethod: LoggingFunctionType<*> = { tag, message, ex ->
+            val loggerMethod: CLLogFunction = { tag, message, placeholders, ex, sensitivity ->
                 tag.assert("Our tag")
                 message.assert("our message")
                 ex.assertExceptionIsUnexpected(relatedCause)
                 shouldBeCalled()
             }
-            logUnexpected("Our tag", "our message", loggerMethod, relatedCause)
+            logUnexpected("Our tag", "our message", relatedCause = relatedCause, logger = loggerMethod)
         }
     }
 

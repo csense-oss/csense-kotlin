@@ -1,82 +1,100 @@
 package csense.kotlin.extensions
 
+import csense.kotlin.*
 import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class ExceptionsTest {
 
-    @Test
-    fun messagesToPrettyString() {
-        val empty = Throwable(null, null)
-        empty.messagesToPrettyString().assertStartsWith("No message")
+    class TryAndLogTag {
 
 
-        val customMessage = Exception("some message")
-        customMessage.messagesToPrettyString().assertStartsWith("some message")
-        val cause1 = Throwable("some inner reason")
-        val messageCause = Exception("SomeMessage", cause1)
-        val withCauseMessage = messageCause.messagesToPrettyString()
-        withCauseMessage.assertStartsWith("SomeMessage")
-        withCauseMessage.assertContains("\n\tsome inner reason")
+        @Test
+        fun nonThrowingShouldReturnValue() {
+            val result = tryAndLog(logger = { _, _, _, _, _ ->
 
-
-        val inner4 = Throwable("inner4")
-        val inner3 = Throwable("inner3", inner4)
-        val inner2 = Throwable("inner2", inner3)
-        val main = Throwable("main", inner2)
-
-        val longChain = main.messagesToPrettyString()
-        longChain.assertStartsWith("main")
-        longChain.assertContains("\n\tinner2")
-        longChain.assertContains("\n\tinner3")
-        longChain.assertContains("\n\tinner4")
-
-
-    }
-
-    @Test
-    fun testTryAndLog() {
-
-        val works = tryAndLog(logger = LLogger()::error) {
-            42
+            }) { 42 }
+            result.assert(42)
         }
-        works.assert(42)
 
-        val fails: String? = tryAndLog(logger = LLogger()::error) {
-            throw Exception("test")
-            @Suppress("UNREACHABLE_CODE")
-            "123"
+
+        @Test
+        fun throwingShouldReturnNull() {
+            val result = tryAndLog<Int>(logger = { _, _, _, _, _ ->
+
+            }) { throw RuntimeException("my bad") }
+            result.assertNull("got an exception...")
         }
-        fails.assertNull()
-    }
 
-    @Test
-    fun tryAndLog1() {
+        @Test
+        fun shouldCallLoggerWhenFails() = assertCalled { shouldBeCalled ->
 
-        val works = tryAndLog("title", "message", { _: String, _: String, _: Throwable? ->
-            failTest("should not get called")
-        }) {
-            42
+            val loggerTag = "tag"
+            val loggerMessage = "message"
+            val loggerPlaceholders: Array<String> = arrayOf("myPlaceHolder")
+            val throwingException = Exception("test")
+            val loggerSensitivity = LogSensitivity.Insensitive
+
+            val failed = tryAndLog<String>(
+                tag = loggerTag,
+                message = loggerMessage,
+                placeholders = loggerPlaceholders,
+                sensitivity = loggerSensitivity,
+                logger = { tag, message, placeholders, exception, sensitivity ->
+                    tag.assert(loggerTag)
+                    message.assert(loggerMessage)
+                    placeholders.assert(loggerPlaceholders)
+                    exception.assert(throwingException)
+                    sensitivity.assert(loggerSensitivity)
+                    shouldBeCalled()
+                }
+            ) {
+                throw throwingException
+            }
+            failed.assertNull()
         }
-        works.assertNotNull()
 
-        val exception = Exception("test")
-        var didCallLogger = false
-
-        @Suppress("UNREACHABLE_CODE")
-        val fails = tryAndLog("title", "message", { tag: String, message: String, throwable: Throwable? ->
-            didCallLogger = true
-            tag.assert("title")
-            message.assert("message")
-            throwable.assertNotNull()
-            throwable.assert(exception)
-        }) {
-            throw exception
-            "123"
+        @Test
+        fun shouldIgnoreLoggerWhenSucceeds() {
+            val works = tryAndLog(logger = { _, _, _, _, _ ->
+                failTest("should not get called")
+            }) {
+                42
+            }
+            works.assert(42)
         }
-        didCallLogger.assertTrue()
-        fails.assertNull()
 
+        @Test
+        fun tryAndLog1() {
+
+            val works = tryAndLog("title", "message", logger = { _, _, _, _, _ ->
+                failTest("should not get called")
+            }) {
+                42
+            }
+            works.assertNotNull()
+
+            val exception = Exception("test")
+            var didCallLogger = false
+
+            val fails: String? = tryAndLog(
+                tag = "title",
+                message = "message",
+                placeholders = arrayOf("myPlaceHolder"),
+                sensitivity = LogSensitivity.Sensitive,
+                logger = { tag, message, placeholders, exception, sensitivity ->
+                    didCallLogger = true
+                    tag.assert("title")
+                    message.assert("message")
+                    exception.assertNotNull()
+                }) {
+                throw exception
+            }
+            didCallLogger.assertTrue()
+            fails.assertNull()
+
+        }
     }
 }
+

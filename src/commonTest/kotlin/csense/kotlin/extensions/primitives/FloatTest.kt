@@ -92,7 +92,8 @@ class FloatTest {
         1.toFloat().withoutDecimalPart().assert(value = 1.0f, delta = 0.001f)
         20.5f.withoutDecimalPart().assert(value = 20.0f, delta = 0.001f)
         20.9f.withoutDecimalPart().assert(value = 20.0f, delta = 0.001f)
-        20.0001f.withoutDecimalPart().assert(value = 20.0f, delta = 0.0001f, message = "should be more precise than not doing it")
+        20.0001f.withoutDecimalPart()
+            .assert(value = 20.0f, delta = 0.0001f, message = "should be more precise than not doing it")
     }
 
     @Test
@@ -117,6 +118,14 @@ class FloatTest {
 
     @Test
     fun isNotNaN() {
-        TODO()
+        0f.isNotNaN().assertTrue()
+        (-1f).isNotNaN().assertTrue()
+        100000.5f.isNotNaN().assertTrue()
+        Float.POSITIVE_INFINITY.isNotNaN().assertTrue()
+        Float.NEGATIVE_INFINITY.isNotNaN().assertTrue()
+        Float.MAX_VALUE.isNotNaN().assertTrue()
+        Float.MIN_VALUE.isNotNaN().assertTrue()
+
+        Float.NaN.isNotNaN().assertFalse()
     }
 }

@@ -3,6 +3,8 @@ package csense.kotlin
 import csense.kotlin.annotations.sideEffect.*
 import csense.kotlin.logger.*
 import kotlin.contracts.*
+import kotlin.math.*
+import kotlin.reflect.*
 
 
 /**
@@ -20,18 +22,20 @@ public fun unexpected(
     throw UnexpectedException(message, relatedCause)
 }
 
+
 /**
  * Indicates that something was unexpected (say an enum case, etc.) With logging
- * Defaults the tag to "Unexpected"
  * @param message [String] a description of why this is unexpected
- * @param logger [Function3]<[String], [String], [Throwable]?, *> The logger to use
+ * @param logger [Function3]<[String], [String], [Throwable]?, *> the logger that should be invoked before throwing.
  * @throws [UnexpectedException]
  */
 @Throws(UnexpectedException::class)
 public fun unexpectedWithLogging(
     message: String = UnexpectedException.unexpectedDefaultMessage,
-    logger: LoggingFunctionType<*> = L::error,
-    relatedCause: Throwable? = null
+    vararg placeholders: String = arrayOf(),
+    relatedCause: Throwable? = null,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    logger: CLLogFunction = CL::logError
 ): Nothing {
     contract {
         callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
@@ -39,8 +43,10 @@ public fun unexpectedWithLogging(
     unexpectedWithLogging(
         tag = UnexpectedException.unexpectedDefaultTag,
         message = message,
-        logger = logger,
-        relatedCause = relatedCause
+        placeholders = placeholders,
+        relatedCause = relatedCause,
+        sensitivity = sensitivity,
+        logger = logger
     )
 }
 
@@ -53,16 +59,23 @@ public fun unexpectedWithLogging(
  */
 @Throws(UnexpectedException::class)
 public fun unexpectedWithLogging(
-    tag: String,
+    tag: String = UnexpectedException.unexpectedDefaultTag,
     message: String = UnexpectedException.unexpectedDefaultMessage,
-    logger: LoggingFunctionType<*> = L::error,
-    relatedCause: Throwable? = null
+    vararg placeholders: String = arrayOf(),
+    relatedCause: Throwable? = null,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    logger: CLLogFunction = CL::logError
 ): Nothing {
     contract {
         callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
     }
-    val exception = logUnexpected(tag, message, logger, relatedCause)
-    throw exception
+    throw logUnexpected(
+        tag = tag, message = message,
+        placeholders = placeholders,
+        relatedCause = relatedCause,
+        sensitivity = sensitivity,
+        logger = logger
+    )
 }
 
 /**
@@ -73,35 +86,24 @@ public fun unexpectedWithLogging(
  */
 @DiscardableResult
 public fun logUnexpected(
+    tag: String = UnexpectedException.unexpectedDefaultTag,
     message: String = UnexpectedException.unexpectedDefaultMessage,
-    logger: LoggingFunctionType<*> = L::error,
-    relatedCause: Throwable? = null
-): UnexpectedException {
-    contract {
-        callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
-    }
-    return logUnexpected(UnexpectedException.unexpectedDefaultTag, message, logger, relatedCause)
-}
-
-
-/**
- * Only logs the unexpected situation
- * @param message [String] a description of why this is unexpected
- * @param logger [Function3]<[String], [String], [Throwable]?, *> the logger that should be invoked
- * @return [UnexpectedException] the logged unexpected exception
- */
-@DiscardableResult
-public fun logUnexpected(
-    tag: String,
-    message: String = UnexpectedException.unexpectedDefaultMessage,
-    logger: LoggingFunctionType<*> = L::error,
-    relatedCause: Throwable? = null
+    vararg placeholders: String = arrayOf(),
+    relatedCause: Throwable? = null,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    logger: CLLogFunction = CL::logError
 ): UnexpectedException {
     contract {
         callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
     }
     val exception = UnexpectedException(message, relatedCause)
-    logger(tag, message, exception)
+    logger(
+        tag,
+        message,
+        placeholders,
+        exception,
+        sensitivity
+    )
     return exception
 }
 

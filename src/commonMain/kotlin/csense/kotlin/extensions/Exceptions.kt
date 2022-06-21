@@ -1,10 +1,10 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions
 
 import csense.kotlin.*
-import csense.kotlin.extensions.generic.*
 import csense.kotlin.logger.*
+import kotlin.internal.*
 
 
 /**
@@ -15,6 +15,8 @@ import csense.kotlin.logger.*
  * @param throwableAction [EmptyFunctionResult]<T>
  * @return T?
  */
+@LowPriorityInOverloadResolution
+@Deprecated("use CL version instead")
 public inline fun <T> tryAndLog(
     title: String = "",
     message: String = "",
@@ -29,12 +31,40 @@ public inline fun <T> tryAndLog(
     }
 }
 
+
+/**
+ * Tries the given operation, and if fails then it logs it and returns null
+ * @param tag [String]
+ * @param message [String]
+ * @param placeholders [Array<String>]
+ * @param logger [CLLogFunction]
+ * @param sensitivity [LogSensitivity]
+ * @param throwableAction [EmptyFunctionResult]<T>
+ * @return T?
+ */
+public inline fun <T> tryAndLog(
+    tag: String = "",
+    message: String = "",
+    placeholders: Array<String> = arrayOf(),
+    logger: CLLogFunction = CL::logError,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    throwableAction: EmptyFunctionResult<T>
+): T? {
+    return try {
+        throwableAction()
+    } catch (exception: Throwable) {
+        logger(tag, message, placeholders, exception, sensitivity)
+        return null
+    }
+}
+
 /**
  *
  * @receiver [Throwable]
  * @param lineSeparator [String]
  * @param indentation [String]
  */
+@Deprecated("Misleading name. does not what it states nor does it a nice job at it either.")
 public inline fun Throwable.messagesToPrettyString(
     lineSeparator: String = "\n",
     indentation: String = "\t"
