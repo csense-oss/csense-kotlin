@@ -180,12 +180,23 @@ class DoubleTest {
         5.0.equalsWithin(3.0, -2.5).assertTrue("margin should be abs, not negative.")
 
 
-        TODO()
-        /*
-        Double.NEGATIVE_INFINITY.equalsWithin(..hmm).assertFalse()
-        Double.POSITIVE_INFINITY.equalsWithin(..hmm).assertTrue()
-        Double.NaN.equalsWithin(..hmm).assertFalse()
-        * */
+
+        Double.NEGATIVE_INFINITY.equalsWithin(Double.NEGATIVE_INFINITY).assertTrue()
+
+        Double.NEGATIVE_INFINITY.equalsWithin(-1.0).assertFalse()
+        Double.NEGATIVE_INFINITY.equalsWithin(1.0).assertFalse()
+
+        Double.POSITIVE_INFINITY.equalsWithin(Double.POSITIVE_INFINITY).assertTrue()
+
+        Double.POSITIVE_INFINITY.equalsWithin(-1.0).assertFalse()
+        Double.POSITIVE_INFINITY.equalsWithin(1.0).assertFalse()
+
+        Double.POSITIVE_INFINITY.equalsWithin(Double.NEGATIVE_INFINITY).assertFalse()
+
+
+        Double.NaN.equalsWithin(Double.NaN).assertTrue()
+        Double.NaN.equalsWithin(1.0).assertFalse()
+        Double.NaN.equalsWithin(-1.0).assertFalse()
 
     }
 
@@ -221,13 +232,22 @@ class DoubleTest {
         90.0579.withDecimalPart(0.01234).assert(value = 90.01234, delta = 0.00001)
 
 
-        Double.MAX_VALUE.withoutDecimalPart().assert(Double.MAX_VALUE)
-        Double.MIN_VALUE.withoutDecimalPart().assert(Double.MIN_VALUE)
+        Double.MAX_VALUE.withDecimalPart(0.0).assert(Double.MAX_VALUE)
+        Double.MIN_VALUE.withDecimalPart(0.0).assert(Double.MIN_VALUE)
 
-        Double.NEGATIVE_INFINITY.withoutDecimalPart().assert(Double.NEGATIVE_INFINITY)
-        Double.POSITIVE_INFINITY.withoutDecimalPart().assert(Double.POSITIVE_INFINITY)
+        Double.NEGATIVE_INFINITY.withDecimalPart(0.0).assert(Double.NEGATIVE_INFINITY)
+        Double.POSITIVE_INFINITY.withDecimalPart(0.0).assert(Double.POSITIVE_INFINITY)
 
-        Double.NaN.withoutDecimalPart().assert(Double.NaN)
+        Double.NaN.withDecimalPart(0.0).assert(Double.NaN)
+
+
+        Double.MAX_VALUE.withDecimalPart(Double.MAX_VALUE).assert(Double.MAX_VALUE)
+        Double.MIN_VALUE.withDecimalPart(Double.MIN_VALUE).assert(Double.MIN_VALUE)
+
+        Double.NEGATIVE_INFINITY.withDecimalPart(Double.NEGATIVE_INFINITY).assert(Double.NEGATIVE_INFINITY)
+        Double.POSITIVE_INFINITY.withDecimalPart(Double.POSITIVE_INFINITY).assert(Double.POSITIVE_INFINITY)
+
+        Double.NaN.withDecimalPart(Double.NaN).assert(Double.NaN)
     }
 
     @Test
