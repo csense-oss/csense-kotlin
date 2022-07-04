@@ -60,7 +60,9 @@ public inline fun <T> Any.ifNotNull(action: FunctionUnit<T>): Nothing = unexpect
 
 public inline val <T> T?.isNull: Boolean
     @JvmName("_isNull")
-    get() = this == null
+    get() {
+        return this == null
+    }
 
 
 @Deprecated(
@@ -98,8 +100,8 @@ public inline val Any.isNotNull: Nothing
 
 public inline fun <T> T?.isNull(): Boolean {
     contract {
-        returns(true) implies (this@isNull != null)
-        returns(false) implies (this@isNull == null)
+        returns(true) implies (this@isNull == null)
+        returns(false) implies (this@isNull != null)
     }
     return this == null
 }
