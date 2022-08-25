@@ -63,6 +63,7 @@ public inline fun <reified T, R> Any.invokeIsInstance(action: Function1<T, R>): 
  * Converts any type into a "[Unit]"
  * @receiver [Any]?
  */
+@Suppress("UnusedReceiverParameter")
 public inline fun Any?.toUnit(): Unit = Unit
 
 

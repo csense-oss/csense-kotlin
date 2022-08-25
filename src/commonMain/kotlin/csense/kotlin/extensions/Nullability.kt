@@ -28,7 +28,7 @@ public inline fun <T> T?.ifNull(action: EmptyFunction) {
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "UNUSED_PARAMETER")
 public inline fun Any.ifNull(action: EmptyFunction): Nothing = unexpected()
 
 
@@ -50,7 +50,7 @@ public inline fun <T> T?.ifNotNull(action: FunctionUnit<T>) {
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("action()")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "UNUSED_PARAMETER")
 public inline fun <T> Any.ifNotNull(action: FunctionUnit<T>): Nothing = unexpected()
 
 /**

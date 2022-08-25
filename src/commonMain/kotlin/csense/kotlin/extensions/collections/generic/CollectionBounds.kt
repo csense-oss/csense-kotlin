@@ -48,6 +48,18 @@ public fun CollectionBounds.outOfBounds(index: Int, isEndOutOfBonds: Boolean): B
     ).invoke(index)
 }
 
+@Suppress("UnusedReceiverParameter")
+public fun CollectionBounds.atStart(index: Int): Boolean {
+    return index == 0
+}
+
+public fun CollectionBounds.atLast(index: Int): Boolean {
+    return inBoundsEndNotInBounds(index) && !inBoundsEndNotInBounds(index + 1)
+}
+
+public fun CollectionBounds.atAnyEnds(index: Int): Boolean {
+    return atStart(index) || atLast(index)
+}
 
 
 public object CollectionBoundsAlwaysOutOfBounds : CollectionBounds {
@@ -86,6 +98,7 @@ public value class CollectionBoundsChecker internal constructor(
     }
 
 }
+
 
 public inline val Collection<*>.isIndex: CollectionBounds
     get() = CollectionBounds(collectionLength = size)

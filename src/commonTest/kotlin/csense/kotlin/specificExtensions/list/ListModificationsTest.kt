@@ -5,6 +5,13 @@ import kotlin.test.*
 
 class ListModificationsTest {
 
+    @Test
+    fun listTModification() {
+        val first = listOf("a").modification
+        val second = listOf("b").modification
+        (first != second).assertTrue()
+    }
+
     class ListModificationsTReplaceAllWith {
         @Test
         fun empty() {
@@ -15,4 +22,6 @@ class ListModificationsTest {
         }
 
     }
+
+
 }

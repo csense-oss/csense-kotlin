@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
 
 package csense.kotlin.logger
 
@@ -40,6 +40,7 @@ public object L {
      * its controlled separate from all the other logging flags.
      */
     @Deprecated("is not in CL. ", level = DeprecationLevel.WARNING)
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public var productionLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
 
     /**
@@ -51,6 +52,7 @@ public object L {
             "CL.errorLoggers.collect{}"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public var errorLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
 
     /**
@@ -62,6 +64,7 @@ public object L {
             "CL.warningLoggers.collect{}"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public var warningLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
 
     /**
@@ -73,6 +76,7 @@ public object L {
             "CL.debugLoggers.collect{}"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public var debugLoggers: MutableList<LoggingFunctionType<Any>> = mutableListOf()
 
 
@@ -83,6 +87,7 @@ public object L {
      * the advice is to set isAllowedLogging(false); and then explicit enable productionLogging.)
      */
     @Deprecated("use CL. There are no more any individual level control like this", level = DeprecationLevel.WARNING)
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public fun isLoggingAllowed(enable: Boolean) {
         isProductionLoggingAllowed = enable
         isErrorLoggingAllowed = enable
@@ -115,6 +120,7 @@ public object L {
                     ")"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public fun error(tag: String, message: String, exception: Throwable? = null): Unit = CL.logError(
         tag,
         message,
@@ -144,6 +150,7 @@ public object L {
                     ")"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public fun warning(tag: String, message: String, exception: Throwable? = null): Unit = CL.logWarning(
         tag = tag,
         message = message,
@@ -172,6 +179,7 @@ public object L {
                     ")"
         )
     )
+    @Suppress("DEPRECATION", "MissingTestFunction")
     public fun debug(tag: String, message: String, exception: Throwable? = null): Unit = CL.logDebug(
         tag = tag,
         message = message,

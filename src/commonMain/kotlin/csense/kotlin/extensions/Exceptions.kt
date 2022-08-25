@@ -17,6 +17,7 @@ import kotlin.internal.*
  */
 @LowPriorityInOverloadResolution
 @Deprecated("use CL version instead")
+@Suppress("DEPRECATION", "MissingTestFunction")
 public inline fun <T> tryAndLog(
     title: String = "",
     message: String = "",

@@ -83,7 +83,7 @@ class ExceptionsTest {
                 message = "message",
                 placeholders = arrayOf("myPlaceHolder"),
                 sensitivity = LogSensitivity.Sensitive,
-                logger = { tag, message, placeholders, exception, sensitivity ->
+                logger = { tag, message, _, exception, _ ->
                     didCallLogger = true
                     tag.assert("title")
                     message.assert("message")

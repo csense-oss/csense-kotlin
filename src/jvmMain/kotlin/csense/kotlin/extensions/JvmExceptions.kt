@@ -17,6 +17,7 @@ import kotlin.reflect.*
  */
 @LowPriorityInOverloadResolution
 @Deprecated("use CL version instead")
+@Suppress("DEPRECATION")
 public inline fun <T> tryAndLog(
     clazz: Class<*>,
     message: String = "",
@@ -34,6 +35,7 @@ public inline fun <T> tryAndLog(
  */
 @LowPriorityInOverloadResolution
 @Deprecated("use CL version instead")
+@Suppress("DEPRECATION")
 public inline fun <T> tryAndLog(
     kClazz: KClass<*>,
     message: String = "",

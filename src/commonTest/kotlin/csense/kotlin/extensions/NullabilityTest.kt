@@ -7,7 +7,7 @@ import kotlin.test.*
 class NullabilityTest {
 
     @Test
-    fun ifNull() {
+    fun ifNullAction() {
         val onNull: String? = null
         assertCalled { signal ->
             onNull.ifNull(signal)
@@ -20,7 +20,7 @@ class NullabilityTest {
     }
 
     @Test
-    fun ifNotNull() {
+    fun ifNotNullAction() {
         val onNull: String? = null
         assertNotCalled { signal ->
             onNull.ifNotNull { signal() }
@@ -73,6 +73,5 @@ class NullabilityTest {
             onNotNull.isNotNull().assertTrue()
         }
     }
-    
-    
+
 }

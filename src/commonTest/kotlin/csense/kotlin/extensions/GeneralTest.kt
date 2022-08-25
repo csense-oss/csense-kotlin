@@ -34,7 +34,7 @@ class GeneralTest {
     }
 
     @Test
-    fun useOr() {
+    fun TUseOr() {
         var optStringCounter = 0
         val optString: String? = null
         optString.useOr({ failTest("null is not a string") }, { optStringCounter += 1 })

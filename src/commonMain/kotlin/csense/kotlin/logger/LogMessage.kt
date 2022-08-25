@@ -7,15 +7,21 @@ public sealed class LogMessage(
     public val throwable: Throwable?
 ) {
     public class Debug(
-        tag: String, message: LogMessageFormat, throwable: Throwable?
+        tag: String,
+        message: LogMessageFormat,
+        throwable: Throwable?
     ) : LogMessage(tag, message, throwable)
 
     public class Warning(
-        tag: String, message: LogMessageFormat, throwable: Throwable?
+        tag: String,
+        message: LogMessageFormat,
+        throwable: Throwable?
     ) : LogMessage(tag, message, throwable)
 
     public class Error(
-        tag: String, message: LogMessageFormat, throwable: Throwable?
+        tag: String,
+        message: LogMessageFormat,
+        throwable: Throwable?
     ) : LogMessage(tag, message, throwable)
 
     override fun toString(): String {

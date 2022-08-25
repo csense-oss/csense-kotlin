@@ -3,15 +3,7 @@ package csense.kotlin.logger
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 
-public typealias CLLogFunction = (
-    tag: String,
-    message: String,
-    placeholders: Array<out String>,
-    exception: Throwable?,
-    sensitivity: LogSensitivity
-) -> Unit
-
-public class CsenseLogger(
+public open class CsenseLogger(
     maxStoredLogMessages: Int = 100
 ) {
 
@@ -71,10 +63,27 @@ public class CsenseLogger(
 
     public fun enableSensitiveLogging() {
         mayLogSensitive = true
+        logDebug(sensitiveLoggingTag, sensitiveLoggingEnabledMessage)
     }
 
+    public fun disableSensitiveLogging() {
+        mayLogSensitive = false
+        logDebug(sensitiveLoggingTag, sensitiveLoggingDisabledMessage)
+    }
+
+    public val isSensitiveLoggingEnabled: Boolean
+        get() = mayLogSensitive
+
+
+    public companion object {
+        public const val sensitiveLoggingTag: String = "CsenseLogger"
+        public const val sensitiveLoggingEnabledMessage: String = "Sensitive logging enabled"
+        public const val sensitiveLoggingDisabledMessage: String = "Sensitive logging enabled"
+    }
 }
 
-public val CL: CsenseLogger by lazy {
-    CsenseLogger(maxStoredLogMessages = 100)
+public object CL : CsenseLogger(maxStoredLogMessages = 100) {
+    public val debug: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logDebug)
+    public val warning: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logWarning)
+    public val error: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logError)
 }

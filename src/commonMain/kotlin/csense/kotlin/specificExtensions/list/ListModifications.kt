@@ -41,14 +41,5 @@ public fun <T> ListModifications<T>.replaceAllWith(
     return list.mapIndexed { index, item ->
         replaced?.get(index) ?: item
     }
-//
-//
-//    return list.map {
-//        if (predicate(it)) {
-//            replaceWith(it)
-//        } else {
-//            it
-//        }
-//    }
 }
 
