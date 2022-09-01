@@ -1,9 +1,9 @@
 buildscript {
     //https://github.com/JetBrains/kotlin
-    ext.kotlin_version = '1.7.0'
+    ext.kotlin_version = '1.7.10'
 
     //https://github.com/Kotlin/kotlinx.coroutines/releases
-    ext.coroutinesVersion = "1.6.2"
+    ext.coroutinesVersion = "1.6.4"
 
 
     repositories {
@@ -28,7 +28,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    implementation "csense.kotlin:csense-kotlin:0.0.60-snapshot"
+    implementation "csense.kotlin:csense-kotlin:0.0.59"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
