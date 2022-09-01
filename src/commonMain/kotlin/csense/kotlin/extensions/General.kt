@@ -3,6 +3,7 @@
 package csense.kotlin.extensions
 
 import csense.kotlin.*
+import csense.kotlin.Function0
 import kotlin.contracts.*
 
 /**
@@ -113,7 +114,7 @@ public inline fun <T> T?.useOr(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("ifNotNull")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
 public inline fun <T> Any.useOr(
     ifNotNull: ReceiverFunctionUnit<T>,
     ifNull: EmptyFunction
@@ -151,7 +152,7 @@ public inline infix fun <@kotlin.internal.OnlyInputTypes reified T> T?.orIfNull(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("this")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
 public inline fun <T> Any.orIfNull(
     ifNull: T & Any
 ): Nothing = unexpected()
@@ -179,7 +180,7 @@ public inline infix fun <reified T> T?.orIfNullLazy(ifNullAction: Function0R<T>)
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("this")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
 public inline fun <T> Any.orIfNullLazy(
     ifNullAction: Function0R<T>
 ): Nothing = unexpected()
@@ -188,15 +189,21 @@ public inline fun <T> Any.orIfNullLazy(
 /**
  * applies the given function iff the given [shouldApply] is true
  * @receiver T
- * @param shouldApply [Boolean] whenever the given  [transform] should be applied to the receiver
- * @param transform [Function1]<T,T> the transformation function to execute if [shouldApply] is true
- * @return the original value if [shouldApply] is false, otherwise the transformed value (via [transform]) if [shouldApply] is true.
+ * @param shouldApply [Boolean] whenever the given  [block] should be applied to the receiver
+ * @param block [ReceiverFunctionUnit]<T,T> [block] to execute if [shouldApply] is true
+ * @return the original value
  */
-public inline fun <T> T.applyIf(shouldApply: Boolean, transform: Function1<T, T>): T {
-    return if (shouldApply) {
-        transform(this)
-    } else {
-        this
+public inline fun <T> T.applyIf(
+    shouldApply: Boolean,
+    block: ReceiverFunctionUnit<T>
+): T {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+    return apply {
+        if (shouldApply) {
+            block()
+        }
     }
 }
 

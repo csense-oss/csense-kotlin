@@ -47,14 +47,20 @@ public inline fun <T> tryAndLog(
     tag: String = "",
     message: String = "",
     placeholders: Array<String> = arrayOf(),
-    logger: CLLogFunction = CL::logError,
+    logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
 ): T? {
     return try {
         throwableAction()
     } catch (exception: Throwable) {
-        logger(tag, message, placeholders, exception, sensitivity)
+        logger(
+            tag = tag,
+            message = message,
+            placeholders = placeholders,
+            exception = exception,
+            sensitivity = sensitivity
+        )
         return null
     }
 }

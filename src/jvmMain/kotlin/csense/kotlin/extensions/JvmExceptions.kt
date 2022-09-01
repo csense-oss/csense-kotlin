@@ -56,7 +56,7 @@ public inline fun <T> tryAndLog(
     clazz: Class<*>,
     message: String = "",
     placeholders: Array<String> = arrayOf(),
-    logger: CLLogFunction = CL::logError,
+    logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
 ): T? = tryAndLog(
@@ -80,7 +80,7 @@ public inline fun <T> tryAndLog(
     kClazz: KClass<*>,
     message: String = "",
     placeholders: Array<String> = arrayOf(),
-    logger: CLLogFunction = CL::logError,
+    logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
 ): T? = tryAndLog(

@@ -55,7 +55,6 @@ public fun <Value, Error> Expected<Value, Error>.isFailed(): Boolean {
     contract {
         returns(true) implies (this@isFailed is ExpectedFailed<Error>)
         returns(false) implies (this@isFailed is ExpectedSuccess<Value>)
-
     }
     return this is ExpectedFailed<Error>
 }
@@ -301,6 +300,23 @@ public inline fun <Error> ExpectedMapCatchingError<Error>.isException(): Boolean
         returns(true) implies (this@isException is ExpectedMapCatchingError.Exception)
     }
     return this is ExpectedMapCatchingError.Exception
+}
+
+
+public inline fun <Value, Error> Expected<Value, Error>.applyIfSuccess(
+    onSuccess: ReceiverFunctionUnit<ExpectedSuccess<Value>>
+): Expected<Value, Error> = apply {
+    if (this.isSuccess()) {
+        onSuccess()
+    }
+}
+
+public inline fun <Value, Error> Expected<Value, Error>.applyIfFailed(
+    onFailed: ReceiverFunctionUnit<ExpectedFailed<Error>>
+): Expected<Value, Error> = apply {
+    if (this.isFailed()) {
+        onFailed()
+    }
 }
 
 

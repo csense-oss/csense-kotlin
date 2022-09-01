@@ -1,16 +1,6 @@
 package csense.kotlin.logger
 
-
-public typealias CLLogFunction = (
-    tag: String,
-    message: String,
-    placeholders: Array<out String>,
-    exception: Throwable?,
-    sensitivity: LogSensitivity
-) -> Unit
-
-
-public fun interface CLLogFunctionCall {
+public fun interface CLLogFunction {
     public operator fun invoke(
         tag: String,
         message: String,
@@ -22,7 +12,7 @@ public fun interface CLLogFunctionCall {
 
 public class CLLogFunctionCallToMethod(
     private val function: CLLogFunction
-) : CLLogFunctionCall {
+) : CLLogFunction {
 
     public override operator fun invoke(
         tag: String,
@@ -31,6 +21,12 @@ public class CLLogFunctionCallToMethod(
         exception: Throwable?,
         sensitivity: LogSensitivity
     ) {
-        function(tag, message, placeholders, exception, sensitivity)
+        function(
+            tag = tag,
+            message = message,
+            placeholders = placeholders,
+            exception = exception,
+            sensitivity = sensitivity
+        )
     }
 }

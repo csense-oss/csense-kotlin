@@ -56,7 +56,7 @@ public inline fun <Result> measureTimeResult(
 
 public inline fun <T> logMeasureTimeInMillis(
     loggingTitle: String = "Timing",
-    loggingMethod: CLLogFunctionCall = CL.debug,
+    loggingMethod: CLLogFunction = CL.debug,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     action: EmptyFunctionResult<T>
 ): T {

@@ -125,9 +125,8 @@ class GeneralTest {
         fun shouldApply() = assertCalled { shouldBeCalled ->
             "test".applyIf(true) {
                 shouldBeCalled()
-                it.assert("test")
-                "1234"
-            }.assert("1234")
+                assert("test")
+            }.assert("test")
         }
     }
 

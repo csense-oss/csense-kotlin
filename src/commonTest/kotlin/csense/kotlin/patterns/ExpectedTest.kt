@@ -596,6 +596,44 @@ class ExpectedTest {
             exp.error.assertIs<RuntimeException>()
         }
     }
+
+    class ExpectedValueErrorApplyIfSuccess {
+
+        @Test
+        fun onFailed() {
+            Expected.failed(Throwable("error")).applyIfSuccess {
+                shouldNotBeCalled()
+            }
+        }
+
+        @Test
+        fun onSuccess() = assertCalled { shouldBeCalled ->
+            Expected.success("test").applyIfSuccess {
+                value.assert("test")
+                shouldBeCalled()
+            }
+        }
+
+    }
+
+    class ExpectedValueErrorApplyIfFailed {
+
+        @Test
+        fun onFailed() = assertCalled { shouldBeCalled ->
+            Expected.failed("failedText").applyIfFailed {
+                error.assert("failedText")
+                shouldBeCalled()
+            }
+        }
+
+        @Test
+        fun onSuccess() {
+            Expected.success("test").applyIfFailed {
+                shouldNotBeCalled()
+            }
+        }
+
+    }
 }
 
 class ErrorTypeException : Throwable()

@@ -15,7 +15,13 @@ public inline fun <reified T> T.logClassDebug(
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
 ) {
     val tag = T::class.simpleName ?: "<Unknown>"
-    CL.logDebug(tag, message, placeholders = placeholders, exception = throwable, sensitivity = sensitivity)
+    CL.logDebug(
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = throwable,
+        sensitivity = sensitivity
+    )
 }
 
 
@@ -33,7 +39,13 @@ public inline fun <reified T> T.logClassWarning(
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
 ) {
     val tag = T::class.simpleName ?: "<Unknown>"
-    CL.logWarning(tag, message, placeholders = placeholders, exception = throwable, sensitivity = sensitivity)
+    CL.logWarning(
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = throwable,
+        sensitivity = sensitivity
+    )
 }
 
 public inline fun <reified T> T.logClassError(
@@ -50,5 +62,11 @@ public inline fun <reified T> T.logClassError(
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
 ) {
     val tag = T::class.simpleName ?: "<Unknown>"
-    CL.logError(tag, message, placeholders = placeholders, exception = throwable, sensitivity = sensitivity)
+    CL.logError(
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = throwable,
+        sensitivity = sensitivity
+    )
 }

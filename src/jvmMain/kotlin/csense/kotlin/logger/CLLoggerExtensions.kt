@@ -106,10 +106,10 @@ public inline fun logCurrentStackTrace(
     val exception: Throwable? = null
     val message = Thread.currentThread().stackTrace.asSequence().drop(skipFirstFunctions).take(limit).joinToString("\n")
     logTo(
-        tag,
-        message,
-        placeholders,
-        exception,
-        sensitivity
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = exception,
+        sensitivity = sensitivity
     )
 }

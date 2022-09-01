@@ -1,5 +1,6 @@
 package csense.kotlin.extensions
 
+import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.*
@@ -9,10 +10,10 @@ internal class TimingExtensionsKtTest {
     @Test
     fun testLogMeasureTimeInMillis() {
         var logCount = 0
-        logMeasureTimeInMillis("Timing", { _, _, _, _, _ -> logCount += 1 }) { }
+        logMeasureTimeInMillis("Timing", CLLogFunction { _, _, _, _, _ -> logCount += 1 }) { }
         logCount.assert(1)
 
-        val constant = logMeasureTimeInMillis("Timing", { _, _, _, _, _ -> logCount += 1 }) { 42 }
+        val constant = logMeasureTimeInMillis("Timing", CLLogFunction { _, _, _, _, _ -> logCount += 1 }) { 42 }
         constant.assert(42)
         logCount.assert(2)
 

@@ -1,8 +1,9 @@
-@file:Suppress("unused", "DeferredIsResult")
+@file:Suppress("unused", "DeferredIsResult", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions.coroutines
 
 import csense.kotlin.*
+import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 
 /**
@@ -11,9 +12,27 @@ import kotlinx.coroutines.*
  * @param block [CoroutineScopeFunction0]<T>
  * @return [Deferred]<T>
  */
-public fun <T> CoroutineScope.asyncIO(
-    block: CoroutineScopeFunction0<T>
+public inline fun <T> CoroutineScope.asyncIO(
+    noinline block: CoroutineScopeFunction0<T>
 ): Deferred<T> = async(Dispatchers.IO, block = block)
+
+
+/**
+ * Uses [asyncIO] combined with a [with] on the given receiver.
+ * @receiver CoroutineScope
+ * @param receiver Receiver
+ * @param block [@kotlin.ExtensionFunctionType] SuspendFunction1<Receiver, R>
+ * @return Deferred<R>
+ */
+public inline fun <Receiver, R> CoroutineScope.asyncIOWith(
+    receiver: Receiver,
+    @InBackground noinline block: suspend Receiver.() -> R
+): Deferred<R> = asyncIO {
+    with(receiver) {
+        block()
+    }
+}
+
 
 /**
  * Wrapper for [launch] ([Dispatchers.IO])
@@ -21,9 +40,27 @@ public fun <T> CoroutineScope.asyncIO(
  * @param block [CoroutineScopeFunction0]<[Unit]>
  * @return [Job]
  */
-public fun CoroutineScope.launchIO(
-    block: CoroutineScopeFunction0<Unit>
+public inline fun CoroutineScope.launchIO(
+    noinline block: CoroutineScopeFunction0<Unit>
 ): Job = launch(Dispatchers.IO, block = block)
+
+
+/**
+ * Uses [launchIO] combined with a [with] on the given receiver.
+ * @receiver CoroutineScope
+ * @param receiver Receiver
+ * @param block [@kotlin.ExtensionFunctionType] SuspendFunction1<Receiver, R>
+ * @return Deferred<R>
+ */
+public inline fun <Receiver, R> CoroutineScope.launchIOWith(
+    receiver: Receiver,
+    @InBackground noinline block: suspend Receiver.() -> R
+): Job = launchIO {
+    with(receiver) {
+        block()
+    }
+}
+
 
 /**
  * Wrapper for [withContext] ([Dispatchers.IO])

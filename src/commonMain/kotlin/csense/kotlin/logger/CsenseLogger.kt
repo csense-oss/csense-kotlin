@@ -83,7 +83,7 @@ public open class CsenseLogger(
 }
 
 public object CL : CsenseLogger(maxStoredLogMessages = 100) {
-    public val debug: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logDebug)
-    public val warning: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logWarning)
-    public val error: CLLogFunctionCallToMethod = CLLogFunctionCallToMethod(this::logError)
+    public val debug: CLLogFunction = CLLogFunctionCallToMethod(this::logDebug)
+    public val warning: CLLogFunction = CLLogFunctionCallToMethod(this::logWarning)
+    public val error: CLLogFunction = CLLogFunctionCallToMethod(this::logError)
 }

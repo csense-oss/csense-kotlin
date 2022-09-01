@@ -35,11 +35,8 @@ public fun unexpectedWithLogging(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL::logError
+    logger: CLLogFunction = CL.error
 ): Nothing {
-    contract {
-        callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
-    }
     unexpectedWithLogging(
         tag = UnexpectedException.unexpectedDefaultTag,
         message = message,
@@ -64,11 +61,8 @@ public fun unexpectedWithLogging(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL::logError
+    logger: CLLogFunction = CL.error
 ): Nothing {
-    contract {
-        callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
-    }
     throw logUnexpected(
         tag = tag, message = message,
         placeholders = placeholders,
@@ -91,18 +85,15 @@ public fun logUnexpected(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL::logError
+    logger: CLLogFunction = CL.error
 ): UnexpectedException {
-    contract {
-        callsInPlace(logger, InvocationKind.EXACTLY_ONCE)
-    }
     val exception = UnexpectedException(message, relatedCause)
     logger(
-        tag,
-        message,
-        placeholders,
-        exception,
-        sensitivity
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = exception,
+        sensitivity = sensitivity
     )
     return exception
 }

@@ -5,10 +5,12 @@ package csense.kotlin.extensions.coroutines
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import kotlin.coroutines.*
 import kotlin.test.*
 
 class CoroutineScopeTest {
 
+    //region Default dispatcher
     @Test
     fun coroutineScopeAsyncDefault() = runTest {
         val async = asyncDefault {
@@ -16,6 +18,37 @@ class CoroutineScopeTest {
             "result"
         }
         async.await().assert("result")
+    }
+
+    class CoroutineScopeAsyncDefaultWith {
+
+        @Test
+        fun isRightReceiver() = runTest {
+            assertCalled { shouldBeCalled ->
+                asyncDefaultWith("test") {
+                    assert("test")
+                    shouldBeCalled()
+                }.await()
+            }
+        }
+
+        @Test
+        fun isDefaultContext() = runTest {
+            assertCalled { shouldBeCalled ->
+                asyncDefaultWith("test") {
+                    coroutineScope { assertDispatcher(Dispatchers.Default) }
+                    shouldBeCalled()
+                }.await()
+            }
+        }
+
+        @Test
+        fun returnsRightResult() = runTest {
+            asyncDefaultWith("test") {
+                42
+            }.await().assert(42)
+        }
+
     }
 
 
@@ -37,5 +70,29 @@ class CoroutineScopeTest {
             }.join()
         }
     }
+
+    class CoroutineScopeLaunchDefaultWith {
+
+        @Test
+        fun isRightReceiver() = runTest {
+            assertCalled { shouldBeCalled ->
+                launchDefaultWith("test") {
+                    assert("test")
+                    shouldBeCalled()
+                }.join()
+            }
+        }
+
+        @Test
+        fun isDefaultContext() = runTest {
+            assertCalled { shouldBeCalled ->
+                launchDefaultWith("test") {
+                    coroutineScope { assertDispatcher(Dispatchers.Default) }
+                    shouldBeCalled()
+                }.join()
+            }
+        }
+    }
+    //endregion
 
 }

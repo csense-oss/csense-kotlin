@@ -5,7 +5,7 @@
 - deprecated LLogger
 - deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
 - deprecated Collection<*>.isIndexValidForInsert
-- deprecated Collection<*>.isIndexValid 
+- deprecated Collection<*>.isIndexValid
 - added CsenseLogger
     - made all "logging" related function(s) use this
 - added
@@ -20,13 +20,28 @@
         - toSensitiveStackTraceString
         - formatToString
     - nullable deprecated methods for avoid "misuse" of nullable functions
-      (for all functions with involving nullable receivers and null as an action")
+      (for all functions with involving nullable receivers and null as an "action")
+    - Coroutine scope extensions
+        - launchMainWith
+        - asyncMainWith
+        - launchDefaultWith
+        - asyncDefaultWith
+        - launchIOWith
+        - asyncIOWith
+    - Expected extensions
+        - applyIfSuccess
+        - applyIfFailed
 
 
-- breaking lazyArgument (by splitting it into 2 things)
-    - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
-      possible (since property delegation is impossible with arguments)
-    - LazyArgumentConstructor the old version (taking a constructor function in the getter)
+- breaking changes
+    - lazyArgument (by splitting it into 2 things)
+        - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
+          possible (since property delegation is impossible with arguments)
+        - LazyArgumentConstructor the old version (taking a constructor function in the getter)
+
+    - applyIf
+        - it was requiring the transform argument to return the result which is not in line with apply. thus it now
+          returns the same instance
 
 ## 0.0.59
 
