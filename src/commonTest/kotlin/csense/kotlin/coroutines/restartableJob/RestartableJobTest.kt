@@ -1,27 +1,14 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package csense.kotlin.coroutines.restartableJob
 
+import csense.kotlin.patterns.restartableJob.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class RestartableJobTest {
-
-
-
-    class CoroutineScopeRestartableJobInDefault {
-        @Test
-        fun shouldBeCalledOnMainDispatcher() = runTest {
-            assertCalled { shouldBeCalled ->
-                val job = restartableJobInDefault {
-                    assertDispatcher(Dispatchers.Default)
-                    shouldBeCalled()
-                }
-                job.start()
-                job.join()
-            }
-        }
-    }
 
     class CoroutineScopeRestartableJobIn {
         @Test
@@ -40,5 +27,17 @@ class RestartableJobTest {
         }
     }
 
-
+    class CoroutineScopeRestartableJobInDefault {
+        @Test
+        fun shouldBeCalledOnDefaultDispatcher() = runTest {
+            assertCalled { shouldBeCalled ->
+                val job = restartableJobInDefault {
+                    assertDispatcher(Dispatchers.Default)
+                    shouldBeCalled()
+                }
+                job.start()
+                job.join()
+            }
+        }
+    }
 }

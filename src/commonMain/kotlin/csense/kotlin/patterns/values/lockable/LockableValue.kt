@@ -1,7 +1,8 @@
-package csense.kotlin.datastructures.values.lockable
+package csense.kotlin.patterns.values.lockable
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import kotlin.contracts.*
 import kotlin.reflect.*
 
 /**
@@ -99,7 +100,7 @@ public inline fun <T> LockableValue<T>.whenUnlocked(
 
 /**
  * Runs the given action iff this is not locked, if it is locked, then nothing is performed
- * @param onUnlocked EmptyFunction 
+ * @param onUnlocked EmptyFunction
  */
 public inline fun <T> LockableValue<T>.lockWithAction(
     onUnlocked: EmptyFunction
@@ -110,10 +111,27 @@ public inline fun <T> LockableValue<T>.lockWithAction(
 
 /**
  * Performs the given [action] if this [LockableValue.isLocked]
- * @param action EmptyFunction 
+ * @param action EmptyFunction
  */
 public inline fun <T> LockableValue<T>.ifLocked(action: EmptyFunction) {
     if (isLocked()) {
         action()
     }
+}
+
+/**
+ * Fail fast strategy, where you can return if this value is already [LockableValue.isLocked]
+ * @receiver [LockableValue]<T>
+ * @param action [Function0]<[Nothing]>
+ */
+public inline fun <T> LockableValue<T>.lockOrReturn(
+    action: () -> Nothing
+) {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    if (isLocked()) {
+        action()
+    }
+    lock()
 }

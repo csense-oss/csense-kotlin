@@ -1,5 +1,7 @@
 package csense.kotlin.logger
 
+import csense.kotlin.logger.models.*
+
 public fun interface CLLogFunction {
     public operator fun invoke(
         tag: String,

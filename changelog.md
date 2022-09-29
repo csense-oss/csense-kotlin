@@ -6,6 +6,7 @@
 - deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
 - deprecated Collection<*>.isIndexValidForInsert
 - deprecated Collection<*>.isIndexValid
+- renamed IntRange.endExclusive to IntRange.endExclusiveSafe (due to kotlin std lib introducing it and deprecating it)
 - added CsenseLogger
     - made all "logging" related function(s) use this
 - added
@@ -31,8 +32,10 @@
     - Expected extensions
         - applyIfSuccess
         - applyIfFailed
-
-
+    - tryAndLogDidSucceed
+    - tryAndLogExpected
+    - RestartableJob 
+      - with arguments 
 - breaking changes
     - lazyArgument (by splitting it into 2 things)
         - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as

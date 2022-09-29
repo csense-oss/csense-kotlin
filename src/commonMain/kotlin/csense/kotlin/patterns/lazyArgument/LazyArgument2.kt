@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package csense.kotlin.patterns
+package csense.kotlin.patterns.lazyArgument
 
 /**
  *  A "lazy" alike construction that allows a value to be used for the "lazy" computation

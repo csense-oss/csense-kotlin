@@ -2,6 +2,8 @@
 
 package csense.kotlin.logger
 
+import csense.kotlin.logger.models.*
+
 public inline fun <reified T : Any> T.logClassDebug(
     message: String,
     vararg placeholders: String = arrayOf(),

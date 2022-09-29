@@ -1,4 +1,7 @@
-package csense.kotlin.logger
+package csense.kotlin.logger.extensions
+
+import csense.kotlin.logger.*
+import csense.kotlin.logger.models.*
 
 
 public inline fun <reified T> T.logClassDebug(

@@ -1,8 +1,8 @@
-package csense.kotlin.coroutines.restartableJob
+package csense.kotlin.patterns.restartableJob
 
-import csense.kotlin.*
 import kotlinx.coroutines.*
 
+
 public fun CoroutineScope.restartableJobInIO(
-    action: ReceiverFunctionUnit<CoroutineScope>
+    action: RestartableJobAction
 ): RestartableJob = restartableJobIn(dispatcher = Dispatchers.IO, action = action)

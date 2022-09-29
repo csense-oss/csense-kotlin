@@ -9,7 +9,7 @@ public inline fun <Value, Error> Expected<Value, Error>.tryRecover(
 ): Expected<Value, Error> {
     return when (this) {
         is Expected.Success -> this
-        is Expected.Failed -> with(Expected.Companion.ExpectedContext.instance) {
+        is Expected.Failed -> with(Expected.Companion.ExpectedContext) {
             transform(error)
         }
     }
@@ -20,7 +20,7 @@ public inline fun <Value, Error> Expected<Value, Error>.tryRecover(
 public inline fun <Value, Error, Result : Expected<Value, Error>> Expected<Nothing, Error>.tryRecover(
     transform: Expected.Companion.ExpectedContext.(Error) -> Result
 ): Result {
-    return with(Expected.Companion.ExpectedContext.instance) {
+    return with(Expected.Companion.ExpectedContext) {
         transform(error)
     }
 }

@@ -3,12 +3,12 @@ buildscript {
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.4"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.58"
+    ext.csenseTestsVersion = "0.0.59"
     //https://github.com/csense-oss/csense-kotlin-annotations
     ext.csenseAnnotationVersion = "0.0.50"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.7.10"
+    ext.kotlin_version = "1.7.20"
 
     //https://github.com/Kotlin/kotlinx-benchmark
     ext.kotlinx_benchmark_version = "0.4.5"

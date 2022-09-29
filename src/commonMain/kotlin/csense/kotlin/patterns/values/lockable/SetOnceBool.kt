@@ -1,4 +1,4 @@
-package csense.kotlin.datastructures.values.lockable
+package csense.kotlin.patterns.values.lockable
 
 import csense.kotlin.*
 

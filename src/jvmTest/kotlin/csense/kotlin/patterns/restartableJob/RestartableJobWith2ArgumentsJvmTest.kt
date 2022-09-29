@@ -1,13 +1,13 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package csense.kotlin.coroutines.restartableJob
+package csense.kotlin.patterns.restartableJob
 
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.jupiter.api.*
 
-class RestartableJobJvmTest {
+class RestartableJobWith2ArgumentsJvmTest {
 
     class CoroutineScopeRestartableJobInMain {
         companion object {
@@ -30,11 +30,13 @@ class RestartableJobJvmTest {
         @Test
         fun shouldBeCalledOnMainDispatcher() = runTest {
             assertCalled { shouldBeCalled ->
-                val job = restartableJobInMain {
+                val job = restartableJobInMain { first: Int, second: String ->
+                    first.assert(42)
+                    second.assert("test")
                     assertDispatcher(Dispatchers.Main)
                     shouldBeCalled()
                 }
-                job.start()
+                job.start(42, "test")
                 job.join()
             }
         }
@@ -42,17 +44,20 @@ class RestartableJobJvmTest {
 
 
     class CoroutineScopeRestartableJobInIO {
+
         @Test
-        fun shouldBeCalledOnIODispatcher() = runTest {
-            val ioDispatcher = Dispatchers.IO
+        fun runsActionInIOThread() = runTest {
             assertCalled { shouldBeCalled ->
-                val job = restartableJobInIO {
-                    assertDispatcher(ioDispatcher)
+                val input = restartableJobInIO { first: Int, second: String ->
+                    first.assert(42)
+                    second.assert("test")
+                    this.assertDispatcher(Dispatchers.IO)
                     shouldBeCalled()
                 }
-                job.start()
-                job.join()
+                input.start(42, "test")
+                input.join()
             }
         }
+
     }
 }

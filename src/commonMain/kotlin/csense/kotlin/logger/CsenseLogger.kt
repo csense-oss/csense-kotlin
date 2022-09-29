@@ -1,5 +1,6 @@
 package csense.kotlin.logger
 
+import csense.kotlin.logger.models.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 

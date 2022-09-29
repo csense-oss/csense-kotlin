@@ -36,15 +36,15 @@ class IntRangeTest {
 
     @Suppress("EmptyRange")
     @Test
-    fun intRangeEndExclusive() {
+    fun intRangeEndExclusiveSafe() {
         val range1 = 0 until 20
         range1.last.assert(19)
-        range1.endExclusive.assert(20)
+        range1.endExclusiveSafe.assert(20L)
 
         val weirdRange = 40 until 41
-        weirdRange.endExclusive.assert(41)
+        weirdRange.endExclusiveSafe.assert(41L)
 
         val backwards = 20 until 10
-        backwards.endExclusive.assert(10)
+        backwards.endExclusiveSafe.assert(10L)
     }
 }

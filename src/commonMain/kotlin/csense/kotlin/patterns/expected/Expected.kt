@@ -2,14 +2,12 @@
 
 package csense.kotlin.patterns.expected
 
-import csense.kotlin.*
 import kotlin.contracts.*
-import kotlin.jvm.*
 
 public sealed interface Expected<out Value, out Error> {
     public companion object {
         //used to limit the asSuccess and failed extensions (to avoid global namespace pollution)
-        public class ExpectedContext private constructor() {
+        public object ExpectedContext {
             public fun <Value> Value.asSuccess(): Success<Value> {
                 return Success(this)
             }
@@ -18,24 +16,34 @@ public sealed interface Expected<out Value, out Error> {
                 return Failed(this)
             }
 
-            public companion object {
-                public val instance: ExpectedContext = ExpectedContext()
-            }
         }
     }
 
-    //TODO use inline value class when available for MPP
+    //TODO use inline value class when available for MPP (kotlin 1.8)
     public class Failed<out Error>(
         public val error: Error
     ) : Expected<Nothing, Error>
 
-    //TODO use inline value class when available for MPP
+    //TODO use inline value class when available for MPP (kotlin 1.8)
     public class Success<out Value>(
         public val value: Value
     ) : Expected<Value, Nothing>
 
 }
 
+/**
+ * converts the given arguments either to a [Expected.Success] (if the value is present), or a [Expected.Failed] if not.
+ * @receiver Expected.Companion
+ * @param potentialSuccess [Value]?
+ * @param potentialErrorOrFallback [Error]
+ * @return [Expected]<[Value], [Error]>
+ */
+public inline fun <Value, Error> Expected.Companion.successOrFailed(
+    potentialSuccess: Value?,
+    potentialErrorOrFallback: Error
+): Expected<Value, Error> = expected {
+    potentialSuccess?.asSuccess() ?: potentialErrorOrFallback.asFailed()
+}
 
 public inline fun <Value, Error> expected(
     action: Expected.Companion.ExpectedContext.() -> Expected<Value, Error>,
@@ -45,7 +53,7 @@ public inline fun <Value, Error> expected(
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
         callsInPlace(onException, InvocationKind.AT_MOST_ONCE)
     }
-    return with(Expected.Companion.ExpectedContext.instance) {
+    return with(Expected.Companion.ExpectedContext) {
         try {
             action()
         } catch (e: Throwable) {
@@ -94,3 +102,9 @@ public inline val <Value> Expected<Value, Nothing>.asSuccess: Expected.Success<V
     get() = this as Expected.Success<Value>
 
 
+public inline fun <Value> Expected<Value, *>.successValueOrNull(): Value? {
+    if (this.isFailed()) {
+        return null
+    }
+    return this.value
+}

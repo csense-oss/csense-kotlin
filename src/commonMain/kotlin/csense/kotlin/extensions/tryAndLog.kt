@@ -4,6 +4,8 @@ package csense.kotlin.extensions
 
 import csense.kotlin.*
 import csense.kotlin.logger.*
+import csense.kotlin.logger.models.*
+import csense.kotlin.patterns.expected.*
 import kotlin.internal.*
 
 
@@ -46,7 +48,7 @@ public inline fun <T> tryAndLog(
 public inline fun <T> tryAndLog(
     tag: String = "",
     message: String = "",
-    placeholders: Array<String> = arrayOf(),
+    placeholders: Array<String> = emptyArray(),
     logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
@@ -62,6 +64,59 @@ public inline fun <T> tryAndLog(
             sensitivity = sensitivity
         )
         return null
+    }
+}
+
+/**
+ * Try's the given [throwableAction]. if it fails it will be logged (via [logger]) and the result will be an [Expected.Failed]
+ * @param tag String
+ * @param message String
+ * @param placeholders Array<String>
+ * @param logger CLLogFunction
+ * @param sensitivity LogSensitivity
+ * @param throwableAction Function0<T>
+ * @return Expected<T, Throwable>
+ */
+public inline fun <T> tryAndLogExpected(
+    tag: String = "",
+    message: String = "",
+    placeholders: Array<String> = emptyArray(),
+    logger: CLLogFunction = CL.error,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    throwableAction: EmptyFunctionResult<T>
+): Expected<T, Throwable> = expectedCatching {
+    throwableAction().asSuccess()
+}.applyIfFailed {
+    logger(
+        tag = tag,
+        message = message,
+        placeholders = placeholders,
+        exception = this.error,
+        sensitivity = sensitivity
+    )
+}
+
+
+public inline fun <T> tryAndLogDidSucceed(
+    tag: String = "",
+    message: String = "",
+    placeholders: Array<String> = emptyArray(),
+    logger: CLLogFunction = CL.error,
+    sensitivity: LogSensitivity = LogSensitivity.Sensitive,
+    throwableAction: EmptyFunction
+): Boolean {
+    return try {
+        throwableAction()
+        true
+    } catch (exception: Throwable) {
+        logger(
+            tag = tag,
+            message = message,
+            placeholders = placeholders,
+            exception = exception,
+            sensitivity = sensitivity
+        )
+        return false
     }
 }
 

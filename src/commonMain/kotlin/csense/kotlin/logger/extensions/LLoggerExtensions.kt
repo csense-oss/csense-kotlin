@@ -1,4 +1,4 @@
-//@file:Suppress("unused")
+package csense.kotlin.logger.extensions//@file:Suppress("unused")
 //
 //package csense.kotlin.logger
 //

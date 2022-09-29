@@ -22,7 +22,7 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Nothing>
     transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
     val value = valueOrFailed { return@tryMap this }
-    return with(Expected.Companion.ExpectedContext.instance) { transform(value) }
+    return with(Expected.Companion.ExpectedContext) { transform(value) }
 }
 
 

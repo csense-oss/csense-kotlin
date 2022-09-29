@@ -1,6 +1,7 @@
-package csense.kotlin.logger
+package csense.kotlin.logger.extensions
 
 import csense.kotlin.extensions.collections.array.*
+import csense.kotlin.logger.models.*
 
 
 public fun LogMessageFormat.containsSensitiveInformationMessageOrEmpty(): String {

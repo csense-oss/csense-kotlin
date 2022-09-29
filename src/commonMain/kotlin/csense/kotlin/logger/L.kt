@@ -2,6 +2,8 @@
 
 package csense.kotlin.logger
 
+import csense.kotlin.logger.models.*
+
 @Deprecated("use CL. it has a corresponding LogMessage that resembles this intent")
 public typealias LoggingFunctionType<T> = (String, String, Throwable?) -> T
 

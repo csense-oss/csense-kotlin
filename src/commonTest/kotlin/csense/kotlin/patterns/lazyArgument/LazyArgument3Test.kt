@@ -1,4 +1,4 @@
-package csense.kotlin.patterns
+package csense.kotlin.patterns.lazyArgument
 
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*

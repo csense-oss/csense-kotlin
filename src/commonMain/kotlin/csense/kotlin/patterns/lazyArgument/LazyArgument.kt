@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package csense.kotlin.patterns
+package csense.kotlin.patterns.lazyArgument
 
 import csense.kotlin.Function1
 

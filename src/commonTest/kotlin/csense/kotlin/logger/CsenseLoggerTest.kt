@@ -3,6 +3,7 @@
 package csense.kotlin.logger
 
 import csense.kotlin.extensions.coroutines.*
+import csense.kotlin.logger.models.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

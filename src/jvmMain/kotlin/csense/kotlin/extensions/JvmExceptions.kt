@@ -4,6 +4,7 @@ package csense.kotlin.extensions
 
 import csense.kotlin.*
 import csense.kotlin.logger.*
+import csense.kotlin.logger.models.*
 import kotlin.internal.*
 import kotlin.reflect.*
 

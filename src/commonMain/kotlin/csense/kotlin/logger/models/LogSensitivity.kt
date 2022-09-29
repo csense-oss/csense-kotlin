@@ -1,4 +1,4 @@
-package csense.kotlin.logger
+package csense.kotlin.logger.models
 
 public enum class LogSensitivity {
     Sensitive,
