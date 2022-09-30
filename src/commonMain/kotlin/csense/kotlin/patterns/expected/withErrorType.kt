@@ -16,7 +16,7 @@ public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorTyp
     level = DeprecationLevel.ERROR, message = "Success does not have an error",
     replaceWith = ReplaceWith("")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
+@Suppress("UnusedReceiverParameter")
 public fun Expected.Success<*>.withErrorType(): Nothing = unexpected()
 
 
@@ -32,7 +32,7 @@ public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorTyp
     level = DeprecationLevel.ERROR, message = "Success has a value field instead",
     replaceWith = ReplaceWith("this.value")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 public fun Expected.Success<*>.withErrorType(
     onWrongErrorType: (Throwable) -> Error
 ): Nothing = unexpected()

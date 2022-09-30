@@ -10,6 +10,11 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.m
     return Expected.Success(transform(value))
 }
 
+public inline fun <InputValue, OutputValue> Expected.Success<InputValue>.map(
+    transform: (InputValue) -> OutputValue
+): Expected.Success<OutputValue> {
+    return Expected.Success(transform(value))
+}
 
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",

@@ -1,6 +1,6 @@
 buildscript {
     //https://github.com/JetBrains/kotlin
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.7.20'
 
     //https://github.com/Kotlin/kotlinx.coroutines/releases
     ext.coroutinesVersion = "1.6.4"
