@@ -1,11 +1,15 @@
 package csense.kotlin.patterns.expected
 
 import csense.kotlin.*
+import kotlin.contracts.*
 
 
 public inline fun <Value, Error> Expected<Value, Error>.valueOrOnFailed(
     onFailed: (error: Error) -> Nothing
 ): Value {
+    contract {
+        returns() implies (this@valueOrOnFailed is Expected.Success)
+    }
     return when (this) {
         is Expected.Success -> value
         is Expected.Failed -> onFailed(error)

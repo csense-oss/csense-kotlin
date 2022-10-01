@@ -1,14 +1,27 @@
 package csense.kotlin.patterns.expected
 
 import csense.kotlin.*
+import kotlin.contracts.*
 
 
 @Throws
 public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
-
 ): Expected<Value, Error> = when (this) {
     is Expected.Success -> this
     is Expected.Failed -> asErrorTypeOrNull() ?: throw error
+}
+
+
+public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
+    onWrongErrorType: (Throwable) -> Error
+): Expected<Value, Error> {
+    contract {
+        callsInPlace(onWrongErrorType, InvocationKind.AT_MOST_ONCE)
+    }
+    return when (this) {
+        is Expected.Success -> this
+        is Expected.Failed -> asErrorTypeOrNull() ?: Expected.Failed(onWrongErrorType(error))
+    }
 }
 
 
@@ -18,14 +31,6 @@ public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorTyp
 )
 @Suppress("UnusedReceiverParameter")
 public fun Expected.Success<*>.withErrorType(): Nothing = unexpected()
-
-
-public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
-    onWrongErrorType: (Throwable) -> Error
-): Expected<Value, Error> = when (this) {
-    is Expected.Success -> this
-    is Expected.Failed -> asErrorTypeOrNull() ?: Expected.Failed(onWrongErrorType(error))
-}
 
 
 @Deprecated(

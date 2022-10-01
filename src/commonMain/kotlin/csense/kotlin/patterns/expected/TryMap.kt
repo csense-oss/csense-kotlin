@@ -1,12 +1,14 @@
 package csense.kotlin.patterns.expected
 
 import csense.kotlin.*
+import kotlin.contracts.*
 import kotlin.jvm.*
 
 
 public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.tryMap(
     transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
+    contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
     return if (this.isSuccess()) {
         tryMap(transform)
     } else {
@@ -15,16 +17,13 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.t
 }
 
 
-
-
 @JvmName("tryMapSuccess")
-public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Nothing>.tryMap(
+public inline fun <InputValue, OutputValue, Error> Expected.Success<InputValue>.tryMap(
     transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
-    val value = valueOrFailed { return@tryMap this }
+    contract { callsInPlace(transform, InvocationKind.EXACTLY_ONCE) }
     return with(Expected.Companion.ExpectedContext) { transform(value) }
 }
-
 
 
 @Deprecated(

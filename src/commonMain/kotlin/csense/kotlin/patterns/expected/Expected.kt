@@ -2,6 +2,7 @@
 
 package csense.kotlin.patterns.expected
 
+import csense.kotlin.*
 import kotlin.contracts.*
 
 public sealed interface Expected<out Value, out Error> {
@@ -102,9 +103,19 @@ public inline val <Value> Expected<Value, Nothing>.asSuccess: Expected.Success<V
     get() = this as Expected.Success<Value>
 
 
-public inline fun <Value> Expected<Value, *>.successValueOrNull(): Value? {
-    if (this.isFailed()) {
-        return null
+public inline fun <Value, Error> Expected<Value, Error>.applyIfSuccess(
+    onSuccess: ReceiverFunctionUnit<Expected.Success<Value>>
+): Expected<Value, Error> = apply {
+    if (this.isSuccess()) {
+        onSuccess()
     }
-    return this.value
 }
+
+public inline fun <Value, Error> Expected<Value, Error>.applyIfFailed(
+    onFailed: ReceiverFunctionUnit<Expected.Failed<Error>>
+): Expected<Value, Error> = apply {
+    if (this.isFailed()) {
+        onFailed(this)
+    }
+}
+

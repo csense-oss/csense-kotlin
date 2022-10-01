@@ -8,6 +8,7 @@ public inline fun <Value, Error> Expected<Value, Error>.valueOrFailed(
     onFailed: Expected.Failed<Error>.() -> Nothing
 ): Value {
     contract {
+        returns() implies (this@valueOrFailed is Expected.Success)
         callsInPlace(onFailed, InvocationKind.AT_MOST_ONCE)
     }
     return when (this) {

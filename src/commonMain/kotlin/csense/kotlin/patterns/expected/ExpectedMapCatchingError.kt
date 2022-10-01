@@ -35,20 +35,4 @@ public inline fun <Error> ExpectedMapCatchingError<Error>.isException(): Boolean
 }
 
 
-public inline fun <Value, Error> Expected<Value, Error>.applyIfSuccess(
-    onSuccess: ReceiverFunctionUnit<Expected.Success<Value>>
-): Expected<Value, Error> = apply {
-    if (this.isSuccess()) {
-        onSuccess()
-    }
-}
-
-public inline fun <Value, Error> Expected<Value, Error>.applyIfFailed(
-    onFailed: ReceiverFunctionUnit<Expected.Failed<Error>>
-): Expected<Value, Error> = apply {
-    if (this.isFailed()) {
-        onFailed(this)
-    }
-}
-
 

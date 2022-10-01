@@ -16,12 +16,12 @@ public fun <Value, Error> Expected<Value, Error>.isSuccess(): Boolean {
     level = DeprecationLevel.ERROR, message = "Success is success",
     replaceWith = ReplaceWith("true")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
+@Suppress("UnusedReceiverParameter")
 public fun Expected.Success<*>.isSuccess(): Boolean = unexpected()
 
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "Failed is never a success",
     replaceWith = ReplaceWith("false")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
+@Suppress("UnusedReceiverParameter")
 public fun Expected.Failed<*>.isSuccess(): Boolean = unexpected()

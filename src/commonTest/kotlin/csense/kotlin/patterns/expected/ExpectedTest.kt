@@ -37,164 +37,6 @@ class ExpectedTest {
         failed.error.assert(42)
     }
 
-    @Test
-    fun expectedMapCatchingErrorErrorIsFailed() {
-        ExpectedMapCatchingError.Exception<String>(Exception()).isFailed().assertFalse()
-        ExpectedMapCatchingError.Failed("").isFailed().assertTrue()
-        //for contracts
-        val forContracts: ExpectedMapCatchingError<String> = ExpectedMapCatchingError.Failed("")
-        if (forContracts.isFailed()) {
-            forContracts.error.assertIs<String>()
-        } else {
-            forContracts.exception.assertIs<Exception>()
-        }
-
-    }
-
-    @Test
-    fun expectedMapCatchingErrorErrorIsException() {
-        ExpectedMapCatchingError.Exception<String>(Exception()).isException().assertTrue()
-        ExpectedMapCatchingError.Failed("").isException().assertFalse()
-        //for contracts
-        val forContracts: ExpectedMapCatchingError<String> = ExpectedMapCatchingError.Exception(Exception())
-        if (forContracts.isException()) {
-            forContracts.exception.assertIs<Exception>()
-        } else {
-            forContracts.error.assertIs<String>()
-        }
-    }
-
-    class ExpectedValueErrorValueOrOnFailed {
-
-        @Test
-        fun handlesSuccessAndFailedCorrectly() {
-            Expected.Success(42).asExpected().valueOrOnFailed { shouldNotBeCalled() }.assert(42)
-
-            assertThrows<RuntimeException> {
-                Expected.Failed(42).asExpected().valueOrOnFailed {
-                    it.assert(42)
-                    throw RuntimeException()
-                }
-            }
-        }
-
-
-        @Test
-        fun canFastReturnFromFailed() {
-            Expected.Failed("42").valueOrOnFailed<String, String> {
-                it.assert("42")
-                return@canFastReturnFromFailed
-            }
-        }
-
-    }
-
-    class ExpectedValueErrorValueOrExpectedFailed {
-
-        @Test
-        fun expectedValueErrorValueOrExpectedFailed() {
-            val failed = Expected.Failed(42)
-            assertThrows<Exception> {
-                failed.asExpected().valueOrFailed {
-                    failed.assertByEquals(this)
-                    throw Exception()
-                }
-            }
-
-            Expected.Success(42).asExpected().valueOrFailed {
-                shouldNotBeCalled()
-            }.assert(42)
-        }
-
-    }
-
-    class ExpectedDataErrorValueOrDefault {
-
-        @Test
-        fun argument() {
-            Expected.Success(42).asExpected().valueOrDefault(11).assert(42)
-            Expected.Failed(42).asExpectedValue<Int, Int>().valueOrDefault(0).assert(0)
-        }
-
-
-        @Test
-        fun functional() {
-            Expected.Success(42).asExpected().valueOrDefault { shouldNotBeCalled() }.assert(42)
-            Expected.Failed(42).asExpectedValue<Int, Int>().valueOrDefault { 11 }.assert(11)
-        }
-
-    }
-
-
-
-
-
-    class ExpectedValueErrorRecover {
-
-        @Test
-        fun success() {
-            val exp: Expected<String, Int> = Expected.Success("42")
-            exp.recover { shouldNotBeCalled() }.value.assert("42")
-
-            @Suppress("UNUSED_VARIABLE")
-            val nothingError: Expected<String, Nothing> = Expected.Success("test")
-            //should cause a compiler error
-//            nothingError.recover {  }
-
-            //should cause a compiler error
-//            Expected.Success(42).recover {  }
-        }
-
-
-        @Test
-        fun failed() {
-            val exp: Expected<String, Int> = Expected.Failed(1)
-            exp.recover { "test" }.value.assert("test")
-
-            val expNothing: Expected<Nothing, Int> = Expected.Failed(999)
-            expNothing.recover { "hello" }.value.assert("hello")
-        }
-
-    }
-
-    class ExpectedValueErrorTryRecover {
-
-        @Test
-        fun success() {
-            val exp: Expected<String, Int> = Expected.Success("test")
-            val res = exp.tryRecover { shouldNotBeCalled() }
-            res.assertIs<Expected.Success<String>>()
-            res.value.assert("test")
-            //should cause a compiler error
-//            Expected.Success(42).tryRecover {  }
-//            val asNothing: Expected<String, Nothing> = Expected.Success("")
-//            //should cause a compiler error
-//            asNothing.tryRecover {  }
-        }
-
-
-        @Test
-        fun failedToSuccess() {
-            val exp: Expected<String, Int> = Expected.Failed(89)
-            exp.tryRecover { it.asSuccess() }.assertIsApply<Expected.Success<Int>> { value.assert(89) }
-            val complex: Expected<String, Int> = exp.tryRecover {
-                "1234".asSuccess()
-            }
-            complex.assertIs<Expected.Success<String>>()
-            complex.value.assert("1234")
-        }
-
-
-        @Test
-        fun failedToFailed() {
-            val exp: Expected<String, Int> = Expected.Failed(89)
-            exp.tryRecover { it.asFailed() }.assertIsApply<Expected.Failed<Int>> {
-                error.assert(89)
-            }
-        }
-
-    }
-
 
     @Test
     fun expectedNothingErrorAsFailed() {
@@ -281,86 +123,6 @@ class ExpectedTest {
 
     }
 
-    class ExpectedValueErrorRecoverCatching {
-
-        @Test
-        fun success() {
-            val exp: Expected<Int, String> = Expected.Success(42)
-            val result = exp.recoverCatching {
-                shouldNotBeCalled()
-            }
-            result.assertIs<Expected.Success<Int>>()
-            result.value.assert(42)
-        }
-
-        @Test
-        fun failed() {
-            val exp: Expected<Int, String> = Expected.Failed("42")
-            val result = exp.recoverCatching {
-                42
-            }
-            result.assertIs<Expected.Success<Int>>()
-            result.value.assert(42)
-        }
-
-        @Test
-        fun throws() {
-            val exp: Expected<Int, String> = Expected.Failed("42")
-            val exception = RuntimeException("message")
-            val result = exp.recoverCatching {
-                throw exception
-            }
-            result.assertIs<Expected.Failed<ExpectedExceptionFailed<String>>>()
-            result.error.failed.error.assert("42")
-            result.error.exception.assert(exception)
-        }
-    }
-
-    class ExpectedNothingErrorTryRecoverTransform {
-        @Test
-        fun failedToFailed() {
-            val exp = Expected.Failed(42)
-            val result = exp.tryRecover {
-                it.asFailed()
-            }
-            result.assertIs<Expected.Failed<Int>>()
-            result.error.assert(42)
-        }
-
-        @Test
-        fun failedToSuccess() {
-            val exp = Expected.Failed(42)
-            val result = exp.tryRecover {
-                it.asSuccess()
-            }
-            result.assertIs<Expected.Success<Int>>()
-            result.value.assert(42)
-        }
-    }
-
-    class ExpectedInputValueNothingTryMapTransform {
-
-        @Test
-        fun toSuccess() {
-            val exp: Expected<Int, Nothing> = Expected.Success(42)
-            val result = exp.tryMap {
-                "value".asSuccess()
-            }
-            result.assertIs<Expected.Success<String>>()
-            result.value.assert("value")
-        }
-
-        @Test
-        fun toFailed() {
-            val exp: Expected<Int, Nothing> = Expected.Success(42)
-            val result = exp.tryMap {
-                "error".asFailed()
-            }
-            result.assertIs<Expected.Failed<String>>()
-            result.error.assert("error")
-        }
-
-    }
 
     class ExpectedSuccessInputMapTransform {
 
@@ -444,6 +206,29 @@ class ExpectedTest {
         }
 
     }
+
+    class ExpectedCompanionSuccessOrFailed {
+
+        @Test
+        fun ExpectedCompanionSuccessOrFailed() {
+
+        }
+
+
+        @Test
+        fun PotentialSuccess() {
+
+        }
+
+
+        @Test
+        fun PotentialErrorOrFallback() {
+
+        }
+
+    }
+
+
 }
 
 class ErrorTypeException : Throwable()
@@ -470,16 +255,4 @@ class ExpectedContextTest {
             "hello".asFailed()
         }.error.assert("hello")
     }
-}
-
-fun <Value> Expected.Success<Value>.asExpected(): Expected<Value, *> {
-    return this
-}
-
-fun <Error> Expected.Failed<Error>.asExpected(): Expected<*, Error> {
-    return this
-}
-
-fun <Value, Error> Expected.Failed<Error>.asExpectedValue(): Expected<Value, Error> {
-    return this
 }
