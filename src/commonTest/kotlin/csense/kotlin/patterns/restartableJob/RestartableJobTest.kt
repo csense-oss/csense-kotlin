@@ -10,30 +10,33 @@ import kotlin.test.*
 class RestartableJobTest {
 
     @Test
-    fun start() = runTest {
-        assertCalled { shouldBeCalled ->
-            val job = RestartableJob(this, Dispatchers.Default) {
-                shouldBeCalled()
+    fun start(): TestResult {
+        val testDispatcher = StandardTestDispatcher()
+        return runTest(testDispatcher) {
+            assertCalled { shouldBeCalled ->
+                val job = RestartableJob(this, testDispatcher) {
+                    shouldBeCalled()
+                }
+                job.start()
+                job.join()
             }
-            job.start()
-            job.join()
         }
     }
 
     @Test
     fun isRunning(): TestResult {
         val testDispatcher = StandardTestDispatcher()
-
         return runTest(testDispatcher) {
             assertCalled(times = 1) { shouldBeCalled ->
                 val job = RestartableJob(this, testDispatcher) {
+                    delay(500)
                     shouldBeCalled()
-                    delay(5000)
+                    delay(500)
                 }
                 job.isRunning().assertFalse("should be lazy by default")
                 job.start()
                 job.isRunning().assertTrue("should start when asked to")
-                advanceTimeBy(1000)
+                advanceTimeBy(100)
                 job.isRunning().assertTrue("should be running while not done")
                 advanceUntilIdle()
                 job.isRunning().assertFalse("should stop when done")
@@ -47,22 +50,28 @@ class RestartableJobTest {
     }
 
     @Test
-    fun cancel() = runTest {
-        val job = RestartableJob(this, Dispatchers.Default) {
-            shouldNotBeCalled()
+    fun cancel(): TestResult {
+        val testDispatcher = StandardTestDispatcher()
+        return runTest(testDispatcher) {
+            val job = RestartableJob(this, testDispatcher) {
+                shouldNotBeCalled()
+            }
+            job.cancel()
+            job.join()
         }
-        job.cancel()
-        job.join()
     }
 
     @Test
-    fun join() = runTest {
-        assertCalled { shouldBeCalled ->
-            val job = RestartableJob(this, Dispatchers.Default) {
-                shouldBeCalled()
+    fun join(): TestResult {
+        val testDispatcher = StandardTestDispatcher()
+        return runTest(testDispatcher) {
+            assertCalled { shouldBeCalled ->
+                val job = RestartableJob(this, testDispatcher) {
+                    shouldBeCalled()
+                }
+                job.start()
+                job.join()
             }
-            job.start()
-            job.join()
         }
     }
 }
