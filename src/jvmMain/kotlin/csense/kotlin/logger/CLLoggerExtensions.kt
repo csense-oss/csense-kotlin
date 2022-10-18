@@ -73,7 +73,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceError(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = logCurrentStackTrace(tag, CL::logError, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL::logError, limit, skipFirstFunctions, sensitivity)
 
 /**
  * Logs the current stack to warning
@@ -86,7 +86,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceWarning(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = logCurrentStackTrace(tag, CL::logWarning, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL::logWarning, limit, skipFirstFunctions, sensitivity)
 
 /**
  * Logs the current stack to debug
@@ -99,7 +99,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceDebug(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = logCurrentStackTrace(tag, CL::logDebug, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL::logDebug, limit, skipFirstFunctions, sensitivity)
 
 
 /**
