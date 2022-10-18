@@ -457,7 +457,7 @@ class ModificationTest {
     class StringModificationReplaceEachOccurrence {
 
         @Test
-        fun StringModificationReplaceEachOccurrence() {
+        fun stringModificationReplaceEachOccurrence() {
             StringModification("some message {}").replaceEachOccurrence("{}", false){
                 "myMessage"
             }.assert("some message myMessage")

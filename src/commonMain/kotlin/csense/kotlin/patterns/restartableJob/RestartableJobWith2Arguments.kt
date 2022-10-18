@@ -8,18 +8,30 @@ public class RestartableJobWith2Arguments<First, Second>(
     scope: CoroutineScope,
     dispatcher: CoroutineDispatcher,
     private val action: RestartableJobWith2ArgumentsAction<First, Second>
-) : AbstractRestartableJob(
-    scope = scope,
-    dispatcher = dispatcher
-) {
+) : RestartableJobInterface {
+
+    private val container = RestartableJobContainer(
+        scope = scope,
+        dispatcher = dispatcher
+    )
+
     public fun start(
         first: First,
         second: Second
     ) {
-        startNewRunningJob(
+        container.startNewRunningJob(
             invokeAction = { action(first, second) }
         )
     }
+
+    override fun cancel(cancellationException: CancellationException?): Unit =
+        container.cancel(cancellationException)
+
+    override fun isRunning(): Boolean =
+        container.isRunning()
+
+    override suspend fun join(): Unit =
+        container.join()
 }
 
 public fun <First, Second> CoroutineScope.restartableJobIn(

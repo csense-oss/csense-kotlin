@@ -1,7 +1,6 @@
 package csense.kotlin.logger.extensions
 
 import csense.kotlin.logger.*
-import csense.kotlin.logger.extensions.*
 import kotlinx.coroutines.*
 
 

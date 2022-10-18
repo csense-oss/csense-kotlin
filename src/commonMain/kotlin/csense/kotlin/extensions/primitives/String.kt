@@ -276,10 +276,10 @@ public inline fun String.containsAny(
  * @timecomplexity O(n)
  */
 public inline fun String.isOnlyUpperCaseLetters(
-    IgnoreNoneLetters: Boolean = false
+    ignoreNoneLetters: Boolean = false
 ): Boolean = when {
     isEmpty() -> false
-    IgnoreNoneLetters -> none(Char::isLowerCaseLetter)
+    ignoreNoneLetters -> none(Char::isLowerCaseLetter)
     else -> all(Char::isUpperCaseLetter)
 }
 
@@ -291,10 +291,10 @@ public inline fun String.isOnlyUpperCaseLetters(
  * @timecomplexity O(n)
  */
 public inline fun String.isOnlyLowerCaseLetters(
-    IgnoreNoneLetters: Boolean = false
+    ignoreNoneLetters: Boolean = false
 ): Boolean = when {
     isEmpty() -> false
-    IgnoreNoneLetters -> none(Char::isUpperCaseLetter)
+    ignoreNoneLetters -> none(Char::isUpperCaseLetter)
     else -> all(Char::isLowerCaseLetter)
 }
 

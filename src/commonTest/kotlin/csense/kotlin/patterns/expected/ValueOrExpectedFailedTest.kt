@@ -30,7 +30,7 @@ class ValueOrExpectedFailedTest {
         }
 
         @Test
-        fun OnFailed() {
+        fun onFailed() {
             assertCalled { shouldBeCalled ->
                 Expected.Failed("42").asExpectedValue<String, String>().valueOrFailed {
                     shouldBeCalled()

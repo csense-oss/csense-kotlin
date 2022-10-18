@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
 package csense.kotlin.extensions
 
@@ -7,6 +7,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
 import kotlin.contracts.*
+import kotlin.internal.*
 import kotlin.system.*
 import kotlin.time.*
 
@@ -16,9 +17,10 @@ import kotlin.time.*
  * @return [Pair]<[Long], R> the first is the time in ms the second is the result of the function.
  */
 @Deprecated(
-    "Use measureTimeResult and extrapolate the time unit you need / want instead",
+    "Use measureTimeResult and extrapolate the time unit you need / want instead from the duration",
     replaceWith = ReplaceWith("measureTimeResult(block)")
 )
+@LowPriorityInOverloadResolution
 public inline fun <R> measureTimeMillisResult(
     block: EmptyFunctionResult<R>
 ): Pair<@LongLimit(from = 0) Long, R> {

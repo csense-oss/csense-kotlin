@@ -2,10 +2,14 @@
 
 ## 0.0.60
 
-- deprecated LLogger
-- deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
-- deprecated Collection<*>.isIndexValidForInsert
-- deprecated Collection<*>.isIndexValid
+- deprecated
+    - LLogger
+    - Throwable.stackTraceToString (kotlin std lib already has this extension)
+    - Collection<*>.isIndexValidForInsert
+    - Collection<*>.isIndexValid
+    - measureTimeMillisResult returning a long (since there is one for duration instead, which can easily be converted)
+    
+
 - renamed IntRange.endExclusive to IntRange.endExclusiveSafe (due to kotlin std lib introducing it and deprecating it)
 - added CsenseLogger
     - made all "logging" related function(s) use this
@@ -34,8 +38,8 @@
         - applyIfFailed
     - tryAndLogDidSucceed
     - tryAndLogExpected
-    - RestartableJob 
-      - with arguments 
+    - RestartableJob
+        - with arguments
 - breaking changes
     - lazyArgument (by splitting it into 2 things)
         - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
@@ -45,6 +49,24 @@
     - applyIf
         - it was requiring the transform argument to return the result which is not in line with apply. thus it now
           returns the same instance
+    - String.isOnlyUpperCaseLetters parameter name was uppercase (is now properly cased)
+    - String.isOnlyLowerCaseLetters parameter name was uppercase (is now properly cased)
+
+### Logging 
+
+All regular "logClass<Level>" are now presented on a "log" namespace to avoid polluting global namespace with more top-level functions. 
+```kotlin
+class MyClass {
+    fun doAction() {
+        log.debug("hmm not sure")
+    }
+}
+
+fun work() {
+    val myClass = MyClass()
+    myClass.log.debug("logging on behalf of myClass")
+}
+```
 
 ## 0.0.59
 

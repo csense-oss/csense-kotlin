@@ -210,22 +210,22 @@ class ExpectedTest {
     class ExpectedCompanionSuccessOrFailed {
 
         @Test
-        fun ExpectedCompanionSuccessOrFailed() {
+        fun nullSuccess() {
+            Expected.successOrFailed(potentialSuccess = null, potentialErrorOrFallback = "error")
+                .assertIsApply<Expected.Failed<String>> {
+                    error.assert("error")
+                }
 
         }
 
 
         @Test
-        fun PotentialSuccess() {
-
+        fun success() {
+            Expected.successOrFailed(potentialSuccess = "test", potentialErrorOrFallback = "error")
+                .assertIsApply<Expected.Success<String>> {
+                    value.assert("test")
+                }
         }
-
-
-        @Test
-        fun PotentialErrorOrFallback() {
-
-        }
-
     }
 
 

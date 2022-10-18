@@ -9,19 +9,19 @@ class RestartableJobWith3ArgumentsTest {
     class Start {
 
         @Test
-        fun First() {
+        fun first() {
 
         }
 
 
         @Test
-        fun Second() {
+        fun second() {
 
         }
 
 
         @Test
-        fun Third() {
+        fun third() {
 
         }
 
@@ -49,7 +49,7 @@ class RestartableJobWith3ArgumentsTest {
     class CoroutineScopeRestartableJobInDefault {
 
         @Test
-        fun CoroutineScopeRestartableJobInDefault() = runTest {
+        fun coroutineScopeRestartableJobInDefault() = runTest {
             assertCalled { shouldBeCalled ->
                 val job = restartableJobInDefault { first: String, second: Int, third: Boolean ->
                     first.assert("test")

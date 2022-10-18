@@ -2,30 +2,30 @@ package csense.kotlin.patterns.restartableJob
 
 import kotlinx.coroutines.*
 
-public abstract class AbstractRestartableJob(
+public class RestartableJobContainer(
     private val scope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher
-) {
+) : RestartableJobInterface {
 
     private var runningJob: Job? = null
 
-    public fun cancel(
-        cancellationException: CancellationException? = null
+    public override fun cancel(
+        cancellationException: CancellationException?
     ) {
         runningJob?.cancel(cancellationException)
         resetRunningJob()
 
     }
 
-    public fun isRunning(): Boolean {
+    public override fun isRunning(): Boolean {
         return runningJob != null
     }
 
-    public suspend fun join() {
+    public override suspend fun join() {
         runningJob?.join()
     }
 
-    protected fun startNewRunningJob(
+    public fun startNewRunningJob(
         invokeAction: suspend CoroutineScope.() -> Unit,
     ) {
         cancel(null)

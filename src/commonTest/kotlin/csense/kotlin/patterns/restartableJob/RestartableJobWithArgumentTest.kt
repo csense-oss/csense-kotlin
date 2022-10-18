@@ -35,7 +35,7 @@ class RestartableJobWithArgumentTest {
     class CoroutineScopeRestartableJobInDefault {
 
         @Test
-        fun CoroutineScopeRestartableJobInDefault() = runTest {
+        fun coroutineScopeRestartableJobInDefault() = runTest {
             assertCalled { shouldBeCalled ->
                 val job = restartableJobInDefault { first: String ->
                     first.assert("test")

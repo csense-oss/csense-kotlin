@@ -8,14 +8,26 @@ public class RestartableJob(
     scope: CoroutineScope,
     dispatcher: CoroutineDispatcher,
     private val action: RestartableJobAction
-) : AbstractRestartableJob(
-    scope = scope,
-    dispatcher = dispatcher
-) {
+) : RestartableJobInterface {
+
+    private val container = RestartableJobContainer(
+        scope = scope,
+        dispatcher = dispatcher
+    )
 
     public fun start() {
-        startNewRunningJob(invokeAction = action)
+        container.startNewRunningJob(invokeAction = action)
     }
+
+    override fun cancel(cancellationException: CancellationException?): Unit =
+        container.cancel(cancellationException)
+
+    override fun isRunning(): Boolean =
+        container.isRunning()
+
+    override suspend fun join(): Unit =
+        container.join()
+
 }
 
 public fun CoroutineScope.restartableJobIn(

@@ -30,7 +30,7 @@ class MapTest {
     class ExpectedInputValueErrorMapTransform {
 
         @Test
-        fun Success() {
+        fun success() {
             val result = Expected.Success(42).map { it }
             result.assertIs<Expected.Success<Int>>()
             result.value.assert(42)
@@ -38,7 +38,7 @@ class MapTest {
 
 
         @Test
-        fun Failed() {
+        fun failed() {
             val result = Expected.Failed(42).asExpected().map { shouldNotBeCalled() }
             result.assertIs<Expected.Failed<Int>>()
             result.error.assert(42)

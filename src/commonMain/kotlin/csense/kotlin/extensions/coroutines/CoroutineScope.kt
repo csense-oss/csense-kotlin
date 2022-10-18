@@ -5,7 +5,6 @@ package csense.kotlin.extensions.coroutines
 import csense.kotlin.*
 import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
-import kotlin.contracts.*
 
 /**
  * Same as [async] ([Dispatchers.Default])

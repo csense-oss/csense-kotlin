@@ -1,9 +1,5 @@
 package csense.kotlin.patterns.expected
 
-import csense.kotlin.*
-import csense.kotlin.extensions.*
-import kotlin.contracts.*
-
 
 public inline fun <reified Error> Expected.Failed<Any?>.asErrorTypeOrNull(): Expected.Failed<Error>? {
     return if (error is Error) {

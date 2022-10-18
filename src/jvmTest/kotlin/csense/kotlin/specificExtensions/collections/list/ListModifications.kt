@@ -24,7 +24,7 @@ import java.util.concurrent.*
 @OutputTimeUnit(BenchmarkTimeUnit.MICROSECONDS)
 open class ListModifications {
 
-    private val lst = listOf<String>(
+    private val lst = listOf(
         "1",
         "a",
         "test",
