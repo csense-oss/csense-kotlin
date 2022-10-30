@@ -11,7 +11,7 @@ import csense.kotlin.*
  * @property value Value
  * @constructor
  */
-public class RecreateableValueLazy<Value>(
+public class RecreateableValue<Value>(
     private val createValue: Function0R<Value>
 ) {
     private var innerValue: Value? = createValue()

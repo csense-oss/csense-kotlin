@@ -40,6 +40,8 @@
     - tryAndLogExpected
     - RestartableJob
         - with arguments
+    - LifecycleValue
+    - RecreateableValue
 - breaking changes
     - lazyArgument (by splitting it into 2 things)
         - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as

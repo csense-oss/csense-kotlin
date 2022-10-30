@@ -4,7 +4,7 @@ import csense.kotlin.extensions.*
 import csense.kotlin.patterns.values.recreateableValue.*
 
 /**
- * A value related to a lifecycle. Its intended to wrap the "lifecycle" (say some creation and destroy code) into a single opbject
+ * A value related to a lifecycle. It is intended to wrap the "lifecycle" (say some creation and destroy code) into a single opbject
  * Nb createValue is invoked eagerly (wrap the property in lazy if lazy is required)
  * @param Value
  * @property onResetValue Function1<Value, Unit>
