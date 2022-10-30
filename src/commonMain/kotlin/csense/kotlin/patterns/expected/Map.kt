@@ -10,7 +10,7 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.m
     contract {
         callsInPlace(transform, InvocationKind.AT_MOST_ONCE)
     }
-    val value = valueOrFailed { return@map this }
+    val value = valueOrOnExpectedFailed { return@map it }
     return Expected.Success(transform(value))
 }
 

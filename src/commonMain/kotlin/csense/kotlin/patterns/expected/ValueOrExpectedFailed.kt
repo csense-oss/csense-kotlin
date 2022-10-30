@@ -4,11 +4,11 @@ import csense.kotlin.*
 import kotlin.contracts.*
 
 
-public inline fun <Value, Error> Expected<Value, Error>.valueOrFailed(
+public inline fun <Value, Error> Expected<Value, Error>.valueOrOnExpectedFailed(
     onFailed: (Expected.Failed<Error>) -> Nothing
 ): Value {
     contract {
-        returns() implies (this@valueOrFailed is Expected.Success)
+        returns() implies (this@valueOrOnExpectedFailed is Expected.Success)
         callsInPlace(onFailed, InvocationKind.AT_MOST_ONCE)
     }
     return when (this) {
@@ -17,13 +17,12 @@ public inline fun <Value, Error> Expected<Value, Error>.valueOrFailed(
     }
 }
 
-
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "Success will never call onFailed",
     replaceWith = ReplaceWith("")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
-public fun Expected.Success<*>.valueOrFailed(
+@Suppress("MissingTestFunction", "UnusedReceiverParameter", "UNUSED_PARAMETER")
+public fun Expected.Success<*>.valueOrOnExpectedFailed(
     onFailed: (Expected.Failed<Error>) -> Nothing
 ): Boolean = unexpected()
 
@@ -31,7 +30,7 @@ public fun Expected.Success<*>.valueOrFailed(
     level = DeprecationLevel.ERROR, message = "Failed will always call onFailed",
     replaceWith = ReplaceWith("onFailed")
 )
-@Suppress("MissingTestFunction", "UnusedReceiverParameter")
-public fun Expected.Failed<*>.valueOrFailed(
+@Suppress("MissingTestFunction", "UnusedReceiverParameter", "UNUSED_PARAMETER")
+public fun Expected.Failed<*>.valueOrOnExpectedFailed(
     onFailed: (Expected.Failed<Error>) -> Nothing
 ): Boolean = unexpected()

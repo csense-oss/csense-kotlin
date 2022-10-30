@@ -13,8 +13,8 @@ public sealed interface ExpectedMapCatchingError<Error> {
     ) : ExpectedMapCatchingError<Error>
 
     //TODO use inline value class (kotlin 1.8)
-    public class Exception<Error : Throwable>(
-        public val exception: Error
+    public class Exception<Error>(
+        public val exception: Throwable
     ) : ExpectedMapCatchingError<Error>
 }
 

@@ -10,7 +10,7 @@ class ExpectedMapCatchingErrorExtensionsTest {
         @Test
         fun failedError() {
             val throwable = Throwable("error")
-            val error = ExpectedMapCatchingError.Failed(throwable)
+            val error: ExpectedMapCatchingError.Failed<Throwable> = ExpectedMapCatchingError.Failed(throwable)
             error.throwable.assert(throwable)
         }
 
@@ -18,7 +18,7 @@ class ExpectedMapCatchingErrorExtensionsTest {
         @Test
         fun exceptionError() {
             val throwable = Throwable("error")
-            val error = ExpectedMapCatchingError.Exception(throwable)
+            val error = ExpectedMapCatchingError.Exception<Throwable>(throwable)
             error.throwable.assert(throwable)
         }
     }
