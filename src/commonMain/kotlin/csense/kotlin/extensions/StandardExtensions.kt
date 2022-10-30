@@ -1,7 +1,10 @@
+@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
 package csense.kotlin.extensions
 
 import csense.kotlin.*
 import kotlin.contracts.*
+import kotlin.internal.*
 
 /**
  * Like also, but for empty functions / lambdas.
@@ -10,6 +13,7 @@ import kotlin.contracts.*
  * @return T
  */
 
+@LowPriorityInOverloadResolution
 public inline fun <T> T.also(block: EmptyFunction): T {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
