@@ -7,13 +7,13 @@ import kotlin.contracts.*
 
 
 public sealed interface ExpectedMapCatchingError<Error> {
-    //TODO use inline value class when available for MPP
+    //TODO use inline value class (kotlin 1.8)
     public class Failed<Error>(
         public val error: Error
     ) : ExpectedMapCatchingError<Error>
 
-    //TODO use inline value class when available for MPP
-    public class Exception<Error: Throwable>(
+    //TODO use inline value class (kotlin 1.8)
+    public class Exception<Error : Throwable>(
         public val exception: Error
     ) : ExpectedMapCatchingError<Error>
 }
