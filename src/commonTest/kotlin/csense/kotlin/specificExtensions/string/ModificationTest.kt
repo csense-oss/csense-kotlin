@@ -463,16 +463,4 @@ class ModificationTest {
             }.assert("some message myMessage")
         }
     }
-
-    class StringModificationReplaceEachOccurrenceIndexed {
-
-        @Test
-        fun empty() {
-            val result = StringModification("").replaceEachOccurrenceIndexed("", false) { index ->
-                index.assert(0)
-                "test"
-            }
-            result.assert("test")
-        }
-    }
 }

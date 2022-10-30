@@ -19,7 +19,7 @@ class MapTest {
     fun failed() {
         val exp: Expected<Int, Int> = Expected.Failed(42)
         val res: Expected<Long, Int> = exp.map { shouldNotBeCalled() }
-        res.assertSuccessWith(42)
+        res.assertFailedWith(42)
 //        the following should trigger a COMPILER Error (mapping a failed is meaningless)
 //            val nothingIsAllowed = Expected.Failed(42).map { 43 }
     }

@@ -1,6 +1,7 @@
 package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.patterns.expected.*
+import csense.kotlin.patterns.expected.expectedMapCatchingError.*
 import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -33,7 +34,7 @@ class RecoverCatchingTest {
             val result = exp.recoverCatching {
                 throw exception
             }
-            result.assertFailed()
+            result.assertIs<Expected.Failed<ExpectedExceptionFailed<String>>>()
             result.error.failed.error.assert("42")
             result.error.exception.assert(exception)
         }
