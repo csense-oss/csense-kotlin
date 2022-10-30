@@ -120,4 +120,36 @@ class LockableValueTest {
             unlocked.ifLocked(it)
         }
     }
+
+    class LockableValueTLockOrReturn {
+
+        @Test
+        fun callsWhenUnlocked() {
+            val unlocked = LockableValue(
+                maxUpdateCount = 1,
+                initialValue = "test",
+                onUpdateRejected = { shouldNotBeCalled() }
+            )
+            unlocked.lockOrReturn {
+                shouldNotBeCalled()
+            }
+            unlocked.isLocked().assertTrue()
+        }
+
+        @Test
+        fun returnsWhenLocked() = assertCalled { shouldBeCalled ->
+            val locked = LockableValue(
+                maxUpdateCount = 1,
+                initialValue = "test",
+                onUpdateRejected = { shouldNotBeCalled() }
+            )
+            locked.lock()
+            locked.lockOrReturn {
+                shouldBeCalled()
+                return@assertCalled
+            }
+            failTest("should not get here.")
+        }
+
+    }
 }
