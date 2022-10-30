@@ -8,7 +8,7 @@ class RecreateableValueLazyTest {
     class Value {
         @Test
         fun initialValueIsPreserved() = assertCalled { shouldBeCalled ->
-            RecreateableValueLazy {
+            RecreateableValue {
                 shouldBeCalled()
                 "test"
             }.value.assert("test")
@@ -17,7 +17,7 @@ class RecreateableValueLazyTest {
         @Test
         fun valueIsRecreatedAfterReset() {
             var counter = 0
-            val value = RecreateableValueLazy {
+            val value = RecreateableValue {
                 counter += 1
                 counter
             }
@@ -30,7 +30,7 @@ class RecreateableValueLazyTest {
 
     @Test
     fun reset() {
-        val value = RecreateableValueLazy {
+        val value = RecreateableValue {
             "test"
         }
         value.reset()
@@ -39,7 +39,7 @@ class RecreateableValueLazyTest {
 
     @Test
     fun isValuePresent() {
-        RecreateableValueLazy {
+        RecreateableValue {
             "test"
         }.isValuePresent().assertTrue(message = "Should construct eagerly")
     }
