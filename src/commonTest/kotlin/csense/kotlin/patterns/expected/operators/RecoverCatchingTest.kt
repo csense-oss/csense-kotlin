@@ -14,8 +14,7 @@ class RecoverCatchingTest {
             val result = exp.recoverCatching {
                 shouldNotBeCalled()
             }
-            result.assertIs<Expected.Success<Int>>()
-            result.value.assert(42)
+            result.assertSuccessWith(42)
         }
 
         @Test
@@ -24,8 +23,7 @@ class RecoverCatchingTest {
             val result = exp.recoverCatching {
                 42
             }
-            result.assertIs<Expected.Success<Int>>()
-            result.value.assert(42)
+            result.assertSuccessWith(42)
         }
 
         @Test
@@ -35,7 +33,7 @@ class RecoverCatchingTest {
             val result = exp.recoverCatching {
                 throw exception
             }
-            result.assertIs<Expected.Failed<ExpectedExceptionFailed<String>>>()
+            result.assertFailed()
             result.error.failed.error.assert("42")
             result.error.exception.assert(exception)
         }

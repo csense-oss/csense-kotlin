@@ -13,12 +13,11 @@ class RecoverTest {
             val exp = Expected.Success("42").asExpected()
             exp.recover { shouldNotBeCalled() }.value.assert("42")
 
-//            @Suppress("UNUSED_VARIABLE")
 //            val nothingError: Expected<String, Nothing> = Expected.Success("test")
-//            should cause a compiler error
+//            //should cause a compiler error
 //            nothingError.recover {  }
 //
-//            should cause a compiler error
+//            //should cause a compiler error
 //            Expected.Success(42).recover {  }
         }
 
@@ -37,9 +36,11 @@ class RecoverTest {
 
         @Test
         fun expectedFailedErrorRecoverTransform() = assertCalled { shouldBeCalled ->
-            val result = Expected.Failed("test").recover { shouldBeCalled();"result" }
-            result.assertIs<Expected.Success<String>>()
-            result.value.assert("result")
+            val result = Expected.Failed("test").recover {
+                shouldBeCalled()
+                "result"
+            }
+            result.assertSuccessWith("result")
         }
     }
 }

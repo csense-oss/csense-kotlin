@@ -1,7 +1,6 @@
 package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.patterns.expected.*
-import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -12,8 +11,7 @@ class TryRecoverTest {
         fun success() {
             val exp: Expected<String, Int> = Expected.Success("test")
             val res = exp.tryRecover { shouldNotBeCalled() }
-            res.assertIs<Expected.Success<String>>()
-            res.value.assert("test")
+            res.assertSuccessWith("test")
 
 //            //should cause a compiler error
 //            Expected.Success(42).tryRecover {  }
@@ -26,40 +24,27 @@ class TryRecoverTest {
         @Test
         fun failedToSuccess() {
             val exp: Expected<String, Int> = Expected.Failed(89)
-            exp.tryRecover { it.asSuccess() }.assertIsApply<Expected.Success<Int>> { value.assert(89) }
+
+            exp.tryRecover {
+                "$it".asSuccess()
+            }.assertSuccessWith("89")
+
             val complex: Expected<String, Int> = exp.tryRecover {
                 "1234".asSuccess()
             }
-            complex.assertIs<Expected.Success<String>>()
-            complex.value.assert("1234")
+            complex.assertSuccessWith("1234")
         }
 
 
         @Test
         fun failedToFailed() {
             val exp: Expected<String, Int> = Expected.Failed(89)
-            exp.tryRecover { it.asFailed() }.assertIsApply<Expected.Failed<Int>> {
-                error.assert(89)
-            }
-        }
-
-    }
-
-    class ExpectedFailedErrorTryRecoverTransform {
-
-        @Test
-        fun ExpectedFailedErrorTryRecoverTransform() {
-            Expected.Failed("test").tryRecover {
+            exp.tryRecover {
                 it.asFailed()
-            }.assertFailed("test")
-        }
-
-
-        @Test
-        fun Transform() {
-
+            }.assertFailedWith(89)
         }
 
     }
+
 }
 
