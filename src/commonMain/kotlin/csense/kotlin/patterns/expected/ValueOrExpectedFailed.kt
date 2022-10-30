@@ -5,7 +5,7 @@ import kotlin.contracts.*
 
 
 public inline fun <Value, Error> Expected<Value, Error>.valueOrFailed(
-    onFailed: Expected.Failed<Error>.() -> Nothing
+    onFailed: (Expected.Failed<Error>) -> Nothing
 ): Value {
     contract {
         returns() implies (this@valueOrFailed is Expected.Success)
@@ -24,7 +24,7 @@ public inline fun <Value, Error> Expected<Value, Error>.valueOrFailed(
 )
 @Suppress("MissingTestFunction", "UnusedReceiverParameter")
 public fun Expected.Success<*>.valueOrFailed(
-    onFailed: Expected.Failed<Error>.() -> Nothing
+    onFailed: (Expected.Failed<Error>) -> Nothing
 ): Boolean = unexpected()
 
 @Deprecated(
@@ -33,5 +33,5 @@ public fun Expected.Success<*>.valueOrFailed(
 )
 @Suppress("MissingTestFunction", "UnusedReceiverParameter")
 public fun Expected.Failed<*>.valueOrFailed(
-    onFailed: Expected.Failed<Error>.() -> Nothing
+    onFailed: (Expected.Failed<Error>) -> Nothing
 ): Boolean = unexpected()

@@ -53,6 +53,10 @@
           returns the same instance
     - String.isOnlyUpperCaseLetters parameter name was uppercase (is now properly cased)
     - String.isOnlyLowerCaseLetters parameter name was uppercase (is now properly cased)
+    - Expected 
+      - namespaces 
+      - some operators were inconsistent
+      - 
 
 ### Logging 
 

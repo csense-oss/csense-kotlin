@@ -1,6 +1,7 @@
 package csense.kotlin.patterns.expected
 
 import csense.kotlin.*
+import csense.kotlin.patterns.expected.expectedMapCatchingError.*
 
 
 public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.mapCatching(

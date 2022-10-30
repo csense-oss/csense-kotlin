@@ -1,5 +1,6 @@
 package csense.kotlin.patterns.expected
 
+import csense.kotlin.patterns.expected.expectedMapCatchingError.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

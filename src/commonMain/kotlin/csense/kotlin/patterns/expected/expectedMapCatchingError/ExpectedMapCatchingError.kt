@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.expectedMapCatchingError
 
 import csense.kotlin.*
 import kotlin.contracts.*
@@ -13,8 +13,8 @@ public sealed interface ExpectedMapCatchingError<Error> {
     ) : ExpectedMapCatchingError<Error>
 
     //TODO use inline value class when available for MPP
-    public class Exception<Error>(
-        public val exception: Throwable
+    public class Exception<Error: Throwable>(
+        public val exception: Error
     ) : ExpectedMapCatchingError<Error>
 }
 
