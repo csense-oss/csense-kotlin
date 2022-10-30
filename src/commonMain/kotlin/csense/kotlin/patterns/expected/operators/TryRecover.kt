@@ -1,8 +1,8 @@
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.*
+import csense.kotlin.patterns.expected.*
 import kotlin.contracts.*
-import kotlin.jvm.*
 
 
 public inline fun <Value, Error> Expected<Value, Error>.tryRecover(
@@ -11,15 +11,11 @@ public inline fun <Value, Error> Expected<Value, Error>.tryRecover(
     contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
     return when (this) {
         is Expected.Success -> this
-        is Expected.Failed -> with(Expected.Companion.ExpectedContext) {
-            transform(error)
-        }
+        is Expected.Failed -> tryRecover(transform)
     }
 }
 
-@JvmName("tryRecoverFailed")
-@JvmSynthetic
-public inline fun <Value, Error, Result : Expected<Value, Error>> Expected<Nothing, Error>.tryRecover(
+public inline fun <Value, Error, Result : Expected<Value, Error>> Expected.Failed<Error>.tryRecover(
     transform: Expected.Companion.ExpectedContext.(Error) -> Result
 ): Result {
     contract { callsInPlace(transform, InvocationKind.EXACTLY_ONCE) }

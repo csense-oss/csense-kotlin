@@ -1,4 +1,6 @@
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.operators
+
+import csense.kotlin.patterns.expected.*
 
 
 public inline fun <reified Error> Expected.Failed<Any?>.asErrorTypeOrNull(): Expected.Failed<Error>? {

@@ -1,10 +1,12 @@
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.operators
 
+import csense.kotlin.patterns.expected.*
+import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class TryRecoverTest {
-    class ExpectedNothingErrorTryRecoverTransform {
+    class ExpectedValueErrorTryRecoverTransform {
 
         @Test
         fun success() {
@@ -12,8 +14,8 @@ class TryRecoverTest {
             val res = exp.tryRecover { shouldNotBeCalled() }
             res.assertIs<Expected.Success<String>>()
             res.value.assert("test")
-            //should cause a compiler error
 
+//            //should cause a compiler error
 //            Expected.Success(42).tryRecover {  }
 //            val asNothing: Expected<String, Nothing> = Expected.Success("")
 //            //should cause a compiler error
@@ -43,4 +45,21 @@ class TryRecoverTest {
 
     }
 
+    class ExpectedFailedErrorTryRecoverTransform {
+
+        @Test
+        fun ExpectedFailedErrorTryRecoverTransform() {
+            Expected.Failed("test").tryRecover {
+                it.asFailed()
+            }.assertFailed("test")
+        }
+
+
+        @Test
+        fun Transform() {
+
+        }
+
+    }
 }
+

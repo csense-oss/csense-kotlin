@@ -1,6 +1,7 @@
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.*
+import csense.kotlin.patterns.expected.*
 import kotlin.contracts.*
 
 

@@ -1,5 +1,7 @@
-package csense.kotlin.patterns.expected
+package csense.kotlin.patterns.expected.operators
 
+import csense.kotlin.patterns.expected.*
+import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

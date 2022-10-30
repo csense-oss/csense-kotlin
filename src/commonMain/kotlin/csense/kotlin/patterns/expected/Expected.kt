@@ -2,7 +2,6 @@
 
 package csense.kotlin.patterns.expected
 
-import csense.kotlin.*
 import kotlin.contracts.*
 
 public sealed interface Expected<out Value, out Error> {
@@ -51,7 +50,6 @@ public inline fun <Value, Error> expected(
     onException: (Throwable) -> Error
 ): Expected<Value, Error> {
     contract {
-        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
         callsInPlace(onException, InvocationKind.AT_MOST_ONCE)
     }
     return with(Expected.Companion.ExpectedContext) {
@@ -63,23 +61,16 @@ public inline fun <Value, Error> expected(
     }
 }
 
-//TODO improve with annotations & exceptions plugin to only "throw" iff the action can throw.
 @Throws
 public inline fun <Value, Error> expected(
     action: Expected.Companion.ExpectedContext.() -> Expected<Value, Error>
 ): Expected<Value, Error> {
-    contract {
-        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-    }
     return expected(action = action, onException = { throw it })
 }
 
 public inline fun <Data> expectedCatching(
     action: Expected.Companion.ExpectedContext.() -> Expected<Data, Throwable>
 ): Expected<Data, Throwable> {
-    contract {
-        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-    }
     return expected(action = {
         action()
     }, onException = {
@@ -102,20 +93,4 @@ public inline val <Error> Expected<Nothing, Error>.asFailed: Expected.Failed<Err
 public inline val <Value> Expected<Value, Nothing>.asSuccess: Expected.Success<Value>
     get() = this as Expected.Success<Value>
 
-
-public inline fun <Value, Error> Expected<Value, Error>.applyIfSuccess(
-    onSuccess: ReceiverFunctionUnit<Expected.Success<Value>>
-): Expected<Value, Error> = apply {
-    if (this.isSuccess()) {
-        onSuccess()
-    }
-}
-
-public inline fun <Value, Error> Expected<Value, Error>.applyIfFailed(
-    onFailed: ReceiverFunctionUnit<Expected.Failed<Error>>
-): Expected<Value, Error> = apply {
-    if (this.isFailed()) {
-        onFailed(this)
-    }
-}
 

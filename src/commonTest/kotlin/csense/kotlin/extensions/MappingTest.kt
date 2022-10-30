@@ -8,7 +8,7 @@ import kotlin.test.*
 class MappingTest {
 
     @Test
-    fun mapOptional() {
+    fun anyMapOptional() {
         val strNull: String? = null
         strNull.mapOptional(42, 0).assert(0, "should map to ifNull")
         @Suppress("RedundantNullableReturnType")
@@ -17,7 +17,7 @@ class MappingTest {
     }
 
     @Test
-    fun mapLazyOptional() {
+    fun TMapLazyOptional() {
         val strNull: String? = null
         assertCalled {
             strNull.mapLazyOptional(
@@ -163,4 +163,5 @@ class MappingTest {
             }
         }
     }
+
 }

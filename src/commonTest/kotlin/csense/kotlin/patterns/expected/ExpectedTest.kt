@@ -1,5 +1,6 @@
 package csense.kotlin.patterns.expected
 
+import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -87,8 +88,7 @@ class ExpectedTest {
                 it.assert(exception)
                 "error"
             })
-            result.assertIs<Expected.Failed<String>>()
-            result.error.assert("error")
+            result.assertFailedWith("error")
         }
 
     }
@@ -101,8 +101,7 @@ class ExpectedTest {
             val failed = expected<String, String>(action = {
                 "failed".asFailed()
             })
-            failed.assertIs<Expected.Failed<String>>()
-            failed.error.assert("success")
+            failed.assertFailedWith("success")
         }
 
         @Test
@@ -110,8 +109,7 @@ class ExpectedTest {
             val success = expected<String, String>(action = {
                 "success".asSuccess()
             })
-            success.assertIs<Expected.Success<String>>()
-            success.value.assert("success")
+            success.assertSuccessWith("success")
         }
 
         @Test
@@ -128,9 +126,9 @@ class ExpectedTest {
 
         @Test
         fun success() {
-            Expected.Success("test").map { 42 }.assertIsApply<Expected.Success<Int>> {
-                value.assert(42)
-            }
+            Expected.Success("test")
+                .map { 42 }
+                .assertSuccessWith(42)
         }
 
     }
@@ -142,30 +140,25 @@ class ExpectedTest {
             val exp = expectedCatching {
                 "test".asSuccess()
             }
-            exp.assertIs<Expected.Success<String>>()
-            exp.value.assert("test")
+            exp.assertSuccessWith("test")
         }
 
         @Test
         fun failed() {
+            val exception = RuntimeException()
             val exp = expectedCatching {
-                RuntimeException().asFailed()
+                exception.asFailed()
             }
-            exp.assertIs<Expected.Failed<Throwable>>()
-            exp.error.assertIs<RuntimeException>()
+            exp.assertFailedWithByEquals(exception)
         }
 
-        @Suppress(
-            "UNREACHABLE_CODE",
-            "UNUSED_VARIABLE"
-        ) //kotlin compiler / idea does not know calls in place != exceptions will be passed though
         @Test
         fun throwing() {
+            val exception = RuntimeException()
             val exp: Expected<Nothing, Throwable> = expectedCatching {
-                throw RuntimeException()
+                throw exception
             }
-            exp.assertIs<Expected.Failed<Throwable>>()
-            exp.error.assertIs<RuntimeException>()
+            exp.assertFailedWithByEquals(exception)
         }
     }
 

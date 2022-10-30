@@ -6,6 +6,7 @@ import csense.kotlin.*
 import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
 import csense.kotlin.patterns.expected.*
+import csense.kotlin.patterns.expected.operators.*
 import kotlin.internal.*
 
 
