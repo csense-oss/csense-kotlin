@@ -23,14 +23,14 @@ public class RecreateableValue<Value>(
         get() = innerValue ?: createValue().also { innerValue = it }
 
     /**
-     * Removes the current instance
+     * Resets/removes the current instance
      */
     public fun reset() {
         innerValue = null
     }
 
     /**
-     * Tells if there currently is a value (of if it is reset / removed)
+     * Tells if there currently is a value (of if it is [reset] / removed)
      * @return Boolean true if [value] will return the current instance
      * false means [value] will (re)create a new value
      */
