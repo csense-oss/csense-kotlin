@@ -3,8 +3,8 @@
 
 package csense.kotlin.extensions.collections.set
 
-import csense.kotlin.*
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.boolean.*
+import csense.kotlin.Function0
 import kotlin.contracts.*
 
 /**

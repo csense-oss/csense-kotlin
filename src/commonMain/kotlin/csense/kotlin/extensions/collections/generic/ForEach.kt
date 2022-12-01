@@ -5,7 +5,7 @@ package csense.kotlin.extensions.collections.generic
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.int.*
 
 
 public typealias Function2Unit<T, U> = (first: T, second: U) -> Unit

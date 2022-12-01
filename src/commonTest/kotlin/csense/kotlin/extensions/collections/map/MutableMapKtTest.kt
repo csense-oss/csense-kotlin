@@ -1,6 +1,8 @@
 package csense.kotlin.extensions.collections.map
 
-import csense.kotlin.classes.*
+import csense.kotlin.classes.map.*
+import csense.kotlin.extensions.collections.map.mutable.*
+import csense.kotlin.extensions.collections.map.mutable.remove
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

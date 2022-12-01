@@ -2,11 +2,12 @@
 
 package csense.kotlin.extensions.collections.list
 
-import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.general.*
+import csense.kotlin.extensions.mapping.*
+import csense.kotlin.extensions.primitives.int.*
+import csense.kotlin.Function1
 
 /**
  * Returns a limited view of this list, by limiting the size of it (if the list is shorter than the limit,
@@ -20,7 +21,7 @@ public inline fun <E> List<E>.limitToSize(@IntLimit(from = 0) size: Int): List<E
     if (size.isNegativeOrZero) {
         return emptyList()
     }
-    return subList(0, minOf(this.size, size))
+    return subList(0, size.coerceAtMost(this.size))
 }
 
 /**
@@ -44,10 +45,9 @@ public inline fun <T> List<T>.subList(
     @IntLimit(from = 0) fromIndex: Int
 ): List<T> = subListSafe(fromIndex, size)
 
-
 /**
  * Extracts a sublist or returns an empty list if the requested range is out of bounds.
- * This is a safe alternative to the standard library edition that goes out of bounds.
+ * This is a safe alternative to the standard library edition that goes out of bounds/throws exceptions.
  * @receiver [List]<T>
  * @param fromIndex [Int] (inclusive)  [0;size[
  * @param toIndex [Int] (exclusive)    ]fromIndex;size[
@@ -55,7 +55,7 @@ public inline fun <T> List<T>.subList(
  */
 public inline fun <T> List<T>.subListSafe(
     @IntLimit(from = 0) fromIndex: Int,
-    @IntLimit(from = 0) toIndex: Int
+    @IntLimit(from = 0) toIndex: Int = size
 ): List<T> {
     val isAllInBounds = isIndex.inBounds(fromIndex, isEndInBounds = false) &&
             isIndex.inBounds(toIndex, isEndInBounds = true) &&

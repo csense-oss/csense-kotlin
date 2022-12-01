@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.primitives
 
-import csense.kotlin.*
+import csense.kotlin.extensions.primitives.int.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

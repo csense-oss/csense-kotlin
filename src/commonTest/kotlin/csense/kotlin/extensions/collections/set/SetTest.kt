@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.set
 
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

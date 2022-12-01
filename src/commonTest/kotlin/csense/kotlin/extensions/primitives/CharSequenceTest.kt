@@ -1,7 +1,10 @@
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.extensions.primitives.char.*
+import csense.kotlin.extensions.primitives.charSequence.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
+import kotlin.text.split
 
 class CharSequenceTest {
 

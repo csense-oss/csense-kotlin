@@ -1,5 +1,6 @@
 package csense.kotlin.patterns.values.lockable
 
+import csense.kotlin.patterns.values.lockable.specializations.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

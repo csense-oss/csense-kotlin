@@ -1,5 +1,7 @@
 buildscript {
 
+    ext.compileJavaVersion = "1.8"
+
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.4"
     //https://github.com/csense-oss/csense-kotlin-test
@@ -8,15 +10,13 @@ buildscript {
     ext.csenseAnnotationVersion = "0.0.50"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.7.20"
+    ext.kotlin_version = "1.8.0-Beta"
 
     //https://github.com/Kotlin/kotlinx-benchmark
-    ext.kotlinx_benchmark_version = "0.4.5"
+    ext.kotlinx_benchmark_version = "0.4.6"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-
-    //This library version
-    ext.csenseVersionName = "0.0.60-snapshot2"
+    ext.csenseVersionName = "0.1.0-snapshot"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"
@@ -42,7 +42,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "7.2.1"
+    id "org.owasp.dependencycheck" version "7.3.2"
 }
 
 repositories {
@@ -56,16 +56,15 @@ repositories {
 kotlin {
     explicitApi = 'strict'
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = '1.8'
-
+        compilations.main {
+            kotlinOptions.jvmTarget = compileJavaVersion
         }
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
     }
-    js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
+    js(IR) { //https://kotlinlang.org/docs/js-ir-compiler.html
         browser {
             testTask {
                 useKarma {
@@ -109,11 +108,20 @@ kotlin {
         jsTest {
 
         }
-        all {
+        configureEach {
             languageSettings {
-                languageVersion = "1.7"
+                languageVersion = "1.8"
                 optIn("kotlin.contracts.ExperimentalContracts")
-                progressiveMode = true
+                optIn("kotlin.experimental.ExperimentalTypeInference")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                progressiveMode = true //https://kotlinlang.org/docs/whatsnew13.html#progressive-mode
+            }
+        }
+    }
+    targets.configureEach {
+        compilations.configureEach {
+            kotlinOptions {
+                allWarningsAsErrors = true
             }
         }
     }
@@ -148,10 +156,10 @@ task uploadProd(dependsOn: ["assemble", "allTests", "dependencyCheckAggregate", 
 
 benchmark {
     targets {
-        register("jvmTest") {
-            //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
-            jmhVersion = "1.35" // available only for JVM compilations & Java source sets
-        }
+//        register("jvmTest") {
+//            see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
+//            jmhVersion = "1.36" // available only for JVM compilations & Java source sets
+//        }
     }
 }
 

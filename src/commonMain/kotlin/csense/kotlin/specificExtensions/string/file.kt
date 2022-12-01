@@ -2,7 +2,7 @@
 
 package csense.kotlin.specificExtensions.string
 
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.string.*
 import kotlin.jvm.*
 
 /**

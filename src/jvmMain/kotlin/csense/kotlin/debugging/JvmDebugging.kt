@@ -4,6 +4,7 @@
 package csense.kotlin.debugging
 
 import csense.kotlin.annotations.*
+import csense.kotlin.extensions.collections.*
 
 @ExperimentalCsenseApi
 @JvmInline
@@ -34,7 +35,7 @@ public value class Debugging(
          * @return T?
          */
         //TODO consider this as a "searching" specific extension etc?
-        private fun <T> Array<T>.findItemFollowingSeriesBy(predicate: (T) -> Boolean): T? {
+        private fun <T> Array<T>.findItemFollowingSeriesBy(predicate: Predicate<T>): T? {
             var haveFoundSeries = false
             forEach { item ->
                 val isSeries = predicate(item)

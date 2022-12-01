@@ -1,5 +1,6 @@
 package csense.kotlin.extensions
 
+import csense.kotlin.extensions.duration.*
 import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
@@ -17,23 +18,6 @@ internal class TimingExtensionsKtTest {
         constant.assert(42)
         logCount.assert(2)
 
-    }
-
-    @Test
-    fun testMeasureTimeMillisResult() = runBlocking {
-        val empty = measureTimeMillisResult { }
-        empty.first.assertLessThan(100L, "should take no time to run.. ")
-
-        val constant = measureTimeMillisResult { 42 }
-        constant.first.assertLessThan(100L, "should be fast")
-        constant.second.assert(42, "should give correct value out")
-
-        val wait = measureTimeMillisResult {
-            delay(50) //actually needs to be a "real" delay to "measure" the time. (cannot as of writing use runTest)
-            "42"
-        }
-        wait.first.assertLargerOrEqualTo(50L, "should take at least the given time we wait.")
-        wait.second.assert("42")
     }
 
     @Test

@@ -1,6 +1,6 @@
 package csense.kotlin.patterns.values.lifecycle
 
-import csense.kotlin.extensions.*
+import csense.kotlin.extensions.nullabillity.*
 import csense.kotlin.patterns.values.recreateableValue.*
 
 /**

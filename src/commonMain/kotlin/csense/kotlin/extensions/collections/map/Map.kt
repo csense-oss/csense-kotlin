@@ -5,7 +5,13 @@ package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.*
 import csense.kotlin.classes.*
+import csense.kotlin.classes.general.*
+import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.general.*
+import csense.kotlin.Function1
+import csense.kotlin.Function2
+import csense.kotlin.classes.map.*
 import csense.kotlin.specificExtensions.collections.map.*
 import kotlin.contracts.*
 import kotlin.experimental.*
@@ -18,10 +24,9 @@ import kotlin.experimental.*
  * @param action ([Map.Entry]<K, V>, [Int]) -> [Unit]
  */
 public inline fun <K, V> Map<K, V>.forEachIndexed(action: (entry: Map.Entry<K, V>, index: Int) -> Unit) {
-    var i = 0
+    val counter = IncrementalCounter(start = 0)
     forEach {
-        action(it, i)
-        i += 1
+        action(it, counter.valueAndIncrement)
     }
 }
 
@@ -39,7 +44,7 @@ public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Ent
  * @param predicate [Function1]<[Map.Entry]<K, V>, Boolean>
  * @return [List]<K>
  */
-public inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Function1<Map.Entry<K, V>, Boolean>): List<K> =
+public inline fun <K, V> Map<K, V>.filterMapKey(crossinline predicate: Predicate<Map.Entry<K, V>>): List<K> =
     filter(predicate).map(Map.Entry<K, V>::key)
 
 /**
@@ -81,7 +86,6 @@ public inline fun <K, V> Map<K, V>.doesNotContainKey(key: K): Boolean =
  * @param mapEntry [Function1]<[Map.Entry]<OrgKey, OrgValue>, [MapEntry]<NewKey, NewValue>>
  * @return [Map]<NewKey, NewValue>
  */
-@OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaMapEntry(
     mapEntry: Function1<Map.Entry<OrgKey, OrgValue>, MapEntry<NewKey, NewValue>>
@@ -96,7 +100,6 @@ public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toM
  * @param mapEntryToPair [Function1]<[Map.Entry]<OrgKey, OrgValue>, [Pair]<NewKey, NewValue>>
  * @return [Map]<NewKey, NewValue>
  */
-@OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 public inline fun <OrgKey, OrgValue, NewKey, NewValue> Map<OrgKey, OrgValue>.toMapViaKeyValuePair(
     mapEntryToPair: Function1<Map.Entry<OrgKey, OrgValue>, Pair<NewKey, NewValue>>
@@ -141,3 +144,17 @@ public inline fun <Key, Value> Map<Key, Value>.hasSameContentBy(
  * @return the reversed map
  */
 public inline fun <Key, Value> Map<Key, Value>.reverseKeyValue(): Map<Value, Key> = mappings.reverseKeyValue()
+
+
+/**
+ * Tells if this nullable map is not null and have content
+ * @receiver Map<Key, Value>
+ * @return Boolean
+ */
+public inline fun <Key, Value> Map<Key, Value>?.isNotNullOrEmpty(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrEmpty != null)
+    }
+    @Suppress("VerboseNullabilityAndEmptiness")
+    return this != null && this.isNotEmpty()
+}

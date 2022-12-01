@@ -3,6 +3,7 @@
 package csense.kotlin.coroutines.restartableJob
 
 import csense.kotlin.patterns.restartableJob.*
+import csense.kotlin.patterns.restartableJob.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*

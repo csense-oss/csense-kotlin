@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.array
 
+import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -363,6 +364,45 @@ class ArrayTest {
             array.getOr(-2, "default").assert("default")
             array.getOr(1, "default").assert("1")
             array.getOr(2, "default").assert("default")
+        }
+
+    }
+
+    class ArrayTFirstOr {
+        @Test
+        fun empty() {
+            arrayOf<String>().firstOr("test").assert("test")
+        }
+
+
+        @Test
+        fun single() {
+            arrayOf("first").firstOr("fail").assert("first")
+        }
+
+
+        @Test
+        fun multiple() {
+            arrayOf("first", "second").firstOr("fail").assert("first")
+        }
+    }
+
+    class ArrayTFirstOrBy {
+        @Test
+        fun empty() {
+            arrayOf<String>().firstOrBy { "test" }.assert("test")
+        }
+
+
+        @Test
+        fun single() {
+            arrayOf("first").firstOrBy { "test" }.assert("first")
+        }
+
+
+        @Test
+        fun multiple() {
+            arrayOf("first", "second").firstOrBy { "fail" }.assert("first")
         }
 
     }

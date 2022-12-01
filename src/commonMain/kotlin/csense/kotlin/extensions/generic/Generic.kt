@@ -2,9 +2,12 @@
 
 package csense.kotlin.extensions.generic
 
-import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.Function0
+import csense.kotlin.Function1
 
+//TODO consider moving...
 public object Generic
 
 /**
@@ -61,7 +64,7 @@ public inline fun <Element> Generic.filter(
     @IntLimit(from = 0) length: Int,
     retriever: Function1<@IntLimit(from = 0) Int, Element>,
     @IntLimit(from = 0) startIndex: Int = 0,
-    predicate: Function1<Element, Boolean>
+    predicate: Predicate<Element>
 ): List<Element> = mapEachWith(ArrayList(length), length, retriever, startIndex) {
     if (predicate(it)) {
         this += it

@@ -5,8 +5,12 @@ package csense.kotlin.extensions.collections.list
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.collection.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.boolean.*
+import csense.kotlin.extensions.primitives.int.*
+import csense.kotlin.Function1
 
 /**
  * Finds and removes the first item that matches the given predicate
@@ -147,7 +151,7 @@ public inline fun <T> MutableList<T>.addAll(
  */
 public inline fun <@kotlin.internal.OnlyInputTypes reified T> MutableList<T>.replaceFirst(
     replaceWith: T,
-    predicate: Function1<T, Boolean>
+    predicate: Predicate<T>
 ): Boolean {
     val index = indexOfFirstOrNull(predicate) ?: return false
     replace(replaceWith, index)

@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package csense.kotlin.exceptions
 
 /**
@@ -7,8 +8,8 @@ package csense.kotlin.exceptions
 public class NoStackTraceException(
     message: String
 ) : Exception(
-    message,
-    null, // cause
-    false, // suppression
-    false // write stack trace
+    /* message = */ message,
+    /* cause = */ null,
+    /* enableSuppression = */ false,
+    /* writableStackTrace = */ false
 )

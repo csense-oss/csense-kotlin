@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
+import csense.kotlin.extensions.collections.array.shared.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

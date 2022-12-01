@@ -1,6 +1,6 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.*
+import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -78,16 +78,16 @@ class ExceptionsTest {
             val exception = Exception("test")
             var didCallLogger = false
 
-            val fails: String? = tryAndLog(
+            val fails: String? = tryAndLog<String>(
                 tag = "title",
                 message = "message",
                 placeholders = arrayOf("myPlaceHolder"),
                 sensitivity = LogSensitivity.Sensitive,
-                logger = { tag, message, _, exception, _ ->
+                logger = { tag, message, _, loggerException, _ ->
                     didCallLogger = true
                     tag.assert("title")
                     message.assert("message")
-                    exception.assertNotNull()
+                    loggerException.assertNotNull()
                 }) {
                 throw exception
             }

@@ -4,6 +4,9 @@ package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.char.*
+import csense.kotlin.extensions.primitives.int.*
+import csense.kotlin.extensions.primitives.string.*
 import kotlin.jvm.*
 
 @JvmInline

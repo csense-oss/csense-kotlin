@@ -7,6 +7,6 @@ class BooleanMappingsJvmTest {
     @Test
     fun booleanMappingsToNewlineOrEmpty() {
         false.mappings.toNewlineOrEmpty().assert("")
-        true.mappings.toNewlineOrEmpty().assert("\n")
+        true.mappings.toNewlineOrEmpty().assert(System.lineSeparator())
     }
 }

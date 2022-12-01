@@ -1,7 +1,8 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
+@file:OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
 
 package csense.kotlin.patterns.restartableJob
 
+import csense.kotlin.patterns.restartableJob.arguments.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
@@ -30,7 +31,7 @@ class RestartableJobWith3ArgumentsJvmTest {
         @Test
         fun shouldBeCalledOnMainDispatcher() = runTest {
             assertCalled { shouldBeCalled ->
-                val job = restartableJobInMain { first: Int, second: String, third: Boolean ->
+                val job = restartableJobInMain { first: Int, second: String, _: Boolean ->
                     first.assert(42)
                     second.assert("test")
                     assertDispatcher(Dispatchers.Main)

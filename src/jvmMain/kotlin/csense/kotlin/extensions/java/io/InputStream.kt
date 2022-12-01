@@ -1,7 +1,9 @@
 package csense.kotlin.extensions.java.io
 
 import csense.kotlin.extensions.*
+import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.int.*
 import java.io.*
 
 /**

@@ -1,6 +1,6 @@
 package csense.kotlin.crypto
 
-import csense.kotlin.extensions.primitives.*
+import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.tests.assertions.*
 import kotlin.experimental.*
 import kotlin.random.*

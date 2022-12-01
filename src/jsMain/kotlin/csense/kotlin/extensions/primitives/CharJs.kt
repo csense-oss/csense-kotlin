@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.primitives
 
+import csense.kotlin.extensions.primitives.char.*
+
 /**
  *
  * @receiver [Char]

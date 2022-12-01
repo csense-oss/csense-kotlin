@@ -3,6 +3,7 @@
 package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.*
+import csense.kotlin.general.*
 import csense.kotlin.patterns.expected.*
 import kotlin.contracts.*
 
