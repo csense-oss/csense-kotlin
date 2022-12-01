@@ -46,6 +46,5 @@ class UUID4Test {
         val byte = hexByte ?: throw Exception("not a valid hex digit")
         val anded = byte.and(0b1100)
         anded.assert(0b1000)
-
     }
 }

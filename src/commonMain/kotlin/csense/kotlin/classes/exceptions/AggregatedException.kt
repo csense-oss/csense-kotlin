@@ -6,7 +6,7 @@ import csense.kotlin.extensions.collections.iterable.*
 public data class AggregatedException(
     override val message: String?,
     override val cause: Throwable,
-    public val relatedExceptions: List<Exception>
+    public val relatedExceptions: List<Throwable>
 ) : Exception(
     /*message = */ message,
     /*message = */ cause

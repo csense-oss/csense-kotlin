@@ -7,16 +7,16 @@ import csense.kotlin.tests.assertions.*
 import kotlin.contracts.*
 
 
-inline fun Lists<*>.assertEmpty() {
+inline fun Lists<*>.assertIsEmpty() {
     contract {
-        returns() implies (this@assertEmpty is Lists.Empty)
+        returns() implies (this@assertIsEmpty is Lists.Empty)
     }
     assertIs<Lists.Empty>("Expected Empty list but got: $this")
 }
 
-inline fun Lists<*>.assertContent() {
+inline fun Lists<*>.assertIsContent() {
     contract {
-        returns() implies (this@assertContent is Lists.Content<*>)
+        returns() implies (this@assertIsContent is Lists.Content<*>)
     }
     assertIs<Lists.Content<*>>("Expected Content but got empty instead")
 }

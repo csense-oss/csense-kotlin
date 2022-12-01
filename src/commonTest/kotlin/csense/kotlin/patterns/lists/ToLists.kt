@@ -7,14 +7,14 @@ import kotlin.test.*
 class ToLists {
     @Test
     fun empty() {
-        listOf<String>().toLists().assertEmpty()
+        listOf<String>().toLists().assertIsEmpty()
     }
 
 
     @Test
     fun single() {
         val lists = listOf("test").toLists()
-        lists.assertContent()
+        lists.assertIsContent()
         lists.size.assert(1)
         lists.assertContainsInOrder("test")
     }
@@ -23,7 +23,7 @@ class ToLists {
     @Test
     fun multiple() {
         val lists = listOf("test", "1234").toLists()
-        lists.assertContent()
+        lists.assertIsContent()
         lists.size.assert(2)
         lists.assertContainsInOrder("test", "1234")
     }
