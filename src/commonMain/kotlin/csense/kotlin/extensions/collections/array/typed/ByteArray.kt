@@ -36,7 +36,7 @@ public inline fun ByteArray.toHexString(
     }
 
     forEachIndexed { index: @IntLimit(from = 0) Int, it: Byte ->
-        val pair = it.bitOperations.splitIntoNibbles()
+        val pair = it.bits.splitIntoNibbles()
         val currentIndex = (index * 2) + prefixSize
         val upper = ByteExtensions.hexCharsAsString[pair.upperNibble.toInt()]
         val lower = ByteExtensions.hexCharsAsString[pair.lowerNibble.toInt()]

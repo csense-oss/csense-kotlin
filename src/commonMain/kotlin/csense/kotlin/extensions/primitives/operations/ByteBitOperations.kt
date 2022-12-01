@@ -4,7 +4,6 @@ package csense.kotlin.extensions.primitives.operations
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.primitives.byte.*
-import csense.kotlin.units.*
 import kotlin.experimental.*
 import kotlin.jvm.*
 
@@ -13,7 +12,7 @@ import kotlin.jvm.*
 public value class ByteBitOperations(public val byte: Byte)
 
 
-public inline val Byte.bitOperations: ByteBitOperations
+public inline val Byte.bits: ByteBitOperations
     get() = ByteBitOperations(this)
 
 
@@ -44,7 +43,7 @@ public inline fun ByteBitOperations.updateUpperNibble(
     @ByteLimit(from = 0x00, to = 0x0F) upperNibble: Byte
 ): Byte {
     val byteWithUpperCleared = clearUpperNibble()
-    val upperNibbleWithLowerCleared = upperNibble.bitOperations.shiftLowerNibbleToUpper()
+    val upperNibbleWithLowerCleared = upperNibble.bits.shiftLowerNibbleToUpper()
     return byteWithUpperCleared.or(upperNibbleWithLowerCleared) //or works like "add" when bits are not set.
 }
 
@@ -52,7 +51,7 @@ public inline fun ByteBitOperations.updateLowerNibble(
     @ByteLimit(from = 0, to = 0x0F) lowerNibble: Byte
 ): Byte {
     val byteWithUpperCleared = clearLowerNibble()
-    val upperNibbleWithLowerCleared = lowerNibble.bitOperations.clearUpperNibble()
+    val upperNibbleWithLowerCleared = lowerNibble.bits.clearUpperNibble()
     return byteWithUpperCleared.or(upperNibbleWithLowerCleared) //or works like "add" when bits are not set.
 }
 
@@ -81,7 +80,7 @@ public inline infix fun ByteBitOperations.shr(@IntLimit(from = 1, to = 7) shift:
 
 public inline fun ByteBitOperations.splitIntoNibbles(): NibblePair {
     val lower: Byte = clearUpperNibble()
-    val upper: Byte = (this shr 4).bitOperations.clearUpperNibble()
+    val upper: Byte = (this shr 4).bits.clearUpperNibble()
     return NibblePair(upper, lower)
 }
 

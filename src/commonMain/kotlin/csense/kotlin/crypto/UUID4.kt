@@ -47,14 +47,14 @@ private fun ByteArray.setClockAndReservedBits() {
      */
     this[clockAndReservedIndex] =
         this[clockAndReservedIndex]
-            .bitOperations.zeroBit(bitIndex = 6)
-            .bitOperations.setBit(bitIndex = 7)
+            .bits.zeroBit(bitIndex = 6)
+            .bits.setBit(bitIndex = 7)
 }
 
 private fun ByteArray.setVersion4UuidBits() {
     val timeHighAndVersionIndex = 6
     this[timeHighAndVersionIndex] = this[timeHighAndVersionIndex]
-        .bitOperations
+        .bits
         .updateUpperNibble(Version4UpperNibble)
 }
 

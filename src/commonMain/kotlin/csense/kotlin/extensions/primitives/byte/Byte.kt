@@ -103,7 +103,7 @@ public fun <T> Byte.toChars(
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
-    val (upper: Byte, lower: Byte) = bitOperations.splitIntoNibbles()
+    val (upper: Byte, lower: Byte) = bits.splitIntoNibbles()
     return action(
         ByteExtensions.hexCharsAsString[upper.toInt()],
         ByteExtensions.hexCharsAsString[lower.toInt()]
