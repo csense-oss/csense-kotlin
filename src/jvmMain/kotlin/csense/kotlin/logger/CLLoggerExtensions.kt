@@ -9,7 +9,7 @@ public value class CLLoggerClassLog<T>(
     public val type: Class<T>
 )
 
-////Consider a " Log" onstead on each T, and then have "debug" etc on that (namespace it)
+////Consider a " Log" instead on each T, and then have "debug" etc on that (namespace it)
 public inline val <reified T> T.log: CLLoggerClassLog<T>
     get() = CLLoggerClassLog(T::class.java)
 

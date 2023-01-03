@@ -15,7 +15,7 @@ public inline fun Char.isSymbol(): Boolean {
     return isNotLetter() && isNotDigit()
 }
 
-//INCOMPLETE
+//TODO INCOMPLETE
 /**
  *
  * @receiver [Char]
