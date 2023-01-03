@@ -1,7 +1,8 @@
-package csense.kotlin.extensions.primitives
+package csense.kotlin.extensions.primitives.char
 
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
+import kotlin.text.isLetter
 
 class CharJsTest {
     @Test

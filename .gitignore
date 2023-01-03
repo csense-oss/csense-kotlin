@@ -23,7 +23,7 @@ hs_err_pid*
 
 build/
 .gradle/
-.idea
+.idea/
 
 *.iml
 local.properties
@@ -32,3 +32,4 @@ csense-kotlin-js/out/
 *.js
 *.kjsm
 kotlin-js-store/yarn.lock
+/kotlin-js-store/

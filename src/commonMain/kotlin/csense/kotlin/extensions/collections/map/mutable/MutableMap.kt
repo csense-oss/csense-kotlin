@@ -66,7 +66,8 @@ public inline fun <K, V> MutableMap<K, V>.putIfMissingAnd(
  * Creates a new reversed map where value -> key
  * @return the reversed map
  */
-public inline fun <Key, Value> MutableMap<Key, Value>.reverseKeyValue(): MutableMap<Value, Key> = mappings.reverseKeyValue()
+public inline fun <Key, Value> MutableMap<Key, Value>.reverseKeyValue(): MutableMap<Value, Key> =
+    mappings.reverseKeyValue()
 
 public inline fun <Key, Value> MutableMap<Key, Value>.remove(key: Key?): Value? {
     return key?.let(::remove)
@@ -74,4 +75,14 @@ public inline fun <Key, Value> MutableMap<Key, Value>.remove(key: Key?): Value? 
 
 public inline fun <Key, Value> MutableMap<Key, Value>.put(entry: Map.Entry<Key, Value>): Value? {
     return put(entry.key, entry.value)
+}
+
+/**
+ * Attempts to move the given entry (if exists) to the back(if the map supports it)
+ * @param key the [Key] of the item to move to the back
+ */
+public inline fun <Key, Value> MutableMap<Key, Value>.moveToBack(key: Key) {
+    val value = this[key] ?: return
+    remove(key)
+    put(key, value)
 }

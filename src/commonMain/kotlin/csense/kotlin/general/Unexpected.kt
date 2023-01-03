@@ -17,7 +17,7 @@ public fun unexpected(
     message: String = UnexpectedException.unexpectedDefaultMessage,
     relatedCause: Throwable? = null
 ): Nothing {
-    throw UnexpectedException(message, relatedCause)
+    throw UnexpectedException(message = message, relatedCause = relatedCause)
 }
 
 

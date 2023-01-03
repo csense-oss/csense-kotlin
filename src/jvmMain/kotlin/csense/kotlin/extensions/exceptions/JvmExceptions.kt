@@ -23,7 +23,7 @@ public inline fun <T> tryAndLog(
     logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
-): T? = tryAndLog(
+): T? = csense.kotlin.logger.operators.tryAndLog(
     tag = clazz.simpleName,
     message = message,
     placeholders = placeholders,
@@ -48,7 +48,7 @@ public inline fun <T> tryAndLog(
     logger: CLLogFunction = CL.error,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
-): T? = tryAndLog(
+): T? = csense.kotlin.logger.operators.tryAndLog(
     tag = kClazz.java.simpleName,
     message = message,
     placeholders = placeholders,

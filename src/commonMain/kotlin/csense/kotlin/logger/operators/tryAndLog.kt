@@ -1,6 +1,6 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 
-package csense.kotlin.logger
+package csense.kotlin.logger.operators
 
 import csense.kotlin.*
 import csense.kotlin.general.*

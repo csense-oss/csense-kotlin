@@ -1,7 +1,7 @@
 package csense.kotlin.extensions
 
-import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
+import csense.kotlin.logger.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

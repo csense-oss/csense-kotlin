@@ -8,6 +8,8 @@ public sealed class LogMessageFormat {
 
     public abstract val message: String
 
+    public abstract val containsSensitiveInformation: Boolean
+
     abstract override fun toString(): String
 
     public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
@@ -23,16 +25,25 @@ public sealed class LogMessageFormat {
     ) : LogMessageFormat() {
         override fun toString(): String {
             val prefix = containsSensitiveInformationMessageOrEmpty()
-            return prefix + replacePlaceholdersIndexed { index -> placeholders.getOr(index, missingPublicValue) }
+            return prefix + replacePlaceholdersIndexed { index ->
+                placeholders.getOr(
+                    index = index,
+                    defaultValue = missingPublicValue
+                )
+            }
         }
+
+        override val containsSensitiveInformation: Boolean = expectedSensitivity == LogSensitivity.Sensitive
     }
 
     public class SensitiveValues(
         override val message: String,
     ) : LogMessageFormat() {
         override fun toString(): String {
-            return message.replace(placeholderValue, sensitiveValue)
+            return message.replace(oldValue = placeholderValue, newValue = sensitiveValue)
         }
+
+        override val containsSensitiveInformation: Boolean = true
     }
 
     public companion object {
