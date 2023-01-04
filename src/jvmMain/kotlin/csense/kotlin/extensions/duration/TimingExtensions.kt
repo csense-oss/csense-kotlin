@@ -31,7 +31,8 @@ public inline fun <Result> measureTimeResult(
 /**
  * Logs the time (in ms) for the given operation, via the given logging function.
  * @param loggingTitle [String]
- * @param loggingMethod [LoggingFunctionType]<Unit>
+ * @param loggingMethod [CLLogFunction]
+ * @param sensitivity [LogSensitivity]
  * @param action [EmptyFunctionResult]<T>
  * @return T the result type of the action invocation.
  */
@@ -45,7 +46,7 @@ public inline fun <T> logMeasureTimeInMillis(
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
-    val (time, result) = measureTimeResult(action)
+    val (time: Duration, result: T) = measureTimeResult(action)
     loggingMethod(
         tag = loggingTitle,
         message = "{}ms",

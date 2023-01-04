@@ -70,4 +70,4 @@ public inline fun <Receiver, R> CoroutineScope.launchIOWith(
  */
 public suspend fun <T> CoroutineScope.withContextIO(
     block: CoroutineScopeFunction0<T>
-): T = withContext(Dispatchers.IO, block)
+): T = withContext(context = Dispatchers.IO, block = block)
