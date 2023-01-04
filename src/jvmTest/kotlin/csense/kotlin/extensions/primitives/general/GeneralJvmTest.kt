@@ -1,10 +1,9 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.primitives.general
 
 import csense.kotlin.tests.*
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Test
 
-class GeneralJvmKtTests {
-
+class GeneralJvmTest {
     @Test
     fun testType() {
         //Unable to test primitives as kotlin does not expose "java.lang"

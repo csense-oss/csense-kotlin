@@ -1,4 +1,4 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.reflections
 
 import csense.kotlin.tests.assertions.*
 import org.junit.*

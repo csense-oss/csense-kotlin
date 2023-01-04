@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package csense.kotlin.extensions.primitives
+package csense.kotlin.extensions.primitives.string
 
 import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.extensions.primitives.charSequence.*
@@ -22,6 +22,7 @@ public fun String(codepoints: IntArray): String {
  * @param locale Locale
  * @return String
  */
+@Throws(IndexOutOfBoundsException::class)
 public inline fun String.titleCaseFirstWord(locale: Locale): String {
     val firstCharIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return this
     val firstChar = this[firstCharIndex]

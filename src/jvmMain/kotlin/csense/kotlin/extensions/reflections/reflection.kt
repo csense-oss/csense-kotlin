@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package csense.kotlin.extensions
+package csense.kotlin.extensions.reflections
 
 import java.lang.reflect.*
 

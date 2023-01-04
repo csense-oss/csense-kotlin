@@ -1,4 +1,4 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.primitives.general
 
 /**
  * Creates a java class based on the expected type (by type inference)

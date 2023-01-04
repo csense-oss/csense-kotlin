@@ -1,10 +1,10 @@
-package csense.kotlin.extensions.java.io
+package csense.kotlin.extensions.java.io.inputstream
 
 import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 import java.io.*
 
-class InputStreamTest {
+class ReadTest {
 
     class ReadOrNullOnEnd {
         @Test

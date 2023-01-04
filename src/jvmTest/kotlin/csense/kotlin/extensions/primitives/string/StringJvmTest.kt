@@ -1,4 +1,4 @@
-package csense.kotlin.extensions.primitives
+package csense.kotlin.extensions.primitives.string
 
 import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*

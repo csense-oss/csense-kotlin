@@ -1,6 +1,5 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.duration
 
-import csense.kotlin.extensions.duration.*
 import csense.kotlin.logger.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*

@@ -1,4 +1,4 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.references
 
 import csense.kotlin.*
 import csense.kotlin.tests.assertions.*

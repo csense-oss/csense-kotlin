@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 
-package csense.kotlin.extensions
+package csense.kotlin.extensions.references
 
 import csense.kotlin.*
 import csense.kotlin.extensions.general.*

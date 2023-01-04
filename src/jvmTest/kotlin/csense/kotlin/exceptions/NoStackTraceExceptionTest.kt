@@ -4,7 +4,6 @@ import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 
 class NoStackTraceExceptionTest {
-
     @Test
     fun hasNoStackTrace() {
         val exception = NoStackTraceException(message = "test")

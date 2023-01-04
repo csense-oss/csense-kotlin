@@ -1,4 +1,4 @@
-package csense.kotlin.extensions.java.io
+package csense.kotlin.extensions.java.io.inputstream
 
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.mapping.*
