@@ -9,7 +9,7 @@ import csense.kotlin.extensions.primitives.boolean.*
  * @receiver [Collection]<[Boolean]>
  * @return [Boolean] true if all booleans are true, false otherwise. for empty its "true"
  */
-public inline fun Collection<Boolean>.isAllTrue(): Boolean = all { it }
+public inline fun Collection<Boolean>.isAllTrue(): Boolean = all { it.isTrue() }
 
 /**
  * Tells if all booleans in the given collection are false.

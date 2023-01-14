@@ -1,6 +1,7 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package csense.kotlin.extensions.collections.collection
 
+import csense.kotlin.Function1
 import csense.kotlin.extensions.primitives.boolean.*
 
 

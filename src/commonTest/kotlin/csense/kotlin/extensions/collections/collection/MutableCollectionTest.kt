@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.collection
 
 import csense.kotlin.extensions.collections.collection.*
+import csense.kotlin.extensions.collections.collection.mutable.*
 import csense.kotlin.extensions.collections.set.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -414,8 +415,6 @@ class MutableCollectionTest {
 
         set.toggleExistence(42)
         set.assertEmpty()
-
-
     }
 
     @Test

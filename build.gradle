@@ -1,6 +1,6 @@
 buildscript {
 
-    ext.compileJavaVersion = "1.8"
+    ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.4"
@@ -42,7 +42,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "7.4.3"
+    id "org.owasp.dependencycheck" version "7.4.4"
 }
 
 repositories {
@@ -55,15 +55,18 @@ repositories {
 
 kotlin {
     explicitApi = 'strict'
+
     jvm {
-        compilations.main {
-            kotlinOptions.jvmTarget = "19"//TODO set to 1.8 and fix issue with kotlin compiler target version
-        }
-        withJava()
+
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
+
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(compileJavaVersion))
+        }
     }
+
     js(IR) { //https://kotlinlang.org/docs/js-ir-compiler.html
         browser {
             testTask {
@@ -154,7 +157,6 @@ project.version = csenseVersionName
 apply from: "$rootDir/gradle/publish.gradle"
 
 task uploadProd(dependsOn: ["assemble", "allTests", "dependencyCheckAggregate", "publish"])
-
 
 benchmark {
     targets {
