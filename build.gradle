@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+
 buildscript {
 
     ext.compileJavaVersion = "11"
@@ -42,7 +44,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "7.4.4"
+    id "org.owasp.dependencycheck" version "8.0.0"
 }
 
 repositories {
@@ -54,7 +56,7 @@ repositories {
 }
 
 kotlin {
-    explicitApi = 'strict'
+    setExplicitApi(ExplicitApiMode.Strict)
 
     jvm {
 

@@ -1,9 +1,9 @@
 @file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
 package csense.kotlin.extensions.collections.collection
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.array.generic.*
-import csense.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.specificExtensions.collections.collection.*
 
 
@@ -60,12 +60,12 @@ private inline fun <Element> Element.categorizeInto(
     allowItemInMultipleBuckets: Boolean = true
 ) {
     filters.forEachIndexed { index: @IntLimit(from = 0) Int, filterAccepts: (Element) -> Boolean ->
-        filterAccepts(this).ifTrue {
-            result[index].add(this)
-            //should we stop finding filters that accepts this item ? if so then go on.
-            allowItemInMultipleBuckets.ifFalse {
-                return@categorizeInto
-            }
+        if (!filterAccepts(this)) {
+            return@forEachIndexed
+        }
+        result[index].add(this)
+        if (!allowItemInMultipleBuckets) {
+            return@categorizeInto
         }
     }
 }

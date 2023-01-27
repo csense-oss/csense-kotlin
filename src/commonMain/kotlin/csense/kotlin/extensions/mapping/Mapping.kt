@@ -42,7 +42,7 @@ public inline fun <U> Any.mapOptional(
 
 public inline fun <U, T> T?.mapLazyOptional(
     ifNotNull: Function1<T, U>,
-    ifNull: csense.kotlin.EmptyFunctionResult<U>
+    ifNull: EmptyFunctionResult<U>
 ): U {
     contract {
         callsInPlace(ifNotNull, InvocationKind.AT_MOST_ONCE)
@@ -60,10 +60,10 @@ public inline fun <U, T> T?.mapLazyOptional(
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("ifNotNull")
 )
-@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction","UNUSED_PARAMETER")
+@Suppress("UnusedReceiverParameter", "Unused", "MissingTestFunction", "UNUSED_PARAMETER")
 public inline fun <U, T> Any.mapLazyOptional(
     ifNotNull: Function1<T, U>,
-    ifNull: csense.kotlin.EmptyFunctionResult<U>
+    ifNull: EmptyFunctionResult<U>
 ): Nothing = unexpected()
 
 /**
@@ -77,10 +77,9 @@ public inline fun <U, T> Any.mapLazyOptional(
 public inline fun <T> Boolean.map(
     ifTrue: T,
     ifFalse: T
-): T = if (this) {
-    ifTrue
-} else {
-    ifFalse
+): T = when {
+    this -> ifTrue
+    else -> ifFalse
 }
 
 
@@ -96,8 +95,8 @@ public inline fun <T> Boolean.map(
  */
 
 public inline fun <T> Boolean.mapLazy(
-    ifTrue: csense.kotlin.EmptyFunctionResult<T>,
-    ifFalse: csense.kotlin.EmptyFunctionResult<T>
+    ifTrue: EmptyFunctionResult<T>,
+    ifFalse: EmptyFunctionResult<T>
 ): T = if (this) {
     contract {
         callsInPlace(ifTrue, InvocationKind.AT_MOST_ONCE)
@@ -142,8 +141,8 @@ public inline fun <T, reified U> Iterable<T>.mapToTypedArray(mapper: Function1<T
     }
 }
 
-public inline fun <T, reified U> List<T>.mapToTypedArray(mapper: Function1<T, U>): Array<U> {
-    return Array(size) {
-        mapper(this[it])
-    }
+public inline fun <T, reified U> List<T>.mapToTypedArray(
+    mapper: Function1<T, U>
+): Array<U> = Array(size) { index ->
+    mapper(this[index])
 }

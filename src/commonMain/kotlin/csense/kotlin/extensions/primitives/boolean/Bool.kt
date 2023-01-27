@@ -13,14 +13,14 @@ import kotlin.contracts.*
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
+public inline fun <Result> Boolean.onFalse(action: () -> Result): Result? {
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
-    if (!this) {
-        action()
+    return when (this) {
+        true -> null
+        false -> action()
     }
-    return this
 }
 
 /**
@@ -29,14 +29,14 @@ public inline fun Boolean.onFalse(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
+public inline fun <Result> Boolean.onTrue(action: () -> Result): Result? {
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
-    if (this) {
-        action()
+    return when (this) {
+        true -> action()
+        false -> null
     }
-    return this
 }
 
 
@@ -46,7 +46,7 @@ public inline fun Boolean.onTrue(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean {
+public inline fun <Result> Boolean.ifTrue(action: () -> Result): Result? {
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
@@ -60,7 +60,7 @@ public inline fun Boolean.ifTrue(action: EmptyFunction): Boolean {
  * @param action [EmptyFunction]
  * @return [Boolean]
  */
-public inline fun Boolean.ifFalse(action: EmptyFunction): Boolean {
+public inline fun <Result> Boolean.ifFalse(action: () -> Result): Result? {
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }

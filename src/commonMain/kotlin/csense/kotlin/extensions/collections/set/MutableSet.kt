@@ -51,5 +51,5 @@ public inline fun <@kotlin.internal.OnlyInputTypes T> MutableSet<T>.addIfMissing
     contract {
         callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
-    return doesNotContain(item) && add(item).ifTrue { action(item) }
+    return doesNotContain(item) && add(item).also { it.ifTrue { action(item) } }
 }

@@ -2,7 +2,8 @@
 
 package csense.kotlin.extensions.collections.map.mutable
 
-import csense.kotlin.extensions.primitives.boolean.*
+import csense.kotlin.extensions.collections.iterable.*
+import csense.kotlin.extensions.nullabillity.*
 
 public inline fun <Key, Value> MutableMap<Key, MutableList<Value>>.appendValues(
     other: Map<Key, Iterable<Value>>
@@ -13,6 +14,9 @@ public inline fun <Key, Value> MutableMap<Key, MutableList<Value>>.appendValues(
 }
 
 public inline fun <Key, Value> MutableMap<Key, List<Value>>.removeOnEmptyValue(key: Key): Boolean {
-    val isEmptyValue = get(key)?.isEmpty() ?: return false
-    return isEmptyValue.ifTrue { remove(key) }
+    val hasContent = get(key).isNotNullOrEmpty()
+    return when {
+        hasContent -> false
+        else -> remove(key).isNotNull
+    }
 }
