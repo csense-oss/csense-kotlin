@@ -1,13 +1,13 @@
 @file:Suppress("unused", "UnusedReceiverParameter")
 
-package csense.kotlin.extensions.generic
+package csense.kotlin.patterns.generic
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.Function0
 import csense.kotlin.Function1
 
-//TODO consider moving...
+//TODO consider moving... again?
 public object Generic
 
 /**

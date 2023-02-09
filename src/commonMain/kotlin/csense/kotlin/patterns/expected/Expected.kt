@@ -3,6 +3,7 @@
 package csense.kotlin.patterns.expected
 
 import kotlin.contracts.*
+import kotlin.jvm.*
 
 public sealed interface Expected<out Value, out Error> {
     public companion object {
@@ -18,14 +19,13 @@ public sealed interface Expected<out Value, out Error> {
 
         }
     }
-
-    //TODO use inline value class when available for MPP (kotlin 1.8)
-    public class Failed<out Error>(
+    @JvmInline
+    public value class Failed<out Error>(
         public val error: Error
     ) : Expected<Nothing, Error>
 
-    //TODO use inline value class when available for MPP (kotlin 1.8)
-    public class Success<out Value>(
+    @JvmInline
+    public value class Success<out Value>(
         public val value: Value
     ) : Expected<Value, Nothing>
 

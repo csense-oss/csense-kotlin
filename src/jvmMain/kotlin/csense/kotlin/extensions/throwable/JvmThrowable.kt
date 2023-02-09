@@ -4,6 +4,7 @@ package csense.kotlin.extensions.throwable
 
 import csense.kotlin.extensions.generic.*
 import csense.kotlin.extensions.stringBuilder.*
+import csense.kotlin.patterns.generic.*
 
 
 public inline fun Throwable.toSensitiveStackTraceString(): String {

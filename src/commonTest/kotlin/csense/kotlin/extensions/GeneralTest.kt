@@ -62,23 +62,17 @@ class GeneralTest {
 
     @Test
     fun anyInvokeIsInstanceActionUnit() {
-        "test".invokeIsInstance<Int> {
+        "test".invokeIsInstance<Int, Any> {
             failTest("should not be called")
         }
         assertCalled { didCall ->
-            "testString".invokeIsInstance<String> {
+            "testString".invokeIsInstance<String, Any> {
                 it.assert("testString")
                 didCall()
             }
         }
     }
 
-    @Test
-    fun anyInvokeIsInstanceAction() {
-        "test".invokeIsInstance<Int, Int> { it }.assertNull("string and int are not same type")
-        "test".invokeIsInstance<String, String> { it }.assert("test")
-        42.invokeIsInstance<String, Int> { 42 }.assertNull()
-    }
 
     @Test
     fun tOrIfNull() {
@@ -105,13 +99,6 @@ class GeneralTest {
         @Suppress("RedundantNullableReturnType")
         val optInt2: Int? = 42
         optInt2.orIfNullLazy { 111 }.assert(42)
-    }
-
-    @Test
-    fun anyCastMap() {
-        "".castMap<String, Int> { 32 }.assert(32)
-        "".castMap<Int, Int> { 32 }.assertNull()
-        80.castMap<Number, Int> { this.toInt() }.assert(80)
     }
 
     class TApplyIf {

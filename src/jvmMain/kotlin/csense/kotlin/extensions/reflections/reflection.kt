@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.reflections
 
+import csense.kotlin.extensions.general.*
 import java.lang.reflect.*
 
 /**
@@ -11,9 +12,5 @@ import java.lang.reflect.*
  * @return T?
  */
 public inline fun <reified T> Field.getAs(obj: Any): T? {
-    return try {
-        get(obj) as T?
-    } catch (_: Exception) {
-        null
-    }
+    return tryOrNull { get(obj) as T? }
 }

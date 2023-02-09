@@ -2,12 +2,12 @@
 
 package csense.kotlin.extensions.collections.list
 
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.general.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.int.*
-import csense.kotlin.Function1
 
 /**
  * Returns a limited view of this list, by limiting the size of it (if the list is shorter than the limit,
@@ -121,13 +121,13 @@ public inline fun <reified T> List<T>.repeatToSize(@IntLimit(from = 0) toSize: I
  * invokes the given action on each item that is of the expected type (U)
  * @receiver [List]<*>
  * @param indices [IntProgression] the indexes to go over.
- * @param action [Function1]<U, *>
+ * @param action [FunctionUnit]<U, *>
  */
 public inline fun <reified U> List<*>.forEachIsInstance(
     indices: IntProgression,
-    action: Function1<U, *>
-): Unit = indices.forEach {
-    getOrNull(it)?.invokeIsInstance(action)
+    action: FunctionUnit<U>
+): Unit = indices.forEach { index ->
+    getOrNull(index = index)?.invokeIsInstance(action = action)
 }
 
 

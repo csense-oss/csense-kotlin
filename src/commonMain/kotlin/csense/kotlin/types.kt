@@ -21,8 +21,6 @@ public typealias FunctionUnit<E> = (E) -> Unit
 public typealias SuspendFunctionUnit<E> = suspend (E) -> Unit
 
 
-//region Function arity
-
 public typealias Function0R<O> = () -> O
 
 /**
@@ -61,9 +59,7 @@ public typealias Function5<I1, I2, I3, I4, I5, O> = (I1, I2, I3, I4, I5) -> O
  * Function with 6 inputs and potential output
  */
 public typealias Function6<I1, I2, I3, I4, I5, I6, O> = (I1, I2, I3, I4, I5, I6) -> O
-//endregion
 
-//region suspend function arity
 public typealias AsyncFunction0<O> = suspend () -> O
 
 public typealias AsyncFunction1<I, O> = suspend (I) -> O
@@ -72,8 +68,6 @@ public typealias AsyncFunction3<I1, I2, I3, O> = suspend (I1, I2, I3) -> O
 public typealias AsyncFunction4<I1, I2, I3, I4, O> = suspend (I1, I2, I3, I4) -> O
 public typealias AsyncFunction5<I1, I2, I3, I4, I5, O> = suspend (I1, I2, I3, I4, I5) -> O
 public typealias AsyncFunction6<I1, I2, I3, I4, I5, I6, O> = suspend (I1, I2, I3, I4, I5, I6) -> O
-//endregion
-
 
 
 public typealias CoroutineScopeFunction = suspend CoroutineScope.() -> Unit

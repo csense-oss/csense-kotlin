@@ -1,10 +1,13 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
 
 package csense.kotlin.extensions.collections.iterable
 
 import csense.kotlin.*
+import csense.kotlin.Function1
 import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.general.*
+import csense.kotlin.extensions.mapping.*
 
 
 /**
@@ -31,7 +34,7 @@ public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Uni
  * @param action [Function1]<U, *> action to invoke if the element is of type U
  */
 public inline fun <reified U> Iterable<*>.forEachIsInstance(
-    action: kotlin.Function1<U, *>
+    action: FunctionUnit<U>
 ): Unit = forEach {
     it?.invokeIsInstance(action)
 }

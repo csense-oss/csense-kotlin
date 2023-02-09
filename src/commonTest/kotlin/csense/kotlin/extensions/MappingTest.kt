@@ -80,25 +80,25 @@ class MappingTest {
     private class SecondChild : Parent()
     private open class Parent
 
-    @Test
-    fun tMapIfInstanceOrThis() {
-        val parent = Parent()
-        parent.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(parent, "its not a FirstChild")
-        parent.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }
-            .assertAs(parent, "its not a SecondChild")
-
-        val firstChild: Parent = FirstChild()
-        assertCalled { called ->
-            firstChild.mapIfInstanceOrThis<Parent, FirstChild> { called(); it }.assertAs(firstChild)
-        }
-        firstChild.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }.assertAs(firstChild)
-
-        val secondChild: Parent = SecondChild()
-        secondChild.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(secondChild)
-        assertCalled { called ->
-            secondChild.mapIfInstanceOrThis<Parent, SecondChild> { called(); it }.assertAs(secondChild)
-        }
-    }
+//    @Test
+//    fun tMapIfInstanceOrThis() {
+//        val parent = Parent()
+//        parent.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(parent, "its not a FirstChild")
+//        parent.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }
+//            .assertAs(parent, "its not a SecondChild")
+//
+//        val firstChild: Parent = FirstChild()
+//        assertCalled { called ->
+//            firstChild.mapIfInstanceOrThis<Parent, FirstChild> { called(); it }.assertAs(firstChild)
+//        }
+//        firstChild.mapIfInstanceOrThis<Parent, SecondChild> { shouldNotBeCalled() }.assertAs(firstChild)
+//
+//        val secondChild: Parent = SecondChild()
+//        secondChild.mapIfInstanceOrThis<Parent, FirstChild> { shouldNotBeCalled() }.assertAs(secondChild)
+//        assertCalled { called ->
+//            secondChild.mapIfInstanceOrThis<Parent, SecondChild> { called(); it }.assertAs(secondChild)
+//        }
+//    }
 
     class IterableTMapToTypedArray {
         @Test

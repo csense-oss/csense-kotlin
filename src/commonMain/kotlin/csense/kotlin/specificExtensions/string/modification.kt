@@ -14,6 +14,7 @@ import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.charSequence.*
 import csense.kotlin.extensions.primitives.int.*
 import csense.kotlin.general.*
+import csense.kotlin.patterns.generic.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 

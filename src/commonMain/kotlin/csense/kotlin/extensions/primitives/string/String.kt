@@ -319,7 +319,7 @@ public inline fun String.isOnlyDigits(): Boolean = when {
  * @timecomplexity O(n)
  */
 public inline fun String.forEachBackwards(
-    action: csense.kotlin.FunctionUnit<Char>
+    action: FunctionUnit<Char>
 ): Unit =
     GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
 
@@ -439,7 +439,11 @@ public inline fun String.endsWith(
     }
 }
 
-
+//TODO clean / simplify?
+/**
+ * todo comment
+ * something about this only "ignoring" whitespace at the ends (starting / ending)
+ */
 @kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.equals(
     other: String?,
@@ -452,6 +456,7 @@ public inline fun String.equals(
     if (!ignoreWhitespace) {
         return equals(other = other, ignoreCase = ignoreCase)
     }
+
     //will be null if empty or all is whitespace
     val firstNonWhitespaceInThis = this.indexOfFirstOrNull { it.isNotWhitespace() }
     val firstNonWhitespaceInOther = other?.indexOfFirstOrNull { it.isNotWhitespace() }
@@ -472,10 +477,11 @@ public inline fun String.equals(
     // at this point we have 2 ranges, 1 in this and one in other, that are the same length, so just compare them
     return comparison.compareTo(
         startingIndexInThisString = firstNonWhitespaceInThis,
-        other,
+        other = other,
         startIndexInOtherString = firstNonWhitespaceInOther,
         length = nonWhitespaceLengthOfThis,
         ignoreCase = ignoreCase
     )
-
 }
+
+

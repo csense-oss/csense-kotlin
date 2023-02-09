@@ -3,6 +3,7 @@ package csense.kotlin.patterns.lists
 import csense.kotlin.classes.iterator.*
 import csense.kotlin.general.*
 
+//TODO consider
 public sealed interface Lists<out T> : List<T> {
     public object Empty : Lists<Nothing> {
         override val size: Int = 0
