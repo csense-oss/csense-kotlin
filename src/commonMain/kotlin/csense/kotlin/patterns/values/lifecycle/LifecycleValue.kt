@@ -17,7 +17,7 @@ public class LifecycleValue<Value>(
     private val onResetValue: (Value) -> Unit
 ) {
 
-    private val innerValue = RecreateableValue(createValue)
+    private val innerValue: RecreateableValue<Value> = RecreateableValue(createValue)
 
     /**
      * Gets the current instance or (re)creates it

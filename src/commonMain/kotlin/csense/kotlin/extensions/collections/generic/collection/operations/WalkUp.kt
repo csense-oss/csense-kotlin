@@ -4,7 +4,7 @@ package csense.kotlin.extensions.collections.generic.collection.operations
 
 import csense.kotlin.extensions.collections.generic.collection.*
 
-
+//TODO merge with traversal..
 public inline fun <T> GenericCollections.walkUpFirstOrNull(
     startingPoint: T,
     getToNextLevelOrNull: (T) -> T?,
@@ -17,7 +17,7 @@ public inline fun <T> GenericCollections.walkUpFirstOrNull(
     }
     return null
 }
-
+//TODO merge with traversal..
 public inline fun <T> GenericCollections.walkUp(
     startingPoint: T,
     getToNextLevelOrNull: (T) -> T?,

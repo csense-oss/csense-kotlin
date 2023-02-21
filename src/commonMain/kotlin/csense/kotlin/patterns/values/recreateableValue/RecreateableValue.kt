@@ -4,7 +4,7 @@ import csense.kotlin.*
 
 /**
  * A value that can be (re)created (by first resetting it)
- * Nb the creation is eager by default
+ * Nb the creation is eager by default (intention is that if you want it lazy, you can wrap the whole variable in "by lazy").
  * @param Value
  * @property createValue [Function0R]<Value>
  * @property innerValue Value?
