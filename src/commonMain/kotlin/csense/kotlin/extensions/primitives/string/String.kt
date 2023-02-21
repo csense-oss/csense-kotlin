@@ -6,6 +6,8 @@ package csense.kotlin.extensions.primitives.string
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.general.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.char.*

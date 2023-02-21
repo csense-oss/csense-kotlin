@@ -1,6 +1,9 @@
-package csense.kotlin.extensions.collections.generic
+@file:Suppress("UnusedReceiverParameter")
+
+package csense.kotlin.extensions.collections.generic.collection.operations
 
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.mapping.*
 
 //TODO BETTER NAME!?!?!
@@ -12,12 +15,11 @@ public enum class CollectionPredicate {
 }
 
 
-public fun <T> GenericCollectionExtensions.satisfyPredicate(
+public fun <T> GenericCollections.satisfyPredicate(
     predicate: Predicate<T>,
     items: List<T>
 ): CollectionPredicate {
     var result: CollectionPredicate? = null
-
     items.forEach {
         result = result.combine(predicate(it))
         if (result == CollectionPredicate.Some) {

@@ -1,12 +1,13 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "UnusedReceiverParameter")
 
 
-package csense.kotlin.extensions.collections.generic
+package csense.kotlin.extensions.collections.generic.collection.operations
 
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.classes.general.*
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.primitives.int.*
 import kotlin.contracts.*
 
@@ -21,9 +22,9 @@ import kotlin.contracts.*
  * @return [List]<T> the resulting list by joining the starting items with the [toJoinAction]
  */
 
-public inline fun <T, U> GenericCollectionExtensions.joinEveryAction(
+public inline fun <T, U> GenericCollections.joinEveryAction(
     @IntLimit(from = 1) itemsBetweenJoins: Int,
-    crossinline toJoinAction: csense.kotlin.Function0R<T>,
+    crossinline toJoinAction: Function0R<T>,
     @IntLimit(from = 1) size: Int,
     crossinline getter: GenericGetterIndexMethod<T>,
     crossinline builderType: Function2<Int, Function1<@IntLimit(from = 1) Int, T>, U>
@@ -34,15 +35,14 @@ public inline fun <T, U> GenericCollectionExtensions.joinEveryAction(
     if (itemsBetweenJoins.isNegativeOrZero) {
         return builderType(size) { getter(it) }
     }
-    val numberOfJoins = (size - 1).div(itemsBetweenJoins)
+    val numberOfJoins: Int = (size - 1).div(itemsBetweenJoins)
     if (numberOfJoins <= 0) {
         return builderType(size) { getter(it) }
     }
-    val newSize = size + numberOfJoins
+    val newSize: Int = size + numberOfJoins
     val getterIndexCount = IncrementalCounter(start = 0)
     return builderType(newSize) { newIndex: Int ->
-        //(newIndex + 1): 0 rem anything is 0;itemBetweenJoins + 1: count the join item itself
-        val isJoin = (newIndex + 1).rem(itemsBetweenJoins + 1) == 0
+        val isJoin: Boolean = (newIndex + 1).rem(itemsBetweenJoins + 1) == 0
         if (isJoin) {
             toJoinAction()
         } else {
