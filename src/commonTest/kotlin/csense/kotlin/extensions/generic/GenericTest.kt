@@ -1,7 +1,10 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.generic
 
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.primitives.int.*
-import csense.kotlin.patterns.generic.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -10,12 +13,12 @@ class GenericTest {
     class GenericForEach {
         @Test
         fun empty() {
-            Generic.forEach(0, { shouldNotBeCalled() }, 0, { shouldNotBeCalled() })
+            GenericCollections.forEach(0, { shouldNotBeCalled() }, 0, { shouldNotBeCalled() })
         }
 
         @Test
         fun badIndexes() {
-            Generic.forEach(
+            GenericCollections.forEach(
                 length = 1,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 42,
@@ -25,7 +28,7 @@ class GenericTest {
 
         @Test
         fun single() = assertCalled(times = 2) { shouldBeCalled ->
-            Generic.forEach(
+            GenericCollections.forEach(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -41,7 +44,7 @@ class GenericTest {
 
         @Test
         fun singleWeirdIndex() = assertCalled(times = 2) { shouldBeCalled ->
-            Generic.forEach(
+            GenericCollections.forEach(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -58,7 +61,7 @@ class GenericTest {
 
         @Test
         fun startIndexShouldBeRespected() = assertCalled(times = 2) { shouldBeCalled ->
-            Generic.forEach(
+            GenericCollections.forEach(
                 length = 3,
                 retriever = {
                     it.assert(2, "start index should be respected")
@@ -75,7 +78,7 @@ class GenericTest {
         @Test
         fun multipleMixed() = assertCalled(times = 6) { shouldBeCalled ->
             var retrieverIndex = 0
-            Generic.forEach(
+            GenericCollections.forEach(
                 length = 3,
                 retriever = {
                     it.assert(retrieverIndex)
@@ -96,7 +99,7 @@ class GenericTest {
     class GenericMap {
         @Test
         fun empty() {
-            Generic.map(
+            GenericCollections.map(
                 length = 0,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 0,
@@ -106,7 +109,7 @@ class GenericTest {
 
         @Test
         fun badIndexes() {
-            Generic.map(
+            GenericCollections.map(
                 length = 1,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 42,
@@ -116,7 +119,7 @@ class GenericTest {
 
         @Test
         fun single() = assertCalled(times = 2) { shouldBeCalled ->
-            val lst = Generic.map(
+            val lst = GenericCollections.map(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -134,7 +137,7 @@ class GenericTest {
 
         @Test
         fun singleWeirdIndex() = assertCalled(times = 2) { shouldBeCalled ->
-            val lst = Generic.map(
+            val lst = GenericCollections.map(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -152,7 +155,7 @@ class GenericTest {
 
         @Test
         fun startIndexShouldBeRespected() = assertCalled(times = 2) { shouldBeCalled ->
-            Generic.map(
+            GenericCollections.map(
                 length = 3,
                 retriever = {
                     it.assert(2, "start index should be respected")
@@ -169,7 +172,7 @@ class GenericTest {
         @Test
         fun multipleMixed() = assertCalled(times = 6) { shouldBeCalled ->
             var retrieverIndex = 0
-            val lst = Generic.map(
+            val lst = GenericCollections.map(
                 length = 3,
                 retriever = {
                     it.assert(retrieverIndex)
@@ -195,7 +198,7 @@ class GenericTest {
     class GenericFilter {
         @Test
         fun empty() {
-            Generic.filter(
+            GenericCollections.filter(
                 length = 0,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 0,
@@ -205,7 +208,7 @@ class GenericTest {
 
         @Test
         fun badIndexes() {
-            Generic.filter(
+            GenericCollections.filter(
                 length = 1,
                 retriever = { shouldNotBeCalled() },
                 startIndex = 42,
@@ -215,7 +218,7 @@ class GenericTest {
 
         @Test
         fun singleExclude() = assertCalled(times = 2) { shouldBeCalled ->
-            val lst = Generic.filter(
+            val lst = GenericCollections.filter(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -233,7 +236,7 @@ class GenericTest {
 
         @Test
         fun singleInclude() = assertCalled(times = 2) { shouldBeCalled ->
-            val lst = Generic.filter(
+            val lst = GenericCollections.filter(
                 length = 1,
                 retriever = {
                     it.assert(0)
@@ -252,7 +255,7 @@ class GenericTest {
         @Test
         fun multipleMixed() = assertCalled(times = 6) { shouldBeCalled ->
             var retrieverIndex = 0
-            val lst = Generic.filter(
+            val lst = GenericCollections.filter(
                 length = 3,
                 retriever = {
                     it.assert(retrieverIndex)
@@ -274,7 +277,7 @@ class GenericTest {
 
         @Test
         fun startIndexShouldBeRespected() = assertCalled(times = 2) { shouldBeCalled ->
-            Generic.filter(
+            GenericCollections.filter(
                 length = 3,
                 retriever = {
                     it.assert(2, "start index should be respected")
@@ -295,15 +298,15 @@ class GenericTest {
 
         @Test
         fun empty() {
-            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
+            GenericCollections.mapEachWith("Result", 0, { shouldNotBeCalled() }, 0, {
                 shouldNotBeCalled()
             }).assert("Result")
 
-            Generic.mapEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
+            GenericCollections.mapEachWith("Result", 0, { shouldNotBeCalled() }, 1, {
                 shouldNotBeCalled()
             }).assert("Result")
 
-            Generic.mapEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
+            GenericCollections.mapEachWith("Result", 1, { shouldNotBeCalled() }, 1, {
                 shouldNotBeCalled()
             }).assert("Result")
         }
@@ -313,7 +316,7 @@ class GenericTest {
             val startIndex = 0
             val length = startIndex + 1
 
-            Generic.mapEachWith(
+            GenericCollections.mapEachWith(
                 result = "Result",
                 length = length,
                 retriever = {
@@ -334,7 +337,7 @@ class GenericTest {
             val startIndex = 1
             val length = startIndex + 1
 
-            Generic.mapEachWith(
+            GenericCollections.mapEachWith(
                 result = "Result",
                 length = length,
                 retriever = {
@@ -355,7 +358,7 @@ class GenericTest {
             val startIndex = 0
             val length = startIndex + 2
 
-            val indexesCalled = Generic.mapEachWith(
+            val indexesCalled = GenericCollections.mapEachWith(
                 result = mutableListOf<Int>(),
                 length = length,
                 retriever = {
@@ -379,7 +382,7 @@ class GenericTest {
         @Test
         fun singleLevel() = assertCalled { shouldBeCalled ->
             val start = GenericTestTreeStructure("id", parent = null)
-            Generic.traverseWhileNotNull(
+            GenericCollections.traverseWhileNotNull(
                 start = start,
                 processCurrentLevel = {
                     it.id.assert("id")
@@ -400,7 +403,7 @@ class GenericTest {
                     parent = null
                 )
             )
-            Generic.traverseWhileNotNull(
+            GenericCollections.traverseWhileNotNull(
                 start = start,
                 processCurrentLevel = {
                     idCallOrder += it.id
@@ -419,7 +422,7 @@ class GenericTest {
         @Test
         fun singleLevel() = assertCalled { shouldBeCalled ->
             val start = GenericTestTreeStructure("id", parent = null)
-            Generic.traverseWhileNotNullAndNoCycles(
+            GenericCollections.traverseWhileNotNullAndNoCycles(
                 start = start,
                 processCurrentLevel = {
                     it.id.assert("id")
@@ -440,7 +443,7 @@ class GenericTest {
                     parent = null
                 )
             )
-            Generic.traverseWhileNotNullAndNoCycles(
+            GenericCollections.traverseWhileNotNullAndNoCycles(
                 start = start,
                 processCurrentLevel = {
                     idCallOrder += it.id
@@ -465,7 +468,7 @@ class GenericTest {
             )
 
             val idCallOrder = mutableListOf<String>()
-            Generic.traverseWhileNotNullAndNoCycles(
+            GenericCollections.traverseWhileNotNullAndNoCycles(
                 start = start,
                 processCurrentLevel = {
                     idCallOrder += it.id

@@ -3,6 +3,8 @@
 package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.extensions.primitives.int.*
@@ -30,7 +32,7 @@ public inline fun StringConversion.fromHexStringToByteArray(): ShortArray? = wit
     //we have the hex prefix iff it starts with "0x". strip that iff necessary
     val string = skipStartsWith("0x", true)
     val result = ShortArray(string.length / 2)
-    GenericCollectionExtensions.forEach2Indexed(string.length, string::get) { index: Int, first: Char, second: Char ->
+    GenericCollections.forEach2Indexed(string.length, string::get) { index: Int, first: Char, second: Char ->
         val shortValue = hexCharsToValue(first, second) ?: return@with null
         result[index / 2] = shortValue
     }

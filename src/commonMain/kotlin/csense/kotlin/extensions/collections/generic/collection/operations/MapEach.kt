@@ -5,7 +5,6 @@ package csense.kotlin.extensions.collections.generic.collection.operations
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.collection.*
-import csense.kotlin.patterns.generic.*
 
 
 

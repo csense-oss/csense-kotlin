@@ -323,7 +323,7 @@ public inline fun String.isOnlyDigits(): Boolean = when {
 public inline fun String.forEachBackwards(
     action: FunctionUnit<Char>
 ): Unit =
-    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(count(), this::elementAt, action)
 
 /**
  *
@@ -334,7 +334,7 @@ public inline fun String.forEachBackwards(
 public inline fun String.forEachBackwardsIndexed(
     action: Function2Unit<@IntLimit(from = 0) Int, Char>
 ): Unit =
-    GenericCollectionExtensions.forEachBackwardsIndexed(count(), this::elementAt, action)
+    GenericCollections.forEachBackwardsIndexed(count(), this::elementAt, action)
 
 /**
  * Tells if this is a new line (either windows or unix)

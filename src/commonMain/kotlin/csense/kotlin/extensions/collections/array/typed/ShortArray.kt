@@ -4,7 +4,8 @@ package csense.kotlin.extensions.collections.array.typed
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.array.shared.*
-import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
 
 /**
@@ -22,5 +23,5 @@ public inline fun <U> ShortArray.forEachDiscard(receiver: Function1<Short, U>): 
  * Performs backwards traversal on this [ShortArray].
  */
 public inline fun ShortArray.forEachBackwards(action: FunctionUnit<Short>): Unit =
-    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(count(), this::elementAt, action)
 //endregion

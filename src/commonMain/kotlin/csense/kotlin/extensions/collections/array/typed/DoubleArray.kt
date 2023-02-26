@@ -4,6 +4,8 @@ package csense.kotlin.extensions.collections.array.typed
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.array.shared.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
 
 /**
@@ -18,4 +20,4 @@ public inline fun <U> DoubleArray.forEachDiscard(receiver: Function1<Double, U>)
  * Performs backwards traversal on this [DoubleArray].
  */
 public inline fun DoubleArray.forEachBackwards(action: FunctionUnit<Double>): Unit =
-    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(count(), this::elementAt, action)

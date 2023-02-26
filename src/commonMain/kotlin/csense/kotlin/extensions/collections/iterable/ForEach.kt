@@ -6,6 +6,8 @@ package csense.kotlin.extensions.collections.iterable
 import csense.kotlin.*
 import csense.kotlin.Function1
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.general.*
 import csense.kotlin.extensions.mapping.*
 
@@ -26,7 +28,7 @@ public inline fun <E : Any> Iterable<E?>.forEachNotNull(action: FunctionUnit<E>)
  * Might be suboptimal for collection that does not store the count
  */
 public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
-    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(count(), this::elementAt, action)
 
 /**
  * invokes the given action on each item that is of the expected type (U)

@@ -12,6 +12,8 @@ import csense.kotlin.general.*
 import csense.kotlin.Function1
 import csense.kotlin.Function2
 import csense.kotlin.classes.map.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.specificExtensions.collections.map.*
 import kotlin.contracts.*
 import kotlin.experimental.*
@@ -36,7 +38,7 @@ public inline fun <K, V> Map<K, V>.forEachIndexed(action: (entry: Map.Entry<K, V
  * @param action [FunctionUnit]<T>
  */
 public inline fun <K, V> Map<K, V>.foreachBackwards(action: FunctionUnit<Map.Entry<K, V>>): Unit =
-    GenericCollectionExtensions.forEachBackwards(size, this.entries::elementAt, action)
+    GenericCollections.forEachBackwards(size, this.entries::elementAt, action)
 
 /**
  * Filters by the given predicate and maps out the key

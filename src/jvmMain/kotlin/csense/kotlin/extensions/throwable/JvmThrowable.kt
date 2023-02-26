@@ -2,9 +2,9 @@
 
 package csense.kotlin.extensions.throwable
 
-import csense.kotlin.extensions.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.stringBuilder.*
-import csense.kotlin.patterns.generic.*
 
 
 public inline fun Throwable.toSensitiveStackTraceString(): String {
@@ -26,7 +26,7 @@ public inline fun Throwable.formatToString(
     onSuppressed: (Throwable) -> String,
 ): String {
     val result = StringBuilder()
-    Generic.traverseWhileNotNullAndNoCycles(
+    GenericCollections.traverseWhileNotNullAndNoCycles(
         start = this,
         processCurrentLevel = {
             result.appendLineIfNotBlank(onException(it))

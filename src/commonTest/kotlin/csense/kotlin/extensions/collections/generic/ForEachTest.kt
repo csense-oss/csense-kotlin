@@ -1,23 +1,25 @@
 package csense.kotlin.extensions.collections.generic
 
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class ForEachTest {
     @Test
     fun genericCollectionExtensionsCanNotForeach2() {
-        GenericCollectionExtensions.canNotForeach2(0).assertTrue()
-        GenericCollectionExtensions.canNotForeach2(1).assertTrue()
-        GenericCollectionExtensions.canNotForeach2(2).assertFalse()
-        GenericCollectionExtensions.canNotForeach2(3).assertTrue()
-        GenericCollectionExtensions.canNotForeach2(4).assertFalse()
+        GenericCollections.canNotForeach2(0).assertTrue()
+        GenericCollections.canNotForeach2(1).assertTrue()
+        GenericCollections.canNotForeach2(2).assertFalse()
+        GenericCollections.canNotForeach2(3).assertTrue()
+        GenericCollections.canNotForeach2(4).assertFalse()
     }
 
 
     class GenericCollectionExtensionsMapEach2Indexed {
         @Test
         fun empty() {
-            GenericCollectionExtensions.mapEach2Indexed(
+            GenericCollections.mapEach2Indexed(
                 length = 0,
                 getter = { shouldNotBeCalled() },
                 mapper = { _, _, _ -> shouldNotBeCalled() }
@@ -26,7 +28,7 @@ class ForEachTest {
 
         @Test
         fun single() {
-            GenericCollectionExtensions.mapEach2Indexed(
+            GenericCollections.mapEach2Indexed(
                 length = 1,
                 getter = { shouldNotBeCalled() },
                 mapper = { _, _, _ -> shouldNotBeCalled() }
@@ -41,7 +43,7 @@ class ForEachTest {
 
                 var getCallCount = 0
                 var mapperCallCount = 0
-                GenericCollectionExtensions.mapEach2Indexed(
+                GenericCollections.mapEach2Indexed(
                     length = 2,
                     getter = {
                         expectedValue(it)
@@ -65,7 +67,7 @@ class ForEachTest {
     class GenericCollectionExtensionsMapEach2 {
         @Test
         fun empty() {
-            GenericCollectionExtensions.mapEach2(
+            GenericCollections.mapEach2(
                 length = 0,
                 getter = { shouldNotBeCalled() },
                 mapper = { _, _ -> shouldNotBeCalled() }
@@ -74,7 +76,7 @@ class ForEachTest {
 
         @Test
         fun single() {
-            GenericCollectionExtensions.mapEach2(
+            GenericCollections.mapEach2(
                 length = 1,
                 getter = { shouldNotBeCalled() },
                 mapper = { _, _ -> shouldNotBeCalled() }
@@ -86,7 +88,7 @@ class ForEachTest {
             val data = listOf(42, 11)
             val indexes = listOf(0, 1)
             assertCallbackCalledWith(indexes) { expectedValue ->
-                GenericCollectionExtensions.mapEach2(
+                GenericCollections.mapEach2(
                     length = 2,
                     getter = {
                         expectedValue(it)
@@ -106,7 +108,7 @@ class ForEachTest {
     class GenericCollectionExtensionsForEach2Indexed {
         @Test
         fun empty() {
-            GenericCollectionExtensions.forEach2Indexed(
+            GenericCollections.forEach2Indexed(
                 length = 0,
                 getter = { shouldNotBeCalled() },
                 action = { _, _, _ -> shouldNotBeCalled() }
@@ -115,7 +117,7 @@ class ForEachTest {
 
         @Test
         fun single() {
-            GenericCollectionExtensions.forEach2Indexed(
+            GenericCollections.forEach2Indexed(
                 length = 1,
                 getter = { shouldNotBeCalled() },
                 action = { _, _, _ -> shouldNotBeCalled() }
@@ -128,7 +130,7 @@ class ForEachTest {
             val getterIndexes = listOf(0, 1)
             assertCalled { shouldBeCalled ->
                 assertCallbackCalledWith(getterIndexes) { expectedIndex ->
-                    GenericCollectionExtensions.forEach2Indexed(
+                    GenericCollections.forEach2Indexed(
                         length = 2,
                         getter = {
                             expectedIndex(it)
@@ -150,7 +152,7 @@ class ForEachTest {
     class GenericCollectionExtensionsForEach2 {
         @Test
         fun empty() {
-            GenericCollectionExtensions.forEach2(
+            GenericCollections.forEach2(
                 length = 0,
                 getter = { shouldNotBeCalled() },
                 action = { _, _ -> shouldNotBeCalled() }
@@ -159,7 +161,7 @@ class ForEachTest {
 
         @Test
         fun single() {
-            GenericCollectionExtensions.forEach2(
+            GenericCollections.forEach2(
                 length = 1,
                 getter = { shouldNotBeCalled() },
                 action = { _, _ -> shouldNotBeCalled() }
@@ -172,7 +174,7 @@ class ForEachTest {
             val getterIndexes = listOf(0, 1)
             assertCalled { shouldBeCalled ->
                 assertCallbackCalledWith(getterIndexes) { expectedIndex ->
-                    GenericCollectionExtensions.forEach2(
+                    GenericCollections.forEach2(
                         length = 2,
                         getter = {
                             expectedIndex(it)
@@ -194,7 +196,7 @@ class ForEachTest {
     class GenericCollectionExtensionsForEachBackwardsIndexed {
         @Test
         fun empty() {
-            GenericCollectionExtensions.forEachBackwardsIndexed(
+            GenericCollections.forEachBackwardsIndexed(
                 length = 0,
                 getter = {
                     shouldNotBeCalled()
@@ -206,7 +208,7 @@ class ForEachTest {
 
         @Test
         fun single() = assertCalled { shouldBeCalled ->
-            GenericCollectionExtensions.forEachBackwardsIndexed(
+            GenericCollections.forEachBackwardsIndexed(
                 length = 1,
                 getter = {
                     42
@@ -224,7 +226,7 @@ class ForEachTest {
             val reverseIndexed = listOf(1, 0)
             assertCallbackCalledWith(data.reversed()) { expectedValue ->
                 assertCallbackCalledWith(reverseIndexed) { expectedIndex ->
-                    GenericCollectionExtensions.forEachBackwardsIndexed(
+                    GenericCollections.forEachBackwardsIndexed(
                         length = data.size,
                         getter = {
                             data[it]
@@ -242,7 +244,7 @@ class ForEachTest {
     class GenericCollectionExtensionsForEachBackwards {
         @Test
         fun empty() {
-            GenericCollectionExtensions.forEachBackwards(
+            GenericCollections.forEachBackwards(
                 length = 0,
                 getter = {
                     shouldNotBeCalled()
@@ -254,7 +256,7 @@ class ForEachTest {
 
         @Test
         fun single() = assertCalled { shouldBeCalled ->
-            GenericCollectionExtensions.forEachBackwards(
+            GenericCollections.forEachBackwards(
                 length = 1,
                 getter = {
                     42
@@ -269,7 +271,7 @@ class ForEachTest {
         fun multiple() {
             val data = listOf(42, 22)
             assertCallbackCalledWith(data.reversed()) { expectedValue ->
-                GenericCollectionExtensions.forEachBackwards(
+                GenericCollections.forEachBackwards(
                     length = data.size,
                     getter = {
                         data[it]

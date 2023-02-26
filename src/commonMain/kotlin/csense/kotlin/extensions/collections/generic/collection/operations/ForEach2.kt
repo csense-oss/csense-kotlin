@@ -1,4 +1,4 @@
-@file:Suppress("UnusedReceiverParameter")
+@file:Suppress("UnusedReceiverParameter", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions.collections.generic.collection.operations
 

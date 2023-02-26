@@ -1,5 +1,7 @@
 package csense.kotlin.extensions.collections.generic
 
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -9,7 +11,7 @@ class SharedCollectionTest {
     class GenericCollectionExtensionsJoinEveryAction {
         @Test
         fun empty() = assertCalled { shouldBeCalled ->
-            GenericCollectionExtensions.joinEveryAction<String, String>(
+            GenericCollections.joinEveryAction<String, String>(
                 itemsBetweenJoins = 0,
                 toJoinAction = { shouldNotBeCalled() },
                 size = 0,
@@ -24,7 +26,7 @@ class SharedCollectionTest {
 
         @Test
         fun singleBadJoins() = assertCalled { shouldBeCalled ->
-            GenericCollectionExtensions.joinEveryAction<String, String>(
+            GenericCollections.joinEveryAction<String, String>(
                 itemsBetweenJoins = 0,
                 toJoinAction = { shouldNotBeCalled() },
                 size = 1,
@@ -38,7 +40,7 @@ class SharedCollectionTest {
 
         @Test
         fun single() = assertCalled(times = 2) { shouldBeCalled ->
-            val result = GenericCollectionExtensions.joinEveryAction(
+            val result = GenericCollections.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = { shouldNotBeCalled() },
                 size = 1,
@@ -59,7 +61,7 @@ class SharedCollectionTest {
 
         @Test
         fun multipleWithJoin() = assertCalled(times = 4) { shouldBeCalled ->
-            val result = GenericCollectionExtensions.joinEveryAction(
+            val result = GenericCollections.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = {
                     shouldBeCalled()

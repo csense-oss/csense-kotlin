@@ -9,6 +9,8 @@ import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.general.*
 import csense.kotlin.Function1
 import csense.kotlin.Function2
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
 /**
  * is this NOT null or blank, akk it's not null nor a "blank" [CharSequence]
@@ -235,7 +237,7 @@ public inline fun CharSequence.indexOfLastOrNull(
 }
 
 public inline fun CharSequence.indexOfLastIndexedOrNull(predicate: Function2<Int, Char, Boolean>): Int? {
-    GenericCollectionExtensions.forEachBackwardsIndexed(length = length, getter = this::get) { index, char ->
+    GenericCollections.forEachBackwardsIndexed(length = length, getter = this::get) { index, char ->
         if (predicate(index, char)) {
             return@indexOfLastIndexedOrNull index
         }

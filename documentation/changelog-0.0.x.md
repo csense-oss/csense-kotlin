@@ -64,7 +64,7 @@
         - string.ifNotEmpty
         - string.ifNotBlank
         - StringModification.replaceIfOr
-        - GenericCollectionExtensions.joinEveryAction
+        - GenericCollections.joinEveryAction
         - Any.invokeIsInstance
         - Map<K, V>.useValueOr
         - Boolean.onFalse
@@ -149,7 +149,7 @@
 
 - Removed
     - deprecated things (most had a deprecation cycle of 4+ releases)
-        - if using the foreach2 extensions the general function is still available at GenericCollectionExtensions.{name}
+        - if using the foreach2 extensions the general function is still available at GenericCollections.{name}
 
     - Workaround for coroutines tests (runTest)
 

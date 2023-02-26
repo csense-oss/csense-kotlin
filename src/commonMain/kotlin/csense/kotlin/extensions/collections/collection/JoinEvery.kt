@@ -4,6 +4,8 @@ package csense.kotlin.extensions.collections.collection
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
 
 /**
@@ -36,7 +38,7 @@ public inline fun <Item> Collection<Item>.joinEveryAction(
     if (itemsBetweenJoin <= 0) {
         return this.toList()
     }
-    return GenericCollectionExtensions.joinEveryAction(
+    return GenericCollections.joinEveryAction(
         itemsBetweenJoins = itemsBetweenJoin,
         toJoinAction = toJoinAction,
         size = size,

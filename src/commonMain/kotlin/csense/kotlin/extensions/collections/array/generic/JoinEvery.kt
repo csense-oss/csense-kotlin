@@ -4,6 +4,8 @@ package csense.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
 
 public inline fun <reified T> Array<T>.joinEvery(
@@ -28,7 +30,7 @@ public inline fun <reified T> Array<T>.joinEveryAction(
     if (itemsBetweenJoins <= 0) {
         return this
     }
-    return GenericCollectionExtensions.joinEveryAction(
+    return GenericCollections.joinEveryAction(
         itemsBetweenJoins = itemsBetweenJoins,
         toJoinAction = toJoinAction,
         size = size,

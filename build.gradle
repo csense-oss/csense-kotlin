@@ -44,7 +44,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "8.0.0"
+    id "org.owasp.dependencycheck" version "8.1.0"
 }
 
 repositories {
@@ -58,8 +58,14 @@ repositories {
 kotlin {
     setExplicitApi(ExplicitApiMode.Strict)
 
-    jvm {
+    iosX64 {
 
+    }
+    macosX64 {
+
+    }
+
+    jvm {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
@@ -111,6 +117,13 @@ kotlin {
         }
 
         jsTest {
+
+        }
+
+        iosX64 {
+
+        }
+        macosX64 {
 
         }
 

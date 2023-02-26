@@ -8,13 +8,13 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.classes.general.*
 import csense.kotlin.extensions.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.charSequence.*
 import csense.kotlin.extensions.primitives.int.*
 import csense.kotlin.general.*
-import csense.kotlin.patterns.generic.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 
@@ -259,7 +259,7 @@ public inline fun StringModification.replaceEachOccurrence(
 ): String {
     val result = StringBuilder()
 
-    val lastFoundIndexOrStart = Generic.traverseWithPreviousWhileNotNull(
+    val lastFoundIndexOrStart = GenericCollections.traverseWithPreviousWhileNotNull(
         start = 0,
         processCurrentLevel = { previousIndex, currentIndex ->
             result.append(string, previousIndex, currentIndex)

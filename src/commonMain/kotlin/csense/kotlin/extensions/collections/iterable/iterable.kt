@@ -392,7 +392,7 @@
 // * Might be suboptimal for collection that does not store the count
 // */
 //public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Unit =
-//    GenericCollectionExtensions.forEachBackwards(count(), this::elementAt, action)
+//    GenericCollections.forEachBackwards(count(), this::elementAt, action)
 ////endregion
 //
 ///**
