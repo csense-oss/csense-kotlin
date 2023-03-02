@@ -9,10 +9,10 @@ buildscript {
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.59"
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.0.50"
+    ext.csenseAnnotationVersion = "0.0.60"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.8.0"
+    ext.kotlin_version = "1.8.10"
 
     //https://github.com/Kotlin/kotlinx-benchmark
     ext.kotlinx_benchmark_version = "0.4.7"
