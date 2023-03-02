@@ -1,7 +1,8 @@
 # Changelog
 
 ## 0.0.60
-
+- now available on tier 1 & tier 2 (mostly) targets + mingw
+- now targets java 11 
 - deprecated
     - LLogger
     - Throwable.stackTraceToString (kotlin std lib already has this extension)
@@ -56,7 +57,6 @@
     - Expected 
       - namespaces 
       - some operators were inconsistent
-      - 
 
 ### Logging 
 

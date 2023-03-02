@@ -1,14 +1,16 @@
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+
 buildscript {
 
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.6.4"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.59"
+    ext.csenseTestsVersion = "0.0.60"
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.0.50"
+    ext.csenseAnnotationVersion = "0.0.61"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.7.20"
+    ext.kotlin_version = "1.8.10"
 
     //https://github.com/Kotlin/kotlinx-benchmark
     ext.kotlinx_benchmark_version = "0.4.5"
@@ -16,7 +18,7 @@ buildscript {
     //library settings - https://github.com/csense-oss/csense-kotlin
 
     //This library version
-    ext.csenseVersionName = "0.0.60-snapshot2"
+    ext.csenseVersionName = "0.0.60-snapshot3"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"
@@ -42,7 +44,7 @@ plugins {
     //https://github.com/Kotlin/kotlinx-benchmark
     id 'org.jetbrains.kotlinx.benchmark' version "$kotlinx_benchmark_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "7.2.1"
+    id "org.owasp.dependencycheck" version "8.1.2"
 }
 
 repositories {
@@ -54,18 +56,17 @@ repositories {
 }
 
 kotlin {
-    explicitApi = 'strict'
+    explicitApi = ExplicitApiMode.Strict
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = '1.8'
-
+        compilations.configureEach {
+            kotlinOptions.jvmTarget = '11'
         }
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
     }
-    js(BOTH) { //https://kotlinlang.org/docs/reference/whatsnew14.html#new-js-ir-backend
+    js(IR) {
         browser {
             testTask {
                 useKarma {
@@ -76,6 +77,32 @@ kotlin {
         }
         nodejs()
     }
+
+
+    //Native targets, based on https://kotlinlang.org/docs/native-target-support.html
+    //- tier 1
+    linuxX64()
+    macosX64()
+    macosArm64()
+    iosSimulatorArm64()
+    iosX64()
+
+    //- tier 2
+    //linuxArm64() //cannot be done due to coroutines missing this target... will be added later.
+    watchosSimulatorArm64()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    iosArm64()
+
+    //- tier 3 (some)
+    mingwX64()
+    //end native targets
+
+
 
     sourceSets {
         commonMain {
@@ -111,7 +138,7 @@ kotlin {
         }
         all {
             languageSettings {
-                languageVersion = "1.7"
+                languageVersion = "1.8"
                 optIn("kotlin.contracts.ExperimentalContracts")
                 progressiveMode = true
             }
@@ -145,13 +172,13 @@ apply from: "$rootDir/gradle/publish.gradle"
 
 task uploadProd(dependsOn: ["assemble", "allTests", "dependencyCheckAggregate", "publish"])
 
-
-benchmark {
-    targets {
-        register("jvmTest") {
-            //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
-            jmhVersion = "1.35" // available only for JVM compilations & Java source sets
-        }
-    }
-}
-
+//
+//benchmark {
+//    targets {
+//        register("jvmTest") {
+//            //see https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core / https://github.com/openjdk/jmh
+//            jmhVersion = "1.35" // available only for JVM compilations & Java source sets
+//        }
+//    }
+//}
+//
