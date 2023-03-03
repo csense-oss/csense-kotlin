@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.0.60
+
+- deprecated LLogger
+- deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
+- added CsenseLogger
+    - made all "logging" related function(s) use this
+- added
+    - String.isOnlyDigits()
+    - StringModification.replaceEachOccurrenceIndexed
+    - StringModification.replaceEachOccurrence
+    - StringBuilder.appendLineIfNotEmpty
+    - StringBuilder.appendLineIfNotBlank
+    - Generic.traverseWhileNotNull
+    - Generic.traverseWhileNotNullAndNoCycles
+    - Throwable (JVM)
+        - toSensitiveStackTraceString
+        - formatToString
+    - nullable deprecated methods for avoid "misuse" of nullable functions
+      - also for CharSequence nullable extensions
+    
+- breaking lazyArgument (by splitting it into 2 things)
+    - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
+      possible (since property delegation is impossible with arguments)
+    - LazyArgumentConstructor  the old version (taking a constructor function in the getter)
+
+
 ## 0.0.59
 
 - added

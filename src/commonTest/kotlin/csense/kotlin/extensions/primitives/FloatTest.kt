@@ -114,4 +114,9 @@ class FloatTest {
         100.99f.decimalPart().assert(value = 0.99f, delta = 0.0001f)
         100.0005f.decimalPart().assert(value = 0.0005f, delta = 0.0001f)
     }
+
+    @Test
+    fun isNotNaN() {
+        TODO()
+    }
 }

@@ -101,3 +101,9 @@ public inline fun Double.decimalPart(): Double =
  */
 public inline fun Double.withDecimalPart(decimalPart: Double): Double =
     withoutDecimalPart() + decimalPart.decimalPart()
+
+/**
+ * Tells if this is either [Double.isFinite] or [Double.isInfinite]
+ * @return Boolean true means this is either  [Double.isFinite] or [Double.isInfinite], false means this is [Double.isNaN]
+ */
+public fun Double.isNotNaN(): Boolean = !isNaN()

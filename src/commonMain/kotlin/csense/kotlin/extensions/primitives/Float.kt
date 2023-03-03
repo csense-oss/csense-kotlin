@@ -130,3 +130,9 @@ public inline fun Float.decimalPart(): Float =
  */
 public inline fun Float.withDecimalPart(decimalPart: Float): Float =
     withoutDecimalPart() + decimalPart.decimalPart()
+
+/**
+ * Tells if this is either [Float.isFinite] or [Float.isInfinite]
+ * @return Boolean true means this is either  [Float.isFinite] or [Float.isInfinite], false means this is [Float.isNaN]
+ */
+public inline fun Float.isNotNaN(): Boolean = !isNaN()

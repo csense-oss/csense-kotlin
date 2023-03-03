@@ -14,6 +14,12 @@ public inline fun CharSequence?.isNotNullOrBlank(): Boolean {
     return this != null && this.isNotBlank()
 }
 
+@Deprecated(
+    "receiver known at compile time to not be null. should use isNotBlank instead", 
+    level = DeprecationLevel.ERROR
+)
+public inline fun CharSequence.isNotNullOrBlank(): Nothing = unexpected()
+
 /**
  * is this NOT null or empty, akk it's not null nor an empty [CharSequence] (length = 0)
  *
@@ -24,6 +30,11 @@ public inline fun CharSequence?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+@Deprecated(
+    "receiver known at compile time to not be null. should use isNotEmpty instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun CharSequence.isNotNullOrEmpty(): Nothing  = unexpected()
 
 //region indexOfOrNull
 /**

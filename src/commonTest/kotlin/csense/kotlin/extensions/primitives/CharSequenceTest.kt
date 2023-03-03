@@ -9,18 +9,36 @@ class CharSequenceTest {
     fun isNotNullOrBlank() {
         val nullStr: String? = null
         nullStr.isNotNullOrBlank().assert(false)
-        "".isNotNullOrBlank().assert(false)
-        " ".isNotNullOrBlank().assert(false)
-        "test".isNotNullOrBlank().assert(true)
+
+        @Suppress("RedundantNullableReturnType")
+        val empty: String? = ""
+        empty.isNotNullOrBlank().assert(false)
+
+        @Suppress("RedundantNullableReturnType")
+        val singleSpace: String? = " "
+        singleSpace.isNotNullOrBlank().assert(false)
+
+        @Suppress("RedundantNullableReturnType")
+        val testString: String? = "test"
+        testString.isNotNullOrBlank().assert(true)
     }
 
     @Test
     fun isNotNullOrEmpty() {
         val nullStr: String? = null
-        nullStr.isNotNullOrEmpty()
-        "".isNotNullOrEmpty().assert(false)
-        " ".isNotNullOrEmpty().assert(true)
-        "test".isNotNullOrEmpty().assert(true)
+        nullStr.isNotNullOrEmpty().assertFalse()
+
+        @Suppress("RedundantNullableReturnType")
+        val empty: String? = ""
+        empty.isNotNullOrEmpty().assertFalse()
+
+        @Suppress("RedundantNullableReturnType")
+        val singleSpace: String? = " "
+        singleSpace.isNotNullOrEmpty().assertTrue()
+
+        @Suppress("RedundantNullableReturnType")
+        val testString: String? = "test"
+        testString.isNotNullOrEmpty().assertTrue()
     }
 
     @Test

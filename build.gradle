@@ -16,7 +16,7 @@ buildscript {
     //library settings - https://github.com/csense-oss/csense-kotlin
 
     //This library version
-    ext.csenseVersionName = "0.0.59"
+    ext.csenseVersionName = "0.0.60-snapshot3"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"
@@ -109,7 +109,8 @@ kotlin {
         }
         all {
             languageSettings {
-                optIn("kotlin.RequiresOptIn")
+                languageVersion = "1.8"
+                optIn("kotlin.contracts.ExperimentalContracts")
                 progressiveMode = true
             }
         }
