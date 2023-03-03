@@ -93,8 +93,7 @@ class ExpectedTest {
 
     }
 
-    @Test
-    fun expectedAction() {
+    class ExpectedAction {
 
         @Test
         fun actionThatReturnsFailed() {

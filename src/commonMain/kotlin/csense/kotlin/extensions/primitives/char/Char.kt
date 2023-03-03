@@ -47,7 +47,7 @@ public inline fun Char.asHexDigit(): Byte? {
         return asNumber
     }
     //then It's either [A-F] or not a hex
-    val thisByte = lowercaseChar().code - CharExtensions.charAAsByte
+    val thisByte: Int = lowercaseChar().code - CharExtensions.charAAsByte
     if (thisByte.isNegative || thisByte > CharExtensions.hexCharsCount) {
         return null
     }
@@ -73,18 +73,23 @@ public inline fun hexCharsToValue(first: Char, second: Char): Short? {
 
 /**
  * Tells if this [Char] is uppercase
- * for native use this implementation
- *  toUpperCase().equals(this, false) unless you know a better way (with no alloc)
  */
-public expect inline fun Char.isUpperCaseLetter(): Boolean
-
+public inline fun Char.isUpperCaseLetter(): Boolean {
+    if (this.isNotLetter()) {
+        return false
+    }
+    return uppercaseChar().equals(other = this, ignoreCase = false)
+}
 
 /**
  * Tells if this [Char] is lowercase
- * for native use this implementation
- *  toLowerCase().equals(this, false) unless you know a better way (with no alloc)
  */
-public expect inline fun Char.isLowerCaseLetter(): Boolean
+public inline fun Char.isLowerCaseLetter(): Boolean {
+    if (this.isNotLetter()) {
+        return false
+    }
+    return lowercaseChar().equals(other = this, ignoreCase = false)
+}
 
 /**
  * Tells if this is a number / digit (0,1,2,3,4,5,6,7,8,9)
@@ -133,4 +138,84 @@ public inline fun Char.isNotWhitespace(): Boolean = !isWhitespace()
 
 public inline fun Char.isNotEqual(other: Char, ignoreCase: Boolean = false): Boolean {
     return !equals(other, ignoreCase)
+}
+
+
+/**
+ *
+ * @receiver [Char]
+ * @return [Boolean]
+ * see
+ * https://en.wikipedia.org/wiki/List_of_Unicode_characters
+ */
+public inline fun Char.isSymbol(): Boolean {
+    return isNotLetter() && isNotDigit()
+}
+
+//INCOMPLETE
+/**
+ *
+ * @receiver [Char]
+ * @return [Boolean]
+ * see
+ * https://en.wikipedia.org/wiki/List_of_Unicode_characters
+ */
+public fun Char.isLetter(): Boolean {
+    return CharTable.isCharInTable(this)
+}
+
+public inline fun Char.isNotLetter(): Boolean =
+    !isLetter()
+
+//TODO move and improve
+internal object CharTable {
+
+
+    //see https://en.wikipedia.org/wiki/List_of_Unicode_characters
+    private val latinLowerCase: CharRange = 'a'..'z'
+    private val latinUpperCase: CharRange = 'A'..'Z'
+    private val latin1SuppUpperCase: CharRange = 'À'..'Ö'
+    private val latin1SuppUpperCase2: CharRange = 'Ø'..'Þ'
+    private val latin1SuppLowerCase: CharRange = 'ß'..'ö'
+    private val latin1SuppLowerCase2: CharRange = 'ø'..'ÿ'
+    private val europeanLatinAndExtended: CharRange = 'Ā'..'ɏ'
+    private val latinExtendedAdditional: CharRange = 'Ḁ'..'ỿ' //https://en.wikipedia.org/wiki/Latin_Extended_Additional
+    private val greekCoptic: CharRange = 'Ͱ'..'Ͽ'
+    private val geekExtended: CharRange = 'ἀ'..'῾'
+    private val cyrillic: CharRange = 'Ѐ'..'ӿ'
+
+    //https://en.wikipedia.org/wiki/Latin_Extended-C
+    private val latinExtendedCBlock: CharRange = 'Ⱡ'..'Ɀ'
+
+    //https://en.wikipedia.org/wiki/Latin_Extended-D
+    private val latinExtendedDBlock: CharRange = '꜠'..'ꟿ'
+
+    //https://en.wikipedia.org/wiki/Latin_Extended-E
+    private val latinExtendedEBlock: CharRange = 'ꬰ'..'꭫'
+////https://en.wikipedia.org/wiki/Latin_Extended-F
+//internal val latinExtendedFBlock: CharRange = '𐞀' .. '𐞺'
+////https://en.wikipedia.org/wiki/Latin_Extended-G
+//internal val latinExtendedGBlock: CharRange = '𝼀' .. '𝼪'
+
+    private val ipaExtensions: CharRange = 'ɐ'..'ʯ'
+
+    internal fun isCharInTable(char: Char): Boolean {
+        return char in latinLowerCase ||
+                char in latinUpperCase ||
+                char in latin1SuppUpperCase ||
+                char in latin1SuppUpperCase2 ||
+                char in latin1SuppLowerCase ||
+                char in latin1SuppLowerCase2 ||
+                char in europeanLatinAndExtended ||
+                char in latinExtendedAdditional ||
+                char in greekCoptic ||
+                char in geekExtended ||
+                char in cyrillic ||
+                char in latinExtendedCBlock ||
+                char in latinExtendedDBlock ||
+                char in latinExtendedEBlock ||
+//            char in latinExtendedFBlock||
+//            char in latinExtendedGBlock||
+                char in ipaExtensions
+    }
 }

@@ -6,7 +6,7 @@ import csense.kotlin.patterns.expected.*
 import kotlin.contracts.*
 
 
-@Throws
+@Throws(Throwable::class)
 public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
 ): Expected<Value, Error> = when (this) {
     is Expected.Success -> this

@@ -2,7 +2,7 @@ apply plugin: "maven-publish"
 
 
 afterEvaluate {
-    project.publishing.publications.all {
+    project.publishing.publications.configureEach {
         groupId = group
         // Rename MPP artifacts for backward compatibility
         def type = it.name
@@ -14,10 +14,7 @@ afterEvaluate {
                 apply from: "$rootDir/gradle/publish-mpp-root-module-in-platform.gradle"
                 publishPlatformArtifactsInRootModule(publishing.publications["jvm"])
                 break
-            case 'metadata':
-            case 'jvm':
-            case 'js':
-            case 'native':
+            default:
                 it.artifactId = "$project.name-$type"
                 break
         }
@@ -64,7 +61,7 @@ publishing {
             final Properties properties = new Properties()
             try {
                 properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            } catch (Exception) {
+            } catch (ignored) {
 
             }
             url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'

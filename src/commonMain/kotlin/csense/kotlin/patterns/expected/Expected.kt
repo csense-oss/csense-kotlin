@@ -61,7 +61,7 @@ public inline fun <Value, Error> expected(
     }
 }
 
-@Throws
+@Throws(Throwable::class)
 public inline fun <Value, Error> expected(
     action: Expected.Companion.ExpectedContext.() -> Expected<Value, Error>
 ): Expected<Value, Error> {
