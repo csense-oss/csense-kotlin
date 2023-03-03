@@ -445,16 +445,16 @@ class ExpectedTest {
 
         @Test
         fun actionThatReturnsFailed() {
-            val failed = expected<String, String>(action = {
+            val failed: Expected<String, String> = expected<String, String>(action = {
                 "failed".asFailed()
             })
             failed.assertIs<ExpectedFailed<String>>()
-            failed.error.assert("success")
+            failed.error.assert("failed")
         }
 
         @Test
         fun actionThatReturnsSuccess() {
-            val success = expected<String, String>(action = {
+            val success: Expected<String, String> = expected<String, String>(action = {
                 "success".asSuccess()
             })
             success.assertIs<ExpectedSuccess<String>>()
