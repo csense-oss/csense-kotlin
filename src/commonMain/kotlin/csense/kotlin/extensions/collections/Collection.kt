@@ -21,7 +21,7 @@ import kotlin.contracts.*
 
 @Deprecated("use isIndex... instead")
 public inline fun Collection<*>.isIndexValid(index: Int): Boolean =
-        index >= 0 && index < count()
+    index >= 0 && index < count()
 
 /**
  * Validates the given index for the given collection, accounting for inserting in the end (so 0 until (including) length)
@@ -183,7 +183,6 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
 }
 
 
-
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
     level = DeprecationLevel.ERROR
@@ -210,7 +209,6 @@ public inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     level = DeprecationLevel.ERROR
 )
 public inline fun Collection<Any>.isNullOrEmpty(): Nothing = unexpected()
-
 
 
 //TODO arrays ect ?s
@@ -501,4 +499,62 @@ public inline fun <Item, Result> Collection<Item>.mapToMutable(
     transform: (Item) -> Result
 ): MutableList<Result> = mappings.mapEachItemWith(ArrayList(size)) {
     this += transform(it)
+}
+
+//on empty
+public inline fun <Item> Collection<Item>.onEmpty(item: Item): Collection<Item> {
+    if (isNotEmpty()) {
+        return this
+    }
+    return listOf(item)
+}
+
+public inline fun <Item> Collection<Item>.onEmpty(items: Collection<Item>): Collection<Item> {
+    if (isNotEmpty()) {
+        return this
+    }
+    return items
+}
+
+public inline fun <Item> Collection<Item>?.onNullOrEmpty(item: Item): Collection<Item> {
+    if (isNotNullOrEmpty()) {
+        return this
+    }
+    return listOf(item)
+}
+
+public inline fun <Item> Collection<Item>?.onNullOrEmpty(items: Collection<Item>): Collection<Item> {
+    if (isNotNullOrEmpty()) {
+        return this
+    }
+    return items
+}
+
+// on empty lazy
+public inline fun <Item> Collection<Item>.onEmptyLazy(action: () -> Item): Collection<Item> {
+    if (isNotEmpty()) {
+        return this
+    }
+    return listOf(action())
+}
+
+public inline fun <Item> Collection<Item>.onEmptyLazy(action: () -> Collection<Item>): Collection<Item> {
+    if (isNotEmpty()) {
+        return this
+    }
+    return action()
+}
+
+public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Item): Collection<Item> {
+    if (isNotNullOrEmpty()) {
+        return this
+    }
+    return listOf(action())
+}
+
+public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Collection<Item>): Collection<Item> {
+    if (isNotNullOrEmpty()) {
+        return this
+    }
+    return action()
 }

@@ -5,6 +5,10 @@
 - tier 1 & 2 (mostly) + mingw native targets added
 
 - added
+    - RestartableJob
+    - floorMod
+    - Collection.onEmpty, Collection.onEmptyLazy
+    - 
     - nullable deprecated methods for avoid "misuse" of nullable functions
       (for all functions with involving nullable receivers and null as an action")
 

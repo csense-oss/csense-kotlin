@@ -30,4 +30,8 @@ public class RestartableJob(
     ) {
         runningJob?.cancel(cancellationException)
     }
+
+    public suspend fun join() {
+        runningJob?.join()
+    }
 }
