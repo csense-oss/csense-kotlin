@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 buildscript {
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.6.1"
+    ext.coroutinesVersion = "1.6.4"
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.60"
     //https://github.com/csense-oss/csense-kotlin-annotations
@@ -13,7 +13,7 @@ buildscript {
     ext.kotlin_version = "1.8.10"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.0.60-snapshot3"
+    ext.csenseVersionName = "0.0.60"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"
@@ -63,15 +63,32 @@ kotlin {
         }
     }
     js(IR) {
-        browser {
-            testTask {
-                useKarma {
-                    useFirefox()
-                }
-            }
-        }
+        browser()
         nodejs()
     }
+
+    //Native targets, based on https://kotlinlang.org/docs/native-target-support.html
+    //- tier 1
+    linuxX64()
+    macosX64()
+    macosArm64()
+    iosSimulatorArm64()
+    iosX64()
+
+    //- tier 2
+    //linuxArm64() //cannot be used as of now, due to coroutines not having this (will be fixed in the future)
+    watchosSimulatorArm64()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    iosArm64()
+
+    //- tier 3 (some)
+    mingwX64()
+    //end native targets
 
     sourceSets {
         commonMain {

@@ -3,26 +3,11 @@
 ## 0.0.60
 - targets java 11
 - tier 1 & 2 (mostly) + mingw native targets added
-- 
+
 - added
-    - String.isOnlyDigits()
-    - StringModification.replaceEachOccurrenceIndexed
-    - StringModification.replaceEachOccurrence
-    - StringBuilder.appendLineIfNotEmpty
-    - StringBuilder.appendLineIfNotBlank
-    - Generic.traverseWhileNotNull
-    - Generic.traverseWhileNotNullAndNoCycles
-    - Throwable (JVM)
-        - toSensitiveStackTraceString
-        - formatToString
     - nullable deprecated methods for avoid "misuse" of nullable functions
       (for all functions with involving nullable receivers and null as an action")
 
-
-- breaking lazyArgument (by splitting it into 2 things)
-    - the more precise meaning of LazyArgument (lazy with an argument). This resembles the lazy construct as much as
-      possible (since property delegation is impossible with arguments)
-    - LazyArgumentConstructor the old version (taking a constructor function in the getter)
 
 ## 0.0.59
 
