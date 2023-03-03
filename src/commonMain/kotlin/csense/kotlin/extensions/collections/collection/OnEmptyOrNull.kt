@@ -1,4 +1,11 @@
-@file:Suppress("UNUSED_PARAMETER", "NOTHING_TO_INLINE", "UnusedReceiverParameter","INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress(
+    "UNUSED_PARAMETER",
+    "NOTHING_TO_INLINE",
+    "UnusedReceiverParameter",
+    "INVISIBLE_MEMBER",
+    "INVISIBLE_REFERENCE"
+)
+
 package csense.kotlin.extensions.collections.collection
 
 import csense.kotlin.general.*
