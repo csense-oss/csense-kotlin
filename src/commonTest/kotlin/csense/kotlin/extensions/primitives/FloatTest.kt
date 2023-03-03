@@ -117,6 +117,11 @@ class FloatTest {
 
     @Test
     fun isNotNaN() {
-        TODO()
+        Float.NaN.isNotNaN().assertFalse()
+        Float.MAX_VALUE.isNotNaN().assertTrue()
+        Float.MIN_VALUE.isNotNaN().assertTrue()
+        Float.NEGATIVE_INFINITY.isNotNaN().assertTrue()
+        Float.POSITIVE_INFINITY.isNotNaN().assertTrue()
+        0F.isNotNaN().assertTrue()
     }
 }
