@@ -1,13 +1,9 @@
 # Changelog
 
 ## 0.0.60
-
-- deprecated LLogger
-- deprecated Throwable.stackTraceToString (kotlin std lib already has this extension)
-- deprecated Collection<*>.isIndexValidForInsert
-- deprecated Collection<*>.isIndexValid 
-- added CsenseLogger
-    - made all "logging" related function(s) use this
+- targets java 11
+- tier 1 & 2 (mostly) + mingw native targets added
+- 
 - added
     - String.isOnlyDigits()
     - StringModification.replaceEachOccurrenceIndexed

@@ -236,9 +236,9 @@ class CollectionTest {
         val nullCol: Collection<String>? = null
         nullCol.isNotNullOrEmpty().assert(false)
         val emptyCol: Collection<String> = listOf()
-        emptyCol.isNotNullOrEmpty().assert(false)
+        emptyCol.nullable().isNotNullOrEmpty().assert(false)
         val singleCol: Collection<String> = listOf("omg")
-        singleCol.isNotNullOrEmpty().assert(true)
+        singleCol.nullable().isNotNullOrEmpty().assert(true)
     }
 
     @Test
@@ -246,9 +246,9 @@ class CollectionTest {
         val nullCol: Collection<String>? = null
         nullCol.isNullOrEmpty().assert(true)
         val emptyCol: Collection<String> = listOf()
-        emptyCol.isNullOrEmpty().assert(true)
+        emptyCol.nullable().isNullOrEmpty().assert(true)
         val singleCol: Collection<String> = listOf("omg")
-        singleCol.isNullOrEmpty().assert(false)
+        singleCol.nullable().isNullOrEmpty().assert(false)
     }
 
     class IsAllTrue {
