@@ -441,8 +441,7 @@ class ExpectedTest {
 
     }
 
-    @Test
-    fun expectedAction() {
+    class ExpectedAction {
 
         @Test
         fun actionThatReturnsFailed() {
@@ -598,7 +597,6 @@ class ExpectedTest {
     }
 }
 
-class ErrorTypeException : Throwable()
 
 class ExpectedContextTest {
     @Test
@@ -623,3 +621,5 @@ class ExpectedContextTest {
         }.error.assert("hello")
     }
 }
+
+class ErrorTypeException : Throwable()

@@ -11,6 +11,7 @@ import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.specificExtensions.collections.collection.*
 import kotlin.contracts.*
+import kotlin.jvm.*
 
 /**
  * Validates the given index for the given collection (so 0 until length)
@@ -531,6 +532,7 @@ public inline fun <Item> Collection<Item>?.onNullOrEmpty(items: Collection<Item>
 }
 
 // on empty lazy
+@JvmName("onEmptyLazyItem")
 public inline fun <Item> Collection<Item>.onEmptyLazy(action: () -> Item): Collection<Item> {
     if (isNotEmpty()) {
         return this
@@ -538,12 +540,15 @@ public inline fun <Item> Collection<Item>.onEmptyLazy(action: () -> Item): Colle
     return listOf(action())
 }
 
+@JvmName("onEmptyLazyItems")
 public inline fun <Item> Collection<Item>.onEmptyLazy(action: () -> Collection<Item>): Collection<Item> {
     if (isNotEmpty()) {
         return this
     }
     return action()
 }
+
+@JvmName("onNullOrEmptyLazyItem")
 
 public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Item): Collection<Item> {
     if (isNotNullOrEmpty()) {
@@ -552,6 +557,7 @@ public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Item)
     return listOf(action())
 }
 
+@JvmName("onNullOrEmptyLazyItems")
 public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Collection<Item>): Collection<Item> {
     if (isNotNullOrEmpty()) {
         return this

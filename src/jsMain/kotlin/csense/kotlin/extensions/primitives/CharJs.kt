@@ -38,29 +38,29 @@ public fun Char.isLetter(): Boolean {
 public inline fun Char.isNotLetter(): Boolean =
     !isLetter()
 
-/**
- * tells if this [Char] is uppercase
- * space is lowercase always
- * numbers are always lowercase
- * @receiver [Char]
- * @return [Boolean]
- */
-public actual inline fun Char.isUpperCaseLetter(): Boolean {
-    if (isNotLetter()) {
-        return false
-    }
-    return uppercaseChar().equals(this, false)
-}
+///**
+// * tells if this [Char] is uppercase
+// * space is lowercase always
+// * numbers are always lowercase
+// * @receiver [Char]
+// * @return [Boolean]
+// */
+//public actual inline fun Char.isUpperCaseLetter(): Boolean {
+//    if (isNotLetter()) {
+//        return false
+//    }
+//    return uppercaseChar().equals(this, false)
+//}
 
-/**
- * tells if this [Char] is lowercase
- * numbers are always lowercase
- * @receiver [Char]
- * @return [Boolean]
- */
-public actual inline fun Char.isLowerCaseLetter(): Boolean {
-    if (isNotLetter()) {
-        return false
-    }
-    return lowercaseChar().equals(this, false)
-}
+///**
+// * tells if this [Char] is lowercase
+// * numbers are always lowercase
+// * @receiver [Char]
+// * @return [Boolean]
+// */
+//public actual inline fun Char.isLowerCaseLetter(): Boolean {
+//    if (isNotLetter()) {
+//        return false
+//    }
+//    return lowercaseChar().equals(this, false)
+//}
