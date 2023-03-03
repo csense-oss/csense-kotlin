@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions
 
+import csense.kotlin.*
 import kotlin.contracts.*
 
 
@@ -19,3 +20,9 @@ public inline fun <T> T?.isNullOrEqualTo(other: T?): Boolean {
     }
     return this == null || this == other
 }
+
+@Deprecated(
+    "Receiver known at compile time to not be null, thus isNull will always fail. Use equals instead",
+    level = DeprecationLevel.ERROR
+)
+public inline fun Any.isNullOrEqualTo(other: Any?): Nothing = unexpected()

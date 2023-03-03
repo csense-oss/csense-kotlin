@@ -101,19 +101,19 @@ class LongTest {
     fun longIsNotNullOrZero() {
         val nullable: Long? = null
         nullable.isNotNullOrZero().assertFalse("it is null")
-        (-1L).isNotNullOrZero().assertTrue("a nonnull or non zero number")
-        0L.isNotNullOrZero().assertFalse("this is zero")
-        1L.isNotNullOrZero().assertTrue("a nonnull or non zero number")
-        9999L.isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        (-1L).nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        0L.nullable().isNotNullOrZero().assertFalse("this is zero")
+        1L.nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        9999L.nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
     }
 
     @Test
     fun longIsNullOrZero() {
         val nullable: Long? = null
         nullable.isNullOrZero().assertTrue("it is null")
-        (-5L).isNullOrZero().assertFalse("is actually a number")
-        0L.isNullOrZero().assertTrue("is zero")
-        1L.isNullOrZero().assertFalse("is a number")
-        5000L.isNullOrZero().assertFalse()
+        (-5L).nullable().isNullOrZero().assertFalse("is actually a number")
+        0L.nullable().isNullOrZero().assertTrue("is zero")
+        1L.nullable().isNullOrZero().assertFalse("is a number")
+        5000L.nullable().isNullOrZero().assertFalse()
     }
 }

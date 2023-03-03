@@ -158,19 +158,19 @@ class IntTest {
     fun intIsNotNullOrZero() {
         val nullable: Int? = null
         nullable.isNotNullOrZero().assertFalse("it is null")
-        (-1).isNotNullOrZero().assertTrue("a nonnull or non zero number")
-        0.isNotNullOrZero().assertFalse("this is zero")
-        1.isNotNullOrZero().assertTrue("a nonnull or non zero number")
-        9999.isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        (-1).nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        0.nullable().isNotNullOrZero().assertFalse("this is zero")
+        1.nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
+        9999.nullable().isNotNullOrZero().assertTrue("a nonnull or non zero number")
     }
 
     @Test
     fun intIsNullOrZero() {
         val nullable: Int? = null
         nullable.isNullOrZero().assertTrue("it is null")
-        (-5).isNullOrZero().assertFalse("is actually a number")
-        0.isNullOrZero().assertTrue("is zero")
-        1.isNullOrZero().assertFalse("is a number")
-        5000.isNullOrZero().assertFalse()
+        (-5).nullable().isNullOrZero().assertFalse("is actually a number")
+        0.nullable().isNullOrZero().assertTrue("is zero")
+        1.nullable().isNullOrZero().assertFalse("is a number")
+        5000.nullable().isNullOrZero().assertFalse()
     }
 }

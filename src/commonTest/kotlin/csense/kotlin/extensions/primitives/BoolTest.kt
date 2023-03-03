@@ -39,31 +39,31 @@ class BoolTest {
     fun booleanIsNullOrFalse() {
         val opt: Boolean? = null
         opt.isNullOrFalse().assertTrue()
-        false.isNullOrFalse().assertTrue()
-        true.isNullOrFalse().assertFalse()
+        false.nullable().isNullOrFalse().assertTrue()
+        true.nullable().isNullOrFalse().assertFalse()
     }
 
     @Test
     fun booleanIsNullOrTrue() {
         val opt: Boolean? = null
         opt.isNullOrTrue().assertTrue()
-        false.isNullOrTrue().assertFalse()
-        true.isNullOrTrue().assertTrue()
+        false.nullable().isNullOrTrue().assertFalse()
+        true.nullable().isNullOrTrue().assertTrue()
     }
 
     @Test
     fun booleanIsNotNullOrTrue() {
         val opt: Boolean? = null
         opt.isNotNullOrTrue().assertFalse()
-        false.isNotNullOrTrue().assertTrue()
-        true.isNotNullOrTrue().assertFalse()
+        false.nullable().isNotNullOrTrue().assertTrue()
+        true.nullable().isNotNullOrTrue().assertFalse()
     }
 
     @Test
     fun booleanIsNotNullOrFalse() {
         val opt: Boolean? = null
         opt.isNotNullOrFalse().assertFalse()
-        false.isNotNullOrFalse().assertFalse()
-        true.isNotNullOrFalse().assertTrue()
+        false.nullable().isNotNullOrFalse().assertFalse()
+        true.nullable().isNotNullOrFalse().assertTrue()
     }
 }

@@ -113,7 +113,7 @@ public inline fun <Value, Error> expected(
 
 //TODO improve with annotations & exceptions plugin to only "throw" iff the action can throw.
 @Suppress("MissingTestFunction")
-@Throws
+@Throws(Throwable::class)
 public inline fun <Value, Error> expected(
     action: Expected.Companion.ExpectedContext.() -> Expected<Value, Error>
 ): Expected<Value, Error> {
@@ -137,7 +137,7 @@ public inline fun <Data> expectedCatching(
 }
 
 
-@Throws
+@Throws(Throwable::class)
 public inline fun <Value, reified Error> Expected<Value, Throwable>.withErrorType(
 ): Expected<Value, Error> {
     return when (this) {

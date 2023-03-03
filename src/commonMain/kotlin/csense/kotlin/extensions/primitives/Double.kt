@@ -52,7 +52,7 @@ public inline val Double.isPositiveOrZero: Boolean
  * If you need more margin, see [Double.equalsWithin]
  */
 public inline val Double.isZero: Boolean
-    get() = this.equalsWithin(0.0, 0.1)
+    get() = this.equalsWithin(value = 0.0, margin = 0.1)
 
 
 /**
@@ -72,6 +72,9 @@ public inline val Double.isNotZero: Boolean
  * @return [Boolean]
  */
 public inline fun Double.equalsWithin(value: Double, margin: Double = 0.1): Boolean {
+    if (this.isNaN() && value.isNaN()) {
+        return true
+    }
     val lower = value - margin.positive
     val upper = value + margin.positive
     return this in lower..upper
@@ -82,15 +85,21 @@ public inline fun Double.equalsWithin(value: Double, margin: Double = 0.1): Bool
  * Imprecise (thus 2.4 can become 2.000000<something> etc)
  */
 public inline fun Double.withoutDecimalPart(): Double {
-    return toInt().toDouble()
+    if (isInfinite() || isNaN()) {
+        return this
+    }
+    return this - decimalPart()
 }
 
 /**
  * The decimal part (2.4 becomes 0.4)
  * Imprecise (thus 2.4 can become 0.39999 etc.)
  */
-public inline fun Double.decimalPart(): Double =
-    this - withoutDecimalPart()
+public inline fun Double.decimalPart(): Double = when {
+    isNaN() -> Double.NaN
+    isInfinite() -> 0.0
+    else -> this % 1
+}
 
 /**
  * Adds the given decimal part from the given part to this
@@ -101,3 +110,9 @@ public inline fun Double.decimalPart(): Double =
  */
 public inline fun Double.withDecimalPart(decimalPart: Double): Double =
     withoutDecimalPart() + decimalPart.decimalPart()
+
+/**
+ * Tells if this is either [Double.isFinite] or [Double.isInfinite]
+ * @return Boolean true means this is either  [Double.isFinite] or [Double.isInfinite], false means this is [Double.isNaN]
+ */
+public fun Double.isNotNaN(): Boolean = !isNaN()
