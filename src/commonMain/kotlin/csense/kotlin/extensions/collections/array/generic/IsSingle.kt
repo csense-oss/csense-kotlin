@@ -7,5 +7,5 @@ public inline fun Array<*>.isSingle(): Boolean =
     size == 1
 
 public inline fun Array<*>.isSingleOrEmpty(): Boolean =
-    isEmpty() || isSingle()
+    isSingle() || isEmpty()
 

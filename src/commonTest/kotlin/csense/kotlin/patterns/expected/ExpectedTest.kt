@@ -100,7 +100,7 @@ class ExpectedTest {
             val failed = expected<String, String>(action = {
                 "failed".asFailed()
             })
-            failed.assertFailedWith("success")
+            failed.assertFailedWith("failed")
         }
 
         @Test

@@ -1,7 +1,7 @@
 package csense.kotlin.logger.models
 
 
-public sealed class LogMessage(
+public open class LogMessage(
     public val tag: String,
     public val message: LogMessageFormat,
     public val throwable: Throwable?

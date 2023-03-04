@@ -1,5 +1,8 @@
 package csense.kotlin.classes.general
 
+import csense.kotlin.extensions.general.*
+import csense.kotlin.extensions.primitives.boolean.*
+
 /**
  *
  * @property value Int
@@ -15,4 +18,8 @@ public class IncrementalCounter(start: Int = 0) {
     public fun increment() {
         value += 1
     }
+
+    public fun incrementIf(shouldIncrement: Boolean): Unit = shouldIncrement.ifTrue {
+        increment()
+    }.toUnit()
 }

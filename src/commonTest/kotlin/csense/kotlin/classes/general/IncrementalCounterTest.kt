@@ -35,4 +35,15 @@ class IncrementalCounterTest {
         counter.increment()
         counter.value.assert(1)
     }
+
+    @Test
+    fun incrementIf() {
+        val no = IncrementalCounter(start = 0)
+        no.incrementIf(shouldIncrement = false)
+        no.value.assert(0)
+
+        val shouldIncrement = IncrementalCounter(start = 0)
+        shouldIncrement.incrementIf(shouldIncrement = true)
+        shouldIncrement.value.assert(1)
+    }
 }

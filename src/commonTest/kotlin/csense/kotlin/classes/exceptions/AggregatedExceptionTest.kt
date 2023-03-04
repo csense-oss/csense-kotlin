@@ -6,7 +6,7 @@ import kotlin.test.*
 class AggregatedExceptionTest {
 
     private val cause = NumberFormatException()
-    private val relatedExceptions = listOf(
+    private val relatedExceptions: List<Throwable> = listOf(
         NoSuchElementException("index out of bounds"),
         NotImplementedError()
     )
@@ -16,18 +16,23 @@ class AggregatedExceptionTest {
         relatedExceptions = relatedExceptions
     )
     private val expectedToString =
-        "AggregatedException(message=myMessage, cause=java.lang.NumberFormatException, relatedExceptions=[java.util.NoSuchElementException: index out of bounds, kotlin.NotImplementedError: An operation is not implemented.])"
+        "AggregatedException(message=myMessage, cause=NumberFormatException, relatedExceptions=[NoSuchElementException: index out of bounds, NotImplementedError: An operation is not implemented.])"
 
     @Test
     fun toStringContainsRelatedExceptions() {
-        val toString = aggregatedException.toString()
-        toString.assert(expectedToString)
+        val toString: String = aggregatedException.toString()
+        toString.removePackageNameSpaces().assert(expectedToString)
     }
 
     @Test
     fun containsRelatedExceptionsInStackTrace() {
-        val stackTrace = aggregatedException.stackTraceToString()
-        stackTrace.assertStartsWith(expectedToString)
+        val stackTrace: String = aggregatedException.stackTraceToString()
+        stackTrace.removePackageNameSpaces().assertStartsWith(expectedToString)
         stackTrace.assertContains("Caused by:")
+    }
+
+    //Due to platform differences, (say js / native) there "might" be a "kotlin." in front of the class types.
+    private fun String.removePackageNameSpaces(): String {
+        return replace(oldValue = "kotlin.", newValue = "")
     }
 }

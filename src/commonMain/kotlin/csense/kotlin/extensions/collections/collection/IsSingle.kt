@@ -13,5 +13,5 @@ public inline fun Collection<*>.isSingle(): Boolean =
     size == 1
 
 public inline fun Collection<*>.isSingleOrEmpty(): Boolean =
-    isEmpty() || isSingle()
+    isSingle() || isEmpty()
 

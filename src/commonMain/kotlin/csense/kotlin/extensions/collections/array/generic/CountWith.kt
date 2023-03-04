@@ -16,14 +16,12 @@ public inline fun <Item> Array<Item>.countWith(
     predicateWithCount: PredicateCount<Item>
 ): Int {
     val counter = IncrementalCounter()
-    forEach {
-        val shouldCount = predicateWithCount(
-            /*count=*/ counter.value,
-            /*item=*/ it
+    forEach { it: Item ->
+        val shouldCount: Boolean = predicateWithCount(
+            /* count = */ counter.value,
+            /* item = */ it
         )
-        if (shouldCount) {
-            counter.increment()
-        }
+        counter.incrementIf(shouldCount)
     }
     return counter.value
 }

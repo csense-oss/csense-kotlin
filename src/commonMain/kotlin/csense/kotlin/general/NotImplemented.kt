@@ -6,4 +6,5 @@ package csense.kotlin.general
  * but intentional
  */
 @Throws(NotImplementedError::class)
-public fun notImplemented(reason: String = "An operation is not implemented."): Nothing = throw NotImplementedError(reason)
+public fun notImplemented(reason: String = "An operation is not implemented."): Nothing =
+    throw NotImplementedError(reason)
