@@ -50,7 +50,7 @@ suspend fun main(): Unit = withCurrentCoroutineScope {
 object MyClass {
 
     fun someFun() {
-        CL.logClassDebug("this should not be called", sensitivity = LogSensitivity.Insensitive)
+        log.debug("this should not be called", sensitivity = LogSensitivity.Insensitive)
     }
 }
 
@@ -79,10 +79,10 @@ fun CoroutineScope.generateSomeSocialSecurityNumberLogsForever() = launchDefault
 
 fun CoroutineScope.generateSomeMixedLogsForever() = launchDefault {
     while (true) {
-        logClassDebug(
+        log.debug(
             "Message {} {}",
             "someMessage", "mis",
-            throwable = RuntimeException("sensitive information potentially"),
+            exception = RuntimeException("sensitive information potentially"),
             sensitivity = LogSensitivity.Sensitive
         )
         CL.logDebug(

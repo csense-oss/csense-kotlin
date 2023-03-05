@@ -13,7 +13,7 @@ public value class CLLoggerClassLog<T>(
 public inline val <reified T> T.log: CLLoggerClassLog<T>
     get() = CLLoggerClassLog(T::class.java)
 
-public inline fun CLLoggerClassLog<Any>.debug(
+public inline fun CLLoggerClassLog<*>.debug(
     message: String,
     vararg placeholders: String = arrayOf(),
     exception: Throwable? = null,
@@ -29,7 +29,7 @@ public inline fun CLLoggerClassLog<Any>.debug(
 }
 
 
-public inline fun CLLoggerClassLog<Any>.warning(
+public inline fun CLLoggerClassLog<*>.warning(
     message: String,
     vararg placeholders: String = arrayOf(),
     exception: Throwable? = null,
@@ -45,7 +45,7 @@ public inline fun CLLoggerClassLog<Any>.warning(
 }
 
 
-public inline fun CLLoggerClassLog<Any>.error(
+public inline fun CLLoggerClassLog<*>.error(
     message: String,
     vararg placeholders: String = arrayOf(),
     exception: Throwable? = null,
@@ -68,7 +68,7 @@ public inline fun CLLoggerClassLog<Any>.error(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-public inline fun CLLoggerClassLog<Any>.currentStackTraceError(
+public inline fun CLLoggerClassLog<*>.currentStackTraceError(
     tag: String = "stack",
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
@@ -81,7 +81,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceError(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-public inline fun CLLoggerClassLog<Any>.currentStackTraceWarning(
+public inline fun CLLoggerClassLog<*>.currentStackTraceWarning(
     tag: String = "stack",
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
@@ -94,7 +94,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceWarning(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-public inline fun CLLoggerClassLog<Any>.currentStackTraceDebug(
+public inline fun CLLoggerClassLog<*>.currentStackTraceDebug(
     tag: String = "stack",
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
@@ -109,7 +109,7 @@ public inline fun CLLoggerClassLog<Any>.currentStackTraceDebug(
  * @param limit [Int] the max length of the stacktrace
  * @param skipFirstFunctions [Int] how many of the first functions to skip; this allows one to skip the stacktrace function / ect.
  */
-public inline fun CLLoggerClassLog<Any>.currentStackTrace(
+public inline fun CLLoggerClassLog<*>.currentStackTrace(
     tag: String = "stack",
     logTo: CLLogFunction,
     limit: Int = 10,
