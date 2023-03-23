@@ -61,7 +61,7 @@ class CsenseLoggerTest {
                     val logMessage = csenseLogger.allLoggers.awaitNextItem()
                     logMessage.tag.assert(tag)
                     logMessage.message.message.assert(message)
-                    logMessage.throwable.assert(throwable)
+                    logMessage.exception.assert(throwable)
                     didCall = true
                 },
                 sendAction = {
@@ -73,7 +73,7 @@ class CsenseLoggerTest {
                                 placeholders = arrayOf(),
                                 expectedSensitivity = LogSensitivity.Insensitive
                             ),
-                            throwable = throwable
+                            exception = throwable
                         )
                     )
                 }

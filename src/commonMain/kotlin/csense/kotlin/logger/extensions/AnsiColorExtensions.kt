@@ -4,30 +4,20 @@ import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.logger.models.*
 
 
-public fun LogMessageFormat.containsSensitiveInformationMessageOrEmpty(): String {
-    //TODO consider moving into classe(s) as this is core functionality
-    return if (containsSensitiveInformation) {
-        "(Contains sensitive information) "
-    } else {
-        ""
-    }
-}
-
 public fun LogMessageFormat.toColoredOutput(): String = when (this) {
     is LogMessageFormat.InsensitiveValues -> toColoredOutput()
     is LogMessageFormat.SensitiveValues -> toColoredOutput()
 }
 
 public fun LogMessageFormat.InsensitiveValues.toColoredOutput(): String {
-    val prefix = containsSensitiveInformationMessageOrEmpty()
+    val prefix: String = containsSensitiveInformationMessageOrEmpty()
 
-    val color = if (containsSensitiveInformation) {
-        AnsiConsoleEscapeCodes.redTextColor
-    } else {
-        AnsiConsoleEscapeCodes.blueTextColor
+    val color: String = when (sensitivity.isSensitive()) {
+        true -> AnsiConsoleEscapeCodes.redTextColor
+        false -> AnsiConsoleEscapeCodes.blueTextColor
     }
 
-    return prefix + replacePlaceholdersIndexed { placeHolderIndex ->
+    return prefix + replacePlaceholdersIndexed { placeHolderIndex: Int ->
         color + placeholders.getOr(
             index = placeHolderIndex,
             defaultValue = LogMessageFormat.missingPublicValue
@@ -35,17 +25,16 @@ public fun LogMessageFormat.InsensitiveValues.toColoredOutput(): String {
     }
 }
 
-public fun LogMessageFormat.SensitiveValues.toColoredOutput(): String = replacePlaceholdersIndexed {
+public fun LogMessageFormat.SensitiveValues.toColoredOutput(): String = replacePlaceholdersIndexed { it: Int ->
     AnsiConsoleEscapeCodes.greenTextColor + LogMessageFormat.sensitiveValue + AnsiConsoleEscapeCodes.resetCode
 }
 
 public fun LogMessage.toFullColoredLog(): String {
-    val tagLog = "[" + AnsiConsoleEscapeCodes.cyanTextColor + tag + AnsiConsoleEscapeCodes.resetCode + "]"
+    val tagLog: String = "[" + AnsiConsoleEscapeCodes.cyanTextColor + tag + AnsiConsoleEscapeCodes.resetCode + "]"
 
-    val messageLog = " " + message.toColoredOutput()
+    val messageLog: String = " " + message.toColoredOutput()
 
-    //TODO consider sensitive stacktrace
-    val exceptionLog = throwable?.stackTraceToString()?.let {
+    val exceptionLog: String = message.sensitivity.stackTraceOfOrNull(exception)?.let { it: String ->
         "\n" + AnsiConsoleEscapeCodes.redTextColor + it + AnsiConsoleEscapeCodes.resetCode
     } ?: ""
 

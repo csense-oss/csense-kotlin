@@ -113,9 +113,9 @@ fun CoroutineScope.logToConsoleWithPreviousLogs() = launchDefault {
 
 fun CoroutineScope.logToConsoleSensitiveStacktrace() = launchDefault {
     CL.allLoggers.filter {
-        it.throwable != null
+        it.exception != null
     }.collect {
-        val sensitiveStackTrace = it.throwable?.toSensitiveStackTraceString().orIfNull("-")
+        val sensitiveStackTrace = it.exception?.toSensitiveStackTraceString().orIfNull("-")
         println("Got log with stacktrace: $sensitiveStackTrace")
     }
 }

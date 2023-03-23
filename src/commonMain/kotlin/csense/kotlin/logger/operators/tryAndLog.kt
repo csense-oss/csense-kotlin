@@ -95,25 +95,3 @@ public inline fun <T> tryAndLogDidSucceed(
         return false
     }
 }
-
-/**
- *
- * @receiver [Throwable]
- * @param lineSeparator [String]
- * @param indentation [String]
- */
-@Deprecated("Misleading name. does not what it states nor does it a nice job at it either.")
-public inline fun Throwable.messagesToPrettyString(
-    lineSeparator: String = "\n",
-    indentation: String = "\t"
-): String {
-    val builder = StringBuilder()
-        .append(message ?: "No message", lineSeparator)
-
-    var currentException = cause
-    while (currentException != null) {
-        builder.append(indentation, currentException.message, lineSeparator)
-        currentException = currentException.cause
-    }
-    return builder.append(lineSeparator).toString()
-}

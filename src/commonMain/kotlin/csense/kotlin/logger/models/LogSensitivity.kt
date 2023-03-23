@@ -5,14 +5,6 @@ public enum class LogSensitivity {
     Insensitive
 }
 
-public fun LogSensitivity.toLogMessageFormat(
-    message: String,
-    placeholders: Array<out String>
-): LogMessageFormat = when (this) {
-    LogSensitivity.Sensitive -> LogMessageFormat.SensitiveValues(message = message)
-    LogSensitivity.Insensitive -> LogMessageFormat.InsensitiveValues(
-        message = message,
-        placeholders = placeholders,
-        expectedSensitivity = LogSensitivity.Insensitive
-    )
-}
+public inline fun LogSensitivity.isSensitive(): Boolean =
+    this != LogSensitivity.Insensitive
+

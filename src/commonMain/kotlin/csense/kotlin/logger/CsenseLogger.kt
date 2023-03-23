@@ -1,5 +1,7 @@
 package csense.kotlin.logger
 
+import csense.kotlin.extensions.mapping.*
+import csense.kotlin.logger.extensions.*
 import csense.kotlin.logger.models.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
@@ -8,9 +10,18 @@ public open class CsenseLogger(
     maxStoredLogMessages: Int = 100
 ) {
 
-    private var mayLogSensitive = false
+    public var isSensitiveLoggingEnabled: Boolean = false
+        set(newValue) {
+            field = newValue
+            val logMessage: String = newValue.map(
+                ifTrue = sensitiveLoggingEnabledMessage,
+                ifFalse = sensitiveLoggingDisabledMessage
+            )
+            logDebug(tag = sensitiveLoggingTag, message = logMessage)
+        }
 
-    private val _loggers = MutableSharedFlow<LogMessage>(
+
+    private val _loggers: MutableSharedFlow<LogMessage> = MutableSharedFlow(
         extraBufferCapacity = maxStoredLogMessages,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
@@ -31,8 +42,20 @@ public open class CsenseLogger(
         exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = sensitivity.toLogMessageFormatForLogging(message, placeholders)
-        log(LogMessage.Debug(tag = tag, message = messageFormat, throwable = exception))
+        val logMessage: LogMessageFormat = sensitivity.toLogMessageFormatForLogging(
+            mayLogSensitive = isSensitiveLoggingEnabled,
+            message = message,
+            placeholders = placeholders
+        )
+        logDebug(tag = tag, logMessage = logMessage, exception = exception)
+    }
+
+    public fun logDebug(
+        tag: String,
+        logMessage: LogMessageFormat,
+        exception: Throwable?
+    ) {
+        log(LogMessage.Debug(tag = tag, message = logMessage, exception = exception))
     }
 
     public fun logWarning(
@@ -42,9 +65,22 @@ public open class CsenseLogger(
         exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = sensitivity.toLogMessageFormatForLogging(message, placeholders)
-        log(LogMessage.Warning(tag = tag, message = messageFormat, throwable = exception))
+        val logMessage: LogMessageFormat = sensitivity.toLogMessageFormatForLogging(
+            mayLogSensitive = isSensitiveLoggingEnabled,
+            message = message,
+            placeholders = placeholders
+        )
+        logWarning(tag = tag, logMessage = logMessage, exception = exception)
     }
+
+    public fun logWarning(
+        tag: String,
+        logMessage: LogMessageFormat,
+        exception: Throwable?
+    ) {
+        log(LogMessage.Warning(tag = tag, message = logMessage, exception = exception))
+    }
+
 
     public fun logError(
         tag: String,
@@ -53,43 +89,25 @@ public open class CsenseLogger(
         exception: Throwable? = null,
         sensitivity: LogSensitivity = LogSensitivity.Sensitive
     ) {
-        val messageFormat = sensitivity.toLogMessageFormatForLogging(message, placeholders)
-        log(LogMessage.Error(tag = tag, message = messageFormat, throwable = exception))
+        val logMessage: LogMessageFormat = sensitivity.toLogMessageFormatForLogging(
+            mayLogSensitive = isSensitiveLoggingEnabled,
+            message = message,
+            placeholders = placeholders
+        )
+        logError(tag = tag, logMessage = logMessage, exception = exception)
     }
+
+    public fun logError(
+        tag: String,
+        logMessage: LogMessageFormat,
+        exception: Throwable?
+    ) {
+        log(LogMessage.Error(tag = tag, message = logMessage, exception = exception))
+    }
+
 
     public fun log(message: LogMessage) {
         _loggers.tryEmit(message)
-    }
-
-
-    public fun enableSensitiveLogging() {
-        mayLogSensitive = true
-        logDebug(tag = sensitiveLoggingTag, message = sensitiveLoggingEnabledMessage)
-    }
-
-    public fun disableSensitiveLogging() {
-        mayLogSensitive = false
-        logDebug(tag = sensitiveLoggingTag, message = sensitiveLoggingDisabledMessage)
-    }
-
-    public val isSensitiveLoggingEnabled: Boolean
-        get() = mayLogSensitive
-
-
-
-    //TODO consider this..
-    private fun LogSensitivity.toLogMessageFormatForLogging(
-        message: String,
-        placeholders: Array<out String>
-    ): LogMessageFormat {
-        if (mayLogSensitive) {
-            return LogMessageFormat.InsensitiveValues(
-                message = message,
-                placeholders = placeholders,
-                expectedSensitivity = this
-            )
-        }
-        return toLogMessageFormat(message = message, placeholders = placeholders)
     }
 
     public companion object {
