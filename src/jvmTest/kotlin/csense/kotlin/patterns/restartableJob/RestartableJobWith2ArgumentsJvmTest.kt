@@ -2,8 +2,6 @@
 
 package csense.kotlin.patterns.restartableJob
 
-import csense.kotlin.patterns.restartableJob.arguments.*
-import csense.kotlin.patterns.restartableJob.arguments.restartableJobInMain
 import csense.kotlin.patterns.restartableJob.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*

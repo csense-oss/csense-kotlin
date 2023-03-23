@@ -4,12 +4,9 @@
 package csense.kotlin.extensions.collections.iterable
 
 import csense.kotlin.*
-import csense.kotlin.Function1
-import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.general.*
-import csense.kotlin.extensions.mapping.*
 
 
 /**

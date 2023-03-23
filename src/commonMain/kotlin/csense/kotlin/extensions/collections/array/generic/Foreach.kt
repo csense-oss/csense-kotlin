@@ -5,7 +5,6 @@ package csense.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.*
 import csense.kotlin.extensions.collections.array.shared.*
-import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
 import kotlin.Function1

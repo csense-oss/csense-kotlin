@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.primitives.number
 
-import kotlin.internal.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.byte.*
 import csense.kotlin.extensions.primitives.double.*
@@ -10,6 +9,7 @@ import csense.kotlin.extensions.primitives.float.*
 import csense.kotlin.extensions.primitives.int.*
 import csense.kotlin.extensions.primitives.long.*
 import csense.kotlin.extensions.primitives.short.*
+import kotlin.internal.*
 
 
 public inline fun Number.nullOnZero(): Number? = isZero.map(

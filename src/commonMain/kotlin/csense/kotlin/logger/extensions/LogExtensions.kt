@@ -1,8 +1,5 @@
 package csense.kotlin.logger.extensions
 
-import csense.kotlin.logger.*
-import csense.kotlin.logger.models.*
-
 //TODO these should be on CL instead.
 
 //

@@ -1,13 +1,9 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package csense.kotlin.logger
 
-import csense.kotlin.extensions.coroutines.*
 import csense.kotlin.logger.models.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.sync.*
 import kotlinx.coroutines.test.*
 import kotlin.test.*
 
@@ -91,7 +87,7 @@ class CsenseLoggerTest {
 fun CoroutineScope.testFlow(
     collectAction: suspend () -> Unit,
     sendAction: suspend () -> Unit
-) = launch {
+): Job = launch {
 
     launch(start = CoroutineStart.UNDISPATCHED, context = Dispatchers.Unconfined) {
         collectAction()
@@ -101,7 +97,7 @@ fun CoroutineScope.testFlow(
 
 //TODO csense tests
 suspend fun <T> Flow<T>.awaitNextItem(): T {
-    return first {
+    return first { it: T ->
         true
     }
 }

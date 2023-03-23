@@ -1,8 +1,5 @@
 package csense.kotlin.logger
 
-import csense.kotlin.tests.assertions.*
-import org.junit.*
-import java.io.*
 //
 //
 //class LLoggerExtensionsKtTest {

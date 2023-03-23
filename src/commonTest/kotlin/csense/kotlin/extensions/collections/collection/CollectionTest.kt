@@ -8,7 +8,6 @@ import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.tests.assertions.*
-import kotlin.collections.isNullOrEmpty
 import kotlin.test.*
 
 class CollectionTest {

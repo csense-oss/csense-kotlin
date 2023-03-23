@@ -98,10 +98,3 @@ public open class CsenseLogger(
         public const val sensitiveLoggingDisabledMessage: String = "Sensitive logging enabled"
     }
 }
-
-public class SensitivityLogMessageFormatFactory{
-
-    public fun create() {
-
-    }
-}

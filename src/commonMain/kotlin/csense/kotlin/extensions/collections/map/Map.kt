@@ -6,14 +6,12 @@ package csense.kotlin.extensions.collections.map
 import csense.kotlin.*
 import csense.kotlin.classes.*
 import csense.kotlin.classes.general.*
+import csense.kotlin.classes.map.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.general.*
-import csense.kotlin.Function1
-import csense.kotlin.Function2
-import csense.kotlin.classes.map.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
+import csense.kotlin.general.*
 import csense.kotlin.specificExtensions.collections.map.*
 import kotlin.contracts.*
 import kotlin.experimental.*

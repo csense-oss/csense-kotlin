@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.collections.collection
 
-import csense.kotlin.Function0
+import csense.kotlin.*
 import csense.kotlin.extensions.general.*
 
 

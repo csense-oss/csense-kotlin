@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.collections.collection
 
-import csense.kotlin.Function1
+import csense.kotlin.*
 
 
 /**

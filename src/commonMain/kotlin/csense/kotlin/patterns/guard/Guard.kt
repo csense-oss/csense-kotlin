@@ -7,6 +7,9 @@ import kotlin.jvm.*
 @JvmInline
 public value class Guard<T>(public val item: T?) {
     public inline infix fun orReturn(action: () -> Nothing): T {
+        contract {
+            callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+        }
         if (item == null) {
             action()
         }

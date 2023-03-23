@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.enums
 
-import csense.kotlin.Function1
+import csense.kotlin.*
 
 //region String search for enum
 /**

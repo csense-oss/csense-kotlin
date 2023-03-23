@@ -44,6 +44,9 @@ public operator fun <T> LockableValue<T>.setValue(item: Any?, property: KPropert
 public inline fun <T> LockableValue<T>.whenUnlocked(
     action: ReceiverFunctionUnit<LockableValue<T>>
 ) {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
     if (isUnlocked()) {
         action(this)
     }
@@ -55,9 +58,14 @@ public inline fun <T> LockableValue<T>.whenUnlocked(
  */
 public inline fun <T> LockableValue<T>.lockWithAction(
     onUnlocked: EmptyFunction
-): Unit = whenUnlocked {
-    lock()
-    onUnlocked()
+) {
+    contract {
+        callsInPlace(onUnlocked, InvocationKind.AT_MOST_ONCE)
+    }
+    whenUnlocked {
+        lock()
+        onUnlocked()
+    }
 }
 
 /**
@@ -65,6 +73,9 @@ public inline fun <T> LockableValue<T>.lockWithAction(
  * @param action EmptyFunction
  */
 public inline fun <T> LockableValue<T>.ifLocked(action: EmptyFunction) {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
     if (isLocked()) {
         action()
     }

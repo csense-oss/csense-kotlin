@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.collections.collection
 
 import csense.kotlin.annotations.numbers.*
-import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
 

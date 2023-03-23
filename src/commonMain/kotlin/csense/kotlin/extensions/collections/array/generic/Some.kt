@@ -2,8 +2,6 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.extensions.collections.*
-
 
 //public inline fun <Item> Array<Item>.some(
 //    predicate: Predicate<Item>

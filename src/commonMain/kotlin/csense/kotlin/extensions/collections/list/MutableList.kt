@@ -10,7 +10,6 @@ import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.extensions.primitives.int.*
-import csense.kotlin.Function1
 
 /**
  * Finds and removes the first item that matches the given predicate

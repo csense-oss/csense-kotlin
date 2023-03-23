@@ -2,15 +2,14 @@
 
 package csense.kotlin.extensions.primitives.charSequence
 
+import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.primitives.char.*
-import csense.kotlin.general.*
-import csense.kotlin.Function1
-import csense.kotlin.Function2
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
+import csense.kotlin.extensions.primitives.char.*
+import csense.kotlin.general.*
 
 /**
  * is this NOT null or blank, akk it's not null nor a "blank" [CharSequence]

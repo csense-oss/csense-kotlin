@@ -3,7 +3,6 @@
 package csense.kotlin.extensions.collections.set
 
 import csense.kotlin.*
-import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
 
