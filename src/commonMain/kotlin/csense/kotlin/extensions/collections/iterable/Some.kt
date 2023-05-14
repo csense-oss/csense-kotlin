@@ -2,11 +2,15 @@
 
 package csense.kotlin.extensions.collections.iterable
 
-//public inline fun <Item> Iterable<Item>.some(predicate: Predicate<Item>): Boolean {
-//    if (isSingleOrEmpty()) {
-//        return false
-//    }
-//
-//
-//}
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.array.generic.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
+
+public inline fun <Item> Iterable<Item>.some(predicate: Predicate<Item>): Boolean {
+    return GenericCollections.satisfyPredicate(
+        predicate = predicate,
+        items = this
+    )
+}
 

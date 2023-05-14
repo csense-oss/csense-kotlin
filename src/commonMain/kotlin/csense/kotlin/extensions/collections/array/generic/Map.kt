@@ -11,7 +11,7 @@ package csense.kotlin.extensions.collections.array.generic
  */
 public inline fun <Item, Result> Array<Item>.mapToMutable(
     transform: (Item) -> Result
-): MutableList<Result> = mapEachWith(ArrayList(size)) {
+): MutableList<Result> = mapEachWith(ArrayList(size)) { it: Item ->
     this += transform(it)
 }
 
@@ -25,7 +25,7 @@ public inline fun <Item, Result> Array<Item>.mapEachWith(
     result: Result,
     map: Result.(Item) -> Unit
 ): Result {
-    forEach {
+    forEach { it: Item ->
         result.map(it)
     }
     return result

@@ -2,12 +2,16 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
+import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 
-//public inline fun <Item> Array<Item>.some(
-//    predicate: Predicate<Item>
-//): Boolean {
-//    if (isSingleOrEmpty()) {
-//        return false
-//    }
-//
-//}
+
+public inline fun <Item> Array<Item>.satisfyPredicate(
+    predicate: Predicate<Item>
+): SatisfyPredicateResult {
+    return GenericCollections.satisfyPredicate(
+        predicate = predicate,
+        items = this
+    )
+}

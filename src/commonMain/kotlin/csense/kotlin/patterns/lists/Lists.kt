@@ -1,5 +1,6 @@
 package csense.kotlin.patterns.lists
 
+import csense.kotlin.annotations.numbers.*
 import csense.kotlin.classes.iterator.*
 import csense.kotlin.general.*
 

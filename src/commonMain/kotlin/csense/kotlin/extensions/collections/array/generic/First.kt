@@ -2,6 +2,8 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
+import csense.kotlin.*
+
 
 /**
  * selects the [first] item in the array or if [isEmpty] takes [other]
@@ -18,5 +20,5 @@ public inline fun <T> Array<out T>.firstOr(other: T): T =
  * @param creation Function0R
  * @return T
  */
-public inline fun <T> Array<out T>.firstOrBy(creation: csense.kotlin.Function0R<T>): T =
+public inline fun <T> Array<out T>.firstOrBy(creation: Function0R<T>): T =
     firstOrNull() ?: creation()
