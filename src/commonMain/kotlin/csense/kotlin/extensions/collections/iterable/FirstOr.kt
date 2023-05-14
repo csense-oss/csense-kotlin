@@ -3,8 +3,6 @@
 package csense.kotlin.extensions.collections.iterable
 
 import csense.kotlin.*
-import csense.kotlin.extensions.collections.*
-import csense.kotlin.general.*
 
 
 /**

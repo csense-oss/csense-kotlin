@@ -2,8 +2,6 @@
 
 package csense.kotlin.extensions.comparable
 
-import csense.kotlin.extensions.nullabillity.*
-
 public inline fun <T> Comparable<T>.isEqualTo(other: T): Boolean =
     compareTo(other) == 0
 

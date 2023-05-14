@@ -135,7 +135,6 @@ public inline fun Int?.isNotNullOrZero(): Boolean {
 public inline fun Int.isNotNullOrZero(): Nothing = unexpected()
 
 
-
 /**
  * Tells if this [Int] is either null or zero
  * @receiver [Int]? the optional number to test

@@ -2,6 +2,7 @@ package csense.kotlin.patterns.lists
 
 import csense.kotlin.extensions.collections.iterable.*
 import csense.kotlin.general.*
+
 //TODO consider
 public fun <T> List<T>.toLists(): Lists<T> {
     val firstElement = firstOr { return@toLists Lists.Empty }

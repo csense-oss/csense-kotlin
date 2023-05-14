@@ -7,8 +7,6 @@ import csense.kotlin.extensions.mapping.*
 import kotlin.contracts.*
 
 
-
-
 /**
  * Missing from Standard library, a vararg edition of add all
  * @receiver [MutableCollection]<E>
@@ -38,7 +36,6 @@ public inline fun <@kotlin.internal.OnlyInputTypes E> MutableCollection<E>.addIf
     ifTrue = { add(itemAction()) },
     ifFalse = { false }
 )
-
 
 
 @DiscardableResult

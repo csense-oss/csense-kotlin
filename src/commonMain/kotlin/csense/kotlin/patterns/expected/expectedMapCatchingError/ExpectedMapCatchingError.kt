@@ -2,7 +2,6 @@
 
 package csense.kotlin.patterns.expected.expectedMapCatchingError
 
-import csense.kotlin.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 

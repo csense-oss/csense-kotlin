@@ -19,7 +19,6 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.m
 }
 
 
-
 @Deprecated(
     level = DeprecationLevel.ERROR, message = "If you already know its a failed result you should not map it.",
     replaceWith = ReplaceWith("this")

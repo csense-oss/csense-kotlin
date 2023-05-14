@@ -7,3 +7,4 @@ pluginManagement {
 rootProject.name = 'csense-kotlin'
 
 include ":examples:logger"
+include ":examples:expected"

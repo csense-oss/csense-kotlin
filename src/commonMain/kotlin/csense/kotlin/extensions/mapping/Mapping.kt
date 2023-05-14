@@ -58,7 +58,6 @@ public inline fun <T, U> Iterable<T>.mapToSet(
 ): Set<U> = mapTo(mutableSetOf(), mapper)
 
 
-
 public inline fun <T, reified U> Iterable<T>.mapToTypedArray(mapper: Function1<T, U>): Array<U> {
     if (this is List<T>) {
         return mapToTypedArray(mapper)

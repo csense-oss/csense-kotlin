@@ -2,8 +2,6 @@
 
 package csense.kotlin.extensions.collections.collection
 
-import csense.kotlin.extensions.collections.array.generic.*
-
 /**
  * Tells whenever this [Collection] only has a [single] element
  * @receiver Collection<*>

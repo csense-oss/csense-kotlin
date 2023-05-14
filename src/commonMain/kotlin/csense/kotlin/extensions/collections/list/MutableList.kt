@@ -7,7 +7,6 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.collection.*
 import csense.kotlin.extensions.collections.generic.*
-import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.extensions.primitives.int.*
 
@@ -93,7 +92,7 @@ public inline fun <T> MutableList<T>.removeAtOr(
     @IntLimit(from = 0) index: Int,
     default: T?
 ): T? {
-    
+
     return if (isIndex.inBoundsEndNotInBounds(index)) {
         removeAt(index)
     } else {

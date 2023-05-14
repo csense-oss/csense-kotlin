@@ -5,17 +5,17 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.7.0-Beta"
+    ext.coroutinesVersion = "1.7.1"
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.60"
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.0.61"
+    ext.csenseAnnotationVersion = "0.0.63"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "1.8.20-RC2"
+    ext.kotlin_version = "1.8.21"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.1.0-snapshot-2"
+    ext.csenseVersionName = "0.1.0-alpha-1"
 
     ext.csenseUserOrg = "csense-oss"
     ext.csenseGroupId = "csense.kotlin"

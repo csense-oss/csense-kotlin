@@ -17,6 +17,7 @@ public inline fun <T> GenericCollections.walkUpFirstOrNull(
     }
     return null
 }
+
 //TODO merge with traversal..
 public inline fun <T> GenericCollections.walkUp(
     startingPoint: T,

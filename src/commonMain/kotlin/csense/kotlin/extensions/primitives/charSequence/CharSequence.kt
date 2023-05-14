@@ -20,7 +20,7 @@ public inline fun CharSequence?.isNotNullOrBlank(): Boolean {
 }
 
 @Deprecated(
-    "receiver known at compile time to not be null. should use isNotBlank instead", 
+    "receiver known at compile time to not be null. should use isNotBlank instead",
     level = DeprecationLevel.ERROR
 )
 public inline fun CharSequence.isNotNullOrBlank(): Nothing = unexpected()
@@ -39,7 +39,7 @@ public inline fun CharSequence?.isNotNullOrEmpty(): Boolean {
     "receiver known at compile time to not be null. should use isNotEmpty instead",
     level = DeprecationLevel.ERROR
 )
-public inline fun CharSequence.isNotNullOrEmpty(): Nothing  = unexpected()
+public inline fun CharSequence.isNotNullOrEmpty(): Nothing = unexpected()
 
 //region indexOfOrNull
 /**

@@ -25,7 +25,7 @@ Then add the dependency
 
 ```groovy
 dependencies {
-    implementation 'csense.kotlin:csense-kotlin:0.0.60'
+    implementation 'csense.kotlin:csense-kotlin:0.1.0'
 }
 ```
 

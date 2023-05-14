@@ -5,7 +5,6 @@ package csense.kotlin.extensions.collections.array.shared
 import csense.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.primitives.*
 import csense.kotlin.extensions.primitives.int.*
 
 /**

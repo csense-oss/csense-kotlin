@@ -3,6 +3,7 @@
 package csense.kotlin.extensions.collections.generic.collection.operations
 
 import csense.kotlin.extensions.collections.generic.collection.*
+
 //TODO merge with walkup..
 
 /**

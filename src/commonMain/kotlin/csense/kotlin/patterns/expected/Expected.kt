@@ -7,6 +7,7 @@ import kotlin.jvm.*
 
 public sealed interface Expected<out Value, out Error> {
     public companion object {
+        //TODO consider context receivers
         //used to limit the asSuccess and failed extensions (to avoid global namespace pollution)
         public object ExpectedContext {
             public fun <Value> Value.asSuccess(): Success<Value> {
@@ -19,6 +20,7 @@ public sealed interface Expected<out Value, out Error> {
 
         }
     }
+
     @JvmInline
     public value class Failed<out Error>(
         public val error: Error

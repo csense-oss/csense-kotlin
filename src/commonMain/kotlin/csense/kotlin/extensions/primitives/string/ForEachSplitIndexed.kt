@@ -22,7 +22,7 @@ public inline fun String.forEachSplitIndexed(
 //TODO hm..... can avoid exposing this?
 //Todo name etc?? hmm...
 public class StringSplitIndexedContainer(
-capacity: Int = 100
+    capacity: Int = 100
 ) {
     public constructor (initialCapacityOf: String) : this(initialCapacityOf.length)
 

@@ -7,7 +7,6 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.collection.*
 
 
-
 public inline fun <ElementIn, ElementOut> GenericCollections.map(
     @IntLimit(from = 0) length: Int,
     retriever: Function1<@IntLimit(from = 0) Int, ElementIn>,

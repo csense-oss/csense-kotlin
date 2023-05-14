@@ -1,7 +1,6 @@
 package csense.kotlin.specificExtensions.list
 
 import csense.kotlin.extensions.collections.*
-import csense.kotlin.extensions.nullabillity.*
 import kotlin.jvm.*
 
 
@@ -25,22 +24,17 @@ public fun <T> ListModifications<T>.replaceAllWith(
     replaceWith: (item: T) -> T
 ): List<T> {
 
-    var replaced: MutableMap<Int, T>? = null
+    val replaced: MutableMap<Int, T> by lazy(mode = LazyThreadSafetyMode.NONE) {
+        mutableMapOf()
+    }
 
-    list.forEachIndexed { index, item ->
+    list.forEachIndexed { index: Int, item: T ->
         if (predicate(item)) {
-            replaced = (replaced ?: mutableMapOf()).apply {
-                val replacedWith = replaceWith(item)
-                put(index, replacedWith)
-            }
+            replaced[index] = replaceWith(item)
         }
     }
 
-    if (replaced.isNull()) {
-        return list
-    }
-    return list.mapIndexed { index, item ->
-        replaced?.get(index) ?: item
+    return list.mapIndexed { index: Int, item: T ->
+        replaced[index] ?: item
     }
 }
-

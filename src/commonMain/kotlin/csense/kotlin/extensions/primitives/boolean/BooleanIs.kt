@@ -2,8 +2,6 @@
 
 package csense.kotlin.extensions.primitives.boolean
 
-import csense.kotlin.*
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.nullabillity.*
 import csense.kotlin.general.*
 import kotlin.contracts.*
@@ -42,8 +40,6 @@ public inline fun Boolean?.isNullOrTrue(): Boolean {
 public inline fun Boolean.isNullOrTrue(): Nothing = unexpected()
 
 
-
-
 public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     contract {
         returns(true) implies (this@isNotNullOrTrue != null)
@@ -56,8 +52,6 @@ public inline fun Boolean?.isNotNullOrTrue(): Boolean {
     level = DeprecationLevel.ERROR
 )
 public inline fun Boolean.isNotNullOrTrue(): Nothing = unexpected()
-
-
 
 
 public inline fun Boolean?.isNotNullOrFalse(): Boolean {

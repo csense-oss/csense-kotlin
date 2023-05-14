@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.collections.iterable
 
-import csense.kotlin.extensions.collections.generic.*
 import csense.kotlin.extensions.primitives.int.*
 
 

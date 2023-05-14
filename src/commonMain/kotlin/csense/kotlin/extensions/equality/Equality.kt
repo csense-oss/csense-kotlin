@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.equality
 
-import csense.kotlin.*
 import csense.kotlin.general.*
 import kotlin.contracts.*
 

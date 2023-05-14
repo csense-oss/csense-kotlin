@@ -6,7 +6,6 @@ package csense.kotlin.extensions.nullabillity
 import csense.kotlin.*
 import csense.kotlin.general.*
 import kotlin.contracts.*
-import kotlin.js.*
 import kotlin.jvm.*
 
 

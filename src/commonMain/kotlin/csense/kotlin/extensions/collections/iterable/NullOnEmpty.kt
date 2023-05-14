@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.collections.iterable
 
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.mapping.*
 import kotlin.contracts.*
 
