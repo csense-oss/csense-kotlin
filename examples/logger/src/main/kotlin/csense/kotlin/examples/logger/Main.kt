@@ -1,6 +1,7 @@
 package csense.kotlin.examples.logger
 
 import csense.kotlin.extensions.coroutines.*
+import csense.kotlin.extensions.coroutines.coroutineScope.*
 import csense.kotlin.extensions.general.*
 import csense.kotlin.extensions.throwable.*
 import csense.kotlin.general.coroutine.*

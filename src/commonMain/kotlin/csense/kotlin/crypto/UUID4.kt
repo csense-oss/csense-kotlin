@@ -1,6 +1,6 @@
 package csense.kotlin.crypto
 
-import csense.kotlin.extensions.collections.array.typed.*
+import csense.kotlin.extensions.collections.array.typed.byte.*
 import csense.kotlin.extensions.primitives.operations.*
 import kotlin.jvm.*
 import kotlin.random.*

@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.stringBuilder
 
-import csense.kotlin.extensions.collections.array.typed.*
+import csense.kotlin.extensions.collections.array.typed.char.*
 
 
 /**

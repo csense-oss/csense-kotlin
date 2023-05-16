@@ -5,7 +5,7 @@ import csense.kotlin.extensions.collections.*
 
 public inline fun <T> Iterable<T>.anyIndexed(predicate: PredicateIndexed<T>): Boolean {
     val indexCounter = IncrementalCounter(start = 0)
-    return any {
+    return any { it: T ->
         predicate(indexCounter.valueAndIncrement, it)
     }
 }

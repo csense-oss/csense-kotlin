@@ -10,6 +10,11 @@ package csense.kotlin.extensions.collections.iterable
  */
 public inline fun <T> Iterable<T>.onEmpty(onEmpty: Iterable<T>): Iterable<T> = onEmpty { onEmpty }
 
+
+public inline fun <T> Iterable<T>.onEmpty(vararg onEmpty: T): Iterable<T> = onEmpty {
+    onEmpty.asIterable()
+}
+
 /**
  * Invokes [onEmptyAction] if this [isEmpty]
  * @receiver Iterable<T>

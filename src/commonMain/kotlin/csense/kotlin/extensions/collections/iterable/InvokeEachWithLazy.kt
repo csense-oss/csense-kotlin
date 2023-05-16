@@ -10,7 +10,6 @@ import kotlin.Function6
 import kotlin.contracts.*
 
 
-//region Invoke each Lazy
 /**
  * Invokes each function with the given argument(s) computed lazy
  * @receiver [Iterable]<[Function1]<I1, O>>
@@ -181,6 +180,3 @@ public inline fun <I1, I2, I3, I4, I5, I6, O>
         )
     }
 }
-
-//endregion
-

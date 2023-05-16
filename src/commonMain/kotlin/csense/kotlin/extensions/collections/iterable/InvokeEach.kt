@@ -11,8 +11,6 @@ import kotlin.Function5
 import kotlin.Function6
 
 
-//region Invoke each with
-
 /**
  * Invokes each callable argument and discards the result
  * @receiver [Iterable]<[Function0R]<O>>
@@ -175,4 +173,3 @@ public inline fun <
             sixthElement
         )
     }
-//endregion

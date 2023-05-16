@@ -1,6 +1,6 @@
 package csense.kotlin.extensions.collections.array
 
-import csense.kotlin.extensions.collections.array.typed.*
+import csense.kotlin.extensions.collections.array.typed.int.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*

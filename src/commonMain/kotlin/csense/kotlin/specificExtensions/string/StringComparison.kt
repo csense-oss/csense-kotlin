@@ -3,7 +3,7 @@
 package csense.kotlin.specificExtensions.string
 
 import csense.kotlin.annotations.numbers.*
-import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collectionBounds.*
 import csense.kotlin.extensions.general.*
 import csense.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.extensions.primitives.char.*

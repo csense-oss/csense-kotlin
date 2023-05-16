@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.collections.iterable
 
+import csense.kotlin.extensions.collections.iterable.string.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

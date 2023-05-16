@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.map
 
+import csense.kotlin.extensions.collections.iterable.mapEntry.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

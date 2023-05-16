@@ -2,6 +2,7 @@
 
 package csense.kotlin.extensions.coroutines
 
+import csense.kotlin.extensions.coroutines.coroutineScope.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*

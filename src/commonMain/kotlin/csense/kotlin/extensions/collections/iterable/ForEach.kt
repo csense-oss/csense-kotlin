@@ -34,6 +34,6 @@ public inline fun <T> Iterable<T>.forEachBackwards(action: FunctionUnit<T>): Uni
  */
 public inline fun <reified U> Iterable<*>.forEachIsInstance(
     action: FunctionUnit<U>
-): Unit = forEach {
+): Unit = forEach { it: Any? ->
     it?.invokeIsInstance(action)
 }

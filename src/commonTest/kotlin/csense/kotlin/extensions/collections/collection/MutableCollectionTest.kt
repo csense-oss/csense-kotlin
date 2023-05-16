@@ -2,9 +2,8 @@
 
 package csense.kotlin.extensions.collections.collection
 
-import csense.kotlin.extensions.collections.collection.*
 import csense.kotlin.extensions.collections.collection.mutable.*
-import csense.kotlin.extensions.collections.set.*
+import csense.kotlin.extensions.collections.set.mutable.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

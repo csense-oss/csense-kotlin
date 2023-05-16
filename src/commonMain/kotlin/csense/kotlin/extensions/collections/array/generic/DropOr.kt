@@ -2,7 +2,7 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.extensions.collections.generic.*
+import csense.kotlin.extensions.collections.generic.collectionBounds.*
 
 public inline fun <T> Array<T>.dropOrEmpty(
     dropCount: Int

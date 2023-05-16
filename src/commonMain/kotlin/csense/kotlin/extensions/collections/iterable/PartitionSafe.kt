@@ -1,6 +1,7 @@
 package csense.kotlin.extensions.collections.iterable
 
 import csense.kotlin.extensions.collections.*
+import csense.kotlin.extensions.collections.generic.collectionPartition.*
 
 
 /**
@@ -11,19 +12,8 @@ import csense.kotlin.extensions.collections.*
  * @return [CollectionPartition]<E> the result by partition / splitting the content by the given function
  */
 public inline fun <E> Iterable<E>.partitionSafe(predicate: Predicate<E>): CollectionPartition<E> {
-    return this.partition(predicate).let {
-        CollectionPartition(it.first, it.second)
+    return this.partition(predicate).let { it: Pair<List<E>, List<E>> ->
+        CollectionPartition(trueForPredicate = it.first, falseForPredicate = it.second)
     }
 }
-
-/**
- * The result from a safe partition / split operation
- * @param E The data / element type
- * @property trueForPredicate [List]<E> the elements considered "true" / included
- * @property falseForPredicate [List]<E> the elements considered "false" / not included
- */
-public class CollectionPartition<out E>(
-    public val trueForPredicate: List<E>,
-    public val falseForPredicate: List<E>
-)
 

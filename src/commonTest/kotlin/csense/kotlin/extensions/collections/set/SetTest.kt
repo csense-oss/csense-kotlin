@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.collections.set
 
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -88,7 +87,7 @@ class SetTest {
             nullOnlyInBoth.uniqueInFirst.assertEmpty()
             nullOnlyInBoth.uniqueInSecond.assertEmpty()
 
-            val nullInBoth: SymmetricDifferenceResult<String?> = setOf(null, "a").symmetricDifference(setOf(null, "b"))
+            val nullInBoth: SymmetricSetDifferenceResult<String?> = setOf(null, "a").symmetricDifference(setOf(null, "b"))
             nullInBoth.uniqueInFirst.assertSingle("a")
             nullInBoth.uniqueInSecond.assertSingle("b")
         }
