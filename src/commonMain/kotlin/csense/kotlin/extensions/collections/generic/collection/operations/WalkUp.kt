@@ -30,3 +30,22 @@ public inline fun <T> GenericCollections.walkUp(
         currentElement = getToNextLevelOrNull(currentElement)
     }
 }
+
+//TODO merge with traversal..
+public fun <T> GenericCollections.walkUpAny(
+    startingPoint: T,
+    getToNextLevelOrNull: (T) -> T?,
+    predicate: (T) -> Boolean
+): Boolean {
+    GenericCollections.walkUp(
+        startingPoint = startingPoint,
+        getToNextLevelOrNull = getToNextLevelOrNull,
+        onEachLevel = { it: T ->
+            val has: Boolean = predicate(it)
+            if (has) {
+                return@walkUpAny true
+            }
+        }
+    )
+    return false
+}
