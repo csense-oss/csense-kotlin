@@ -49,13 +49,6 @@ public inline fun <T> MutableList<T>.removeAtOr(
  * @receiver [MutableList]<T>
  * @return T?
  */
-public inline fun <T> MutableList<T>.removeFirst(): T? =
+public inline fun <T> MutableList<T>.removeFirstOrNull(): T? =
     removeAtOr(index = 0, default = null)
 
-/**
- * Removes the last element of this list and returns it (or null if there are no elements)
- * @receiver [MutableList]<T>
- * @return T?
- */
-public inline fun <T> MutableList<T>.removeLast(): T? =
-    removeAtOr(index = lastIndex, default = null)
