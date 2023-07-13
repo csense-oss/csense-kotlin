@@ -1,5 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package csense.kotlin.extensions.collections.array.typed.byte
-
 import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.extensions.primitives.byte.*

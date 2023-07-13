@@ -25,6 +25,7 @@ public fun LogMessageFormat.InsensitiveValues.toColoredOutput(): String {
     }
 }
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 public fun LogMessageFormat.SensitiveValues.toColoredOutput(): String = replacePlaceholdersIndexed { it: Int ->
     AnsiConsoleEscapeCodes.greenTextColor + LogMessageFormat.sensitiveValue + AnsiConsoleEscapeCodes.resetCode
 }

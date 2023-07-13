@@ -1,7 +1,9 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package csense.kotlin.extensions.collections.map
 
 import csense.kotlin.general.*
 import kotlin.contracts.*
+import kotlin.jvm.*
 
 
 /**
@@ -24,4 +26,5 @@ public inline fun <Key, Value> Map<Key, Value>?.isNotNullOrEmpty(): Boolean {
     level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith("isNotEmpty()")
 )
+@JvmName("isNotNullOrEmptyNotNull")
 public inline fun <Key, Value> Map<Key, Value>.isNotNullOrEmpty(): Boolean = unexpected()

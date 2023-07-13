@@ -12,6 +12,7 @@ public inline fun <Item> Array<Item>.satisfyPredicate(
 ): SatisfyPredicateResult {
     return GenericCollections.satisfyPredicate(
         predicate = predicate,
-        items = this
+        length = size,
+        getElement = ::elementAt
     )
 }

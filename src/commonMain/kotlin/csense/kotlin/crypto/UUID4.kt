@@ -60,10 +60,10 @@ private fun ByteArray.setVersion4UuidBits() {
 
 private fun String.insertDashes(): String {
     val hexStringBuilder: StringBuilder = StringBuilder(this)
-        .insert(index = 8, value = '-')
-        .insert(index = 12, value = '-')
-        .insert(index = 16, value = '-')
-        .insert(index = 20, value = '-')
+        .insert(8, '-')
+        .insert(12, '-')
+        .insert(16, '-')
+        .insert(20, '-')
     return hexStringBuilder.toString()
 }
 

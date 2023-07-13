@@ -2,6 +2,9 @@
 
 package csense.kotlin.extensions.coroutines
 
+import csense.kotlin.extensions.collections.array.typed.Job.*
+import csense.kotlin.extensions.collections.iterable.*
+import csense.kotlin.extensions.coroutines.channel.*
 import csense.kotlin.extensions.coroutines.coroutineScope.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
@@ -104,8 +107,8 @@ class CoroutinesTest {
         @Test
         fun empty() = runTest {
             var didCallForeach = false
-            val channel = Channel<String>()
-            val job = launchDefault {
+            val channel: Channel<String> = Channel()
+            val job: Job = launchDefault {
                 channel.forEach { didCallForeach = true }
             }
             channel.close()
@@ -114,13 +117,13 @@ class CoroutinesTest {
         }
 
         @Test
-        fun single() = runTest {
-            val mutex = Mutex(true)
-            val channel = Channel<String>()
-            val job = launchDefault {
+        fun single(): TestResult = runTest {
+            val mutex: Mutex = Mutex(true)
+            val channel: Channel<String> = Channel()
+            val job: Job = launchDefault {
                 channel.forEach { mutex.unlock() }
             }
-            val sendJob = launchDefault {
+            val sendJob: Job = launchDefault {
                 channel.send("test")
             }
             sendJob.join()
@@ -130,10 +133,10 @@ class CoroutinesTest {
         }
 
         @Test
-        fun multiple() = runTest {
-            val sem = Semaphore(2, 2)
-            val channel = Channel<String>()
-            val job = launchDefault {
+        fun multiple(): TestResult = runTest {
+            val sem: Semaphore = Semaphore(2, 2)
+            val channel: Channel<String> = Channel<String>()
+            val job: Job = launchDefault {
                 channel.forEach { sem.release() }
             }
             val sendJob = launchDefault {

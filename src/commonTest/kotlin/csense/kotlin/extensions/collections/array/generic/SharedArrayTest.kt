@@ -2,10 +2,12 @@
 
 package csense.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.extensions.collections.array.shared.*
+import csense.kotlin.extensions.collections.generic.collection.*
+import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
+//TODO move
 class SharedArrayTest {
 
     class GenericArrayForeachDiscardResult {
@@ -13,7 +15,7 @@ class SharedArrayTest {
         fun empty() {
             var counter = 0
             var innerCounter = 0
-            GenericArray.foreachDiscardResult(
+            GenericCollections.foreachDiscardResult(
                 0,
                 { counter += 1; "$it" },
                 { t -> innerCounter += 1;t })
@@ -25,7 +27,7 @@ class SharedArrayTest {
         fun single() {
             var counter = 0
             var innerCounter = 0
-            GenericArray.foreachDiscardResult(
+            GenericCollections.foreachDiscardResult(
                 1,
                 { counter += 1; "$it" },
                 { t -> innerCounter += 1;t })
@@ -37,7 +39,7 @@ class SharedArrayTest {
         fun multiple() {
             var counter = 0
             var innerCounter = 0
-            GenericArray.foreachDiscardResult(
+            GenericCollections.foreachDiscardResult(
                 50,
                 { counter += 1; "$it" },
                 { t -> innerCounter += 1;t })

@@ -7,7 +7,7 @@ import csense.kotlin.annotations.numbers.*
 import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
-import csense.kotlin.extensions.collections.generic.collectionBounds.*
+import csense.kotlin.extensions.collections.generic.collectionBounds.operations.*
 import csense.kotlin.extensions.primitives.char.*
 import csense.kotlin.general.*
 

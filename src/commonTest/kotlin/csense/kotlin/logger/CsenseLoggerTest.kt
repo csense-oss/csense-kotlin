@@ -1,5 +1,6 @@
 package csense.kotlin.logger
 
+import csense.kotlin.logger.extensions.csenseLogger.*
 import csense.kotlin.logger.models.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
@@ -97,7 +98,7 @@ fun CoroutineScope.testFlow(
 
 //TODO csense tests
 suspend fun <T> Flow<T>.awaitNextItem(): T {
-    return first { it: T ->
+    return first { _: T ->
         true
     }
 }

@@ -4,7 +4,6 @@
 package csense.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.*
-import csense.kotlin.extensions.collections.array.shared.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
 import kotlin.Function1
@@ -16,7 +15,7 @@ import kotlin.Function1
  * @param receiver [Function1]<T, U>
  */
 public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Unit =
-    GenericArray.foreachDiscardResult(count(), this::get, receiver)
+    GenericCollections.foreachDiscardResult(count(), this::get, receiver)
 
 
 //region Generic collection extensions

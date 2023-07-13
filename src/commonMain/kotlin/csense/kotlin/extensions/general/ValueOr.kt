@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.general
 
 import csense.kotlin.general.*
@@ -7,7 +9,7 @@ public inline fun <T> T?.valueOr(or: () -> Nothing): T = when (this) {
     else -> this
 }
 
-@Suppress("UnusedReceiverParameter", "MissingTestFunction")
+@Suppress("UnusedReceiverParameter", "MissingTestFunction", "UNUSED_PARAMETER")
 @Deprecated(
     message = "Non-null value will always be non-null",
     replaceWith = ReplaceWith(expression = "this"),

@@ -2,11 +2,8 @@
 
 package csense.kotlin.extensions.collections.map
 
-import csense.kotlin.classes.*
 import csense.kotlin.classes.map.*
-import csense.kotlin.extensions.*
 import csense.kotlin.extensions.mapping.*
-import csense.kotlin.specificExtensions.string.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -712,22 +709,25 @@ class MapKtTest {
 
         @Test
         fun empty() {
-            mapOf<String, String>().isNotNullOrEmpty().assertFalse("is empty")
+            val map: Map<String, String>? = mapOf()
+            map.isNotNullOrEmpty().assertFalse("is empty")
         }
 
 
         @Test
         fun single() {
-            mapOf("a" to "1").isNotNullOrEmpty().assertTrue("has content")
+            val map: Map<String, String>? = mapOf("a" to "1")
+            map.isNotNullOrEmpty().assertTrue("has content")
         }
 
 
         @Test
         fun multiple() {
-            mapOf(
+            val map: Map<String, String>? = mapOf(
                 "a" to "1",
                 "b" to "2"
-            ).isNotNullOrEmpty().assertTrue("has content")
+            )
+            map.isNotNullOrEmpty().assertTrue("has content")
         }
 
     }

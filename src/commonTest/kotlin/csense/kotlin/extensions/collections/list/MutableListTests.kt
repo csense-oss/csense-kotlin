@@ -204,7 +204,7 @@ class MutableListTest {
         class MutableListTRemoveLast {
             @Test
             fun empty() {
-                val lst = mutableListOf<String>()
+                val lst: MutableList<String?> = mutableListOf()
                 val last = lst.removeLast()
                 last.assertNull("there are no elements")
             }
@@ -235,7 +235,7 @@ class MutableListTest {
         class MutableListTRemoveFirst {
             @Test
             fun empty() {
-                val lst = mutableListOf<String>()
+                val lst: MutableList<String?> = mutableListOf()
                 val last = lst.removeFirst()
                 last.assertNull("there are no elements")
             }

@@ -1,45 +1,46 @@
 package csense.kotlin.extensions.collections.generic
 
 import csense.kotlin.extensions.collections.generic.collectionBounds.*
+import csense.kotlin.extensions.collections.generic.collectionBounds.operations.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class CollectionBoundsTest {
     @Test
     fun collectionBounds() {
-        CollectionBounds(collectionLength = -1).assertIs<CollectionBoundsAlwaysOutOfBounds>()
-        CollectionBounds(collectionLength = 0).assertIs<CollectionBoundsZeroBoundsChecker>()
-        CollectionBounds(collectionLength = 1).assertIs<CollectionBoundsChecker>()
+        CollectionBounds(collectionLength = -1).assertIs<CollectionBounds.CollectionBoundsAlwaysOutOfBounds>()
+        CollectionBounds(collectionLength = 0).assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        CollectionBounds(collectionLength = 1).assertIs<CollectionBounds.CollectionBoundsChecker>()
     }
 
     @Test
     fun companionFrom() {
-        CollectionBounds(collectionLength = -1).assertIs<CollectionBoundsAlwaysOutOfBounds>()
-        CollectionBounds(collectionLength = 0).assertIs<CollectionBoundsZeroBoundsChecker>()
-        CollectionBounds(collectionLength = 1).assertIs<CollectionBoundsChecker>()
+        CollectionBounds(collectionLength = -1).assertIs<CollectionBounds.CollectionBoundsAlwaysOutOfBounds>()
+        CollectionBounds(collectionLength = 0).assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        CollectionBounds(collectionLength = 1).assertIs<CollectionBounds.CollectionBoundsChecker>()
     }
 
     class CollectionBoundsOutOfBoundsEndOutOfBounds {
 
         @Test
         fun alwaysOutOfBounds() {
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(-1).assertTrue()
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(0).assertTrue()
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(1).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(0).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndOutOfBounds(1).assertTrue()
         }
 
         @Test
         fun zeroBoundsChecker() {
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(-1).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(0).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(1).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(0).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndOutOfBounds(1).assertTrue()
         }
 
         @Test
         fun boundsChecker() {
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(-1).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(0).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(1).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(0).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndOutOfBounds(1).assertTrue()
         }
 
     }
@@ -48,24 +49,24 @@ class CollectionBoundsTest {
 
         @Test
         fun alwaysOutOfBounds() {
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(-1).assertTrue()
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(0).assertTrue()
-            CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(1).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(0).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBoundsEndInBounds(1).assertTrue()
         }
 
         @Test
         fun zeroBoundsChecker() {
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(-1).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(0).assertFalse()
-            CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(1).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(0).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBoundsEndInBounds(1).assertTrue()
         }
 
         @Test
         fun boundsChecker() {
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(-1).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(0).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(1).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(2).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(-1).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(0).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(1).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBoundsEndInBounds(2).assertTrue()
         }
 
 
@@ -75,30 +76,30 @@ class CollectionBoundsTest {
 
         @Test
         fun endInBounds() {
-            CollectionBoundsAlwaysOutOfBounds.inBounds(index = 0, isEndInBounds = true).assertFalse()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBounds(index = 0, isEndInBounds = true).assertFalse()
 
-            CollectionBoundsZeroBoundsChecker.inBounds(index = -1, isEndInBounds = true).assertFalse()
-            CollectionBoundsZeroBoundsChecker.inBounds(index = 0, isEndInBounds = true).assertTrue()
-            CollectionBoundsZeroBoundsChecker.inBounds(index = 1, isEndInBounds = true).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = -1, isEndInBounds = true).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = 0, isEndInBounds = true).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = 1, isEndInBounds = true).assertFalse()
 
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = -1, isEndInBounds = true).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 0, isEndInBounds = true).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 1, isEndInBounds = true).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 2, isEndInBounds = true).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = -1, isEndInBounds = true).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 0, isEndInBounds = true).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 1, isEndInBounds = true).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 2, isEndInBounds = true).assertFalse()
         }
 
         @Test
         fun endOutOfBounds() {
-            CollectionBoundsAlwaysOutOfBounds.inBounds(index = 0, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBounds(index = 0, isEndInBounds = false).assertFalse()
 
-            CollectionBoundsZeroBoundsChecker.inBounds(index = -1, isEndInBounds = false).assertFalse()
-            CollectionBoundsZeroBoundsChecker.inBounds(index = 0, isEndInBounds = false).assertFalse()
-            CollectionBoundsZeroBoundsChecker.inBounds(index = 1, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = -1, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = 0, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.inBounds(index = 1, isEndInBounds = false).assertFalse()
 
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = -1, isEndInBounds = false).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 0, isEndInBounds = false).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 1, isEndInBounds = false).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).inBounds(index = 2, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = -1, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 0, isEndInBounds = false).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 1, isEndInBounds = false).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).inBounds(index = 2, isEndInBounds = false).assertFalse()
         }
     }
 
@@ -106,49 +107,49 @@ class CollectionBoundsTest {
 
         @Test
         fun endOutOfBounds() {
-            CollectionBoundsAlwaysOutOfBounds.outOfBounds(index = 0, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBounds(index = 0, isEndOutOfBonds = true).assertTrue()
 
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = -1, isEndOutOfBonds = true).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = 0, isEndOutOfBonds = true).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = 1, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = -1, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = 0, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = 1, isEndOutOfBonds = true).assertTrue()
 
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = -1, isEndOutOfBonds = true).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 0, isEndOutOfBonds = true).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 1, isEndOutOfBonds = true).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 2, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = -1, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 0, isEndOutOfBonds = true).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 1, isEndOutOfBonds = true).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 2, isEndOutOfBonds = true).assertTrue()
         }
 
         @Test
         fun endInBounds() {
-            CollectionBoundsAlwaysOutOfBounds.outOfBounds(index = 0, isEndOutOfBonds = false).assertTrue()
+            CollectionBounds.CollectionBoundsAlwaysOutOfBounds.outOfBounds(index = 0, isEndOutOfBonds = false).assertTrue()
 
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = -1, isEndOutOfBonds = false).assertTrue()
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = 0, isEndOutOfBonds = false).assertFalse()
-            CollectionBoundsZeroBoundsChecker.outOfBounds(index = 1, isEndOutOfBonds = false).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = -1, isEndOutOfBonds = false).assertTrue()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = 0, isEndOutOfBonds = false).assertFalse()
+            CollectionBounds.CollectionBoundsZeroBoundsChecker.outOfBounds(index = 1, isEndOutOfBonds = false).assertTrue()
 
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = -1, isEndOutOfBonds = false).assertTrue()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 0, isEndOutOfBonds = false).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 1, isEndOutOfBonds = false).assertFalse()
-            CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 2, isEndOutOfBonds = false).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = -1, isEndOutOfBonds = false).assertTrue()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 0, isEndOutOfBonds = false).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 1, isEndOutOfBonds = false).assertFalse()
+            CollectionBounds.CollectionBoundsChecker(collectionLength = 1).outOfBounds(index = 2, isEndOutOfBonds = false).assertTrue()
         }
     }
 
     class CollectionIsIndex {
         @Test
         fun empty() {
-            listOf<String>().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
+            listOf<String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
         }
 
         @Test
         fun single() {
-            listOf("").isIndex.assertIsApply<CollectionBoundsChecker> {
+            listOf("").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(1)
             }
         }
 
         @Test
         fun multiple() {
-            listOf("a", "b").isIndex.assertIsApply<CollectionBoundsChecker> {
+            listOf("a", "b").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(2)
             }
         }
@@ -157,19 +158,19 @@ class CollectionBoundsTest {
     class CharSequenceIsIndex {
         @Test
         fun empty() {
-            "".isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
+            "".isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
         }
 
         @Test
         fun single() {
-            "a".isIndex.assertIsApply<CollectionBoundsChecker> {
+            "a".isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(1)
             }
         }
 
         @Test
         fun multiple() {
-            "ab".isIndex.assertIsApply<CollectionBoundsChecker> {
+            "ab".isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(2)
             }
         }
@@ -178,19 +179,19 @@ class CollectionBoundsTest {
     class MapIsIndex {
         @Test
         fun empty() {
-            mapOf<String, String>().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
+            mapOf<String, String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
         }
 
         @Test
         fun single() {
-            mapOf("1" to "a").isIndex.assertIsApply<CollectionBoundsChecker> {
+            mapOf("1" to "a").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(1)
             }
         }
 
         @Test
         fun multiple() {
-            mapOf("1" to "a", "2" to "b").isIndex.assertIsApply<CollectionBoundsChecker> {
+            mapOf("1" to "a", "2" to "b").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(2)
             }
         }
@@ -199,19 +200,19 @@ class CollectionBoundsTest {
     class ArrayIsIndex {
         @Test
         fun empty() {
-            arrayOf<String>().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
+            arrayOf<String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
         }
 
         @Test
         fun single() {
-            arrayOf("asd").isIndex.assertIsApply<CollectionBoundsChecker> {
+            arrayOf("asd").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(1)
             }
         }
 
         @Test
         fun multiple() {
-            arrayOf("asd", "123").isIndex.assertIsApply<CollectionBoundsChecker> {
+            arrayOf("asd", "123").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
                 collectionLength.assert(2)
             }
         }
@@ -219,88 +220,88 @@ class CollectionBoundsTest {
 
     @Test
     fun booleanArrayIsIndex() {
-        booleanArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        booleanArrayOf(false).isIndex.assertIsApply<CollectionBoundsChecker> {
+        booleanArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        booleanArrayOf(false).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        booleanArrayOf(true, false).isIndex.assertIsApply<CollectionBoundsChecker> {
+        booleanArrayOf(true, false).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun byteArrayIsIndex() {
-        byteArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        byteArrayOf(0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        byteArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        byteArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        byteArrayOf(0, 1).isIndex.assertIsApply<CollectionBoundsChecker> {
+        byteArrayOf(0, 1).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun charArrayIsIndex() {
-        charArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        charArrayOf('0').isIndex.assertIsApply<CollectionBoundsChecker> {
+        charArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        charArrayOf('0').isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        charArrayOf('0', '1').isIndex.assertIsApply<CollectionBoundsChecker> {
+        charArrayOf('0', '1').isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun doubleArrayIsIndex() {
-        doubleArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        doubleArrayOf(0.0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        doubleArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        doubleArrayOf(0.0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        doubleArrayOf(0.0, 0.0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        doubleArrayOf(0.0, 0.0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun floatArrayIsIndex() {
-        floatArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        floatArrayOf(0.0f).isIndex.assertIsApply<CollectionBoundsChecker> {
+        floatArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        floatArrayOf(0.0f).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        floatArrayOf(0.0f, 0.0f).isIndex.assertIsApply<CollectionBoundsChecker> {
+        floatArrayOf(0.0f, 0.0f).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun intArrayIsIndex() {
-        intArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        intArrayOf(0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        intArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        intArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        intArrayOf(0, 0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        intArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun longArrayIsIndex() {
-        longArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        longArrayOf(0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        longArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        longArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        longArrayOf(0, 0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        longArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
 
     @Test
     fun shortArrayIsIndex() {
-        shortArrayOf().isIndex.assertIs<CollectionBoundsZeroBoundsChecker>()
-        shortArrayOf(0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        shortArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+        shortArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(1)
         }
-        shortArrayOf(0, 0).isIndex.assertIsApply<CollectionBoundsChecker> {
+        shortArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
             collectionLength.assert(2)
         }
     }
@@ -363,16 +364,16 @@ class CollectionBoundsAlwaysOutOfBoundsTest {
 
     @Test
     fun inBoundsEndNotInBounds() {
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds((-1)).assertFalse()
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds(0).assertFalse()
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds(1).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds(0).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndNotInBounds(1).assertFalse()
     }
 
     @Test
     fun inBoundsEndInBounds() {
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((-1)).assertFalse()
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((0)).assertFalse()
-        CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((1)).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((0)).assertFalse()
+        CollectionBounds.CollectionBoundsAlwaysOutOfBounds.inBoundsEndInBounds((1)).assertFalse()
     }
 
 }
@@ -380,35 +381,35 @@ class CollectionBoundsAlwaysOutOfBoundsTest {
 class CollectionBoundsZeroBoundsCheckerTest {
     @Test
     fun inBoundsEndNotInBounds() {
-        CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds((-1)).assertFalse()
-        CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds(0).assertFalse()
-        CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds(1).assertFalse()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds(0).assertFalse()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndNotInBounds(1).assertFalse()
     }
 
     @Test
     fun inBoundsEndInBounds() {
-        CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds((-1)).assertFalse()
-        CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds(0).assertTrue()
-        CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds(1).assertFalse()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds(0).assertTrue()
+        CollectionBounds.CollectionBoundsZeroBoundsChecker.inBoundsEndInBounds(1).assertFalse()
     }
 }
 
 class CollectionBoundsCheckerTestTest {
     @Test
     fun inBoundsEndNotInBounds() {
-        CollectionBoundsChecker(1).inBoundsEndNotInBounds((-1)).assertFalse()
-        CollectionBoundsChecker(1).inBoundsEndNotInBounds(0).assertTrue()
-        CollectionBoundsChecker(1).inBoundsEndNotInBounds(1).assertFalse()
-        CollectionBoundsChecker(1).inBoundsEndNotInBounds((-50)).assertFalse()
-        CollectionBoundsChecker(1).inBoundsEndNotInBounds(42).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndNotInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndNotInBounds(0).assertTrue()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndNotInBounds(1).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndNotInBounds((-50)).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndNotInBounds(42).assertFalse()
     }
 
     @Test
     fun inBoundsEndInBounds() {
-        CollectionBoundsChecker(1).inBoundsEndInBounds((-1)).assertFalse()
-        CollectionBoundsChecker(1).inBoundsEndInBounds(0).assertTrue()
-        CollectionBoundsChecker(1).inBoundsEndInBounds(1).assertTrue()
-        CollectionBoundsChecker(1).inBoundsEndInBounds((-50)).assertFalse()
-        CollectionBoundsChecker(1).inBoundsEndInBounds(42).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndInBounds((-1)).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndInBounds(0).assertTrue()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndInBounds(1).assertTrue()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndInBounds((-50)).assertFalse()
+        CollectionBounds.CollectionBoundsChecker(1).inBoundsEndInBounds(42).assertFalse()
     }
 }
