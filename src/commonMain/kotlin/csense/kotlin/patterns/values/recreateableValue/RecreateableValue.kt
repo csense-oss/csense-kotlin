@@ -36,3 +36,4 @@ public class RecreateableValue<Value>(
      */
     public fun isValuePresent(): Boolean = innerValue != null
 }
+

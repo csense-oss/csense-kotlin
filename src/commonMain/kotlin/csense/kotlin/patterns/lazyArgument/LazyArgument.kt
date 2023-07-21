@@ -26,7 +26,6 @@ public class LazyArgument<FirstArgumentType, ValueType>(
 
     /**
      * Retrieves the instance if any or creates a new with the given argument
-
      * @return ValueType
      */
     public inline operator fun invoke(
