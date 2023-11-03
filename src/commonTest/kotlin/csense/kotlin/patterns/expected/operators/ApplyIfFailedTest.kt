@@ -6,15 +6,16 @@ import kotlin.test.*
 
 class ApplyIfFailedTest {
     @Test
-    fun failedShouldNotCall() = assertCalled { shouldBeCalled ->
-        Expected.Failed(42).applyIfFailed {
+    fun failedShouldBeCall(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+        Expected.Failed(error = 42).applyIfFailed {
+            error.assert(expected = 42)
             shouldBeCalled()
         }
     }
 
     @Test
-    fun successShouldCall() {
-        Expected.Success(42).applyIfFailed {
+    fun successShouldNotBeCall() {
+        Expected.Success(value = 42).applyIfFailed {
             shouldNotBeCalled()
         }
     }

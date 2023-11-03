@@ -11,7 +11,7 @@ class TryMapTest {
         @Test
         fun toSuccess() {
             val exp: Expected<Int, Nothing> = Expected.Success(42)
-            val result = exp.tryMap {
+            val result: Expected<String, Nothing> = exp.tryMap { _: Int ->
                 "value".asSuccess()
             }
             result.assertSuccessWith("value")
@@ -21,7 +21,7 @@ class TryMapTest {
 
         fun toFailed() {
             val exp: Expected<Int, Nothing> = Expected.Success(42)
-            val result = exp.tryMap {
+            val result: Expected<Nothing, String> = exp.tryMap { _: Int ->
                 "error".asFailed()
             }
             result.assertFailedWith("error")
@@ -34,18 +34,18 @@ class TryMapTest {
         @Test
         fun successToSuccess() {
             val exp: Expected<Int, Exception> = Expected.Success(42)
-            val res = exp.tryMap { 42.toLong().asSuccess() }
+            val res: Expected<Long, Exception> = exp.tryMap { 42.toLong().asSuccess() }
             res.assertSuccessWith(42L)
 
             val exp2: Expected<Int, Exception> = Expected.Success(42)
-            val nothingIsAllowed = exp2.tryMap { it.toLong().asSuccess() }
+            val nothingIsAllowed: Expected<Long, Exception> = exp2.tryMap { it.toLong().asSuccess() }
             nothingIsAllowed.assertSuccessWith(42L)
         }
 
         @Test
         fun successToFailed() {
             val exp: Expected<Int, Long> = Expected.Success(42)
-            val res = exp.tryMap { 11.toLong().asFailed() }
+            val res: Expected<Nothing, Long> = exp.tryMap { 11.toLong().asFailed() }
             res.assertFailedWith(11L)
         }
 

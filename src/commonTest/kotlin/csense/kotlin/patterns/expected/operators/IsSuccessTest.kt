@@ -8,15 +8,15 @@ class IsSuccessTest {
 
     @Test
     fun successShouldBeSuccess() {
-        Expected.Success(42).asExpected().isSuccess().assertTrue()
-        Expected.Success("hmm").asExpected().isSuccess().assertTrue()
+        Expected.Success(value = 42).asExpected().isSuccess().assertTrue()
+        Expected.Success(value = "hmm").asExpected().isSuccess().assertTrue()
         Expected.Success(Exception("ex")).asExpected().isSuccess().assertTrue()
     }
 
     @Test
     fun failedShouldNotBeSuccess() {
-        Expected.Failed(42).asExpected().isSuccess().assertFalse()
-        Expected.Failed("hmm").asExpected().isSuccess().assertFalse()
+        Expected.Failed(error = 42).asExpected().isSuccess().assertFalse()
+        Expected.Failed(error = "hmm").asExpected().isSuccess().assertFalse()
         Expected.Failed(Exception("ex")).asExpected().isSuccess().assertFalse()
     }
 

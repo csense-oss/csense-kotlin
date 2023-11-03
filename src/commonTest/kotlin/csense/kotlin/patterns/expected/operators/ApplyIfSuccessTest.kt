@@ -7,17 +7,17 @@ import kotlin.test.*
 class ApplyIfSuccessTest {
     @Test
     fun failedShouldNotCall() {
-        Expected.Failed(42).applyIfSuccess {
+        Expected.Failed(error = 42).applyIfSuccess {
             shouldNotBeCalled()
 
         }
     }
 
     @Test
-    fun successShouldCall() = assertCalled { shouldBeCalled ->
-        Expected.Success(42).applyIfSuccess {
+    fun successShouldCall(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+        Expected.Success(value = 42).applyIfSuccess {
+            value.assert(expected = 42)
             shouldBeCalled()
         }
     }
-
 }

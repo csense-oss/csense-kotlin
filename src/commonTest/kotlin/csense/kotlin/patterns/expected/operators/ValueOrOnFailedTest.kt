@@ -22,7 +22,7 @@ class ValueOrOnFailedTest {
 
         @Test
         fun canFastReturnFromFailed() {
-            Expected.Failed("42").valueOrOnFailed<String, String> {
+            Expected.Failed("42").valueOrOnFailed<String, String> { it: String ->
                 it.assert("42")
                 return@canFastReturnFromFailed
             }

@@ -7,13 +7,13 @@ import kotlin.test.*
 class AsErrorTypeOrNullTest {
     @Test
     fun badTypeShouldGiveNull() {
-        val failed = Expected.Failed(RuntimeException())
+        val failed: Expected.Failed<RuntimeException> = Expected.Failed(RuntimeException())
         failed.asErrorTypeOrNull<ErrorTypeException>().assertNull()
     }
 
     @Test
     fun castAbleTypeShouldGiveTheType() {
-        val failed = Expected.Failed(RuntimeException())
+        val failed: Expected.Failed<RuntimeException> = Expected.Failed(RuntimeException())
         failed.asErrorTypeOrNull<RuntimeException>().assertByEquals(failed)
         failed.asErrorTypeOrNull<RuntimeException>().assertNotNullApply {
             error.assertIs<RuntimeException>()

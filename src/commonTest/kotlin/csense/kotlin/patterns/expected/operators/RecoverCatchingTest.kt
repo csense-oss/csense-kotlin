@@ -1,8 +1,6 @@
 package csense.kotlin.patterns.expected.operators
 
 import csense.kotlin.patterns.expected.*
-import csense.kotlin.patterns.expected.expectedMapCatchingError.*
-import csense.kotlin.patterns.expected.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -11,8 +9,8 @@ class RecoverCatchingTest {
 
         @Test
         fun success() {
-            val exp: Expected<Int, String> = Expected.Success(42)
-            val result = exp.recoverCatching {
+            val exp: Expected<Int, String> = Expected.Success(value = 42)
+            val result: Expected<Int, ExpectedExceptionFailed<String>> = exp.recoverCatching { _: String ->
                 shouldNotBeCalled()
             }
             result.assertSuccessWith(42)
@@ -20,8 +18,8 @@ class RecoverCatchingTest {
 
         @Test
         fun failed() {
-            val exp: Expected<Int, String> = Expected.Failed("42")
-            val result = exp.recoverCatching {
+            val exp: Expected<Int, String> = Expected.Failed(error = "42")
+            val result: Expected<Int, ExpectedExceptionFailed<String>> = exp.recoverCatching { _: String ->
                 42
             }
             result.assertSuccessWith(42)
@@ -29,9 +27,9 @@ class RecoverCatchingTest {
 
         @Test
         fun throws() {
-            val exp: Expected<Int, String> = Expected.Failed("42")
+            val exp: Expected<Int, String> = Expected.Failed(error = "42")
             val exception = RuntimeException("message")
-            val result = exp.recoverCatching {
+            val result: Expected<Int, ExpectedExceptionFailed<String>> = exp.recoverCatching { _: String ->
                 throw exception
             }
             result.assertIs<Expected.Failed<ExpectedExceptionFailed<String>>>()

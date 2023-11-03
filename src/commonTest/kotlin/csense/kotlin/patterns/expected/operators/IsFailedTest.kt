@@ -7,15 +7,15 @@ import kotlin.test.*
 class IsFailedTest {
     @Test
     fun successShouldNotBeFailed() {
-        Expected.Success(42).asExpected().isFailed().assertFalse()
-        Expected.Success("hmm").asExpected().isFailed().assertFalse()
+        Expected.Success(value = 42).asExpected().isFailed().assertFalse()
+        Expected.Success(value = "hmm").asExpected().isFailed().assertFalse()
         Expected.Success(Exception("ex")).asExpected().isFailed().assertFalse()
     }
 
     @Test
     fun failedShouldBeFailed() {
-        Expected.Failed(42).asExpected().isFailed().assertTrue()
-        Expected.Failed("hmm").asExpected().isFailed().assertTrue()
+        Expected.Failed(error = 42).asExpected().isFailed().assertTrue()
+        Expected.Failed(error = "hmm").asExpected().isFailed().assertTrue()
         Expected.Failed(Exception("ex")).asExpected().isFailed().assertTrue()
     }
 

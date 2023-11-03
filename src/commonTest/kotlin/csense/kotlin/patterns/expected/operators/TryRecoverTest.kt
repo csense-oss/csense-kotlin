@@ -10,7 +10,7 @@ class TryRecoverTest {
         @Test
         fun success() {
             val exp: Expected<String, Int> = Expected.Success("test")
-            val res = exp.tryRecover { shouldNotBeCalled() }
+            val res: Expected<String, Int> = exp.tryRecover { shouldNotBeCalled() }
             res.assertSuccessWith("test")
 
 //            //should cause a compiler error
@@ -25,11 +25,11 @@ class TryRecoverTest {
         fun failedToSuccess() {
             val exp: Expected<String, Int> = Expected.Failed(89)
 
-            exp.tryRecover {
+            exp.tryRecover { it: Int ->
                 "$it".asSuccess()
             }.assertSuccessWith("89")
 
-            val complex: Expected<String, Int> = exp.tryRecover {
+            val complex: Expected<String, Int> = exp.tryRecover { _: Int ->
                 "1234".asSuccess()
             }
             complex.assertSuccessWith("1234")
@@ -39,7 +39,7 @@ class TryRecoverTest {
         @Test
         fun failedToFailed() {
             val exp: Expected<String, Int> = Expected.Failed(89)
-            exp.tryRecover {
+            exp.tryRecover { it: Int ->
                 it.asFailed()
             }.assertFailedWith(89)
         }

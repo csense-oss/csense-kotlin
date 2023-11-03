@@ -11,4 +11,12 @@ class ValueTest {
         Expected.Failed(42).asExpectedValue<Int, Int>().value().assert(42)
         Expected.Success(42).asExpectedValue<Int, Int>().value().assert(42)
     }
+
+    @Test
+    fun expectedValueNothingValue() {
+        val failed: Expected.Success<Int> = Expected.Success(42)
+        failed.value.assertIs<Int>()
+        failed.value.assert(42)
+    }
+
 }

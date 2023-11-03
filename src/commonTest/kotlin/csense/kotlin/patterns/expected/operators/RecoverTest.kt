@@ -10,8 +10,8 @@ class RecoverTest {
 
         @Test
         fun success() {
-            val exp = Expected.Success("42").asExpected()
-            exp.recover { shouldNotBeCalled() }.value.assert("42")
+            val exp: Expected<String, *> = Expected.Success(value = "42").asExpected()
+            exp.recover { shouldNotBeCalled() }.value.assert(value = "42")
 
 //            val nothingError: Expected<String, Nothing> = Expected.Success("test")
 //            //should cause a compiler error
@@ -24,8 +24,8 @@ class RecoverTest {
 
         @Test
         fun failed() {
-            val exp: Expected<String, Int> = Expected.Failed(1)
-            exp.recover { "test" }.value.assert("test")
+            val exp: Expected<String, Int> = Expected.Failed(error = 1)
+            exp.recover { "test" }.value.assert(value = "test")
 
             val expNothing: Expected<Nothing, Int> = Expected.Failed(999)
             expNothing.recover { "hello" }.value.assert("hello")
@@ -35,8 +35,8 @@ class RecoverTest {
     class ExpectedFailedErrorRecoverTransform {
 
         @Test
-        fun expectedFailedErrorRecoverTransform() = assertCalled { shouldBeCalled ->
-            val result = Expected.Failed("test").recover {
+        fun expectedFailedErrorRecoverTransform(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+            val result: Expected.Success<String> = Expected.Failed(error = "test").recover { _: String ->
                 shouldBeCalled()
                 "result"
             }
