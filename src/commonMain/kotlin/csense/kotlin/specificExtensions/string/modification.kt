@@ -216,17 +216,18 @@ public fun StringModification.replaceLazy(
         if (searchingFor.isEmpty()) {
             return@with this
         }
-        var index: Int? = indexOfOrNull(string = searchingFor, startIndex = 0, ignoreCase = ignoreCase) ?: return@with this
+        var index: Int? =
+            indexOfOrNull(string = searchingFor, startIndex = 0, ignoreCase = ignoreCase) ?: return@with this
         val builder = StringBuilder()
         val replace: String = replaceWith()
         var fromIndex = 0
         while (index != null) {
-            builder.append(value = this, startIndex = fromIndex, endIndex = index)
+            builder.append(this, fromIndex, index)
             builder.append(replace)
             fromIndex = index + searchingFor.length
             index = indexOfOrNull(string = searchingFor, startIndex = index + 1, ignoreCase = ignoreCase)
         }
-        builder.append(value = this, startIndex = fromIndex, endIndex = this.length)
+        builder.append(this, fromIndex, this.length)
         return@with builder.toString()
 
     }
