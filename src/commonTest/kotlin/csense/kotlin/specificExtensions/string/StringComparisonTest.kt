@@ -9,22 +9,25 @@ class StringComparisonTest {
         @Test
         fun shouldBeFalseWhenOutOfBounds() {
             //sanity test
-            "a".comparison.containsStringAt(0, "a", false).assertTrue()
+            "a".comparison.containsStringAt(startIndex = 0, other = "a", ignoreCase = false).assertTrue()
 
-            "abc".comparison.containsStringAt((-1), "a", false).assertFalse("out of bounds")
-            "a".comparison.containsStringAt(1, "a", false).assertFalse("out of bounds")
-            "".comparison.containsStringAt(42, "", false)
+            "abc".comparison.containsStringAt(startIndex = (-1), other = "a", ignoreCase = false)
+                .assertFalse("out of bounds")
+            "a".comparison.containsStringAt(startIndex = 1, other = "a", ignoreCase = false)
+                .assertFalse("out of bounds")
+            "".comparison.containsStringAt(startIndex = 42, other = "", ignoreCase = false)
                 .assertFalse("out of bounds should be before other is empty check")
         }
 
 
         @Test
         fun other() {
-            "".comparison.containsStringAt(0, "", false).assertFalse("everything is out of bounds")
-            "a".comparison.containsStringAt(0, "a", false).assertTrue()
+            "".comparison.containsStringAt(startIndex = 0, other = "", ignoreCase = false)
+                .assertFalse("everything is out of bounds")
+            "a".comparison.containsStringAt(startIndex = 0, other = "a", ignoreCase = false).assertTrue()
 
-            "b".comparison.containsStringAt(0, "a", false).assertFalse()
-            "a".comparison.containsStringAt(0, "b", false).assertFalse()
+            "b".comparison.containsStringAt(startIndex = 0, other = "a", ignoreCase = false).assertFalse()
+            "a".comparison.containsStringAt(startIndex = 0, other = "b", ignoreCase = false).assertFalse()
 
             "abc".comparison.containsStringAt(startIndex = 0, "a", ignoreCase = false).assertTrue()
             "abc".comparison.containsStringAt(startIndex = 1, "b", ignoreCase = false).assertTrue()
@@ -39,94 +42,20 @@ class StringComparisonTest {
             "abc".comparison.containsStringAt(startIndex = 2, "C", ignoreCase = true).assertTrue()
 
         }
-
     }
 
-    class StringComparisonCompareTo {
-
+    class ContainsStringEndingAt{
         @Test
-        fun stringComparisonCompareTo() {
-            StringComparison("").compareTo(0, "", 0, 0, false)
+        fun hmm(){
+            TODO()
         }
-
-
-        @Test
-        fun startingIndexInThisString() {
-            StringComparison("").compareTo((-1), "", 0, 0, false)
-            StringComparison("").compareTo(0, "", 0, 0, false)
-            StringComparison("").compareTo(1, "", 0, 0, false)
-            StringComparison("").compareTo((-50), "", 0, 0, false)
-            StringComparison("").compareTo(42, "", 0, 0, false)
-        }
-
-
-        @Test
-        fun other() {
-            StringComparison("").compareTo(0, "", 0, 0, false)
-            StringComparison("").compareTo(0, " ", 0, 0, false)
-            StringComparison("").compareTo(0, "a", 0, 0, false)
-        }
-
-
-        @Test
-        fun startIndexInOtherString() {
-            StringComparison("").compareTo(0, "", (-1), 0, false)
-            StringComparison("").compareTo(0, "", 0, 0, false)
-            StringComparison("").compareTo(0, "", 1, 0, false)
-            StringComparison("").compareTo(0, "", (-50), 0, false)
-            StringComparison("").compareTo(0, "", 42, 0, false)
-        }
-
-
-        @Test
-        fun length() {
-            StringComparison("").compareTo(0, "", 0, (-1), false)
-            StringComparison("").compareTo(0, "", 0, 0, false)
-            StringComparison("").compareTo(0, "", 0, 1, false)
-            StringComparison("").compareTo(0, "", 0, (-50), false)
-            StringComparison("").compareTo(0, "", 0, 42, false)
-        }
-
-
-        @Test
-        fun ignoreCase() {
-            StringComparison("").compareTo(0, "", 0, 0, false)
-            StringComparison("").compareTo(0, "", 0, 0, true)
-        }
-
     }
 
-    class StringComparisonContainsStringEndingAt {
-
+    class CompareTo{
         @Test
-        fun stringComparisonContainsStringEndingAt() {
-            StringComparison("").containsStringEndingAt(0, "", false)
+        fun hmm(){
+            TODO()
         }
-
-
-        @Test
-        fun endIndex() {
-            StringComparison("").containsStringEndingAt((-1), "", false)
-            StringComparison("").containsStringEndingAt(0, "", false)
-            StringComparison("").containsStringEndingAt(1, "", false)
-            StringComparison("").containsStringEndingAt((-50), "", false)
-            StringComparison("").containsStringEndingAt(42, "", false)
-        }
-
-
-        @Test
-        fun other() {
-            StringComparison("").containsStringEndingAt(0, "", false)
-            StringComparison("").containsStringEndingAt(0, " ", false)
-            StringComparison("").containsStringEndingAt(0, "a", false)
-        }
-
-
-        @Test
-        fun ignoreCase() {
-            StringComparison("").containsStringEndingAt(0, "", false)
-            StringComparison("").containsStringEndingAt(0, "", true)
-        }
-
     }
+
 }

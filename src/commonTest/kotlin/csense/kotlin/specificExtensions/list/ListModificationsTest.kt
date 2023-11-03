@@ -7,8 +7,8 @@ class ListModificationsTest {
 
     @Test
     fun listTModification() {
-        val first = listOf("a").modification
-        val second = listOf("b").modification
+        val first: ListModifications<String> = listOf("a").modification
+        val second: ListModifications<String> = listOf("b").modification
         (first != second).assertTrue()
     }
 
@@ -21,6 +21,15 @@ class ListModificationsTest {
             )
         }
 
+        @Test
+        fun single() {
+            TODO()
+        }
+
+        @Test
+        fun multiple() {
+            TODO()
+        }
     }
 
 

@@ -1,10 +1,9 @@
-package csense.kotlin.patterns.restartableJob.arguments
+package csense.kotlin.patterns.restartableJob
 
-import csense.kotlin.patterns.restartableJob.*
+import csense.kotlin.patterns.restartableJob.base.*
 import kotlinx.coroutines.*
 
 public typealias RestartableJobWith2ArgumentsAction<First, Second> = suspend CoroutineScope.(First, Second) -> Unit
-
 public class RestartableJobWith2Arguments<First, Second>(
     scope: CoroutineScope,
     dispatcher: CoroutineDispatcher,
@@ -16,20 +15,30 @@ public class RestartableJobWith2Arguments<First, Second>(
         dispatcher = dispatcher
     )
 
+    public operator fun invoke(
+        first: First,
+        second: Second
+    ) {
+        start(
+            first = first,
+            second = second
+        )
+    }
+
     public fun start(
         first: First,
         second: Second
     ) {
-        container.startNewRunningJob(
+        container.startJob(
             invokeAction = { action(first, second) }
         )
     }
 
     override fun cancel(cancellationException: CancellationException?): Unit =
-        container.cancel(cancellationException)
+        container.cancel(cancellationException = cancellationException)
 
-    override fun isRunning(): Boolean =
-        container.isRunning()
+    override fun hasJob(): Boolean =
+        container.hasJob()
 
     override suspend fun join(): Unit =
         container.join()

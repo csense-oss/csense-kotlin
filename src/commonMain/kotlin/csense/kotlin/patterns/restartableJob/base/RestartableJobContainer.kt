@@ -1,4 +1,4 @@
-package csense.kotlin.patterns.restartableJob
+package csense.kotlin.patterns.restartableJob.base
 
 import kotlinx.coroutines.*
 
@@ -17,7 +17,7 @@ public class RestartableJobContainer(
 
     }
 
-    public override fun isRunning(): Boolean {
+    public override fun hasJob(): Boolean {
         return runningJob != null
     }
 
@@ -25,10 +25,10 @@ public class RestartableJobContainer(
         runningJob?.join()
     }
 
-    public fun startNewRunningJob(
+    public fun startJob(
         invokeAction: suspend CoroutineScope.() -> Unit,
     ) {
-        cancel(null)
+        cancel(cancellationException = null)
         runningJob = scope.launch(dispatcher) {
             invokeAction()
             resetRunningJob()

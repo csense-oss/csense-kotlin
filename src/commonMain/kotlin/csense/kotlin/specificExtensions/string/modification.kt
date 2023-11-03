@@ -78,7 +78,7 @@ public inline fun StringModification.replaceCharAtOrNull(index: Int, withChar: C
     if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
         return@with null
     }
-    val split = splitAtOrNull(index) ?: return@with null
+    val split: StringModification.StringSplitAt = splitAtOrNull(index) ?: return@with null
     return@with split.beforeIndex + withChar + split.afterIndex
 }
 
@@ -86,8 +86,8 @@ public inline fun StringModification.splitAtOrNull(index: Int): StringModificati
     if (isIndex.outOfBounds(index, isEndOutOfBonds = true)) {
         return@with null
     }
-    val before = substringOrNull(0, index) ?: ""
-    val after = substringOrNull(index + 1, length) ?: ""
+    val before: String = substringOrNull(0, index) ?: ""
+    val after: String = substringOrNull(index + 1, length) ?: ""
     return@with StringModification.StringSplitAt(before, after)
 }
 
@@ -112,9 +112,9 @@ public fun <U> StringModification.mapEachMatching(
         return@with emptyList()
     }
     var currentIndex = 0
-    val appendLength = searchByWord.map(subString.length, 1)
-    var next = this.indexOfOrNull(subString, currentIndex, ignoreCase)
-    val result = mutableListOf<U>()
+    val appendLength: Int = searchByWord.map(ifTrue = subString.length, ifFalse = 1)
+    var next: Int? = this.indexOfOrNull(string = subString, startIndex = currentIndex, ignoreCase = ignoreCase)
+    val result: MutableList<U> = mutableListOf()
     while (next != null) {
         result.add(mapper(next))
         currentIndex = next + appendLength
@@ -139,10 +139,9 @@ public inline fun StringModification.replaceIf(
     newValue: String,
     ignoreCase: Boolean = false
 ): String = with(string) {
-    return@with if (condition) {
-        this.replace(toReplace, newValue, ignoreCase)
-    } else {
-        this
+    when (condition) {
+        true -> this.replace(oldValue = toReplace, newValue = newValue, ignoreCase = ignoreCase)
+        false -> this
     }
 }
 
@@ -164,8 +163,8 @@ public inline fun StringModification.replaceIfOr(
     ifFalseValue: String,
     ignoreCase: Boolean = false
 ): String = with(string) {
-    val replacement = condition.map(ifTrueValue, ifFalseValue)
-    return@with this.replace(toReplace, replacement, ignoreCase)
+    val replacement: String = condition.map(ifTrue = ifTrueValue, ifFalse = ifFalseValue)
+    return@with this.replace(oldValue = toReplace, newValue = replacement, ignoreCase = ignoreCase)
 }
 
 /**
@@ -191,8 +190,8 @@ public inline fun StringModification.replaceIfOr(
         callsInPlace(ifFalseValue, InvocationKind.AT_MOST_ONCE)
     }
     return with(string) {
-        val replacement = condition.mapLazy(ifTrueValue, ifFalseValue)
-        return@with this.replace(toReplace, replacement, ignoreCase)
+        val replacement: String = condition.mapLazy(ifTrue = ifTrueValue, ifFalse = ifFalseValue)
+        return@with this.replace(oldValue = toReplace, newValue = replacement, ignoreCase = ignoreCase)
     }
 }
 
@@ -214,21 +213,20 @@ public fun StringModification.replaceLazy(
         callsInPlace(replaceWith, InvocationKind.AT_MOST_ONCE)
     }
     return with(string) {
-
         if (searchingFor.isEmpty()) {
             return@with this
         }
-        var index: Int? = indexOfOrNull(searchingFor, startIndex = 0, ignoreCase = ignoreCase) ?: return@with this
+        var index: Int? = indexOfOrNull(string = searchingFor, startIndex = 0, ignoreCase = ignoreCase) ?: return@with this
         val builder = StringBuilder()
-        val replace = replaceWith()
+        val replace: String = replaceWith()
         var fromIndex = 0
         while (index != null) {
-            builder.append(this, fromIndex, index)
+            builder.append(value = this, startIndex = fromIndex, endIndex = index)
             builder.append(replace)
             fromIndex = index + searchingFor.length
-            index = indexOfOrNull(searchingFor, startIndex = index + 1, ignoreCase = ignoreCase)
+            index = indexOfOrNull(string = searchingFor, startIndex = index + 1, ignoreCase = ignoreCase)
         }
-        builder.append(this, fromIndex, this.length)
+        builder.append(value = this, startIndex = fromIndex, endIndex = this.length)
         return@with builder.toString()
 
     }
@@ -256,7 +254,7 @@ public inline fun StringModification.replaceEachOccurrence(
 ): String {
     val result = StringBuilder()
 
-    val lastFoundIndexOrStart = GenericCollections.traverseWithPreviousWhileNotNull(
+    val lastFoundIndexOrStart: Int = GenericCollections.traverseWithPreviousWhileNotNull(
         start = 0,
         processCurrentLevel = { previousIndex, currentIndex ->
             result.append(string, previousIndex, currentIndex)

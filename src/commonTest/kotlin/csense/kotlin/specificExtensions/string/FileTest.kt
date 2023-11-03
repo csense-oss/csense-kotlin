@@ -45,8 +45,8 @@ class FileTest {
 
     @Test
     fun stringFileExtensions() {
-        val x = "".fileExtensions
-        val y = " ".fileExtensions
+        val x: StringFile = "".fileExtensions
+        val y: StringFile = " ".fileExtensions
         (x != y).assertTrue("should have unique instances")
     }
 }

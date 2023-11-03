@@ -40,8 +40,8 @@ class ModificationTest {
 
     @Test
     fun stringModifications() {
-        val empty = "".modifications
-        val single = "a".modifications
+        val empty: StringModification = "".modifications
+        val single: StringModification = "a".modifications
         empty.string.assert("")
         single.string.assert("a")
         assertNotEquals(empty, single)
@@ -118,18 +118,18 @@ class ModificationTest {
     class StringModificationReplaceCharAt {
 
         @Test
-        fun empty() = assertThrows<IndexOutOfBoundsException> {
+        fun empty(): Unit = assertThrows<IndexOutOfBoundsException> {
             "".modifications.replaceCharAt(0, 'a')
         }
 
 
         @Test
-        fun singleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
+        fun singleInvalidIndexNegative(): Unit = assertThrows<IndexOutOfBoundsException> {
             "a".modifications.replaceCharAt(index = -1, withChar = 'a')
         }
 
         @Test
-        fun singleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
+        fun singleInvalidIndexPositive(): Unit = assertThrows<IndexOutOfBoundsException> {
             "a".modifications.replaceCharAt(index = 1, withChar = 'a')
         }
 
@@ -139,12 +139,12 @@ class ModificationTest {
         }
 
         @Test
-        fun multipleInvalidIndexNegative() = assertThrows<IndexOutOfBoundsException> {
+        fun multipleInvalidIndexNegative(): Unit = assertThrows<IndexOutOfBoundsException> {
             "abc".modifications.replaceCharAt(index = -1, withChar = 'a')
         }
 
         @Test
-        fun multipleInvalidIndexPositive() = assertThrows<IndexOutOfBoundsException> {
+        fun multipleInvalidIndexPositive(): Unit = assertThrows<IndexOutOfBoundsException> {
             "abc".modifications.replaceCharAt(index = 3, withChar = 'a')
         }
 
@@ -161,17 +161,17 @@ class ModificationTest {
 
         @Test
         fun bad() {
-            "".modifications.mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+            "".modifications.mapEachMatching(subString = "", searchByWord = false, ignoreCase = false) { it }
                 .assertEmpty("nothing in nothing should be nothing")
-            "".modifications.mapEachMatching("0", searchByWord = false, ignoreCase = false) { it }
+            "".modifications.mapEachMatching(subString = "0", searchByWord = false, ignoreCase = false) { it }
                 .assertEmpty("finding something in nothing happens never")
 
-            "0".modifications.mapEachMatching("", searchByWord = false, ignoreCase = false) { it }
+            "0".modifications.mapEachMatching(subString = "", searchByWord = false, ignoreCase = false) { it }
                 .assertEmpty("finding nothing in something happens never")
 
-            "0".modifications.mapEachMatching("", searchByWord = true, ignoreCase = true) { it }
+            "0".modifications.mapEachMatching(subString = "", searchByWord = true, ignoreCase = true) { it }
                 .assertEmpty("no parameter changes that behavior")
-            "".modifications.mapEachMatching("0", searchByWord = true, ignoreCase = true) { it }
+            "".modifications.mapEachMatching(subString = "0", searchByWord = true, ignoreCase = true) { it }
                 .assertEmpty("no parameter changes that behavior")
         }
 
@@ -179,47 +179,47 @@ class ModificationTest {
         fun good() {
 
             val textString = "-abc-aa-bb-cc-"
-            val indexes = textString.modifications.mapEachMatching(
-                "a",
+            val indexes: List<Int> = textString.modifications.mapEachMatching(
+                subString = "a",
                 searchByWord = false,
                 ignoreCase = false
             ) { it }
-            indexes.assertSize(3, "there are 3 a's in the text")
+            indexes.assertSize(size = 3, message = "there are 3 a's in the text")
 
-            indexes[0].assert(1, "first is at second index of string")
+            indexes[0].assert(expected = 1, message = "first is at second index of string")
 
-            indexes[1].assert(5, "second is past 5 chars")
+            indexes[1].assert(expected = 5, message = "second is past 5 chars")
 
-            indexes[2].assert(6, "third is past 6 chars")
+            indexes[2].assert(expected = 6, message = "third is past 6 chars")
 
-            textString.modifications.mapEachMatching("A", searchByWord = false, ignoreCase = false) { it }
+            textString.modifications.mapEachMatching(subString = "A", searchByWord = false, ignoreCase = false) { it }
                 .assertEmpty("should search case sensitive when asked")
 
-            textString.modifications.mapEachMatching("A", searchByWord = false, ignoreCase = true) { it }
+            textString.modifications.mapEachMatching(subString = "A", searchByWord = false, ignoreCase = true) { it }
                 .assertSize(3, "should find all case insensitive")
 
 
             val funnyString = "ababab"
             funnyString.modifications.mapEachMatching(
-                "abab",
+                subString = "abab",
                 searchByWord = false,
                 ignoreCase = false
-            ) { it }
-                .assertSize(
-                    2, "since searching by chars, we will encounter an overlap , which then " +
-                            "will give us 2 results since we are only advancing by 1 chars"
-                )
+            ) { it }.assertSize(
+                size = 2,
+                message = "since searching by chars, we will encounter an overlap , which then " +
+                        "will give us 2 results since we are only advancing by 1 chars"
+            )
 
 
             funnyString.modifications.mapEachMatching(
-                "abab",
+                subString = "abab",
                 searchByWord = true,
                 ignoreCase = false
-            ) { it }
-                .assertSize(
-                    1, "since searching by word, we will NOT encounter an overlap , so " +
-                            "we will only see [abab] followed by the last part (ab), so not 2 matches"
-                )
+            ) { it }.assertSize(
+                size = 1,
+                message = "since searching by word, we will NOT encounter an overlap , so " +
+                        "we will only see [abab] followed by the last part (ab), so not 2 matches"
+            )
 
         }
     }
@@ -227,11 +227,40 @@ class ModificationTest {
 
     @Test
     fun replaceIf() {
-        "abc".modifications.replaceIf(false, "abc", "1234", false).assert("abc", "should not replace")
-        "abc".modifications.replaceIf(false, "abc", "1234", true).assert("abc", "should not replace")
-        "abc".modifications.replaceIf(true, "abc", "1234", false).assert("1234")
-        "abc".modifications.replaceIf(true, "ABC", "1234", false).assert("abc", "case does not match")
-        "abc".modifications.replaceIf(true, "ABC", "1234", true).assert("1234")
+        "abc".modifications.replaceIf(
+            condition = false,
+            toReplace = "abc",
+            newValue = "1234",
+            ignoreCase = false
+        ).assert(expected = "abc", message = "should not replace")
+
+        "abc".modifications.replaceIf(
+            condition = false,
+            toReplace = "abc",
+            newValue = "1234",
+            ignoreCase = true
+        ).assert(expected = "abc", message = "should not replace")
+
+        "abc".modifications.replaceIf(
+            condition = true,
+            toReplace = "abc",
+            newValue = "1234",
+            ignoreCase = false
+        ).assert(value = "1234")
+
+        "abc".modifications.replaceIf(
+            condition = true,
+            toReplace = "ABC",
+            newValue = "1234",
+            ignoreCase = false
+        ).assert(expected = "abc", message = "case does not match")
+
+        "abc".modifications.replaceIf(
+            condition = true,
+            toReplace = "ABC",
+            newValue = "1234",
+            ignoreCase = true
+        ).assert(value = "1234")
     }
 
 
@@ -243,15 +272,14 @@ class ModificationTest {
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("")
+            ).assert("")
+
             "".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("")
+            ).assert("")
         }
 
         @Test
@@ -261,22 +289,21 @@ class ModificationTest {
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("abc")
+            ).assert("abc")
+
             "abc".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("abc")
+            ).assert("abc")
+
             "TEST".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("TEST")
+            ).assert("TEST")
         }
 
         @Test
@@ -286,31 +313,30 @@ class ModificationTest {
                 toReplace = "abc",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("false")
+            ).assert("false")
+
             "abc".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "abc",
                 ifTrueValue = "true",
                 ifFalseValue = "false"
-            )
-                .assert("true")
+            ).assert("true")
+
             "TEST".modifications.replaceIfOr(
                 condition = false,
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false",
                 ignoreCase = true
-            )
-                .assert("false")
+            ).assert("false")
+
             "TEST".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = "true",
                 ifFalseValue = "false",
                 ignoreCase = true
-            )
-                .assert("true")
+            ).assert("true")
         }
 
     }
@@ -322,14 +348,15 @@ class ModificationTest {
                 condition = false,
                 toReplace = "test",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" })
-                .assert("")
+                ifFalseValue = { "false" }
+            ).assert("")
+
             "".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" })
-                .assert("")
+                ifFalseValue = { "false" }
+            ).assert("")
         }
 
         @Test
@@ -338,17 +365,22 @@ class ModificationTest {
                 condition = false,
                 toReplace = "test",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
+                ifFalseValue = { "false" }
+            ).assert("abc")
+
             "abc".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("abc")
+                ifFalseValue = { "false" }
+            ).assert("abc")
+
             "TEST".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("TEST")
+                ifFalseValue = { "false" }
+            ).assert("TEST")
         }
 
         @Test
@@ -357,29 +389,31 @@ class ModificationTest {
                 condition = false,
                 toReplace = "abc",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" }).assert("false")
+                ifFalseValue = { "false" }
+            ).assert("false")
+
             "abc".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "abc",
                 ifTrueValue = { "true" },
-                ifFalseValue = { "false" })
-                .assert("true")
+                ifFalseValue = { "false" }
+            ).assert("true")
+
             "TEST".modifications.replaceIfOr(
                 condition = false,
                 toReplace = "test",
                 ifTrueValue = { "true" },
                 ifFalseValue = { "false" },
                 ignoreCase = true
-            )
-                .assert("false")
+            ).assert("false")
+
             "TEST".modifications.replaceIfOr(
                 condition = true,
                 toReplace = "test",
                 ifTrueValue = { "true" },
                 ifFalseValue = { "false" },
                 ignoreCase = true
-            )
-                .assert("true")
+            ).assert("true")
         }
     }
 
@@ -387,69 +421,129 @@ class ModificationTest {
 
         @Test
         fun empty() {
-            "".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("")
+            "".modifications.replaceLazy(
+                searchingFor = "",
+                replaceWith = { shouldNotBeCalled() }
+            ).assert("")
         }
 
         @Test
         fun singleNotFound() {
-            "a".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("a")
-            "A".modifications.replaceLazy("", { shouldNotBeCalled() }).assert("A")
+            "a".modifications.replaceLazy(
+                searchingFor = "",
+                replaceWith = { shouldNotBeCalled() }
+            ).assert("a")
 
-            "a".modifications.replaceLazy(" ", { shouldNotBeCalled() }).assert("a")
+            "A".modifications.replaceLazy(
+                searchingFor = "",
+                replaceWith = { shouldNotBeCalled() }
+            ).assert("A")
+
+            "a".modifications.replaceLazy(
+                searchingFor = " ",
+                replaceWith = { shouldNotBeCalled() }
+            ).assert("a")
         }
 
         @Test
         fun singleFound() {
-            assertCalled { shouldBeCalled ->
-                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }).assert("-")
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "a".modifications.replaceLazy(
+                    searchingFor = "a",
+                    replaceWith = { shouldBeCalled(); "-" }
+                ).assert("-")
             }
         }
 
         @Test
         fun singleIgnoreCaseFalse() {
-            assertCalled { shouldBeCalled ->
-                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = false).assert("-")
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "a".modifications.replaceLazy(
+                    searchingFor = "a",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = false
+                ).assert("-")
             }
 
-            "A".modifications.replaceLazy("a", { shouldNotBeCalled() }, ignoreCase = false).assert("A")
-            "a".modifications.replaceLazy("A", { shouldNotBeCalled() }, ignoreCase = false).assert("a")
+            "A".modifications.replaceLazy(
+                searchingFor = "a",
+                replaceWith = { shouldNotBeCalled() },
+                ignoreCase = false
+            ).assert("A")
 
-            assertCalled { shouldBeCalled ->
-                "A".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = false).assert("-")
+            "a".modifications.replaceLazy(
+                searchingFor = "A",
+                replaceWith = { shouldNotBeCalled() },
+                ignoreCase = false
+            ).assert("a")
+
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "A".modifications.replaceLazy(
+                    searchingFor = "A",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = false
+                ).assert("-")
             }
         }
 
         @Test
         fun singleIgnoreCaseTrue() {
-            assertCalled { shouldBeCalled ->
-                "a".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "a".modifications.replaceLazy(
+                    searchingFor = "a",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = true
+                ).assert("-")
             }
-            assertCalled { shouldBeCalled ->
-                "A".modifications.replaceLazy("a", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "A".modifications.replaceLazy(
+                    searchingFor = "a",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = true
+                ).assert("-")
             }
-            assertCalled { shouldBeCalled ->
-                "a".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "a".modifications.replaceLazy(
+                    searchingFor = "A",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = true
+                ).assert("-")
             }
-            assertCalled { shouldBeCalled ->
-                "A".modifications.replaceLazy("A", { shouldBeCalled(); "-" }, ignoreCase = true).assert("-")
+
+            assertCalled { shouldBeCalled: () -> Unit ->
+                "A".modifications.replaceLazy(
+                    searchingFor = "A",
+                    replaceWith = { shouldBeCalled(); "-" },
+                    ignoreCase = true
+                ).assert("-")
             }
         }
 
         @Test
         fun multipleNoMatches() {
-            "test 1234 test".modifications.replaceLazy("qwerty", ::shouldNotBeCalled).assert("test 1234 test")
+            "test 1234 test".modifications.replaceLazy(
+                searchingFor = "qwerty",
+                replaceWith = ::shouldNotBeCalled
+            ).assert("test 1234 test")
         }
 
         @Test
-        fun multipleMatchesString() = assertCalled { shouldBeCalled ->
-            "test 1234 test".modifications.replaceLazy("test", { shouldBeCalled(); "-" }).assert("- 1234 -")
+        fun multipleMatchesString(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+            "test 1234 test".modifications.replaceLazy(
+                searchingFor = "test",
+                replaceWith = { shouldBeCalled(); "-" }
+            ).assert("- 1234 -")
         }
 
 
         @Test
-        fun multipleMatchesSingleLetter() = assertCalled { shouldBeCalled ->
-            "test 1234 test".modifications.replaceLazy("t", { shouldBeCalled(); "-*-" })
-                .assert("-*-es-*- 1234 -*-es-*-")
+        fun multipleMatchesSingleLetter() = assertCalled { shouldBeCalled: () -> Unit ->
+            "test 1234 test".modifications.replaceLazy(
+                searchingFor = "t",
+                replaceWith = { shouldBeCalled(); "-*-" }
+            ).assert("-*-es-*- 1234 -*-es-*-")
         }
 
     }
@@ -458,7 +552,10 @@ class ModificationTest {
 
         @Test
         fun stringModificationReplaceEachOccurrence() {
-            StringModification("some message {}").replaceEachOccurrence("{}", false) {
+            StringModification(string = "some message {}").replaceEachOccurrence(
+                searchingFor = "{}",
+                ignoreCase = false
+            ) {
                 "myMessage"
             }.assert("some message myMessage")
         }

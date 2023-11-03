@@ -6,8 +6,8 @@ import kotlin.test.*
 class CollectionMappingsTest {
     @Test
     fun collectionItemMappings() {
-        val first = listOf("a").mappings
-        val second = listOf("b").mappings
+        val first: CollectionMappings<String> = listOf("a").mappings
+        val second: CollectionMappings<String> = listOf("b").mappings
         (first != second).assertTrue(message = "should have different mapping(s)")
     }
 
@@ -16,14 +16,14 @@ class CollectionMappingsTest {
         @Test
         fun empty() {
             val empty: CollectionMappings<String> = listOf<String>().mappings
-            val result = empty.mapEachItemWith(42) { shouldNotBeCalled() }
+            val result: Int = empty.mapEachItemWith(42) { shouldNotBeCalled() }
             result.assert(42)
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
             val empty: CollectionMappings<String> = listOf("test").mappings
-            val result = empty.mapEachItemWith("result") {
+            val result: String = empty.mapEachItemWith("result") {
                 it.assert("test")
                 shouldBeCalled()
             }
@@ -31,9 +31,9 @@ class CollectionMappingsTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple(): Unit = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             val empty: CollectionMappings<String> = listOf("test", "1234").mappings
-            val result = empty.mapEachItemWith(mutableListOf<String>()) {
+            val result: MutableList<String> = empty.mapEachItemWith(mutableListOf()) { it: String ->
                 shouldBeCalled()
                 this += it
             }

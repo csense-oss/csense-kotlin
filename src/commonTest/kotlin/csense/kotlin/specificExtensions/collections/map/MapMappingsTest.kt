@@ -7,39 +7,41 @@ class MapMappingsTest {
 
     @Test
     fun mapKeyValueMappings() {
-        val first = mapOf("a" to "1").mappings
-        val second = mapOf("b" to "2").mappings
+        val first: MapMappings<String, String> = mapOf("a" to "1").mappings
+        val second: MapMappings<String, String> = mapOf("b" to "2").mappings
         (first != second).assertTrue("should not be the same instance of mappings")
     }
 
     class MapMappingsKeyValueMapEachEntryWith {
         @Test
         fun empty() {
-            val empty = mapOf<String, String>().mappings
-            val result = empty.mapEachEntryWith(42) { shouldNotBeCalled() }
+            val empty: MapMappings<String, String> = mapOf<String, String>().mappings
+            val result: Int = empty.mapEachEntryWith(42) { shouldNotBeCalled() }
             result.assert(42)
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
-            val empty = mapOf("test" to 1).mappings
-            val result = empty.mapEachEntryWith("result") {
-                it.assert("test", 1)
+        fun single(): Unit = assertCalled { shouldBeCalled ->
+            val empty: MapMappings<String, Int> = mapOf("test" to 1).mappings
+            val result: String = empty.mapEachEntryWith("result") { it: Map.Entry<String, Int> ->
+                it.assert(key = "test", value = 1)
                 shouldBeCalled()
             }
             result.assert("result")
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
-            val empty = mapOf("test" to 1, "1234" to 2).mappings
-            val result = empty.mapEachEntryWith(mutableListOf<Map.Entry<String, Int>>()) {
+        fun multiple(): Unit = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
+            val empty: MapMappings<String, Int> = mapOf("test" to 1, "1234" to 2).mappings
+            val result: MutableList<Map.Entry<String, Int>> = empty.mapEachEntryWith(
+                mutableListOf()
+            ) { it: Map.Entry<String, Int> ->
                 shouldBeCalled()
                 this += it
             }
             result.assertSize(2)
-            result.first().assert("test", 1)
-            result.last().assert("1234", 2)
+            result.first().assert(key = "test", value = 1)
+            result.last().assert(key = "1234", value = 2)
         }
 
     }
@@ -47,28 +49,25 @@ class MapMappingsTest {
     class ReverseKeyValue {
         @Test
         fun empty() {
-            val map = mapOf<String, String>()
-            val reverse = map.mappings.reverseKeyValue()
+            val map: Map<String, String> = mapOf()
+            val reverse: MutableMap<String, String> = map.mappings.reverseKeyValue()
             reverse.assertEmpty()
         }
 
         @Test
         fun single() {
-            val map = mapOf("abc" to "123")
-            val reverse = map.mappings.reverseKeyValue()
-            reverse.assertSingle {
-                it.key.assert("123")
-                it.value.assert("abc")
-            }
+            val map: Map<String, String> = mapOf("abc" to "123")
+            val reverse: MutableMap<String, String> = map.mappings.reverseKeyValue()
+            reverse.assertSingle(keyValue = "123" to "abc")
         }
 
         @Test
         fun multipleNoCollision() {
-            val map = mapOf(
+            val map: Map<String, String> = mapOf(
                 "abc" to "1",
                 "qwer" to "2"
             )
-            val reverse = map.mappings.reverseKeyValue()
+            val reverse: MutableMap<String, String> = map.mappings.reverseKeyValue()
             reverse.assertSize(2)
             reverse.assertContains("1" to "abc")
             reverse.assertContains("2" to "qwer")
@@ -76,11 +75,11 @@ class MapMappingsTest {
 
         @Test
         fun collision() {
-            val map = mapOf(
+            val map: Map<String, String> = mapOf(
                 "abc" to "1",
                 "qwer" to "1"
             )
-            val reverse = map.mappings.reverseKeyValue()
+            val reverse: MutableMap<String, String> = map.mappings.reverseKeyValue()
             reverse.assertSize(1)
             reverse.assertContains("1" to "qwer")
         }

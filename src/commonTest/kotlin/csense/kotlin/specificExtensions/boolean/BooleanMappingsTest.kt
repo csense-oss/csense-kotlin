@@ -6,8 +6,8 @@ import kotlin.test.*
 class BooleanMappingsTest {
     @Test
     fun booleanMappings() {
-        val first = true.mappings
-        val second = false.mappings
+        val first: BooleanMappings = true.mappings
+        val second: BooleanMappings = false.mappings
         (first != second).assertTrue("should have different instances")
     }
 }
