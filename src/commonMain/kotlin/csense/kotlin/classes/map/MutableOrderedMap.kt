@@ -44,7 +44,6 @@ private constructor(
 
     override fun isEmpty(): Boolean =
         backingMap.isEmpty()
-
 }
 
 @JvmName("MutableOrderedMapPair")

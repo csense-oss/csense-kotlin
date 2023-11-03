@@ -22,18 +22,26 @@ class ExpectedTest {
             Expected.Failed(42).error.assert(42)
             Expected.Failed("hello2").error.assert("hello2")
         }
+
+        @Test
+        fun failed() {
+            val cause = RuntimeException()
+            val failed: Expected.Failed<Exception> = Expected.FailedException(message = "message", cause = cause)
+            failed.error.message.assert("message")
+            failed.error.cause.assert(cause)
+        }
     }
 
     @Test
     fun expectedValueNothingValue() {
-        val failed = Expected.Success(42)
+        val failed: Expected.Success<Int> = Expected.Success(42)
         failed.value.assertIs<Int>()
         failed.value.assert(42)
     }
 
     @Test
     fun expectedNothingErrorError() {
-        val failed = Expected.Failed(42)
+        val failed: Expected.Failed<Int> = Expected.Failed(42)
         failed.error.assertIs<Int>()
         failed.error.assert(42)
     }

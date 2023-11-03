@@ -22,7 +22,7 @@ public inline fun <reified Result : Input, Input : Any> Input.castOr(
     action: (input: Input) -> Result
 ): Result {
     contract {
-        callsInPlace(lambda = action, kind = InvocationKind.AT_MOST_ONCE)
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
     return this.cast<Result>() ?: action(this)
 }
@@ -33,7 +33,7 @@ public inline fun <reified Result, Input : Any> Input.castOr(
     orAction: (input: Input) -> Nothing
 ): Result {
     contract {
-        callsInPlace(lambda = orAction, kind = InvocationKind.AT_MOST_ONCE)
+        callsInPlace(orAction, InvocationKind.AT_MOST_ONCE)
         returns() implies (this@castOr is Result)
     }
     return this.cast<Result>() ?: orAction(this)

@@ -3,7 +3,7 @@ package csense.kotlin.logger.models
 import csense.kotlin.logger.extensions.*
 
 
-public open class LogMessage(
+public abstract class LogMessage(
     public val tag: String,
     public val message: LogMessageFormat,
     public val exception: Throwable?

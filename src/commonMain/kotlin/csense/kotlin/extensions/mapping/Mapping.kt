@@ -36,14 +36,16 @@ public inline fun <T> Boolean.map(
 public inline fun <T> Boolean.mapLazy(
     ifTrue: EmptyFunctionResult<T>,
     ifFalse: EmptyFunctionResult<T>
-): T = if (this) {
+): T {
     contract {
         callsInPlace(ifTrue, InvocationKind.AT_MOST_ONCE)
         callsInPlace(ifFalse, InvocationKind.AT_MOST_ONCE)
     }
-    ifTrue()
-} else {
-    ifFalse()
+    return if (this) {
+        ifTrue()
+    } else {
+        ifFalse()
+    }
 }
 
 //TODO this seems off.

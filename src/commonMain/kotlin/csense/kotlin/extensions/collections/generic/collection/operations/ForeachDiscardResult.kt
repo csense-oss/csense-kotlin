@@ -14,6 +14,7 @@ import csense.kotlin.extensions.primitives.int.*
  * @param getter [Function1]<Int,T>
  * @param receiver [Function1]<T, U>
  */
+@Suppress("UnusedReceiverParameter")
 public inline fun <T, U> GenericCollections.foreachDiscardResult(
     @IntLimit(from = 0) count: Int,
     getter: GenericGetterIndexMethod<T>,

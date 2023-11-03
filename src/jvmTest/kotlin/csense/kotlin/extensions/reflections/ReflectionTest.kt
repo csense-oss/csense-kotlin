@@ -1,7 +1,7 @@
 package csense.kotlin.extensions.reflections
 
 import csense.kotlin.tests.assertions.*
-import org.junit.*
+import org.junit.jupiter.api.Test
 
 class ReflectionTest {
 

@@ -157,40 +157,40 @@ class CharSequenceTest {
         fun empty() {
             val first: CharSequence = ""
             val second: CharSequence = ""
-            first.notEquals(second, false).assertFalse()
-            first.notEquals(second, true).assertFalse()
+            first.isNotEqual(second, false).assertFalse()
+            first.isNotEqual(second, true).assertFalse()
         }
 
         @Test
         fun singleSameCase() {
             val first: CharSequence = "a"
             val second: CharSequence = "a"
-            first.notEquals(second, false).assertFalse()
-            first.notEquals(second, true).assertFalse()
+            first.isNotEqual(second, false).assertFalse()
+            first.isNotEqual(second, true).assertFalse()
         }
 
         @Test
         fun singleDifferentCase() {
             val first: CharSequence = "a"
             val second: CharSequence = "A"
-            first.notEquals(second, false).assertTrue()
-            first.notEquals(second, true).assertFalse()
+            first.isNotEqual(second, false).assertTrue()
+            first.isNotEqual(second, true).assertFalse()
         }
 
         @Test
         fun singleNumber() {
             val first: CharSequence = "5"
             val second: CharSequence = "5"
-            first.notEquals(second, false).assertFalse()
-            first.notEquals(second, true).assertFalse()
+            first.isNotEqual(second, false).assertFalse()
+            first.isNotEqual(second, true).assertFalse()
         }
 
         @Test
         fun differentLength() {
             val first: CharSequence = "50"
             val second: CharSequence = "5"
-            first.notEquals(second, false).assertTrue()
-            first.notEquals(second, true).assertTrue()
+            first.isNotEqual(second, false).assertTrue()
+            first.isNotEqual(second, true).assertTrue()
         }
 
     }
@@ -526,26 +526,22 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFoundAtStart() {
-            assertCalled { shouldBeCalled ->
-                "a".indexOfLastOrNull {
-                    it.assert('a')
-                    shouldBeCalled()
-                    true
-                }.assert(0)
-            }
+        fun singleFoundAtStart() = assertCalled { shouldBeCalled ->
+            "a".indexOfLastOrNull {
+                it.assert('a')
+                shouldBeCalled()
+                true
+            }.assert(0)
         }
 
 
         @Test
-        fun singleFoundAtEnd() {
-            assertCalled { shouldBeCalled ->
-                "abc".indexOfLastOrNull {
-                    it.assert('c')
-                    shouldBeCalled()
-                    true
-                }.assert(2)
-            }
+        fun singleFoundAtEnd() = assertCalled { shouldBeCalled ->
+            "abc".indexOfLastOrNull {
+                it.assert('c')
+                shouldBeCalled()
+                true
+            }.assert(2)
         }
 
 
@@ -592,28 +588,24 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFoundAtStart() {
-            assertCalled { shouldBeCalled ->
-                "a".indexOfLastIndexedOrNull { index, char ->
-                    char.assert('a')
-                    index.assert(0)
-                    shouldBeCalled()
-                    true
-                }.assert(0)
-            }
+        fun singleFoundAtStart() = assertCalled { shouldBeCalled ->
+            "a".indexOfLastIndexedOrNull { index, char ->
+                char.assert('a')
+                index.assert(0)
+                shouldBeCalled()
+                true
+            }.assert(0)
         }
 
 
         @Test
-        fun singleFoundAtEnd() {
-            assertCalled { shouldBeCalled ->
-                "abc".indexOfLastIndexedOrNull { index, char ->
-                    char.assert('c')
-                    index.assert(2)
-                    shouldBeCalled()
-                    true
-                }.assert(2)
-            }
+        fun singleFoundAtEnd() = assertCalled { shouldBeCalled ->
+            "abc".indexOfLastIndexedOrNull { index, char ->
+                char.assert('c')
+                index.assert(2)
+                shouldBeCalled()
+                true
+            }.assert(2)
         }
 
 

@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.*
 //Showcasing some examples of logging
 suspend fun main(): Unit = withCurrentCoroutineScope {
     //Tells the logger to ALLOW sensitive logging. this should not be enabled in prod
-    CL.enableSensitiveLogging()
+//    CL.enableSensitiveLogging()
     //Prints the given logs (all levels) to the console (using println)
     //CL.printLogsToConsole()
     //uses ANSI colors (works in various terminals) to print colored output (using println)

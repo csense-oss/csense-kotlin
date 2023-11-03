@@ -4,7 +4,8 @@ import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 
 class IterableJvmTest {
-    class IterableTJoinToStringNewLine {
+    @Nested
+    inner class IterableTJoinToStringNewLine {
         @Test
         fun empty() {
             listOf<String>().joinToStringNewLine().assertEmpty()

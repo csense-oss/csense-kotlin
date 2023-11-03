@@ -8,3 +8,8 @@ public inline fun <T> Expected<T, T>.value(): T = when (this) {
     is Expected.Failed -> error
     is Expected.Success -> value
 }
+
+
+//Nothing as error type means it can never happen.
+public inline val <Value> Expected<Value, Nothing>.value: Value
+    get() = asSuccess.value

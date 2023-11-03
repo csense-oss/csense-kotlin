@@ -12,10 +12,7 @@ public fun LogMessageFormat.toColoredOutput(): String = when (this) {
 public fun LogMessageFormat.InsensitiveValues.toColoredOutput(): String {
     val prefix: String = containsSensitiveInformationMessageOrEmpty()
 
-    val color: String = when (sensitivity.isSensitive()) {
-        true -> AnsiConsoleEscapeCodes.redTextColor
-        false -> AnsiConsoleEscapeCodes.blueTextColor
-    }
+    val color: String = sensitivity.ansiColorForSensitivity()
 
     return prefix + replacePlaceholdersIndexed { placeHolderIndex: Int ->
         color + placeholders.getOr(
@@ -25,10 +22,15 @@ public fun LogMessageFormat.InsensitiveValues.toColoredOutput(): String {
     }
 }
 
-@Suppress("UNUSED_ANONYMOUS_PARAMETER")
-public fun LogMessageFormat.SensitiveValues.toColoredOutput(): String = replacePlaceholdersIndexed { it: Int ->
-    AnsiConsoleEscapeCodes.greenTextColor + LogMessageFormat.sensitiveValue + AnsiConsoleEscapeCodes.resetCode
+public fun LogSensitivity.ansiColorForSensitivity(): String = when (this) {
+    LogSensitivity.Sensitive -> AnsiConsoleEscapeCodes.redTextColor
+    LogSensitivity.Insensitive -> AnsiConsoleEscapeCodes.blueTextColor
 }
+
+public fun LogMessageFormat.SensitiveValues.toColoredOutput(): String = message.replace(
+    oldValue = LogMessageFormat.placeholderValue,
+    newValue = AnsiConsoleEscapeCodes.greenTextColor + LogMessageFormat.sensitiveValue + AnsiConsoleEscapeCodes.resetCode
+)
 
 public fun LogMessage.toFullColoredLog(): String {
     val tagLog: String = "[" + AnsiConsoleEscapeCodes.cyanTextColor + tag + AnsiConsoleEscapeCodes.resetCode + "]"

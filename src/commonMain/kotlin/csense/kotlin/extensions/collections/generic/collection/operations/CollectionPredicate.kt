@@ -6,7 +6,6 @@ import csense.kotlin.extensions.collections.*
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.general.*
-import csense.kotlin.patterns.lists.*
 
 public sealed interface SatisfyPredicateResult {
 
@@ -14,13 +13,13 @@ public sealed interface SatisfyPredicateResult {
         otherPredicateResult: Boolean
     ): SatisfyPredicateResult
 
-    public object Empty : SatisfyPredicateResult {
+    public data object Empty : SatisfyPredicateResult {
         override fun combineWith(
             otherPredicateResult: Boolean
         ): SatisfyPredicateResult = unexpected("hmm!")
     }
 
-    public object None : SatisfyPredicateResult {
+    public data object None : SatisfyPredicateResult {
         override fun combineWith(
             otherPredicateResult: Boolean
         ): SatisfyPredicateResult = when (otherPredicateResult) {
@@ -29,13 +28,13 @@ public sealed interface SatisfyPredicateResult {
         }
     }
 
-    public object Some : SatisfyPredicateResult {
+    public data object Some : SatisfyPredicateResult {
         override fun combineWith(
             otherPredicateResult: Boolean
         ): Some = Some
     }
 
-    public object All : SatisfyPredicateResult {
+    public data object All : SatisfyPredicateResult {
         override fun combineWith(
             otherPredicateResult: Boolean
         ): SatisfyPredicateResult = when (otherPredicateResult) {
@@ -75,6 +74,7 @@ public inline fun <T> GenericCollections.satisfyPredicate(
 //    none == true on empty
     onEmpty = { SatisfyPredicateResult.Empty }
 )
+
 //TODO move?!
 public inline fun <T, R> GenericCollections.combineEachStartingWith(
     onFirstItem: (T) -> R,
@@ -94,15 +94,4 @@ public inline fun <T, R> GenericCollections.combineEachStartingWith(
     }
     return result
 }
-
-public inline fun <T, R> Lists.Content<T>.combineEachStartingWith(
-    onFirstItem: (T) -> R,
-    onEach: (item: T, result: R) -> R,
-): R = GenericCollections.combineEachStartingWith(
-    onFirstItem = onFirstItem,
-    onEach = onEach,
-    length = size,
-    getElement = ::elementAt,
-    onEmpty = ::unexpected
-)
 

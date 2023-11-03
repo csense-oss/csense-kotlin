@@ -3,20 +3,17 @@
 package csense.kotlin.extensions.duration
 
 import csense.kotlin.*
-import csense.kotlin.annotations.numbers.*
-import csense.kotlin.general.*
 import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
+import csense.kotlin.logger.operators.*
 import kotlin.contracts.*
-import kotlin.internal.*
-import kotlin.system.*
 import kotlin.time.*
+
 /**
  * Measure the execution time the given action, and returns the time and the result of the method invocation.
  * @param block [EmptyFunctionResult]<R>
  * @return [Pair]<[Long], R> the first is the [Duration] the second is the [Result] of [block].
  */
-@OptIn(ExperimentalTime::class)
 public inline fun <Result> measureTimeResult(
     block: EmptyFunctionResult<Result>
 ): Pair<Duration, Result> {
@@ -39,7 +36,7 @@ public inline fun <Result> measureTimeResult(
 
 public inline fun <T> logMeasureTimeInMillis(
     loggingTitle: String = "Timing",
-    loggingMethod: CLLogFunction = CL.debug,
+    loggingMethod: CLLogFunction = CL.logDebug,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     action: EmptyFunctionResult<T>
 ): T {

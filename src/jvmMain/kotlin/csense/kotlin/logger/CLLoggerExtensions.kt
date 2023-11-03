@@ -3,6 +3,7 @@
 package csense.kotlin.logger
 
 import csense.kotlin.logger.models.*
+import csense.kotlin.logger.operators.*
 
 @JvmInline
 public value class CLLoggerClassLog<T>(
@@ -61,7 +62,6 @@ public inline fun CLLoggerClassLog<*>.error(
 }
 
 
-
 /**
  * Logs the current stack to error
  * @param tag [String]  the tagged name
@@ -73,7 +73,7 @@ public inline fun CLLoggerClassLog<*>.currentStackTraceError(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = currentStackTrace(tag, CL::logError, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL.logError, limit, skipFirstFunctions, sensitivity)
 
 /**
  * Logs the current stack to warning
@@ -86,7 +86,7 @@ public inline fun CLLoggerClassLog<*>.currentStackTraceWarning(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = currentStackTrace(tag, CL::logWarning, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL.logWarning, limit, skipFirstFunctions, sensitivity)
 
 /**
  * Logs the current stack to debug
@@ -99,7 +99,7 @@ public inline fun CLLoggerClassLog<*>.currentStackTraceDebug(
     limit: Int = 10,
     skipFirstFunctions: Int = 0,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive
-): Unit = currentStackTrace(tag, CL::logDebug, limit, skipFirstFunctions, sensitivity)
+): Unit = currentStackTrace(tag, CL.logDebug, limit, skipFirstFunctions, sensitivity)
 
 
 /**

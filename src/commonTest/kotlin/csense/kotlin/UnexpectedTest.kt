@@ -1,8 +1,8 @@
 package csense.kotlin
 
 import csense.kotlin.general.*
-import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
+import csense.kotlin.logger.operators.CLLogFunction
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

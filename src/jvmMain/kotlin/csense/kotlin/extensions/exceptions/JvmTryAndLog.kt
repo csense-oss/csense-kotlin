@@ -5,6 +5,7 @@ package csense.kotlin.extensions.exceptions
 import csense.kotlin.*
 import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
+import csense.kotlin.logger.operators.*
 import kotlin.reflect.*
 
 /**
@@ -20,10 +21,10 @@ public inline fun <T> tryAndLog(
     clazz: Class<*>,
     message: String = "",
     placeholders: Array<String> = arrayOf(),
-    logger: CLLogFunction = CL.error,
+    logger: CLLogFunction = CL.logError,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
-): T? = csense.kotlin.logger.operators.tryAndLog(
+): T? = tryAndLog(
     tag = clazz.simpleName,
     message = message,
     placeholders = placeholders,
@@ -45,10 +46,10 @@ public inline fun <T> tryAndLog(
     kClazz: KClass<*>,
     message: String = "",
     placeholders: Array<String> = arrayOf(),
-    logger: CLLogFunction = CL.error,
+    logger: CLLogFunction = CL.logError,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
-): T? = csense.kotlin.logger.operators.tryAndLog(
+): T? = tryAndLog(
     tag = kClazz.java.simpleName,
     message = message,
     placeholders = placeholders,

@@ -4,7 +4,7 @@ import csense.kotlin.logger.models.*
 
 
 public fun LogMessageFormat.doesNotContainSensitiveInformation(): Boolean {
-    return !sensitivity.isSensitive()
+    return sensitivity.isNotSensitive()
 }
 
 public fun LogMessageFormat.containsSensitiveInformationMessageOrEmpty(): String = when (sensitivity) {

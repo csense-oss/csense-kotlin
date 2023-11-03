@@ -34,5 +34,7 @@ class AggregatedExceptionTest {
     //Due to platform differences, (say js / native) there "might" be a "kotlin." in front of the class types.
     private fun String.removePackageNameSpaces(): String {
         return replace(oldValue = "kotlin.", newValue = "")
+            .replace("java.lang.", "")
+            .replace("java.util.", "")
     }
 }

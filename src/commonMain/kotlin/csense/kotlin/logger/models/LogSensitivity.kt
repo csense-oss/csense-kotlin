@@ -1,4 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
+
 package csense.kotlin.logger.models
 
 public enum class LogSensitivity {
@@ -7,5 +8,8 @@ public enum class LogSensitivity {
 }
 
 public inline fun LogSensitivity.isSensitive(): Boolean =
-    this != LogSensitivity.Insensitive
+    this == LogSensitivity.Sensitive
+
+public inline fun LogSensitivity.isNotSensitive(): Boolean =
+    !isSensitive()
 

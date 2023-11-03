@@ -15,14 +15,14 @@ import kotlin.jvm.*
  */
 public inline fun <reified Result : Input, Input : Any> Input.invokeIsInstance(action: FunctionUnit<Result>) {
     contract {
-        callsInPlace(action, kind = InvocationKind.AT_MOST_ONCE)
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
     }
     cast<Result>()?.let(action)
 }
 
 public inline fun <reified Result : Input, Input : Any> Input.asInstanceOr(onNotInstance: () -> Result): Result {
     contract {
-        callsInPlace(lambda = onNotInstance, kind = InvocationKind.AT_MOST_ONCE)
+        callsInPlace(onNotInstance, InvocationKind.AT_MOST_ONCE)
     }
     return this.cast<Result>() ?: onNotInstance()
 }
@@ -32,7 +32,7 @@ public inline fun <reified Result : Input, Input : Any> Input.asInstanceOr(onNot
 @OverloadResolutionByLambdaReturnType
 public inline fun <reified Result : Input, Input : Any> Input.asInstanceOr(onNotInstance: () -> Nothing): Result {
     contract {
-        callsInPlace(lambda = onNotInstance, kind = InvocationKind.AT_MOST_ONCE)
+        callsInPlace(onNotInstance, InvocationKind.AT_MOST_ONCE)
         returns() implies (this@asInstanceOr is Result)
     }
     return this.cast<Result>() ?: onNotInstance()

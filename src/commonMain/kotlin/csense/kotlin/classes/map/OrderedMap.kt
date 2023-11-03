@@ -17,6 +17,7 @@ public open class OrderedMap<Key, Value> private constructor(
     public constructor(vararg items: Pair<Key, Value>) : this(linkedMapOf(*items))
 
     public constructor(items: List<MapEntry<Key, Value>>) : this(LinkedHashMap(items))
+
 }
 
 @JvmName("OrderedMapPair")

@@ -2,7 +2,7 @@ package csense.kotlin.debugging
 
 import csense.kotlin.annotations.*
 import csense.kotlin.tests.assertions.*
-import org.junit.*
+import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCsenseApi::class)
 class JvmDebuggingTest {

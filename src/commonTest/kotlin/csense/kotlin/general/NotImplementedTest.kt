@@ -5,7 +5,7 @@ import kotlin.test.*
 
 class NotImplementedTest {
     @Test
-    fun notImplemented() = assertThrows<NotImplementedError>{
+    fun notImplemented(): Unit = assertThrows<NotImplementedError>{
         notImplemented("my bad")
     }
 }

@@ -23,9 +23,9 @@ public inline fun StringComparison.compareTo(
     length: Int,
     ignoreCase: Boolean = false
 ): Boolean {
-    for (i in 0 until length) {
-        val thisChar = string.getOrNull(startingIndexInThisString + i)
-        val otherChar = other.getOrNull(startIndexInOtherString + i)
+    for (i: Int in 0 until length) {
+        val thisChar: Char? = string.getOrNull(index = startingIndexInThisString + i)
+        val otherChar: Char? = other.getOrNull(index = startIndexInOtherString + i)
         if (isAnyNull(thisChar, otherChar)) {
             return false
         }
@@ -51,7 +51,7 @@ public inline fun StringComparison.containsStringEndingAt(
     ignoreCase: Boolean = false
 ): Boolean {
     //+1 is to make the end index "inclusive"
-    val startIndex = (endIndex + 1) - other.length
+    val startIndex: Int = (endIndex + 1) - other.length
     return containsStringAt(
         startIndex = startIndex,
         other = other,
@@ -75,20 +75,20 @@ public inline fun StringComparison.containsStringAt(
     other: String,
     ignoreCase: Boolean = false
 ): Boolean = with(string) {
-    if (isIndex.outOfBounds(index = startIndex, isEndOutOfBonds = true)) {
+    if (isIndex.outOfBoundsEndOutOfBounds(index = startIndex)) {
         return@with false
     }
     if (other.isEmpty()) {
         return@with true
     }
-    val remainingLength = length - startIndex
-    val canNotContainOtherString = remainingLength < other.length
+    val remainingLength: Int = length - startIndex
+    val canNotContainOtherString: Boolean = remainingLength < other.length
     if (canNotContainOtherString) {
         return@with false
     }
-    other.forEachIndexed { indexInOtherString, otherCharAtIndex ->
-        val indexInThis = indexInOtherString + startIndex
-        val areEqual = this.getOrNull(indexInThis)?.equals(other = otherCharAtIndex, ignoreCase = ignoreCase)
+    other.forEachIndexed { indexInOtherString: Int, otherCharAtIndex: Char ->
+        val indexInThis: Int = indexInOtherString + startIndex
+        val areEqual: Boolean? = getOrNull(index = indexInThis)?.equals(other = otherCharAtIndex, ignoreCase = ignoreCase)
         if (areEqual.isNullOrFalse()) {
             return@with false
         }

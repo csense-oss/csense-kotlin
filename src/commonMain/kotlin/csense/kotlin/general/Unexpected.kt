@@ -3,7 +3,8 @@ package csense.kotlin.general
 import csense.kotlin.annotations.sideEffect.*
 import csense.kotlin.logger.*
 import csense.kotlin.logger.models.*
-
+import csense.kotlin.*
+import csense.kotlin.logger.operators.*
 
 /**
  * Indicates that something was unexpected (say an enum case, etc.)
@@ -33,7 +34,7 @@ public fun unexpectedWithLogging(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL.error
+    logger: CLLogFunction = CL.logError
 ): Nothing {
     unexpectedWithLogging(
         tag = UnexpectedException.unexpectedDefaultTag,
@@ -59,7 +60,7 @@ public fun unexpectedWithLogging(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL.error
+    logger: CLLogFunction = CL.logError
 ): Nothing {
     throw logUnexpected(
         tag = tag, message = message,
@@ -83,7 +84,7 @@ public fun logUnexpected(
     vararg placeholders: String = arrayOf(),
     relatedCause: Throwable? = null,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
-    logger: CLLogFunction = CL.error
+    logger: CLLogFunction = CL.logError
 ): UnexpectedException {
     val exception = UnexpectedException(message, relatedCause)
     logger(

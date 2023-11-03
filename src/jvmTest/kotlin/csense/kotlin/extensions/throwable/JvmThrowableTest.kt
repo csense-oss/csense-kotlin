@@ -1,7 +1,7 @@
 package csense.kotlin.extensions.throwable
 
 import csense.kotlin.tests.assertions.*
-import org.junit.*
+import org.junit.jupiter.api.*
 
 class JvmThrowableTest {
     @Test

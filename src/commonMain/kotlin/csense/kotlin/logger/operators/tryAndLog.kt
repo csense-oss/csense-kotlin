@@ -23,7 +23,7 @@ public inline fun <T> tryAndLog(
     tag: String = "",
     message: String = "",
     placeholders: Array<String> = emptyArray(),
-    logger: CLLogFunction = CL.error,
+    logger: CLLogFunction = CL.logError,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
 ): T? {
@@ -55,7 +55,7 @@ public inline fun <T> tryAndLogExpected(
     tag: String = "",
     message: String = "",
     placeholders: Array<String> = emptyArray(),
-    logger: CLLogFunction = CL.error,
+    logger: CLLogFunction = CL.logError,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunctionResult<T>
 ): Expected<T, Throwable> = expectedCatching {
@@ -75,7 +75,7 @@ public inline fun <T> tryAndLogDidSucceed(
     tag: String = "",
     message: String = "",
     placeholders: Array<String> = emptyArray(),
-    logger: CLLogFunction = CL.error,
+    logger: CLLogFunction = CL.logError,
     sensitivity: LogSensitivity = LogSensitivity.Sensitive,
     throwableAction: EmptyFunction
 ): Boolean {

@@ -4,25 +4,19 @@ import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.logger.extensions.*
 import csense.kotlin.specificExtensions.string.*
 
-public sealed class LogMessageFormat {
+public sealed interface LogMessageFormat {
 
-    public abstract val message: String
+    public val message: String
 
-    public abstract val sensitivity: LogSensitivity
+    public val sensitivity: LogSensitivity
 
     abstract override fun toString(): String
-
-    public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
-        message.modifications.replaceEachOccurrenceIndexed(placeholderValue) { index: Int ->
-            onPlaceholder(index)
-        }
-
 
     public class InsensitiveValues(
         override val message: String,
         public val placeholders: Array<out String>,
         public val expectedSensitivity: LogSensitivity
-    ) : LogMessageFormat() {
+    ) : LogMessageFormat {
 
         override val sensitivity: LogSensitivity = expectedSensitivity
 
@@ -36,11 +30,15 @@ public sealed class LogMessageFormat {
             }
         }
 
+        public fun replacePlaceholdersIndexed(onPlaceholder: (placeholderCount: Int) -> String): String =
+            message.modifications.replaceEachOccurrenceIndexed(placeholderValue) { index: Int ->
+                onPlaceholder(index)
+            }
     }
 
     public class SensitiveValues(
         override val message: String,
-    ) : LogMessageFormat() {
+    ) : LogMessageFormat {
         override val sensitivity: LogSensitivity = LogSensitivity.Sensitive
 
         override fun toString(): String {
