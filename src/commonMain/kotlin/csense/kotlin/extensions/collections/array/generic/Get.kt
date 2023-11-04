@@ -10,6 +10,9 @@ package csense.kotlin.extensions.collections.array.generic
  * @param defaultValue Item
  * @return Item
  */
-public inline fun <Item> Array<out Item>.getOr(index: Int, defaultValue: Item & Any): Item & Any {
+public inline fun <Item> Array<out Item>.getOr(
+    index: Int,
+    defaultValue: Item & Any
+): Item & Any {
     return getOrNull(index) ?: defaultValue
 }

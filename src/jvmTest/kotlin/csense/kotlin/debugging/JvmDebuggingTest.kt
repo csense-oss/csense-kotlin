@@ -28,24 +28,24 @@ class JvmDebuggingTest {
     @Test
     fun getCurrentMethodFileNameAndLineNumber() {
         //This is EXTREMLY flaky, so just "verify" it roughly
-        val filename = guessCurrentFileName()
-        val filenameAndLineNumber = debugging.getCurrentMethodFileNameAndLineNumber()
+        val filename: String = guessCurrentFileName()
+        val filenameAndLineNumber: String = debugging.getCurrentMethodFileNameAndLineNumber()
         filenameAndLineNumber.assertStartsWith("${filename}:")
     }
 
     @Test
     fun getCurrentMethodCanonicalName() {
-        val currentClassName = getCurrentClassNameCanonical()
-        val currentMethodName = this::getCurrentMethodCanonicalName.name
+        val currentClassName: String = getCurrentClassNameCanonical()
+        val currentMethodName: String = this::getCurrentMethodCanonicalName.name
         debugging.getCurrentMethodCanonicalName().assert("$currentClassName.$currentMethodName")
     }
 
     @Test
     fun getCurrentMethodInformation() {
-        val currentClassName = getCurrentClassNameCanonical()
-        val currentMethodName = this::getCurrentMethodInformation.name
-        val currentFileName = guessCurrentFileName()
-        val info = debugging.getCurrentMethodInformation()
+        val currentClassName: String = getCurrentClassNameCanonical()
+        val currentMethodName: String = this::getCurrentMethodInformation.name
+        val currentFileName: String = guessCurrentFileName()
+        val info: String = debugging.getCurrentMethodInformation()
 
         //info should have the format: $classname.$methodName($filename:$lineNumber)
         info.assertStartsWith("$currentClassName.$currentMethodName($currentFileName:")
@@ -62,8 +62,8 @@ class JvmDebuggingTest {
 
     @Test
     fun debugging() {
-        val first = debugging
-        val second = debugging
+        val first: Debugging = debugging
+        val second: Debugging = debugging
         (first != second).assertTrue("Should have different references")
         (second != first).assertTrue("Should have different references")
     }
@@ -75,7 +75,7 @@ class DebuggingTest {
         @OptIn(ExperimentalCsenseApi::class)
         @Test
         fun fromCallingMethod() {
-            val testMethod = Debugging.fromCallingMethod()
+            val testMethod: Debugging = Debugging.fromCallingMethod()
             testMethod.getCurrentMethodName().assert(::fromCallingMethod.name)
             testMethod.getCurrentMethodInformation().assertStartsWith(DebuggingTest::class.qualifiedName!!)
         }

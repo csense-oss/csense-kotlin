@@ -1,22 +1,22 @@
-package csense.kotlin.extensions.collections.array
+package csense.kotlin.extensions.collections.array.typed
 
-import csense.kotlin.extensions.collections.array.typed.float.*
+import csense.kotlin.extensions.collections.array.typed.short.*
 import csense.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class FloatArrayTest {
+class ShortArrayTest {
 
-    class FloatArrayForEachBackwards {
+    class ShortArrayForEachBackwards {
         @Test
         fun empty() {
-            floatArrayOf().forEachBackwards { shouldNotBeCalled() }
+            shortArrayOf().forEachBackwards { shouldNotBeCalled() }
         }
 
         @Test
         fun single() = assertCalled(times = 1) { shouldBeCalled ->
-            floatArrayOf(11.2f).forEachBackwards {
-                it.assert(11.2f)
+            shortArrayOf(11).forEachBackwards {
+                it.assert(11.toShort())
                 shouldBeCalled()
             }
         }
@@ -24,8 +24,8 @@ class FloatArrayTest {
         @Test
         fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
             var toggle = false
-            floatArrayOf(11.2f, 0.5f).forEachBackwards {
-                it.assert(toggle.map(11.2f, 0.5f))
+            shortArrayOf(11, 1).forEachBackwards {
+                it.assert(toggle.map(11.toShort(), 1.toShort()))
                 toggle = true
                 shouldBeCalled()
             }
@@ -33,16 +33,16 @@ class FloatArrayTest {
 
     }
 
-    class FloatArrayForEachDiscard {
+    class ShortArrayForEachDiscard {
         @Test
         fun empty() {
-            floatArrayOf().forEachDiscard { shouldNotBeCalled() }
+            shortArrayOf().forEachDiscard { shouldNotBeCalled() }
         }
 
         @Test
         fun single() = assertCalled(times = 1) { shouldBeCalled ->
-            floatArrayOf(11.2f).forEachDiscard {
-                it.assert(11.2f)
+            shortArrayOf(11).forEachDiscard {
+                it.assert(11.toShort())
                 shouldBeCalled()
                 return@forEachDiscard ""
             }
@@ -51,8 +51,8 @@ class FloatArrayTest {
         @Test
         fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
             var toggle = false
-            floatArrayOf(11.2f, 0.5f).forEachDiscard {
-                it.assert(toggle.map(0.5f, 11.2f))
+            shortArrayOf(11, 1).forEachDiscard {
+                it.assert(toggle.map(1.toShort(), 11.toShort()))
                 toggle = true
                 shouldBeCalled()
                 return@forEachDiscard ""

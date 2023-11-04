@@ -1,4 +1,4 @@
-package csense.kotlin.extensions.collections.array
+package csense.kotlin.extensions.collections.array.typed
 
 import csense.kotlin.extensions.collections.array.generic.*
 import csense.kotlin.tests.assertions.*
