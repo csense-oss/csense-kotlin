@@ -9,9 +9,9 @@ import kotlin.test.*
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class DurationTest {
+class DelayTest {
     @Test
-    fun delay() = runTest {
+    fun delay(): TestResult = runTest {
         0.seconds.delay()
         currentTime.assert(0)
         110.milliseconds.delay()

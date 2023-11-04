@@ -4,9 +4,7 @@ package csense.kotlin.extensions.coroutines.coroutineScope
 
 import csense.kotlin.*
 import csense.kotlin.annotations.threading.*
-import csense.kotlin.general.coroutine.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.*
 
 /**
  * same as [launch] ([Dispatchers.Default])

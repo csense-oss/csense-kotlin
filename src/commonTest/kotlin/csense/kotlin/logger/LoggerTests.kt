@@ -1,11 +1,11 @@
-package csense.kotlin.extensions
+package csense.kotlin.logger
 
 import csense.kotlin.logger.models.*
 import csense.kotlin.logger.operators.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class ExceptionsTest {
+class LoggerTests {
 
     class TryAndLogTag {
 

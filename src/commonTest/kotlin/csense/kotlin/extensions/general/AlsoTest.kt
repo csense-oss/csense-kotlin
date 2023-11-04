@@ -1,12 +1,10 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.general
 
 import csense.kotlin.*
-import csense.kotlin.extensions.general.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class StandardExtensionsTest {
-
+class AlsoTest {
     @Test
     fun also() {
         var someCounter = 0

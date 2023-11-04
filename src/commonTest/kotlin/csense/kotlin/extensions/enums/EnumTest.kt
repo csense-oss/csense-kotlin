@@ -1,6 +1,5 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.enums
 
-import csense.kotlin.extensions.enums.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 

@@ -1,11 +1,10 @@
-package csense.kotlin.extensions
+package csense.kotlin.extensions.equality
 
-import csense.kotlin.extensions.equality.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 
-class EqualityTest {
+class IsNullOrEqualToTest {
 
     @Test
     fun tIsNullOrEqualToOther() {

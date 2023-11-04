@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package csense.kotlin.extensions.generic
+package csense.kotlin.extensions.collections
 
 import csense.kotlin.extensions.collections.generic.collection.*
 import csense.kotlin.extensions.collections.generic.collection.operations.*
