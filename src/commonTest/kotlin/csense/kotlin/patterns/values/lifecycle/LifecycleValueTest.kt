@@ -7,7 +7,7 @@ class LifecycleValueTest {
 
 
     @Test
-    fun value() = assertCalled { shouldBeCalled ->
+    fun value() = assertCalled { shouldBeCalled: () -> Unit ->
         LifecycleValue(
             createValue = {
                 shouldBeCalled()
@@ -29,7 +29,7 @@ class LifecycleValueTest {
 
 
     @Test
-    fun reset() = assertCalled { shouldBeCalled ->
+    fun reset() = assertCalled { shouldBeCalled: () -> Unit ->
         val value = LifecycleValue(
             createValue = {
                 "test"

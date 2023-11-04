@@ -6,14 +6,14 @@ import kotlin.test.*
 class CountWithTest {
     @Test
     fun empty() {
-        arrayOf<String>().countWith { _, _ ->
+        arrayOf<String>().countWith { _: Int, _: String ->
             shouldNotBeCalled()
         }
     }
 
     @Test
     fun singleAlwaysTrue() {
-        arrayOf("test").countWith { count, item ->
+        arrayOf("test").countWith { count: Int, item: String ->
             count.assert(0)
             item.assert("test")
             true
@@ -22,7 +22,7 @@ class CountWithTest {
 
     @Test
     fun singleAlwaysFalse() {
-        arrayOf("test").countWith { count, item ->
+        arrayOf("test").countWith { count: Int, item: String ->
             count.assert(0)
             item.assert("test")
             false
@@ -30,14 +30,14 @@ class CountWithTest {
     }
 
     @Test
-    fun multipleAlwaysTrue() = assertCallbackCalledWith(
+    fun multipleAlwaysTrue(): Unit = assertCallbackCalledWith(
         listOf(
             0 to "test",
             1 to "omg"
         ),
         assertFunction = Pair<Int, String>::equals,
-        testCode = { assertExpected ->
-            arrayOf("test", "omg").countWith { count, item ->
+        testCode = { assertExpected: (Pair<Int, String>) -> Unit ->
+            arrayOf("test", "omg").countWith { count: Int, item: String ->
                 assertExpected(count to item)
                 true
             }.assert(2)
@@ -51,8 +51,8 @@ class CountWithTest {
             0 to "omg"
         ),
         assertFunction = Pair<Int, String>::equals,
-        testCode = { assertExpected ->
-            arrayOf("test", "omg").countWith { count, item ->
+        testCode = { assertExpected: (Pair<Int, String>) -> Unit ->
+            arrayOf("test", "omg").countWith { count: Int, item: String ->
                 assertExpected(count to item)
                 false
             }.assert(0)
@@ -68,8 +68,8 @@ class CountWithTest {
             2 to "test2"
         ),
         assertFunction = Pair<Int, String>::equals,
-        testCode = { assertExpected ->
-            arrayOf("test", "omg", "test", "test2").countWith { count, item ->
+        testCode = { assertExpected: (Pair<Int, String>) -> Unit ->
+            arrayOf("test", "omg", "test", "test2").countWith { count: Int, item: String ->
                 assertExpected(count to item)
                 item == "test"
             }.assert(2)
@@ -78,7 +78,7 @@ class CountWithTest {
 
     @Test
     fun canReturn() {
-        arrayOf("test").countWith { _, _ ->
+        arrayOf("test").countWith { _: Int, _: String ->
             return@canReturn
         }
         shouldNotBeCalled()

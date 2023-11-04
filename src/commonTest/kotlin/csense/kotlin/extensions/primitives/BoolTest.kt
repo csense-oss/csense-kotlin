@@ -8,26 +8,26 @@ import kotlin.test.*
 class BoolTest {
 
     @Test
-    fun onFalse()  = assertCalled { shouldBeCalled ->
+    fun onFalse()  = assertCalled { shouldBeCalled: () -> Unit ->
         true.onFalse<Nothing> { shouldNotBeCalled() }
         false.onFalse { shouldBeCalled()  }
     }
 
     @Test
-    fun onTrue()  = assertCalled { shouldBeCalled ->
+    fun onTrue()  = assertCalled { shouldBeCalled: () -> Unit ->
         false.onTrue<Nothing> { shouldNotBeCalled() }
         true.onTrue { shouldBeCalled()}
     }
 
 
     @Test
-    fun ifTrue()  = assertCalled { shouldBeCalled ->
+    fun ifTrue()  = assertCalled { shouldBeCalled: () -> Unit ->
         false.ifTrue<Nothing> { shouldNotBeCalled() }
         true.ifTrue { shouldBeCalled() }
     }
 
     @Test
-    fun ifFalse() = assertCalled { shouldBeCalled ->
+    fun ifFalse() = assertCalled { shouldBeCalled: () -> Unit ->
         true.ifFalse<Nothing> { shouldNotBeCalled() }
         false.ifFalse { shouldBeCalled() }
     }

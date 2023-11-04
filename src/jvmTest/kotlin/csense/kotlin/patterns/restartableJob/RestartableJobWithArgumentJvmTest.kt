@@ -10,7 +10,7 @@ class RestartableJobWithArgumentJvmTest {
 
         @Test
         fun runsActionInIOThread() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 val input = restartableJobInIO { first: Int ->
                     first.assert(42)
                     this.assertDispatcher(Dispatchers.IO)

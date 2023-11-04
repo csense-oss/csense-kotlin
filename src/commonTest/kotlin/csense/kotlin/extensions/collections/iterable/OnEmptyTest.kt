@@ -30,7 +30,7 @@ class OnEmptyTest {
 
     class IterableTOnEmptyOnEmptyAction {
         @Test
-        fun empty() = assertCalled { shouldBeCalled ->
+        fun empty() = assertCalled { shouldBeCalled: () -> Unit ->
             val itt = listOf<String>().asIterable()
             val result = itt.onEmpty { shouldBeCalled(); listOf("test") }
             result.single().assert("test")

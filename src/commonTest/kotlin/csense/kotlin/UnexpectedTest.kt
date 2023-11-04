@@ -38,7 +38,7 @@ class UnexpectedTest {
 
     class UnexpectedWithLoggingMessage {
         @Test
-        fun loggerNoRelatedCause() = assertCalled { shouldBeCalled ->
+        fun loggerNoRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val messageToUse = "our message"
             val loggerMethod = CLLogFunction { tag, message, placeholders, ex, sensitivity ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
@@ -61,7 +61,7 @@ class UnexpectedTest {
         }
 
         @Test
-        fun loggerWithRelatedCause() = assertCalled { shouldBeCalled ->
+        fun loggerWithRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val relatedCause = IllegalArgumentException("wee")
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
@@ -86,7 +86,7 @@ class UnexpectedTest {
 
     class UnexpectedWithLoggingTag {
         @Test
-        fun loggerNoRelatedCause() = assertCalled { shouldBeCalled ->
+        fun loggerNoRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert("Tag")
                 message.assert("our message")
@@ -107,7 +107,7 @@ class UnexpectedTest {
         }
 
         @Test
-        fun loggerWithRelatedCause() = assertCalled { shouldBeCalled ->
+        fun loggerWithRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val relatedCause = IllegalArgumentException("wee")
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert("Our tag")
@@ -132,7 +132,7 @@ class UnexpectedTest {
     }
 
     @Test
-    fun overloadResolutionShouldChooseMessageOverTagVariant() = assertCalled { shouldBeCalled ->
+    fun overloadResolutionShouldChooseMessageOverTagVariant() = assertCalled { shouldBeCalled: () -> Unit ->
         val loggerMethod = CLLogFunction { _, message, _, _, _ ->
             message.assert("our message")
             shouldBeCalled()
@@ -151,7 +151,7 @@ class UnexpectedTest {
     class LogUnexpectedMessage {
 
         @Test
-        fun defaultMessage() = assertCalled { shouldBeCalled ->
+        fun defaultMessage() = assertCalled { shouldBeCalled: () -> Unit ->
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert(UnexpectedException.unexpectedDefaultMessage)
@@ -162,7 +162,7 @@ class UnexpectedTest {
         }
 
         @Test
-        fun noRelatedCause() = assertCalled { shouldBeCalled ->
+        fun noRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
                 message.assert("our message")
@@ -173,7 +173,7 @@ class UnexpectedTest {
         }
 
         @Test
-        fun withRelatedCause() = assertCalled { shouldBeCalled ->
+        fun withRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val relatedCause = IllegalArgumentException("wee")
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert(UnexpectedException.unexpectedDefaultTag)
@@ -188,7 +188,7 @@ class UnexpectedTest {
     class LogUnexpectedTag {
 
         @Test
-        fun noRelatedCause() = assertCalled { shouldBeCalled ->
+        fun noRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert("Our tag")
                 message.assert("our message")
@@ -199,7 +199,7 @@ class UnexpectedTest {
         }
 
         @Test
-        fun withRelatedCause() = assertCalled { shouldBeCalled ->
+        fun withRelatedCause() = assertCalled { shouldBeCalled: () -> Unit ->
             val relatedCause = IllegalArgumentException("wee")
             val loggerMethod = CLLogFunction { tag, message, _, ex, _ ->
                 tag.assert("Our tag")

@@ -38,7 +38,7 @@ class CoroutineScopeTestJvm {
 
     @Test
     fun coroutineScopeLaunchMain() = runTest {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             launchMain {
                 assertDispatcher(Dispatchers.Main)
                 shouldBeCalled()
@@ -60,7 +60,7 @@ class CoroutineScopeTestJvm {
 
 
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncMainWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -70,7 +70,7 @@ class CoroutineScopeTestJvm {
 
 
         fun isMainContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncMainWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.Main) }
                     shouldBeCalled()
@@ -94,7 +94,7 @@ class CoroutineScopeTestJvm {
     fun CoroutineScopeLaunchMainWith() {
         @Test
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchMainWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -104,7 +104,7 @@ class CoroutineScopeTestJvm {
 
         @Test
         fun isMainContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchMainWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.Main) }
                     shouldBeCalled()

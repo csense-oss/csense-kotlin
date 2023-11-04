@@ -10,7 +10,7 @@ class SharedCollectionTest {
 
     class GenericCollectionExtensionsJoinEveryAction {
         @Test
-        fun empty() = assertCalled { shouldBeCalled ->
+        fun empty() = assertCalled { shouldBeCalled: () -> Unit ->
             GenericCollections.joinEveryAction<String, String>(
                 itemsBetweenJoins = 0,
                 toJoinAction = { shouldNotBeCalled() },
@@ -25,7 +25,7 @@ class SharedCollectionTest {
         }
 
         @Test
-        fun singleBadJoins() = assertCalled { shouldBeCalled ->
+        fun singleBadJoins() = assertCalled { shouldBeCalled: () -> Unit ->
             GenericCollections.joinEveryAction<String, String>(
                 itemsBetweenJoins = 0,
                 toJoinAction = { shouldNotBeCalled() },
@@ -39,7 +39,7 @@ class SharedCollectionTest {
         }
 
         @Test
-        fun single() = assertCalled(times = 2) { shouldBeCalled ->
+        fun single() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             val result = GenericCollections.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = { shouldNotBeCalled() },
@@ -60,7 +60,7 @@ class SharedCollectionTest {
         }
 
         @Test
-        fun multipleWithJoin() = assertCalled(times = 4) { shouldBeCalled ->
+        fun multipleWithJoin() = assertCalled(times = 4) { shouldBeCalled: () -> Unit ->
             val result = GenericCollections.joinEveryAction(
                 itemsBetweenJoins = 1,
                 toJoinAction = {

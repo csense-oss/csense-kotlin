@@ -139,7 +139,7 @@ class MutableMapKtTest {
 
     class MutableMapKVPutIfMissingAnd {
         @Test
-        fun empty() = assertCalled { shouldBeCalled ->
+        fun empty() = assertCalled { shouldBeCalled: () -> Unit ->
             val map = mutableMapOf<String, String>()
             map.putIfMissingAnd("key", "value") { key, value ->
                 this.assertAs(map)
@@ -152,7 +152,7 @@ class MutableMapKtTest {
 
 
         @Test
-        fun singleNotThere() = assertCalled { shouldBeCalled ->
+        fun singleNotThere() = assertCalled { shouldBeCalled: () -> Unit ->
             val map = mutableMapOf<String, String>("key" to "value")
             map.putIfMissingAnd("key2", "value2") { key, value ->
                 key.assert("key2")
@@ -175,7 +175,7 @@ class MutableMapKtTest {
 
 
         @Test
-        fun multipleNotThere() = assertCalled { shouldBeCalled ->
+        fun multipleNotThere() = assertCalled { shouldBeCalled: () -> Unit ->
             val map = mutableMapOf<String, String>(
                 "key" to "value",
                 "key2" to "value2"

@@ -30,7 +30,7 @@ class RestartableJobJvmTest {
 
         @Test
         fun shouldBeCalledOnMainDispatcher() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 val job = restartableJobInMain {
                     assertDispatcher(Dispatchers.Main)
                     shouldBeCalled()
@@ -46,7 +46,7 @@ class RestartableJobJvmTest {
         @Test
         fun shouldBeCalledOnIODispatcher() = runTest {
             val ioDispatcher = Dispatchers.IO
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 val job = restartableJobInIO {
                     assertDispatcher(ioDispatcher)
                     shouldBeCalled()

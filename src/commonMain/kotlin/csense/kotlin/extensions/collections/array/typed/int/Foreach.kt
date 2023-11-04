@@ -13,11 +13,19 @@ import csense.kotlin.extensions.collections.generic.collection.operations.*
  * @param receiver [Function1]<[Int], U>
  */
 public inline fun <U> IntArray.forEachDiscard(receiver: Function1<Int, U>): Unit =
-    GenericCollections.foreachDiscardResult(count(), this::get, receiver)
+    GenericCollections.foreachDiscardResult(
+        count = count(),
+        getter = this::get,
+        receiver = receiver
+    )
 
 
 /**
  * Performs backwards traversal on this [IntArray].
  */
 public inline fun IntArray.forEachBackwards(action: FunctionUnit<Int>): Unit =
-    GenericCollections.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(
+        length = count(),
+        getter = this::elementAt,
+        action = action
+    )

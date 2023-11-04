@@ -22,7 +22,7 @@ class CoroutineScopeIOTest {
 
         @Test
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchIOWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -32,7 +32,7 @@ class CoroutineScopeIOTest {
 
         @Test
         fun isIOContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchIOWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.IO) }
                     shouldBeCalled()
@@ -47,7 +47,7 @@ class CoroutineScopeIOTest {
 
         @Test
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncIOWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -57,7 +57,7 @@ class CoroutineScopeIOTest {
 
         @Test
         fun isIOContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncIOWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.IO) }
                     shouldBeCalled()
@@ -76,7 +76,7 @@ class CoroutineScopeIOTest {
 
     @Test
     fun coroutineScopeLaunchIO() = runBlocking {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             val async = launchIO {
                 assertDispatcher(Dispatchers.IO)
                 shouldBeCalled()
@@ -88,7 +88,7 @@ class CoroutineScopeIOTest {
 
     @Test
     fun coroutineScopeWithContextIO() = runBlocking {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             val async = withContextIO {
                 assertDispatcher(Dispatchers.IO)
                 shouldBeCalled()

@@ -7,7 +7,7 @@ class LazyArgumentTest {
 
     class Invoke {
         @Test
-        fun shouldCacheValue() = assertCalled { shouldBeCalled ->
+        fun shouldCacheValue() = assertCalled { shouldBeCalled: () -> Unit ->
             val arg = LazyArgument { _: String ->
                 shouldBeCalled()
                 42
@@ -28,7 +28,7 @@ class LazyArgumentTest {
 
 
     @Test
-    fun getValue() = assertCalled { shouldBeCalled ->
+    fun getValue() = assertCalled { shouldBeCalled: () -> Unit ->
         val arg = LazyArgument { _: String ->
             shouldBeCalled()
             11
@@ -38,7 +38,7 @@ class LazyArgumentTest {
     }
 
     @Test
-    fun lazyArgument() = assertCalled { shouldBeCalled ->
+    fun lazyArgument() = assertCalled { shouldBeCalled: () -> Unit ->
         val arg = lazyArgument { num: Int ->
             shouldBeCalled()
             num

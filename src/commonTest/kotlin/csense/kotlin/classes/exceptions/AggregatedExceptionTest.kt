@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.classes.exceptions
 
 import csense.kotlin.tests.assertions.*

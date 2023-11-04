@@ -6,7 +6,7 @@ import kotlin.test.*
 class LazyArgument2Test {
     class Invoke {
         @Test
-        fun shouldCacheValue() = assertCalled { shouldBeCalled ->
+        fun shouldCacheValue() = assertCalled { shouldBeCalled: () -> Unit ->
             val arg = LazyArgument2 { _: Int, _: String ->
                 shouldBeCalled()
                 42
@@ -28,7 +28,7 @@ class LazyArgument2Test {
 
 
     @Test
-    fun getValue() = assertCalled { shouldBeCalled ->
+    fun getValue() = assertCalled { shouldBeCalled: () -> Unit ->
         val arg = LazyArgument2 { _: Int, _: String ->
             shouldBeCalled()
             11
@@ -38,7 +38,7 @@ class LazyArgument2Test {
     }
 
     @Test
-    fun lazyArgument() = assertCalled { shouldBeCalled ->
+    fun lazyArgument() = assertCalled { shouldBeCalled: () -> Unit ->
         val arg = lazyArgument { num: Int, _: String ->
             shouldBeCalled()
             num

@@ -24,7 +24,7 @@ class CoroutineScopeTest {
 
         @Test
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncDefaultWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -34,7 +34,7 @@ class CoroutineScopeTest {
 
         @Test
         fun isDefaultContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 asyncDefaultWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.Default) }
                     shouldBeCalled()
@@ -63,7 +63,7 @@ class CoroutineScopeTest {
 
     @Test
     fun coroutineScopeLaunchDefault() = runTest {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             launchDefault {
                 assertDispatcher(Dispatchers.Default)
                 shouldBeCalled()
@@ -75,7 +75,7 @@ class CoroutineScopeTest {
 
         @Test
         fun isRightReceiver() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchDefaultWith("test") {
                     assert("test")
                     shouldBeCalled()
@@ -85,7 +85,7 @@ class CoroutineScopeTest {
 
         @Test
         fun isDefaultContext() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 launchDefaultWith("test") {
                     coroutineScope { assertDispatcher(Dispatchers.Default) }
                     shouldBeCalled()

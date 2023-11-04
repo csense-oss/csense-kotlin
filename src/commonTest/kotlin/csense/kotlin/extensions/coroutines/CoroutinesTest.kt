@@ -2,7 +2,6 @@
 
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.extensions.collections.array.typed.Job.*
 import csense.kotlin.extensions.collections.iterable.*
 import csense.kotlin.extensions.coroutines.channel.*
 import csense.kotlin.extensions.coroutines.coroutineScope.*
@@ -15,31 +14,7 @@ import kotlin.test.*
 
 class CoroutinesTest {
 
-    class ArrayoutJobJoinAll {
-        @Test
-        fun empty() = runTest {
-            arrayOf<Job>().joinAll()
-        }
 
-        @Test
-        fun single() = runTest {
-            assertCalled { shouldBeCalled ->
-                val jobs: Array<Job> = arrayOf(launch { shouldBeCalled() })
-                jobs.joinAll()
-            }
-        }
-
-        @Test
-        fun multiple() = runTest {
-            assertCalled(times = 2) { shouldBeCalled ->
-                val jobs: Array<Job> = arrayOf(
-                    launch { shouldBeCalled() },
-                    launch { shouldBeCalled() }
-                )
-                jobs.joinAll()
-            }
-        }
-    }
 
 
     class IterableTMapAsyncAwait {
@@ -78,7 +53,7 @@ class CoroutinesTest {
 
         @Test
         fun single() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 listOf("input").mapAsync(this) {
                     shouldBeCalled()
                     it.assert("input")
@@ -89,7 +64,7 @@ class CoroutinesTest {
 
         @Test
         fun multiple() = runTest {
-            assertCalled(times = 2) { shouldBeCalled ->
+            assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
                 listOf("input1", "input2").mapAsync(this) {
                     shouldBeCalled()
                     it.assertStartsWith("input")

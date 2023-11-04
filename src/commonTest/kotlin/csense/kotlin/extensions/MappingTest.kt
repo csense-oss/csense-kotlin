@@ -122,7 +122,7 @@ class MappingTest {
 
         @Test
         fun multiple() {
-            assertCalled(times = 2) { shouldBeCalled ->
+            assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
                 val col: Collection<Int> = setOf(42, 11)
                 col.mapToTypedArray { shouldBeCalled();"$it" }.apply {
                     assertSize(2)
@@ -155,7 +155,7 @@ class MappingTest {
 
         @Test
         fun multiple() {
-            assertCalled(times = 2) { shouldBeCalled ->
+            assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
                 listOf(42, 11).mapToTypedArray { shouldBeCalled();"$it" }.apply {
                     assertSize(2)
                     first().assert("42")

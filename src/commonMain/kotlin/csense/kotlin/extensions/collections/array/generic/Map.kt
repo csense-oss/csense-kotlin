@@ -16,17 +16,17 @@ public inline fun <Item, Result> Array<Item>.mapToMutable(
 }
 
 /**
- * Apply [map] on each item [with] the given [result]
- * @param result Result the result to apply each [map] to
- * @param map Function2<Result, Item, Unit> the processing of the given item on the [result]
+ * Apply [transform] on each item [with] the given [result]
+ * @param result Result the result to apply each [transform] to
+ * @param transform Function2<Result, Item, Unit> the processing of the given item on the [result]
  * @return Result
  */
 public inline fun <Item, Result> Array<Item>.mapEachWith(
     result: Result,
-    map: Result.(Item) -> Unit
+    transform: Result.(Item) -> Unit
 ): Result {
     forEach { it: Item ->
-        result.map(it)
+        result.transform(it)
     }
     return result
 }

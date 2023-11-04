@@ -30,7 +30,7 @@ class RestartableJobWith2ArgumentsJvmTest {
 
         @Test
         fun shouldBeCalledOnMainDispatcher() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 val job = restartableJobInMain { first: Int, second: String ->
                     first.assert(42)
                     second.assert("test")
@@ -48,7 +48,7 @@ class RestartableJobWith2ArgumentsJvmTest {
 
         @Test
         fun runsActionInIOThread() = runTest {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 val input = restartableJobInIO { first: Int, second: String ->
                     first.assert(42)
                     second.assert("test")

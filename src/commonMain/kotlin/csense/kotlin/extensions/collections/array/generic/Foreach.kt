@@ -12,10 +12,10 @@ import kotlin.Function1
 /**
  * A foreach, but not taking any result for the given receiver
  * @receiver [Array]<T>
- * @param receiver [Function1]<T, U>
+ * @param action [Function1]<T, U>
  */
-public inline fun <T, U> Array<T>.forEachDiscard(receiver: Function1<T, U>): Unit =
-    GenericCollections.foreachDiscardResult(count(), this::get, receiver)
+public inline fun <T, U> Array<T>.forEachDiscard(action: Function1<T, U>): Unit =
+    GenericCollections.foreachDiscardResult(count(), this::get, action)
 
 
 /**

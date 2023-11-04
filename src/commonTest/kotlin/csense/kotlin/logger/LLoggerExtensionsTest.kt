@@ -49,7 +49,7 @@
 //            tag: String,
 //            message: String,
 //            exception: Throwable?
-//        ): Unit = assertCalled { shouldBeCalled ->
+//        ): Unit = assertCalled { shouldBeCalled: () -> Unit ->
 //            val logger = createPrintLoggerFor(
 //                formatter = createAssertingFormatter(
 //                    level = level,
@@ -77,7 +77,7 @@
 //    class CreatePrintLoggerForAnsiCodes {
 //
 //        @Test
-//        fun level() = assertCalled {shouldBeCalled ->
+//        fun level() = assertCalled {shouldBeCalled: () -> Unit ->
 //            val tag = "tag"
 //            val message = "message"
 //            val exception = IllegalArgumentException()

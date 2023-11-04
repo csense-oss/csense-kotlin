@@ -10,13 +10,21 @@ import csense.kotlin.extensions.collections.generic.collection.operations.*
 /**
  * A foreach, but not taking any result for the given receiver
  * @receiver [DoubleArray]
- * @param receiver [Function1]<[Double], U>
+ * @param action [Function1]<[Double], U>
  */
-public inline fun <U> DoubleArray.forEachDiscard(receiver: Function1<Double, U>): Unit =
-    GenericCollections.foreachDiscardResult(count(), this::get, receiver)
+public inline fun <U> DoubleArray.forEachDiscard(action: Function1<Double, U>): Unit =
+    GenericCollections.foreachDiscardResult(
+        count = count(),
+        getter = this::get,
+        receiver = action
+    )
 
 /**
  * Performs backwards traversal on this [DoubleArray].
  */
 public inline fun DoubleArray.forEachBackwards(action: FunctionUnit<Double>): Unit =
-    GenericCollections.forEachBackwards(count(), this::elementAt, action)
+    GenericCollections.forEachBackwards(
+        length = count(),
+        getter = this::elementAt,
+        action = action
+    )

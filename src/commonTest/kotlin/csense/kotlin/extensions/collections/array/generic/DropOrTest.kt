@@ -60,26 +60,26 @@ class DropOrTest {
         @Test
         fun empty() {
             val empty: Array<String> = arrayOf()
-            empty.dropOr(dropCount = 0, orValue = listOf("test"))
+            empty.dropOr(dropCount = 0, defaultValue = listOf("test"))
                 .assertSingle("test")
         }
 
         @Test
         fun single() {
             val single: Array<String> = arrayOf("test")
-            single.dropOr(dropCount = 0, orValue = listOf("orValue")).assertSingle("test")
-            single.dropOr(dropCount = 1, orValue = listOf("orValue")).assertSingle("orValue")
-            single.dropOr(dropCount = 2, orValue = listOf("orValue")).assertSingle("orValue")
+            single.dropOr(dropCount = 0, defaultValue = listOf("orValue")).assertSingle("test")
+            single.dropOr(dropCount = 1, defaultValue = listOf("orValue")).assertSingle("orValue")
+            single.dropOr(dropCount = 2, defaultValue = listOf("orValue")).assertSingle("orValue")
         }
 
         @Test
         fun multiple() {
             val multi: Array<String> = arrayOf("1", "2", "3")
-            multi.dropOr(dropCount = 0, orValue = listOf("orValue")).assertContentAndOrder(listOf("1", "2", "3"))
-            multi.dropOr(dropCount = 1, orValue = listOf("orValue")).assertContentAndOrder(listOf("2", "3"))
-            multi.dropOr(dropCount = 2, orValue = listOf("orValue")).assertContentAndOrder(listOf("3"))
-            multi.dropOr(dropCount = 3, orValue = listOf("orValue")).assertSingle("orValue")
-            multi.dropOr(dropCount = 4, orValue = listOf("orValue")).assertSingle("orValue")
+            multi.dropOr(dropCount = 0, defaultValue = listOf("orValue")).assertContentAndOrder(listOf("1", "2", "3"))
+            multi.dropOr(dropCount = 1, defaultValue = listOf("orValue")).assertContentAndOrder(listOf("2", "3"))
+            multi.dropOr(dropCount = 2, defaultValue = listOf("orValue")).assertContentAndOrder(listOf("3"))
+            multi.dropOr(dropCount = 3, defaultValue = listOf("orValue")).assertSingle("orValue")
+            multi.dropOr(dropCount = 4, defaultValue = listOf("orValue")).assertSingle("orValue")
         }
     }
 
@@ -87,7 +87,7 @@ class DropOrTest {
         @Test
         fun empty(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
             val empty: Array<String> = arrayOf()
-            empty.dropOr(dropCount = 0, orAction = { shouldBeCalled(); listOf("test") })
+            empty.dropOr(dropCount = 0, defaultValue = { shouldBeCalled(); listOf("test") })
                 .assertSingle("test")
         }
 
@@ -98,7 +98,7 @@ class DropOrTest {
             assertCalled { shouldBeCalled: () -> Unit ->
                 single.dropOr(
                     dropCount = 1,
-                    orAction = {
+                    defaultValue = {
                         shouldBeCalled()
                         listOf("success")
                     }
@@ -107,7 +107,7 @@ class DropOrTest {
             assertCalled { shouldBeCalled: () -> Unit ->
                 single.dropOr(
                     dropCount = 2,
-                    orAction = {
+                    defaultValue = {
                         shouldBeCalled()
                         listOf("success")
                     }
@@ -118,11 +118,11 @@ class DropOrTest {
         @Test
         fun multiple() {
             val multi: Array<String> = arrayOf("1", "2", "3")
-            multi.dropOr(dropCount = 0, orAction = { listOf("orValue") }).assertContentAndOrder(listOf("1", "2", "3"))
-            multi.dropOr(dropCount = 1, orAction = { listOf("orValue") }).assertContentAndOrder(listOf("2", "3"))
-            multi.dropOr(dropCount = 2, orAction = { listOf("orValue") }).assertContentAndOrder(listOf("3"))
-            multi.dropOr(dropCount = 3, orAction = { listOf("orValue") }).assertSingle("orValue")
-            multi.dropOr(dropCount = 4, orAction = { listOf("orValue") }).assertSingle("orValue")
+            multi.dropOr(dropCount = 0, defaultValue = { listOf("orValue") }).assertContentAndOrder(listOf("1", "2", "3"))
+            multi.dropOr(dropCount = 1, defaultValue = { listOf("orValue") }).assertContentAndOrder(listOf("2", "3"))
+            multi.dropOr(dropCount = 2, defaultValue = { listOf("orValue") }).assertContentAndOrder(listOf("3"))
+            multi.dropOr(dropCount = 3, defaultValue = { listOf("orValue") }).assertSingle("orValue")
+            multi.dropOr(dropCount = 4, defaultValue = { listOf("orValue") }).assertSingle("orValue")
         }
     }
 

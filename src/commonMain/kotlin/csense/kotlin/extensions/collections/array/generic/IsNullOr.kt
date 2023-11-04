@@ -23,7 +23,8 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
 @Suppress("UnusedReceiverParameter", "MissingTestFunction")
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("this.isNotEmpty()")
 )
 public inline fun Array<Any>.isNotNullOrEmpty(): Nothing = unexpected()
 

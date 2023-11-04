@@ -97,7 +97,7 @@ class LockableValueTest {
         }
 
         @Test
-        fun returnsWhenLocked() = assertCalled { shouldBeCalled ->
+        fun returnsWhenLocked() = assertCalled { shouldBeCalled: () -> Unit ->
             val locked = LockableValue(
                 maxUpdateCount = 1,
                 initialValue = "test",

@@ -412,7 +412,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleNotFound() = assertCalled { shouldBeCalled ->
+        fun singleNotFound() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfFirstIndexedOrNull { i, c ->
                 i.assert(0)
                 c.assert('a')
@@ -422,7 +422,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFound() = assertCalled { shouldBeCalled ->
+        fun singleFound() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfFirstIndexedOrNull { i, c ->
                 i.assert(0)
                 c.assert('a')
@@ -432,7 +432,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun multipleNotFound() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multipleNotFound() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             val testData = listOf(0 to 'a', 1 to 'b')
             "ab".indexOfFirstIndexedOrNull { i, c ->
                 testData[i].first.assert(i)
@@ -443,7 +443,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun multipleFirstFound() = assertCalled { shouldBeCalled ->
+        fun multipleFirstFound() = assertCalled { shouldBeCalled: () -> Unit ->
             val testData = listOf(0 to 'a', 1 to 'b')
             "ab".indexOfFirstIndexedOrNull { i, c ->
                 testData[i].first.assert(i)
@@ -454,7 +454,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun multipleLastFound() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multipleLastFound() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             val testData = listOf(0 to 'a', 1 to 'b')
             "ab".indexOfFirstIndexedOrNull { i, c ->
                 testData[i].first.assert(i)
@@ -475,7 +475,7 @@ class CharSequenceTest {
 
 
         @Test
-        fun singleNotFound() = assertCalled { shouldBeCalled ->
+        fun singleNotFound() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfFirstOrNull {
                 it.assert('a')
                 shouldBeCalled()
@@ -484,7 +484,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFound() = assertCalled { shouldBeCalled ->
+        fun singleFound() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfFirstOrNull {
                 it.assert('a')
                 shouldBeCalled()
@@ -493,7 +493,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun multipleFirstFound() = assertCalled { shouldBeCalled ->
+        fun multipleFirstFound() = assertCalled { shouldBeCalled: () -> Unit ->
             "abc".indexOfFirstOrNull {
                 shouldBeCalled()
                 it.assert('a')
@@ -502,7 +502,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun multipleLastFound() = assertCalled(times = 3) { shouldBeCalled ->
+        fun multipleLastFound() = assertCalled(times = 3) { shouldBeCalled: () -> Unit ->
             assertCallbackCalledWith(listOf('a', 'b', 'c')) { assertChar ->
                 "abc".indexOfFirstOrNull {
                     assertChar(it)
@@ -526,7 +526,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFoundAtStart() = assertCalled { shouldBeCalled ->
+        fun singleFoundAtStart() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfLastOrNull {
                 it.assert('a')
                 shouldBeCalled()
@@ -536,7 +536,7 @@ class CharSequenceTest {
 
 
         @Test
-        fun singleFoundAtEnd() = assertCalled { shouldBeCalled ->
+        fun singleFoundAtEnd() = assertCalled { shouldBeCalled: () -> Unit ->
             "abc".indexOfLastOrNull {
                 it.assert('c')
                 shouldBeCalled()
@@ -547,7 +547,7 @@ class CharSequenceTest {
 
         @Test
         fun multipleShouldSelectLatest() {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 "cabc".indexOfLastOrNull {
                     it.assert('c')
                     shouldBeCalled()
@@ -555,7 +555,7 @@ class CharSequenceTest {
                 }.assert(3, message = "should be at end")
             }
 
-            assertCalled(times = 2) { shouldBeCalled ->
+            assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
                 "bcbabc".indexOfLastOrNull {
                     shouldBeCalled()
                     it == 'b'
@@ -571,7 +571,7 @@ class CharSequenceTest {
             "abc".indexOfLastIndexedOrNull { _, _ ->
                 false
             }.assertNull()
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 "a".indexOfLastIndexedOrNull { index, it ->
                     it.assert('a')
                     index.assert(0)
@@ -579,7 +579,7 @@ class CharSequenceTest {
                     false
                 }.assertNull()
             }
-            assertCalled(times = 3) { shouldBeCalled ->
+            assertCalled(times = 3) { shouldBeCalled: () -> Unit ->
                 "abc".indexOfLastIndexedOrNull { _, it ->
                     shouldBeCalled()
                     it == '1'
@@ -588,7 +588,7 @@ class CharSequenceTest {
         }
 
         @Test
-        fun singleFoundAtStart() = assertCalled { shouldBeCalled ->
+        fun singleFoundAtStart() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".indexOfLastIndexedOrNull { index, char ->
                 char.assert('a')
                 index.assert(0)
@@ -599,7 +599,7 @@ class CharSequenceTest {
 
 
         @Test
-        fun singleFoundAtEnd() = assertCalled { shouldBeCalled ->
+        fun singleFoundAtEnd() = assertCalled { shouldBeCalled: () -> Unit ->
             "abc".indexOfLastIndexedOrNull { index, char ->
                 char.assert('c')
                 index.assert(2)
@@ -611,7 +611,7 @@ class CharSequenceTest {
 
         @Test
         fun multipleShouldSelectLatest() {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 "cabc".indexOfLastIndexedOrNull { index, char ->
                     char.assert('c')
                     index.assert(3)
@@ -620,7 +620,7 @@ class CharSequenceTest {
                 }.assert(3, message = "should be at end")
             }
 
-            assertCalled(times = 2) { shouldBeCalled ->
+            assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
                 "bcbabc".indexOfLastIndexedOrNull { _, char ->
                     shouldBeCalled()
                     char == 'b'

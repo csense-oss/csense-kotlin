@@ -21,7 +21,7 @@ class MapMappingsTest {
         }
 
         @Test
-        fun single(): Unit = assertCalled { shouldBeCalled ->
+        fun single(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
             val empty: MapMappings<String, Int> = mapOf("test" to 1).mappings
             val result: String = empty.mapEachEntryWith("result") { it: Map.Entry<String, Int> ->
                 it.assert(key = "test", value = 1)

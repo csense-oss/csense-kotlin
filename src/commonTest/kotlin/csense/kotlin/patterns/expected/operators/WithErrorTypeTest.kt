@@ -31,7 +31,7 @@ class WithErrorTypeTest {
         }
 
         val failed: Expected<Int, RuntimeException> = Expected.Failed(RuntimeException())
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             val fallbackError = ErrorTypeException()
             failed.withErrorType {
                 shouldBeCalled()

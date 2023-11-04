@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.crypto
 
 import csense.kotlin.extensions.primitives.char.*
@@ -7,6 +9,7 @@ import kotlin.random.*
 import kotlin.test.*
 
 class UUID4Test {
+
 
     /**
      * By observing
@@ -19,10 +22,11 @@ class UUID4Test {
     B represents the version. The version in the mentioned UUID (value of B) is 4.
      */
     @Test
+    @Throws(Exception::class)
     fun create() {
-        val random = Random(500)
-        val firstUUId = UUID4.create(random)
-        val secondUUID = UUID4.create(random)
+        val random: Random = Random(500)
+        val firstUUId: String = UUID4.create(random)
+        val secondUUID: String = UUID4.create(random)
 
         firstUUId.assertIsValidUUIDWithVersion('4')
 
@@ -36,15 +40,16 @@ class UUID4Test {
     }
 
 
+    @Throws(Exception::class)
     private fun String.assertIsValidUUIDWithVersion(version: Char) {
         length.assert(36)
         count { it == '-' }.assert(4)
         //index 14 should be the "version" element //group 3
-        elementAt(14).assert(version)
+        elementAt(index = 14).assert(version)
         //index 19 should be the variant which should always be 10xx binary
-        val hexByte = elementAt(19).asHexDigit()
-        val byte = hexByte ?: throw Exception("not a valid hex digit")
-        val anded = byte.and(0b1100)
+        val hexByte: Byte? = elementAt(19).asHexDigit()
+        val byte: Byte = hexByte ?: throw Exception("not a valid hex digit")
+        val anded: Byte = byte.and(0b1100)
         anded.assert(0b1000)
     }
 }

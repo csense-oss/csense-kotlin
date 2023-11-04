@@ -128,7 +128,7 @@ class ForEachTest {
         fun factorOf2() {
             val data = listOf(99, 65)
             val getterIndexes = listOf(0, 1)
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 assertCallbackCalledWith(getterIndexes) { expectedIndex ->
                     GenericCollections.forEach2Indexed(
                         length = 2,
@@ -172,7 +172,7 @@ class ForEachTest {
         fun factorOf2() {
             val data = listOf(99, 65)
             val getterIndexes = listOf(0, 1)
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 assertCallbackCalledWith(getterIndexes) { expectedIndex ->
                     GenericCollections.forEach2(
                         length = 2,
@@ -207,7 +207,7 @@ class ForEachTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             GenericCollections.forEachBackwardsIndexed(
                 length = 1,
                 getter = {
@@ -255,7 +255,7 @@ class ForEachTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             GenericCollections.forEachBackwards(
                 length = 1,
                 getter = {

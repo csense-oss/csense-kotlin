@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.classes.iterator
 
 import csense.kotlin.tests.assertions.*

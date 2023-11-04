@@ -7,7 +7,7 @@ class RecreateableValueLazyTest {
 
     class Value {
         @Test
-        fun initialValueIsPreserved() = assertCalled { shouldBeCalled ->
+        fun initialValueIsPreserved() = assertCalled { shouldBeCalled: () -> Unit ->
             RecreateableValue {
                 shouldBeCalled()
                 "test"

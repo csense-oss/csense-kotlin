@@ -12,7 +12,7 @@ public inline fun <T> Array<T>.dropOrEmpty(
     dropCount: Int
 ): List<T> = dropOr(
     dropCount = dropCount,
-    orValue = emptyList()
+    defaultValue = emptyList()
 )
 
 /**
@@ -28,23 +28,23 @@ public inline fun <T> Array<T>.dropOrNull(
 
 /**
  * Returns a list containing all elements except first [dropCount] elements.
- * if [dropCount] is greater than the size or negative, [orValue] is returned
+ * if [dropCount] is greater than the size or negative, [defaultValue] is returned
  */
 public inline fun <T> Array<T>.dropOr(
     dropCount: Int,
-    orValue: List<T>
-): List<T> = dropOr(dropCount = dropCount, orAction = { orValue })
+    defaultValue: List<T>
+): List<T> = dropOr(dropCount = dropCount, defaultValue = { defaultValue })
 
 /**
  * Returns a list containing all elements except first [dropCount] elements.
- * if [dropCount] is greater than the size or negative, [orAction] is invoked and returned
+ * if [dropCount] is greater than the size or negative, [defaultValue] is invoked and returned
  */
 public inline fun <T> Array<T>.dropOr(
     dropCount: Int,
-    orAction: () -> List<T>
+    defaultValue: () -> List<T>
 ): List<T> {
     if (isIndex.outOfBoundsEndOutOfBounds(dropCount)) {
-        return orAction()
+        return defaultValue()
     }
     return drop(dropCount)
 }

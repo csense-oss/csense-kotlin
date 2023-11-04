@@ -28,7 +28,7 @@ class ExceptionsTest {
         }
 
         @Test
-        fun shouldCallLoggerWhenFails() = assertCalled { shouldBeCalled ->
+        fun shouldCallLoggerWhenFails() = assertCalled { shouldBeCalled: () -> Unit ->
 
             val loggerTag = "tag"
             val loggerMessage = "message"

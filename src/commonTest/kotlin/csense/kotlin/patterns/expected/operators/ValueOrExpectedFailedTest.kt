@@ -14,7 +14,7 @@ class ValueOrExpectedFailedTest {
 
         @Test
         fun onFailed() {
-            assertCalled { shouldBeCalled ->
+            assertCalled { shouldBeCalled: () -> Unit ->
                 Expected.Failed("42").asExpectedValue<String, String>().valueOrOnExpectedFailed { it: Expected.Failed<String> ->
                     shouldBeCalled()
                     it.error.assert("42")

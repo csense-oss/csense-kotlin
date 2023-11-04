@@ -409,7 +409,7 @@ class StringTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".forEachBackwardsIndexed { index, char ->
                 index.assert(0)
                 char.assert('a')
@@ -419,7 +419,7 @@ class StringTest {
 
 
         @Test
-        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled ->
+        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled: () -> Unit ->
             "abc".forEachBackwardsIndexed { _, _ ->
                 shouldBeCalled()
             }
@@ -445,7 +445,7 @@ class StringTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             "a".forEachBackwards { char ->
                 char.assert('a')
                 shouldBeCalled()
@@ -454,7 +454,7 @@ class StringTest {
 
 
         @Test
-        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled ->
+        fun callsNumberOfCharsTimes() = assertCalled(times = 3) { shouldBeCalled: () -> Unit ->
             "abc".forEachBackwards {
                 shouldBeCalled()
             }

@@ -20,7 +20,7 @@ class WeakReferenceTest {
     fun weakReferenceTUse() {
         val str = "test"
         val ref = str.weakReference()
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             ref.use {
                 this.assert("test")
                 shouldBeCalled()
@@ -30,7 +30,7 @@ class WeakReferenceTest {
 
     @Test
     fun weakReferenceEmptyFunctionUseInvoke() {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             val emptyRef: EmptyFunction = { shouldBeCalled() }
             emptyRef.weakReference().useInvoke()
         }
@@ -38,7 +38,7 @@ class WeakReferenceTest {
 
     @Test
     fun weakReferenceFunction0RRUseInvoke() {
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             val emptyRef: Function0R<String> = { shouldBeCalled(); "result" }
             emptyRef.weakReference().useInvoke()
         }
@@ -48,7 +48,7 @@ class WeakReferenceTest {
     fun weakReferenceTUseOr() {
         val str = "test"
         val ref = str.weakReference()
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             ref.useOr(ifAvailable = {
                 this.assert("test")
                 shouldBeCalled()

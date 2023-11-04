@@ -43,7 +43,7 @@ class MapKtTest {
         }
 
         @Test
-        fun singleReturnsTrue() = assertCalled { shouldBeCalled ->
+        fun singleReturnsTrue() = assertCalled { shouldBeCalled: () -> Unit ->
             mapOf("a" to "1").filterMapKey {
                 it.key.assert("a")
                 it.value.assert("1")
@@ -53,7 +53,7 @@ class MapKtTest {
         }
 
         @Test
-        fun nullableTrue() = assertCalled { shouldBeCalled ->
+        fun nullableTrue() = assertCalled { shouldBeCalled: () -> Unit ->
             mapOf<String?, String>(null to "a").filterMapKey {
                 it.key.assertNull()
                 it.value.assert("a")
@@ -63,7 +63,7 @@ class MapKtTest {
         }
 
         @Test
-        fun multipleAllFalse() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multipleAllFalse() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             mapOf(
                 "a" to "b",
                 "b" to "c"
@@ -74,7 +74,7 @@ class MapKtTest {
         }
 
         @Test
-        fun multipleAllTrue() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multipleAllTrue() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             mapOf(
                 "a" to "b",
                 "b" to "c"
@@ -88,7 +88,7 @@ class MapKtTest {
         }
 
         @Test
-        fun multipleAllBsAreTrue() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multipleAllBsAreTrue() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             mapOf(
                 "a" to "b",
                 "b" to "c"
@@ -112,7 +112,7 @@ class MapKtTest {
         singleMap.useValueOr("b", { failTest() }, { notFoundCounter += 1 })
         notFoundCounter.assert(1)
 
-        assertCalled { shouldBeCalled ->
+        assertCalled { shouldBeCalled: () -> Unit ->
             nullMap.useValueOr(null, {
                 shouldBeCalled()
                 it.assert("abc")
@@ -316,7 +316,7 @@ class MapKtTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             mapOf("test" to "1234").foreachBackwards {
                 it.key.assert("test")
                 it.value.assert("1234")
@@ -325,7 +325,7 @@ class MapKtTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             var haveCalled = false
             mapOf("first" to 0, "last" to 1).foreachBackwards {
                 it.key.assert(haveCalled.map("first", "last"))

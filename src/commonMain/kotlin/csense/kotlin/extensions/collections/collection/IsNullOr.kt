@@ -1,4 +1,4 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "UnusedReceiverParameter")
 
 package csense.kotlin.extensions.collections.collection
 
@@ -21,14 +21,16 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
 
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("isNotEmpty()")
 )
 public inline fun Collection<Any>.isNotNullOrEmpty(): Nothing = unexpected()
 
 
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNull will always fail. Use isEmpty instead",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("isEmpty()")
 )
 public inline fun Collection<Any>.isNullOrEmpty(): Nothing = unexpected()
 

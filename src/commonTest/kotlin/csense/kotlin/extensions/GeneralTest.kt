@@ -110,7 +110,7 @@ class GeneralTest {
         }
 
         @Test
-        fun shouldApply() = assertCalled { shouldBeCalled ->
+        fun shouldApply() = assertCalled { shouldBeCalled: () -> Unit ->
             "test".applyIf(true) {
                 shouldBeCalled()
                 assert("test")

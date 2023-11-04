@@ -45,7 +45,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function1<String, String>>({
                 it.assert("input")
                 shouldBeCalled()
@@ -54,7 +54,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function1<String, String>>({
                 it.assert("input")
                 shouldBeCalled()
@@ -74,7 +74,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function2<String, String, String>>({ first, second ->
                 first.assert("f")
                 second.assert("s")
@@ -84,7 +84,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function2<String, String, String>>({ first, second ->
                 first.assert("f")
                 second.assert("s")
@@ -107,7 +107,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function3<String, String, String, String>>({ first, second, third ->
                 first.assert("f")
                 second.assert("s")
@@ -122,7 +122,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function3<String, String, String, String>>({ first, second, third ->
                 first.assert("f")
                 second.assert("s")
@@ -151,7 +151,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
                 first.assert("f")
                 second.assert("s")
@@ -168,7 +168,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
                 first.assert("f")
                 second.assert("s")
@@ -200,7 +200,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function5<String, String, String, String, String, String>>(
                 { first, second, third, fourth, fifth ->
                     first.assert("f")
@@ -220,7 +220,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function5<String, String, String, String, String, String>>(
                 { first, second, third, fourth, fifth ->
                     first.assert("f")
@@ -257,7 +257,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function6<String, String, String, String, String, String, String>>(
                 { first, second, third, fourth, fifth, sixth ->
                     first.assert("f")
@@ -279,7 +279,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function6<String, String, String, String, String, String, String>>(
                 { first, second, third, fourth, fifth, sixth ->
                     first.assert("f")
@@ -320,7 +320,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function1<String, String>>({ first ->
                 first.assert("first")
                 shouldBeCalled()
@@ -329,7 +329,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function1<String, String>>({ first ->
                 first.assert("first")
                 shouldBeCalled()
@@ -349,7 +349,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function2<String, String, String>>({ first, second ->
                 first.assert("first")
                 second.assert("second")
@@ -359,7 +359,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function2<String, String, String>>({ first, second ->
                 first.assert("first")
                 second.assert("second")
@@ -383,7 +383,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function3<String, String, String, String>>({ first, second, third ->
                 first.assert("first")
                 second.assert("second")
@@ -394,7 +394,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function3<String, String, String, String>>({ first, second, third ->
                 first.assert("first")
                 second.assert("second")
@@ -420,7 +420,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
                 first.assert("first")
                 second.assert("second")
@@ -432,7 +432,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function4<String, String, String, String, String>>({ first, second, third, fourth ->
                 first.assert("first")
                 second.assert("second")
@@ -460,7 +460,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function5<String, String, String, String, String, String>>({ first, second, third, fourth, fifth ->
                 first.assert("first")
                 second.assert("second")
@@ -473,7 +473,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function5<String, String, String, String, String, String>>({ first, second, third, fourth, fifth ->
                 first.assert("first")
                 second.assert("second")
@@ -504,7 +504,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled { shouldBeCalled ->
+        fun single() = assertCalled { shouldBeCalled: () -> Unit ->
             listOf<Function6<String, String, String, String, String, String, String>>({ first, second, third, fourth, fifth, sixth ->
                 first.assert("first")
                 second.assert("second")
@@ -518,7 +518,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             listOf<Function6<String, String, String, String, String, String, String>>({ first, second, third, fourth, fifth, sixth ->
                 first.assert("first")
                 second.assert("second")
@@ -764,7 +764,7 @@ class IterableTest {
         }
 
         @Test
-        fun single() = assertCalled(times = 1) { shouldBeCalled ->
+        fun single() = assertCalled(times = 1) { shouldBeCalled: () -> Unit ->
             val single: Iterable<String> = listOf("test")
             single.forEachBackwards {
                 it.assert("test")
@@ -773,7 +773,7 @@ class IterableTest {
         }
 
         @Test
-        fun multiple() = assertCalled(times = 2) { shouldBeCalled ->
+        fun multiple() = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
             var haveSeenLast = false
             val multiple: Iterable<String> = listOf("first", "last")
             multiple.forEachBackwards {

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.tests.assertions.*
