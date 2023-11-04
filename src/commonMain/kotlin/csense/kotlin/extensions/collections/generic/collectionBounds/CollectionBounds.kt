@@ -12,7 +12,7 @@ public sealed interface CollectionBounds {
 
     public fun inBoundsEndInBounds(index: Int): Boolean
 
-    public object CollectionBoundsAlwaysOutOfBounds : CollectionBounds {
+    public data object CollectionBoundsAlwaysOutOfBounds : CollectionBounds {
         override fun inBoundsEndNotInBounds(index: Int): Boolean {
             return false
         }
@@ -23,7 +23,7 @@ public sealed interface CollectionBounds {
 
     }
 
-    public object CollectionBoundsZeroBoundsChecker : CollectionBounds {
+    public data object CollectionBoundsZeroBoundsChecker : CollectionBounds {
         override fun inBoundsEndNotInBounds(index: Int): Boolean {
             return false
         }

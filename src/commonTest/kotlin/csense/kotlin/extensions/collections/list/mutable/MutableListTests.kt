@@ -1,12 +1,9 @@
 @file:Suppress("unused")
 
-package csense.kotlin.extensions.collections.list
+package csense.kotlin.extensions.collections.list.mutable
 
 import csense.kotlin.extensions.collections.collection.mutable.*
-import csense.kotlin.extensions.collections.list.mutable.*
 import csense.kotlin.tests.assertions.*
-import kotlin.collections.removeFirst
-import kotlin.collections.removeLast
 import kotlin.test.*
 
 class MutableExtensionsTest {

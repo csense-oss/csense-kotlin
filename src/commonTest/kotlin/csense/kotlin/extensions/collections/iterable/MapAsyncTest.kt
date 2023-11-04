@@ -1,46 +1,17 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
+@file:Suppress("unused")
 
-package csense.kotlin.extensions.collections
+package csense.kotlin.extensions.collections.iterable
 
-import csense.kotlin.extensions.collections.iterable.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlin.test.*
 
-class CoroutinesTest {
-
-
-    class IterableTMapAsyncAwait {
-        @Test
-        fun empty() = runTest {
-            listOf<String>().mapAsyncAwait(this) {
-                shouldNotBeCalled()
-            }.assertEmpty()
-        }
-
-        @Test
-        fun single() = runTest {
-            listOf("input").mapAsyncAwait(this) {
-                it.assert("input")
-                "test"
-            }.assertSingle("test")
-        }
-
-        @Test
-        fun multiple() = runTest {
-            val lst = listOf("input1", "input2").mapAsyncAwait(this) {
-                it
-            }
-            lst.assertSize(2)
-            lst.assertContainsAll("input1", "input2")
-        }
-    }
-
+class MapAsyncTest {
     class IterableTMapAsync {
         @Test
         fun empty(): TestResult = runTest {
-            listOf<String>().mapAsync(this) {
+            listOf<String>().mapAsync(this) { _: String ->
                 shouldNotBeCalled()
             }.awaitAll().assertEmpty()
         }
@@ -48,7 +19,7 @@ class CoroutinesTest {
         @Test
         fun single(): TestResult = runTest {
             assertCalled { shouldBeCalled: () -> Unit ->
-                listOf("input").mapAsync(this) {
+                listOf("input").mapAsync(this) { it: String ->
                     shouldBeCalled()
                     it.assert("input")
                     "output"
@@ -59,7 +30,7 @@ class CoroutinesTest {
         @Test
         fun multiple(): TestResult = runTest {
             assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
-                listOf("input1", "input2").mapAsync(this) {
+                listOf("input1", "input2").mapAsync(this) { it: String ->
                     shouldBeCalled()
                     it.assertStartsWith("input")
                     "output"
@@ -72,5 +43,29 @@ class CoroutinesTest {
         }
     }
 
+    class IterableTMapAsyncAwait {
+        @Test
+        fun empty(): TestResult = runTest {
+            listOf<String>().mapAsyncAwait(this) { _: String ->
+                shouldNotBeCalled()
+            }.assertEmpty()
+        }
 
+        @Test
+        fun single(): TestResult = runTest {
+            listOf("input").mapAsyncAwait(this) { it: String ->
+                it.assert("input")
+                "test"
+            }.assertSingle("test")
+        }
+
+        @Test
+        fun multiple(): TestResult = runTest {
+            val lst: List<String> = listOf("input1", "input2").mapAsyncAwait(this) { it: String ->
+                it
+            }
+            lst.assertSize(2)
+            lst.assertContainsAll("input1", "input2")
+        }
+    }
 }

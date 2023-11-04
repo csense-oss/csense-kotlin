@@ -12,7 +12,7 @@ import csense.kotlin.extensions.collections.*
  * @return T? the item first matching the given [predicate] or null if non did match the [predicate]
  */
 public inline fun <T> Iterator<T>.findFirst(predicate: Predicate<T>): T? {
-    for (item in this) {
+    for (item: T in this) {
         if (predicate(item)) {
             return item
         }

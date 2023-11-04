@@ -1,9 +1,8 @@
 @file:Suppress("unused")
 
-package csense.kotlin.extensions.collections
+package csense.kotlin.extensions.collections.generic.collection.operations
 
 import csense.kotlin.extensions.collections.generic.collection.*
-import csense.kotlin.extensions.collections.generic.collection.operations.*
 import csense.kotlin.extensions.primitives.int.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
@@ -13,7 +12,12 @@ class GenericTest {
     class GenericForEach {
         @Test
         fun empty() {
-            GenericCollections.forEach(0, { shouldNotBeCalled() }, 0, { shouldNotBeCalled() })
+            GenericCollections.forEach(
+                length = 0,
+                retriever = { shouldNotBeCalled() },
+                startIndex = 0,
+                onEach = { shouldNotBeCalled() }
+            )
         }
 
         @Test
@@ -484,7 +488,7 @@ class GenericTest {
 
 class GenericTestTreeStructure(
     var id: String,
-    var parent: GenericTestTreeStructure?
+    var parent: GenericTestTreeStructure?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

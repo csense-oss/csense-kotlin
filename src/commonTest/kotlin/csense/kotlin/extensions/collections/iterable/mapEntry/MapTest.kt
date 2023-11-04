@@ -1,15 +1,14 @@
-package csense.kotlin.extensions.collections.map
+package csense.kotlin.extensions.collections.iterable.mapEntry
 
-import csense.kotlin.extensions.collections.iterable.mapEntry.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
-class MapEntryKtTest {
+class MapTest {
 
-    private val emptryEntry = listOf<Map.Entry<String, String>>()
-    private val singlEntry = listOf(SimpleMapEntry("1234", "asdf"))
+    private val emptyEntry: List<Map.Entry<String, String>> = listOf()
+    private val singleEntry: List<SimpleMapEntry<String, String>> = listOf(SimpleMapEntry("1234", "asdf"))
 
-    private val multipleEntries = listOf(
+    private val multipleEntries: List<SimpleMapEntry<String, String>> = listOf(
         SimpleMapEntry("123", "asdf"),
         SimpleMapEntry("456", "qwerty"),
         SimpleMapEntry("789", "zxcv")
@@ -17,8 +16,8 @@ class MapEntryKtTest {
 
     @Test
     fun mapKeys() {
-        emptryEntry.mapKeys().assertSize(0)
-        singlEntry.mapKeys().apply {
+        emptyEntry.mapKeys().assertSize(0)
+        singleEntry.mapKeys().apply {
             assertSize(1)
             first().assert("1234")
         }
@@ -31,8 +30,8 @@ class MapEntryKtTest {
 
     @Test
     fun mapValues() {
-        emptryEntry.mapValues().assertSize(0)
-        singlEntry.mapValues().apply {
+        emptyEntry.mapValues().assertSize(0)
+        singleEntry.mapValues().apply {
             assertSize(1)
             first().assert("asdf")
         }
@@ -44,6 +43,7 @@ class MapEntryKtTest {
 
     }
 }
+
 
 class SimpleMapEntry<K, V>(
     override val key: K,

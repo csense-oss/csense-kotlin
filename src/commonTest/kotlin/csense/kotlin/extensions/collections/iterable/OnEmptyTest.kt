@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package csense.kotlin.extensions.collections.iterable
 
 import csense.kotlin.tests.assertions.*
@@ -50,5 +52,10 @@ class OnEmptyTest {
             result.count().assert(2)
             result.assertContainsInOrder("test", "1234")
         }
+    }
+
+    @Test
+    fun onEmpty() {
+        TODO("vararg")
     }
 }
