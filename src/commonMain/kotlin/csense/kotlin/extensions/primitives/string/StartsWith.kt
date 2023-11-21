@@ -1,4 +1,5 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.primitives.string
 
 import csense.kotlin.extensions.primitives.char.*
@@ -33,24 +34,22 @@ public inline fun String.startsWithAny(
     collection.any { this.startsWith(it, ignoreCase) }
 
 
-@kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.startsWith(
     prefix: String,
     ignoreCase: Boolean = false,
-    ignoreWhitespace: Boolean = false
+    ignoreWhitespace: Boolean
 ): Boolean {
     if (this === prefix) {
         return true
     }
 
-    return if (!ignoreWhitespace) {
-        startsWith(prefix = prefix, ignoreCase = ignoreCase)
-    } else {
-        val firstNonWhitespaceIndex = indexOfFirstOrNull { it.isNotWhitespace() } ?: return false
-        return comparison.containsStringAt(
-            startIndex = firstNonWhitespaceIndex,
-            other = prefix,
-            ignoreCase = ignoreCase
-        )
+    if (!ignoreWhitespace) {
+        return startsWith(prefix = prefix, ignoreCase = ignoreCase)
     }
+    val firstNonWhitespaceIndex: Int = indexOfFirstOrNull { it.isNotWhitespace() } ?: return false
+    return comparison.containsStringAt(
+        startIndex = firstNonWhitespaceIndex,
+        other = prefix,
+        ignoreCase = ignoreCase
+    )
 }

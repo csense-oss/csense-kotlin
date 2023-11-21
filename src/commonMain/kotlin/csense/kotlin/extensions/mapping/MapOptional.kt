@@ -1,4 +1,4 @@
-@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "INVISIBLE_MEMBER", "NOTHING_TO_INLINE")
 
 package csense.kotlin.extensions.mapping
 

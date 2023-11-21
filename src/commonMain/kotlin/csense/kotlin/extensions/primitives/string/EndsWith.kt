@@ -1,4 +1,5 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 
 package csense.kotlin.extensions.primitives.string
 
@@ -35,23 +36,24 @@ public inline fun String.endsWithAny(
     strings.any { this.endsWith(it, ignoreCase) }
 
 
-@kotlin.internal.LowPriorityInOverloadResolution
 public inline fun String.endsWith(
     suffix: String,
     ignoreCase: Boolean = false,
-    ignoreWhitespace: Boolean = false
+    ignoreWhitespace: Boolean
 ): Boolean {
+
     if (this === suffix) {
         return true
     }
-    return if (!ignoreWhitespace) {
-        endsWith(suffix = suffix, ignoreCase = ignoreCase)
-    } else {
-        val lastNonWhitespaceIndexInclusive = indexOfLastOrNull { it.isNotWhitespace() } ?: return false
-        return comparison.containsStringEndingAt(
-            endIndex = lastNonWhitespaceIndexInclusive,
-            other = suffix,
-            ignoreCase = ignoreCase
-        )
+
+    if (!ignoreWhitespace) {
+        return endsWith(suffix = suffix, ignoreCase = ignoreCase)
     }
+
+    val lastNonWhitespaceIndexInclusive = indexOfLastOrNull { it.isNotWhitespace() } ?: return false
+    return comparison.containsStringEndingAt(
+        endIndex = lastNonWhitespaceIndexInclusive,
+        other = suffix,
+        ignoreCase = ignoreCase
+    )
 }

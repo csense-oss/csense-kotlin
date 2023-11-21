@@ -1,10 +1,10 @@
-@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 
 
 package csense.kotlin.extensions.ranges
 
 import csense.kotlin.annotations.numbers.*
-import kotlin.internal.*
 
 
 /**
@@ -23,6 +23,5 @@ public inline val IntRange.largest: Int
 /**
  * The maximum value in the range (exclusive)
  */
-@HidesMembers
 public inline val IntRange.endExclusiveSafe: Long
     get() = last.toLong() + 1L //since  +1 is the next size thus above end inclusive is +1

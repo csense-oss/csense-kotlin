@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "INVISIBLE_MEMBER")
 
 package csense.kotlin.extensions.collections.array.generic
 
