@@ -1,4 +1,4 @@
-@file:Suppress("unused", "INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+@file:Suppress("unused")
 
 package csense.kotlin.extensions.duration
 

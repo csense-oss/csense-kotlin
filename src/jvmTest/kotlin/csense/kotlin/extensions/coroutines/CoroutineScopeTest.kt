@@ -23,7 +23,7 @@ class CoroutineScopeTestJvm {
         @AfterAll
         @JvmStatic
         fun tearDown() {
-            Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+            Dispatchers.resetMain()
             mainThreadSurrogate.close()
         }
     }
@@ -114,4 +114,6 @@ class CoroutineScopeTestJvm {
         isRightReceiver()
         isMainContext()
     }
+
+
 }

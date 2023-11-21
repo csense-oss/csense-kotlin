@@ -5,6 +5,9 @@ package csense.kotlin.extensions.coroutines.coroutineScope
 import csense.kotlin.*
 import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.*
+
+public typealias WithReceiverScope<Receiver, Result> = suspend context(CoroutineScope) Receiver.() -> Result
 
 /**
  * same as [launch] ([Dispatchers.Default])
@@ -75,15 +78,13 @@ public inline fun <Receiver, R> CoroutineScope.launchMainWith(
 }
 
 
-//public typealias WithReceiverScope<Receiver, Result> = suspend context(CoroutineScope) Receiver.() -> Result
-//
-//public fun <Receiver, Result> CoroutineScope.launchWith(
-//    context: CoroutineContext,
-//    receiver: Receiver,
-//    start: CoroutineStart = CoroutineStart.DEFAULT,
-//    block: WithReceiverScope<Receiver, Result>
-//) {
-//    launch(context = context, start = start) {
-//        block(receiver)
-//    }
-//}
+public fun <Receiver, Result> CoroutineScope.launchWith(
+    context: CoroutineContext,
+    receiver: Receiver,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: WithReceiverScope<Receiver, Result>
+) {
+    launch(context = context, start = start) {
+        block(receiver)
+    }
+}
