@@ -26,16 +26,18 @@ public fun UUID4.Companion.create(
     shouldBeUppercase: Boolean = true,
     shouldHaveDashes: Boolean = true
 ): String {
-    val randomData: ByteArray = random.nextBytes(16)
+    val randomData: ByteArray = random.nextBytes(size = 16)
     randomData.setClockAndReservedBits()
     randomData.setVersion4UuidBits()
-    val hexString: String = randomData.toHexString(appendHexPrefix = false, shouldBeUppercase = shouldBeUppercase)
+    val hexString: String = randomData.toHexString(
+        appendHexPrefix = false,
+        shouldBeUppercase = shouldBeUppercase
+    )
 
-    return if (shouldHaveDashes) {
-        hexString.insertDashes()
-    } else {
-        hexString
+    if (shouldHaveDashes) {
+        return hexString.insertDashes()
     }
+    return hexString
 }
 
 private fun ByteArray.setClockAndReservedBits() {

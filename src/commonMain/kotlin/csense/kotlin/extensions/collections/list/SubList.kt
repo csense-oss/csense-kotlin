@@ -1,4 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
+
 package csense.kotlin.extensions.collections.list
 
 import csense.kotlin.annotations.numbers.*
@@ -41,10 +42,9 @@ public inline fun <T> List<T>.subListSafe(
     val isAllInBounds: Boolean = isIndex.inBounds(fromIndex, isEndInBounds = false) &&
             isIndex.inBounds(toIndex, isEndInBounds = true) &&
             fromIndex <= toIndex
-    return if (isAllInBounds) {
-        subList(fromIndex, toIndex)
-    } else {
-        emptyList()
+    if (!isAllInBounds) {
+        return emptyList()
     }
+    return subList(fromIndex, toIndex)
 }
 

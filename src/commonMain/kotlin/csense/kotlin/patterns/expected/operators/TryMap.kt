@@ -10,11 +10,10 @@ public inline fun <InputValue, OutputValue, Error> Expected<InputValue, Error>.t
     transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
     contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
-    return if (this.isSuccess()) {
-        tryMap(transform)
-    } else {
-        this
+    if (isFailed()) {
+        return this
     }
+    return tryMap(transform)
 }
 
 

@@ -21,7 +21,7 @@ public inline fun <Result> measureTimeResult(
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     val result: Result
-    val duration = measureTime { result = block() }
+    val duration: Duration = measureTime { result = block() }
     return Pair(duration, result)
 }
 

@@ -13,6 +13,6 @@ import csense.kotlin.extensions.general.*
  */
 public inline fun <reified U> Collection<Any?>.forEachWithType(
     function: Function0<U>
-): Unit = forEach {
+): Unit = forEach { it: Any? ->
     it?.cast<U>()?.let(function)
 }
