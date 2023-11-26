@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.collections.iterable
 
+import csense.kotlin.classes.general.*
 import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
@@ -20,9 +21,9 @@ class CountWithTest {
     fun singleFalse() {
         val input: Iterable<String> = listOf("test")
         val result: Int = input.countWith(
-            predicateWithCount = { index: Int, item: String ->
+            predicateWithCount = { count: Int, item: String ->
                 item.assert("test")
-                index.assert(0)
+                count.assert(0)
                 false
             }
         )
@@ -46,8 +47,8 @@ class CountWithTest {
     fun multipleAllFalseInputCorrect() {
         val callOrder: List<Pair<Int, String>> = listOf(
             0 to "test",
-            1 to "test2",
-            2 to "test3"
+            0 to "test2",
+            0 to "test3"
         )
         val input: Iterable<String> = listOf("test", "test2", "test3")
         assertCallbackCalledWith(
@@ -66,17 +67,21 @@ class CountWithTest {
 
     @Test
     fun multipleAllTrue() {
+        val countAcc = IncrementalCounter(0)
         val input: Iterable<String> = listOf("test", "test2", "test3")
-        input.countWith { _: Int, _: String ->
+        input.countWith { count: Int, _: String ->
+            count.assert(countAcc.valueAndIncrement)
             true
         }.assert(3)
     }
 
     @Test
     fun multipleSomeTrue() {
+        val countAcc = IncrementalCounter(0)
         val input: Iterable<String> = listOf("test", "test2", "test3")
-        input.countWith { index: Int, _: String ->
-            index != 0
+        input.countWith { count: Int, _: String ->
+            count.assert(countAcc.valueAndIncrement)
+            return@countWith count != 2
         }.assert(2)
     }
 
