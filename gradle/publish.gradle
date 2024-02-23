@@ -1,5 +1,5 @@
 apply plugin: "maven-publish"
-
+apply plugin: "signing"
 
 afterEvaluate {
     project.publishing.publications.configureEach {
@@ -25,13 +25,14 @@ tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }
     dependsOn(tasks["generatePomFileForJvmPublication"])
 }
 
+
 publishing {
     publications {
         withType(MavenPublication) {
             groupId = csenseGroupId
             artifactId = csenseArtifactId
             version = csenseVersionName
-
+            artifact emptyJavadocsJar
             pom {
                 name = csenseArtifactId
                 description = csenseArtifactDescription
@@ -53,17 +54,21 @@ publishing {
                 organization {
                     name = csenseUserOrg
                 }
+                scm {
+                    url = 'https://github.com/csense-oss/csense-kotlin'
+                }
             }
         }
     }
     repositories {
-        maven {
-            final Properties properties = new Properties()
-            try {
-                properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            } catch (ignored) {
+        final Properties properties = new Properties()
+        try {
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        } catch (ignored) {
 
-            }
+        }
+        maven {
+
             url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
             name 'csense-oss'
             credentials {
@@ -74,5 +79,14 @@ publishing {
                 basic(BasicAuthentication)
             }
         }
+
+        maven {
+            name = "localForMavenPortal"
+            url = uri("file://${buildDir}/local-repository")
+        }
     }
+}
+
+signing {
+    sign publishing.publications.withType(MavenPublication)
 }

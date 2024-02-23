@@ -47,15 +47,24 @@ class OnEmptyTest {
 
         @Test
         fun multiple() {
-            val itt = listOf("test", "1234").asIterable()
-            val result = itt.onEmpty { shouldNotBeCalled() }
+            val itt: Iterable<String> = listOf("test", "1234").asIterable()
+            val result: Iterable<String> = itt.onEmpty { shouldNotBeCalled() }
             result.count().assert(2)
             result.assertContainsInOrder("test", "1234")
         }
     }
 
-    @Test
+    class OnEmptyVarArg {
+        @Test
+        fun empty() {
+            val input: Iterable<String> = listOf()
+            val result: Iterable<String> = input.onEmpty()
+
+        }
+    }
+
     fun onEmpty() {
+
         TODO("vararg")
     }
 }

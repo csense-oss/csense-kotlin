@@ -5,20 +5,23 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.7.3"
+    ext.coroutinesVersion = "1.8.0"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.1.0-Beta"
+    ext.csenseTestsVersion = "0.0.60"
+//    ext.csenseTestsVersion = "0.1.0-Beta"
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.1.0-Beta"
+//    ext.csenseAnnotationVersion = "0.1.0-Beta"
+    ext.csenseAnnotationVersion = "0.0.63"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.0.0-Beta1"
+    ext.kotlin_version = "2.0.0-Beta4"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.1.0-Beta"
+    ext.csenseVersionName = "0.0.1-Beta"
+    ext.csenseGroupId = "org.csenseoss.kotlin"
 
     ext.csenseUserOrg = "csense-oss"
-    ext.csenseGroupId = "csense.kotlin"
+
     ext.csenseArtifactId = "csense-kotlin"
     ext.csenseLicense = "MIT"
     ext.csenseLicenseUrl = "https://mit-license.org/"
@@ -39,7 +42,7 @@ plugins {
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "8.4.2"
+    id "org.owasp.dependencycheck" version "9.0.7"
 }
 
 repositories {
@@ -52,6 +55,7 @@ repositories {
 }
 
 kotlin {
+    withSourcesJar(true)
     explicitApi = ExplicitApiMode.Strict
     jvm {
         compilations.configureEach {
@@ -75,8 +79,8 @@ kotlin {
 //    iosX64()
 
     //- tier 2
-    linuxX64()
-    linuxArm64()
+//    linuxX64()
+//    linuxArm64()
 //    watchosSimulatorArm64()
 //    watchosX64()
 //    watchosArm32()
@@ -87,12 +91,12 @@ kotlin {
 //    iosArm64()
 
     //- tier 3
-    androidNativeArm32()
-    androidNativeArm64()
-    androidNativeX86()
-    androidNativeX64()
-    mingwX64()
-    androidNativeX64()
+//    androidNativeArm32()
+//    androidNativeArm64()
+//    androidNativeX86()
+//    androidNativeX64()
+//    mingwX64()
+//    androidNativeX64()
 //    watchosDeviceArm64()
     //end native targets
     sourceSets {
@@ -159,6 +163,16 @@ kotlin {
 
 project.group = csenseGroupId
 project.version = csenseVersionName
+
+
+task emptyJavadocs(type: Javadoc) {
+    source = []
+}
+
+task emptyJavadocsJar(type: Jar, dependsOn: emptyJavadocs) {
+    archiveClassifier.set('javadoc')
+}
+
 
 apply from: "$rootDir/gradle/publish.gradle"
 
