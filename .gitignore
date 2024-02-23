@@ -33,3 +33,4 @@ csense-kotlin-js/out/
 *.kjsm
 kotlin-js-store/yarn.lock
 /kotlin-js-store/
+.kotlin/
