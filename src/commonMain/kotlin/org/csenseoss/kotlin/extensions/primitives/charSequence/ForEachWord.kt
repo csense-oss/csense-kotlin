@@ -1,0 +1,1 @@
+package org.csenseoss.kotlin.extensions.primitives.charSequence

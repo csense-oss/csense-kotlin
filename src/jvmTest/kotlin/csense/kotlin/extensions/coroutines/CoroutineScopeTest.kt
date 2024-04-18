@@ -1,9 +1,9 @@
 package csense.kotlin.extensions.coroutines
 
-import csense.kotlin.extensions.coroutines.coroutineScope.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
 import org.junit.jupiter.api.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

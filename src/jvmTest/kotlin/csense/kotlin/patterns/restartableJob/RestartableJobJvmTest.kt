@@ -2,17 +2,19 @@
 
 package csense.kotlin.patterns.restartableJob
 
-import csense.kotlin.patterns.restartableJob.operations.*
+import org.csenseoss.kotlin.patterns.restartableJob.operations.*
+import org.csenseoss.kotlin.patterns.restartableJob.operations.restartableJobInMain
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.patterns.restartableJob.*
 import org.junit.jupiter.api.*
 
 class RestartableJobJvmTest {
 
     class CoroutineScopeRestartableJobInMain {
         companion object {
-            private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+            private val mainThreadSurrogate: CloseableCoroutineDispatcher = newSingleThreadContext("UI thread")
 
             @BeforeAll
             @JvmStatic
@@ -29,9 +31,9 @@ class RestartableJobJvmTest {
         }
 
         @Test
-        fun shouldBeCalledOnMainDispatcher() = runTest {
+        fun shouldBeCalledOnMainDispatcher(): TestResult = runTest {
             assertCalled { shouldBeCalled: () -> Unit ->
-                val job = restartableJobInMain {
+                val job: RestartableJob = restartableJobInMain {
                     assertDispatcher(Dispatchers.Main)
                     shouldBeCalled()
                 }
@@ -44,10 +46,10 @@ class RestartableJobJvmTest {
 
     class CoroutineScopeRestartableJobInIO {
         @Test
-        fun shouldBeCalledOnIODispatcher() = runTest {
-            val ioDispatcher = Dispatchers.IO
+        fun shouldBeCalledOnIODispatcher(): TestResult = runTest {
+            val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
             assertCalled { shouldBeCalled: () -> Unit ->
-                val job = restartableJobInIO {
+                val job: RestartableJob = restartableJobInIO {
                     assertDispatcher(ioDispatcher)
                     shouldBeCalled()
                 }

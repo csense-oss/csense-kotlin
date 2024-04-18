@@ -5,6 +5,7 @@ package csense.kotlin.extensions.coroutines
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.extensions.coroutines.*
 import org.junit.jupiter.api.*
 
 class CoroutineScopeIOTest {

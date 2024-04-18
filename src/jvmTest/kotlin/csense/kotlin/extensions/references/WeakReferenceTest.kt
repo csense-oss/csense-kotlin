@@ -1,7 +1,8 @@
 package csense.kotlin.extensions.references
 
-import csense.kotlin.*
 import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.extensions.references.*
 import org.junit.jupiter.api.*
 import java.util.*
 

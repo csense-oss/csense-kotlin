@@ -1,0 +1,8 @@
+package org.csenseoss.kotlin.annotations
+
+
+@RequiresOptIn(
+    message = "Very experimental, (eg. due to global namespace pollution or alike)",
+    level = RequiresOptIn.Level.WARNING
+)
+public annotation class ExperimentalCsenseApi

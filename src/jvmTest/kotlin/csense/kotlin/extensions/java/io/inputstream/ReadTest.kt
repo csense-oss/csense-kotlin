@@ -1,5 +1,6 @@
 package csense.kotlin.extensions.java.io.inputstream
 
+import org.csenseoss.kotlin.extensions.java.io.inputstream.*
 import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 import java.io.*

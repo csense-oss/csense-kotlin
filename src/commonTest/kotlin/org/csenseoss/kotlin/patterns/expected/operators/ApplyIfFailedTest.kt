@@ -1,0 +1,25 @@
+package org.csenseoss.kotlin.patterns.expected.operators
+
+import org.csenseoss.kotlin.patterns.expected.*
+import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.patterns.expected.operators.*
+import kotlin.test.*
+
+class ApplyIfFailedTest {
+    @Test
+    fun failedShouldBeCall(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+        Expected.Failed(error = 42).applyIfFailed {
+            error.assert(expected = 42)
+            shouldBeCalled()
+        }
+    }
+
+    @Test
+    fun successShouldNotBeCall() {
+        Expected.Success(value = 42).applyIfFailed {
+            shouldNotBeCalled()
+        }
+    }
+
+}

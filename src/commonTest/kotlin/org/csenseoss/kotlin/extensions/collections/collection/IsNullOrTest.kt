@@ -1,0 +1,20 @@
+@file:Suppress("RedundantNullableReturnType")
+
+package org.csenseoss.kotlin.extensions.collections.collection
+
+import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.extensions.collections.collection.*
+import kotlin.test.*
+
+class IsNullOrTest {
+    @Test
+    fun isNotNullOrEmpty() {
+        val nullCol: Collection<String>? = null
+        nullCol.isNotNullOrEmpty().assert(false)
+        val emptyCol: Collection<String>? = listOf()
+        emptyCol.isNotNullOrEmpty().assert(false)
+        val singleCol: Collection<String>? = listOf("omg")
+        singleCol.isNotNullOrEmpty().assert(true)
+    }
+
+}

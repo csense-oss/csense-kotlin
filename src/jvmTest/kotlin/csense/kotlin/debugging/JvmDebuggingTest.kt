@@ -1,7 +1,9 @@
 package csense.kotlin.debugging
 
-import csense.kotlin.annotations.*
 import csense.kotlin.tests.assertions.*
+import csense.kotlin.annotations.*
+import org.csenseoss.kotlin.annotations.*
+import org.csenseoss.kotlin.debugging.*
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCsenseApi::class)

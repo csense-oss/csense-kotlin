@@ -1,4 +1,4 @@
-//package csense.kotlin.logger
+package csense.kotlin.logger//package csense.kotlin.logger
 //
 //import csense.kotlin.tests.assertions.*
 //import org.junit.jupiter.api.*
