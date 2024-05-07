@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalStdlibApi::class)
 
-package org.csenseoss.kotlin.crypto
+package org.csenseoss.kotlin.crypto.guid
 
-import org.csenseoss.kotlin.extensions.collections.array.typed.byte.*
 import org.csenseoss.kotlin.extensions.primitives.operations.*
 import kotlin.jvm.*
 import kotlin.random.*
