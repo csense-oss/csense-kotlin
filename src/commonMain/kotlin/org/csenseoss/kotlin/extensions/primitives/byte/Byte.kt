@@ -4,7 +4,7 @@
 package org.csenseoss.kotlin.extensions.primitives.byte
 
 import csense.kotlin.annotations.numbers.*
-import org.csenseoss.kotlin.extensions.primitives.operations.*
+import org.csenseoss.kotlin.primitive.ByteBitOperations.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 

@@ -3,6 +3,7 @@
 package org.csenseoss.kotlin.extensions.primitives.charSequence
 
 import org.csenseoss.kotlin.general.*
+import kotlin.contracts.*
 
 
 /**
@@ -10,6 +11,9 @@ import org.csenseoss.kotlin.general.*
  * @return [Boolean] true if this is not null, and it is not blank , false otherwise
  */
 public inline fun CharSequence?.isNotNullOrBlank(): Boolean {
+    contract {
+        returns(true) implies (this@isNotNullOrBlank != null)
+    }
     return !this.isNullOrBlank()
 }
 

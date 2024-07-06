@@ -31,22 +31,22 @@ class ErrorTypeException : Throwable()
 class ExpectedContextTest {
     @Test
     fun asSuccess() {
-        with(Expected.Companion.ExpectedContext) {
+        with(Expected.Companion.ExpectedContextContainer) {
             42.asSuccess()
         }.value.assert(42)
 
-        with(Expected.Companion.ExpectedContext) {
+        with(Expected.Companion.ExpectedContextContainer) {
             "hello".asSuccess()
         }.value.assert("hello")
     }
 
     @Test
     fun asFailed() {
-        with(Expected.Companion.ExpectedContext) {
+        with(Expected.Companion.ExpectedContextContainer) {
             42.asFailed()
         }.error.assert(42)
 
-        with(Expected.Companion.ExpectedContext) {
+        with(Expected.Companion.ExpectedContextContainer) {
             "hello".asFailed()
         }.error.assert("hello")
     }

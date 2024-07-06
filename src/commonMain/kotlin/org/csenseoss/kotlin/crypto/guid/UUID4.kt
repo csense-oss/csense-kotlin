@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.crypto.guid
 
-import org.csenseoss.kotlin.extensions.primitives.operations.*
+import org.csenseoss.kotlin.logger.operators.*
+import org.csenseoss.kotlin.primitive.ByteBitOperations.*
 import kotlin.jvm.*
 import kotlin.random.*
 
@@ -34,23 +35,25 @@ public fun UUID4.Companion.create(
 
     val format: HexFormat = HexFormat {
         upperCase = shouldBeUppercase
-        if(shouldHaveDashes){
-            bytes {
-                this.byteSeparator = "-"
-                this.bytesPerGroup = 4
-            }
+        bytes {
+            this.byteSeparator = ""
+            this.bytesPerGroup = 4
+            this.groupSeparator = ""
+            this.byteSuffix = ""
+            this.bytePrefix = ""
+            this.bytesPerLine = Int.MAX_VALUE
         }
     }
 
-    val hexString: String = randomData.toHexString(format)
-//        appendHexPrefix = false,
-//        shouldBeUppercase = shouldBeUppercase
-//    )
+    val hexFormated: String = randomData.toHexString(format)
+    return hexFormated.insertDashes(shouldHaveDashes)
+}
 
-//    if (shouldHaveDashes) {
-//        return hexString.insertDashes()
-//    }
-    return hexString
+private fun String.insertDashes(shouldHaveDashes: Boolean): String {
+    if (!shouldHaveDashes) {
+        return this
+    }
+    return this.tryInsertDashes()
 }
 
 private fun ByteArray.setClockAndReservedBits() {
@@ -73,14 +76,14 @@ private fun ByteArray.setVersion4UuidBits() {
         .updateUpperNibble(Version4UpperNibble)
 }
 
-//private fun String.insertDashes(): String {
-//    val hexStringBuilder: StringBuilder = StringBuilder(this)
-//        .insert(8, '-')
-//        .insert(12, '-')
-//        .insert(16, '-')
-//        .insert(20, '-')
-//    return hexStringBuilder.toString()
-//}
+private fun String.tryInsertDashes(): String = tryAndLog {
+    val hexStringBuilder: StringBuilder = StringBuilder(this)
+        .insert(8, '-')
+        .insert(12, '-')
+        .insert(16, '-')
+        .insert(20, '-')
+    hexStringBuilder.toString()
+} ?: this
 
 private const val Version4UpperNibble: Byte = 0b0100
 

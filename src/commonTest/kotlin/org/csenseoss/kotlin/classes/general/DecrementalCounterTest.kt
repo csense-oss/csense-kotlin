@@ -24,7 +24,7 @@ class DecrementalCounterTest {
     }
 
     @Test
-    fun valueAndIncrement() {
+    fun valueAndDecrement() {
         val counter = DecrementalCounter(from = 0)
         counter.valueAndDecrement.assert(0)
         counter.valueAndDecrement.assert(-1)
@@ -32,7 +32,7 @@ class DecrementalCounterTest {
     }
 
     @Test
-    fun increment() {
+    fun decrement() {
         val counter = DecrementalCounter(from = 0)
         counter.value.assert(0)
         counter.decrement()
@@ -40,7 +40,7 @@ class DecrementalCounterTest {
     }
 
     @Test
-    fun incrementIf() {
+    fun decrementIf() {
         val no = DecrementalCounter(from = 0)
         no.decrementIf(shouldDecrement = false)
         no.value.assert(0)
@@ -49,4 +49,5 @@ class DecrementalCounterTest {
         shouldIncrement.decrementIf(shouldDecrement = true)
         shouldIncrement.value.assert(-1)
     }
+
 }

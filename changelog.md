@@ -7,7 +7,7 @@ This is the culmination of a lot of updates and breaking changes.(in particular 
 In short the logging framework have been completely revamp.
 Old deprecations are removed.
 Many extensions have been split into sub namespaces, due to the sheer size / amount of them.
-Some extensions are moved into a more "specific" namespace (eg the construct such as "log", see "logging" below)
+Some extensions are moved into a more "specific" namespace (e.g. the construct such as "log", see "logging" below)
 
 ### Logging
 

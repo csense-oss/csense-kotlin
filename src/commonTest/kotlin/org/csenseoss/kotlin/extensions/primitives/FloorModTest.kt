@@ -1,8 +1,6 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import org.csenseoss.kotlin.extensions.primitives.operations.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.primitives.operations.*
 import kotlin.test.*
 
 class FloorModTest {

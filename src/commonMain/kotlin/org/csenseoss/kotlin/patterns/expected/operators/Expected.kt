@@ -11,7 +11,7 @@ public inline fun <Value, Error> expected(
     contract {
         callsInPlace(onException, InvocationKind.AT_MOST_ONCE)
     }
-    return with(Expected.Companion.ExpectedContext) {
+    return with(Expected.Companion.ExpectedContextContainer) {
         try {
             action()
         } catch (e: Throwable) {

@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.extensions.primitives.operations
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.primitives.operations.*
+import org.csenseoss.kotlin.primitive.ByteBitOperations.*
 import kotlin.test.*
 
 class ByteBitOperationsTest {

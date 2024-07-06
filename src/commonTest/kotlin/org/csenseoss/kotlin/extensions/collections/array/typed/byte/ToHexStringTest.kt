@@ -1,4 +1,4 @@
-//package org.csenseoss.kotlin.extensions.collections.array.typed.byte
+package org.csenseoss.kotlin.extensions.collections.array.typed.byte//package org.csenseoss.kotlin.extensions.collections.array.typed.byte
 //
 //import csense.kotlin.tests.assertions.*
 //import org.csenseoss.kotlin.extensions.collections.array.typed.byte.*

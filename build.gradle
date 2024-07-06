@@ -5,19 +5,19 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.8.0"
+    ext.coroutinesVersion = "1.9.0-RC"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.60"
-//    ext.csenseTestsVersion = "0.1.0-Beta"
+
+    ext.csenseTestsVersion = "0.1.0-Beta"
+
     //https://github.com/csense-oss/csense-kotlin-annotations
-//    ext.csenseAnnotationVersion = "0.1.0-Beta"
-    ext.csenseAnnotationVersion = "0.0.63"
+    ext.csenseAnnotationVersion = "0.1.0-Beta"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.0.0-RC2"
+    ext.kotlin_version = "2.0.0"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.0.1-Beta"
+    ext.csenseVersionName = "0.1.0-Beta"
     ext.csenseGroupId = "org.csenseoss.kotlin"
 
     ext.csenseUserOrg = "csense-oss"
@@ -42,7 +42,7 @@ plugins {
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "9.0.10"
+    id "org.owasp.dependencycheck" version "9.2.0"
 }
 
 repositories {
@@ -67,7 +67,13 @@ kotlin {
     }
 
     js(IR) {
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useChrome()
+                }
+            }
+        }
         nodejs()
     }
 
@@ -129,7 +135,7 @@ kotlin {
         compilations.configureEach {
             kotlinOptions {
 //                allWarningsAsErrors = true
-                freeCompilerArgs += '-Xcontext-receivers'
+//                freeCompilerArgs += '-Xcontext-receivers'
             }
         }
     }

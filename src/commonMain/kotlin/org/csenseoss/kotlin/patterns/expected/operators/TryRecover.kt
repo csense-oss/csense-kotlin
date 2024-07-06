@@ -19,7 +19,7 @@ public inline fun <Value, Error, Result : Expected<Value, Error>> Expected.Faile
     transform: Expected.Companion.ExpectedContext.(Error) -> Result
 ): Result {
     contract { callsInPlace(transform, InvocationKind.EXACTLY_ONCE) }
-    return with(Expected.Companion.ExpectedContext) {
+    return with(Expected.Companion.ExpectedContextContainer) {
         transform(error)
     }
 }

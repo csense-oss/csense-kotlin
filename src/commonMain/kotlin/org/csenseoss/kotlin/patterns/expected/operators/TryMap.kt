@@ -22,7 +22,7 @@ public inline fun <InputValue, OutputValue, Error> Expected.Success<InputValue>.
     transform: Expected.Companion.ExpectedContext.(InputValue) -> Expected<OutputValue, Error>
 ): Expected<OutputValue, Error> {
     contract { callsInPlace(transform, InvocationKind.EXACTLY_ONCE) }
-    return with(Expected.Companion.ExpectedContext) { transform(value) }
+    return with(Expected.Companion.ExpectedContextContainer) { transform(value) }
 }
 
 

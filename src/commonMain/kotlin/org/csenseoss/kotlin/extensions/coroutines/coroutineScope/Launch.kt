@@ -7,7 +7,6 @@ import kotlinx.coroutines.*
 import org.csenseoss.kotlin.*
 import kotlin.coroutines.*
 
-public typealias WithReceiverScope<Receiver, Result> = suspend context(CoroutineScope) Receiver.() -> Result
 
 /**
  * same as [launch] ([Dispatchers.Default])
@@ -74,17 +73,5 @@ public inline fun <Receiver, R> CoroutineScope.launchMainWith(
 ): Job = launchMain(start = start) {
     with(receiver) {
         block()
-    }
-}
-
-
-public fun <Receiver, Result> CoroutineScope.launchWith(
-    context: CoroutineContext,
-    receiver: Receiver,
-    start: CoroutineStart = CoroutineStart.DEFAULT,
-    block: WithReceiverScope<Receiver, Result>
-) {
-    launch(context = context, start = start) {
-        block(receiver)
     }
 }
