@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
 
-public data class CoroutineScopeExpectedContext internal constructor(
+public class CoroutineScopeExpectedContext internal constructor(
     private val scope: CoroutineScope
 ) : CoroutineScope, Expected.Companion.ExpectedContext {
     override val coroutineContext: CoroutineContext
