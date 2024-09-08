@@ -1,10 +1,9 @@
 @file:Suppress("unused")
 
-package org.csenseoss.kotlin.crypto
+package org.csenseoss.kotlin.crypto.guid
 
 import org.csenseoss.kotlin.extensions.primitives.char.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.crypto.guid.*
 import kotlin.experimental.*
 import kotlin.random.*
 import kotlin.test.*
