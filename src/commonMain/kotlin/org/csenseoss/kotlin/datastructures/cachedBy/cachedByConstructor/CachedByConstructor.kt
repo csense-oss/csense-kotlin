@@ -2,6 +2,7 @@ package org.csenseoss.kotlin.datastructures.cachedBy.cachedByConstructor
 
 import org.csenseoss.kotlin.datastructures.*
 import org.csenseoss.kotlin.datastructures.cachedBy.*
+import kotlin.contracts.*
 import kotlin.reflect.*
 
 public class CachedByConstructor<T>(
@@ -22,7 +23,6 @@ public class CachedByConstructor<T>(
 
     public fun <R> onValidCache(action: (T) -> R): R? {
         val cachedValue: T? = getCachedValue()
-        //TODO hmm...
         if (cachedValue != null && isCacheValid()) {
             return action(cachedValue)
         }
@@ -30,10 +30,10 @@ public class CachedByConstructor<T>(
     }
 
     public inline fun <R> onInvalidCache(action: () -> R): R? {
-        if (!isCacheValid()) {
-            return action()
+        if (isCacheValid()) {
+            return null
         }
-        return null
+        return action()
     }
     public companion object
 }

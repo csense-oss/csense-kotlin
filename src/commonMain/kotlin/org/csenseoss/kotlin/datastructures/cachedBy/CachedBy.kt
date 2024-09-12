@@ -5,7 +5,7 @@ import kotlin.contracts.*
 
 public class CachedBy<T>(
     private val isCachedValid: (T) -> Boolean
-): Cacheable<T> {
+) : Cacheable<T> {
     private var cachedValue: T? = null
 
     public override fun isCacheValid(): Boolean {
@@ -23,12 +23,17 @@ public class CachedBy<T>(
     public fun cachedOrBy(
         cacheableGetter: () -> T
     ): T {
-        val cached: T? = cachedValue
-        if (cached?.isValid() == true) {
-            return cached
+        cachedValue?.onValid { it: T ->
+            return@cachedOrBy it
         }
-        return cacheableGetter().also { it: T ->
+        return cacheableGetter().onValid { it: T ->
             cachedValue = it
+        }
+    }
+
+    private inline fun T.onValid(action: (T) -> Unit): T = apply {
+        if (isValid()) {
+            action(this)
         }
     }
 

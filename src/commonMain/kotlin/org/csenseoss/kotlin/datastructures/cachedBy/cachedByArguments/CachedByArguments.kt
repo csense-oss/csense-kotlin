@@ -12,7 +12,7 @@ public class CachedByArguments<T, I1>(
     private var cachedArgument1: I1? = null
 
     public fun isCacheValid(argument: I1): Boolean {
-        onArgumentsMisMatch(argument){
+        onArgumentsMismatch(argument) {
             return@isCacheValid false
         }
         return cachedBy.isCacheValid()
@@ -24,7 +24,7 @@ public class CachedByArguments<T, I1>(
     }
 
     public fun getCachedValue(argument: I1): T? {
-        onArgumentsMisMatch(argument){
+        onArgumentsMismatch(argument) {
             return@getCachedValue null
         }
         return cachedBy.getCachedValue()
@@ -33,16 +33,17 @@ public class CachedByArguments<T, I1>(
     public fun cachedOrGetBy(
         argument: I1,
         cacheableGetter: (I1) -> T
-    ) {
-        onArgumentsMisMatch(argument){
+    ): T {
+        onArgumentsMismatch(argument) {
             cachedBy.invalidate()
         }
-        cachedBy.cachedOrBy(cacheableGetter = {
+        return cachedBy.cachedOrBy(cacheableGetter = {
+            cachedArgument1 = argument
             cacheableGetter(argument)
         })
     }
 
-    private inline fun <T> onArgumentsMisMatch(
+    private inline fun <T> onArgumentsMismatch(
         argument: I1,
         action: () -> T
     ) {

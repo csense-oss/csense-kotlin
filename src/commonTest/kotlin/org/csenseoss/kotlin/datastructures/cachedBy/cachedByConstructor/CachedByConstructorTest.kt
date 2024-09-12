@@ -27,7 +27,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun cachedOrGet(): Unit = assertCalled { shouldBeCalled ->
+    fun cachedOrGet(): Unit = assertCalled(times = 2) { shouldBeCalled ->
         var realGetterCounter = 0
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { realGetterCounter += 1; "test" },
@@ -77,7 +77,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun onValidCache() = assertCalled {shouldBeCalled ->
+    fun onValidCache() = assertCalled { shouldBeCalled ->
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { "example" },
             isValidForCache = { it: String -> true }
@@ -91,7 +91,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun onInvalidCache() = assertCalled {shouldBeCalled ->
+    fun onInvalidCache() = assertCalled { shouldBeCalled ->
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { "example" },
             isValidForCache = { it: String -> true }
@@ -103,13 +103,30 @@ class CachedByConstructorTest {
 
     @Test
     fun getCachedValue() {
-        //TODO make me.
+        val cache: CachedByConstructor<String> = CachedByConstructor(
+            cacheableGetter = { "example" },
+            isValidForCache = { it: String -> true }
+        )
+        cache.getCachedValue().assertNull(message = "cache not primed")
+        cache.cachedOrGet().assert("example")
+        cache.getCachedValue().assert("example", message = "cache should be primed")
 
     }
 
     @Test
-    fun getValue() {
-        //TODO make me.
-
+    fun getValue(): Unit = assertCalled(times = 2) { shouldBeCalled ->
+        var realGetterCounter = 0
+        val cache: CachedByConstructor<String> = CachedByConstructor(
+            cacheableGetter = { realGetterCounter += 1; "test" },
+            isValidForCache = { it: String ->
+                shouldBeCalled()
+                true
+            }
+        )
+        //the first time we prime the cache
+        cache.cachedOrGet().assert("test")
+        //the second time we "validate" the cache is still ok.
+        cache.cachedOrGet().assert("test")
+        realGetterCounter.assert(1)
     }
 }
