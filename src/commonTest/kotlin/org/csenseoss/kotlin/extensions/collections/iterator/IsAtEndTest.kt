@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.iterator
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.iterator.*
 import kotlin.test.*
 
 class IsAtEndTest {

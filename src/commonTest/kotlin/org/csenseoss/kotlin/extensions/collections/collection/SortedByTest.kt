@@ -1,9 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.assertContainsInOrder
-import csense.kotlin.tests.assertions.assertEmpty
-import csense.kotlin.tests.assertions.assertSingle
-import kotlin.test.Test
+import csense.kotlin.tests.assertions.*
+import kotlin.test.*
 
 class SortedByTest {
     class SortedByFalseFirst {

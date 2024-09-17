@@ -2,7 +2,6 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collection.operations
 
-import org.csenseoss.kotlin.*
 import csense.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.*
 import org.csenseoss.kotlin.extensions.collections.*

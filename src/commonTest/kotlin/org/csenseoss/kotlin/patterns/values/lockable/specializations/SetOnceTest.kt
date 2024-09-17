@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.patterns.values.lockable.specializations
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.patterns.values.lockable.specializations.*
 import kotlin.test.*
 
 class SetOnceTest {

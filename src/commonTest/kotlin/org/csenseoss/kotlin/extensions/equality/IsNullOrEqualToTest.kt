@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.equality
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.equality.*
 import kotlin.test.*
 
 

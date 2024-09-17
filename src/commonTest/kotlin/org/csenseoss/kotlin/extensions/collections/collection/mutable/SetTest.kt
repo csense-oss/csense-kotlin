@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.collection.mutable
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.collection.mutable.*
 import kotlin.test.*
 
 class SetTest {

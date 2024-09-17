@@ -3,7 +3,6 @@ package org.csenseoss.kotlin.patterns.restartableJob
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import org.csenseoss.kotlin.patterns.restartableJob.*
 import org.junit.jupiter.api.*
 
 class RestartableJobWithArgumentJvmTest {

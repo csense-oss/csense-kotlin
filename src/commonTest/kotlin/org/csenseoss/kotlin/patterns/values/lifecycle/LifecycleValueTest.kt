@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.patterns.values.lifecycle
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.patterns.values.lifecycle.*
 import kotlin.test.*
 
 class LifecycleValueTest {

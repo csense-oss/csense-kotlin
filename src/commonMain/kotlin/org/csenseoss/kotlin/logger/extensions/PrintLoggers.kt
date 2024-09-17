@@ -1,8 +1,8 @@
 package org.csenseoss.kotlin.logger.extensions
 
+import kotlinx.coroutines.*
 import org.csenseoss.kotlin.logger.loggers.*
 import org.csenseoss.kotlin.logger.models.*
-import kotlinx.coroutines.*
 
 
 @OptIn(DelicateCoroutinesApi::class)

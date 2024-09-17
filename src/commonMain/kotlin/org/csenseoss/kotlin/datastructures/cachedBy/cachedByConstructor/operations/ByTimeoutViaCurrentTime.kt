@@ -9,7 +9,9 @@ public fun <T> CachedByConstructor.Companion.byTimeoutViaCurrentTime(
     timeout: Duration
 ): CachedByConstructor<CachedItemByTimeout<T>> {
     return CachedByConstructor(
-        cacheableGetter = { CachedItemByTimeout.forCurrentTime(getValue(), timeout) },
-        isValidForCache = { it.isTimedOut() }
+        cacheableGetter = {
+            CachedItemByTimeout.forCurrentTime(getValue(), timeout)
+        },
+        isValidForCache = CachedItemByTimeout<T>::isNotTimedOut
     )
 }

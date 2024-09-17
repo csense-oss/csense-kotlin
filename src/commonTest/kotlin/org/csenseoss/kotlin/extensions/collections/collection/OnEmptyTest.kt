@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.collection.*
 import kotlin.test.*
 
 class OnEmptyTest {

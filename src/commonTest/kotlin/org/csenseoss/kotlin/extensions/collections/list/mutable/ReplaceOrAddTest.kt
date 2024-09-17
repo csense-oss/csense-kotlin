@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.list.mutable
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.list.mutable.*
 import kotlin.test.*
 
 class ReplaceOrAddTest {

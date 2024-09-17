@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.patterns.values.lockable
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.patterns.values.lockable.*
 import kotlin.test.*
 
 class LockableValueTest {

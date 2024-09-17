@@ -2,7 +2,6 @@
 
 package org.csenseoss.kotlin.specificExtensions.string
 
-import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*
 import org.csenseoss.kotlin.extensions.primitives.char.*

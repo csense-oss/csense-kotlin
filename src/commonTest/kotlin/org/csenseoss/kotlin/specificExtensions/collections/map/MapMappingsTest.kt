@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.specificExtensions.collections.map
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.specificExtensions.collections.map.*
 import kotlin.test.*
 
 class MapMappingsTest {

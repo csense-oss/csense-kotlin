@@ -1,8 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.map.mutable
 
-import org.csenseoss.kotlin.extensions.collections.map.mutable.mutableList.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.map.mutable.*
+import org.csenseoss.kotlin.extensions.collections.map.mutable.mutableList.*
 import kotlin.test.*
 
 class MutableMapMutableListTest {

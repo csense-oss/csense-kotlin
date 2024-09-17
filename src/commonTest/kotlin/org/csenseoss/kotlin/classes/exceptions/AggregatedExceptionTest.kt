@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.classes.exceptions
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.classes.exceptions.*
 import kotlin.test.*
 
 class AggregatedExceptionTest {

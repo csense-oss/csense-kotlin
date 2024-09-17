@@ -1,9 +1,9 @@
 package org.csenseoss.kotlin.logger
 
-import org.csenseoss.kotlin.logger.loggers.*
-import org.csenseoss.kotlin.logger.models.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.logger.loggers.*
+import org.csenseoss.kotlin.logger.models.*
 import kotlin.test.*
 
 class CsenseLoggerTest {

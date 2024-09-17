@@ -1,9 +1,9 @@
 package org.csenseoss.kotlin.patterns.restartableJob.operations
 
-import org.csenseoss.kotlin.patterns.restartableJob.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.patterns.restartableJob.*
 import kotlin.test.*
 
 private fun assertWithDispatcher(

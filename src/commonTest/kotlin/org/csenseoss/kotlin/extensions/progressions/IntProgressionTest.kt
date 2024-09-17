@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.progressions
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.progressions.*
 import kotlin.test.*
 
 class IntProgressionTest {

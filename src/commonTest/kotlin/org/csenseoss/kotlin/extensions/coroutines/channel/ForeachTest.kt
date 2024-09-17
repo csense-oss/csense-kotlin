@@ -1,12 +1,10 @@
 package org.csenseoss.kotlin.extensions.coroutines.channel
 
-import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.sync.*
 import kotlinx.coroutines.test.*
-import org.csenseoss.kotlin.extensions.coroutines.channel.*
 import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
 import kotlin.test.*
 

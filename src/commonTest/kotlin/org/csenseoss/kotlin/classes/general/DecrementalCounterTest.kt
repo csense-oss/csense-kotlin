@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.classes.general
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.classes.general.*
 import kotlin.test.*
 
 class DecrementalCounterTest {

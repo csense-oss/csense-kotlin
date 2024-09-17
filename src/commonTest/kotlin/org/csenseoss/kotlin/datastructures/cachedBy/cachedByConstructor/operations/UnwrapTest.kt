@@ -11,17 +11,17 @@ class UnwrapTest {
     @Test
     fun unwrap() {
         val testTime = TestTimeSource()
-        val underlayingCache = CachedByConstructor(
+        val underlayingCache: CachedByConstructor<CachedItemByTimeout<String>> = CachedByConstructor(
             cacheableGetter = {
-                CachedItemByTimeout<String>(
+                CachedItemByTimeout(
                     timeout = Duration.ZERO,
                     start = testTime.markNow(),
                     value = "test"
                 )
             },
-            isValidForCache = { x -> true }
+            isValidForCache = { cachedItemByTimeout: CachedItemByTimeout<String> -> true }
         )
-        val unwrapped = underlayingCache.unwrap()
+        val unwrapped: CachedByConstructor<String> = underlayingCache.unwrap()
         unwrapped.cachedOrGet().assert("test")
         unwrapped.getCachedValue().assert("test")
         unwrapped.isCacheValid().assertTrue()

@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.iterable.string
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.iterable.string.*
 import kotlin.test.*
 
 class ContainsTest {

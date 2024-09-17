@@ -1,9 +1,7 @@
 @file:Suppress("unused")
 package org.csenseoss.kotlin.extensions.collections.array.typed.int
 
-import org.csenseoss.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.array.typed.int.*
 import org.csenseoss.kotlin.extensions.mapping.*
 import kotlin.test.*
 

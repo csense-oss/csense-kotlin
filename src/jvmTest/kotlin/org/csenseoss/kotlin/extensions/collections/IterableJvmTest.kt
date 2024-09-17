@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.extensions.collections
 
-import org.csenseoss.kotlin.extensions.collections.*
 import csense.kotlin.tests.assertions.*
 import org.junit.jupiter.api.*
 

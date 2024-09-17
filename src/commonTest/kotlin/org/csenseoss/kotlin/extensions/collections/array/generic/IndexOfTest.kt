@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.array.generic.*
 import kotlin.test.*
 
 class IndexOfTest {

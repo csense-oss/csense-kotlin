@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import org.csenseoss.kotlin.extensions.primitives.int.*
 import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.extensions.primitives.int.*
 import kotlin.test.*
 
 class IntTest {

@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.classes.map
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.classes.map.*
 import kotlin.test.*
 
 class MutableOrderedMapTest {

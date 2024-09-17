@@ -1,9 +1,8 @@
 package org.csenseoss.kotlin.extensions.collections.map
 
+import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.classes.map.*
 import org.csenseoss.kotlin.extensions.collections.map.mutable.*
-import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.map.*
 import kotlin.test.*
 
 

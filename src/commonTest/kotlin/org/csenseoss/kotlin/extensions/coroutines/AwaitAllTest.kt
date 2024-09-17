@@ -3,7 +3,6 @@
 
 package org.csenseoss.kotlin.extensions.coroutines
 
-import csense.kotlin.annotations.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*

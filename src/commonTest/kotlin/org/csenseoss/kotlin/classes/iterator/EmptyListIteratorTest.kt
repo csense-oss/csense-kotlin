@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.classes.iterator
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.classes.iterator.*
 import kotlin.test.*
 
 class EmptyListIteratorTest {

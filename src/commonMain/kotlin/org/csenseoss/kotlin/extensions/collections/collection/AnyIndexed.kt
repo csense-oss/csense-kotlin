@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import org.csenseoss.kotlin.classes.general.IncrementalCounter
-import org.csenseoss.kotlin.extensions.collections.PredicateIndexed
+import org.csenseoss.kotlin.classes.general.*
+import org.csenseoss.kotlin.extensions.collections.*
 
 public fun <E> Collection<E>.anyIndexed(
     predicate: PredicateIndexed<E>,

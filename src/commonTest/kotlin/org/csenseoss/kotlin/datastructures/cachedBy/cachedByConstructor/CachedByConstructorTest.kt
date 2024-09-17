@@ -14,7 +14,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun isCacheValid(): Unit = assertCalled { shouldBeCalled ->
+    fun isCacheValid(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { "something" },
             isValidForCache = { it: String ->
@@ -27,7 +27,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun cachedOrGet(): Unit = assertCalled(times = 2) { shouldBeCalled ->
+    fun cachedOrGet(): Unit = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
         var realGetterCounter = 0
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { realGetterCounter += 1; "test" },
@@ -77,7 +77,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun onValidCache() = assertCalled { shouldBeCalled ->
+    fun onValidCache(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { "example" },
             isValidForCache = { it: String -> true }
@@ -91,7 +91,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun onInvalidCache() = assertCalled { shouldBeCalled ->
+    fun onInvalidCache(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { "example" },
             isValidForCache = { it: String -> true }
@@ -114,7 +114,7 @@ class CachedByConstructorTest {
     }
 
     @Test
-    fun getValue(): Unit = assertCalled(times = 2) { shouldBeCalled ->
+    fun getValue(): Unit = assertCalled(times = 2) { shouldBeCalled: () -> Unit ->
         var realGetterCounter = 0
         val cache: CachedByConstructor<String> = CachedByConstructor(
             cacheableGetter = { realGetterCounter += 1; "test" },

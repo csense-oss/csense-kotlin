@@ -2,7 +2,6 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.typed.job
 
-import org.csenseoss.kotlin.extensions.collections.array.typed.Job.*
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*

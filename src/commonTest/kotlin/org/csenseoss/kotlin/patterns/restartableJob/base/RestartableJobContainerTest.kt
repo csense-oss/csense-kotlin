@@ -3,7 +3,6 @@ package org.csenseoss.kotlin.patterns.restartableJob.base
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import org.csenseoss.kotlin.patterns.restartableJob.base.*
 import kotlin.test.*
 
 class RestartableJobContainerTest {

@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.set
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.set.*
 import kotlin.test.*
 
 class SymmetricDifferenceTest {

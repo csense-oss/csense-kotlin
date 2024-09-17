@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.set.mutable
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.set.mutable.*
 import kotlin.test.*
 
 class ToggleTest {

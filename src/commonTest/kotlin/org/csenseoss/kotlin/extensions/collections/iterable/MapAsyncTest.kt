@@ -5,7 +5,6 @@ package org.csenseoss.kotlin.extensions.collections.iterable
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import org.csenseoss.kotlin.extensions.collections.iterable.*
 import kotlin.test.*
 
 class MapAsyncTest {

@@ -1,8 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import org.csenseoss.kotlin.classes.general.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.iterable.*
+import org.csenseoss.kotlin.classes.general.*
 import kotlin.test.*
 
 class CountWithTest {

@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.specificExtensions.collections.collection.categorization
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.specificExtensions.collections.collection.categorization.*
 import kotlin.test.*
 
 class ByTest {

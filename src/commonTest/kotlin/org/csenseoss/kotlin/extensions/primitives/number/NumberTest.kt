@@ -1,9 +1,7 @@
 package org.csenseoss.kotlin.extensions.primitives.number
 
-import org.csenseoss.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.boolean.*
-import org.csenseoss.kotlin.extensions.primitives.number.*
 import kotlin.test.*
 
 class NumberTest {

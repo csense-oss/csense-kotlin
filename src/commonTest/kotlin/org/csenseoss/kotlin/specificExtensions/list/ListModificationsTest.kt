@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.specificExtensions.list
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.specificExtensions.list.*
 import kotlin.test.*
 
 class ListModificationsTest {

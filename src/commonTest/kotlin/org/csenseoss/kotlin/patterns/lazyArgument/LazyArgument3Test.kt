@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.patterns.lazyArgument
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.patterns.lazyArgument.*
 import kotlin.test.*
 
 class LazyArgument3Test {

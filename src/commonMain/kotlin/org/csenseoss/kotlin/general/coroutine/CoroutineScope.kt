@@ -6,7 +6,7 @@ import kotlin.coroutines.*
 
 /**
  * This is intended for some very select situations. One might be in a suspending function
- * (eg "suspend fun main(..")
+ * (eg "suspend fun main(...")
  * @param block [Function1]<[CoroutineScope], [R]>
  * @return [R]
  */

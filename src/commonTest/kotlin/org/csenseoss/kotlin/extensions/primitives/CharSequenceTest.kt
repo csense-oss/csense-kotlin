@@ -1,8 +1,8 @@
 package org.csenseoss.kotlin.extensions.primitives
 
+import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.char.*
 import org.csenseoss.kotlin.extensions.primitives.charSequence.*
-import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class CharSequenceTest {

@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.specificExtensions.string
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.specificExtensions.string.*
 import kotlin.test.*
 
 class StringConversionTest {

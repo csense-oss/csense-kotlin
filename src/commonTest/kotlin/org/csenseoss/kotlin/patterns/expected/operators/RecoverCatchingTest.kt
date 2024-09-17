@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import org.csenseoss.kotlin.patterns.expected.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
 import org.csenseoss.kotlin.patterns.expected.operators.*

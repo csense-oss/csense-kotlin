@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import org.csenseoss.kotlin.extensions.primitives.boolean.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.boolean.*
 import kotlin.test.*

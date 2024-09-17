@@ -2,10 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.map
 
+import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.classes.map.*
 import org.csenseoss.kotlin.extensions.mapping.*
-import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.map.*
 import kotlin.test.*
 
 

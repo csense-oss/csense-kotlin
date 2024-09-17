@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.list.mutable
 
-import org.csenseoss.kotlin.extensions.collections.list.*
 import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.extensions.collections.list.*
 import org.csenseoss.kotlin.extensions.collections.list.mutable.*
 import kotlin.collections.removeFirstOrNull
 import kotlin.test.*

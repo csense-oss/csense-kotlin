@@ -3,7 +3,6 @@ package org.csenseoss.kotlin.logger.loggers
 import org.csenseoss.kotlin.extensions.mapping.*
 import org.csenseoss.kotlin.logger.*
 import org.csenseoss.kotlin.logger.models.*
-import org.csenseoss.kotlin.extensions.mapping.*
 
 public class SensitivityLogMessageLogger(
     private val logger: LogMessageLoggerInterface

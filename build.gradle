@@ -5,7 +5,7 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.9.0-RC"
+    ext.coroutinesVersion = "1.9.0"
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.1.0-Beta"
 
@@ -13,7 +13,7 @@ buildscript {
     ext.csenseAnnotationVersion = "0.1.0-Beta"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.0.20-Beta1"
+    ext.kotlin_version = "2.0.20"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
     ext.csenseVersionName = "0.1.0-Beta"
@@ -41,7 +41,7 @@ plugins {
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "9.2.0"
+    id "org.owasp.dependencycheck" version "10.0.4"
 }
 
 repositories {

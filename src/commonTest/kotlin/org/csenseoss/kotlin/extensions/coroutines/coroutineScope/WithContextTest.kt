@@ -3,7 +3,6 @@ package org.csenseoss.kotlin.extensions.coroutines.coroutineScope
 import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
-import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
 import kotlin.test.*
 
 class WithContextTest {

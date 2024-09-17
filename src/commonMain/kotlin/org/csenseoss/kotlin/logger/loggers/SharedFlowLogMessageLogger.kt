@@ -1,8 +1,8 @@
 package org.csenseoss.kotlin.logger.loggers
 
-import org.csenseoss.kotlin.logger.models.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
+import org.csenseoss.kotlin.logger.models.*
 
 public open class SharedFlowLogMessageLogger(
     maxStoredLogMessages: Int = 100

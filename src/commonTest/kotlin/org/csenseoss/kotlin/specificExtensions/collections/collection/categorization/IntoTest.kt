@@ -1,8 +1,7 @@
 package org.csenseoss.kotlin.specificExtensions.collections.collection.categorization
 
-import org.csenseoss.kotlin.extensions.primitives.char.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.specificExtensions.collections.collection.categorization.*
+import org.csenseoss.kotlin.extensions.primitives.char.*
 import kotlin.test.*
 
 class IntoTest {

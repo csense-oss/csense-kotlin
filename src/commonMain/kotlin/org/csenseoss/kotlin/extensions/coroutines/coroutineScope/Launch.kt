@@ -5,7 +5,6 @@ package org.csenseoss.kotlin.extensions.coroutines.coroutineScope
 import csense.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 import org.csenseoss.kotlin.*
-import kotlin.coroutines.*
 
 
 /**

@@ -1,8 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.set
 
-import org.csenseoss.kotlin.extensions.mapping.*
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.set.*
 import org.csenseoss.kotlin.extensions.mapping.*
 import kotlin.test.*
 

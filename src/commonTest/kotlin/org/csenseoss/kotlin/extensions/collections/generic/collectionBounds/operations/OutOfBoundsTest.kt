@@ -2,10 +2,8 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations
 
-import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.*
-import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations.*
 import kotlin.test.*
 
 class OutOfBoundsTest {

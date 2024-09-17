@@ -3,7 +3,6 @@
 package org.csenseoss.kotlin.extensions.collections.list
 
 import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.extensions.collections.list.*
 import kotlin.test.*
 
 

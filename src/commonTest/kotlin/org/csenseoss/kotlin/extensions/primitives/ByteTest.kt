@@ -1,10 +1,8 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import org.csenseoss.kotlin.extensions.primitives.byte.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.byte.*
 import kotlin.test.*
-import kotlin.text.toHexString
 
 class ByteTest {
 

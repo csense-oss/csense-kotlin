@@ -1,9 +1,7 @@
 package org.csenseoss.kotlin.patterns.values.lockable.operations
 
-import org.csenseoss.kotlin.patterns.values.lockable.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.values.lockable.*
-import org.csenseoss.kotlin.patterns.values.lockable.operations.*
 import kotlin.test.*
 
 class LockableValueTest {

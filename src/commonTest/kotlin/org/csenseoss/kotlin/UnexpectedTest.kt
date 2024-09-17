@@ -1,9 +1,9 @@
 package org.csenseoss.kotlin
 
+import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.general.*
 import org.csenseoss.kotlin.logger.models.*
-import org.csenseoss.kotlin.logger.operators.CLLogFunction
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.logger.operators.*
 import kotlin.test.*
 
 class UnexpectedTest {

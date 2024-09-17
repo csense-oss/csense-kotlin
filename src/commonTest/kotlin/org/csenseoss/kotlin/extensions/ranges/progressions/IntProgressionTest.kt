@@ -1,9 +1,7 @@
 package org.csenseoss.kotlin.extensions.ranges.progressions
 
-import org.csenseoss.kotlin.extensions.progressions.*
 import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.progressions.*
-import org.csenseoss.kotlin.extensions.ranges.progressions.*
 import kotlin.test.*
 
 class IntDownToExcluding {

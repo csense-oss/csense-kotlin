@@ -7,6 +7,11 @@ public data class CachedItemByTimeout<T>(
     val start: TimeMark,
     val value: T
 ) {
+
+    public fun isNotTimedOut(): Boolean {
+        return !isTimedOut()
+    }
+
     public fun isTimedOut(): Boolean {
         return start.elapsedNow() >= timeout
     }

@@ -2,8 +2,8 @@
 
 package org.csenseoss.kotlin.extensions.primitives
 
-import org.csenseoss.kotlin.extensions.primitives.string.*
 import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.extensions.primitives.string.*
 import kotlin.test.*
 
 
