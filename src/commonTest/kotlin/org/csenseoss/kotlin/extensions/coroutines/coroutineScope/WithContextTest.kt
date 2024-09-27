@@ -13,11 +13,14 @@ class WithContextTest {
             "result"
         }.assert("result")
     }
+
     @Test
-    fun coroutineScopeWithContextMain(): TestResult = runTestForMainDispatcher {
-        withContextMain {
-            assertDispatcher(Dispatchers.Main)
-            "result"
-        }.assert("result")
+    fun coroutineScopeWithContextMain() {
+        runTestForMainDispatcher {
+            withContextMain {
+                assertDispatcher(Dispatchers.Main)
+                "result"
+            }.assert("result")
+        }
     }
 }

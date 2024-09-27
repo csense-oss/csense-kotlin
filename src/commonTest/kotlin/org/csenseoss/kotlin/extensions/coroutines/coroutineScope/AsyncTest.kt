@@ -38,7 +38,7 @@ class AsyncTest {
         }
 
         @Test
-        fun returnsRightResult(): TestResult = runTest {
+        fun returnsRightResult() = runTest {
             asyncDefaultWith("test") {
                 42
             }.await().assert(42)
@@ -48,12 +48,14 @@ class AsyncTest {
 
     class CoroutineScopeAsyncMainWith {
         @Test
-        fun isRightReceiver(): TestResult = runTestForMainDispatcher {
-            assertCalled { shouldBeCalled: () -> Unit ->
-                asyncMainWith("test") {
-                    assert("test")
-                    shouldBeCalled()
-                }.await()
+        fun isRightReceiver(){
+            runTestForMainDispatcher {
+                assertCalled { shouldBeCalled: () -> Unit ->
+                    asyncMainWith("test") {
+                        assert("test")
+                        shouldBeCalled()
+                    }.await()
+                }
             }
         }
 

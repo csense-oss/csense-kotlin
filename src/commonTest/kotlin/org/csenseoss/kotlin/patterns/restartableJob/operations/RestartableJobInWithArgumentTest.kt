@@ -24,9 +24,9 @@ private suspend fun RestartableJobWithArgument<String>.startTestAndJoin() {
 
 class RestartableJobInWithArgumentTest {
     @Test
-    fun CoroutineScopeRestartableJobIn(): TestResult {
+    fun coroutineScopeRestartableJobIn() {
         val dispatcher: TestDispatcher = StandardTestDispatcher()
-        return runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
+        runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
             val job: RestartableJobWithArgument<String> =
                 restartableJobIn(dispatcher, assertWithDispatcher(dispatcher, shouldBeCalled))
             job.startTestAndJoin()
@@ -34,29 +34,28 @@ class RestartableJobInWithArgumentTest {
     }
 
     @Test
-    fun CoroutineScopeRestartableJobInDefault(
-
-    ): TestResult = runTestAssertCalled { shouldBeCalled: () -> Unit ->
-        val job: RestartableJobWithArgument<String> = restartableJobInDefault(
-            assertWithDispatcher(
-                Dispatchers.Default,
-                shouldBeCalled
+    fun coroutineScopeRestartableJobInDefault() {
+        runTestAssertCalled { shouldBeCalled: () -> Unit ->
+            val job: RestartableJobWithArgument<String> = restartableJobInDefault(
+                assertWithDispatcher(
+                    Dispatchers.Default,
+                    shouldBeCalled
+                )
             )
-        )
-        job.startTestAndJoin()
-
+            job.startTestAndJoin()
+        }
     }
 
     @Test
-    fun CoroutineScopeRestartableJobInMain(
-
-    ): Unit = runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
-        val job: RestartableJobWithArgument<String> = restartableJobInMain(
-            assertWithDispatcher(
-                Dispatchers.Main,
-                shouldBeCalled
+    fun coroutineScopeRestartableJobInMain() {
+        runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
+            val job: RestartableJobWithArgument<String> = restartableJobInMain(
+                assertWithDispatcher(
+                    Dispatchers.Main,
+                    shouldBeCalled
+                )
             )
-        )
-        job.startTestAndJoin()
+            job.startTestAndJoin()
+        }
     }
 }

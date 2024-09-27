@@ -44,7 +44,7 @@ public inline fun String.equals(
         return false
     }
     // at this point we have 2 ranges, 1 in this and one in other, that are the same length, so just compare them
-    return comparison.compareTo(
+    return comparison.isEqual(
         startingIndexInThisString = firstNonWhitespaceInThis,
         other = other,
         startIndexInOtherString = firstNonWhitespaceInOther,

@@ -16,7 +16,7 @@ public value class StringComparison(public val string: String)
 public inline val String.comparison: StringComparison
     inline get() = StringComparison(this)
 
-public inline fun StringComparison.compareTo(
+public inline fun StringComparison.isEqual(
     startingIndexInThisString: Int,
     other: String,
     startIndexInOtherString: Int,

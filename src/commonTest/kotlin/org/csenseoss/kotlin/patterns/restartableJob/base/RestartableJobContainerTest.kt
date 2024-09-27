@@ -7,9 +7,9 @@ import kotlin.test.*
 
 class RestartableJobContainerTest {
     @Test
-    fun startJob(): TestResult {
+    fun startJob() {
         val testDispatcher: TestDispatcher = StandardTestDispatcher()
-        return runTestAssertCalled(testDispatcher) { shouldBeCalled: () -> Unit ->
+        runTestAssertCalled(testDispatcher) { shouldBeCalled: () -> Unit ->
             val job = RestartableJobContainer(
                 scope = this,
                 dispatcher = testDispatcher
@@ -20,9 +20,9 @@ class RestartableJobContainerTest {
     }
 
     @Test
-    fun hasJob(): TestResult {
+    fun hasJob() {
         val testDispatcher: TestDispatcher = StandardTestDispatcher()
-        return runTestAssertCalled(testDispatcher) { shouldBeCalled: () -> Unit ->
+        runTestAssertCalled(testDispatcher) { shouldBeCalled: () -> Unit ->
             val job = RestartableJobContainer(scope = this, dispatcher = testDispatcher)
 
             job.hasJob().assertFalse("should be lazy by default")
@@ -49,9 +49,9 @@ class RestartableJobContainerTest {
     }
 
     @Test
-    fun cancel(): TestResult {
+    fun cancel() {
         val testDispatcher: TestDispatcher = StandardTestDispatcher()
-        return runTest(testDispatcher) {
+        runTest(testDispatcher) {
             val job = RestartableJobContainer(scope = this, dispatcher = testDispatcher)
             job.startJob {
                 shouldNotBeCalled()

@@ -39,11 +39,13 @@ class AsyncExpectedTest {
 
 
     @Test
-    fun coroutineScopeAsyncMainExpected(): TestResult = runTestForMainDispatcher {
-        val result: Expected<String, Nothing> = asyncMainExpected {
-            assertDispatcherMain()
-            "main".asSuccess()
-        }.await()
-        result.value.assert("main")
+    fun coroutineScopeAsyncMainExpected() {
+        runTestForMainDispatcher {
+            val result: Expected<String, Nothing> = asyncMainExpected {
+                assertDispatcherMain()
+                "main".asSuccess()
+            }.await()
+            result.value.assert("main")
+        }
     }
 }

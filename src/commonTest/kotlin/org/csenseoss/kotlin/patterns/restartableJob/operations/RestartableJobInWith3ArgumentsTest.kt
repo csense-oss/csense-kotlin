@@ -29,9 +29,9 @@ class RestartableJobInWith3ArgumentsTest {
 
     class CoroutineScopeRestartableJobIn {
         @Test
-        fun shouldBeCalledOnGivenDispatcher(): TestResult {
+        fun shouldBeCalledOnGivenDispatcher() {
             val dispatcher: TestDispatcher = StandardTestDispatcher()
-            return runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
+            runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
                 val job: RestartableJobWith3Arguments<String, String, String> = restartableJobIn(
                     dispatcher,
                     assertWithDispatcher(dispatcher = dispatcher, shouldBeCalled = shouldBeCalled)
@@ -45,23 +45,25 @@ class RestartableJobInWith3ArgumentsTest {
 
     class CoroutineScopeRestartableJobInDefault {
         @Test
-        fun shouldBeCalledOnDefaultDispatcher(): TestResult = runTestAssertCalled { shouldBeCalled: () -> Unit ->
-            val job: RestartableJobWith3Arguments<String, String, String> = restartableJobInDefault(
-                assertWithDispatcher(dispatcher = Dispatchers.Default, shouldBeCalled = shouldBeCalled)
-            )
-            job.startTestAndJoin()
+        fun shouldBeCalledOnDefaultDispatcher() {
+            runTestAssertCalled { shouldBeCalled: () -> Unit ->
+                val job: RestartableJobWith3Arguments<String, String, String> = restartableJobInDefault(
+                    assertWithDispatcher(dispatcher = Dispatchers.Default, shouldBeCalled = shouldBeCalled)
+                )
+                job.startTestAndJoin()
+            }
         }
     }
 
     class CoroutineScopeRestartableJobInMain {
         @Test
-        fun shouldBeCalledOnMainDispatcher(
-
-        ): Unit = runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
-            val job: RestartableJobWith3Arguments<String, String, String> = restartableJobInMain(
-                assertWithDispatcher(dispatcher = Dispatchers.Main, shouldBeCalled = shouldBeCalled)
-            )
-            job.startTestAndJoin()
+        fun shouldBeCalledOnMainDispatcher() {
+            runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
+                val job: RestartableJobWith3Arguments<String, String, String> = restartableJobInMain(
+                    assertWithDispatcher(dispatcher = Dispatchers.Main, shouldBeCalled = shouldBeCalled)
+                )
+                job.startTestAndJoin()
+            }
         }
     }
 }

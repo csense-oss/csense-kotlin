@@ -23,25 +23,27 @@ private suspend fun RestartableJob.startTestAndJoin() {
 
 class RestartableJobInTest {
     @Test
-    fun CoroutineScopeRestartableJobIn(): TestResult {
+    fun coroutineScopeRestartableJobIn() {
         val dispatcher: TestDispatcher = StandardTestDispatcher()
-        return runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
+        runTestAssertCalled(dispatcher) { shouldBeCalled: () -> Unit ->
             val job: RestartableJob = restartableJobIn(dispatcher, assertWithDispatcher(dispatcher, shouldBeCalled))
             job.startTestAndJoin()
         }
     }
 
     @Test
-    fun CoroutineScopeRestartableJobInDefault(): TestResult = runTestAssertCalled { shouldBeCalled: () -> Unit ->
-        val job: RestartableJob = restartableJobInDefault(assertWithDispatcher(Dispatchers.Default, shouldBeCalled))
-        job.startTestAndJoin()
+    fun coroutineScopeRestartableJobInDefault() {
+        runTestAssertCalled { shouldBeCalled: () -> Unit ->
+            val job: RestartableJob = restartableJobInDefault(assertWithDispatcher(Dispatchers.Default, shouldBeCalled))
+            job.startTestAndJoin()
+        }
     }
 
     @Test
-    fun CoroutineScopeRestartableJobInMain(
-
-    ): Unit = runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
-        val job: RestartableJob = restartableJobInMain(assertWithDispatcher(Dispatchers.Main, shouldBeCalled))
-        job.startTestAndJoin()
+    fun coroutineScopeRestartableJobInMain() {
+        runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
+            val job: RestartableJob = restartableJobInMain(assertWithDispatcher(Dispatchers.Main, shouldBeCalled))
+            job.startTestAndJoin()
+        }
     }
 }
