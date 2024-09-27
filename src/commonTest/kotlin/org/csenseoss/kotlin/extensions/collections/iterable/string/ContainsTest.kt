@@ -3,6 +3,7 @@
 package org.csenseoss.kotlin.extensions.collections.iterable.string
 
 import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.extensions.collections.list.*
 import kotlin.test.*
 
 class ContainsTest {
@@ -61,6 +62,39 @@ class ContainsTest {
     }
     @Test
     fun doesNotContain(){
-        TODO()
+        @Test
+        fun empty() {
+            listOf<String>().doesNotContain(other = "", ignoreCase = false).assertTrue()
+            listOf<String>().doesNotContain(other = "", ignoreCase = true).assertTrue()
+        }
+
+        @Test
+        fun single(){
+            //all can find the a
+            listOf("a").doesNotContain(other = "a", ignoreCase = false).assertFalse()
+            listOf("a").doesNotContain(other = "a", ignoreCase = true).assertFalse()
+
+            // all casing combinations
+            listOf("a").doesNotContain(other = "A", ignoreCase = false).assertFalse()
+            listOf("a").doesNotContain(other = "A", ignoreCase = true).assertFalse()
+
+            listOf("A").doesNotContain(other = "a", ignoreCase = false).assertFalse()
+            listOf("A").doesNotContain(other = "a", ignoreCase = true).assertFalse()
+
+            listOf("A").doesNotContain(other = "A", ignoreCase = false).assertFalse()
+            listOf("A").doesNotContain(other = "A", ignoreCase = true).assertFalse()
+
+            //not there
+            listOf("b").doesNotContain(other = "a", ignoreCase = false).assertTrue()
+            listOf("b").doesNotContain(other = "a", ignoreCase = true).assertTrue()
+
+            listOf("b").doesNotContain(other = "A", ignoreCase = false).assertTrue()
+            listOf("b").doesNotContain(other = "A", ignoreCase = true).assertTrue()
+        }
+
+        @Test
+        fun multiple(){
+            listOf("a","A").doesNotContain("A", ignoreCase = false).assertTrue()
+        }
     }
 }

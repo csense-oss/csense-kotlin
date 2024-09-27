@@ -1,10 +1,26 @@
 package org.csenseoss.kotlin.extensions.general
 
+import csense.kotlin.tests.assertions.*
 import kotlin.test.*
 
 class ValueOrTest {
+
     @Test
-    fun todo(){
-        TODO()
+    fun nullable(): Unit = assertCalled { shouldBeCalled: () -> Unit ->
+        val string: String? = null
+        string.valueOr {
+            shouldBeCalled()
+            return@assertCalled
+        }
+        failTest("should never get here")
+    }
+
+    @Test
+    fun value() {
+        val string: String? = "test"
+        val value: String = string.valueOr {
+            shouldNotBeCalled()
+        }
+        value.assert("test")
     }
 }

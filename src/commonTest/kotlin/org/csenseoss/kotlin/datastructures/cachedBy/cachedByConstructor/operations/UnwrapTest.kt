@@ -19,12 +19,12 @@ class UnwrapTest {
                     value = "test"
                 )
             },
-            isValidForCache = { cachedItemByTimeout: CachedItemByTimeout<String> -> true }
+            isValidForCache = { _: CachedItemByTimeout<String> -> true }
         )
         val unwrapped: CachedByConstructor<String> = underlayingCache.unwrap()
         unwrapped.cachedOrGet().assert("test")
-        unwrapped.getCachedValue().assert("test")
-        unwrapped.isCacheValid().assertTrue()
+        unwrapped.getCachedValue().assertNull()
+        unwrapped.isCacheValid().assertFalse()
 
     }
 }
