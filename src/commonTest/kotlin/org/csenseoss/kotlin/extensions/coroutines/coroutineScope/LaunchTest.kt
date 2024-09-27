@@ -39,8 +39,27 @@ class LaunchTest {
             }
         }
     }
-    @Test
-    fun todoMain(){
-        TODO()
+
+
+    class CoroutineScopeLaunchMainWith {
+
+        @Test
+        fun isRightReceiver() = runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
+            launchMainWith("test") {
+                assert("test")
+                shouldBeCalled()
+            }.join()
+        }
+
+        @Test
+        fun isMainContext() = runTestForMainDispatcher {
+            assertCalled { shouldBeCalled: () -> Unit ->
+                launchDefaultWith("test") {
+                    coroutineScope { assertDispatcher(Dispatchers.Default) }
+                    shouldBeCalled()
+                }.join()
+            }
+        }
     }
+
 }

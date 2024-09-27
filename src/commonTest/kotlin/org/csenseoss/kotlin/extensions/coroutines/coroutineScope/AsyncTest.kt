@@ -45,9 +45,25 @@ class AsyncTest {
         }
 
     }
-    @Test
-    fun todoMain(){
-        TODO()
+
+    class CoroutineScopeAsyncMainWith {
+        @Test
+        fun isRightReceiver(): TestResult = runTestForMainDispatcher {
+            assertCalled { shouldBeCalled: () -> Unit ->
+                asyncMainWith("test") {
+                    assert("test")
+                    shouldBeCalled()
+                }.await()
+            }
+        }
+
+        @Test
+        fun isMainContext() = runTestForMainDispatcherAssertCalled { shouldBeCalled: () -> Unit ->
+            asyncMainWith("test") {
+                coroutineScope { assertDispatcher(Dispatchers.Main) }
+                shouldBeCalled()
+            }.await()
+        }
     }
 
 }

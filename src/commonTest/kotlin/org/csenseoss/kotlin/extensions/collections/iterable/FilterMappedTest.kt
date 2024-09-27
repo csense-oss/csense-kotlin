@@ -15,8 +15,52 @@ class FilterMappedTest {
         }
 
         @Test
-        fun singleCases(){
-            
+        fun singleCases() {
+            val iterable: Iterable<String> = listOf("test")
+            iterable.filterMapped(
+                predicate = { it: String ->
+                    it.assert("test")
+                    false
+                },
+                transform = { it: String ->
+                    it.assert("test")
+                    it
+                }
+            ).assertEmpty()
+
+
+            iterable.filterMapped(
+                predicate = { it: String ->
+                    it.assert("test")
+                    true
+                },
+                transform = { it: String ->
+                    it.assert("test")
+                    it
+                }
+            ).assertSingle("test")
+
+            iterable.filterMapped(
+                predicate = { it: Int ->
+                    it.assert(42)
+                    true
+                },
+                transform = { it: String ->
+                    it.assert("test")
+                    42
+                }
+            ).assertSingle(42)
+
+            iterable.filterMapped(
+                predicate = { it: Int ->
+                    it.assert(42)
+                    false
+                },
+                transform = { it: String ->
+                    it.assert("test")
+                    42
+                }
+            ).assertEmpty()
         }
     }
 }

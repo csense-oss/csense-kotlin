@@ -14,7 +14,10 @@ class WithContextTest {
         }.assert("result")
     }
     @Test
-    fun todoMain(){
-        TODO()
+    fun coroutineScopeWithContextMain(): TestResult = runTestForMainDispatcher {
+        withContextMain {
+            assertDispatcher(Dispatchers.Main)
+            "result"
+        }.assert("result")
     }
 }
