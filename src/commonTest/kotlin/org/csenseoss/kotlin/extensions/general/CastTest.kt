@@ -11,4 +11,25 @@ class CastTest {
         test.cast<Number>().assertNull()
 
     }
+
+    @Test
+    fun castOr() {
+        val test: Any = "test"
+        val string: String = test.castOr { "notAString" }
+        string.assert("test")
+
+        val number: Int = test.castOr { 42 }
+        number.assert(42)
+    }
+
+    @Test
+    fun castOrReturn() {
+        val test: Any = "test"
+        val string: String = test.castOrReturn { shouldNotBeCalled() }
+        string.assert("test")
+
+        assertThrows<Throwable> {
+            test.castOrReturn { throw Exception("failed test") }
+        }
+    }
 }

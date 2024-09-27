@@ -13,7 +13,7 @@ buildscript {
     ext.csenseAnnotationVersion = "0.1.0-Beta"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.0.20"
+    ext.kotlin_version = "2.1.0-Beta1"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
     ext.csenseVersionName = "0.1.0-Beta"
@@ -126,7 +126,7 @@ kotlin {
                 optIn("kotlin.experimental.ExperimentalTypeInference")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 progressiveMode = true //https://kotlinlang.org/docs/whatsnew13.html#progressive-mode
-                languageVersion = "2.0"
+                languageVersion = "2.1"
             }
         }
     }
@@ -134,7 +134,6 @@ kotlin {
         compilations.configureEach {
             kotlinOptions {
 //                allWarningsAsErrors = true
-//                freeCompilerArgs += '-Xcontext-receivers'
             }
         }
     }

@@ -26,14 +26,6 @@ public inline fun <Item> Collection<Item>?.onNullOrEmpty(items: Collection<Item>
     return items
 }
 
-@JvmName("onNullOrEmptyLazyItem")
-public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Item): Collection<Item> {
-    if (isNotNullOrEmpty()) {
-        return this
-    }
-    return listOf(action())
-}
-
 @JvmName("onNullOrEmptyLazyItems")
 public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Collection<Item>): Collection<Item> {
     if (isNotNullOrEmpty()) {

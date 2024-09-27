@@ -62,8 +62,27 @@ class OnNullOrEmptyTest {
         }
     }
 
-    @Test
-    fun todo() {
-        TODO("missing lazy etc")
+
+    class CollectionItemOnNullOrEmptyLazy {
+        @Test
+        fun empty(): Unit = assertCalled { shouldBeCalled ->
+            listOf<String>().nullable().onNullOrEmptyLazy {
+                shouldBeCalled()
+                listOf("test")
+            }.assertSingle("test")
+        }
+
+        @Test
+        fun single() {
+            listOf("test").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assertSingle("test")
+        }
+
+        @Test
+        fun multiple() {
+            listOf("test", "1234").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assertContainsInOrder(
+                "test", "1234"
+            )
+        }
     }
+
 }

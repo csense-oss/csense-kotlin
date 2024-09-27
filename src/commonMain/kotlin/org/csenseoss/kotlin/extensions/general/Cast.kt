@@ -27,14 +27,12 @@ public inline fun <reified Result : Input, Input : Any> Input.castOr(
     return this.cast<Result>() ?: action(this)
 }
 
-@JvmName("castOrReturn")
-@OverloadResolutionByLambdaReturnType
-public inline fun <reified Result, Input : Any> Input.castOr(
+public inline fun <reified Result, Input : Any> Input.castOrReturn(
     orAction: (input: Input) -> Nothing
 ): Result {
     contract {
         callsInPlace(orAction, InvocationKind.AT_MOST_ONCE)
-        returns() implies (this@castOr is Result)
+        returns() implies (this@castOrReturn is Result)
     }
     return this.cast<Result>() ?: orAction(this)
 }
