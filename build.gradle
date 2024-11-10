@@ -7,16 +7,16 @@ buildscript {
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.9.0"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.1.0-Beta"
+    ext.csenseTestsVersion = "0.0.1"
 
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.1.0-Beta"
+    ext.csenseAnnotationVersion = "0.0.1"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.1.0-Beta1"
+    ext.kotlin_version = "2.0.21"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.1.0-Beta"
+    ext.csenseVersionName = "0.0.1"
     ext.csenseGroupId = "org.csenseoss.kotlin"
 
     ext.csenseUserOrg = "csense-oss"
@@ -41,16 +41,18 @@ plugins {
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "10.0.4"
+    id "org.owasp.dependencycheck" version "11.1.0"
+    //https://github.com/vanniktech/gradle-maven-publish-plugin
+    id "com.vanniktech.maven.publish" version "0.30.0"
 }
 
 repositories {
     mavenCentral()
-    mavenLocal()
-    maven {
-        url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
-        name 'csense-oss'
-    }
+//    mavenLocal()
+//    maven {
+//        url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
+//        name 'csense-oss'
+//    }
 }
 
 kotlin {
@@ -108,13 +110,13 @@ kotlin {
         commonMain {
             dependencies {
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-                implementation "csense.kotlin:csense-kotlin-annotations:$csenseAnnotationVersion"
+                implementation "org.csenseoss.kotlin:csense-kotlin-annotations:$csenseAnnotationVersion"
             }
         }
         commonTest {
             dependencies {
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-                implementation "csense.kotlin:csense-kotlin-tests:$csenseTestsVersion"
+                implementation "org.csenseoss.kotlin:csense-kotlin-tests:$csenseTestsVersion"
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
             }
@@ -126,13 +128,23 @@ kotlin {
                 optIn("kotlin.experimental.ExperimentalTypeInference")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 progressiveMode = true //https://kotlinlang.org/docs/whatsnew13.html#progressive-mode
-                languageVersion = "2.1"
+//                languageVersion = "2.1"
             }
         }
     }
     targets.configureEach {
         compilations.configureEach {
+
             kotlinOptions {
+                kotlinOptions.freeCompilerArgs += "-Xbackend-threads=0"
+                kotlinOptions.freeCompilerArgs += "-Xuse-fast-jar-file-system"
+                kotlinOptions.freeCompilerArgs += "-Xvalue-classes"
+                //might be better now?
+//                kotlinOptions.freeCompilerArgs += "-Xserialize-ir=all"
+//                kotlinOptions.freeCompilerArgs += "-Xuse-inline-scopes-numbers"
+//                kotlinOptions.freeCompilerArgs += "-Xuse-k2-kapt"
+
+//                kotlinOptions.freeCompilerArgs += "-Xir-inliner"
 //                allWarningsAsErrors = true
             }
         }
@@ -168,16 +180,8 @@ kotlin {
 project.group = csenseGroupId
 project.version = csenseVersionName
 
-
-task emptyJavadocs(type: Javadoc) {
-    source = []
+mavenPublishing {
+    coordinates(csenseGroupId, csenseArtifactId, csenseVersionName)
 }
 
-task emptyJavadocsJar(type: Jar, dependsOn: emptyJavadocs) {
-    archiveClassifier.set('javadoc')
-}
-
-
-apply from: "$rootDir/gradle/publish.gradle"
-
-task uploadProd(dependsOn: ["assemble", "allTests", "dependencyCheckAggregate", "publish"])
+apply from: "$projectDir/gradle/publish.gradle"

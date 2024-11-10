@@ -1,92 +1,31 @@
-apply plugin: "maven-publish"
-apply plugin: "signing"
-
-afterEvaluate {
-    project.publishing.publications.configureEach {
-        groupId = group
-        // Rename MPP artifacts for backward compatibility
-        def type = it.name
-        switch (type) {
-            case 'kotlinMultiplatform':
-                // With Kotlin 1.4 & HMPP, the root module should have no suffix in the ID, but for compatibility with
-                // the consumers who can't read Gradle module metadata, we publish the JVM artifacts in it, too
-                it.artifactId = project.name
-                apply from: "$rootDir/gradle/publish-mpp-root-module-in-platform.gradle"
-                publishPlatformArtifactsInRootModule(publishing.publications["jvm"])
-                break
-            default:
-                it.artifactId = "$project.name-$type"
-                break
-        }
-    }
-}
-
-tasks.matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }.configureEach {
-    dependsOn(tasks["generatePomFileForJvmPublication"])
-}
-
-
-publishing {
-    publications {
-        withType(MavenPublication) {
-            groupId = csenseGroupId
-            artifactId = csenseArtifactId
-            version = csenseVersionName
-            artifact emptyJavadocsJar
-            pom {
-                name = csenseArtifactId
-                description = csenseArtifactDescription
-                url = csenseWebsite
-
-                licenses {
-                    license {
-                        name = csenseLicense
-                        url = csenseLicenseUrl
-                    }
-                }
-                developers {
-                    developer {
-                        id = csenseDeveloperAlias
-                        name = csenseDeveloperName
-                        email = csenseDeveloperEmail
-                    }
-                }
-                organization {
-                    name = csenseUserOrg
-                }
-                scm {
-                    url = 'https://github.com/csense-oss/csense-kotlin'
-                }
+mavenPublishing {
+    pom {
+        name = csenseArtifactId
+        description = csenseArtifactDescription
+        url = csenseWebsite
+        licenses {
+            license {
+                name = csenseLicense
+                url = csenseLicenseUrl
             }
         }
-    }
-    repositories {
-        final Properties properties = new Properties()
-        try {
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        } catch (ignored) {
-
-        }
-        maven {
-
-            url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
-            name 'csense-oss'
-            credentials {
-                username = properties.getProperty("username", "")
-                password = properties.getProperty("password", "")
-            }
-            authentication {
-                basic(BasicAuthentication)
+        developers {
+            developer {
+                id = csenseDeveloperAlias
+                name = csenseDeveloperName
+                email = csenseDeveloperEmail
             }
         }
-
-        maven {
-            name = "localForMavenPortal"
-            url = uri("file://${buildDir}/local-repository")
+        organization {
+            name = csenseUserOrg
+        }
+        issueManagement {
+            system.set("Github")
+            url.set("https://github.com/csense-oss/csense-kotlin/issues")
+        }
+        scm {
+            connection.set("https://github.com/csense-oss/csense-kotlin.git")
+            url.set("https://github.com/csense-oss/csense-kotlin")
         }
     }
-}
-
-signing {
-    sign publishing.publications.withType(MavenPublication)
 }
