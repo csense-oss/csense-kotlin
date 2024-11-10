@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.patterns.values.lockable
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.*
 
 /**

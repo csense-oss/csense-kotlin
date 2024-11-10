@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.primitives.charSequence
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.extensions.collections.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*

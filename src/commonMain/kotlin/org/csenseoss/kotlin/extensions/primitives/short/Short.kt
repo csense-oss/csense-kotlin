@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.short
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 
 /**
  * Shifts this [Short] left the given number of times

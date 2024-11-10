@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.char
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.extensions.mapping.*
 import org.csenseoss.kotlin.extensions.primitives.int.*
 import org.csenseoss.kotlin.extensions.primitives.short.*

@@ -1,7 +1,7 @@
 @file:Suppress("NOTHING_TO_INLINE")
 package org.csenseoss.kotlin.extensions.collections.list.mutable
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations.*
 import org.csenseoss.kotlin.extensions.primitives.int.*
 

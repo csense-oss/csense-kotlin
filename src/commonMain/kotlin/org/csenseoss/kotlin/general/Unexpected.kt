@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.general
 
-import csense.kotlin.annotations.sideEffect.*
+import org.csenseoss.kotlin.annotations.sideEffect.*
 import org.csenseoss.kotlin.logger.*
 import org.csenseoss.kotlin.logger.models.*
 import org.csenseoss.kotlin.logger.operators.*

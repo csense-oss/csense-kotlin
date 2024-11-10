@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collectionBounds
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.extensions.primitives.int.*
 import kotlin.jvm.*
 

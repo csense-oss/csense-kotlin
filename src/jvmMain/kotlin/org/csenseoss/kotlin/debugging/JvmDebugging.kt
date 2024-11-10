@@ -3,7 +3,7 @@
 
 package org.csenseoss.kotlin.debugging
 
-import csense.kotlin.annotations.*
+import org.csenseoss.kotlin.annotations.*
 import org.csenseoss.kotlin.annotations.*
 import org.csenseoss.kotlin.extensions.collections.*
 

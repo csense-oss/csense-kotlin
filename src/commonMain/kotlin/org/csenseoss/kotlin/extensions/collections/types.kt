@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections
 
-import csense.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.*
 
 public typealias GenericGetterIndexMethod<T> = (index: @IntLimit(from = 0) Int) -> T
 

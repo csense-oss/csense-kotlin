@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.coroutines
 
-import csense.kotlin.annotations.threading.*
+import org.csenseoss.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 import org.csenseoss.kotlin.*
 

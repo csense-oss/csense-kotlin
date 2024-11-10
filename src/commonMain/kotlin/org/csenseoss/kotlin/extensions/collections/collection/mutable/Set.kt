@@ -3,7 +3,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection.mutable
 
-import csense.kotlin.annotations.sideEffect.*
+import org.csenseoss.kotlin.annotations.sideEffect.*
 
 
 /**
