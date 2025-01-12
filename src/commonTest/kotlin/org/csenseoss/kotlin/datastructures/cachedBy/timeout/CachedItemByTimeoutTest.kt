@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.datastructures.cachedBy.timeout
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.hours

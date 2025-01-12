@@ -2,8 +2,9 @@
 
 package org.csenseoss.kotlin.crypto.guid
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.char.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.byte.*
 import kotlin.experimental.*
 import kotlin.random.*
 import kotlin.test.*

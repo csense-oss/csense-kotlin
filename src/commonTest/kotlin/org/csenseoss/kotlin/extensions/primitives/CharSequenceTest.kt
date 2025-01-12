@@ -1,8 +1,12 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.char.*
 import org.csenseoss.kotlin.extensions.primitives.charSequence.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class CharSequenceTest {
@@ -241,47 +245,40 @@ class CharSequenceTest {
     class CharSequenceSplitDelimiters {
         @Test
         fun empty() {
-            val result = "abc".split(setOf())
-            result.assertSingle("abc")
+            val result: List<String> = "abc".split(setOf())
+            result.assert("abc")
         }
 
         @Test
         fun singleTakesSplit() {
-            val result = "abc".split(setOf('a'))
-            result.first().assert("bc")
-            result.assertSize(1)
+            val result: List<String> = "abc".split(setOf('a'))
+            result.assert("bc")
         }
 
         @Test
         fun singleInMiddle() {
-            val result = "abc".split(setOf('b'))
-            result.assertSize(2)
-            result.first().assert("a")
-            result.last().assert("c")
+            val result: List<String> = "abc".split(setOf('b'))
+            result.assert("a","c")
         }
 
         @Test
         fun multipleAtEnds() {
             val result = "abc1234".split(setOf('a', '4'))
-            result.assertSize(1)
-            result[0].assert("bc123")
+            result.assert("bc123")
         }
 
         @Test
         fun multipleAtMiddle() {
-            val result = "abc1234".split(setOf('b', '3'))
-            result.assertSize(3)
-            result[0].assert("a")
-            result[1].assert("c12")
-            result[2].assert("4")
+            val result: List<String> = "abc1234".split(setOf('b', '3'))
+            result.assert("a","c12","4")
         }
 
         @Test
         fun shouldBehaveAsRegularSplit() {
-            val regular = "123a123".split('a')
-            val bySet = "123a123".split(setOf('a'))
+            val regular: List<String> = "123a123".split('a')
+            val bySet: List<String> = "123a123".split(setOf('a'))
             regular.assertSize(bySet.size)
-            regular.assertContainsInOrder(regular)
+            regular.assert(regular)
         }
     }
 

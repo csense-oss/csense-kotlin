@@ -1,7 +1,9 @@
 package org.csenseoss.kotlin.patterns.expected.expectedMapCatchingError.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.expectedMapCatchingError.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class IsTest {

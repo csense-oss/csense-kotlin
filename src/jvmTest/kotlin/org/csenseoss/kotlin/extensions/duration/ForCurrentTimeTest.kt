@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.duration
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.junit.jupiter.api.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.seconds

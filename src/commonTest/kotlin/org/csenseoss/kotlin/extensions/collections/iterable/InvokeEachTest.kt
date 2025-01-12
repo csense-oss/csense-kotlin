@@ -2,8 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.Function1
 import kotlin.Function2
 import kotlin.Function3

@@ -2,9 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.coroutines
 
-import org.csenseoss.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.annotations.threading.*
 
 /**
  * Wrapper for [async] ([Dispatchers.IO])

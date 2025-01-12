@@ -2,7 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class PartitionSafeTest {
@@ -35,23 +37,22 @@ class PartitionSafeTest {
         fun multiple() {
             listOf("test", "1234", "a").partitionSafe { false }.apply {
                 trueForPredicate.assertEmpty()
-                falseForPredicate.assertSize(3)
+                falseForPredicate.assert("test","1234","a")
             }
+
             listOf("test", "1234", "a").partitionSafe { true }.apply {
-                trueForPredicate.assertSize(3)
+                trueForPredicate.assert("test","1234","a")
                 falseForPredicate.assertEmpty()
             }
+
             listOf("test", "1234", "a").partitionSafe { it == "a" }.apply {
-                trueForPredicate.assertSize(1)
-                falseForPredicate.assertSize(2)
-                trueForPredicate.first().assert("a")
-                falseForPredicate.assertContainsAll("test", "1234")
+                falseForPredicate.assert("test", "1234")
+                trueForPredicate.assert("a")
             }
+
             listOf("test", "1234", "a").partitionSafe { it.length == 4 }.apply {
-                trueForPredicate.assertSize(2)
-                falseForPredicate.assertSize(1)
-                trueForPredicate.assertContainsAll("1234", "test")
-                falseForPredicate.first().assert("a")
+                trueForPredicate.assert("test", "1234")
+                falseForPredicate.assert("a")
             }
         }
     }

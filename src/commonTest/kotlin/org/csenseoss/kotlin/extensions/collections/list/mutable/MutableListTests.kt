@@ -2,8 +2,10 @@
 
 package org.csenseoss.kotlin.extensions.collections.list.mutable
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.collection.mutable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class MutableExtensionsTest {
@@ -35,7 +37,6 @@ class MutableExtensionsTest {
         list.assertSize(1)
 
     }
-
 
 
     @Test
@@ -79,14 +80,12 @@ class MutableExtensionsTest {
     }
 
 
-
-
     class ReplaceToReplace {
         @Test
         fun replaceWithEmpty() {
             val lst = mutableListOf<String>()
             lst.replace("", "")
-            lst.assertSize(0)
+            lst.assertEmpty()
         }
 
         @Test
@@ -145,32 +144,28 @@ class MutableListTest {
         fun emptyListValidInsertMultiple() {
             val lst = mutableListOf<String>()
             lst.addAll(0, listOf("asd", "1234") as Iterable<String>).assertTrue()
-            lst.assertSize(2)
-            lst.assertContainsAll("asd", "1234")
+            lst.assert("asd", "1234")
         }
 
         @Test
         fun singleListInvalidInsertSingle() {
             val lst = mutableListOf("456")
             lst.addAll(2, listOf("asd") as Iterable<String>).assertFalse()
-            lst.assertSize(1)
-            lst.assertContainsAll("456")
+            lst.assert("456")
         }
 
         @Test
         fun singleListInsertAtSizeIsValid() {
             val lst = mutableListOf("456")
             lst.addAll(1, listOf("asd") as Iterable<String>).assertTrue()
-            lst.assertSize(2)
-            lst.assertContainsAll("456", "asd")
+            lst.assert("456", "asd")
         }
 
         @Test
         fun multipleListInsertInMiddle() {
             val lst = mutableListOf("456", "qwerty", "iop")
             lst.addAll(2, listOf("---", "777", "---") as Iterable<String>).assertTrue()
-            lst.assertSize(6)
-            lst.assertContainsAll("456", "qwerty", "---", "777", "---", "iop")
+            lst.assert("456", "qwerty", "---", "777", "---", "iop")
         }
     }
 
@@ -187,57 +182,52 @@ class MutableListTest {
 
         @Test
         fun singleFound() {
-            val lst = mutableListOf("a")
-            val didReplace = lst.replaceFirst("2") {
+            val lst: MutableList<String> = mutableListOf("a")
+            val didReplace: Boolean = lst.replaceFirst("2") { _: String ->
                 true
             }
             didReplace.assertTrue()
-            lst.assertSize(1)
-            lst.first().assert("2")
+            lst.assert("2")
         }
 
         @Test
         fun singleNotFound() {
-            val lst = mutableListOf("b")
-            val didReplace = lst.replaceFirst("1") {
+            val lst: MutableList<String> = mutableListOf("b")
+            val didReplace: Boolean = lst.replaceFirst("1") { _: String ->
                 false
             }
             didReplace.assertFalse()
-            lst.assertSize(1)
-            lst.first().assert("b")
+            lst.assert("b")
         }
 
         @Test
         fun multipleNoneFound() {
-            val lst = mutableListOf("b", "qwerty")
-            val didReplace = lst.replaceFirst("1") {
+            val lst: MutableList<String> = mutableListOf("b", "qwerty")
+            val didReplace: Boolean = lst.replaceFirst("1") { _: String ->
                 false
             }
             didReplace.assertFalse()
-            lst.assertSize(2)
-            lst.assertContainsInOrder("b", "qwerty")
+            lst.assert("b", "qwerty")
         }
 
         @Test
         fun multipleAllFound() {
-            val lst = mutableListOf("b", "qwerty")
-            val didReplace = lst.replaceFirst("1") {
+            val lst: MutableList<String> = mutableListOf("b", "qwerty")
+            val didReplace: Boolean = lst.replaceFirst("1") { _: String ->
                 true
             }
             didReplace.assertTrue()
-            lst.assertSize(2)
-            lst.assertContainsInOrder("1", "qwerty")
+            lst.assert("1", "qwerty")
         }
 
         @Test
         fun multipleOneFound() {
-            val lst = mutableListOf("1234", "c", "qwerty")
-            val didReplace = lst.replaceFirst("1") {
+            val lst: MutableList<String> = mutableListOf("1234", "c", "qwerty")
+            val didReplace: Boolean = lst.replaceFirst("1") { it: String ->
                 it == "c"
             }
             didReplace.assertTrue()
-            lst.assertSize(3)
-            lst.assertContainsInOrder("1234", "1", "qwerty")
+            lst.assert("1234", "1", "qwerty")
         }
     }
 }

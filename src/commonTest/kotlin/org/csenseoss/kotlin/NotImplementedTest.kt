@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.general.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
 import kotlin.test.*
 
 

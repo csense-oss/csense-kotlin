@@ -2,7 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.generic.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class JoinEveryTest {
@@ -68,9 +70,9 @@ class JoinEveryTest {
     class ArrayTJoinEveryAtSteps {
         @Test
         fun empty() {
-            arrayOf<String>().joinEvery(itemsBetweenJoins = -1, toJoin = "").assertSize(0)
-            arrayOf<String>().joinEvery(itemsBetweenJoins = 0, toJoin = "").assertSize(0)
-            arrayOf<String>().joinEvery(itemsBetweenJoins = 1, toJoin = "").assertSize(0)
+            arrayOf<String>().joinEvery(itemsBetweenJoins = -1, toJoin = "").assertEmpty()
+            arrayOf<String>().joinEvery(itemsBetweenJoins = 0, toJoin = "").assertEmpty()
+            arrayOf<String>().joinEvery(itemsBetweenJoins = 1, toJoin = "").assertEmpty()
         }
 
         @Test

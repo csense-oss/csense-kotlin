@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class IsSingleTest {

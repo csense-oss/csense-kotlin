@@ -2,7 +2,10 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class JoinEveryTest {
@@ -10,9 +13,9 @@ class JoinEveryTest {
     class CollectionItemJoinEveryItemsBetweenJoin {
         @Test
         fun empty() {
-            listOf<String>().joinEvery(-1, "").assertSize(0)
-            listOf<String>().joinEvery(0, "").assertSize(0)
-            listOf<String>().joinEvery(1, "").assertSize(0)
+            listOf<String>().joinEvery(-1, "").assertEmpty()
+            listOf<String>().joinEvery(0, "").assertEmpty()
+            listOf<String>().joinEvery(1, "").assertEmpty()
         }
 
         @Test
@@ -61,9 +64,9 @@ class JoinEveryTest {
     class CollectionItemJoinEveryAction {
         @Test
         fun empty() {
-            listOf<String>().joinEveryAction(-1) { failTest() }.assertSize(0)
-            listOf<String>().joinEveryAction(0) { failTest() }.assertSize(0)
-            listOf<String>().joinEveryAction(1) { failTest() }.assertSize(0)
+            listOf<String>().joinEveryAction(-1) { failTest() }.assertEmpty()
+            listOf<String>().joinEveryAction(0) { failTest() }.assertEmpty()
+            listOf<String>().joinEveryAction(1) { failTest() }.assertEmpty()
         }
 
         @Test

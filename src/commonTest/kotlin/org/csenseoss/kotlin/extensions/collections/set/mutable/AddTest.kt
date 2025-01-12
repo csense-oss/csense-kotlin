@@ -1,6 +1,9 @@
 package org.csenseoss.kotlin.extensions.collections.set.mutable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class AddTest {
@@ -11,7 +14,7 @@ class AddTest {
         val set: MutableSet<String> = mutableSetOf()
         val didAdd: Boolean = set.addIfMissingAnd("item") { shouldBeCalled() }
         didAdd.assertTrue()
-        set.assertSingle("item")
+        set.assert("item")
     }
 
 
@@ -20,8 +23,7 @@ class AddTest {
         val set: MutableSet<String> = mutableSetOf("test")
         val didAdd: Boolean = set.addIfMissingAnd("item") { shouldBeCalled() }
         didAdd.assertTrue()
-        set.assertSize(2)
-        set.assertContainsAll("test", "item")
+        set.assert("test", "item")
     }
 
     @Test
@@ -29,7 +31,7 @@ class AddTest {
         val set: MutableSet<String> = mutableSetOf("test")
         val didAdd: Boolean = set.addIfMissingAnd("test") { shouldNotBeCalled() }
         didAdd.assertFalse("already presented")
-        set.assertSingle("test")
+        set.assert("test")
     }
 
 
@@ -38,8 +40,7 @@ class AddTest {
         val set: MutableSet<String> = mutableSetOf("1", "2")
         val didAdd: Boolean = set.addIfMissingAnd("1") { shouldNotBeCalled() }
         didAdd.assertFalse("already presented")
-        set.assertSize(2)
-        set.assertContainsAll("1", "2")
+        set.assert("1", "2")
     }
 
     @Test
@@ -47,8 +48,7 @@ class AddTest {
         val set: MutableSet<String> = mutableSetOf("1", "2")
         val didAdd: Boolean = set.addIfMissingAnd("3") { shouldBeCalled() }
         didAdd.assertTrue()
-        set.assertSize(3)
-        set.assertContainsAll("1", "2", "3")
+        set.assert("1", "2", "3")
     }
 
 }

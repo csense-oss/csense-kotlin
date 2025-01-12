@@ -1,7 +1,10 @@
 package org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import kotlin.contracts.*
 import kotlin.test.*
 
 class IsIndexTest {
@@ -10,172 +13,135 @@ class IsIndexTest {
     class CollectionIsIndex {
         @Test
         fun empty() {
-            listOf<String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+            listOf<String>().isIndex.assertZeroBounds()
         }
 
         @Test
         fun single() {
-            listOf("").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(1)
-            }
+            listOf("").isIndex.assertCollectionLength(1)
         }
 
         @Test
         fun multiple() {
-            listOf("a", "b").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(2)
-            }
+            listOf("a", "b").isIndex.assertCollectionLength(2)
         }
     }
 
     class CharSequenceIsIndex {
         @Test
         fun empty() {
-            "".isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+            "".isIndex.assertZeroBounds()
         }
 
         @Test
         fun single() {
-            "a".isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(1)
-            }
+            "a".isIndex.assertCollectionLength(1)
         }
 
         @Test
         fun multiple() {
-            "ab".isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(2)
-            }
+            "ab".isIndex.assertCollectionLength(2)
         }
     }
 
     class MapIsIndex {
         @Test
         fun empty() {
-            mapOf<String, String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+            mapOf<String, String>().isIndex.assertZeroBounds()
         }
 
         @Test
         fun single() {
-            mapOf("1" to "a").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(1)
-            }
+            mapOf("1" to "a").isIndex.assertCollectionLength(1)
         }
 
         @Test
         fun multiple() {
-            mapOf("1" to "a", "2" to "b").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(2)
-            }
+            mapOf("1" to "a", "2" to "b").isIndex.assertCollectionLength(2)
         }
     }
 
     class ArrayIsIndex {
         @Test
         fun empty() {
-            arrayOf<String>().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
+            arrayOf<String>().isIndex.assertZeroBounds()
         }
 
         @Test
         fun single() {
-            arrayOf("asd").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(1)
-            }
+            arrayOf("asd").isIndex.assertCollectionLength(1)
         }
 
         @Test
         fun multiple() {
-            arrayOf("asd", "123").isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-                collectionLength.assert(2)
-            }
+            arrayOf("asd", "123").isIndex.assertCollectionLength(2)
         }
     }
 
     @Test
     fun booleanArrayIsIndex() {
-        booleanArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        booleanArrayOf(false).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        booleanArrayOf(true, false).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        booleanArrayOf().isIndex.assertZeroBounds()
+        booleanArrayOf(false).isIndex.assertCollectionLength(1)
+        booleanArrayOf(true, false).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun byteArrayIsIndex() {
-        byteArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        byteArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        byteArrayOf(0, 1).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        byteArrayOf().isIndex.assertZeroBounds()
+        byteArrayOf(0).isIndex.assertCollectionLength(1)
+        byteArrayOf(0, 1).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun charArrayIsIndex() {
-        charArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        charArrayOf('0').isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        charArrayOf('0', '1').isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        charArrayOf().isIndex.assertZeroBounds()
+        charArrayOf('0').isIndex.assertCollectionLength(1)
+        charArrayOf('0', '1').isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun doubleArrayIsIndex() {
-        doubleArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        doubleArrayOf(0.0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        doubleArrayOf(0.0, 0.0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        doubleArrayOf().isIndex.assertZeroBounds()
+        doubleArrayOf(0.0).isIndex.assertCollectionLength(1)
+        doubleArrayOf(0.0, 0.0).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun floatArrayIsIndex() {
-        floatArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        floatArrayOf(0.0f).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        floatArrayOf(0.0f, 0.0f).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        floatArrayOf().isIndex.assertZeroBounds()
+        floatArrayOf(0.0f).isIndex.assertCollectionLength(1)
+        floatArrayOf(0.0f, 0.0f).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun intArrayIsIndex() {
-        intArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        intArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        intArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        intArrayOf().isIndex.assertZeroBounds()
+        intArrayOf(0).isIndex.assertCollectionLength(1)
+        intArrayOf(0, 0).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun longArrayIsIndex() {
-        longArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        longArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        longArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        longArrayOf().isIndex.assertZeroBounds()
+        longArrayOf(0).isIndex.assertCollectionLength(1)
+        longArrayOf(0, 0).isIndex.assertCollectionLength(2)
     }
 
     @Test
     fun shortArrayIsIndex() {
-        shortArrayOf().isIndex.assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
-        shortArrayOf(0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(1)
-        }
-        shortArrayOf(0, 0).isIndex.assertIsApply<CollectionBounds.CollectionBoundsChecker> {
-            collectionLength.assert(2)
-        }
+        shortArrayOf().isIndex.assertZeroBounds()
+        shortArrayOf(0).isIndex.assertCollectionLength(1)
+        shortArrayOf(0, 0).isIndex.assertCollectionLength(2)
     }
+}
+
+fun CollectionBounds.assertCollectionLength(length: Int) {
+    contract { returns() implies (this@assertCollectionLength is CollectionBounds.CollectionBoundsChecker) }
+    assertIs<CollectionBounds.CollectionBoundsChecker>()
+    collectionLength.assert(length)
+}
+
+fun CollectionBounds.assertZeroBounds() {
+    contract { returns() implies (this@assertZeroBounds is CollectionBounds.CollectionBoundsZeroBoundsChecker) }
+    assertIs<CollectionBounds.CollectionBoundsZeroBoundsChecker>()
 }

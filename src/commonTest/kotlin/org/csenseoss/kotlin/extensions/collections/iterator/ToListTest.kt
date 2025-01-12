@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterator
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import kotlin.test.*
 
 class ToListTest {
@@ -22,7 +23,7 @@ class ToListTest {
             val list: List<String> = listOf("1")
             val itt: Iterator<String> = list.iterator()
             val result: MutableList<String> = itt.toMutableList()
-            result.assertSingle("1")
+            result.assert("1")
         }
 
         @Test
@@ -30,8 +31,8 @@ class ToListTest {
             val list: List<String> = listOf("1", "2", "3")
             val itt: Iterator<String> = list.iterator()
             val result: MutableList<String> = itt.toMutableList()
-            result.assertSize(3)
-            result.assertContainsInOrder("1", "2", "3")
+
+            result.assert("1", "2", "3")
         }
 
         @Test
@@ -40,8 +41,7 @@ class ToListTest {
             val itt: Iterator<String> = list.iterator()
             itt.next()
             val result: MutableList<String> = itt.toMutableList()
-            result.assertSize(size = 2, message = "should use the iterator and start at the current location")
-            result.assertContainsInOrder("2", "3")
+            result.assert("2", "3",message = "should use the iterator and start at the current location")
         }
 
 
@@ -62,7 +62,7 @@ class ToListTest {
             val list: List<String> = listOf("1")
             val itt: Iterator<String> = list.iterator()
             val result: List<String> = itt.toList()
-            result.assertSingle("1")
+            result.assert("1")
         }
 
         @Test
@@ -70,8 +70,7 @@ class ToListTest {
             val list: List<String> = listOf("1", "2", "3")
             val itt: Iterator<String> = list.iterator()
             val result: List<String> = itt.toList()
-            result.assertSize(3)
-            result.assertContainsInOrder("1", "2", "3")
+            result.assert("1", "2", "3")
         }
 
         @Test
@@ -80,8 +79,7 @@ class ToListTest {
             val itt: Iterator<String> = list.iterator()
             itt.next()
             val result: List<String> = itt.toList()
-            result.assertSize(size = 2, message = "should use the iterator and start at the current location")
-            result.assertContainsInOrder("2", "3")
+            result.assert("2", "3", message = "should use the iterator and start at the current location")
         }
 
 

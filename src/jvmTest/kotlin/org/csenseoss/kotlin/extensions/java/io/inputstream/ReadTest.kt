@@ -1,12 +1,15 @@
 package org.csenseoss.kotlin.extensions.java.io.inputstream
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import org.junit.jupiter.api.*
 import java.io.*
 
 class ReadTest {
 
-    class ReadOrNullOnEnd {
+    @Nested
+    inner class ReadOrNullOnEnd {
         @Test
         fun empty() {
             val byteInput = ByteArrayInputStream(byteArrayOf())
@@ -31,7 +34,8 @@ class ReadTest {
 
     }
 
-    class ReadToEnd {
+    @Nested
+    inner class ReadToEnd {
         @Test
         fun empty() {
             val byteInput = InputStreamDecorator(ByteArrayInputStream(byteArrayOf()))

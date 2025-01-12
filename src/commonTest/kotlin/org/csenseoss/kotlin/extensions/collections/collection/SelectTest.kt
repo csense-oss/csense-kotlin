@@ -1,7 +1,9 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.mapping.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class SelectTest {

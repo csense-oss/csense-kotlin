@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.classes.map
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.entry.*
 import kotlin.test.*
 
 class OrderedMapTest {

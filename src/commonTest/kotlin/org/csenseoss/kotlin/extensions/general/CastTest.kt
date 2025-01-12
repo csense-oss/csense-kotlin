@@ -1,6 +1,9 @@
 package org.csenseoss.kotlin.extensions.general
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class CastTest {

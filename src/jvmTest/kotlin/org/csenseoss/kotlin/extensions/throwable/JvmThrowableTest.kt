@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.throwable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import org.junit.jupiter.api.*
 
 class JvmThrowableTest {

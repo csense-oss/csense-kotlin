@@ -5,18 +5,18 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.9.0"
+    ext.coroutinesVersion = "1.10.1"
     //https://github.com/csense-oss/csense-kotlin-test
-    ext.csenseTestsVersion = "0.0.1"
+    ext.csenseTestsVersion = "0.0.1-Local"
 
     //https://github.com/csense-oss/csense-kotlin-annotations
-    ext.csenseAnnotationVersion = "0.0.1"
+    ext.csenseAnnotationVersion = "0.0.3"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.0.21"
+    ext.kotlin_version = "2.1.0"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
-    ext.csenseVersionName = "0.0.1"
+    ext.csenseVersionName = "0.0.3-Local"
     ext.csenseGroupId = "org.csenseoss.kotlin"
 
     ext.csenseUserOrg = "csense-oss"
@@ -41,14 +41,14 @@ plugins {
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
     //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "11.1.0"
+    id "org.owasp.dependencycheck" version "11.1.1"
     //https://github.com/vanniktech/gradle-maven-publish-plugin
     id "com.vanniktech.maven.publish" version "0.30.0"
 }
 
 repositories {
     mavenCentral()
-//    mavenLocal()
+    mavenLocal()
 //    maven {
 //        url 'https://pkgs.dev.azure.com/csense-oss/csense-oss/_packaging/csense-oss/maven/v1'
 //        name 'csense-oss'
@@ -128,17 +128,16 @@ kotlin {
                 optIn("kotlin.experimental.ExperimentalTypeInference")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 progressiveMode = true //https://kotlinlang.org/docs/whatsnew13.html#progressive-mode
-//                languageVersion = "2.1"
             }
         }
     }
     targets.configureEach {
         compilations.configureEach {
 
-            kotlinOptions {
-                kotlinOptions.freeCompilerArgs += "-Xbackend-threads=0"
-                kotlinOptions.freeCompilerArgs += "-Xuse-fast-jar-file-system"
-                kotlinOptions.freeCompilerArgs += "-Xvalue-classes"
+//            kotlinOptions {
+//                kotlinOptions.freeCompilerArgs += "-Xbackend-threads=0"
+//                kotlinOptions.freeCompilerArgs += "-Xuse-fast-jar-file-system"
+//                kotlinOptions.freeCompilerArgs += "-Xvalue-classes"
                 //might be better now?
 //                kotlinOptions.freeCompilerArgs += "-Xserialize-ir=all"
 //                kotlinOptions.freeCompilerArgs += "-Xuse-inline-scopes-numbers"
@@ -146,7 +145,7 @@ kotlin {
 
 //                kotlinOptions.freeCompilerArgs += "-Xir-inliner"
 //                allWarningsAsErrors = true
-            }
+//            }
         }
     }
 }

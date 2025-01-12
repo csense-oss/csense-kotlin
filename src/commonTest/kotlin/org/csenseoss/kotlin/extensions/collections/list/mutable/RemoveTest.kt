@@ -1,8 +1,16 @@
 package org.csenseoss.kotlin.extensions.collections.list.mutable
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.list.*
 import org.csenseoss.kotlin.extensions.collections.list.mutable.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertContains
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertEmpty
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertSize
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.collections.removeFirstOrNull
 import kotlin.test.*
 
@@ -81,9 +89,9 @@ class RemoveTest {
     fun removeAtOr() {
         val list: MutableList<String> = mutableListOf("ab", "ba")
         list.removeAtOr(index = 0, default = "").assert("ab")
-        list.assertSize(size = 1)
+        list.assertSize(expectedCount = 1)
         list.removeAtOr(index = 10, default = "qwe").assert("qwe")
-        list.assertSize(size = 1)
+        list.assertSize(expectedCount = 1)
     }
 
     class RemoveFirstOrNullTest {

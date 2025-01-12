@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.exceptions
 
-import csense.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.generic.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import org.junit.jupiter.api.*
 
 class NoStackTraceExceptionTest {

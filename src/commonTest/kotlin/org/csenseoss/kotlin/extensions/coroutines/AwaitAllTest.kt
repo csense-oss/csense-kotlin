@@ -3,10 +3,11 @@
 
 package org.csenseoss.kotlin.extensions.coroutines
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.annotations.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
 class AwaitAllTest {
@@ -74,7 +75,7 @@ class AwaitAllTest {
                 awaitAll(firstTask, secondTask, thirdTask)
             currentTime.assertLargerOrEqualTo(
                 expected = 700,
-                optMessage = "should not be completed before all tasks are done"
+                message = "should not be completed before all tasks are done"
             )
             input.first.assert(42)
             input.second.assert("42")

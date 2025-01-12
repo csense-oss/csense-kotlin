@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class OnEmptyTest {
@@ -9,21 +10,21 @@ class OnEmptyTest {
         @Test
         fun empty() {
             val input: List<String> = listOf()
-            input.onEmpty(item = "test").assertSingle("test")
+            input.onEmpty(item = "test").assert("test")
         }
 
 
         @Test
         fun single() {
             val input: List<String> = listOf("test")
-            input.onEmpty(item = "1234").assertSingle("test")
+            input.onEmpty(item = "1234").assert("test")
         }
 
 
         @Test
         fun multiple() {
             val input: List<String> = listOf("test", "abcd")
-            input.onEmpty(item = "1234").assertContainsInOrder("test", "abcd")
+            input.onEmpty(item = "1234").assert("test", "abcd")
         }
 
     }
@@ -33,21 +34,21 @@ class OnEmptyTest {
         @Test
         fun empty() {
             val input: List<String> = listOf()
-            input.onEmpty(items = listOf("test")).assertSingle("test")
+            input.onEmpty(items = listOf("test")).assert("test")
         }
 
 
         @Test
         fun single() {
             val input: List<String> = listOf("test")
-            input.onEmpty(items = listOf("1234")).assertSingle("test")
+            input.onEmpty(items = listOf("1234")).assert("test")
         }
 
 
         @Test
         fun multiple() {
             val input: List<String> = listOf("test", "abcd")
-            input.onEmpty(items = listOf("1234")).assertContainsInOrder("test", "abcd")
+            input.onEmpty(items = listOf("1234")).assert("test", "abcd")
         }
 
     }
@@ -59,7 +60,7 @@ class OnEmptyTest {
             val input: List<String> = listOf()
             input.onEmptyLazy(item = {
                 "test"
-            }).assertSingle("test")
+            }).assert("test")
         }
 
 
@@ -68,7 +69,7 @@ class OnEmptyTest {
             val input: List<String> = listOf("test")
             input.onEmptyLazy(item = {
                 shouldNotBeCalled()
-            }).assertSingle("test")
+            }).assert("test")
         }
 
 
@@ -77,7 +78,7 @@ class OnEmptyTest {
             val input: List<String> = listOf("test", "1234")
             input.onEmptyLazy(item = {
                 shouldNotBeCalled()
-            }).assertContainsInOrder("test", "1234")
+            }).assert("test", "1234")
         }
 
     }
@@ -89,7 +90,7 @@ class OnEmptyTest {
             val input: List<String> = listOf()
             input.onEmptyLazy(items = {
                 listOf("test","1234")
-            }).assertContainsInOrder("test", "1234")
+            }).assert("test", "1234")
         }
 
 
@@ -98,7 +99,7 @@ class OnEmptyTest {
             val input: List<String> = listOf("test")
             input.onEmptyLazy(items = {
                 listOf("not","not")
-            }).assertContainsInOrder("test")
+            }).assert("test")
         }
 
 
@@ -107,7 +108,7 @@ class OnEmptyTest {
             val input: List<String> = listOf("test", "1234")
             input.onEmptyLazy(items = {
                 listOf("not","not")
-            }).assertContainsInOrder("test","1234")
+            }).assert("test","1234")
         }
 
     }

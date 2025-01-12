@@ -1,8 +1,12 @@
 package org.csenseoss.kotlin.extensions.collections.map
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.classes.map.*
 import org.csenseoss.kotlin.extensions.collections.map.mutable.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 
@@ -10,11 +14,11 @@ class MutableMapKtTest {
 
     @Test
     fun removeAll() {
-        val map = mutableMapOf<String, String>()
+        val map: MutableMap<String, String> = mutableMapOf<String, String>()
         //empty case, nothing should happen here.
         map.removeAll { true }
         map.removeAll { false }
-        map.assertSize(0)
+        map.assertEmpty()
 
         map["a"] = "b"
         map.removeAll { false }
@@ -40,7 +44,7 @@ class MutableMapKtTest {
         map.removeAll { it.key == "1" }
         map.assertSize(2)
         map.removeAll { true }
-        map.assertSize(0)
+        map.assertEmpty()
     }
 
     @Test
@@ -51,11 +55,11 @@ class MutableMapKtTest {
 
         map.setIfNotEmpty("a", listOf("a"))
         map.assertSize(1)
-        map["a"].assertNotNullApply { assertSize(1) }
+        map["a"].assertSize(1)
 
         map.setIfNotEmpty("a", listOf("a", "b"))
         map.assertSize(1)
-        map["a"].assertNotNullApply { assertSize(2) }
+        map["a"].assertSize(2)
 
     }
 
@@ -64,16 +68,16 @@ class MutableMapKtTest {
         val map = mutableMapOf<String, MutableList<String>>()
         map.putSubList("a", "a")
         map.assertSize(1)
-        map["a"].assertNotNullApply { assertSize(1) }
+        map["a"].assertSize(1)
 
         map.putSubList("a", "b")
         map.assertSize(1)
-        map["a"].assertNotNullApply { assertSize(2) }
+        map["a"].assertSize(2)
 
         map.putSubList("b", "a")
         map.assertSize(2)
-        map["a"].assertNotNullApply { assertSize(2) }
-        map["b"].assertNotNullApply { assertSize(1) }
+        map["a"].assertSize(2)
+        map["b"].assertSize(1)
 
     }
 
@@ -82,7 +86,7 @@ class MutableMapKtTest {
         fun empty() {
             mutableMapOf<String, String>().apply {
                 putIfMissing("key", "value")
-                assertSingle("key" to "value")
+                assert("key" to "value")
             }
         }
 
@@ -104,7 +108,7 @@ class MutableMapKtTest {
                 "key" to "value"
             ).apply {
                 putIfMissing("key", "value2")
-                assertSingle("key" to "value")
+                assert("key" to "value")
             }
         }
 
@@ -142,12 +146,12 @@ class MutableMapKtTest {
         fun empty() = assertCalled { shouldBeCalled: () -> Unit ->
             val map = mutableMapOf<String, String>()
             map.putIfMissingAnd("key", "value") { key, value ->
-                this.assertAs(map)
+                this.assertByEquals(map)
                 key.assert("key")
                 value.assert("value")
                 shouldBeCalled()
             }
-            map.assertSingle("key" to "value")
+            map.assert("key" to "value")
         }
 
 
@@ -170,7 +174,7 @@ class MutableMapKtTest {
             map.putIfMissingAnd("key", "value2") { _, _ ->
                 shouldNotBeCalled()
             }
-            map.assertSingle("key" to "value")
+            map.assert("key" to "value")
         }
 
 
@@ -219,24 +223,14 @@ class MutableMapKtTest {
         fun single() {
             val single = mutableMapOf("abc" to 42).reverseKeyValue()
             single.assertIs<MutableMap<Int, String>>()
-            single.assertSingle {
-                it.key.assert(42)
-                it.value.assert("abc")
-            }
+            single.assert(42 to "abc")
         }
 
 
         @Test
         fun multiple() {
-            val multiple = mutableMapOf("abc" to 42, "1234" to 500).reverseKeyValue()
-            multiple.assertIs<MutableMap<Int, String>>()
-            multiple.assertSize(2)
-            multiple.assertContainsKeyAnd(42) {
-                it.assert("abc")
-            }
-            multiple.assertContainsKeyAnd(500) {
-                it.assert("1234")
-            }
+            val multiple: Map<Int, String> = mutableMapOf("abc" to 42, "1234" to 500).reverseKeyValue()
+            multiple.assert(42 to "abc", 500 to "1234")
         }
 
     }
@@ -248,7 +242,7 @@ class MutableMapKtTest {
             fun emptyNull() {
                 mutableMapOf<String, String>().apply {
                     remove(null).assertNull()
-                    assertSize(0)
+                    assertEmpty()
                 }
             }
 
@@ -256,7 +250,7 @@ class MutableMapKtTest {
             fun emptyValue() {
                 mutableMapOf<String, String>().apply {
                     remove("abc").assertNull()
-                    assertSize(0)
+                    assertEmpty()
                 }
             }
 
@@ -313,10 +307,7 @@ class MutableMapKtTest {
             fun multipleFound() {
                 mutableMapOf("a" to "1", "b" to "2").apply {
                     remove("b").assert("2")
-                    assertSingle {
-                        it.key.assert("a")
-                        it.value.assert("1")
-                    }
+                    assert("a" to "1")
                 }
             }
 
@@ -327,24 +318,19 @@ class MutableMapKtTest {
     class MutableMapKeyValuePut {
         @Test
         fun empty() {
-            val map = mutableMapOf<String, String>()
+            val map: MutableMap<String, String> = mutableMapOf<String, String>()
             map.put(MapEntry("key", "value")).assertNull()
-            map.assertSingle {
-                it.key.assert("key")
-                it.value.assert("value")
-            }
+            map.assert("key" to "value")
         }
 
 
         @Test
         fun singleNonColliding() {
-            val map = mutableMapOf<String, String>(
+            val map: MutableMap<String, String> = mutableMapOf(
                 "k1" to "v1"
             )
             map.put(MapEntry("key", "value")).assertNull()
-            map.assertSize(2)
-            map.assertContains("k1" to "v1")
-            map.assertContains("key" to "value")
+            map.assert("k1" to "v1", "key" to "value")
         }
 
 
@@ -354,10 +340,7 @@ class MutableMapKtTest {
                 "key" to "v1"
             )
             map.put(MapEntry("key", "v2")).assert("v1")
-            map.assertSingle {
-                it.key.assert("key")
-                it.value.assert("v2")
-            }
+            map.assert("key" to "v2")
         }
 
 
@@ -368,10 +351,7 @@ class MutableMapKtTest {
                 "k2" to "v2"
             )
             map.put(MapEntry("key", "value")).assertNull()
-            map.assertSize(3)
-            map.assertContains("k1" to "v1")
-            map.assertContains("k2" to "v2")
-            map.assertContains("key" to "value")
+            map.assert("k1" to "v1", "k2" to "v2", "key" to "value")
         }
 
         @Test
@@ -383,11 +363,8 @@ class MutableMapKtTest {
             )
             map.put(MapEntry("key", "v2")).assert("v1")
             map.put(MapEntry("zxc", "wuub")).assert("qwerty")
-            map.assertSize(3)
-            map.assertContains("key" to "v2")
-            map.assertContains("1234" to "abc")
-            map.assertContains("zxc" to "wuub")
 
+            map.assert("key" to "v2", "1234" to "abc", "zxc" to "wuub")
         }
     }
 }

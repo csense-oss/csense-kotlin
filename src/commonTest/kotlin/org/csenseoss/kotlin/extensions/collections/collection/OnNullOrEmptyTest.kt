@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class OnNullOrEmptyTest {
@@ -8,22 +9,22 @@ class OnNullOrEmptyTest {
         @Test
         fun nullable() {
             val lst: List<String>? = null
-            lst.onNullOrEmpty(item = "test").assertSingle("test")
+            lst.onNullOrEmpty(item = "test").assert("test")
         }
 
         @Test
         fun empty() {
-            listOf<String>().nullable().onNullOrEmpty(item = "test").assertSingle("test")
+            listOf<String>().nullable().onNullOrEmpty(item = "test").assert("test")
         }
 
         @Test
         fun single() {
-            listOf("starting").nullable().onNullOrEmpty(item = "failed").assertSingle("starting")
+            listOf("starting").nullable().onNullOrEmpty(item = "failed").assert("starting")
         }
 
         @Test
         fun multiple() {
-            listOf("a", "b", "c").nullable().onNullOrEmpty(item = "failed").assertContentAndOrder(
+            listOf("a", "b", "c").nullable().onNullOrEmpty(item = "failed").assert(
                 expected = listOf(
                     "a",
                     "b",
@@ -37,22 +38,22 @@ class OnNullOrEmptyTest {
         @Test
         fun nullable() {
             val lst: List<String>? = null
-            lst.onNullOrEmpty(items = listOf("items")).assertSingle("items")
+            lst.onNullOrEmpty(items = listOf("items")).assert("items")
         }
 
         @Test
         fun empty() {
-            listOf<String>().nullable().onNullOrEmpty(items = listOf("test")).assertSingle("test")
+            listOf<String>().nullable().onNullOrEmpty(items = listOf("test")).assert("test")
         }
 
         @Test
         fun single() {
-            listOf("starting").nullable().onNullOrEmpty(items = listOf("failed")).assertSingle("starting")
+            listOf("starting").nullable().onNullOrEmpty(items = listOf("failed")).assert("starting")
         }
 
         @Test
         fun multiple() {
-            listOf("a", "b", "c").nullable().onNullOrEmpty(items = listOf("failed")).assertContentAndOrder(
+            listOf("a", "b", "c").nullable().onNullOrEmpty(items = listOf("failed")).assert(
                 expected = listOf(
                     "a",
                     "b",
@@ -69,17 +70,17 @@ class OnNullOrEmptyTest {
             listOf<String>().nullable().onNullOrEmptyLazy {
                 shouldBeCalled()
                 listOf("test")
-            }.assertSingle("test")
+            }.assert("test")
         }
 
         @Test
         fun single() {
-            listOf("test").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assertSingle("test")
+            listOf("test").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assert("test")
         }
 
         @Test
         fun multiple() {
-            listOf("test", "1234").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assertContainsInOrder(
+            listOf("test", "1234").nullable().onNullOrEmptyLazy { shouldNotBeCalled() }.assert(
                 "test", "1234"
             )
         }

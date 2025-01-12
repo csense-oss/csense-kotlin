@@ -2,71 +2,53 @@
 
 package org.csenseoss.kotlin.classes.map
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
 import kotlin.test.*
 
 class MapEntryTest {
     class MutableMapKeyValuePlusAssign {
         @Test
         fun empty() {
-            val map = mutableMapOf<String, String>()
+            val map: MutableMap<String, String> = mutableMapOf()
             map += MapEntry("key", "value")
-            map.assertSingle {
-                it.key.assert("key")
-                it.value.assert("value")
-            }
+            map.assert("key" to "value")
         }
 
         @Test
         fun newKey() {
-            val map = mutableMapOf("otherKey" to "someValue")
+            val map: MutableMap<String, String> = mutableMapOf("otherKey" to "someValue")
             map += MapEntry("key", "value")
-            map.assertSize(2)
-            map.assertContainsKeyAnd("key") {
-                it.assert("value")
-            }
-            map.assertContainsKeyAnd("otherKey") {
-                it.assert("someValue")
-            }
+            map.assert("otherKey" to "someValue", "key" to "value")
         }
 
         @Test
         fun keyExists() {
-            val map = mutableMapOf("key" to "firstValue")
+            val map: MutableMap<String, String> = mutableMapOf("key" to "firstValue")
             map += MapEntry("key", "newValue")
-            map.assertSingle {
-                it.key.assert("key")
-                it.value.assert("newValue")
-            }
+            map.assert("key" to "newValue")
         }
     }
 
     class MutableMapKeyValueMinusAssign {
         @Test
         fun empty() {
-            val map = mutableMapOf<String, String>()
+            val map: MutableMap<String, String> = mutableMapOf()
             map -= MapEntry("key", "value")
             map.assertEmpty()
         }
 
         @Test
         fun newKey() {
-            val map = mutableMapOf("otherKey" to "someValue")
+            val map: MutableMap<String, String> = mutableMapOf("otherKey" to "someValue")
             map -= MapEntry("key", "value")
-            map.assertSingle {
-                it.key.assert("otherKey")
-                it.value.assert("someValue")
-            }
+            map.assert( "otherKey" to "someValue")
         }
 
         @Test
         fun keyExists() {
-            val map = mutableMapOf("key" to "firstValue")
+            val map: MutableMap<String, String> = mutableMapOf("key" to "firstValue")
             map += MapEntry("key", "newValue")
-            map.assertSingle {
-                it.key.assert("key")
-                it.value.assert("newValue")
-            }
+            map.assert( "key" to "newValue")
         }
     }
 }

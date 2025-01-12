@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection.mutable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import kotlin.test.*
 
 class SetTest {
@@ -13,17 +13,15 @@ class SetTest {
         fun testEmpty() {
             mutableListOf<String>().apply {
                 setAll(listOf())
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf<String>().apply {
                 setAll(listOf("a"))
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf<String>().apply {
                 setAll(listOf("a", "b"))
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
 
@@ -31,17 +29,15 @@ class SetTest {
         fun testSingle() {
             mutableListOf("a").apply {
                 setAll(listOf())
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf("a").apply {
                 setAll(listOf("a"))
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf("a").apply {
                 setAll(listOf("a", "b"))
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
 
@@ -49,17 +45,15 @@ class SetTest {
         fun testMultiple() {
             mutableListOf("a", "c").apply {
                 setAll(listOf())
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf("a", "c").apply {
                 setAll(listOf("a"))
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf("a", "c").apply {
                 setAll(listOf("a", "b"))
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
     }
@@ -70,8 +64,7 @@ class SetTest {
         fun testEmpty() {
             mutableListOf<String>().apply {
                 set("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
         }
 
@@ -79,8 +72,7 @@ class SetTest {
         fun testSingle() {
             mutableListOf("b").apply {
                 set("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
         }
 
@@ -88,8 +80,7 @@ class SetTest {
         fun testMultiple() {
             mutableListOf("a", "c").apply {
                 set("d")
-                assertSize(1)
-                assertContains("d")
+                assert("d")
             }
         }
     }
@@ -100,17 +91,15 @@ class SetTest {
         fun testEmpty() {
             mutableListOf<String>().apply {
                 setAll()
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf<String>().apply {
                 setAll("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf<String>().apply {
                 setAll("a", "b")
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
 
@@ -118,17 +107,15 @@ class SetTest {
         fun testSingle() {
             mutableListOf("a").apply {
                 setAll()
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf("a").apply {
                 setAll("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf("a").apply {
                 setAll("a", "b")
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
 
@@ -136,17 +123,15 @@ class SetTest {
         fun testMultiple() {
             mutableListOf("a", "c").apply {
                 setAll()
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf("a", "c").apply {
                 setAll("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf("a", "c").apply {
                 setAll("a", "b")
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
     }

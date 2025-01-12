@@ -1,6 +1,8 @@
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class DropOrTest {
@@ -11,12 +13,12 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orValue = listOf("orValue")
-            ).assertSingle("orValue")
+            ).assert("orValue")
 
             iterable.dropOr(
                 dropCount = 1,
                 orValue = listOf("orValue")
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
 
         @Test
@@ -25,12 +27,12 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orValue = listOf("orValue")
-            ).assertSingle(expected = "single")
+            ).assert("single")
 
             iterable.dropOr(
                 dropCount = 1,
                 orValue = listOf("orValue")
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
 
         @Test
@@ -39,16 +41,16 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orValue = listOf("orValue")
-            ).assertContentAndOrder(listOf("first", "second"))
+            ).assert(listOf("first", "second"))
 
             iterable.dropOr(
                 dropCount = 1,
                 orValue = listOf("orValue")
-            ).assertSingle("second")
+            ).assert("second")
             iterable.dropOr(
                 dropCount = 2,
                 orValue = listOf("orValue")
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
     }
 
@@ -59,12 +61,12 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orAction = { listOf("orValue") }
-            ).assertSingle("orValue")
+            ).assert("orValue")
 
             iterable.dropOr(
                 dropCount = 1,
                 orAction = { listOf("orValue") }
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
 
         @Test
@@ -73,12 +75,12 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orAction = { shouldNotBeCalled() }
-            ).assertSingle(expected = "single")
+            ).assert("single")
 
             iterable.dropOr(
                 dropCount = 1,
                 orAction = { listOf("orValue") }
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
 
         @Test
@@ -87,16 +89,16 @@ class DropOrTest {
             iterable.dropOr(
                 dropCount = 0,
                 orAction = { shouldNotBeCalled() }
-            ).assertContentAndOrder(listOf("first", "second"))
+            ).assert(listOf("first", "second"))
 
             iterable.dropOr(
                 dropCount = 1,
                 orAction = { shouldNotBeCalled() }
-            ).assertSingle("second")
+            ).assert("second")
             iterable.dropOr(
                 dropCount = 2,
                 orAction = { listOf("orValue") }
-            ).assertSingle("orValue")
+            ).assert("orValue")
         }
     }
 

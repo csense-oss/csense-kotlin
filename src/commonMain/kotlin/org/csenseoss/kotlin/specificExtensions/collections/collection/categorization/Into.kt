@@ -2,9 +2,9 @@
 
 package org.csenseoss.kotlin.specificExtensions.collections.collection.categorization
 
+import org.csenseoss.kotlin.*
 import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.annotations.sideEffect.*
-import org.csenseoss.kotlin.*
 import org.csenseoss.kotlin.extensions.collections.array.generic.*
 import org.csenseoss.kotlin.specificExtensions.collections.collection.*
 

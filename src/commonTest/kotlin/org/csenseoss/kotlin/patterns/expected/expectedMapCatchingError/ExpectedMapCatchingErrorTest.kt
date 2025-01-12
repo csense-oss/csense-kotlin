@@ -1,7 +1,8 @@
 package org.csenseoss.kotlin.patterns.expected.expectedMapCatchingError
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.expectedMapCatchingError.operations.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
 import kotlin.test.*
 
 class ExpectedMapCatchingErrorTest {

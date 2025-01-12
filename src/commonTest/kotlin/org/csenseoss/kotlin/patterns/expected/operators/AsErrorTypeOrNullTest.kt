@@ -1,7 +1,8 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class AsErrorTypeOrNullTest {
@@ -15,11 +16,7 @@ class AsErrorTypeOrNullTest {
     fun castAbleTypeShouldGiveTheType() {
         val failed: Expected.Failed<RuntimeException> = Expected.Failed(RuntimeException())
         failed.asErrorTypeOrNull<RuntimeException>().assertByEquals(failed)
-        failed.asErrorTypeOrNull<RuntimeException>().assertNotNullApply {
-            error.assertIs<RuntimeException>()
-        }
-        failed.asErrorTypeOrNull<Exception>().assertNotNullApply {
-            error.assertIs<Exception>()
-        }
+        failed.asErrorTypeOrNull<RuntimeException>()!!.error.assertIs<RuntimeException>()
+        failed.asErrorTypeOrNull<Exception>()!!.error.assertIs<Exception>()
     }
 }

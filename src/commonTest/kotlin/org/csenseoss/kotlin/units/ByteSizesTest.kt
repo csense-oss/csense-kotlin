@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.units
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
 class ByteSizesTest {

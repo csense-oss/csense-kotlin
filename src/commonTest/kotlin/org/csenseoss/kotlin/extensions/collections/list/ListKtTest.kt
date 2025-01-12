@@ -2,7 +2,10 @@
 
 package org.csenseoss.kotlin.extensions.collections.list
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 
@@ -10,13 +13,13 @@ class ListKtTest {
 
     @Test
     fun limitToSize() {
-        listOf<String>().limitToSize(0).assertSize(0)
-        listOf<String>().limitToSize(-1).assertSize(0)
-        listOf<String>().limitToSize(1).assertSize(0)
+        listOf<String>().limitToSize(0).assertEmpty()
+        listOf<String>().limitToSize(-1).assertEmpty()
+        listOf<String>().limitToSize(1).assertEmpty()
 
-        listOf("a").limitToSize(0).assertSize(0)
+        listOf("a").limitToSize(0).assertEmpty()
         listOf("a").limitToSize(1).assertSize(1)
-        listOf("a").limitToSize(-1).assertSize(0)
+        listOf("a").limitToSize(-1).assertEmpty()
         listOf("a").limitToSize(2).assertSize(1)
 
         listOf("a", "b").limitToSize(1).apply {
@@ -269,7 +272,7 @@ class ListListTCombine {
         fun emptyOuter() {
             val emptyA = listOf<List<String>>()
             val emptyB = listOf<List<String>>()
-            emptyA.combine(emptyB).assertSize(0)
+            emptyA.combine(emptyB).assertEmpty()
         }
 
         @Test
@@ -278,7 +281,7 @@ class ListListTCombine {
             val emptyB = listOf<List<String>>(listOf())
             emptyA.combine(emptyB).apply {
                 assertSize(1)
-                first().assertSize(0)
+                first().assertEmpty()
             }
         }
 
@@ -288,8 +291,8 @@ class ListListTCombine {
             val emptyB = listOf<List<String>>(listOf())
             emptyA.combine(emptyB).apply {
                 assertSize(2)
-                first().assertSize(0)
-                last().assertSize(0)
+                first().assertEmpty()
+                last().assertEmpty()
             }
         }
 
@@ -299,8 +302,8 @@ class ListListTCombine {
             val emptyB = listOf<List<String>>(listOf())
             emptyB.combine(emptyA).apply {
                 assertSize(2)
-                first().assertSize(0)
-                last().assertSize(0)
+                first().assertEmpty()
+                last().assertEmpty()
             }
         }
     }

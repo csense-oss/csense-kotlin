@@ -1,7 +1,11 @@
 package org.csenseoss.kotlin.extensions.primitives
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.byte.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
+import org.csenseoss.kotlin.tests.assertions.primitives.byte.*
+import org.csenseoss.kotlin.tests.assertions.primitives.char.*
 import kotlin.test.*
 
 class ByteTest {

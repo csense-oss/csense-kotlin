@@ -2,7 +2,9 @@
 
 package org.csenseoss.kotlin.classes.map
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.entry.*
 import kotlin.test.*
 
 class MutableOrderedMapTest {
@@ -13,11 +15,9 @@ class MutableOrderedMapTest {
         map["1111"] = "1111"
         map["1234"] = "1234"
 
-        map.entries.assertSize(2)
-        map.entries.elementAt(0).assert(key = "1111", value = "1111")
-        map.entries.elementAt(1).assert(key = "1234", value = "1234")
+        map.assert("1111" to "1111", "1234" to "1234")
 
-        map.remove("1111")
-        map.assertSingle("1234" to "1234")
+        map.remove(key = "1111")
+        map.assert("1234" to "1234")
     }
 }

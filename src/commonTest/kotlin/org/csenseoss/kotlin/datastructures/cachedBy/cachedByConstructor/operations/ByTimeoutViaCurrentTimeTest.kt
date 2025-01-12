@@ -1,10 +1,12 @@
 package org.csenseoss.kotlin.datastructures.cachedBy.cachedByConstructor.operations
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.datastructures.cachedBy.cachedByConstructor.*
 import org.csenseoss.kotlin.datastructures.cachedBy.timeout.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.nanoseconds

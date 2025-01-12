@@ -1,7 +1,9 @@
 package org.csenseoss.kotlin.debugging
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.annotations.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import org.junit.jupiter.api.*
 
 @OptIn(ExperimentalCsenseApi::class)

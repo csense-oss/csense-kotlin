@@ -1,7 +1,10 @@
 package org.csenseoss.kotlin.patterns.values.lockable.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.values.lockable.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class LockableValueTest {
@@ -24,7 +27,7 @@ class LockableValueTest {
     @Test
     fun lockableValueTGetValue() {
         val value by LockableValue(0, "test")
-        value.assert(value = "test", message = "should get real value")
+        value.assert(expected = "test", message = "should get real value")
     }
 
     @Test
@@ -32,13 +35,13 @@ class LockableValueTest {
         var locked by LockableValue(0, "test")
         locked.assert("test")
         locked = "test2"
-        locked.assert(value = "test", message = "should still respect update count")
+        locked.assert(expected = "test", message = "should still respect update count")
         var unlocked by LockableValue(1, "1234")
         unlocked.assert("1234")
         unlocked = "qwerty"
         unlocked.assert("qwerty")
         unlocked = "shouldFail"
-        unlocked.assert(value = "qwerty", message = "should still respect update count")
+        unlocked.assert(expected = "qwerty", message = "should still respect update count")
     }
 
     @Test

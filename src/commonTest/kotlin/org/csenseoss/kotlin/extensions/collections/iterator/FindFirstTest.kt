@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.iterator
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class FindFirstTest {
@@ -19,7 +20,7 @@ class FindFirstTest {
 
         single.iterator()
             .findFirst { it == "test2" }
-            .assert("test2", "should find value searching for when there")
+            .assert(expected = "test2", message = "should find value searching for when there")
 
 
         val multiple: List<String> = listOf("test1", "test2")

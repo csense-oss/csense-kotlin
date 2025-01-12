@@ -1,7 +1,8 @@
 package org.csenseoss.kotlin.extensions.collections.generic.collection.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
 

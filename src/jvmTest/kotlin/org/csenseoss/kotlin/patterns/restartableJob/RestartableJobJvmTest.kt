@@ -2,10 +2,12 @@
 
 package org.csenseoss.kotlin.patterns.restartableJob
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.patterns.restartableJob.operations.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.coroutines.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import org.junit.jupiter.api.*
 
 class RestartableJobJvmTest {

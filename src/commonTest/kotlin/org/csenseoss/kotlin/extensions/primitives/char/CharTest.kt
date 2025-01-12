@@ -1,7 +1,13 @@
 package org.csenseoss.kotlin.extensions.primitives.char
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.char.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
+import org.csenseoss.kotlin.tests.assertions.primitives.byte.*
+import org.csenseoss.kotlin.tests.assertions.primitives.byte.assert
+import org.csenseoss.kotlin.tests.assertions.primitives.char.*
 import kotlin.test.*
 import kotlin.text.isDigit
 import kotlin.text.isLetter

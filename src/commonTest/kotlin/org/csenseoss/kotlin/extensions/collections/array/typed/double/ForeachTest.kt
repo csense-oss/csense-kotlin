@@ -1,8 +1,10 @@
 @file:Suppress("unused")
 package org.csenseoss.kotlin.extensions.collections.array.typed.double
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.mapping.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.double.*
 import kotlin.test.*
 
 class ForeachTest {

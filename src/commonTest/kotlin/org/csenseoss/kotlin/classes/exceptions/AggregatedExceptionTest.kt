@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.classes.exceptions
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.assert
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class AggregatedExceptionTest {

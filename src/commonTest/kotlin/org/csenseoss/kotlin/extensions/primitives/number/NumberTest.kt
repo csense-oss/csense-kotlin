@@ -1,7 +1,9 @@
 package org.csenseoss.kotlin.extensions.primitives.number
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.boolean.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class NumberTest {
@@ -52,44 +54,44 @@ class NumberTest {
     class NumberIsZero {
         @Test
         fun byte() {
-            (-1).toByte().isZero.isFalse()
-            0.toByte().isZero.isTrue()
-            1.toByte().isZero.isFalse()
+            (-1).toByte().isZero.assertFalse()
+            0.toByte().isZero.assertTrue()
+            1.toByte().isZero.assertFalse()
         }
 
         @Test
         fun short() {
-            (-1).toShort().isZero.isFalse()
-            0.toShort().isZero.isTrue()
-            1.toShort().isZero.isFalse()
+            (-1).toShort().isZero.assertFalse()
+            0.toShort().isZero.assertTrue()
+            1.toShort().isZero.assertFalse()
         }
 
         @Test
         fun int() {
-            (-1).isZero.isFalse()
-            0.isZero.isTrue()
-            1.isZero.isFalse()
+            (-1).isZero.assertFalse()
+            0.isZero.assertTrue()
+            1.isZero.assertFalse()
         }
 
         @Test
         fun long() {
-            (-1L).isZero.isFalse()
-            0L.isZero.isTrue()
-            1L.isZero.isFalse()
+            (-1L).isZero.assertFalse()
+            0L.isZero.assertTrue()
+            1L.isZero.assertFalse()
         }
 
         @Test
         fun float() {
-            (-1f).isZero.isFalse()
-            0f.isZero.isTrue()
-            1f.isZero.isFalse()
+            (-1f).isZero.assertFalse()
+            0f.isZero.assertTrue()
+            1f.isZero.assertFalse()
         }
 
         @Test
         fun double() {
-            (-1.0).isZero.isFalse()
-            (0.0).isZero.isTrue()
-            (1.0).isZero.isFalse()
+            (-1.0).isZero.assertFalse()
+            (0.0).isZero.assertTrue()
+            (1.0).isZero.assertFalse()
         }
     }
 }

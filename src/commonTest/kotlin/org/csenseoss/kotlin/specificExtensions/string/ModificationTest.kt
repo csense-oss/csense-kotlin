@@ -1,6 +1,15 @@
 package org.csenseoss.kotlin.specificExtensions.string
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertEmpty
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertSize
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.assert
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class ModificationTest {
@@ -88,7 +97,8 @@ class ModificationTest {
         @Test
         fun single() {
             "a".modifications.splitAtOrNull(-1).assertNull()
-            "a".modifications.splitAtOrNull(0).assertNotNullApply {
+            "a".modifications.splitAtOrNull(0).apply {
+                this.assertNotNull()
                 beforeIndex.assertEmpty()
                 afterIndex.assertEmpty()
             }
@@ -98,15 +108,19 @@ class ModificationTest {
         @Test
         fun multiple() {
             "abc".modifications.splitAtOrNull(-1).assertNull()
-            "abc".modifications.splitAtOrNull(0).assertNotNullApply {
+            "abc".modifications.splitAtOrNull(0).apply {
+                this.assertNotNull()
+
                 beforeIndex.assertEmpty()
                 afterIndex.assert("bc")
             }
-            "abc".modifications.splitAtOrNull(1).assertNotNullApply {
+            "abc".modifications.splitAtOrNull(1).apply {
+                this.assertNotNull()
                 beforeIndex.assert("a")
                 afterIndex.assert("c")
             }
-            "abc".modifications.splitAtOrNull(2).assertNotNullApply {
+            "abc".modifications.splitAtOrNull(2).apply {
+                this.assertNotNull()
                 beforeIndex.assert("ab")
                 afterIndex.assertEmpty()
             }
@@ -184,7 +198,7 @@ class ModificationTest {
                 searchByWord = false,
                 ignoreCase = false
             ) { it }
-            indexes.assertSize(size = 3, message = "there are 3 a's in the text")
+            indexes.assertSize(expectedCount = 3, message = "there are 3 a's in the text")
 
             indexes[0].assert(expected = 1, message = "first is at second index of string")
 
@@ -205,7 +219,7 @@ class ModificationTest {
                 searchByWord = false,
                 ignoreCase = false
             ) { it }.assertSize(
-                size = 2,
+                expectedCount = 2,
                 message = "since searching by chars, we will encounter an overlap , which then " +
                         "will give us 2 results since we are only advancing by 1 chars"
             )
@@ -216,7 +230,7 @@ class ModificationTest {
                 searchByWord = true,
                 ignoreCase = false
             ) { it }.assertSize(
-                size = 1,
+                expectedCount = 1,
                 message = "since searching by word, we will NOT encounter an overlap , so " +
                         "we will only see [abab] followed by the last part (ab), so not 2 matches"
             )
@@ -246,7 +260,7 @@ class ModificationTest {
             toReplace = "abc",
             newValue = "1234",
             ignoreCase = false
-        ).assert(value = "1234")
+        ).assert(expected = "1234")
 
         "abc".modifications.replaceIf(
             condition = true,
@@ -260,7 +274,7 @@ class ModificationTest {
             toReplace = "ABC",
             newValue = "1234",
             ignoreCase = true
-        ).assert(value = "1234")
+        ).assert(expected = "1234")
     }
 
 

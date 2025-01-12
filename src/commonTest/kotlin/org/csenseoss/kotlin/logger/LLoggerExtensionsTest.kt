@@ -3,7 +3,7 @@ package org.csenseoss.kotlin.logger//package csense.kotlin.logger
 //import org.csenseoss.kotlin.logger.LLoggerExtensions.createPrintLoggerFor
 //import org.csenseoss.kotlin.logger.LLoggerExtensions.createPrintLoggerForAnsiCodes
 //import org.csenseoss.kotlin.logger.LLoggerExtensions.formatMessage
-//import csense.kotlin.tests.assertions.*
+//import org.csenseoss.kotlin.tests.assertions.*
 //import kotlin.test.*
 //
 //@Suppress("unused")

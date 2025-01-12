@@ -1,8 +1,13 @@
 package org.csenseoss.kotlin.logger
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.logger.models.*
 import org.csenseoss.kotlin.logger.operators.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.generic.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class LoggerTests {

@@ -2,33 +2,18 @@
 
 package org.csenseoss.kotlin.extensions.primitives
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.string.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 
 class StringTest {
 
-    @Test
-    fun allIndicesOf() {
-        "".allIndicesOf("", searchByWord = false, ignoreCase = false)
-            .assertEmpty("nothing in nothing is nothing")
-        val textString = "\"a very funny qoute\""
-        textString.allIndicesOf("\"", searchByWord = false, ignoreCase = false).apply {
-            assertSize(2, "since there are 2 \" in the text")
-            first().assert(0, "since the first \" is at the first location")
-            last().assert(textString.length - 1, "since the last \" is at the end")
-        }
 
-        textString.allIndicesOf("abc", searchByWord = false, ignoreCase = false).assertEmpty()
-    }
 
-    @Test
-    fun ifNotEmpty() {
-        "".ifNotEmpty { "asd" }.assert("")
-        " ".ifNotEmpty { "qwe" }.assert("qwe")
-        "abc".ifNotEmpty { "123" }.assert("123")
-    }
 
 
     @Test

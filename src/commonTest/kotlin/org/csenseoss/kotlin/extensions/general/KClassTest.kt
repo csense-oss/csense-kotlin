@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.general
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class KClassTest {
@@ -9,6 +10,6 @@ class KClassTest {
         KClassTest::class.simpleNameOrUnknown.assert(KClassTest::class.simpleName!!)
         val anonymous = object {
         }
-        anonymous::class.simpleNameOrUnknown.assert(value = "<unknown class type>", message = "does not have a name")
+        anonymous::class.simpleNameOrUnknown.assert(expected = "<unknown class type>", message = "does not have a name")
     }
 }

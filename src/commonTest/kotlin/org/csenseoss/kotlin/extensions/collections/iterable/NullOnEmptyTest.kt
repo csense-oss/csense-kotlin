@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class NullOnEmptyTest {
@@ -15,21 +16,12 @@ class NullOnEmptyTest {
     fun single() {
         listOf("a")
             .nullOnEmpty()
-            .assertNotNullApply("should not be null and have a single element that is 'a'") {
-                assertSize(1)
-                first().assert("a")
-            }
+            .assert("a", message = "should not be null and have a single element that is 'a'")
     }
 
     @Test
     fun multiple() {
-        listOf("1", "b", "3")
-            .nullOnEmpty()
-            .assertNotNullApply("should not be null and have a 3 elements") {
-                assertSize(3)
-                this.elementAt(0).assert("1")
-                this.elementAt(1).assert("b")
-                this.elementAt(2).assert("3")
-            }
+        val lst: List<String>? = listOf("1", "b", "3").nullOnEmpty()
+        lst.assert("1", "b", "3", message = "should not be null and have a 3 elements")
     }
 }

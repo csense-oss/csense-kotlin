@@ -4,7 +4,7 @@ package org.csenseoss.kotlin.logger//@file:Suppress("unused")
 //
 //import org.csenseoss.kotlin.*
 //import org.csenseoss.kotlin.extensions.collections.*
-//import csense.kotlin.tests.assertions.*
+//import org.csenseoss.kotlin.tests.assertions.*
 //import kotlin.test.*
 //
 //class LLoggerTest {

@@ -1,6 +1,9 @@
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class FilterMappedTest {
@@ -38,7 +41,7 @@ class FilterMappedTest {
                     it.assert("test")
                     it
                 }
-            ).assertSingle("test")
+            ).assert("test")
 
             iterable.filterMapped(
                 predicate = { it: Int ->
@@ -49,7 +52,7 @@ class FilterMappedTest {
                     it.assert("test")
                     42
                 }
-            ).assertSingle(42)
+            ).assert(42)
 
             iterable.filterMapped(
                 predicate = { it: Int ->

@@ -2,9 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.coroutines.coroutineScope
 
-import org.csenseoss.kotlin.annotations.threading.*
 import kotlinx.coroutines.*
 import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.annotations.threading.*
 
 /**
  * Same as [async] ([Dispatchers.Default])

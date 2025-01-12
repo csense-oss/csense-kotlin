@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.general
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
 import kotlin.test.*
 
 class NotImplementedTest {

@@ -2,8 +2,10 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class SomeTest {

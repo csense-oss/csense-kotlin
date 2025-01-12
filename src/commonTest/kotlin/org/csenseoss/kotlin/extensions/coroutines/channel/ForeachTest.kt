@@ -1,11 +1,12 @@
 package org.csenseoss.kotlin.extensions.coroutines.channel
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.sync.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class ForeachTest {

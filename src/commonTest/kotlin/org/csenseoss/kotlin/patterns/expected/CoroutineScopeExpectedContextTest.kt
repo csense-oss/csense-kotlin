@@ -1,9 +1,11 @@
 package org.csenseoss.kotlin.patterns.expected
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.coroutines.*
 import kotlin.test.*
 
@@ -22,7 +24,7 @@ class CoroutineScopeExpectedContextTest {
     fun coroutineContext(): TestResult = runTest {
         val counter = DummyCoroutineScopeCounter()
         val context: CoroutineScopeExpectedContext = counter.toExpectedContext()
-        context.coroutineContext.assertAs(EmptyCoroutineContext)
+        context.coroutineContext.assertByEquals(EmptyCoroutineContext)
         counter.counter.assert(1)
     }
 }

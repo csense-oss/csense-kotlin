@@ -1,8 +1,9 @@
 package org.csenseoss.kotlin.general.coroutine
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.coroutines.*
 import kotlin.test.*
 

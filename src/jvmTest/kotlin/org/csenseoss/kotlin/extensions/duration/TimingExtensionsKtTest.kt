@@ -1,9 +1,10 @@
 package org.csenseoss.kotlin.extensions.duration
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import org.csenseoss.kotlin.extensions.duration.*
 import org.csenseoss.kotlin.logger.operators.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.junit.jupiter.api.*
 
 internal class TimingExtensionsKtTest {

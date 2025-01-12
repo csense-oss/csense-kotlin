@@ -2,10 +2,11 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.typed.job
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.extensions.collections.array.typed.Job.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class JoinAllTest {

@@ -1,7 +1,10 @@
 package org.csenseoss.kotlin.specificExtensions.collections.collection.categorization
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.primitives.char.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.assert
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class IntoTest {
@@ -38,8 +41,8 @@ class IntoTest {
             { false },
             { false }
         )
-        falseAll1.assertSize(0)
-        falseAll2.assertSize(0)
+        falseAll1.assertEmpty()
+        falseAll2.assertEmpty()
     }
 
     @Test
@@ -69,22 +72,22 @@ class IntoTest {
         )
 
         all1.assertSize(9)
-        all2.assertSize(0)
-        all3.assertSize(0)
+        all2.assertEmpty()
+        all3.assertEmpty()
         val (falseAll1: List<String>, falseAll2: List<String>) = someData.categorization.categorizeIntoSingle(
             { false },
             { false }
         )
-        falseAll1.assertSize(0)
-        falseAll2.assertSize(0)
+        falseAll1.assertEmpty()
+        falseAll2.assertEmpty()
 
         val (falseAll11: List<String>, falseAll21: List<String>, trueAll21: List<String>) = someData.categorization.categorizeIntoSingle(
             { false },
             { false },
             { true }
         )
-        falseAll11.assertSize(0)
-        falseAll21.assertSize(0)
+        falseAll11.assertEmpty()
+        falseAll21.assertEmpty()
         trueAll21.assertSize(9)
 
     }
@@ -98,9 +101,8 @@ class IntoTest {
 
         @Test
         fun emptyInputWithFilters() {
-            listOf<String>().categorization.categorizeInto({ true }).assertSingle { it: List<String> ->
-                it.isEmpty()
-            }
+            listOf<String>().categorization.categorizeInto({ true }).assert(emptyList())
+
             listOf<String>().categorization.categorizeInto({ true }, { true }, allowItemInMultipleBuckets = false)
                 .apply {
                     assertSize(2)
@@ -122,28 +124,24 @@ class IntoTest {
 
         @Test
         fun singleInputWithFilters() {
-            listOf("test").categorization.categorizeInto({ false }).assertSingle { it: List<String> ->
-                it.isEmpty()
-            }
-            listOf("test").categorization.categorizeInto({ true }).assertSingle {
-                it.assertSingle("test")
-            }
+            listOf("test").categorization.categorizeInto({ false }).assert(emptyList())
+            listOf("test").categorization.categorizeInto({ true }).assert(listOf("test"))
             listOf("test").categorization.categorizeInto({ false }, { false }, allowItemInMultipleBuckets = false)
                 .apply {
                     assertSize(2)
                     first().assertEmpty()
                     last().assertEmpty()
                 }
-            listOf("test").categorization.categorizeInto({ true }, { true }, allowItemInMultipleBuckets = false).apply {
-                assertSize(2)
-                first().assertSingle("test")
-                last().assertEmpty("since \"allowItemInMultipleBuckets\" is false")
-            }
-            listOf("test").categorization.categorizeInto({ true }, { true }, allowItemInMultipleBuckets = true).apply {
-                assertSize(2)
-                first().assertSingle("test")
-                last().assertSingle("test")
-            }
+            listOf("test").categorization.categorizeInto({ true }, { true }, allowItemInMultipleBuckets = false).assert(
+                listOf("test"),
+                listOf(),
+                message = "last should be empty since \"allowItemInMultipleBuckets\" is false"
+            )
+
+            listOf("test").categorization.categorizeInto({ true }, { true }, allowItemInMultipleBuckets = true).assert(
+                listOf("test"),
+                listOf("test")
+            )
         }
 
         @Test
@@ -157,8 +155,7 @@ class IntoTest {
                 .apply {
                     assertSize(3)
                     this[0].apply {
-                        assertSize(2)
-                        assertContainsInOrder("test", "abc")
+                        assert("test", "abc")
                     }
                     this[1].assertEmpty("")
                     this[2].assertEmpty("\"allowItemInMultipleBuckets\" = false")
@@ -172,13 +169,11 @@ class IntoTest {
                 .apply {
                     assertSize(3)
                     this[0].apply {
-                        assertSize(2)
-                        assertContainsInOrder("test", "123")
+                        assert("test", "123")
                     }
                     this[1].assertEmpty()
                     this[2].apply {
-                        assertSize(2)
-                        assertContainsInOrder("test", "123")
+                        assert("test", "123")
                     }
                 }
 

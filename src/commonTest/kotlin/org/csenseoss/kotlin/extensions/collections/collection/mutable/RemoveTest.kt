@@ -2,7 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection.mutable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class RemoveTest {
@@ -19,7 +21,7 @@ class RemoveTest {
         fun ifFalseThere() {
             val lst: MutableList<String> = mutableListOf("item")
             lst.removeIf(condition = false, "item").assertFalse()
-            lst.assertSingle("item")
+            lst.assert("item")
         }
 
 
@@ -27,7 +29,7 @@ class RemoveTest {
         fun ifTrueNotThere() {
             val lst: MutableList<String> = mutableListOf("item")
             lst.removeIf(condition = true, "testItem").assertFalse()
-            lst.assertSingle("item")
+            lst.assert("item")
         }
 
         @Test
@@ -41,7 +43,7 @@ class RemoveTest {
         fun ifTrueThereMultipleTimes() {
             val lst: MutableList<String> = mutableListOf("item", "item")
             lst.removeIf(condition = true, "item").assertTrue()
-            lst.assertSingle("item")
+            lst.assert("item")
             lst.removeIf(condition = true, "item").assertTrue()
             lst.assertEmpty()
         }
@@ -61,14 +63,14 @@ class RemoveTest {
         fun notThereAndNullSingle() {
             val lst: MutableList<String> = mutableListOf("lst")
             lst.removeIfNotNull(null).assertFalse()
-            lst.assertSingle("lst")
+            lst.assert("lst")
         }
 
         @Test
         fun notThere() {
             val lst: MutableList<String> = mutableListOf("lst")
             lst.removeIfNotNull("item").assertFalse()
-            lst.assertSingle("lst")
+            lst.assert("lst")
         }
 
         @Test
@@ -82,7 +84,7 @@ class RemoveTest {
         fun thereMultiple() {
             val lst: MutableList<String> = mutableListOf("lst", "lst")
             lst.removeIfNotNull("lst").assertTrue()
-            lst.assertSingle("lst")
+            lst.assert("lst")
             lst.removeIfNotNull("lst").assertTrue()
             lst.assertEmpty()
         }

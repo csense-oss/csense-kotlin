@@ -2,7 +2,11 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class OnEmptyTest {
@@ -25,8 +29,7 @@ class OnEmptyTest {
         fun multiple() {
             val itt = listOf("test", "1234").asIterable()
             val result = itt.onEmpty(listOf())
-            result.count().assert(2)
-            result.assertContainsInOrder("test", "1234")
+            result.assert("test", "1234")
         }
     }
 
@@ -49,8 +52,7 @@ class OnEmptyTest {
         fun multiple() {
             val itt: Iterable<String> = listOf("test", "1234").asIterable()
             val result: Iterable<String> = itt.onEmpty { shouldNotBeCalled() }
-            result.count().assert(2)
-            result.assertContainsInOrder("test", "1234")
+            result.assert("test", "1234")
         }
     }
 

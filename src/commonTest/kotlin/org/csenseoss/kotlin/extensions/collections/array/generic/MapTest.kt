@@ -2,7 +2,11 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class MapTest {
@@ -23,7 +27,7 @@ class MapTest {
                 it.assert("a")
                 42
             }
-            input.assertSingle(42)
+            input.assert(42)
         }
 
 
@@ -35,8 +39,7 @@ class MapTest {
             ).mapToMutable { it: String ->
                 it.toInt()
             }
-            input.assertSize(2)
-            input.assertContainsInOrder(1, 2)
+            input.assert(1, 2)
         }
 
     }
@@ -69,8 +72,7 @@ class MapTest {
                 shouldBeCalled()
                 add(it)
             }
-            calledWithValues.assertSize(2)
-            calledWithValues.assertContainsInOrder("abc", "1234")
+            calledWithValues.assert("abc", "1234")
         }
     }
 }

@@ -2,15 +2,19 @@
 
 package org.csenseoss.kotlin.extensions.coroutines
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.extensions.coroutines.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.coroutines.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import org.junit.jupiter.api.*
 
 class CoroutineScopeIOTest {
     @Test
-    fun coroutineScopeAsyncIO() = runBlocking {
+    fun coroutineScopeAsyncIO(): Unit = runBlocking {
         val async = asyncIO {
             assertDispatcher(Dispatchers.IO)
             "test"
@@ -19,7 +23,8 @@ class CoroutineScopeIOTest {
         value.assert("test")
     }
 
-    class CoroutineScopeLaunchIOWith {
+    @Nested
+    inner class CoroutineScopeLaunchIOWith {
 
         @Test
         fun isRightReceiver() = runTest {
@@ -44,7 +49,8 @@ class CoroutineScopeIOTest {
     }
 
 
-    class CoroutineScopeAsyncIOWith {
+    @Nested
+    inner class CoroutineScopeAsyncIOWith {
 
         @Test
         fun isRightReceiver() = runTest {

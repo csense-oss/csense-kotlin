@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.logger//package csense.kotlin.logger
 //
-//import csense.kotlin.tests.assertions.*
+//import org.csenseoss.kotlin.tests.assertions.*
 //import org.junit.*
 //
 //class LClassLoggersExtensionsTest {

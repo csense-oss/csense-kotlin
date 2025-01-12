@@ -1,7 +1,8 @@
 package org.csenseoss.kotlin.extensions.general
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
 class AlsoTest {

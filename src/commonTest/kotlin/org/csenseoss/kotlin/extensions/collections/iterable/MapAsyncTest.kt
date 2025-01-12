@@ -2,9 +2,11 @@
 
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class MapAsyncTest {
@@ -23,7 +25,7 @@ class MapAsyncTest {
                     shouldBeCalled()
                     it.assert("input")
                     "output"
-                }.awaitAll().assertSingle("output")
+                }.awaitAll().assert("output")
             }
         }
 
@@ -35,9 +37,7 @@ class MapAsyncTest {
                     it.assertStartsWith("input")
                     "output"
                 }.awaitAll().apply {
-                    assertSize(2)
-                    first().assert("output")
-                    last().assert("output")
+                    assert("output","output")
                 }
             }
         }
@@ -56,7 +56,7 @@ class MapAsyncTest {
             listOf("input").mapAsyncAwait(this) { it: String ->
                 it.assert("input")
                 "test"
-            }.assertSingle("test")
+            }.assert("test")
         }
 
         @Test
@@ -64,8 +64,7 @@ class MapAsyncTest {
             val lst: List<String> = listOf("input1", "input2").mapAsyncAwait(this) { it: String ->
                 it
             }
-            lst.assertSize(2)
-            lst.assertContainsAll("input1", "input2")
+            lst.assert("input1", "input2")
         }
     }
 }

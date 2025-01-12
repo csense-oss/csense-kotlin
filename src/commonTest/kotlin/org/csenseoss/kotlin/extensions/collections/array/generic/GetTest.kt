@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
 class GetTest {

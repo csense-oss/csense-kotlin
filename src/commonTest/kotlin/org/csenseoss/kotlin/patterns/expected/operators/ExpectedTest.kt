@@ -1,7 +1,10 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class ExpectedTest {

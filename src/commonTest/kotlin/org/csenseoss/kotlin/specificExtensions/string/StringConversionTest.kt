@@ -1,10 +1,12 @@
 package org.csenseoss.kotlin.specificExtensions.string
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.typed.short.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class StringConversionTest {
-    
+
     @Test
     fun stringConversion() {
         ("".conversion == "a".conversion).assertFalse("should not be same instances.")
@@ -16,9 +18,8 @@ class StringConversionTest {
     fun fromHexStringToByteArray() {
         "".conversion.fromHexStringToByteArray().assertNull("not hex")
         " ".conversion.fromHexStringToByteArray().assertNull("not hex")
-        "0xFF".conversion.fromHexStringToByteArray().assertNotNullApply {
-            assertSize(1)
-            first().assert(0xFF)
-        }
+
+        val valid: ShortArray? = "0xFF".conversion.fromHexStringToByteArray()
+        valid!!.assert(shortArrayOf(0xFF))
     }
 }

@@ -1,6 +1,8 @@
 package org.csenseoss.kotlin.extensions.collections.iterable.mapEntry
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class MapTest {
@@ -16,7 +18,7 @@ class MapTest {
 
     @Test
     fun mapKeys() {
-        emptyEntry.mapKeys().assertSize(0)
+        emptyEntry.mapKeys().assertEmpty()
         singleEntry.mapKeys().apply {
             assertSize(1)
             first().assert("1234")
@@ -30,7 +32,7 @@ class MapTest {
 
     @Test
     fun mapValues() {
-        emptyEntry.mapValues().assertSize(0)
+        emptyEntry.mapValues().assertEmpty()
         singleEntry.mapValues().apply {
             assertSize(1)
             first().assert("asdf")

@@ -2,7 +2,11 @@
 
 package org.csenseoss.kotlin.extensions.mapping
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.generic.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class MappingTest {
@@ -31,8 +35,7 @@ class MappingTest {
         @Test
         fun testDuplicates() {
             (0 until 10).mapToSet { it.rem(2) }.apply {
-                assertSize(size = 2, message = "since we either get 0 or 1, there will only be 2 elements")
-                assertContainsAll(0, 1)
+                assert(0, 1, message = "since we either get 0 or 1, there will only be 2 elements")
             }
         }
 
@@ -90,7 +93,7 @@ class MappingTest {
         fun empty() {
             listOf<String>().mapToTypedArray<String, Int> { _: String ->
                 shouldNotBeCalled()
-            }.assertSize(0)
+            }.assertEmpty()
         }
 
         @Test

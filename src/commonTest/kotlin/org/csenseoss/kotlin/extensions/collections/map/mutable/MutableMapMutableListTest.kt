@@ -1,7 +1,10 @@
 package org.csenseoss.kotlin.extensions.collections.map.mutable
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.map.mutable.mutableList.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.entry.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.iterable.*
 import kotlin.test.*
 
 class MutableMapMutableListTest {
@@ -9,7 +12,7 @@ class MutableMapMutableListTest {
 
         @Test
         fun empty() {
-            val map = mutableMapOf<String, List<String>>()
+            val map: MutableMap<String, List<String>> = mutableMapOf()
             map.removeOnEmptyValue("nonExistingKey")
             map.assertEmpty()
         }
@@ -17,23 +20,23 @@ class MutableMapMutableListTest {
 
         @Test
         fun singleWrongKey() {
-            val map = mutableMapOf<String, List<String>>("test" to listOf())
+            val map: MutableMap<String, List<String>> = mutableMapOf("test" to listOf())
             map.removeOnEmptyValue("key2")
-            map.assertSingle("test" to listOf())
+            map.assert("test" to listOf())
         }
 
         @Test
         fun singleKeyEmpty() {
-            val map = mutableMapOf<String, List<String>>("key" to listOf())
+            val map: MutableMap<String, List<String>> = mutableMapOf("key" to listOf())
             map.removeOnEmptyValue("key")
             map.assertEmpty()
         }
 
         @Test
         fun singleKeyNotEmpty() {
-            val map = mutableMapOf<String, List<String>>("key" to listOf("content"))
+            val map: MutableMap<String, List<String>> = mutableMapOf("key" to listOf("content"))
             map.removeOnEmptyValue("key")
-            map.assertSingle("key" to listOf("content"))
+            map.assert("key" to listOf("content"))
         }
     }
 
@@ -41,7 +44,7 @@ class MutableMapMutableListTest {
 
         @Test
         fun empty() {
-            val map = mutableMapOf<String, String>()
+            val map: MutableMap<String, String> = mutableMapOf()
             map.moveToBack("missing")
             map.assertEmpty()
         }
@@ -49,29 +52,29 @@ class MutableMapMutableListTest {
 
         @Test
         fun singleNotFound() {
-            val map = mutableMapOf("test" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234")
             map.moveToBack("missing")
-            map.assertSingle("test" to "1234")
+            map.assert("test" to "1234")
         }
 
         @Test
         fun singleFound() {
-            val map = mutableMapOf("test" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234")
             map.moveToBack("test")
-            map.assertSingle("test" to "1234")
+            map.assert("test" to "1234")
         }
 
 
         @Test
         fun multipleNotFound() {
-            val map = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
             map.moveToBack("missing")
             map.assertSize(3)
         }
 
         @Test
         fun multipleFoundInFront() {
-            val map = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
             map.moveToBack("test")
             map.assertSize(3)
             map.entries.last().assert("test", "1234")
@@ -79,7 +82,7 @@ class MutableMapMutableListTest {
 
         @Test
         fun multipleFoundInMiddle() {
-            val map = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
             map.moveToBack("abc")
             map.assertSize(3)
             map.entries.last().assert("abc", "1234")
@@ -88,7 +91,7 @@ class MutableMapMutableListTest {
 
         @Test
         fun multipleFoundInEnd() {
-            val map = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
+            val map: MutableMap<String, String> = mutableMapOf("test" to "1234", "abc" to "1234", "qwerty" to "1234")
             map.moveToBack("qwerty")
             map.assertSize(3)
             map.entries.last().assert("qwerty", "1234")

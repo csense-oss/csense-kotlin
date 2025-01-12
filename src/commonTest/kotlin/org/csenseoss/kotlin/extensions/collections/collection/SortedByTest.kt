@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import kotlin.test.*
 
 class SortedByTest {
@@ -13,14 +14,14 @@ class SortedByTest {
 
         @Test
         fun single() {
-            listOf(false).sortedByFalseFirst().assertSingle(false)
+            listOf(false).sortedByFalseFirst().assert(false)
         }
 
         @Test
         fun multiple() {
             listOf(true, false, true, false)
                 .sortedByFalseFirst()
-                .assertContainsInOrder(false, false, true, true)
+                .assert(false, false, true, true)
         }
     }
 
@@ -33,14 +34,14 @@ class SortedByTest {
 
         @Test
         fun single() {
-            listOf(true).sortedByTrueFirst().assertSingle(true)
+            listOf(true).sortedByTrueFirst().assert(true)
         }
 
         @Test
         fun multiple() {
             listOf(true, false, true, false)
                 .sortedByTrueFirst()
-                .assertContainsInOrder(true, true, false, false)
+                .assert(true, true, false, false)
         }
     }
 }

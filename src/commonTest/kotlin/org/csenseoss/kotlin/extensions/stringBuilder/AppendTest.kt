@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.stringBuilder
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
 import kotlin.test.*
 
 class AppendTest {

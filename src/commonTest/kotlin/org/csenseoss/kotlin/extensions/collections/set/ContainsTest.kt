@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.set
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class ContainsTest {

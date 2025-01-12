@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection.mutable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class AddTest {
@@ -12,17 +13,15 @@ class AddTest {
         fun testEmpty() {
             mutableListOf<String>().apply {
                 addAll()
-                assertSize(0)
+                assertEmpty()
             }
             mutableListOf<String>().apply {
                 addAll("a")
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf<String>().apply {
                 addAll("a", "b")
-                assertSize(2)
-                assertContainsAll("a", "b")
+                assert("a", "b")
             }
         }
 
@@ -30,18 +29,16 @@ class AddTest {
         fun testSingle() {
             mutableListOf("a").apply {
                 addAll()
-                assertSize(1)
-                assertContains("a")
+                assert("a")
             }
             mutableListOf("a").apply {
                 addAll("a")
-                assertSize(2)
-                assertContains("a")
+
+                assert("a", "a")
             }
             mutableListOf("a").apply {
                 addAll("a", "b")
-                assertSize(3)
-                assertContainsAll("a", "b")
+                assert("a", "a", "b")
             }
         }
 
@@ -54,13 +51,11 @@ class AddTest {
             }
             mutableListOf("a", "c").apply {
                 addAll("a")
-                assertSize(3)
-                assertContains("a", "c")
+                assert("a","c","a")
             }
             mutableListOf("a", "c").apply {
                 addAll("a", "b")
-                assertSize(4)
-                assertContainsAll("a", "b", "c")
+                assert("a","c","a","b")
             }
         }
     }
@@ -79,7 +74,7 @@ class AddTest {
         fun onNotNull() {
             val lst: MutableList<String> = mutableListOf()
             lst.addIfNotNull("item").assertTrue("should be added")
-            lst.assertSingle("item")
+            lst.assert("item")
         }
 
     }
@@ -98,10 +93,9 @@ class AddTest {
         fun ifTrue() {
             val lst: MutableList<String> = mutableListOf()
             lst.addIf(condition = true, "testItem").assertTrue()
-            lst.assertSingle("testItem")
+            lst.assert("testItem")
         }
     }
-
 
 
     class MutableCollectionEAddAllItems {
@@ -125,21 +119,20 @@ class AddTest {
         fun singleOnEmpty() {
             val lst: MutableList<String> = mutableListOf()
             lst.addAll(items = listOf("asd")).assertTrue()
-            lst.assertSingle("asd")
+            lst.assert("asd")
         }
 
         @Test
         fun singleStarting() {
             val startLst: MutableList<String> = mutableListOf("123")
             startLst.addAll(items = null).assertTrue()
-            startLst.assertSingle("123")
+            startLst.assert("123")
 
             startLst.addAll(items = listOf()).assertTrue()
-            startLst.assertSingle("123")
+            startLst.assert("123")
 
             startLst.addAll(items = listOf("test")).assertTrue()
-            startLst.assertSize(2)
-            startLst.assertContainsInOrder("123", "test")
+            startLst.assert("123", "test")
         }
 
 
@@ -147,8 +140,7 @@ class AddTest {
         fun multipleOnEmpty() {
             val startLst: MutableList<String> = mutableListOf()
             startLst.addAll(items = listOf("1234", "abc")).assertTrue()
-            startLst.assertSize(2)
-            startLst.assertContainsInOrder("1234", "abc")
+            startLst.assert("1234", "abc")
         }
 
         @Test
@@ -156,21 +148,18 @@ class AddTest {
             val startLst: MutableList<String> = mutableListOf("1234", "abc")
 
             startLst.addAll(items = null).assertTrue()
-            startLst.assertSize(2)
-            startLst.assertContainsInOrder("1234", "abc")
+
+            startLst.assert("1234", "abc")
 
             startLst.addAll(items = listOf()).assertTrue()
-            startLst.assertSize(2)
-            startLst.assertContainsInOrder("1234", "abc")
+            startLst.assert("1234", "abc")
 
 
             startLst.addAll(items = listOf("1")).assertTrue()
-            startLst.assertSize(3)
-            startLst.assertContainsInOrder("1234", "abc", "1")
+            startLst.assert("1234", "abc", "1")
 
             startLst.addAll(items = listOf("2", "3")).assertTrue()
-            startLst.assertSize(5)
-            startLst.assertContainsInOrder("1234", "abc", "1", "2", "3")
+            startLst.assert("1234", "abc", "1", "2", "3")
 
         }
     }

@@ -2,10 +2,13 @@
 
 package org.csenseoss.kotlin.patterns.restartableJob
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.patterns.restartableJob.operations.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.coroutines.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import org.junit.jupiter.api.*
 
 class RestartableJobWith3ArgumentsJvmTest {
@@ -44,7 +47,8 @@ class RestartableJobWith3ArgumentsJvmTest {
     }
 
 
-    class CoroutineScopeRestartableJobInIO {
+    @Nested
+    inner class CoroutineScopeRestartableJobInIO {
 
         @Test
         fun runsActionInIOThread() = runTest {

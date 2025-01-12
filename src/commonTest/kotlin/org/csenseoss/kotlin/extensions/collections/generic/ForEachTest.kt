@@ -1,8 +1,12 @@
 package org.csenseoss.kotlin.extensions.collections.generic
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class ForEachTest {
@@ -57,7 +61,7 @@ class ForEachTest {
                         second.assert(11)
                         "wee"
                     }
-                ).assertSingle("wee")
+                ).assert("wee")
                 getCallCount.assert(2)
                 mapperCallCount.assert(1)
             }
@@ -99,7 +103,7 @@ class ForEachTest {
                         second.assert(11)
                         "wee"
                     }
-                ).assertSingle("wee")
+                ).assert("wee")
             }
         }
     }

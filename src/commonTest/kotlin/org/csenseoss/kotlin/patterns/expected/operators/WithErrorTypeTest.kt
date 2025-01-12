@@ -1,7 +1,8 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class WithErrorTypeTest {
@@ -33,12 +34,12 @@ class WithErrorTypeTest {
         val failed: Expected<Int, RuntimeException> = Expected.Failed(RuntimeException())
         assertCalled { shouldBeCalled: () -> Unit ->
             val fallbackError = ErrorTypeException()
-            failed.withErrorType {
+            val failedType = failed.withErrorType {
                 shouldBeCalled()
                 fallbackError
-            }.assertIsApply<Expected.Failed<ErrorTypeException>> {
-                error.assertByEquals(fallbackError)
             }
+            failedType.assertIs<Expected.Failed<ErrorTypeException>>()
+            failedType.error.assertByEquals(fallbackError)
         }
         failed.withErrorType<Int, RuntimeException> { shouldNotBeCalled() }.assertByEquals(failed)
 

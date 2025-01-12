@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.specificExtensions.list
 
-import org.csenseoss.kotlin.extensions.collections.*
 import kotlin.jvm.*
 
 
@@ -20,7 +19,7 @@ public value class ListModifications<T>(public val list: List<T>)
  * optimized such that if no replacements are made, it will return the original list without copying it.
  */
 public fun <T> ListModifications<T>.replaceAllWith(
-    predicate: Predicate<T>,
+    predicate: (item: T) -> Boolean,
     replaceWith: (item: T) -> T
 ): List<T> {
 

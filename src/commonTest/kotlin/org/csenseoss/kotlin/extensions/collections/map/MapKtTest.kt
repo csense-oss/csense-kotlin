@@ -2,17 +2,21 @@
 
 package org.csenseoss.kotlin.extensions.collections.map
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.classes.map.*
 import org.csenseoss.kotlin.extensions.mapping.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 
 class MapKtTest {
 
-    val emptyMap = mapOf<String, String>()
-    val singleMap = mapOf("a" to "b")
-    val nullMap = mapOf<String?, String>(null to "abc")
+    val emptyMap: Map<String, String> = mapOf()
+    val singleMap: Map<String, String> = mapOf("a" to "b")
+    val nullMap: Map<String?, String> = mapOf(null to "abc")
 
     @Test
     fun forEachIndexed() {
@@ -49,17 +53,18 @@ class MapKtTest {
                 it.value.assert("1")
                 shouldBeCalled()
                 true
-            }.assertSingle("a") //should include items by true
+            }.assert("a", message = "should include items by true")
         }
 
         @Test
         fun nullableTrue() = assertCalled { shouldBeCalled: () -> Unit ->
-            mapOf<String?, String>(null to "a").filterMapKey {
+            val mapped: List<String?> = mapOf<String?, String>(null to "a").filterMapKey {
                 it.key.assertNull()
                 it.value.assert("a")
                 shouldBeCalled()
                 true
-            }.assertSingle(null) // null should still work
+            }
+            mapped.assertByEquals(expected = listOf(null), message = "null should still work")
         }
 
         @Test
@@ -81,10 +86,7 @@ class MapKtTest {
             ).filterMapKey {
                 shouldBeCalled()
                 true
-            }.apply {
-                assertSize(2, message = "should keep all")
-                assertContainsAll("a", "b")
-            }
+            }.assert("a", "b", message = "should keep all")
         }
 
         @Test
@@ -95,7 +97,7 @@ class MapKtTest {
             ).filterMapKey {
                 shouldBeCalled()
                 it.key == "b"
-            }.assertSingle("b")
+            }.assert("b")
         }
 
     }
@@ -103,13 +105,19 @@ class MapKtTest {
     @Test
     fun useValueOr() {
         var notFoundCounter = 0
-        emptyMap.useValueOr("notThere", { failTest("Should not get called") }, { notFoundCounter += 1 })
+        emptyMap.useValueOr(
+            key = "notThere",
+            onKeyFound = { failTest("Should not get called") },
+            onKeyNotFound = { notFoundCounter += 1 })
         notFoundCounter.assert(1)
         var foundCounter = 0
-        singleMap.useValueOr("a", { foundCounter += 1 }, { failTest("should not get called") })
+        singleMap.useValueOr(
+            key = "a",
+            onKeyFound = { foundCounter += 1 },
+            onKeyNotFound = { failTest("should not get called") })
         foundCounter.assert(1)
         notFoundCounter = 0
-        singleMap.useValueOr("b", { failTest() }, { notFoundCounter += 1 })
+        singleMap.useValueOr(key = "b", onKeyFound = { failTest() }, onKeyNotFound = { notFoundCounter += 1 })
         notFoundCounter.assert(1)
 
         assertCalled { shouldBeCalled: () -> Unit ->
@@ -123,13 +131,13 @@ class MapKtTest {
     class MapKVDoesNotContainKey {
         @Test
         fun empty() {
-            val map = mapOf<String, String>()
+            val map: Map<String, String> = mapOf<String, String>()
             map.doesNotContainKey("1").assertTrue()
         }
 
         @Test
         fun single() {
-            val map = mapOf("1234" to "")
+            val map: Map<String, String> = mapOf("1234" to "")
             map.doesNotContainKey("1").assertTrue()
             map.doesNotContainKey("1234").assertFalse()
             map.doesNotContainKey("12345").assertTrue()
@@ -137,7 +145,7 @@ class MapKtTest {
 
         @Test
         fun multiple() {
-            val map = mapOf(123 to "", 444 to "")
+            val map: Map<Int, String> = mapOf(123 to "", 444 to "")
             map.doesNotContainKey(1).assertTrue()
             map.doesNotContainKey(2).assertTrue()
             map.doesNotContainKey(123).assertFalse()
@@ -165,14 +173,11 @@ class MapKtTest {
 
         @Test
         fun single() {
-            val toAssert = MapEntry("1234", "abc")
-            val mapped = mapOf("test" to "1234").toMapViaMapEntry {
+            val toAssert: MapEntry<String, String> = MapEntry("1234", "abc")
+            val mapped: Map<String, String> = mapOf("test" to "1234").toMapViaMapEntry {
                 toAssert
             }
-            mapped.assertSingle {
-                it.key.assert(toAssert.key)
-                it.value.assert(toAssert.value)
-            }
+            mapped.assert(toAssert)
         }
 
         @Test
@@ -199,16 +204,16 @@ class MapKtTest {
 
         @Test
         fun single() {
-            val toAssert = "12345" to "abc"
-            val mapped = mapOf("test" to "1234").toMapViaKeyValuePair {
+            val toAssert: Pair<String, String> = "12345" to "abc"
+            val mapped: Map<String, String> = mapOf("test" to "1234").toMapViaKeyValuePair {
                 toAssert
             }
-            mapped.assertSingle(toAssert)
+            mapped.assert(toAssert)
         }
 
         @Test
         fun multiple() {
-            val mapped = mapOf("a" to 1, "b" to 2).toMapViaKeyValuePair {
+            val mapped: Map<String, Int> = mapOf("a" to 1, "b" to 2).toMapViaKeyValuePair {
                 it.key to it.value + 20
             }
             mapped.assertSize(2)
@@ -230,44 +235,29 @@ class MapKtTest {
         fun single() {
             mapOf(0 to 1).toMapViaMapEntry {
                 MapEntry(it.key, it.value)
-            }.assertSingle {
-                it.key.assert(0)
-                it.value.assert(1)
-            }
+            }.assert(0 to 1)
+
             mapOf(0 to 1).toMapViaMapEntry {
                 MapEntry(10, 20)
-            }.assertSingle {
-                it.key.assert(10)
-                it.value.assert(20)
-            }
+            }.assert(10 to 20)
 
         }
 
         @Test
         fun multipleDirect() {
-            val result = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
+            val result: Map<Int, Int> = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
                 MapEntry(it.key, it.value)
             }
-
-            result.assertSize(2)
-            result.assertContainsKeyAnd(0) { value ->
-                value.assert(1)
-            }
-            result.assertContainsKeyAnd(10) { value ->
-                value.assert(20)
-            }
+            result.assert(0 to 1, 10 to 20)
         }
 
         @Test
         fun multipleSameKey() {
-            val result = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
+            val result: Map<Int, Int> = mapOf(0 to 1, 10 to 20).toMapViaMapEntry {
                 MapEntry(0, 30)
             }
 
-            result.assertSingle {
-                it.key.assert(0)
-                it.value.assert(30)
-            }
+            result.assert(0 to 30)
         }
 
     }
@@ -282,29 +272,19 @@ class MapKtTest {
         fun single() {
             mapOf(0 to 1).toMapViaKeyValuePair {
                 it.key to it.value
-            }.assertSingle {
-                it.key.assert(0)
-                it.value.assert(1)
-            }
+            }.assert(0 to 1)
             mapOf(0 to 1).toMapViaKeyValuePair {
                 10 to 20
-            }.assertSingle {
-                it.key.assert(10)
-                it.value.assert(20)
-            }
+            }.assert(10 to 20)
 
         }
 
         @Test
         fun multipleSameKey() {
-            val result = mapOf(0 to 1, 10 to 20).toMapViaKeyValuePair {
+            val result: Map<Int, Int> = mapOf(0 to 1, 10 to 20).toMapViaKeyValuePair {
                 0 to 10
             }
-
-            result.assertSingle {
-                it.key.assert(0)
-                it.value.assert(10)
-            }
+            result.assert(0 to 10)
         }
     }
 
@@ -658,43 +638,34 @@ class MapKtTest {
 
         @Test
         fun empty() {
-            val empty = mapOf<String, Int>().reverseKeyValue()
+            val empty: Map<Int, String> = mapOf<String, Int>().reverseKeyValue()
             empty.assertEmpty()
         }
 
 
         @Test
         fun single() {
-            val single = mapOf("abc" to 42).reverseKeyValue()
+            val single: Map<Int, String> = mapOf("abc" to 42).reverseKeyValue()
             single.assertIs<Map<Int, String>>()
-            single.assertSingle {
-                it.key.assert(42)
-                it.value.assert("abc")
-            }
+            single.assert(42 to "abc")
         }
 
 
         @Test
         fun multipleNoCollisions() {
-            val multiple = mapOf("abc" to 42, "1234" to 500).reverseKeyValue()
+            val multiple: Map<Int, String> = mapOf("abc" to 42, "1234" to 500).reverseKeyValue()
             multiple.assertIs<Map<Int, String>>()
             multiple.assertSize(2)
-            multiple.assertContainsKeyAnd(42) {
-                it.assert("abc")
-            }
-            multiple.assertContainsKeyAnd(500) {
-                it.assert("1234")
-            }
+            multiple.assertContains(expectedKey = 42, expectedValue = "abc")
+            multiple.assertContains(expectedKey = 500, expectedValue = "1234")
         }
 
         @Test
         fun collisions() {
-            val multiple = mapOf("abc" to 500, "1234" to 500).reverseKeyValue()
+            val multiple: Map<Int, String> = mapOf("abc" to 500, "1234" to 500).reverseKeyValue()
             multiple.assertIs<Map<Int, String>>()
             multiple.assertSize(1)
-            multiple.assertContainsKeyAnd(500) {
-                it.assert("1234", message = "last entry wins")
-            }
+            multiple.assert(500 to "1234", message = "last entry wins")
         }
 
     }
@@ -709,14 +680,14 @@ class MapKtTest {
 
         @Test
         fun empty() {
-            val map: Map<String, String>? = mapOf()
+            val map: Map<String, String>? = mapOf<String, String>().nullable()
             map.isNotNullOrEmpty().assertFalse("is empty")
         }
 
 
         @Test
         fun single() {
-            val map: Map<String, String>? = mapOf("a" to "1")
+            val map: Map<String, String>? = mapOf("a" to "1").nullable()
             map.isNotNullOrEmpty().assertTrue("has content")
         }
 
@@ -726,7 +697,7 @@ class MapKtTest {
             val map: Map<String, String>? = mapOf(
                 "a" to "1",
                 "b" to "2"
-            )
+            ).nullable()
             map.isNotNullOrEmpty().assertTrue("has content")
         }
 

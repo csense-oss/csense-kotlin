@@ -1,8 +1,10 @@
 package org.csenseoss.kotlin.extensions.coroutines.coroutineScope
 
-import csense.kotlin.tests.assertions.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.coroutines.*
 import kotlin.test.*
 
 class WithContextTest {

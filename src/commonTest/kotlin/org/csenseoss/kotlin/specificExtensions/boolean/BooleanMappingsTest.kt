@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.specificExtensions.boolean
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class BooleanMappingsTest {

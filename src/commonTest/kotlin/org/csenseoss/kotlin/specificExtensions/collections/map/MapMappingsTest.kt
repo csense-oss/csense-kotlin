@@ -1,6 +1,12 @@
 package org.csenseoss.kotlin.specificExtensions.collections.map
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.*
+import org.csenseoss.kotlin.tests.assertions.collections.map.entry.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class MapMappingsTest {
@@ -58,7 +64,7 @@ class MapMappingsTest {
         fun single() {
             val map: Map<String, String> = mapOf("abc" to "123")
             val reverse: MutableMap<String, String> = map.mappings.reverseKeyValue()
-            reverse.assertSingle(keyValue = "123" to "abc")
+            reverse.assert("123" to "abc")
         }
 
         @Test

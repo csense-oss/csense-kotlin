@@ -2,9 +2,12 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collection.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.extensions.primitives.int.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class GenericTest {
@@ -136,7 +139,7 @@ class GenericTest {
                     shouldBeCalled()
                     22
                 })
-            lst.assertSingle(22)
+            lst.assert(22)
         }
 
         @Test
@@ -154,7 +157,7 @@ class GenericTest {
                     shouldBeCalled()
                     33
                 })
-            lst.assertSingle(33)
+            lst.assert(33)
         }
 
         @Test
@@ -253,7 +256,7 @@ class GenericTest {
                     shouldBeCalled()
                     true
                 })
-            lst.assertSingle("output")
+            lst.assert("output")
         }
 
         @Test
@@ -375,8 +378,7 @@ class GenericTest {
                     add(it)
                 })
 
-            indexesCalled.assertSize(2)
-            indexesCalled.assertContainsInOrder(0, 1)
+            indexesCalled.assert(0, 1)
         }
 
     }
@@ -415,8 +417,7 @@ class GenericTest {
                 },
                 getNextLevel = { it.parent }
             )
-            idCallOrder.assertSize(2)
-            idCallOrder.assertContainsInOrder("child", "parent")
+            idCallOrder.assert("child", "parent")
         }
 
     }
@@ -455,8 +456,7 @@ class GenericTest {
                 },
                 getNextLevel = { it.parent }
             )
-            idCallOrder.assertSize(2)
-            idCallOrder.assertContainsInOrder("child", "parent")
+            idCallOrder.assert("child", "parent")
         }
 
         @Test
@@ -480,8 +480,7 @@ class GenericTest {
                 },
                 getNextLevel = { it.parent }
             )
-            idCallOrder.assertSize(2)
-            idCallOrder.assertContainsInOrder("child", "root")
+            idCallOrder.assert("child", "root")
         }
     }
 }
@@ -496,9 +495,7 @@ class GenericTestTreeStructure(
 
         other as GenericTestTreeStructure
 
-        if (id != other.id) return false
-
-        return true
+        return id == other.id
     }
 
     override fun hashCode(): Int {

@@ -2,7 +2,9 @@
 
 package org.csenseoss.kotlin.classes.iterator
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class EmptyListIteratorTest {
@@ -30,7 +32,7 @@ class EmptyListIteratorTest {
     }
 
     @Test
-    fun next() = assertThrows<Throwable> {
+    fun next() = assertThrows<Throwable>() {
         EmptyListIterator.next()
     }
 

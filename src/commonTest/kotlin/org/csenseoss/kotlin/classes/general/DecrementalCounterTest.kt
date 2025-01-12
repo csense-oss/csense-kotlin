@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.classes.general
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class DecrementalCounterTest {

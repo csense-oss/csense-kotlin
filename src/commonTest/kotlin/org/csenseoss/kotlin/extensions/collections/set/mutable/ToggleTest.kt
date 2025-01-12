@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.set.mutable
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import kotlin.test.*
 
 class ToggleTest {
@@ -11,17 +11,15 @@ class ToggleTest {
 
         col.toggleExistence("asd")
         col.assertSize(1)
-        col.assertContains("asd")
+        col.assert("asd")
 
         col.toggleExistence("asd")
-        col.assertSize(0)
-        col.assertContainsNot("asd")
+        col.assertEmpty()
 
 
         col.toggleExistence("asd1")
         col.toggleExistence("asd2")
-        col.assertSize(2)
-        col.assertContainsAll("asd1", "asd2")
+        col.assert("asd1", "asd2")
     }
 
 }

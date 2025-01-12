@@ -1,6 +1,10 @@
 package org.csenseoss.kotlin.specificExtensions.collections.collection
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class CollectionMappingsTest {
@@ -37,8 +41,7 @@ class CollectionMappingsTest {
                 shouldBeCalled()
                 this += it
             }
-            result.assertSize(2)
-            result.assertContainsInOrder("test", "1234")
+            result.assert("test", "1234")
         }
 
     }

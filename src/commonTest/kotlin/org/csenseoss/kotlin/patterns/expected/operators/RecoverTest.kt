@@ -1,7 +1,9 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class RecoverTest {
@@ -11,7 +13,7 @@ class RecoverTest {
         @Test
         fun success() {
             val exp: Expected<String, *> = Expected.Success(value = "42").asExpected()
-            exp.recover { shouldNotBeCalled() }.value.assert(value = "42")
+            exp.recover { shouldNotBeCalled() }.value.assert(expected = "42")
 
 //            val nothingError: Expected<String, Nothing> = Expected.Success("test")
 //            //should cause a compiler error
@@ -25,7 +27,7 @@ class RecoverTest {
         @Test
         fun failed() {
             val exp: Expected<String, Int> = Expected.Failed(error = 1)
-            exp.recover { "test" }.value.assert(value = "test")
+            exp.recover { "test" }.value.assert(expected = "test")
 
             val expNothing: Expected<Nothing, Int> = Expected.Failed(999)
             expNothing.recover { "hello" }.value.assert("hello")

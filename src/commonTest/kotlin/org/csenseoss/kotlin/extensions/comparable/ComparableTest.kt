@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.extensions.comparable
 
-import csense.kotlin.tests.assertions.assertFalse
-import csense.kotlin.tests.assertions.assertTrue
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class ComparableTest {

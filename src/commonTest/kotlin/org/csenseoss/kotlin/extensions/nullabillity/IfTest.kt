@@ -1,6 +1,7 @@
 package org.csenseoss.kotlin.extensions.nullabillity
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class IfTest {

@@ -1,25 +1,30 @@
 package org.csenseoss.kotlin.patterns.expected.operators
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.patterns.expected.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.comparable.*
+import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*
 
 class SuccessOrFailedTest {
     @Test
     fun nullSuccess() {
-        Expected.successOrFailed(potentialSuccess = null, potentialErrorOrFallback = "error")
-            .assertIsApply<Expected.Failed<String>> {
-                error.assert("error")
-            }
-
+        val value: Expected<Nothing, String> = Expected.successOrFailed(
+            potentialSuccess = null,
+            potentialErrorOrFallback = "error"
+        )
+        value.assertIs<Expected.Failed<String>>()
+        value.error.assert("error")
     }
 
 
     @Test
     fun success() {
-        Expected.successOrFailed(potentialSuccess = "test", potentialErrorOrFallback = "error")
-            .assertIsApply<Expected.Success<String>> {
-                value.assert("test")
-            }
+        val value: Expected<String, String> = Expected.successOrFailed(
+            potentialSuccess = "test",
+            potentialErrorOrFallback = "error"
+        )
+        value.assertIs<Expected.Success<String>>()
+        value.value.assert("test")
     }
 }

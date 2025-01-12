@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.patterns.values.lockable
 
-import org.csenseoss.kotlin.annotations.numbers.*
 import org.csenseoss.kotlin.*
+import org.csenseoss.kotlin.annotations.numbers.*
 
 /**
  * A mutable container that locks the amount of updates that are allowed (or if forced to lock)

@@ -2,7 +2,8 @@
 
 package org.csenseoss.kotlin.classes.iterator
 
-import csense.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class EmptyIteratorTest {

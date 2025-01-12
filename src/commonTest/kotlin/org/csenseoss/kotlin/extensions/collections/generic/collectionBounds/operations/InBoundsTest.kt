@@ -2,8 +2,9 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations
 
-import csense.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.*
+import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 
 class InBoundsTest {
