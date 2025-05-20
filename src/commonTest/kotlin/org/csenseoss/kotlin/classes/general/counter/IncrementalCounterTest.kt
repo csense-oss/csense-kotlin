@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package org.csenseoss.kotlin.classes.general
+package org.csenseoss.kotlin.classes.general.counter
 
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*

@@ -1,10 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.set.mutable
 
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
-import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
-import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertContains
-import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertSize
 import kotlin.test.*
 
 class SetExistenceTest {

@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 
 
 /**

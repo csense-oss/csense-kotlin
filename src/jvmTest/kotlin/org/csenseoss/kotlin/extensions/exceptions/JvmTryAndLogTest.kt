@@ -4,6 +4,7 @@ package org.csenseoss.kotlin.extensions.exceptions
 class JvmTryAndLogTest {
 
     class TryAndLogClazz {
+
     }
 
     class TryAndLogKClazz {

@@ -6,6 +6,7 @@ buildscript {
 
     //https://github.com/Kotlin/kotlinx.coroutines
     ext.coroutinesVersion = "1.10.1"
+
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.1-Local"
 
@@ -13,7 +14,7 @@ buildscript {
     ext.csenseAnnotationVersion = "0.0.3"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.1.0"
+    ext.kotlin_version = "2.2.0-RC"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
     ext.csenseVersionName = "0.0.3-Local"
@@ -40,10 +41,13 @@ plugins {
     id "maven-publish"
     //https://github.com/JetBrains/kotlin
     id 'org.jetbrains.kotlin.multiplatform' version "$kotlin_version"
-    //https://github.com/jeremylong/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
-    id "org.owasp.dependencycheck" version "11.1.1"
+    //https://github.com/Kotlin/kotlinx-kover
+    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+
+    //https://github.com/dependency-check/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+    id "org.owasp.dependencycheck" version "12.1.1"
     //https://github.com/vanniktech/gradle-maven-publish-plugin
-    id "com.vanniktech.maven.publish" version "0.30.0"
+    id "com.vanniktech.maven.publish" version "0.32.0"
 }
 
 repositories {

@@ -2,7 +2,6 @@ package org.csenseoss.kotlin.extensions.primitives
 
 import org.csenseoss.kotlin.extensions.primitives.char.*
 import org.csenseoss.kotlin.extensions.primitives.charSequence.*
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.general.*

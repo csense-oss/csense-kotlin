@@ -5,13 +5,13 @@ import org.csenseoss.kotlin.extensions.primitives.charSequence.*
 import org.csenseoss.kotlin.extensions.primitives.charSequence.word.*
 
 public fun CharSequenceWord.forEach(onEachWord: (CharSequence) -> Unit) {
-    var startOfString: Int = charSequence.indexOfFirstOrNull(startIndex = 0) { it: Char ->
-        it.isNotWhitespace()
-    } ?: return
+    var startOfString: Int = charSequence.indexOfFirstOrNull(startIndex = 0, predicate = Char::isNotWhitespace) ?: return
     do {
-        val endOfString: Int = charSequence.indexOfFirstOrNull(startIndex = startOfString) { it: Char ->
-            it.isWhitespace()
-        } ?: return
+
+        val endOfString: Int = charSequence.indexOfFirstOrNull(
+            startIndex = startOfString,
+            predicate = Char::isWhitespace
+        ) ?: charSequence.length
 
         val subString: String = charSequence.substring(startIndex = startOfString, endIndex = endOfString)
         onEachWord(subString)

@@ -2,7 +2,6 @@ package org.csenseoss.kotlin.extensions.primitives
 
 import org.csenseoss.kotlin.extensions.primitives.float.*
 import org.csenseoss.kotlin.extensions.primitives.int.*
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import org.csenseoss.kotlin.tests.assertions.primitives.float.*
 import kotlin.test.*

@@ -1,4 +1,4 @@
-package org.csenseoss.kotlin.classes.iterator
+package org.csenseoss.kotlin.classes.iterator.empty
 
 import org.csenseoss.kotlin.general.*
 

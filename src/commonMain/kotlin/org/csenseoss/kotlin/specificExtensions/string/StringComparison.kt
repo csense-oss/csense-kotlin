@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.specificExtensions.string
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations.*
 import org.csenseoss.kotlin.extensions.general.*
 import org.csenseoss.kotlin.extensions.primitives.boolean.*

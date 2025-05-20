@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.generic.collection.operations
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 
 public inline fun <T> GenericCollections.indexOfFirstOrNull(

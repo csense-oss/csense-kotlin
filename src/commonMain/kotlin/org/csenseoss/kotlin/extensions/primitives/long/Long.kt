@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.long
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.general.*
 import kotlin.contracts.*
 import kotlin.math.*

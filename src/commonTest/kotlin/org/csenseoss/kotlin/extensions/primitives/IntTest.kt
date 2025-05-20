@@ -1,8 +1,6 @@
 package org.csenseoss.kotlin.extensions.primitives
 
 import org.csenseoss.kotlin.extensions.primitives.int.*
-import org.csenseoss.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.comparable.assert
 import org.csenseoss.kotlin.tests.assertions.general.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*

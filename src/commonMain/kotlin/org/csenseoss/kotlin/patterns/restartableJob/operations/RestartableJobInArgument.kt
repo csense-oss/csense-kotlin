@@ -1,7 +1,7 @@
 package org.csenseoss.kotlin.patterns.restartableJob.operations
 
 import kotlinx.coroutines.*
-import org.csenseoss.kotlin.annotations.threading.*
+import org.csenseoss.kotlin.annotations.threading.`in`.*
 import org.csenseoss.kotlin.patterns.restartableJob.*
 
 

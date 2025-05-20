@@ -4,7 +4,7 @@
 
 package org.csenseoss.kotlin.extensions.ranges
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 
 
 /**

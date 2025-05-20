@@ -2,11 +2,10 @@
 
 package org.csenseoss.kotlin.extensions.collections.map.linkedHashMap
 
-import org.csenseoss.kotlin.classes.map.*
 import kotlin.jvm.*
 
 public inline fun <Key, Value> LinkedHashMap(
-    items: List<MapEntry<Key, Value>>
+    items: List<Map.Entry<Key, Value>>
 ): LinkedHashMap<Key, Value> = LinkedHashMap<Key, Value>(
     /*initialCapacity =*/ items.size
 ).apply {

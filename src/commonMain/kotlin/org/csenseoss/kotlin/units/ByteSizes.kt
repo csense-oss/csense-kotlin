@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.units
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 
 /**
  * Base 2 implementation of the math between bit  / byte and various sizes

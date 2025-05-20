@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.collection
 
-import org.csenseoss.kotlin.classes.general.*
+import org.csenseoss.kotlin.classes.general.counter.*
 import org.csenseoss.kotlin.extensions.collections.*
 
 public fun <E> Collection<E>.anyIndexed(

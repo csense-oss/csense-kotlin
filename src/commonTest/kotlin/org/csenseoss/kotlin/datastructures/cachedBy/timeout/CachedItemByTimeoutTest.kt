@@ -35,6 +35,11 @@ class CachedItemByTimeoutTest {
         item.isNotTimedOut().assertFalse()
     }
 
+    @Test
+    fun forCurrentTime() {
+
+    }
+
     private fun cachedItemByOneMinuteTimeout(
         testTime: TestTimeSource
     ): CachedItemByTimeout<String> {

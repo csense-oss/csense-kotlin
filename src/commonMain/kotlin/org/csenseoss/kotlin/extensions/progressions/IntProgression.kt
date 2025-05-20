@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.progressions
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 
 
 /**

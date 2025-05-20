@@ -3,7 +3,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.byte
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.primitive.ByteBitOperations.*
 import kotlin.contracts.*
 import kotlin.jvm.*

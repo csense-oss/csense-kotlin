@@ -1,6 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.generic.collection.operations
 
-import org.csenseoss.kotlin.classes.general.*
+import org.csenseoss.kotlin.classes.general.counter.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.general.*

@@ -1,4 +1,4 @@
-package org.csenseoss.kotlin.classes.general
+package org.csenseoss.kotlin.classes.general.counter
 
 import org.csenseoss.kotlin.extensions.general.*
 import org.csenseoss.kotlin.extensions.primitives.boolean.*

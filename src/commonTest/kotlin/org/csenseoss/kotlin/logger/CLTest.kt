@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.logger
 
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 

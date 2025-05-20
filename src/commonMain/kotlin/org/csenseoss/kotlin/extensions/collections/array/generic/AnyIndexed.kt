@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
-import org.csenseoss.kotlin.classes.general.*
+import org.csenseoss.kotlin.classes.general.counter.*
 import org.csenseoss.kotlin.extensions.collections.*
 
 public inline fun <T> Array<T>.anyIndexed(predicate: PredicateIndexed<T>): Boolean {

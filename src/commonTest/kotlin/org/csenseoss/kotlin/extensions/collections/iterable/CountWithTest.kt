@@ -1,7 +1,6 @@
 package org.csenseoss.kotlin.extensions.collections.iterable
 
-import org.csenseoss.kotlin.classes.general.*
-import org.csenseoss.kotlin.tests.assertions.*
+import org.csenseoss.kotlin.classes.general.counter.*
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.general.*
 import kotlin.test.*

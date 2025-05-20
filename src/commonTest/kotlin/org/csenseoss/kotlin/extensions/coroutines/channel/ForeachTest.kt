@@ -5,7 +5,6 @@ import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.sync.*
 import kotlinx.coroutines.test.*
 import org.csenseoss.kotlin.extensions.coroutines.coroutineScope.*
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
 import kotlin.test.*
 

@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package org.csenseoss.kotlin.classes.iterator
+package org.csenseoss.kotlin.classes.iterator.empty
 
 import org.csenseoss.kotlin.tests.assertions.exceptions.*
 import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*

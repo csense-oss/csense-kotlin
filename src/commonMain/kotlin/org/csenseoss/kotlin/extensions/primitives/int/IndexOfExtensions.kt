@@ -2,7 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.int
 
-import org.csenseoss.kotlin.annotations.numbers.*
+import org.csenseoss.kotlin.annotations.numbers.limit.*
 import kotlin.jvm.*
 
 

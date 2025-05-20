@@ -1,6 +1,5 @@
 package org.csenseoss.kotlin.patterns.expected
 
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
