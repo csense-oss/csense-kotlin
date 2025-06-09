@@ -85,8 +85,8 @@ public inline fun ByteBitOperations.splitIntoNibbles(): NibblePair {
 }
 
 public data class NibblePair(
-    @ByteLimit(from = 0, to = 0x0F) public val upperNibble: Byte,
-    @ByteLimit(from = 0, to = 0x0F) public val lowerNibble: Byte
+    @param:ByteLimit(from = 0, to = 0x0F) public val upperNibble: Byte,
+    @param:ByteLimit(from = 0, to = 0x0F) public val lowerNibble: Byte
 )
 
 public inline fun ByteBitOperations.toggleBit(bitIndex: Int, setBit: Boolean): Byte = when {

@@ -5,7 +5,7 @@ buildscript {
     ext.compileJavaVersion = "11"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    ext.coroutinesVersion = "1.10.1"
+    ext.coroutinesVersion = "1.10.2"
 
     //https://github.com/csense-oss/csense-kotlin-test
     ext.csenseTestsVersion = "0.0.1-Local"
@@ -14,7 +14,7 @@ buildscript {
     ext.csenseAnnotationVersion = "0.0.3"
 
     //https://github.com/JetBrains/kotlin/releases
-    ext.kotlin_version = "2.2.0-RC"
+    ext.kotlin_version = "2.2.0-RC2"
 
     //library settings - https://github.com/csense-oss/csense-kotlin
     ext.csenseVersionName = "0.0.3-Local"

@@ -6,7 +6,6 @@ import kotlin.time.*
 
 /**
  * De-bounces a given job, after not being invoked the given duration.
- *
  */
 public class Debouncer<R>(
     scope: CoroutineScope,
@@ -27,7 +26,7 @@ public class Debouncer<R>(
     }
 
     public fun stop(cancellationException: CancellationException? = null) {
-        job.cancel()
+        job.cancel(cancellationException)
     }
 
     public suspend fun join() {

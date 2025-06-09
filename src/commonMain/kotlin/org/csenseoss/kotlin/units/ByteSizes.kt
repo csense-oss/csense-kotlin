@@ -22,7 +22,7 @@ import org.csenseoss.kotlin.annotations.numbers.limit.*
  * @property value [Long]
  * @constructor
  */
-public sealed class BinaryBitSizes(@LongLimit(from = 0) public val value: Long) {
+public sealed class BinaryBitSizes(@param:LongLimit(from = 0) public val value: Long) {
     public class Bit(@LongLimit(from = 0) bits: Long) : BinaryBitSizes(bits)
     public class Byte(@LongLimit(from = 0) bytes: Long) : BinaryBitSizes(bytes)
 

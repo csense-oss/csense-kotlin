@@ -36,7 +36,7 @@ public sealed interface CollectionBounds {
 
     @JvmInline
     public value class CollectionBoundsChecker internal constructor(
-        @IntLimit(from = 1) public val collectionLength: Int
+        @param:IntLimit(from = 1) public val collectionLength: Int
     ) : CollectionBounds {
 
         override fun inBoundsEndNotInBounds(index: Int): Boolean {

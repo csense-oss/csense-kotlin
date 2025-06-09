@@ -1,4 +1,4 @@
-package org.csenseoss.kotlin.logger//package csense.kotlin.logger
+package org.csenseoss.kotlin.logger
 //
 //import kotlin.test.*
 //
