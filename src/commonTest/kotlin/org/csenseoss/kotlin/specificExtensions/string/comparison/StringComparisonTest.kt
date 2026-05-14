@@ -1,8 +1,8 @@
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.comparison
 
-import org.csenseoss.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
-import kotlin.test.*
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.assertFalse
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.assertTrue
+import kotlin.test.Test
 
 class StringComparisonTest {
     class StringComparisonContainsStringAt {

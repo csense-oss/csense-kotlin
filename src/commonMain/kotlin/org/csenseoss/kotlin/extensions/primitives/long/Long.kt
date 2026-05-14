@@ -2,6 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.primitives.long
 
+import org.csenseoss.kotlin.annotations.KoverIgnore
 import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.general.*
 import kotlin.contracts.*
@@ -92,6 +93,7 @@ public inline fun Long?.isNotNullOrZero(): Boolean {
     return this != null && this.isNotZero
 }
 
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotZero instead",
     level = DeprecationLevel.ERROR
@@ -111,6 +113,7 @@ public inline fun Long?.isNullOrZero(): Boolean {
     return this == null || this.isZero
 }
 
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNull will always be false. Use isZero instead",
     level = DeprecationLevel.ERROR

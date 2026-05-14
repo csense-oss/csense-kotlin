@@ -1,9 +1,9 @@
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.conversion
 
-import org.csenseoss.kotlin.tests.assertions.collections.array.typed.short.*
-import org.csenseoss.kotlin.tests.assertions.general.*
-import org.csenseoss.kotlin.tests.assertions.primitives.boolean.*
-import kotlin.test.*
+import org.csenseoss.kotlin.tests.assertions.collections.array.typed.short.assert
+import org.csenseoss.kotlin.tests.assertions.general.assertNull
+import org.csenseoss.kotlin.tests.assertions.primitives.boolean.assertFalse
+import kotlin.test.Test
 
 class StringConversionTest {
 

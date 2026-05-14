@@ -2,6 +2,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.collection
 
+import org.csenseoss.kotlin.annotations.KoverIgnore
 import org.csenseoss.kotlin.general.*
 import kotlin.contracts.*
 
@@ -18,7 +19,7 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
     return !this.isNullOrEmpty()
 }
 
-
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",
     level = DeprecationLevel.ERROR,
@@ -26,7 +27,7 @@ public inline fun <T> Collection<T>?.isNotNullOrEmpty(): Boolean {
 )
 public inline fun Collection<Any>.isNotNullOrEmpty(): Nothing = unexpected()
 
-
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNull will always fail. Use isEmpty instead",
     level = DeprecationLevel.ERROR,

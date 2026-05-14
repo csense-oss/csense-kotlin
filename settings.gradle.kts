@@ -4,7 +4,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'csense-kotlin'
+rootProject.name = "csense-kotlin"
 
 //include ":examples:logger"
 //include ":examples:expected"

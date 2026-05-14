@@ -2,7 +2,8 @@ package org.csenseoss.kotlin.logger.models
 
 import org.csenseoss.kotlin.extensions.collections.array.generic.*
 import org.csenseoss.kotlin.logger.extensions.*
-import org.csenseoss.kotlin.specificExtensions.string.*
+import org.csenseoss.kotlin.specificExtensions.string.modifications.modifications
+import org.csenseoss.kotlin.specificExtensions.string.modifications.replaceEachOccurrenceIndexed
 
 public sealed interface LogMessageFormat {
 

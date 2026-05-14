@@ -4,12 +4,11 @@
 package org.csenseoss.kotlin.extensions.primitives.byte
 
 import org.csenseoss.kotlin.annotations.numbers.limit.*
-import org.csenseoss.kotlin.primitive.ByteBitOperations.*
+import org.csenseoss.kotlin.primitive.byteBitOperations.*
+import org.csenseoss.kotlin.primitive.byteBitOperations.operations.*
 import kotlin.contracts.*
 import kotlin.jvm.*
 
-
-//region Zero, negative, positive
 
 public inline val Byte.Companion.zero: Byte
     get() = 0
@@ -88,9 +87,7 @@ public inline val Byte.isEven: Boolean
  */
 public inline val Byte.isOdd: Boolean
     get() = !isEven
-//endregion
 
-//region hex converting
 /**
  * Converts a given byte to a pair of chars, and then returns the resulting
  * @receiver [Byte]
@@ -110,17 +107,6 @@ public fun <T> Byte.toChars(
     )
 }
 
-/**
- * converts a given byte to a hex string.
- * @receiver [Byte]
- * @return [String]
- */
-@Deprecated("introduced in kotlin 1.9.0")
-public inline fun Byte.toHexString(): String = this.toChars { upperChar, lowerChar ->
-    charArrayOf(upperChar, lowerChar).concatToString()
-}
-
-//endregion
 
 @JvmInline
 public value class ByteExtensions(public val byte: Byte) {

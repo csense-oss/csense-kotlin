@@ -3,12 +3,8 @@ package org.csenseoss.kotlin.extensions.java.concurrent
 import java.util.concurrent.*
 import kotlin.time.*
 
-@Throws
-public fun CountDownLatch.await(timeout: Duration): Boolean {
-    return await(timeout.inWholeMilliseconds, TimeUnit.MILLISECONDS)
-}
 
-@Throws(TimeoutException::class)
+@Throws(TimeoutException::class, InterruptedException::class)
 public fun CountDownLatch.awaitOrThrow(
     timeout: Duration,
     timeoutMessage: String = ""
@@ -17,4 +13,9 @@ public fun CountDownLatch.awaitOrThrow(
     if (!didAwait) {
         throw TimeoutException(timeoutMessage)
     }
+}
+
+@Throws(InterruptedException::class)
+public fun CountDownLatch.await(timeout: Duration): Boolean {
+    return await(timeout.inWholeMilliseconds, TimeUnit.MILLISECONDS)
 }

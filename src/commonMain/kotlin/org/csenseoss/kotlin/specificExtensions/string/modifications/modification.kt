@@ -1,7 +1,7 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
 
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.modifications
 
 import org.csenseoss.kotlin.*
 import org.csenseoss.kotlin.annotations.numbers.limit.*
@@ -33,7 +33,7 @@ public inline val String.modifications: StringModification
  * @param maxLength [Int] the max length
  * @return [String] a [String] at max the given length
  *
- * if [maxLength] [Int.isNegativeOrZero], an empty string is returned
+ * if [maxLength] [isNegativeOrZero], an empty string is returned
  */
 public inline fun StringModification.limitTo(@IntLimit(from = 0) maxLength: Int): String {
     if (maxLength.isNegativeOrZero) {
@@ -236,7 +236,7 @@ public fun StringModification.replaceLazy(
 public inline fun StringModification.replaceEachOccurrenceIndexed(
     searchingFor: String,
     ignoreCase: Boolean = false,
-    replaceWith: (index: Int) -> String
+    replaceWith: (replacementIndex: Int) -> String
 ): String {
     val indexCounter = IncrementalCounter(start = 0)
     return replaceEachOccurrence(

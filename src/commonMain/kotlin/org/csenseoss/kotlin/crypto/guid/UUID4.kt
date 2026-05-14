@@ -3,7 +3,8 @@
 package org.csenseoss.kotlin.crypto.guid
 
 import org.csenseoss.kotlin.logger.operators.*
-import org.csenseoss.kotlin.primitive.ByteBitOperations.*
+import org.csenseoss.kotlin.primitive.byteBitOperations.*
+import org.csenseoss.kotlin.primitive.byteBitOperations.operations.*
 import kotlin.jvm.*
 import kotlin.random.*
 

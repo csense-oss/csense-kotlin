@@ -3,6 +3,7 @@
 
 package org.csenseoss.kotlin.extensions.collections.array.generic
 
+import org.csenseoss.kotlin.annotations.KoverIgnore
 import org.csenseoss.kotlin.general.*
 import kotlin.contracts.*
 
@@ -20,6 +21,7 @@ public inline fun <T> Array<T>?.isNotNullOrEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+@KoverIgnore
 @Suppress("UnusedReceiverParameter", "MissingTestFunction")
 @Deprecated(
     "Receiver known at compile time to not be null, thus isNotNull will always be true. Use isNotEmpty instead",

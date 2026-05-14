@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.comparison
 
 import org.csenseoss.kotlin.annotations.numbers.limit.*
 import org.csenseoss.kotlin.extensions.collections.generic.collectionBounds.operations.*

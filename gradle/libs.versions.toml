@@ -1,0 +1,39 @@
+[versions]
+
+compileJavaVersion = "11"
+
+#//https://github.com/JetBrains/kotlin
+kotlinVersion = "2.4.0-Beta2"
+
+#https://github.com/Kotlin/kotlinx-kover
+koverVersion = "0.9.8"
+
+# https://github.com/dependency-check/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+dependencycheckVersion = "12.2.1"
+
+# https://github.com/Kotlin/kotlinx.coroutines
+coroutinesVersion = "1.10.2"
+
+# https://github.com/csense-oss/csense-kotlin-annotations
+csenseAnnotationsVersion = "0.1.0"
+# https://github.com/csense-oss/csense-kotlin-test
+csenseTestVersion = "0.1.0-Local"
+
+[libraries]
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesVersion" }
+
+csenseoss-kotlin-annotations = { group = "org.csenseoss.kotlin", name = "csense-kotlin-annotations", version.ref = "csenseAnnotationsVersion" }
+csenseoss-kotlin-tests = { group = "org.csenseoss.kotlin", name = "csense-kotlin-tests", version.ref = "csenseTestVersion" }
+
+[bundles]
+
+[plugins]
+maven-publish = { id = "maven-publish" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
+# https://github.com/Kotlin/kotlinx-kover
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "koverVersion" }
+#https://github.com/dependency-check/DependencyCheck https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "dependencycheckVersion" }
+#https://github.com/vanniktech/gradle-maven-publish-plugin
+gradle-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }

@@ -1,16 +1,18 @@
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.modifications
 
-import org.csenseoss.kotlin.tests.assertions.*
-import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
-import org.csenseoss.kotlin.tests.assertions.collections.iterable.*
 import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertEmpty
 import org.csenseoss.kotlin.tests.assertions.collections.iterable.assertSize
-import org.csenseoss.kotlin.tests.assertions.comparable.*
 import org.csenseoss.kotlin.tests.assertions.comparable.assert
-import org.csenseoss.kotlin.tests.assertions.exceptions.*
-import org.csenseoss.kotlin.tests.assertions.general.*
-import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.*
-import kotlin.test.*
+import org.csenseoss.kotlin.tests.assertions.exceptions.assertThrows
+import org.csenseoss.kotlin.tests.assertions.general.assertCallbackCalledWith
+import org.csenseoss.kotlin.tests.assertions.general.assertCalled
+import org.csenseoss.kotlin.tests.assertions.general.assertNotNull
+import org.csenseoss.kotlin.tests.assertions.general.assertNull
+import org.csenseoss.kotlin.tests.assertions.general.shouldNotBeCalled
+import org.csenseoss.kotlin.tests.assertions.primitives.charSequence.assertEmpty
+import kotlin.collections.listOf
+import kotlin.test.Test
+import kotlin.test.assertNotEquals
 
 class ModificationTest {
     @Test
@@ -570,6 +572,42 @@ class ModificationTest {
                 searchingFor = "{}",
                 ignoreCase = false
             ) {
+                "myMessage"
+            }.assert("some message myMessage")
+        }
+    }
+
+    class StringModificationReplaceEachOccurrenceIndexed {
+
+        @Test
+        fun none() {
+            StringModification(string = "some message").replaceEachOccurrenceIndexed(
+                searchingFor = "notThere",
+                ignoreCase = true,
+            ) { _ ->
+                shouldNotBeCalled()
+            }.assert("some message")
+        }
+
+        @Test
+        fun single() {
+            StringModification(string = "some message {}").replaceEachOccurrenceIndexed(
+                searchingFor = "{}",
+                ignoreCase = false
+            ) { replacementIndex: Int ->
+                replacementIndex.assert(0)
+                "myMessage"
+            }.assert("some message myMessage")
+        }
+
+
+        @Test
+        fun multiple() {
+            StringModification(string = "some message {}").replaceEachOccurrenceIndexed(
+                searchingFor = "{}",
+                ignoreCase = false
+            ) { replacementIndex: Int ->
+                replacementIndex.assert(0)
                 "myMessage"
             }.assert("some message myMessage")
         }

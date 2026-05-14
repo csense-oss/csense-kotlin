@@ -4,7 +4,8 @@ package org.csenseoss.kotlin.extensions.primitives.string
 
 import org.csenseoss.kotlin.extensions.primitives.char.*
 import org.csenseoss.kotlin.extensions.primitives.charSequence.*
-import org.csenseoss.kotlin.specificExtensions.string.*
+import org.csenseoss.kotlin.specificExtensions.string.comparison.comparison
+import org.csenseoss.kotlin.specificExtensions.string.comparison.containsStringAt
 
 
 /**

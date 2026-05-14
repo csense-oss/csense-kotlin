@@ -1,13 +1,8 @@
-@file:Suppress(
-    "UNUSED_PARAMETER",
-    "NOTHING_TO_INLINE",
-    "UnusedReceiverParameter",
-    "INVISIBLE_MEMBER",
-    "INVISIBLE_REFERENCE"
-)
+@file:Suppress("NOTHING_TO_INLINE", "UnusedReceiverParameter")
 
 package org.csenseoss.kotlin.extensions.collections.collection
 
+import org.csenseoss.kotlin.annotations.KoverIgnore
 import org.csenseoss.kotlin.general.*
 import kotlin.jvm.*
 
@@ -34,6 +29,7 @@ public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Colle
     return action()
 }
 
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null. Use onEmpty instead",
     level = DeprecationLevel.ERROR,
@@ -41,6 +37,7 @@ public inline fun <Item> Collection<Item>?.onNullOrEmptyLazy(action: () -> Colle
 )
 public inline fun Collection<Any>.onNullOrEmpty(item: Any): Nothing = unexpected()
 
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null. Use onEmpty instead",
     level = DeprecationLevel.ERROR,
@@ -48,6 +45,7 @@ public inline fun Collection<Any>.onNullOrEmpty(item: Any): Nothing = unexpected
 )
 public inline fun Collection<Any>.onNullOrEmpty(items: Collection<Any>): Nothing = unexpected()
 
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null. Use onEmpty instead",
     level = DeprecationLevel.ERROR,
@@ -55,7 +53,7 @@ public inline fun Collection<Any>.onNullOrEmpty(items: Collection<Any>): Nothing
 )
 public inline fun Collection<Any>.onNullOrEmptyLazy(item: Any): Nothing = unexpected()
 
-
+@KoverIgnore
 @Deprecated(
     "Receiver known at compile time to not be null. Use onEmpty instead",
     level = DeprecationLevel.ERROR,

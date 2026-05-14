@@ -2,7 +2,6 @@
 
 package org.csenseoss.kotlin.units
 
-import org.csenseoss.kotlin.tests.assertions.*
 import org.csenseoss.kotlin.tests.assertions.comparable.*
 import kotlin.test.*
 
@@ -162,9 +161,9 @@ class ByteSizesTest {
 
     @Test
     fun binaryBitSizesTeraByteToGigaBytes() {
-        BinaryBitSizes.PetaByte(1).toTeraBytes().assert(1024)
-        BinaryBitSizes.PetaByte(0).toTeraBytes().assert(0)
-        BinaryBitSizes.PetaByte(2).toTeraBytes().assert(2048)
+        BinaryBitSizes.TeraByte(1).toGigaBytes().assert(1024)
+        BinaryBitSizes.TeraByte(0).toGigaBytes().assert(0)
+        BinaryBitSizes.TeraByte(2).toGigaBytes().assert(2048)
 
     }
 

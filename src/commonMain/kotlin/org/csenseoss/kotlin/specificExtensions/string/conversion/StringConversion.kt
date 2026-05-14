@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.csenseoss.kotlin.specificExtensions.string
+package org.csenseoss.kotlin.specificExtensions.string.conversion
 
 import org.csenseoss.kotlin.extensions.collections.generic.collection.*
 import org.csenseoss.kotlin.extensions.collections.generic.collection.operations.*

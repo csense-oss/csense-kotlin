@@ -205,13 +205,13 @@ class DoubleTest {
 
     @Test
     fun doubleWithoutDecimalPart() {
-        (-1).toDouble().withoutDecimalPart().assert(value = -1.0, delta = 0.001)
-        0.toDouble().withoutDecimalPart().assert(value = 0.0, delta = 0.001)
-        1.toDouble().withoutDecimalPart().assert(value = 1.0, delta = 0.001)
-        20.5.withoutDecimalPart().assert(value = 20.0, delta = 0.001)
-        20.9.withoutDecimalPart().assert(value = 20.0, delta = 0.001)
+        (-1).toDouble().withoutDecimalPart().assert(expected = -1.0, delta = 0.001)
+        0.toDouble().withoutDecimalPart().assert(expected = 0.0, delta = 0.001)
+        1.toDouble().withoutDecimalPart().assert(expected = 1.0, delta = 0.001)
+        20.5.withoutDecimalPart().assert(expected = 20.0, delta = 0.001)
+        20.9.withoutDecimalPart().assert(expected = 20.0, delta = 0.001)
         20.0001.withoutDecimalPart()
-            .assert(value = 20.0, delta = 0.0001, message = "should be more precise than not doing it")
+            .assert(expected = 20.0, delta = 0.0001, message = "should be more precise than not doing it")
 
 
         Double.MAX_VALUE.withoutDecimalPart().assert(Double.MAX_VALUE)
@@ -226,12 +226,12 @@ class DoubleTest {
 
     @Test
     fun doubleWithDecimalPart() {
-        (-1).toDouble().withDecimalPart(0.0).assert(value = -1.0, delta = 0.0001)
-        0.toDouble().withDecimalPart(0.0).assert(value = 0.0, delta = 0.0001)
-        1.toDouble().withDecimalPart(0.0).assert(value = 1.0, delta = 0.0001)
-        1.5.withDecimalPart(0.0).assert(value = 1.0, delta = 0.0001)
-        1.6.withDecimalPart(0.1).assert(value = 1.1, delta = 0.0001)
-        90.0579.withDecimalPart(0.01234).assert(value = 90.01234, delta = 0.00001)
+        (-1).toDouble().withDecimalPart(0.0).assert(expected = -1.0, delta = 0.0001)
+        0.toDouble().withDecimalPart(0.0).assert(expected = 0.0, delta = 0.0001)
+        1.toDouble().withDecimalPart(0.0).assert(expected = 1.0, delta = 0.0001)
+        1.5.withDecimalPart(0.0).assert(expected = 1.0, delta = 0.0001)
+        1.6.withDecimalPart(0.1).assert(expected = 1.1, delta = 0.0001)
+        90.0579.withDecimalPart(0.01234).assert(expected = 90.01234, delta = 0.00001)
 
 
         Double.MAX_VALUE.withDecimalPart(0.0).assert(Double.MAX_VALUE)
@@ -254,12 +254,12 @@ class DoubleTest {
 
     @Test
     fun doubleDecimalPart() {
-        (-1).toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
-        0.toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
-        1.toDouble().decimalPart().assert(value = 0.0, delta = 0.0001)
-        100.5.decimalPart().assert(value = 0.5, delta = 0.0001)
-        100.99.decimalPart().assert(value = 0.99, delta = 0.0001)
-        100.0005.decimalPart().assert(value = 0.0005, delta = 0.0001)
+        (-1).toDouble().decimalPart().assert(expected = 0.0, delta = 0.0001)
+        0.toDouble().decimalPart().assert(expected = 0.0, delta = 0.0001)
+        1.toDouble().decimalPart().assert(expected = 0.0, delta = 0.0001)
+        100.5.decimalPart().assert(expected = 0.5, delta = 0.0001)
+        100.99.decimalPart().assert(expected = 0.99, delta = 0.0001)
+        100.0005.decimalPart().assert(expected = 0.0005, delta = 0.0001)
 
 
         Double.MAX_VALUE.decimalPart().assert(0.0, delta = 0.1)

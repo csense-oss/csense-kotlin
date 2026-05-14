@@ -3,7 +3,8 @@
 package org.csenseoss.kotlin.extensions.primitives.string
 
 import org.csenseoss.kotlin.annotations.numbers.limit.*
-import org.csenseoss.kotlin.specificExtensions.string.*
+import org.csenseoss.kotlin.specificExtensions.string.modifications.mapEachMatching
+import org.csenseoss.kotlin.specificExtensions.string.modifications.modifications
 
 
 /**
